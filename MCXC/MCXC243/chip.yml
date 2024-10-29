@@ -1,0 +1,50 @@
+---
+
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXC243
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXC243"
+        full_name: "MCXC243"
+        name: "MCXC243"
+        platform: "MCX"
+        series: "MCXC"
+        family: "MCXC243"
+        subfamily: "MCXC2XX"
+        frequency_mhz: 48
+        core:
+          - name: "Cortex-M0P"
+            type: "cm0p"
+            id: "core0"
+            description: "M0P core"
+            fpu: "NO_FPU"
+            mpu: false
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH"
+              name: "PROGRAM_FLASH"
+              addr: 0x0
+              size: 0x20000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+            - id: "SRAM"
+              name: "SRAM"
+              addr: 0x1fffe000
+              size: 0x8000
+              type: "RAM"
+              access: "RW"
+              default: true
+        total_memory:
+          ram_size_kb: 32
+          flash_size_kb: 128
+        part:
+          - name: "MCXC243VFT"
+        modules:
+          - name: "USB"
+            feature: "KHCI_COUNT"
+            value: "1"
+...

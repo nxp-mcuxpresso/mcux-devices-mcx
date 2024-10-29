@@ -1,0 +1,69 @@
+---
+
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXA154
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXA154"
+        full_name: "MCXA154"
+        name: "MCXA154"
+        platform: "MCX"
+        series: "MCXA"
+        family: "MCXA1XX"
+        subfamily: "MCXA154"
+        frequency_mhz: 96
+        core:
+          - name: "Cortex-M33"
+            type: "cm33"
+            id: "cm33_core0"
+            description: "M33 core"
+            fpu: "SP_FPU"
+            dsp: true
+            mpu: false
+            sau: false
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH"
+              name: "PROGRAM_FLASH"
+              addr: 0x0
+              size: 0x40000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+            - id: "SRAM"
+              name: "SRAM"
+              addr: 0x20000000
+              size: 0xe000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "SRAMX"
+              name: "SRAMX"
+              addr: 0x4000000
+              size: 0x3000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "BootROM"
+              name: "BootROM"
+              addr: 0x3000000
+              size: 0x2000
+              type: "ROM"
+              access: "RO"
+        total_memory:
+          ram_size_kb: 68
+          flash_size_kb: 256
+        part:
+          - name: "MCXA154VPJ"
+          - name: "MCXA154VLL"
+          - name: "MCXA154VMP"
+          - name: "MCXA154VLH"
+          - name: "MCXA154VFT"
+        modules:
+          - name: "USB"
+            feature: "KHCI_COUNT"
+            value: "1"
+...

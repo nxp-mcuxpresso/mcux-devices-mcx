@@ -1,0 +1,70 @@
+---
+
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXW727D
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXW727DxxxA"
+        full_name: "MCXW727DxxxA"
+        name: "MCXW727D"
+        platform: "MCX"
+        series: "MCXW"
+        family: "MCXW7XX"
+        subfamily: "MCXW727D"
+        core:
+          - name: "Cortex-M33"
+            type: "cm33"
+            id: "cm33_core0"
+            description: ""
+            fpu: "SP_FPU"
+            dsp: true
+            mpu: true
+            sau: true
+            frequency_mhz: 96
+            boot_role: "primary"
+          - name: "Cortex-M33"
+            type: "cm33"
+            id: "cm33_core1"
+            description: "NBU CM33 Core"
+            fpu: "NO_FPU"
+            dsp: false
+            mpu: false
+            sau: false
+            frequency_mhz: 64
+            boot_role: "primary_secondary"
+            slave_role:
+              - id: "M33SLAVE"
+                name: "Cortex-M33 core1 acts as slave by default"
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH"
+              name: "PROGRAM_FLASH"
+              addr: 0x0
+              size: 0x200000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+            - id: "TCM_SYS"
+              name: "TCM_SYS"
+              addr: 0x20000000
+              size: 0x38000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "TCM_CODE"
+              name: "TCM_CODE"
+              addr: 0x4000000
+              size: 0x8000
+              type: "RAM"
+              access: "RW"
+              default: true
+        total_memory:
+          ram_size_kb: 322
+          flash_size_kb: 2560
+        part:
+          - name: "MCXW727DMFTA"
+        modules:
+...

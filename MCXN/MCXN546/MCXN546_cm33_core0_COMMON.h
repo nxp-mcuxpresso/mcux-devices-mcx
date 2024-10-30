@@ -1185,7 +1185,7 @@ typedef enum IRQn {
   #define GDET_BASE_PTRS                           { GDET0, GDET1 }
 #endif
 /** Interrupt vectors for the GDET peripheral type */
-#define GDET_IRQS                                { GDET_IRQn }
+#define GDET_IRQS                                { GDET_IRQn, GDET_IRQn }
 
 /* GPIO - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

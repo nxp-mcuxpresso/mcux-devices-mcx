@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b241016
+**     Build:               b241030
 **
 **     Abstract:
 **         Chip specific module features.
@@ -490,6 +490,8 @@
 #define FSL_FEATURE_FLEXSPI_AHB_RX_BUFFER_SIZEn(x) (2048)
 /* @brief FlexSPI IPED REGION COUNT */
 #define FSL_FEATURE_FLEXSPI_IPED_REGION_COUNT (7)
+/* @brief FlexSPI Array Length */
+#define FSL_FEATURE_FLEXSPI_ARRAY_LEN (1)
 
 /* GPIO module features */
 

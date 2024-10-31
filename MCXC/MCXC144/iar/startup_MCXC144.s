@@ -4,7 +4,7 @@
 ;            MCXC144
 ;  @version: 1.0
 ;  @date:    2024-3-11
-;  @build:   b240401
+;  @build:   b241031
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -106,7 +106,7 @@ __FlashConfig
         DCD 0xFFFFFFFF
         DCD 0xFFFFFFFF
         DCD 0xFFFFFFFF
-        DCD 0xFFFF3FFE
+        DCD 0xFFFF3DFE
 __FlashConfig_End
 
 __Vectors       EQU   __vector_table

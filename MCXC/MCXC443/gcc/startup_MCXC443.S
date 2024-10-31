@@ -4,7 +4,7 @@
 /*            MCXC443                                                        */
 /*  @version: 1.0                                                            */
 /*  @date:    2024-3-11                                                      */
-/*  @build:   b240401                                                        */
+/*  @build:   b241031                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -78,7 +78,7 @@ __isr_vector:
     .long 0xFFFFFFFF
     .long 0xFFFFFFFF
     .long 0xFFFFFFFF
-    .long 0xFFFF3FFE
+    .long 0xFFFF3DFE
 
     .text
     .thumb

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b241016
+**     Build:               b241031
 **
 **     Abstract:
 **         Chip specific module features.
@@ -144,6 +144,8 @@
 #define FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ (1)
 /* @brief Has calibration average (bitfield CTRL[CAL_AVGS]). */
 #define FSL_FEATURE_LPADC_HAS_CTRL_CAL_AVGS (1)
+/* @brief Has High Speed Mode Trim Request (bitfield CTRL[CALHS]). */
+#define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (0)
 /* @brief Has internal clock (bitfield CFG[ADCKEN]). */
 #define FSL_FEATURE_LPADC_HAS_CFG_ADCKEN (0)
 /* @brief Enable support for low voltage reference on option 1 reference (bitfield CFG[VREF1RNG]). */

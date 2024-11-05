@@ -1,5 +1,5 @@
 if (CONFIG_MCUX_COMPONENT_driver.romapi)
-
+    mcux_component_version(2.0.0)
     mcux_add_source(
         SOURCES
             ./flash/fsl_efuse.h
@@ -28,7 +28,7 @@ if (CONFIG_MCUX_COMPONENT_driver.romapi)
 endif()
 
 if (CONFIG_MCUX_COMPONENT_driver.mem_interface)
-
+    mcux_component_version(2.0.0)
     mcux_add_source(
         SOURCES
             ./mem_interface/src/fsl_mem_interface.c
@@ -50,8 +50,18 @@ if (CONFIG_MCUX_COMPONENT_driver.mem_interface)
 
 endif()
 
-if (CONFIG_MCUX_COMPONENT_driver.runbootloader)
+if (CONFIG_MCUX_COMPONENT_driver.romapi_nboot)
+    mcux_component_version(2.0.0)
+    mcux_add_source(
+        SOURCES 
+            ./nboot/src/fsl_nboot.c
+            ./nboot/fsl_nboot_hal.h
+            ./nboot/fsl_nboot.h)
+    mcux_add_include( INCLUDES ./nboot )
+endif()
 
+if (CONFIG_MCUX_COMPONENT_driver.runbootloader)
+    mcux_component_version(2.0.0)
     mcux_add_source(
         SOURCES
             ./mem_interface/fsl_mem_interface.h
@@ -77,7 +87,7 @@ if (CONFIG_MCUX_COMPONENT_driver.runbootloader)
 endif()
 
 if (CONFIG_MCUX_COMPONENT_driver.romapi_flashiap)
-
+    mcux_component_version(2.0.0)
     mcux_add_source(
         SOURCES
             ./flash/src/fsl_flash.c

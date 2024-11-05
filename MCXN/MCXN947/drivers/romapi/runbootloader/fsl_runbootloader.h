@@ -17,6 +17,12 @@
  * Definitions
  ******************************************************************************/
 
+/*! @name Driver version */
+/*@{*/
+/*! @brief ROMAPI_RUNBOOTLOADER driver version 2.0.0. */
+#define FSL_ROMAPI_RUNBOOTLOADER_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+/*@}*/
+
 /*   API prototype fields definition.
 | 31 : 24   |    23 : 20        |     19 : 16        |  15 : 04  |  03 : 00        |
 |    Tag    |   Boot mode       |   ISP interface    |  Reserved |  Image Index    |

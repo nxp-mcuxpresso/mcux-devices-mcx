@@ -16,6 +16,13 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
+/*! @name Driver version */
+/*@{*/
+/*! @brief ROMAPI_NBOOT driver version 2.0.0. */
+#define FSL_ROMAPI_NBOOT_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+/*@}*/
+
 /** @def NXPCLHASH_WA_SIZE_MAX
  *  @brief Define the max workarea size required for this component
  */

@@ -21,8 +21,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 1.0.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(1, 0, 0))
+/*! @brief CLOCK driver version 2.0.0. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
 /*@}*/
 
 /*! @brief Configure whether driver controls clock

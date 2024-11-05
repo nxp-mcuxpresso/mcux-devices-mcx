@@ -18,6 +18,12 @@
  * Definitions
  ******************************************************************************/
 
+/*! @name Driver version */
+/*@{*/
+/*! @brief ROMAPI_MEM_INTERFACE driver version 2.0.0. */
+#define FSL_ROMAPI_MEM_INTERFACE_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+/*@}*/
+
 /*! @brief Bit mask for device ID. */
 #define DEVICE_ID_MASK (0xffU)
 /*! @brief Bit position of device ID. */

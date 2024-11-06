@@ -516,12 +516,14 @@ typedef enum _clock_attach_id
     kFRO_HF_DIV_to_LPSPI0 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 2U),      /*!< Attach FRO_HF_DIV to LPSPI0. */
     kCLK_IN_to_LPSPI0     = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 3U),      /*!< Attach CLK_IN to LPSPI0.     */
     kCLK_1M_to_LPSPI0     = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 5U),      /*!< Attach CLK_1M to LPSPI0.     */
+    kPll1ClkDiv_to_LPSPI0 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 6U),      /*!< Attach Pll1ClkDiv to LPSPI0. */
     kNONE_to_LPSPI0       = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 7U),      /*!< Attach NONE to LPSPI0.       */
 
     kFRO_LF_DIV_to_LPSPI1 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 0U),      /*!< Attach FRO_LF_DIV to LPSPI1.     */
     kFRO_HF_DIV_to_LPSPI1 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 2U),      /*!< Attach FRO_HF_DIV to LPSPI1. */
     kCLK_IN_to_LPSPI1     = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 3U),      /*!< Attach CLK_IN to LPSPI1.     */
     kCLK_1M_to_LPSPI1     = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 5U),      /*!< Attach CLK_1M to LPSPI1.     */
+    kPll1ClkDiv_to_LPSPI1 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 6U),      /*!< Attach Pll1ClkDiv to LPSPI1. */
     kNONE_to_LPSPI1       = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 7U),      /*!< Attach NONE to LPSPI1.       */
 
     kFRO_LF_DIV_to_LPUART0 = CLK_ATTACH_MUX(kCLOCK_SelLPUART0, 0U),    /*!< Attach FRO_LF_DIV to LPUART0.     */

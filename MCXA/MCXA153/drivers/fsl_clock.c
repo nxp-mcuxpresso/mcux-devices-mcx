@@ -1090,9 +1090,19 @@ status_t CLOCK_FROHFTrimConfig(firc_trim_config_t config)
     }
 
     /* Set trim mode. */
-    SCG0->FIRCCSR = (uint32_t)config.trimMode;
+    SCG0->FIRCCSR = (SCG0->FIRCCSR & ~(SCG_FIRCCSR_FIRCTREN_MASK | SCG_FIRCCSR_FIRCTRUP_MASK)) | (uint32_t)config.trimMode;
+
+    if ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRCVLD_MASK) == 0U)
+    {
+        return (status_t)kStatus_Fail;
+    }
 
     if ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRCERR_MASK) == SCG_FIRCCSR_FIRCERR_MASK)
+    {
+        return (status_t)kStatus_Fail;
+    }
+
+    if ((config.trimSrc != kSCG_FircTrimSrcUsb0) && ((SCG0->FIRCCSR & SCG_FIRCCSR_TRIM_LOCK_MASK) == 0U))
     {
         return (status_t)kStatus_Fail;
     }
@@ -1116,9 +1126,19 @@ status_t CLOCK_FRO12MTrimConfig(sirc_trim_config_t config)
     }
 
     /* Set trim mode. */
-    SCG0->SIRCCSR = (uint32_t)config.trimMode;
+    SCG0->SIRCCSR = (SCG0->SIRCCSR & ~(SCG_SIRCCSR_SIRCTREN_MASK | SCG_SIRCCSR_SIRCTRUP_MASK)) | (uint32_t)config.trimMode;
+
+    if ((SCG0->SIRCCSR & SCG_SIRCCSR_SIRCVLD_MASK) == 0U)
+    {
+        return (status_t)kStatus_Fail;
+    }
 
     if ((SCG0->SIRCCSR & SCG_SIRCCSR_SIRCERR_MASK) == SCG_SIRCCSR_SIRCERR_MASK)
+    {
+        return (status_t)kStatus_Fail;
+    }
+
+    if ((SCG0->SIRCCSR & SCG_SIRCCSR_TRIM_LOCK_MASK) == 0U)
     {
         return (status_t)kStatus_Fail;
     }

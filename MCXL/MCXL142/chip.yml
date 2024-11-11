@@ -1,0 +1,50 @@
+---
+
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXL142
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXL142xxx"
+        full_name: "MCXL142xxx"
+        name: "MCXL142"
+        platform: "MCX"
+        series: "MCXL"
+        family: "MCXL1XX"
+        subfamily: "MCXL142"
+        core:
+          - name: "Cortex-M33"
+            type: "cm33"
+            id: "cm33"
+            description: ""
+            fpu: "NO_FPU"
+            dsp: false
+            mpu: false
+            sau: false
+            frequency_mhz: 40
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH"
+              name: "PROGRAM_FLASH"
+              addr: 0x0
+              size: 0x10000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+            - id: "SRAMA0"
+              name: "SRAMA0"
+              addr: 0x20000000
+              size: 0x2000
+              type: "RAM"
+              access: "RW"
+              default: true
+        total_memory:
+          ram_size_kb: 8
+          flash_size_kb: 64
+        part:
+          - name: "MCXL142VLH"
+          - name: "MCXL142VPJ"
+        modules:
+...

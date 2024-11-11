@@ -1,0 +1,66 @@
+/*!
+@page driver_log Driver Change Log
+@section clock CLOCK
+  The current CLOCK driver version is 1.0.0.
+
+  - 1.0.0
+    - Initial version.
+
+@section reset RESET
+  The current RESET driver version is 2.4.0.
+
+  - 2.4.0
+    - Improvements
+      - Add RESET_ReleasePeripheralReset API.
+
+  - 1.0.0
+    - Initial version.
+
+@section ipmq IPMQ
+  The current IPMQ driver version is 2.1.0.
+
+  - 2.1.0
+    - Improvements
+      - Added atomic operations for IPMQ_SendMessage(), IPMQ_SendMessage2Payload(), 
+        and IPMQ_ReceiveMessage() function.
+      - Added return type for IPMQ_SendMessage() and IPMQ_SendMessage2Payload().
+      - Added new function IPMQ_Send1PayloadMsgThenRcv() and 
+        IPMQ_Send2PayloadMsgThenRcv().
+      - Support AON_GPIO interrupt.
+
+  - 2.0.1
+    - Improvements
+      - Support RTC Alarm 0 and Alarm 1 interrupt.
+
+  - 2.0.0
+    - Initial version.
+
+@section aon_common AON_COMMON
+  The current AON_COMMON driver version is 2.0.0.
+
+  - 2.0.0
+    - Initial version.
+
+@section power POWER
+  The current POWER driver version is 2.1.0.
+
+  - 2.1.0
+    - New Features
+      - Added new function to support sleep mode entry.
+
+  - 2.0.0
+    - Initial version.
+
+@section rtc RTC
+  The current RTC driver version is 2.0.0.
+
+  - 2.0.0
+    - Initial version.
+
+@section aon_gpio AON_GPIO
+  The current AON_GPIO driver version is 2.0.0.
+
+  - 2.0.0
+    - Initial version.
+
+*/

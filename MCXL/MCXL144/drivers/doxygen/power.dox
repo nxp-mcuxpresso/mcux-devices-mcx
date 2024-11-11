@@ -1,0 +1,17 @@
+/*!
+@defgroup power POWER Driver
+@details POWER driver is the wrapper of CMC, MU, and some power-related driver. It provide a highly-integrated software interfaces to the application layer.
+
+#Wakeup Source Control Interfaces
+Functions in this group are used to enable/disable selected wakeup source.
+
+#Low Power Modes Control Interfaces
+Power_EnterDeepSleep: Set device into deep sleep mode.
+Power_EnterDeepPowerDown1: Set device into deep power down 1 mode.
+Power_EnterDeepPowerDown2: Set device into deep power down 2 mode.
+Power_EnterDeepPowerDown3: Set device into deep power down 3 mode.
+Power_EnterShutDown: Set device into shutdown mode.
+Power_AbortAonDeepPowerDownFlow: Abort flow of entering deep power down modes(including DPD1, DPD2, DPD3 and shutdown).
+#Boot Interfaces
+
+*/

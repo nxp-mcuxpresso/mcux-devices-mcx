@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 rsource "Kconfig.chip"
+rsource "../MCXW716C/drivers/Kconfig"
 rsource "../../../arm/Kconfig.common"
 rsource "Kconfig.defconfig"
 

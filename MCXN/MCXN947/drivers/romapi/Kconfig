@@ -12,6 +12,11 @@ config MCUX_COMPONENT_driver.mem_interface
     select MCUX_COMPONENT_driver.common
     depends on MCUX_HAS_COMPONENT_driver.romapi
 
+config MCUX_COMPONENT_driver.romapi_nboot
+    bool "Use driver romapi_nboot"
+    select MCUX_COMPONENT_driver.common
+    depends on MCUX_HAS_COMPONENT_driver.romapi
+
 config MCUX_COMPONENT_driver.runbootloader
     bool "Use driver runbootloader"
     select MCUX_COMPONENT_driver.common

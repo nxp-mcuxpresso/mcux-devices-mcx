@@ -1041,8 +1041,8 @@ typedef enum IRQn {
   #define LPUART_BASE_PTRS                         { LPUART0, LPUART1 }
 #endif
 /** Interrupt vectors for the LPUART peripheral type */
-#define LPUART_RX_TX_IRQS                        {  }
-#define LPUART_ERR_IRQS                          {  }
+#define LPUART_RX_TX_IRQS                        { NotAvail_IRQn, NotAvail_IRQn }
+#define LPUART_ERR_IRQS                          { NotAvail_IRQn, NotAvail_IRQn }
 
 /* LTC - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

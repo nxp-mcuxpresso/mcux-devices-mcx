@@ -365,6 +365,90 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
 }
 
 /**
+ * @brief   Get default XTAL32/EXTAL32 clock configuration structure.
+ * This function initializes the osc 32k configuration structure to a default value. The default
+ * values are:
+ *   config->initTrim = kVBAT_OscInitTrim500ms;
+ *   config->capTrim  = kVBAT_OscCapTrimDefault;
+ *   config->dlyTrim  = kVBAT_OscDlyTrim5;
+ *   config->cap2Trim = kVBAT_OscCap2Trim0;
+ *   config->cmpTrim  = kVBAT_OscCmpTrim760mv;
+ *   config->mode     = kVBAT_OscNormalModeEnable;
+ *   config->xtalCap  = kVBAT_OscXtal24pFCap;
+ *   config->extalCap = kVBAT_OscExtal22pFCap;
+ *   config->ampGain  = kVBAT_OscCoarseAdjustment05;
+ *   config->id       = kCLOCK_Osc32kToVbat;
+ * @param   config: Pointer to a configuration structure
+ */
+void CLOCK_GetDefaultOsc32KConfig(osc_32k_config_t *config)
+{
+    config->initTrim = kVBAT_OscInitTrim500ms;
+    config->capTrim  = kVBAT_OscCapTrimDefault;
+    config->dlyTrim  = kVBAT_OscDlyTrim5;
+    config->cap2Trim = kVBAT_OscCap2Trim0;
+    config->cmpTrim  = kVBAT_OscCmpTrim760mv;
+    
+    config->mode     = kVBAT_OscNormalModeEnable;
+    config->xtalCap  = kVBAT_OscXtal24pFCap;
+    config->extalCap = kVBAT_OscExtal22pFCap;
+    config->ampGain  = kVBAT_OscCoarseAdjustment05;
+    
+    config->id = kCLOCK_Osc32kToVbat;
+}
+
+/**
+ * @brief   Initialize the OSC 32K with user-defined settings.
+ * @param   config   : OSC 32K configuration structure
+ * @return  returns success or fail status.
+ */
+status_t CLOCK_SetupOsc32KClockingConfig(osc_32k_config_t config)
+{
+    uint32_t temp32;
+
+    /* Enable LDO */
+    SCG0->LDOCSR |= SCG_LDOCSR_LDOEN_MASK | SCG_LDOCSR_VOUT_OK_MASK;
+
+    temp32 = VBAT_OSCCFGA_INIT_TRIM(config.initTrim) | VBAT_OSCCFGA_CAP_TRIM(config.capTrim) | VBAT_OSCCFGA_DLY_TRIM(config.dlyTrim) |
+    		VBAT_OSCCFGA_CAP2_TRIM(config.cap2Trim) | VBAT_OSCCFGA_CMP_TRIM(config.cmpTrim);
+    VBAT0->OSCCFGA = temp32;
+    VBAT0->OSCCFGB = VBAT_OSCCFGB_INVERSE(~temp32);
+
+    temp32 =
+        (VBAT0->OSCCTLA & ~(VBAT_OSCCTLA_MODE_EN_MASK | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK | VBAT_OSCCTLA_XTAL_CAP_SEL_MASK | VBAT_OSCCTLA_EXTAL_CAP_SEL_MASK | VBAT_OSCCTLA_COARSE_AMP_GAIN_MASK)) |
+        VBAT_OSCCTLA_MODE_EN(config.mode) | VBAT_OSCCTLA_OSC_EN_MASK | VBAT_OSCCTLA_XTAL_CAP_SEL(config.xtalCap) |
+		VBAT_OSCCTLA_EXTAL_CAP_SEL(config.extalCap) | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_COARSE_AMP_GAIN(config.ampGain);
+
+
+    VBAT0->OSCCTLA = temp32;
+    VBAT0->OSCCTLB = VBAT_OSCCTLB_INVERSE(~temp32);
+
+    /* Wait for STATUSA[OSC_RDY] to set. */
+    while ((VBAT0->STATUSA & VBAT_STATUSA_OSC_RDY_MASK) == 0U)
+    {
+    }
+
+    VBAT0->OSCCLKE |= VBAT_OSCCLKE_CLKE(config.id);
+
+    /* De-initializes the SCG ROSC */
+    SCG0->ROSCCSR = SCG_ROSCCSR_ROSCERR_MASK;
+
+    /* Unlock ROSCCSR */
+    SCG0->ROSCCSR &= ~SCG_ROSCCSR_LK_MASK;
+
+    /* Enable SOSC clock monitor and Enable ROSC */
+    SCG0->ROSCCSR |= SCG_ROSCCSR_ROSCCM_MASK;
+
+    /* Wait for ROSC clock to be valid. */
+    while ((SCG0->ROSCCSR & SCG_ROSCCSR_ROSCVLD_MASK) == 0U)
+    {
+    }
+
+    s_Xtal32_Freq = 32768U;
+
+    return kStatus_Success;
+}
+
+/**
  * @brief   Initialize the CLK16K clock.
  * @param   id   : CLK 16 kHz output clock to specified modules
  * @return  returns success or fail status.

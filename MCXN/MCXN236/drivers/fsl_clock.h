@@ -1129,6 +1129,96 @@ typedef enum _run_mode
     kOD_Mode, /*!< Overdrive voltage (1.2 V). */
 } run_mode_t;
 
+/*!
+ * @brief The enumerator of Initialization Trim.
+ */
+typedef enum _vbat_osc_init_trim
+{
+    kVBAT_OscInitTrim8000ms = 0x0U, /*!< Configures the start-up time of the oscillator to 8s. */
+    kVBAT_OscInitTrim4000ms = 0x1U, /*!< Configures the start-up time of the oscillator to 4s. */
+    kVBAT_OscInitTrim2000ms = 0x2U, /*!< Configures the start-up time of the oscillator to 2s. */
+    kVBAT_OscInitTrim1000ms = 0x3U, /*!< Configures the start-up time of the oscillator to 1s. */
+    kVBAT_OscInitTrim500ms  = 0x4U, /*!< Configures the start-up time of the oscillator to 0.5s. */
+    kVBAT_OscInitTrim250ms  = 0x5U, /*!< Configures the start-up time of the oscillator to 0.25s. */
+    kVBAT_OscInitTrim125ms  = 0x6U, /*!< Configures the start-up time of the oscillator to 0.125s. */
+    kVBAT_OscInitTrimHalfms = 0x7U, /*!< Configures the start-up time of the oscillator to 0.5ms. */
+} vbat_osc_init_trim_t;
+
+/*!
+ * @brief The enumerator of Capacitor Trim.
+ */
+typedef enum _vbat_osc_cap_trim
+{
+    kVBAT_OscCapTrimDefault    = 0x0U,
+    kVBAT_OscCapTrim1us        = 0x1U,
+    kVBAT_OscCapTrim2us        = 0x2U,
+    kVBAT_OscCapTrim2andhalfus = 0x3U,
+} vbat_osc_cap_trim_t;
+
+/*!
+ * @brief The enumerator of Delay Trim.
+ */
+typedef enum _vbat_osc_dly_trim
+{
+    kVBAT_OscDlyTrim0 = 0x0U, /*!< P current 9(nA) and N Current 6(nA). */
+    kVBAT_OscDlyTrim1 = 0x1U, /*!< P current 13(nA) and N Current 6(nA). */
+    kVBAT_OscDlyTrim3 = 0x3U, /*!< P current 4(nA) and N Current 6(nA). */
+    kVBAT_OscDlyTrim4 = 0x4U, /*!< P current 9(nA) and N Current 4(nA). */
+    kVBAT_OscDlyTrim5 = 0x5U, /*!< P current 13(nA) and N Current 4(nA). */
+    kVBAT_OscDlyTrim6 = 0x6U, /*!< P current 4(nA) and N Current 4(nA). */
+    kVBAT_OscDlyTrim7 = 0x7U, /*!< P current 9(nA) and N Current 2(nA). */
+    kVBAT_OscDlyTrim8 = 0x8U, /*!< P current 13(nA) and N Current 2(nA). */
+    kVBAT_OscDlyTrim9 = 0x9U, /*!< P current 4(nA) and N Current 2(nA). */
+} vbat_osc_dly_trim_t;
+
+/*!
+ * @brief The enumerator of CAP2_TRIM.
+ */
+typedef enum _vbat_osc_cap2_trim
+{
+    kVBAT_OscCap2Trim0 = 0x0U,
+    kVBAT_OscCap2Trim1 = 0x1U,
+} vbat_osc_cap2_trim_t;
+
+/*!
+ * @brief The enumerator of Comparator Trim.
+ */
+typedef enum _vbat_osc_cmp_trim
+{
+    kVBAT_OscCmpTrim760mv = 0x0U,
+    kVBAT_OscCmpTrim770mv = 0x1U,
+    kVBAT_OscCmpTrim740mv = 0x3U,
+} vbat_osc_cmp_trim_t;
+
+/*!
+ * @brief The enumerator of configures Crystal Oscillator mode..
+ */
+typedef enum _vbat_osc_mode_en
+{
+    kVBAT_OscNormalModeEnable   = 0x0U,
+    kVBAT_OscStartupModeEnable  = 0x1U,
+    kVBAT_OscLowpowerModeEnable = 0x3U,
+} vbat_osc_mode_en_t;
+
+/*!
+ * @brief The structure of oscillator configuration.
+ */
+typedef struct _osc_32k_config
+{
+    vbat_osc_init_trim_t initTrim;
+    vbat_osc_cap_trim_t capTrim;
+    vbat_osc_dly_trim_t dlyTrim;
+    vbat_osc_cap2_trim_t cap2Trim;
+    vbat_osc_cmp_trim_t cmpTrim;
+    
+    vbat_osc_mode_en_t mode;
+    vbat_osc_xtal_cap_t xtalCap;
+    vbat_osc_extal_cap_t extalCap;
+    vbat_osc_coarse_adjustment_value_t ampGain;
+    
+    osc32k_clk_gate_id_t id;    
+} osc_32k_config_t;
+
 /*******************************************************************************
  * API
  ******************************************************************************/
@@ -1223,6 +1313,31 @@ status_t CLOCK_SetupExtRefClocking(uint32_t iFreq);
  * @return  returns success or fail status.
  */
 status_t CLOCK_SetupOsc32KClocking(uint32_t id);
+
+/**
+ * @brief   Get default XTAL32/EXTAL32 clock configuration structure.
+ * This function initializes the osc 32k configuration structure to a default value. The default
+ * values are:
+ *   config->initTrim = kVBAT_OscInitTrim500ms;
+ *   config->capTrim  = kVBAT_OscCapTrimDefault;
+ *   config->dlyTrim  = kVBAT_OscDlyTrim5;
+ *   config->cap2Trim = kVBAT_OscCap2Trim0;
+ *   config->cmpTrim  = kVBAT_OscCmpTrim760mv;
+ *   config->mode     = kVBAT_OscNormalModeEnable;
+ *   config->xtalCap  = kVBAT_OscXtal24pFCap;
+ *   config->extalCap = kVBAT_OscExtal22pFCap;
+ *   config->ampGain  = kVBAT_OscCoarseAdjustment05;
+ *   config->id       = kCLOCK_Osc32kToVbat;
+ * @param   config: Pointer to a configuration structure
+ */
+void CLOCK_GetDefaultOsc32KConfig(osc_32k_config_t *config);
+
+/**
+ * @brief   Initialize the OSC 32K with user-defined settings.
+ * @param   config   : OSC 32K configuration structure
+ * @return  returns success or fail status.
+ */
+status_t CLOCK_SetupOsc32KClockingConfig(osc_32k_config_t config);
 
 /**
  * @brief   Initialize the FRO16K input clock to given frequency.

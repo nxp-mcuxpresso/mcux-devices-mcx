@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241025
+**     Build:               b241118
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -86,6 +86,9 @@ __attribute__ ((weak)) void SystemInit (void) {
     /* Enable the LPCAC */
     SYSCON->LPCAC_CTRL |= SYSCON_LPCAC_CTRL_LPCAC_MEM_REQ_MASK;
     SYSCON->LPCAC_CTRL &= ~SYSCON_LPCAC_CTRL_DIS_LPCAC_MASK;
+
+    /* Route the PMC bandgap buffer signal to the ADC */
+    SPC0->CORELDO_CFG |= (1U << 24U);
   SystemInitHook();
 }
 

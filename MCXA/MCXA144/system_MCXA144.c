@@ -1,6 +1,8 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
 **
@@ -11,7 +13,7 @@
 **
 **     Reference manual:    MCXA18 User manual
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240328
+**     Build:               b241118
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -119,6 +121,9 @@ __attribute__ ((weak)) void SystemInit (void) {
         /* Disable MBC register written */
         GLIKEY0->CTRL_0 = 0x0002000FU;
     }
+
+    /* Route the PMC bandgap buffer signal to the ADC */
+    SPC0->CORELDO_CFG |= (1U << 24U);
   SystemInitHook();
 }
 

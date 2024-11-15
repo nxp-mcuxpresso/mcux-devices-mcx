@@ -1,6 +1,7 @@
 /*
 ** ###################################################################
 **     Processors:          MCXN235VDF
+**                          MCXN235VKL
 **                          MCXN235VNL
 **                          MCXN235VPB
 **
@@ -11,7 +12,7 @@
 **
 **     Reference manual:    MCXN23XRM
 **     Version:             rev. 1.0, 2023-10-01
-**     Build:               b241024
+**     Build:               b241118
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -108,6 +109,9 @@ __attribute__ ((weak)) void SystemInit (void) {
     ITRC0->OUT_SEL[4][1] = (ITRC0->OUT_SEL[4][1] & ~ ITRC_OUT_SEL_IN0_SELn_MASK) | (ITRC_OUT_SEL_IN0_SELn(0x2));
     GDET0->GDET_ENABLE1 = 0;
     GDET1->GDET_ENABLE1 = 0;
+
+    /* Route the PMC bandgap buffer signal to the ADC */
+    SPC0->CORELDO_CFG |= (1U << 24U);
 
   SystemInitHook();
 }

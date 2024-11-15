@@ -1,6 +1,7 @@
 /*
 ** ###################################################################
 **     Processors:          MCXN235VDF
+**                          MCXN235VKL
 **                          MCXN235VNL
 **                          MCXN235VPB
 **
@@ -11,7 +12,7 @@
 **
 **     Reference manual:    MCXN23XRM
 **     Version:             rev. 1.0, 2023-10-01
-**     Build:               b241024
+**     Build:               b241118
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

@@ -5,7 +5,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXC444RM, Rev.1, Mar 2024
 **     Version:             rev. 1.0, 2024-03-11
-**     Build:               b240401
+**     Build:               b241119
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -29,8 +29,8 @@
 #define m_text_start                   0x00000410
 #define m_text_size                    0x0001FBF0
 
-#define m_data_start                   0x1FFFE000
-#define m_data_size                    0x00008000
+#define m_data_start                   0x1FFFF000
+#define m_data_size                    0x00004000
 
 /* Sizes */
 #if (defined(__stack_size__))

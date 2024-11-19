@@ -6,7 +6,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXC444RM, Rev.1, Mar 2024
 **     Version:             rev. 1.0, 2024-03-11
-**     Build:               b240401
+**     Build:               b241119
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -30,9 +30,9 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
 /* Specify the memory areas */
 MEMORY
 {
-  m_interrupts          (RX)  : ORIGIN = 0x1FFFE000, LENGTH = 0x00000200
-  m_data                (RW)  : ORIGIN = 0x1FFFE200, LENGTH = 0x00001E00
-  m_text                (RX)  : ORIGIN = 0x20000000, LENGTH = 0x00006000
+  m_interrupts          (RX)  : ORIGIN = 0x1FFFF000, LENGTH = 0x00000200
+  m_data                (RW)  : ORIGIN = 0x1FFFF200, LENGTH = 0x00000E00
+  m_text                (RX)  : ORIGIN = 0x20000000, LENGTH = 0x00003000
 }
 
 /* Define output sections */

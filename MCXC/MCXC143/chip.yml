@@ -33,13 +33,13 @@ device.hardware_data:
               startup: true
             - id: "SRAM"
               name: "SRAM"
-              addr: 0x1fffe000
-              size: 0x8000
+              addr: 0x1ffff000
+              size: 0x4000
               type: "RAM"
               access: "RW"
               default: true
         total_memory:
-          ram_size_kb: 32
+          ram_size_kb: 16
           flash_size_kb: 128
         part:
           - name: "MCXC143VFT"

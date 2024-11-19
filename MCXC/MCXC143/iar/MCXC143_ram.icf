@@ -6,7 +6,7 @@
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXC444RM, Rev.1, Mar 2024
 **     Version:             rev. 1.0, 2024-03-11
-**     Build:               b240401
+**     Build:               b241119
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -21,14 +21,14 @@
 ** ###################################################################
 */
 
-define symbol m_interrupts_start       = 0x1FFFE000;
-define symbol m_interrupts_end         = 0x1FFFE1FF;
+define symbol m_interrupts_start       = 0x1FFFF000;
+define symbol m_interrupts_end         = 0x1FFFF1FF;
 
-define symbol m_data_start             = 0x1FFFE200;
+define symbol m_data_start             = 0x1FFFF200;
 define symbol m_data_end               = 0x1FFFFFFF;
 
 define symbol m_text_start             = 0x20000000;
-define symbol m_text_end               = 0x20005FFF;
+define symbol m_text_end               = 0x20002FFF;
 
 /* Sizes */
 if (isdefinedsymbol(__stack_size__)) {

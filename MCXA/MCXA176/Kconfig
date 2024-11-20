@@ -9,8 +9,8 @@ rsource "../../../arm/Kconfig.common"
 rsource "Kconfig.defconfig"
 
 ## Project segment and component dependency data
-config MCUX_HW_DEVICE_MCXA175
-    # bool "Device MCXA175 Configuration"
+config MCUX_HW_DEVICE_MCXA176
+    # bool "Device MCXA176 Configuration"
     bool
     default y
 

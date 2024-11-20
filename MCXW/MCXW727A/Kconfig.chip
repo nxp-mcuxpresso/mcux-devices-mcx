@@ -1,3 +1,7 @@
+# Copyright 2024 NXP
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 # device related
 
 config MCUX_HW_DEVICE_ID_MCXW727AxxxA

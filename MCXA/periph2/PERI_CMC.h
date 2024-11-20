@@ -8,6 +8,14 @@
 **                          MCXA166VLL
 **                          MCXA166VLQ
 **                          MCXA166VPN
+**                          MCXA175VLH
+**                          MCXA175VLL
+**                          MCXA175VLQ
+**                          MCXA175VPN
+**                          MCXA176VLH
+**                          MCXA176VLL
+**                          MCXA176VLQ
+**                          MCXA176VPN
 **                          MCXA255VLH
 **                          MCXA255VLL
 **                          MCXA255VLQ
@@ -26,7 +34,7 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241025
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CMC
@@ -61,6 +69,10 @@
 #include "MCXA165_COMMON.h"
 #elif (defined(CPU_MCXA166VLH) || defined(CPU_MCXA166VLL) || defined(CPU_MCXA166VLQ) || defined(CPU_MCXA166VPN))
 #include "MCXA166_COMMON.h"
+#elif (defined(CPU_MCXA175VLH) || defined(CPU_MCXA175VLL) || defined(CPU_MCXA175VLQ) || defined(CPU_MCXA175VPN))
+#include "MCXA175_COMMON.h"
+#elif (defined(CPU_MCXA176VLH) || defined(CPU_MCXA176VLL) || defined(CPU_MCXA176VLQ) || defined(CPU_MCXA176VPN))
+#include "MCXA176_COMMON.h"
 #elif (defined(CPU_MCXA255VLH) || defined(CPU_MCXA255VLL) || defined(CPU_MCXA255VLQ) || defined(CPU_MCXA255VPN))
 #include "MCXA255_COMMON.h"
 #elif (defined(CPU_MCXA256VLH) || defined(CPU_MCXA256VLL) || defined(CPU_MCXA256VLQ) || defined(CPU_MCXA256VPN))
@@ -123,7 +135,7 @@ typedef struct {
   __IO uint32_t CKCTRL;                            /**< Clock Control, offset: 0x10 */
   __IO uint32_t CKSTAT;                            /**< Clock Status, offset: 0x14 */
   __IO uint32_t PMPROT;                            /**< Power Mode Protection, offset: 0x18 */
-  __O  uint32_t GPMCTRL;                           /**< Global Power Mode Control, offset: 0x1C */
+  __IO uint32_t GPMCTRL;                           /**< Global Power Mode Control, offset: 0x1C */
   __IO uint32_t PMCTRL[CMC_PMCTRL_COUNT];          /**< Power Mode Control, array offset: 0x20, array step: 0x4 */
        uint8_t RESERVED_1[92];
   __I  uint32_t SRS;                               /**< System Reset Status, offset: 0x80 */

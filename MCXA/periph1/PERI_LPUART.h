@@ -1,26 +1,38 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
+**                          MCXA145VFT
+**                          MCXA145VLH
 **                          MCXA145VLL
 **                          MCXA145VMP
 **                          MCXA145VPJ
+**                          MCXA146VFT
+**                          MCXA146VLH
 **                          MCXA146VLL
 **                          MCXA146VMP
 **                          MCXA146VPJ
+**                          MCXA154VFT
+**                          MCXA154VLH
 **                          MCXA154VLL
 **                          MCXA154VMP
 **                          MCXA154VPJ
+**                          MCXA155VFT
+**                          MCXA155VLH
 **                          MCXA155VLL
 **                          MCXA155VMP
 **                          MCXA155VPJ
+**                          MCXA156VFT
+**                          MCXA156VLH
 **                          MCXA156VLL
 **                          MCXA156VMP
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240705
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPUART
@@ -51,17 +63,17 @@
 #if !defined(LPUART_H_)
 #define LPUART_H_                                /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
+#if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
-#elif (defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
+#elif (defined(CPU_MCXA145VFT) || defined(CPU_MCXA145VLH) || defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
 #include "MCXA145_COMMON.h"
-#elif (defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
+#elif (defined(CPU_MCXA146VFT) || defined(CPU_MCXA146VLH) || defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
 #include "MCXA146_COMMON.h"
-#elif (defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
+#elif (defined(CPU_MCXA154VFT) || defined(CPU_MCXA154VLH) || defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
 #include "MCXA154_COMMON.h"
-#elif (defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
+#elif (defined(CPU_MCXA155VFT) || defined(CPU_MCXA155VLH) || defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
 #include "MCXA155_COMMON.h"
-#elif (defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
+#elif (defined(CPU_MCXA156VFT) || defined(CPU_MCXA156VLH) || defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
 #include "MCXA156_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -361,8 +373,8 @@ typedef struct {
 #define LPUART_STAT_MA2F_SHIFT                   (14U)
 /*! MA2F - Match 2 Flag
  *  0b0..Not equal to MA2
- *  0b1..Equal to MA2
  *  0b0..No effect
+ *  0b1..Equal to MA2
  *  0b1..Clear the flag
  */
 #define LPUART_STAT_MA2F(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_MA2F_SHIFT)) & LPUART_STAT_MA2F_MASK)
@@ -371,8 +383,8 @@ typedef struct {
 #define LPUART_STAT_MA1F_SHIFT                   (15U)
 /*! MA1F - Match 1 Flag
  *  0b0..Not equal to MA1
- *  0b1..Equal to MA1
  *  0b0..No effect
+ *  0b1..Equal to MA1
  *  0b1..Clear the flag
  */
 #define LPUART_STAT_MA1F(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_MA1F_SHIFT)) & LPUART_STAT_MA1F_MASK)
@@ -381,8 +393,8 @@ typedef struct {
 #define LPUART_STAT_PF_SHIFT                     (16U)
 /*! PF - Parity Error Flag
  *  0b0..No parity error detected
- *  0b1..Parity error detected
  *  0b0..No effect
+ *  0b1..Parity error detected
  *  0b1..Clear the flag
  */
 #define LPUART_STAT_PF(x)                        (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_PF_SHIFT)) & LPUART_STAT_PF_MASK)
@@ -391,8 +403,8 @@ typedef struct {
 #define LPUART_STAT_FE_SHIFT                     (17U)
 /*! FE - Framing Error Flag
  *  0b0..No framing error detected (this does not guarantee that the framing is correct)
- *  0b1..Framing error detected
  *  0b0..No effect
+ *  0b1..Framing error detected
  *  0b1..Clear the flag
  */
 #define LPUART_STAT_FE(x)                        (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_FE_SHIFT)) & LPUART_STAT_FE_MASK)
@@ -401,8 +413,8 @@ typedef struct {
 #define LPUART_STAT_NF_SHIFT                     (18U)
 /*! NF - Noise Flag
  *  0b0..No noise detected
- *  0b1..Noise detected
  *  0b0..No effect
+ *  0b1..Noise detected
  *  0b1..Clear the flag
  */
 #define LPUART_STAT_NF(x)                        (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_NF_SHIFT)) & LPUART_STAT_NF_MASK)
@@ -411,8 +423,8 @@ typedef struct {
 #define LPUART_STAT_OR_SHIFT                     (19U)
 /*! OR - Receiver Overrun Flag
  *  0b0..No overrun
- *  0b1..Receive overrun (new LPUART data is lost)
  *  0b0..No effect
+ *  0b1..Receive overrun (new LPUART data is lost)
  *  0b1..Clear the flag
  */
 #define LPUART_STAT_OR(x)                        (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_OR_SHIFT)) & LPUART_STAT_OR_MASK)
@@ -421,8 +433,8 @@ typedef struct {
 #define LPUART_STAT_IDLE_SHIFT                   (20U)
 /*! IDLE - Idle Line Flag
  *  0b0..Idle line detected
- *  0b1..Idle line not detected
  *  0b0..No effect
+ *  0b1..Idle line not detected
  *  0b1..Clear the flag
  */
 #define LPUART_STAT_IDLE(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_IDLE_SHIFT)) & LPUART_STAT_IDLE_MASK)
@@ -503,8 +515,8 @@ typedef struct {
 #define LPUART_STAT_RXEDGIF_SHIFT                (30U)
 /*! RXEDGIF - RXD Pin Active Edge Interrupt Flag
  *  0b0..Not occurred
- *  0b1..Occurred
  *  0b0..No effect
+ *  0b1..Occurred
  *  0b1..Clear the flag
  */
 #define LPUART_STAT_RXEDGIF(x)                   (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_RXEDGIF_SHIFT)) & LPUART_STAT_RXEDGIF_MASK)
@@ -513,8 +525,8 @@ typedef struct {
 #define LPUART_STAT_LBKDIF_SHIFT                 (31U)
 /*! LBKDIF - LIN Break Detect Interrupt Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define LPUART_STAT_LBKDIF(x)                    (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_LBKDIF_SHIFT)) & LPUART_STAT_LBKDIF_MASK)
@@ -1036,8 +1048,8 @@ typedef struct {
 #define LPUART_FIFO_RXUF_SHIFT                   (16U)
 /*! RXUF - Receiver FIFO Underflow Flag
  *  0b0..No underflow
- *  0b1..Underflow
  *  0b0..No effect
+ *  0b1..Underflow
  *  0b1..Clear the flag
  */
 #define LPUART_FIFO_RXUF(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_FIFO_RXUF_SHIFT)) & LPUART_FIFO_RXUF_MASK)
@@ -1046,8 +1058,8 @@ typedef struct {
 #define LPUART_FIFO_TXOF_SHIFT                   (17U)
 /*! TXOF - Transmitter FIFO Overflow Flag
  *  0b0..No overflow
- *  0b1..Overflow
  *  0b0..No effect
+ *  0b1..Overflow
  *  0b1..Clear the flag
  */
 #define LPUART_FIFO_TXOF(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_FIFO_TXOF_SHIFT)) & LPUART_FIFO_TXOF_MASK)

@@ -1,26 +1,38 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
+**                          MCXA145VFT
+**                          MCXA145VLH
 **                          MCXA145VLL
 **                          MCXA145VMP
 **                          MCXA145VPJ
+**                          MCXA146VFT
+**                          MCXA146VLH
 **                          MCXA146VLL
 **                          MCXA146VMP
 **                          MCXA146VPJ
+**                          MCXA154VFT
+**                          MCXA154VLH
 **                          MCXA154VLL
 **                          MCXA154VMP
 **                          MCXA154VPJ
+**                          MCXA155VFT
+**                          MCXA155VLH
 **                          MCXA155VLL
 **                          MCXA155VMP
 **                          MCXA155VPJ
+**                          MCXA156VFT
+**                          MCXA156VLH
 **                          MCXA156VLL
 **                          MCXA156VMP
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240705
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FLEXIO
@@ -51,17 +63,17 @@
 #if !defined(FLEXIO_H_)
 #define FLEXIO_H_                                /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
+#if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
-#elif (defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
+#elif (defined(CPU_MCXA145VFT) || defined(CPU_MCXA145VLH) || defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
 #include "MCXA145_COMMON.h"
-#elif (defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
+#elif (defined(CPU_MCXA146VFT) || defined(CPU_MCXA146VLH) || defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
 #include "MCXA146_COMMON.h"
-#elif (defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
+#elif (defined(CPU_MCXA154VFT) || defined(CPU_MCXA154VLH) || defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
 #include "MCXA154_COMMON.h"
-#elif (defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
+#elif (defined(CPU_MCXA155VFT) || defined(CPU_MCXA155VLH) || defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
 #include "MCXA155_COMMON.h"
-#elif (defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
+#elif (defined(CPU_MCXA156VFT) || defined(CPU_MCXA156VLH) || defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
 #include "MCXA156_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -150,10 +162,10 @@ typedef struct {
   __IO uint32_t PINFEN;                            /**< Pin Falling Edge Enable, offset: 0x5C */
   __IO uint32_t PINOUTD;                           /**< Pin Output Data, offset: 0x60 */
   __IO uint32_t PINOUTE;                           /**< Pin Output Enable, offset: 0x64 */
-  __O  uint32_t PINOUTDIS;                         /**< Pin Output Disable, offset: 0x68 */
-  __O  uint32_t PINOUTCLR;                         /**< Pin Output Clear, offset: 0x6C */
-  __O  uint32_t PINOUTSET;                         /**< Pin Output Set, offset: 0x70 */
-  __O  uint32_t PINOUTTOG;                         /**< Pin Output Toggle, offset: 0x74 */
+  __IO uint32_t PINOUTDIS;                         /**< Pin Output Disable, offset: 0x68 */
+  __IO uint32_t PINOUTCLR;                         /**< Pin Output Clear, offset: 0x6C */
+  __IO uint32_t PINOUTSET;                         /**< Pin Output Set, offset: 0x70 */
+  __IO uint32_t PINOUTTOG;                         /**< Pin Output Toggle, offset: 0x74 */
        uint8_t RESERVED_5[8];
   __IO uint32_t SHIFTCTL[FLEXIO_SHIFTCTL_COUNT];   /**< Shifter Control, array offset: 0x80, array step: 0x4 */
        uint8_t RESERVED_6[112];
@@ -303,8 +315,8 @@ typedef struct {
 #define FLEXIO_SHIFTSTAT_SSF_SHIFT               (0U)
 /*! SSF - Shifter Status Flag
  *  0b0000..Clear
- *  0b0001..Set
  *  0b0000..No effect
+ *  0b0001..Set
  *  0b0001..Clear the flag
  */
 #define FLEXIO_SHIFTSTAT_SSF(x)                  (((uint32_t)(((uint32_t)(x)) << FLEXIO_SHIFTSTAT_SSF_SHIFT)) & FLEXIO_SHIFTSTAT_SSF_MASK)
@@ -317,8 +329,8 @@ typedef struct {
 #define FLEXIO_SHIFTERR_SEF_SHIFT                (0U)
 /*! SEF - Shifter Error Flag
  *  0b0000..Clear
- *  0b0001..Set
  *  0b0000..No effect
+ *  0b0001..Set
  *  0b0001..Clear the flag
  */
 #define FLEXIO_SHIFTERR_SEF(x)                   (((uint32_t)(((uint32_t)(x)) << FLEXIO_SHIFTERR_SEF_SHIFT)) & FLEXIO_SHIFTERR_SEF_MASK)
@@ -331,8 +343,8 @@ typedef struct {
 #define FLEXIO_TIMSTAT_TSF_SHIFT                 (0U)
 /*! TSF - Timer Status Flag
  *  0b0000..Clear
- *  0b0001..Set
  *  0b0000..No effect
+ *  0b0001..Set
  *  0b0001..Clear the flag
  */
 #define FLEXIO_TIMSTAT_TSF(x)                    (((uint32_t)(((uint32_t)(x)) << FLEXIO_TIMSTAT_TSF_SHIFT)) & FLEXIO_TIMSTAT_TSF_MASK)
@@ -399,8 +411,8 @@ typedef struct {
 #define FLEXIO_TRGSTAT_ETSF_SHIFT                (0U)
 /*! ETSF - External Trigger Status Flag
  *  0b0000..Clear
- *  0b0001..Set
  *  0b0000..No effect
+ *  0b0001..Set
  *  0b0001..Clear the flag
  */
 #define FLEXIO_TRGSTAT_ETSF(x)                   (((uint32_t)(((uint32_t)(x)) << FLEXIO_TRGSTAT_ETSF_SHIFT)) & FLEXIO_TRGSTAT_ETSF_MASK)
@@ -422,8 +434,8 @@ typedef struct {
 #define FLEXIO_PINSTAT_PSF_SHIFT                 (0U)
 /*! PSF - Pin Status Flag
  *  0b00000000000000000000000000000000..Clear
- *  0b00000000000000000000000000000001..Set
  *  0b00000000000000000000000000000000..No effect
+ *  0b00000000000000000000000000000001..Set
  *  0b00000000000000000000000000000001..Clear the flag
  */
 #define FLEXIO_PINSTAT_PSF(x)                    (((uint32_t)(((uint32_t)(x)) << FLEXIO_PINSTAT_PSF_SHIFT)) & FLEXIO_PINSTAT_PSF_MASK)

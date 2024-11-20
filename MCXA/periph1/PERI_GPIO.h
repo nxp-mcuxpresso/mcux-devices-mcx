@@ -1,26 +1,38 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
+**                          MCXA145VFT
+**                          MCXA145VLH
 **                          MCXA145VLL
 **                          MCXA145VMP
 **                          MCXA145VPJ
+**                          MCXA146VFT
+**                          MCXA146VLH
 **                          MCXA146VLL
 **                          MCXA146VMP
 **                          MCXA146VPJ
+**                          MCXA154VFT
+**                          MCXA154VLH
 **                          MCXA154VLL
 **                          MCXA154VMP
 **                          MCXA154VPJ
+**                          MCXA155VFT
+**                          MCXA155VLH
 **                          MCXA155VLL
 **                          MCXA155VMP
 **                          MCXA155VPJ
+**                          MCXA156VFT
+**                          MCXA156VLH
 **                          MCXA156VLL
 **                          MCXA156VMP
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240705
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for GPIO
@@ -51,17 +63,17 @@
 #if !defined(GPIO_H_)
 #define GPIO_H_                                  /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
+#if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
-#elif (defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
+#elif (defined(CPU_MCXA145VFT) || defined(CPU_MCXA145VLH) || defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
 #include "MCXA145_COMMON.h"
-#elif (defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
+#elif (defined(CPU_MCXA146VFT) || defined(CPU_MCXA146VLH) || defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
 #include "MCXA146_COMMON.h"
-#elif (defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
+#elif (defined(CPU_MCXA154VFT) || defined(CPU_MCXA154VLH) || defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
 #include "MCXA154_COMMON.h"
-#elif (defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
+#elif (defined(CPU_MCXA155VFT) || defined(CPU_MCXA155VLH) || defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
 #include "MCXA155_COMMON.h"
-#elif (defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
+#elif (defined(CPU_MCXA156VFT) || defined(CPU_MCXA156VLH) || defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
 #include "MCXA156_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -116,17 +128,17 @@ typedef struct {
   __I  uint32_t PARAM;                             /**< Parameter, offset: 0x4 */
        uint8_t RESERVED_0[56];
   __IO uint32_t PDOR;                              /**< Port Data Output, offset: 0x40 */
-  __O  uint32_t PSOR;                              /**< Port Set Output, offset: 0x44 */
-  __O  uint32_t PCOR;                              /**< Port Clear Output, offset: 0x48 */
-  __O  uint32_t PTOR;                              /**< Port Toggle Output, offset: 0x4C */
+  __IO uint32_t PSOR;                              /**< Port Set Output, offset: 0x44 */
+  __IO uint32_t PCOR;                              /**< Port Clear Output, offset: 0x48 */
+  __IO uint32_t PTOR;                              /**< Port Toggle Output, offset: 0x4C */
   __I  uint32_t PDIR;                              /**< Port Data Input, offset: 0x50 */
   __IO uint32_t PDDR;                              /**< Port Data Direction, offset: 0x54 */
   __IO uint32_t PIDR;                              /**< Port Input Disable, offset: 0x58 */
        uint8_t RESERVED_1[4];
   __IO uint8_t PDR[GPIO_PDR_COUNT];                /**< Pin Data, array offset: 0x60, array step: 0x1 */
   __IO uint32_t ICR[GPIO_ICR_COUNT];               /**< Interrupt Control 0..Interrupt Control 31, array offset: 0x80, array step: 0x4 */
-  __O  uint32_t GICLR;                             /**< Global Interrupt Control Low, offset: 0x100 */
-  __O  uint32_t GICHR;                             /**< Global Interrupt Control High, offset: 0x104 */
+  __IO uint32_t GICLR;                             /**< Global Interrupt Control Low, offset: 0x100 */
+  __IO uint32_t GICHR;                             /**< Global Interrupt Control High, offset: 0x104 */
        uint8_t RESERVED_2[24];
   __IO uint32_t ISFR[GPIO_ISFR_COUNT];             /**< Interrupt Status Flag, array offset: 0x120, array step: 0x4 */
 } GPIO_Type;
@@ -2034,8 +2046,8 @@ typedef struct {
 #define GPIO_ICR_ISF_SHIFT                       (24U)
 /*! ISF - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ICR_ISF(x)                          (((uint32_t)(((uint32_t)(x)) << GPIO_ICR_ISF_SHIFT)) & GPIO_ICR_ISF_MASK)
@@ -2322,8 +2334,8 @@ typedef struct {
 #define GPIO_ISFR_ISF0_SHIFT                     (0U)
 /*! ISF0 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF0(x)                        (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF0_SHIFT)) & GPIO_ISFR_ISF0_MASK)
@@ -2332,8 +2344,8 @@ typedef struct {
 #define GPIO_ISFR_ISF1_SHIFT                     (1U)
 /*! ISF1 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF1(x)                        (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF1_SHIFT)) & GPIO_ISFR_ISF1_MASK)
@@ -2342,8 +2354,8 @@ typedef struct {
 #define GPIO_ISFR_ISF2_SHIFT                     (2U)
 /*! ISF2 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF2(x)                        (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF2_SHIFT)) & GPIO_ISFR_ISF2_MASK)
@@ -2352,8 +2364,8 @@ typedef struct {
 #define GPIO_ISFR_ISF3_SHIFT                     (3U)
 /*! ISF3 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF3(x)                        (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF3_SHIFT)) & GPIO_ISFR_ISF3_MASK)
@@ -2362,8 +2374,8 @@ typedef struct {
 #define GPIO_ISFR_ISF4_SHIFT                     (4U)
 /*! ISF4 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF4(x)                        (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF4_SHIFT)) & GPIO_ISFR_ISF4_MASK)
@@ -2372,8 +2384,8 @@ typedef struct {
 #define GPIO_ISFR_ISF5_SHIFT                     (5U)
 /*! ISF5 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF5(x)                        (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF5_SHIFT)) & GPIO_ISFR_ISF5_MASK)
@@ -2382,8 +2394,8 @@ typedef struct {
 #define GPIO_ISFR_ISF6_SHIFT                     (6U)
 /*! ISF6 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF6(x)                        (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF6_SHIFT)) & GPIO_ISFR_ISF6_MASK)
@@ -2392,8 +2404,8 @@ typedef struct {
 #define GPIO_ISFR_ISF7_SHIFT                     (7U)
 /*! ISF7 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF7(x)                        (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF7_SHIFT)) & GPIO_ISFR_ISF7_MASK)
@@ -2402,8 +2414,8 @@ typedef struct {
 #define GPIO_ISFR_ISF8_SHIFT                     (8U)
 /*! ISF8 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF8(x)                        (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF8_SHIFT)) & GPIO_ISFR_ISF8_MASK)
@@ -2412,8 +2424,8 @@ typedef struct {
 #define GPIO_ISFR_ISF9_SHIFT                     (9U)
 /*! ISF9 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF9(x)                        (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF9_SHIFT)) & GPIO_ISFR_ISF9_MASK)
@@ -2422,8 +2434,8 @@ typedef struct {
 #define GPIO_ISFR_ISF10_SHIFT                    (10U)
 /*! ISF10 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF10(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF10_SHIFT)) & GPIO_ISFR_ISF10_MASK)
@@ -2432,8 +2444,8 @@ typedef struct {
 #define GPIO_ISFR_ISF11_SHIFT                    (11U)
 /*! ISF11 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF11(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF11_SHIFT)) & GPIO_ISFR_ISF11_MASK)
@@ -2442,8 +2454,8 @@ typedef struct {
 #define GPIO_ISFR_ISF12_SHIFT                    (12U)
 /*! ISF12 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF12(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF12_SHIFT)) & GPIO_ISFR_ISF12_MASK)
@@ -2452,8 +2464,8 @@ typedef struct {
 #define GPIO_ISFR_ISF13_SHIFT                    (13U)
 /*! ISF13 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF13(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF13_SHIFT)) & GPIO_ISFR_ISF13_MASK)
@@ -2462,8 +2474,8 @@ typedef struct {
 #define GPIO_ISFR_ISF14_SHIFT                    (14U)
 /*! ISF14 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF14(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF14_SHIFT)) & GPIO_ISFR_ISF14_MASK)
@@ -2472,8 +2484,8 @@ typedef struct {
 #define GPIO_ISFR_ISF15_SHIFT                    (15U)
 /*! ISF15 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF15(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF15_SHIFT)) & GPIO_ISFR_ISF15_MASK)
@@ -2482,8 +2494,8 @@ typedef struct {
 #define GPIO_ISFR_ISF16_SHIFT                    (16U)
 /*! ISF16 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF16(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF16_SHIFT)) & GPIO_ISFR_ISF16_MASK)
@@ -2492,8 +2504,8 @@ typedef struct {
 #define GPIO_ISFR_ISF17_SHIFT                    (17U)
 /*! ISF17 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF17(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF17_SHIFT)) & GPIO_ISFR_ISF17_MASK)
@@ -2502,8 +2514,8 @@ typedef struct {
 #define GPIO_ISFR_ISF18_SHIFT                    (18U)
 /*! ISF18 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF18(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF18_SHIFT)) & GPIO_ISFR_ISF18_MASK)
@@ -2512,8 +2524,8 @@ typedef struct {
 #define GPIO_ISFR_ISF19_SHIFT                    (19U)
 /*! ISF19 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF19(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF19_SHIFT)) & GPIO_ISFR_ISF19_MASK)
@@ -2522,8 +2534,8 @@ typedef struct {
 #define GPIO_ISFR_ISF20_SHIFT                    (20U)
 /*! ISF20 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF20(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF20_SHIFT)) & GPIO_ISFR_ISF20_MASK)
@@ -2532,8 +2544,8 @@ typedef struct {
 #define GPIO_ISFR_ISF21_SHIFT                    (21U)
 /*! ISF21 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF21(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF21_SHIFT)) & GPIO_ISFR_ISF21_MASK)
@@ -2542,8 +2554,8 @@ typedef struct {
 #define GPIO_ISFR_ISF22_SHIFT                    (22U)
 /*! ISF22 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF22(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF22_SHIFT)) & GPIO_ISFR_ISF22_MASK)
@@ -2552,8 +2564,8 @@ typedef struct {
 #define GPIO_ISFR_ISF23_SHIFT                    (23U)
 /*! ISF23 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF23(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF23_SHIFT)) & GPIO_ISFR_ISF23_MASK)
@@ -2562,8 +2574,8 @@ typedef struct {
 #define GPIO_ISFR_ISF24_SHIFT                    (24U)
 /*! ISF24 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF24(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF24_SHIFT)) & GPIO_ISFR_ISF24_MASK)
@@ -2572,8 +2584,8 @@ typedef struct {
 #define GPIO_ISFR_ISF25_SHIFT                    (25U)
 /*! ISF25 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF25(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF25_SHIFT)) & GPIO_ISFR_ISF25_MASK)
@@ -2582,8 +2594,8 @@ typedef struct {
 #define GPIO_ISFR_ISF26_SHIFT                    (26U)
 /*! ISF26 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF26(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF26_SHIFT)) & GPIO_ISFR_ISF26_MASK)
@@ -2592,8 +2604,8 @@ typedef struct {
 #define GPIO_ISFR_ISF27_SHIFT                    (27U)
 /*! ISF27 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF27(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF27_SHIFT)) & GPIO_ISFR_ISF27_MASK)
@@ -2602,8 +2614,8 @@ typedef struct {
 #define GPIO_ISFR_ISF28_SHIFT                    (28U)
 /*! ISF28 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF28(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF28_SHIFT)) & GPIO_ISFR_ISF28_MASK)
@@ -2612,8 +2624,8 @@ typedef struct {
 #define GPIO_ISFR_ISF29_SHIFT                    (29U)
 /*! ISF29 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF29(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF29_SHIFT)) & GPIO_ISFR_ISF29_MASK)
@@ -2622,8 +2634,8 @@ typedef struct {
 #define GPIO_ISFR_ISF30_SHIFT                    (30U)
 /*! ISF30 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF30(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF30_SHIFT)) & GPIO_ISFR_ISF30_MASK)
@@ -2632,8 +2644,8 @@ typedef struct {
 #define GPIO_ISFR_ISF31_SHIFT                    (31U)
 /*! ISF31 - Interrupt Status Flag
  *  0b0..Not detected
- *  0b1..Detected
  *  0b0..No effect
+ *  0b1..Detected
  *  0b1..Clear the flag
  */
 #define GPIO_ISFR_ISF31(x)                       (((uint32_t)(((uint32_t)(x)) << GPIO_ISFR_ISF31_SHIFT)) & GPIO_ISFR_ISF31_MASK)

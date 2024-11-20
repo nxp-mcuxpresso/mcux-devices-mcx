@@ -1,26 +1,38 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
+**                          MCXA145VFT
+**                          MCXA145VLH
 **                          MCXA145VLL
 **                          MCXA145VMP
 **                          MCXA145VPJ
+**                          MCXA146VFT
+**                          MCXA146VLH
 **                          MCXA146VLL
 **                          MCXA146VMP
 **                          MCXA146VPJ
+**                          MCXA154VFT
+**                          MCXA154VLH
 **                          MCXA154VLL
 **                          MCXA154VMP
 **                          MCXA154VPJ
+**                          MCXA155VFT
+**                          MCXA155VLH
 **                          MCXA155VLL
 **                          MCXA155VMP
 **                          MCXA155VPJ
+**                          MCXA156VFT
+**                          MCXA156VLH
 **                          MCXA156VLL
 **                          MCXA156VMP
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240705
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MRCC
@@ -51,17 +63,17 @@
 #if !defined(MRCC_H_)
 #define MRCC_H_                                  /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
+#if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
-#elif (defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
+#elif (defined(CPU_MCXA145VFT) || defined(CPU_MCXA145VLH) || defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
 #include "MCXA145_COMMON.h"
-#elif (defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
+#elif (defined(CPU_MCXA146VFT) || defined(CPU_MCXA146VLH) || defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
 #include "MCXA146_COMMON.h"
-#elif (defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
+#elif (defined(CPU_MCXA154VFT) || defined(CPU_MCXA154VLH) || defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
 #include "MCXA154_COMMON.h"
-#elif (defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
+#elif (defined(CPU_MCXA155VFT) || defined(CPU_MCXA155VLH) || defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
 #include "MCXA155_COMMON.h"
-#elif (defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
+#elif (defined(CPU_MCXA156VFT) || defined(CPU_MCXA156VLH) || defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
 #include "MCXA156_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -1583,11 +1595,11 @@ typedef struct {
 #define MRCC_MRCC_I3C0_FCLK_CLKSEL_MUX_MASK      (0x7U)
 #define MRCC_MRCC_I3C0_FCLK_CLKSEL_MUX_SHIFT     (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_I3C0_FCLK_CLKSEL_MUX(x)        (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_I3C0_FCLK_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_I3C0_FCLK_CLKSEL_MUX_MASK)
 /*! @} */
@@ -1631,12 +1643,12 @@ typedef struct {
 #define MRCC_MRCC_CTIMER0_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_CTIMER0_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b100..CLK_16K
- *  0b011..CLK_IN
- *  0b001..FRO_HF_GATED
  *  0b000..FRO_12M
+ *  0b001..FRO_HF_GATED
+ *  0b011..CLK_IN
+ *  0b100..CLK_16K
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_CTIMER0_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_CTIMER0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_CTIMER0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -1680,12 +1692,12 @@ typedef struct {
 #define MRCC_MRCC_CTIMER1_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_CTIMER1_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b100..CLK_16K
- *  0b011..CLK_IN
- *  0b001..FRO_HF_GATED
  *  0b000..FRO_12M
+ *  0b001..FRO_HF_GATED
+ *  0b011..CLK_IN
+ *  0b100..CLK_16K
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_CTIMER1_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_CTIMER1_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_CTIMER1_CLKSEL_MUX_MASK)
 /*! @} */
@@ -1729,12 +1741,12 @@ typedef struct {
 #define MRCC_MRCC_CTIMER2_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_CTIMER2_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b100..CLK_16K
- *  0b011..CLK_IN
- *  0b001..FRO_HF_GATED
  *  0b000..FRO_12M
+ *  0b001..FRO_HF_GATED
+ *  0b011..CLK_IN
+ *  0b100..CLK_16K
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_CTIMER2_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_CTIMER2_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_CTIMER2_CLKSEL_MUX_MASK)
 /*! @} */
@@ -1778,12 +1790,12 @@ typedef struct {
 #define MRCC_MRCC_CTIMER3_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_CTIMER3_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b100..CLK_16K
- *  0b011..CLK_IN
- *  0b001..FRO_HF_GATED
  *  0b000..FRO_12M
+ *  0b001..FRO_HF_GATED
+ *  0b011..CLK_IN
+ *  0b100..CLK_16K
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_CTIMER3_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_CTIMER3_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_CTIMER3_CLKSEL_MUX_MASK)
 /*! @} */
@@ -1827,12 +1839,12 @@ typedef struct {
 #define MRCC_MRCC_CTIMER4_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_CTIMER4_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b100..CLK_16K
- *  0b011..CLK_IN
- *  0b001..FRO_HF_GATED
  *  0b000..FRO_12M
+ *  0b001..FRO_HF_GATED
+ *  0b011..CLK_IN
+ *  0b100..CLK_16K
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_CTIMER4_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_CTIMER4_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_CTIMER4_CLKSEL_MUX_MASK)
 /*! @} */
@@ -1909,11 +1921,11 @@ typedef struct {
 #define MRCC_MRCC_FLEXIO0_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_FLEXIO0_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b001..FRO_HF_GATED
  *  0b000..FRO_12M
+ *  0b001..FRO_HF_GATED
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_FLEXIO0_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_FLEXIO0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_FLEXIO0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -1957,11 +1969,11 @@ typedef struct {
 #define MRCC_MRCC_LPI2C0_CLKSEL_MUX_MASK         (0x7U)
 #define MRCC_MRCC_LPI2C0_CLKSEL_MUX_SHIFT        (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPI2C0_CLKSEL_MUX(x)           (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPI2C0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPI2C0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2005,11 +2017,11 @@ typedef struct {
 #define MRCC_MRCC_LPI2C1_CLKSEL_MUX_MASK         (0x7U)
 #define MRCC_MRCC_LPI2C1_CLKSEL_MUX_SHIFT        (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPI2C1_CLKSEL_MUX(x)           (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPI2C1_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPI2C1_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2053,11 +2065,11 @@ typedef struct {
 #define MRCC_MRCC_LPSPI0_CLKSEL_MUX_MASK         (0x7U)
 #define MRCC_MRCC_LPSPI0_CLKSEL_MUX_SHIFT        (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPSPI0_CLKSEL_MUX(x)           (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPSPI0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPSPI0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2101,11 +2113,11 @@ typedef struct {
 #define MRCC_MRCC_LPSPI1_CLKSEL_MUX_MASK         (0x7U)
 #define MRCC_MRCC_LPSPI1_CLKSEL_MUX_SHIFT        (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPSPI1_CLKSEL_MUX(x)           (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPSPI1_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPSPI1_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2149,12 +2161,12 @@ typedef struct {
 #define MRCC_MRCC_LPUART0_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_LPUART0_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b100..CLK_16K
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b100..CLK_16K
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPUART0_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPUART0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPUART0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2198,12 +2210,12 @@ typedef struct {
 #define MRCC_MRCC_LPUART1_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_LPUART1_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b100..CLK_16K
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b100..CLK_16K
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPUART1_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPUART1_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPUART1_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2247,12 +2259,12 @@ typedef struct {
 #define MRCC_MRCC_LPUART2_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_LPUART2_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b100..CLK_16K
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b100..CLK_16K
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPUART2_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPUART2_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPUART2_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2296,12 +2308,12 @@ typedef struct {
 #define MRCC_MRCC_LPUART3_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_LPUART3_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b100..CLK_16K
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b100..CLK_16K
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPUART3_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPUART3_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPUART3_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2345,12 +2357,12 @@ typedef struct {
 #define MRCC_MRCC_LPUART4_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_LPUART4_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b100..CLK_16K
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b100..CLK_16K
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPUART4_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPUART4_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPUART4_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2394,9 +2406,9 @@ typedef struct {
 #define MRCC_MRCC_USB0_CLKSEL_MUX_MASK           (0x3U)
 #define MRCC_MRCC_USB0_CLKSEL_MUX_SHIFT          (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b11..Reserved(NO Clock)
- *  0b10..CLK_IN
  *  0b01..CLK_48M
+ *  0b10..CLK_IN
+ *  0b11..Reserved(NO Clock)
  */
 #define MRCC_MRCC_USB0_CLKSEL_MUX(x)             (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_USB0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_USB0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2407,11 +2419,11 @@ typedef struct {
 #define MRCC_MRCC_LPTMR0_CLKSEL_MUX_MASK         (0x7U)
 #define MRCC_MRCC_LPTMR0_CLKSEL_MUX_SHIFT        (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPTMR0_CLKSEL_MUX(x)           (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPTMR0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPTMR0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2455,9 +2467,9 @@ typedef struct {
 #define MRCC_MRCC_OSTIMER0_CLKSEL_MUX_MASK       (0x3U)
 #define MRCC_MRCC_OSTIMER0_CLKSEL_MUX_SHIFT      (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b11..Reserved2(NO Clock)
- *  0b10..CLK_1M
  *  0b00..CLK_16K
+ *  0b10..CLK_1M
+ *  0b11..Reserved2(NO Clock)
  */
 #define MRCC_MRCC_OSTIMER0_CLKSEL_MUX(x)         (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_OSTIMER0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_OSTIMER0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2468,11 +2480,11 @@ typedef struct {
 #define MRCC_MRCC_ADC0_CLKSEL_MUX_MASK           (0x7U)
 #define MRCC_MRCC_ADC0_CLKSEL_MUX_SHIFT          (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b001..FRO_HF_GATED
  *  0b000..FRO_12M
+ *  0b001..FRO_HF_GATED
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_ADC0_CLKSEL_MUX(x)             (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_ADC0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_ADC0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2516,11 +2528,11 @@ typedef struct {
 #define MRCC_MRCC_ADC1_CLKSEL_MUX_MASK           (0x7U)
 #define MRCC_MRCC_ADC1_CLKSEL_MUX_SHIFT          (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b001..FRO_HF_GATED
  *  0b000..FRO_12M
+ *  0b001..FRO_HF_GATED
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_ADC1_CLKSEL_MUX(x)             (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_ADC1_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_ADC1_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2597,11 +2609,11 @@ typedef struct {
 #define MRCC_MRCC_CMP0_RR_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_CMP0_RR_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_CMP0_RR_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_CMP0_RR_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_CMP0_RR_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2678,11 +2690,11 @@ typedef struct {
 #define MRCC_MRCC_CMP1_RR_CLKSEL_MUX_MASK        (0x7U)
 #define MRCC_MRCC_CMP1_RR_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_CMP1_RR_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_CMP1_RR_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_CMP1_RR_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2726,11 +2738,11 @@ typedef struct {
 #define MRCC_MRCC_DAC0_CLKSEL_MUX_MASK           (0x7U)
 #define MRCC_MRCC_DAC0_CLKSEL_MUX_SHIFT          (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_DAC0_CLKSEL_MUX(x)             (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_DAC0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_DAC0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2774,9 +2786,9 @@ typedef struct {
 #define MRCC_MRCC_FLEXCAN0_CLKSEL_MUX_MASK       (0x7U)
 #define MRCC_MRCC_FLEXCAN0_CLKSEL_MUX_SHIFT      (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b011..CLK_IN
  *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_FLEXCAN0_CLKSEL_MUX(x)         (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_FLEXCAN0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_FLEXCAN0_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2820,11 +2832,11 @@ typedef struct {
 #define MRCC_MRCC_LPI2C2_CLKSEL_MUX_MASK         (0x7U)
 #define MRCC_MRCC_LPI2C2_CLKSEL_MUX_SHIFT        (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPI2C2_CLKSEL_MUX(x)           (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPI2C2_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPI2C2_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2868,11 +2880,11 @@ typedef struct {
 #define MRCC_MRCC_LPI2C3_CLKSEL_MUX_MASK         (0x7U)
 #define MRCC_MRCC_LPI2C3_CLKSEL_MUX_SHIFT        (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b101..CLK_1M
- *  0b011..CLK_IN
- *  0b010..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b010..FRO_HF_DIV
+ *  0b011..CLK_IN
+ *  0b101..CLK_1M
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_LPI2C3_CLKSEL_MUX(x)           (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_LPI2C3_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_LPI2C3_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2916,10 +2928,10 @@ typedef struct {
 #define MRCC_MRCC_DBG_TRACE_CLKSEL_MUX_MASK      (0x3U)
 #define MRCC_MRCC_DBG_TRACE_CLKSEL_MUX_SHIFT     (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b11..Reserved1(NO Clock)
- *  0b10..CLK_16K
- *  0b01..CLK_1M
  *  0b00..CPU_CLK
+ *  0b01..CLK_1M
+ *  0b10..CLK_16K
+ *  0b11..Reserved1(NO Clock)
  */
 #define MRCC_MRCC_DBG_TRACE_CLKSEL_MUX(x)        (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_DBG_TRACE_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_DBG_TRACE_CLKSEL_MUX_MASK)
 /*! @} */
@@ -2963,12 +2975,12 @@ typedef struct {
 #define MRCC_MRCC_CLKOUT_CLKSEL_MUX_MASK         (0x7U)
 #define MRCC_MRCC_CLKOUT_CLKSEL_MUX_SHIFT        (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b111..Reserved(NO Clock)
- *  0b110..SLOW_CLK
- *  0b011..CLK_16K
- *  0b010..CLK_IN
- *  0b001..FRO_HF_DIV
  *  0b000..FRO_12M
+ *  0b001..FRO_HF_DIV
+ *  0b010..CLK_IN
+ *  0b011..CLK_16K
+ *  0b110..SLOW_CLK
+ *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_CLKOUT_CLKSEL_MUX(x)           (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_CLKOUT_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_CLKOUT_CLKSEL_MUX_MASK)
 /*! @} */
@@ -3012,10 +3024,10 @@ typedef struct {
 #define MRCC_MRCC_SYSTICK_CLKSEL_MUX_MASK        (0x3U)
 #define MRCC_MRCC_SYSTICK_CLKSEL_MUX_SHIFT       (0U)
 /*! MUX - Functional Clock Mux Select
- *  0b11..Reserved1(NO Clock)
- *  0b10..CLK_16K
- *  0b01..CLK_1M
  *  0b00..CPU_CLK
+ *  0b01..CLK_1M
+ *  0b10..CLK_16K
+ *  0b11..Reserved1(NO Clock)
  */
 #define MRCC_MRCC_SYSTICK_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_SYSTICK_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_SYSTICK_CLKSEL_MUX_MASK)
 /*! @} */

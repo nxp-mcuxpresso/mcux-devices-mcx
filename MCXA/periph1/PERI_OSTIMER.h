@@ -1,26 +1,38 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
+**                          MCXA145VFT
+**                          MCXA145VLH
 **                          MCXA145VLL
 **                          MCXA145VMP
 **                          MCXA145VPJ
+**                          MCXA146VFT
+**                          MCXA146VLH
 **                          MCXA146VLL
 **                          MCXA146VMP
 **                          MCXA146VPJ
+**                          MCXA154VFT
+**                          MCXA154VLH
 **                          MCXA154VLL
 **                          MCXA154VMP
 **                          MCXA154VPJ
+**                          MCXA155VFT
+**                          MCXA155VLH
 **                          MCXA155VLL
 **                          MCXA155VMP
 **                          MCXA155VPJ
+**                          MCXA156VFT
+**                          MCXA156VLH
 **                          MCXA156VLL
 **                          MCXA156VMP
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240705
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for OSTIMER
@@ -51,17 +63,17 @@
 #if !defined(OSTIMER_H_)
 #define OSTIMER_H_                               /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
+#if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
-#elif (defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
+#elif (defined(CPU_MCXA145VFT) || defined(CPU_MCXA145VLH) || defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
 #include "MCXA145_COMMON.h"
-#elif (defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
+#elif (defined(CPU_MCXA146VFT) || defined(CPU_MCXA146VLH) || defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
 #include "MCXA146_COMMON.h"
-#elif (defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
+#elif (defined(CPU_MCXA154VFT) || defined(CPU_MCXA154VLH) || defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
 #include "MCXA154_COMMON.h"
-#elif (defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
+#elif (defined(CPU_MCXA155VFT) || defined(CPU_MCXA155VLH) || defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
 #include "MCXA155_COMMON.h"
-#elif (defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
+#elif (defined(CPU_MCXA156VFT) || defined(CPU_MCXA156VLH) || defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
 #include "MCXA156_COMMON.h"
 #else
   #error "No valid CPU defined!"

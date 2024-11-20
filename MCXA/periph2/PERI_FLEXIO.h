@@ -8,6 +8,14 @@
 **                          MCXA166VLL
 **                          MCXA166VLQ
 **                          MCXA166VPN
+**                          MCXA175VLH
+**                          MCXA175VLL
+**                          MCXA175VLQ
+**                          MCXA175VPN
+**                          MCXA176VLH
+**                          MCXA176VLL
+**                          MCXA176VLQ
+**                          MCXA176VPN
 **                          MCXA255VLH
 **                          MCXA255VLL
 **                          MCXA255VLQ
@@ -26,7 +34,7 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241025
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FLEXIO
@@ -61,6 +69,10 @@
 #include "MCXA165_COMMON.h"
 #elif (defined(CPU_MCXA166VLH) || defined(CPU_MCXA166VLL) || defined(CPU_MCXA166VLQ) || defined(CPU_MCXA166VPN))
 #include "MCXA166_COMMON.h"
+#elif (defined(CPU_MCXA175VLH) || defined(CPU_MCXA175VLL) || defined(CPU_MCXA175VLQ) || defined(CPU_MCXA175VPN))
+#include "MCXA175_COMMON.h"
+#elif (defined(CPU_MCXA176VLH) || defined(CPU_MCXA176VLL) || defined(CPU_MCXA176VLQ) || defined(CPU_MCXA176VPN))
+#include "MCXA176_COMMON.h"
 #elif (defined(CPU_MCXA255VLH) || defined(CPU_MCXA255VLL) || defined(CPU_MCXA255VLQ) || defined(CPU_MCXA255VPN))
 #include "MCXA255_COMMON.h"
 #elif (defined(CPU_MCXA256VLH) || defined(CPU_MCXA256VLL) || defined(CPU_MCXA256VLQ) || defined(CPU_MCXA256VPN))
@@ -156,10 +168,10 @@ typedef struct {
   __IO uint32_t PINFEN;                            /**< Pin Falling Edge Enable, offset: 0x5C */
   __IO uint32_t PINOUTD;                           /**< Pin Output Data, offset: 0x60 */
   __IO uint32_t PINOUTE;                           /**< Pin Output Enable, offset: 0x64 */
-  __O  uint32_t PINOUTDIS;                         /**< Pin Output Disable, offset: 0x68 */
-  __O  uint32_t PINOUTCLR;                         /**< Pin Output Clear, offset: 0x6C */
-  __O  uint32_t PINOUTSET;                         /**< Pin Output Set, offset: 0x70 */
-  __O  uint32_t PINOUTTOG;                         /**< Pin Output Toggle, offset: 0x74 */
+  __IO uint32_t PINOUTDIS;                         /**< Pin Output Disable, offset: 0x68 */
+  __IO uint32_t PINOUTCLR;                         /**< Pin Output Clear, offset: 0x6C */
+  __IO uint32_t PINOUTSET;                         /**< Pin Output Set, offset: 0x70 */
+  __IO uint32_t PINOUTTOG;                         /**< Pin Output Toggle, offset: 0x74 */
        uint8_t RESERVED_5[8];
   __IO uint32_t SHIFTCTL[FLEXIO_SHIFTCTL_COUNT];   /**< Shifter Control, array offset: 0x80, array step: 0x4 */
        uint8_t RESERVED_6[112];

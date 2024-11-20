@@ -1,6 +1,8 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
 **
@@ -11,7 +13,7 @@
 **
 **     Reference manual:    MCXA18 User manual
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240705
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA144
@@ -193,14 +195,14 @@ typedef enum IRQn {
 #include "core_cm33.h"                 /* Core Peripheral Access Layer */
 #include "system_MCXA144.h"            /* Device specific configuration file */
 
-#define MCXA144_SERIES
-/* CPU specific feature definitions */
-#include "MCXA144_features.h"
-
 /*!
  * @}
  */ /* end of group Cortex_Core_Configuration */
 
+
+#define MCXA144_SERIES
+/* CPU specific feature definitions */
+#include "MCXA144_features.h"
 
 /* ADC - Peripheral instance base addresses */
 /** Peripheral ADC0 base address */

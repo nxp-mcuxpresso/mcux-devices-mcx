@@ -8,6 +8,14 @@
 **                          MCXA166VLL
 **                          MCXA166VLQ
 **                          MCXA166VPN
+**                          MCXA175VLH
+**                          MCXA175VLL
+**                          MCXA175VLQ
+**                          MCXA175VPN
+**                          MCXA176VLH
+**                          MCXA176VLL
+**                          MCXA176VLQ
+**                          MCXA176VPN
 **                          MCXA255VLH
 **                          MCXA255VLL
 **                          MCXA255VLQ
@@ -26,7 +34,7 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241025
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA
@@ -61,6 +69,10 @@
 #include "MCXA165_COMMON.h"
 #elif (defined(CPU_MCXA166VLH) || defined(CPU_MCXA166VLL) || defined(CPU_MCXA166VLQ) || defined(CPU_MCXA166VPN))
 #include "MCXA166_COMMON.h"
+#elif (defined(CPU_MCXA175VLH) || defined(CPU_MCXA175VLL) || defined(CPU_MCXA175VLQ) || defined(CPU_MCXA175VPN))
+#include "MCXA175_COMMON.h"
+#elif (defined(CPU_MCXA176VLH) || defined(CPU_MCXA176VLL) || defined(CPU_MCXA176VLQ) || defined(CPU_MCXA176VPN))
+#include "MCXA176_COMMON.h"
 #elif (defined(CPU_MCXA255VLH) || defined(CPU_MCXA255VLL) || defined(CPU_MCXA255VLQ) || defined(CPU_MCXA255VPN))
 #include "MCXA255_COMMON.h"
 #elif (defined(CPU_MCXA256VLH) || defined(CPU_MCXA256VLL) || defined(CPU_MCXA256VLQ) || defined(CPU_MCXA256VPN))
@@ -172,16 +184,14 @@ typedef enum _dma_request_source
     kDma0RequestMuxFlexPWM1ReqVal1  = 84U,         /**< FlexPWM1 value1 request */
     kDma0RequestMuxFlexPWM1ReqVal2  = 85U,         /**< FlexPWM1 value2 request */
     kDma0RequestMuxFlexPWM1ReqVal3  = 86U,         /**< FlexPWM1 value2 request */
-    kDma0RequestMuxFlexCan1DmaRequest = 87U,       /**< CAN1 DMA request */
     kDma0RequestLPUART5Rx           = 102U,        /**< LPUART5 Receive request */
     kDma0RequestLPUART5Tx           = 103U,        /**< LPUART5 Transmit request */
     kDma0RequestMuxMau0             = 115U,        /**< MAU0 DMA request */
-    kDma0RequestSGI0Datain          = 119U,        /**< SGI0 DATAIN request */
-    kDma0RequestSGI0Dataout         = 120U,        /**< SGI0 DATOUT request */
-    kDma0RequestMuxAdc2FifoRequest  = 123U,        /**< ADC2 FIFO request */
-    kDma0RequestMuxAdc3FifoRequest  = 124U,        /**< ADC3 FIFO request */
     kDma0RequestMuxI3c0Rx           = 7U,          /**< I3C0 Receive request */
     kDma0RequestMuxI3c0Tx           = 8U,          /**< I3C0 Transmit request */
+    kDma0RequestMuxFlexCan1DmaRequest = 87U,       /**< CAN1 DMA request */
+    kDma0RequestSGI0Datain          = 119U,        /**< SGI0 DATAIN request */
+    kDma0RequestSGI0Dataout         = 120U,        /**< SGI0 DATOUT request */
 } dma_request_source_t;
 
 /* @} */

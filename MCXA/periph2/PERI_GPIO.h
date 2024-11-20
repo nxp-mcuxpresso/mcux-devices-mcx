@@ -8,6 +8,14 @@
 **                          MCXA166VLL
 **                          MCXA166VLQ
 **                          MCXA166VPN
+**                          MCXA175VLH
+**                          MCXA175VLL
+**                          MCXA175VLQ
+**                          MCXA175VPN
+**                          MCXA176VLH
+**                          MCXA176VLL
+**                          MCXA176VLQ
+**                          MCXA176VPN
 **                          MCXA255VLH
 **                          MCXA255VLL
 **                          MCXA255VLQ
@@ -26,7 +34,7 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241025
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for GPIO
@@ -61,6 +69,10 @@
 #include "MCXA165_COMMON.h"
 #elif (defined(CPU_MCXA166VLH) || defined(CPU_MCXA166VLL) || defined(CPU_MCXA166VLQ) || defined(CPU_MCXA166VPN))
 #include "MCXA166_COMMON.h"
+#elif (defined(CPU_MCXA175VLH) || defined(CPU_MCXA175VLL) || defined(CPU_MCXA175VLQ) || defined(CPU_MCXA175VPN))
+#include "MCXA175_COMMON.h"
+#elif (defined(CPU_MCXA176VLH) || defined(CPU_MCXA176VLL) || defined(CPU_MCXA176VLQ) || defined(CPU_MCXA176VPN))
+#include "MCXA176_COMMON.h"
 #elif (defined(CPU_MCXA255VLH) || defined(CPU_MCXA255VLL) || defined(CPU_MCXA255VLQ) || defined(CPU_MCXA255VPN))
 #include "MCXA255_COMMON.h"
 #elif (defined(CPU_MCXA256VLH) || defined(CPU_MCXA256VLL) || defined(CPU_MCXA256VLQ) || defined(CPU_MCXA256VPN))
@@ -122,17 +134,17 @@ typedef struct {
   __I  uint32_t PARAM;                             /**< Parameter, offset: 0x4 */
        uint8_t RESERVED_0[56];
   __IO uint32_t PDOR;                              /**< Port Data Output, offset: 0x40 */
-  __O  uint32_t PSOR;                              /**< Port Set Output, offset: 0x44 */
-  __O  uint32_t PCOR;                              /**< Port Clear Output, offset: 0x48 */
-  __O  uint32_t PTOR;                              /**< Port Toggle Output, offset: 0x4C */
+  __IO uint32_t PSOR;                              /**< Port Set Output, offset: 0x44 */
+  __IO uint32_t PCOR;                              /**< Port Clear Output, offset: 0x48 */
+  __IO uint32_t PTOR;                              /**< Port Toggle Output, offset: 0x4C */
   __I  uint32_t PDIR;                              /**< Port Data Input, offset: 0x50 */
   __IO uint32_t PDDR;                              /**< Port Data Direction, offset: 0x54 */
   __IO uint32_t PIDR;                              /**< Port Input Disable, offset: 0x58 */
        uint8_t RESERVED_1[4];
   __IO uint8_t PDR[GPIO_PDR_COUNT];                /**< Pin Data, array offset: 0x60, array step: 0x1 */
   __IO uint32_t ICR[GPIO_ICR_COUNT];               /**< Interrupt Control 0..Interrupt Control 31, array offset: 0x80, array step: 0x4 */
-  __O  uint32_t GICLR;                             /**< Global Interrupt Control Low, offset: 0x100 */
-  __O  uint32_t GICHR;                             /**< Global Interrupt Control High, offset: 0x104 */
+  __IO uint32_t GICLR;                             /**< Global Interrupt Control Low, offset: 0x100 */
+  __IO uint32_t GICHR;                             /**< Global Interrupt Control High, offset: 0x104 */
        uint8_t RESERVED_2[24];
   __IO uint32_t ISFR[GPIO_ISFR_COUNT];             /**< Interrupt Status Flag, array offset: 0x120, array step: 0x4 */
 } GPIO_Type;

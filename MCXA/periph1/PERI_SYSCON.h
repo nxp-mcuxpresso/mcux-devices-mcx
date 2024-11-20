@@ -1,26 +1,38 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
+**                          MCXA145VFT
+**                          MCXA145VLH
 **                          MCXA145VLL
 **                          MCXA145VMP
 **                          MCXA145VPJ
+**                          MCXA146VFT
+**                          MCXA146VLH
 **                          MCXA146VLL
 **                          MCXA146VMP
 **                          MCXA146VPJ
+**                          MCXA154VFT
+**                          MCXA154VLH
 **                          MCXA154VLL
 **                          MCXA154VMP
 **                          MCXA154VPJ
+**                          MCXA155VFT
+**                          MCXA155VLH
 **                          MCXA155VLL
 **                          MCXA155VMP
 **                          MCXA155VPJ
+**                          MCXA156VFT
+**                          MCXA156VLH
 **                          MCXA156VLL
 **                          MCXA156VMP
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240705
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SYSCON
@@ -51,17 +63,17 @@
 #if !defined(SYSCON_H_)
 #define SYSCON_H_                                /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
+#if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
-#elif (defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
+#elif (defined(CPU_MCXA145VFT) || defined(CPU_MCXA145VLH) || defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
 #include "MCXA145_COMMON.h"
-#elif (defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
+#elif (defined(CPU_MCXA146VFT) || defined(CPU_MCXA146VLH) || defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
 #include "MCXA146_COMMON.h"
-#elif (defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
+#elif (defined(CPU_MCXA154VFT) || defined(CPU_MCXA154VLH) || defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
 #include "MCXA154_COMMON.h"
-#elif (defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
+#elif (defined(CPU_MCXA155VFT) || defined(CPU_MCXA155VLH) || defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
 #include "MCXA155_COMMON.h"
-#elif (defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
+#elif (defined(CPU_MCXA156VFT) || defined(CPU_MCXA156VLH) || defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
 #include "MCXA156_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -292,8 +304,8 @@ typedef struct {
 #define SYSCON_NMISRC_NMIENCPU0_MASK             (0x80000000U)
 #define SYSCON_NMISRC_NMIENCPU0_SHIFT            (31U)
 /*! NMIENCPU0 - Enables the Non-Maskable Interrupt (NMI) source selected by IRQCPU0.
- *  0b1..Enable.
  *  0b0..Disable.
+ *  0b1..Enable.
  */
 #define SYSCON_NMISRC_NMIENCPU0(x)               (((uint32_t)(((uint32_t)(x)) << SYSCON_NMISRC_NMIENCPU0_SHIFT)) & SYSCON_NMISRC_NMIENCPU0_MASK)
 /*! @} */
@@ -304,24 +316,24 @@ typedef struct {
 #define SYSCON_SLOWCLKDIV_RESET_MASK             (0x20000000U)
 #define SYSCON_SLOWCLKDIV_RESET_SHIFT            (29U)
 /*! RESET - Resets the divider counter
- *  0b1..Divider is reset
  *  0b0..Divider is not reset
+ *  0b1..Divider is reset
  */
 #define SYSCON_SLOWCLKDIV_RESET(x)               (((uint32_t)(((uint32_t)(x)) << SYSCON_SLOWCLKDIV_RESET_SHIFT)) & SYSCON_SLOWCLKDIV_RESET_MASK)
 
 #define SYSCON_SLOWCLKDIV_HALT_MASK              (0x40000000U)
 #define SYSCON_SLOWCLKDIV_HALT_SHIFT             (30U)
 /*! HALT - Halts the divider counter
- *  0b1..Divider clock is stopped
  *  0b0..Divider clock is running
+ *  0b1..Divider clock is stopped
  */
 #define SYSCON_SLOWCLKDIV_HALT(x)                (((uint32_t)(((uint32_t)(x)) << SYSCON_SLOWCLKDIV_HALT_SHIFT)) & SYSCON_SLOWCLKDIV_HALT_MASK)
 
 #define SYSCON_SLOWCLKDIV_UNSTAB_MASK            (0x80000000U)
 #define SYSCON_SLOWCLKDIV_UNSTAB_SHIFT           (31U)
 /*! UNSTAB - Divider status flag
- *  0b1..Clock frequency is not stable
  *  0b0..Divider clock is stable
+ *  0b1..Clock frequency is not stable
  */
 #define SYSCON_SLOWCLKDIV_UNSTAB(x)              (((uint32_t)(((uint32_t)(x)) << SYSCON_SLOWCLKDIV_UNSTAB_SHIFT)) & SYSCON_SLOWCLKDIV_UNSTAB_MASK)
 /*! @} */
@@ -337,8 +349,8 @@ typedef struct {
 #define SYSCON_AHBCLKDIV_UNSTAB_MASK             (0x80000000U)
 #define SYSCON_AHBCLKDIV_UNSTAB_SHIFT            (31U)
 /*! UNSTAB - Divider status flag
- *  0b1..Clock frequency is not stable
  *  0b0..Divider clock is stable
+ *  0b1..Clock frequency is not stable
  */
 #define SYSCON_AHBCLKDIV_UNSTAB(x)               (((uint32_t)(((uint32_t)(x)) << SYSCON_AHBCLKDIV_UNSTAB_SHIFT)) & SYSCON_AHBCLKDIV_UNSTAB_MASK)
 /*! @} */
@@ -349,8 +361,8 @@ typedef struct {
 #define SYSCON_CLKUNLOCK_UNLOCK_MASK             (0x1U)
 #define SYSCON_CLKUNLOCK_UNLOCK_SHIFT            (0U)
 /*! UNLOCK - Controls clock configuration registers access (for example, MRCC_xxx_CLKDIV, MRCC_xxx_CLKSEL, MRCC_GLB_xxx)
- *  0b1..Freezes all clock configuration registers update.
  *  0b0..Updates are allowed to all clock configuration registers
+ *  0b1..Freezes all clock configuration registers update.
  */
 #define SYSCON_CLKUNLOCK_UNLOCK(x)               (((uint32_t)(((uint32_t)(x)) << SYSCON_CLKUNLOCK_UNLOCK_SHIFT)) & SYSCON_CLKUNLOCK_UNLOCK_MASK)
 /*! @} */
@@ -405,16 +417,16 @@ typedef struct {
 #define SYSCON_CPUSTAT_CPU0SLEEPING_MASK         (0x1U)
 #define SYSCON_CPUSTAT_CPU0SLEEPING_SHIFT        (0U)
 /*! CPU0SLEEPING - CPU0 sleeping state
- *  0b1..CPU is sleeping
  *  0b0..CPU is not sleeping
+ *  0b1..CPU is sleeping
  */
 #define SYSCON_CPUSTAT_CPU0SLEEPING(x)           (((uint32_t)(((uint32_t)(x)) << SYSCON_CPUSTAT_CPU0SLEEPING_SHIFT)) & SYSCON_CPUSTAT_CPU0SLEEPING_MASK)
 
 #define SYSCON_CPUSTAT_CPU0LOCKUP_MASK           (0x4U)
 #define SYSCON_CPUSTAT_CPU0LOCKUP_SHIFT          (2U)
 /*! CPU0LOCKUP - CPU0 lockup state
- *  0b1..CPU is in lockup
  *  0b0..CPU is not in lockup
+ *  0b1..CPU is in lockup
  */
 #define SYSCON_CPUSTAT_CPU0LOCKUP(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_CPUSTAT_CPU0LOCKUP_SHIFT)) & SYSCON_CPUSTAT_CPU0LOCKUP_MASK)
 /*! @} */
@@ -449,32 +461,32 @@ typedef struct {
 #define SYSCON_LPCAC_CTRL_DIS_LPCAC_WTBF_MASK    (0x10U)
 #define SYSCON_LPCAC_CTRL_DIS_LPCAC_WTBF_SHIFT   (4U)
 /*! DIS_LPCAC_WTBF - Disable LPCAC Write Through Buffer.
- *  0b1..Disables write through buffer
  *  0b0..Enables write through buffer
+ *  0b1..Disables write through buffer
  */
 #define SYSCON_LPCAC_CTRL_DIS_LPCAC_WTBF(x)      (((uint32_t)(((uint32_t)(x)) << SYSCON_LPCAC_CTRL_DIS_LPCAC_WTBF_SHIFT)) & SYSCON_LPCAC_CTRL_DIS_LPCAC_WTBF_MASK)
 
 #define SYSCON_LPCAC_CTRL_LIM_LPCAC_WTBF_MASK    (0x20U)
 #define SYSCON_LPCAC_CTRL_LIM_LPCAC_WTBF_SHIFT   (5U)
 /*! LIM_LPCAC_WTBF - Limit LPCAC Write Through Buffer.
- *  0b1..Write buffer enabled when transaction is cacheable and bufferable
  *  0b0..Write buffer enabled when transaction is bufferable.
+ *  0b1..Write buffer enabled when transaction is cacheable and bufferable
  */
 #define SYSCON_LPCAC_CTRL_LIM_LPCAC_WTBF(x)      (((uint32_t)(((uint32_t)(x)) << SYSCON_LPCAC_CTRL_LIM_LPCAC_WTBF_SHIFT)) & SYSCON_LPCAC_CTRL_LIM_LPCAC_WTBF_MASK)
 
 #define SYSCON_LPCAC_CTRL_LPCAC_XOM_MASK         (0x80U)
 #define SYSCON_LPCAC_CTRL_LPCAC_XOM_SHIFT        (7U)
 /*! LPCAC_XOM - LPCAC XOM(eXecute-Only-Memory) attribute control
- *  0b1..Enabled.
  *  0b0..Disabled.
+ *  0b1..Enabled.
  */
 #define SYSCON_LPCAC_CTRL_LPCAC_XOM(x)           (((uint32_t)(((uint32_t)(x)) << SYSCON_LPCAC_CTRL_LPCAC_XOM_SHIFT)) & SYSCON_LPCAC_CTRL_LPCAC_XOM_MASK)
 
 #define SYSCON_LPCAC_CTRL_LPCAC_MEM_REQ_MASK     (0x100U)
 #define SYSCON_LPCAC_CTRL_LPCAC_MEM_REQ_SHIFT    (8U)
 /*! LPCAC_MEM_REQ - Request LPCAC memories.
- *  0b1..Configure shared memories RAMX1 as LPCAC memories, write one lock until a system reset.
  *  0b0..Configure shared memories RAMX1 as general memories.
+ *  0b1..Configure shared memories RAMX1 as LPCAC memories, write one lock until a system reset.
  */
 #define SYSCON_LPCAC_CTRL_LPCAC_MEM_REQ(x)       (((uint32_t)(((uint32_t)(x)) << SYSCON_LPCAC_CTRL_LPCAC_MEM_REQ_SHIFT)) & SYSCON_LPCAC_CTRL_LPCAC_MEM_REQ_MASK)
 /*! @} */
@@ -485,32 +497,32 @@ typedef struct {
 #define SYSCON_PWM0SUBCTL_CLK0_EN_MASK           (0x1U)
 #define SYSCON_PWM0SUBCTL_CLK0_EN_SHIFT          (0U)
 /*! CLK0_EN - Enables PWM0 SUB Clock0
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_PWM0SUBCTL_CLK0_EN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_PWM0SUBCTL_CLK0_EN_SHIFT)) & SYSCON_PWM0SUBCTL_CLK0_EN_MASK)
 
 #define SYSCON_PWM0SUBCTL_CLK1_EN_MASK           (0x2U)
 #define SYSCON_PWM0SUBCTL_CLK1_EN_SHIFT          (1U)
 /*! CLK1_EN - Enables PWM0 SUB Clock1
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_PWM0SUBCTL_CLK1_EN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_PWM0SUBCTL_CLK1_EN_SHIFT)) & SYSCON_PWM0SUBCTL_CLK1_EN_MASK)
 
 #define SYSCON_PWM0SUBCTL_CLK2_EN_MASK           (0x4U)
 #define SYSCON_PWM0SUBCTL_CLK2_EN_SHIFT          (2U)
 /*! CLK2_EN - Enables PWM0 SUB Clock2
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_PWM0SUBCTL_CLK2_EN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_PWM0SUBCTL_CLK2_EN_SHIFT)) & SYSCON_PWM0SUBCTL_CLK2_EN_MASK)
 
 #define SYSCON_PWM0SUBCTL_CLK3_EN_MASK           (0x8U)
 #define SYSCON_PWM0SUBCTL_CLK3_EN_SHIFT          (3U)
 /*! CLK3_EN - Enables PWM0 SUB Clock3
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_PWM0SUBCTL_CLK3_EN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_PWM0SUBCTL_CLK3_EN_SHIFT)) & SYSCON_PWM0SUBCTL_CLK3_EN_MASK)
 /*! @} */
@@ -521,32 +533,32 @@ typedef struct {
 #define SYSCON_PWM1SUBCTL_CLK0_EN_MASK           (0x1U)
 #define SYSCON_PWM1SUBCTL_CLK0_EN_SHIFT          (0U)
 /*! CLK0_EN - Enables PWM1 SUB Clock0
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_PWM1SUBCTL_CLK0_EN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_PWM1SUBCTL_CLK0_EN_SHIFT)) & SYSCON_PWM1SUBCTL_CLK0_EN_MASK)
 
 #define SYSCON_PWM1SUBCTL_CLK1_EN_MASK           (0x2U)
 #define SYSCON_PWM1SUBCTL_CLK1_EN_SHIFT          (1U)
 /*! CLK1_EN - Enables PWM1 SUB Clock1
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_PWM1SUBCTL_CLK1_EN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_PWM1SUBCTL_CLK1_EN_SHIFT)) & SYSCON_PWM1SUBCTL_CLK1_EN_MASK)
 
 #define SYSCON_PWM1SUBCTL_CLK2_EN_MASK           (0x4U)
 #define SYSCON_PWM1SUBCTL_CLK2_EN_SHIFT          (2U)
 /*! CLK2_EN - Enables PWM1 SUB Clock2
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_PWM1SUBCTL_CLK2_EN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_PWM1SUBCTL_CLK2_EN_SHIFT)) & SYSCON_PWM1SUBCTL_CLK2_EN_MASK)
 
 #define SYSCON_PWM1SUBCTL_CLK3_EN_MASK           (0x8U)
 #define SYSCON_PWM1SUBCTL_CLK3_EN_SHIFT          (3U)
 /*! CLK3_EN - Enables PWM1 SUB Clock3
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_PWM1SUBCTL_CLK3_EN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_PWM1SUBCTL_CLK3_EN_SHIFT)) & SYSCON_PWM1SUBCTL_CLK3_EN_MASK)
 /*! @} */
@@ -557,40 +569,40 @@ typedef struct {
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER0_CLK_EN_MASK (0x1U)
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER0_CLK_EN_SHIFT (0U)
 /*! CTIMER0_CLK_EN - Enables the CTIMER0 function clock
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER0_CLK_EN(x) (((uint32_t)(((uint32_t)(x)) << SYSCON_CTIMERGLOBALSTARTEN_CTIMER0_CLK_EN_SHIFT)) & SYSCON_CTIMERGLOBALSTARTEN_CTIMER0_CLK_EN_MASK)
 
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER1_CLK_EN_MASK (0x2U)
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER1_CLK_EN_SHIFT (1U)
 /*! CTIMER1_CLK_EN - Enables the CTIMER1 function clock
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER1_CLK_EN(x) (((uint32_t)(((uint32_t)(x)) << SYSCON_CTIMERGLOBALSTARTEN_CTIMER1_CLK_EN_SHIFT)) & SYSCON_CTIMERGLOBALSTARTEN_CTIMER1_CLK_EN_MASK)
 
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER2_CLK_EN_MASK (0x4U)
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER2_CLK_EN_SHIFT (2U)
 /*! CTIMER2_CLK_EN - Enables the CTIMER2 function clock
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER2_CLK_EN(x) (((uint32_t)(((uint32_t)(x)) << SYSCON_CTIMERGLOBALSTARTEN_CTIMER2_CLK_EN_SHIFT)) & SYSCON_CTIMERGLOBALSTARTEN_CTIMER2_CLK_EN_MASK)
 
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER3_CLK_EN_MASK (0x8U)
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER3_CLK_EN_SHIFT (3U)
 /*! CTIMER3_CLK_EN - Enables the CTIMER3 function clock
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER3_CLK_EN(x) (((uint32_t)(((uint32_t)(x)) << SYSCON_CTIMERGLOBALSTARTEN_CTIMER3_CLK_EN_SHIFT)) & SYSCON_CTIMERGLOBALSTARTEN_CTIMER3_CLK_EN_MASK)
 
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER4_CLK_EN_MASK (0x10U)
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER4_CLK_EN_SHIFT (4U)
 /*! CTIMER4_CLK_EN - Enables the CTIMER4 function clock
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define SYSCON_CTIMERGLOBALSTARTEN_CTIMER4_CLK_EN(x) (((uint32_t)(((uint32_t)(x)) << SYSCON_CTIMERGLOBALSTARTEN_CTIMER4_CLK_EN_SHIFT)) & SYSCON_CTIMERGLOBALSTARTEN_CTIMER4_CLK_EN_MASK)
 /*! @} */
@@ -601,32 +613,32 @@ typedef struct {
 #define SYSCON_RAM_CTRL_RAMA_ECC_ENABLE_MASK     (0x1U)
 #define SYSCON_RAM_CTRL_RAMA_ECC_ENABLE_SHIFT    (0U)
 /*! RAMA_ECC_ENABLE - RAMA0 ECC enable
- *  0b1..ECC is enabled
  *  0b0..ECC is disabled
+ *  0b1..ECC is enabled
  */
 #define SYSCON_RAM_CTRL_RAMA_ECC_ENABLE(x)       (((uint32_t)(((uint32_t)(x)) << SYSCON_RAM_CTRL_RAMA_ECC_ENABLE_SHIFT)) & SYSCON_RAM_CTRL_RAMA_ECC_ENABLE_MASK)
 
 #define SYSCON_RAM_CTRL_RAMA_CG_OVERRIDE_MASK    (0x10000U)
 #define SYSCON_RAM_CTRL_RAMA_CG_OVERRIDE_SHIFT   (16U)
 /*! RAMA_CG_OVERRIDE - RAMA bank clock gating control, only avaiable when RAMA_ECC_ENABLE = 0.
- *  0b1..Auto clock gating feature is disabled
  *  0b0..Memory bank clock is gated automatically if no access more than 16 clock cycles
+ *  0b1..Auto clock gating feature is disabled
  */
 #define SYSCON_RAM_CTRL_RAMA_CG_OVERRIDE(x)      (((uint32_t)(((uint32_t)(x)) << SYSCON_RAM_CTRL_RAMA_CG_OVERRIDE_SHIFT)) & SYSCON_RAM_CTRL_RAMA_CG_OVERRIDE_MASK)
 
 #define SYSCON_RAM_CTRL_RAMX_CG_OVERRIDE_MASK    (0x20000U)
 #define SYSCON_RAM_CTRL_RAMX_CG_OVERRIDE_SHIFT   (17U)
 /*! RAMX_CG_OVERRIDE - RAMX bank clock gating control
- *  0b1..Auto clock gating feature is disabled
  *  0b0..Memory bank clock is gated automatically if no access more than 16 clock cycles
+ *  0b1..Auto clock gating feature is disabled
  */
 #define SYSCON_RAM_CTRL_RAMX_CG_OVERRIDE(x)      (((uint32_t)(((uint32_t)(x)) << SYSCON_RAM_CTRL_RAMX_CG_OVERRIDE_SHIFT)) & SYSCON_RAM_CTRL_RAMX_CG_OVERRIDE_MASK)
 
 #define SYSCON_RAM_CTRL_RAMB_CG_OVERRIDE_MASK    (0x40000U)
 #define SYSCON_RAM_CTRL_RAMB_CG_OVERRIDE_SHIFT   (18U)
 /*! RAMB_CG_OVERRIDE - RAMB bank clock gating control
- *  0b1..Auto clock gating feature is disabled
  *  0b0..Memory bank clock is gated automatically if no access more than 16 clock cycles
+ *  0b1..Auto clock gating feature is disabled
  */
 #define SYSCON_RAM_CTRL_RAMB_CG_OVERRIDE(x)      (((uint32_t)(((uint32_t)(x)) << SYSCON_RAM_CTRL_RAMB_CG_OVERRIDE_SHIFT)) & SYSCON_RAM_CTRL_RAMB_CG_OVERRIDE_MASK)
 /*! @} */
@@ -718,40 +730,40 @@ typedef struct {
 #define SYSCON_SRAM_XEN_RAMX0_XEN_MASK           (0x1U)
 #define SYSCON_SRAM_XEN_RAMX0_XEN_SHIFT          (0U)
 /*! RAMX0_XEN - RAMX0 Execute permission control.
- *  0b1..Execute permission is enabled, R/W/X are enabled.
  *  0b0..Execute permission is disabled, R/W are enabled.
+ *  0b1..Execute permission is enabled, R/W/X are enabled.
  */
 #define SYSCON_SRAM_XEN_RAMX0_XEN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_SRAM_XEN_RAMX0_XEN_SHIFT)) & SYSCON_SRAM_XEN_RAMX0_XEN_MASK)
 
 #define SYSCON_SRAM_XEN_RAMX1_XEN_MASK           (0x2U)
 #define SYSCON_SRAM_XEN_RAMX1_XEN_SHIFT          (1U)
 /*! RAMX1_XEN - RAMX1 Execute permission control.
- *  0b1..Execute permission is enabled, R/W/X are enabled.
  *  0b0..Execute permission is disabled, R/W are enabled.
+ *  0b1..Execute permission is enabled, R/W/X are enabled.
  */
 #define SYSCON_SRAM_XEN_RAMX1_XEN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_SRAM_XEN_RAMX1_XEN_SHIFT)) & SYSCON_SRAM_XEN_RAMX1_XEN_MASK)
 
 #define SYSCON_SRAM_XEN_RAMA0_XEN_MASK           (0x4U)
 #define SYSCON_SRAM_XEN_RAMA0_XEN_SHIFT          (2U)
 /*! RAMA0_XEN - RAMA0 Execute permission control.
- *  0b1..Execute permission is enabled, R/W/X are enabled.
  *  0b0..Execute permission is disabled, R/W are enabled.
+ *  0b1..Execute permission is enabled, R/W/X are enabled.
  */
 #define SYSCON_SRAM_XEN_RAMA0_XEN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_SRAM_XEN_RAMA0_XEN_SHIFT)) & SYSCON_SRAM_XEN_RAMA0_XEN_MASK)
 
 #define SYSCON_SRAM_XEN_RAMA1_XEN_MASK           (0x8U)
 #define SYSCON_SRAM_XEN_RAMA1_XEN_SHIFT          (3U)
 /*! RAMA1_XEN - RAMAx (excepts RAMA0) Execute permission control.
- *  0b1..Execute permission is enabled, R/W/X are enabled.
  *  0b0..Execute permission is disabled, R/W are enabled.
+ *  0b1..Execute permission is enabled, R/W/X are enabled.
  */
 #define SYSCON_SRAM_XEN_RAMA1_XEN(x)             (((uint32_t)(((uint32_t)(x)) << SYSCON_SRAM_XEN_RAMA1_XEN_SHIFT)) & SYSCON_SRAM_XEN_RAMA1_XEN_MASK)
 
 #define SYSCON_SRAM_XEN_RAMB_XEN_MASK            (0x10U)
 #define SYSCON_SRAM_XEN_RAMB_XEN_SHIFT           (4U)
 /*! RAMB_XEN - RAMBx Execute permission control.
- *  0b1..Execute permission is enabled, R/W/X are enabled.
  *  0b0..Execute permission is disabled, R/W are enabled.
+ *  0b1..Execute permission is enabled, R/W/X are enabled.
  */
 #define SYSCON_SRAM_XEN_RAMB_XEN(x)              (((uint32_t)(((uint32_t)(x)) << SYSCON_SRAM_XEN_RAMB_XEN_SHIFT)) & SYSCON_SRAM_XEN_RAMB_XEN_MASK)
 
@@ -818,8 +830,8 @@ typedef struct {
 #define SYSCON_DEBUG_LOCK_EN_LOCK_ALL_MASK       (0xFU)
 #define SYSCON_DEBUG_LOCK_EN_LOCK_ALL_SHIFT      (0U)
 /*! LOCK_ALL - Controls write access to the security registers
- *  0b1010..Enables write access to all registers
  *  0b0000..Any other value than b1010: disables write access to all registers
+ *  0b1010..Enables write access to all registers
  */
 #define SYSCON_DEBUG_LOCK_EN_LOCK_ALL(x)         (((uint32_t)(((uint32_t)(x)) << SYSCON_DEBUG_LOCK_EN_LOCK_ALL_SHIFT)) & SYSCON_DEBUG_LOCK_EN_LOCK_ALL_MASK)
 /*! @} */
@@ -870,8 +882,8 @@ typedef struct {
 #define SYSCON_SWD_ACCESS_CPU0_SEC_CODE_MASK     (0xFFFFFFFFU)
 #define SYSCON_SWD_ACCESS_CPU0_SEC_CODE_SHIFT    (0U)
 /*! SEC_CODE - CPU0 SWD-AP: 0x12345678
- *  0b00010010001101000101011001111000..Value to write to enable CPU0 SWD access. Reading back register is read as 0xA.
  *  0b00000000000000000000000000000000..CPU0 DAP is not allowed. Reading back register is read as 0x5.
+ *  0b00010010001101000101011001111000..Value to write to enable CPU0 SWD access. Reading back register is read as 0xA.
  */
 #define SYSCON_SWD_ACCESS_CPU0_SEC_CODE(x)       (((uint32_t)(((uint32_t)(x)) << SYSCON_SWD_ACCESS_CPU0_SEC_CODE_SHIFT)) & SYSCON_SWD_ACCESS_CPU0_SEC_CODE_MASK)
 /*! @} */
@@ -944,8 +956,8 @@ typedef struct {
 #define SYSCON_DEVICE_ID0_SECURITY_MASK          (0xF000000U)
 #define SYSCON_DEVICE_ID0_SECURITY_SHIFT         (24U)
 /*! SECURITY
- *  0b1010..Non secure version.
  *  0b0101..Secure version.
+ *  0b1010..Non secure version.
  */
 #define SYSCON_DEVICE_ID0_SECURITY(x)            (((uint32_t)(((uint32_t)(x)) << SYSCON_DEVICE_ID0_SECURITY_SHIFT)) & SYSCON_DEVICE_ID0_SECURITY_MASK)
 /*! @} */

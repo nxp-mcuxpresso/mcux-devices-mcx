@@ -1,26 +1,38 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
+**                          MCXA145VFT
+**                          MCXA145VLH
 **                          MCXA145VLL
 **                          MCXA145VMP
 **                          MCXA145VPJ
+**                          MCXA146VFT
+**                          MCXA146VLH
 **                          MCXA146VLL
 **                          MCXA146VMP
 **                          MCXA146VPJ
+**                          MCXA154VFT
+**                          MCXA154VLH
 **                          MCXA154VLL
 **                          MCXA154VMP
 **                          MCXA154VPJ
+**                          MCXA155VFT
+**                          MCXA155VLH
 **                          MCXA155VLL
 **                          MCXA155VMP
 **                          MCXA155VPJ
+**                          MCXA156VFT
+**                          MCXA156VLH
 **                          MCXA156VLL
 **                          MCXA156VMP
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240705
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for INPUTMUX
@@ -51,17 +63,17 @@
 #if !defined(INPUTMUX_H_)
 #define INPUTMUX_H_                              /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
+#if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
-#elif (defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
+#elif (defined(CPU_MCXA145VFT) || defined(CPU_MCXA145VLH) || defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
 #include "MCXA145_COMMON.h"
-#elif (defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
+#elif (defined(CPU_MCXA146VFT) || defined(CPU_MCXA146VLH) || defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
 #include "MCXA146_COMMON.h"
-#elif (defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
+#elif (defined(CPU_MCXA154VFT) || defined(CPU_MCXA154VLH) || defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
 #include "MCXA154_COMMON.h"
-#elif (defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
+#elif (defined(CPU_MCXA155VFT) || defined(CPU_MCXA155VLH) || defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
 #include "MCXA155_COMMON.h"
-#elif (defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
+#elif (defined(CPU_MCXA156VFT) || defined(CPU_MCXA156VLH) || defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
 #include "MCXA156_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -334,7 +346,6 @@ typedef struct {
  *  0b1011111..LPI2C2 Slave End of Packet input is selected
  *  0b1100000..LPI2C3 Master End of Packet input is selected
  *  0b1100001..LPI2C3 Slave End of Packet input is selected
- *  *..
  */
 #define INPUTMUX_CTIMERA_CTIMER0CAP_INP(x)       (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CTIMERA_CTIMER0CAP_INP_SHIFT)) & INPUTMUX_CTIMERA_CTIMER0CAP_INP_MASK)
 /*! @} */
@@ -446,7 +457,6 @@ typedef struct {
  *  0b1011111..LPI2C2 Slave End of Packet input is selected
  *  0b1100000..LPI2C3 Master End of Packet input is selected
  *  0b1100001..LPI2C3 Slave End of Packet input is selected
- *  *..
  */
 #define INPUTMUX_TIMER0TRIG_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TIMER0TRIG_INP_SHIFT)) & INPUTMUX_TIMER0TRIG_INP_MASK)
 /*! @} */
@@ -555,7 +565,6 @@ typedef struct {
  *  0b1011111..LPI2C2 Slave End of Packet input is selected
  *  0b1100000..LPI2C3 Master End of Packet input is selected
  *  0b1100001..LPI2C3 Slave End of Packet input is selected
- *  *..
  */
 #define INPUTMUX_CTIMERB_CTIMER1CAP_INP(x)       (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CTIMERB_CTIMER1CAP_INP_SHIFT)) & INPUTMUX_CTIMERB_CTIMER1CAP_INP_MASK)
 /*! @} */
@@ -667,7 +676,6 @@ typedef struct {
  *  0b1011111..LPI2C2 Slave End of Packet input is selected
  *  0b1100000..LPI2C3 Master End of Packet input is selected
  *  0b1100001..LPI2C3 Slave End of Packet input is selected
- *  *..
  */
 #define INPUTMUX_TIMER1TRIG_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TIMER1TRIG_INP_SHIFT)) & INPUTMUX_TIMER1TRIG_INP_MASK)
 /*! @} */
@@ -776,7 +784,6 @@ typedef struct {
  *  0b1011111..LPI2C2 Slave End of Packet input is selected
  *  0b1100000..LPI2C3 Master End of Packet input is selected
  *  0b1100001..LPI2C3 Slave End of Packet input is selected
- *  *..
  */
 #define INPUTMUX_CTIMERC_CTIMER2CAP_INP(x)       (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CTIMERC_CTIMER2CAP_INP_SHIFT)) & INPUTMUX_CTIMERC_CTIMER2CAP_INP_MASK)
 /*! @} */
@@ -888,7 +895,6 @@ typedef struct {
  *  0b1011111..LPI2C2 Slave End of Packet input is selected
  *  0b1100000..LPI2C3 Master End of Packet input is selected
  *  0b1100001..LPI2C3 Slave End of Packet input is selected
- *  *..
  */
 #define INPUTMUX_TIMER2TRIG_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TIMER2TRIG_INP_SHIFT)) & INPUTMUX_TIMER2TRIG_INP_MASK)
 /*! @} */
@@ -942,7 +948,6 @@ typedef struct {
  *  0b0101000..Reserved
  *  0b0101001..Reserved
  *  0b0111111..Reserved(NO Clock)
- *  *..
  */
 #define INPUTMUX_FREQMEAS_REF_INP(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FREQMEAS_REF_INP_SHIFT)) & INPUTMUX_FREQMEAS_REF_INP_MASK)
 /*! @} */
@@ -996,7 +1001,6 @@ typedef struct {
  *  0b0101000..Reserved
  *  0b0101001..Reserved
  *  0b0111111..Reserved(NO Clock)
- *  *..
  */
 #define INPUTMUX_FREQMEAS_TAR_INP(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FREQMEAS_TAR_INP_SHIFT)) & INPUTMUX_FREQMEAS_TAR_INP_MASK)
 /*! @} */
@@ -1105,7 +1109,6 @@ typedef struct {
  *  0b1011111..LPI2C2 Slave End of Packet input is selected
  *  0b1100000..LPI2C3 Master End of Packet input is selected
  *  0b1100001..LPI2C3 Slave End of Packet input is selected
- *  *..
  */
 #define INPUTMUX_CTIMERD_CTIMER3CAP_INP(x)       (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CTIMERD_CTIMER3CAP_INP_SHIFT)) & INPUTMUX_CTIMERD_CTIMER3CAP_INP_MASK)
 /*! @} */
@@ -1217,7 +1220,6 @@ typedef struct {
  *  0b1011111..LPI2C2 Slave End of Packet input is selected
  *  0b1100000..LPI2C3 Master End of Packet input is selected
  *  0b1100001..LPI2C3 Slave End of Packet input is selected
- *  *..
  */
 #define INPUTMUX_TIMER3TRIG_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TIMER3TRIG_INP_SHIFT)) & INPUTMUX_TIMER3TRIG_INP_MASK)
 /*! @} */
@@ -1326,7 +1328,6 @@ typedef struct {
  *  0b1011111..LPI2C2 Slave End of Packet input is selected
  *  0b1100000..LPI2C3 Master End of Packet input is selected
  *  0b1100001..LPI2C3 Slave End of Packet input is selected
- *  *..
  */
 #define INPUTMUX_CTIMERE_CTIMER4CAP_INP(x)       (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CTIMERE_CTIMER4CAP_INP_SHIFT)) & INPUTMUX_CTIMERE_CTIMER4CAP_INP_MASK)
 /*! @} */
@@ -1438,7 +1439,6 @@ typedef struct {
  *  0b1011111..LPI2C2 Slave End of Packet input is selected
  *  0b1100000..LPI2C3 Master End of Packet input is selected
  *  0b1100001..LPI2C3 Slave End of Packet input is selected
- *  *..
  */
 #define INPUTMUX_TIMER4TRIG_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TIMER4TRIG_INP_SHIFT)) & INPUTMUX_TIMER4TRIG_INP_MASK)
 /*! @} */
@@ -1530,7 +1530,6 @@ typedef struct {
  *  0b1001110..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b1001111..Reserved
  *  0b1010000..Reserved
- *  *..
  */
 #define INPUTMUX_AOI1_INPUTM_AOI1_INPUT_INP(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_AOI1_INPUTM_AOI1_INPUT_INP_SHIFT)) & INPUTMUX_AOI1_INPUTM_AOI1_INPUT_INP_MASK)
 /*! @} */
@@ -1600,7 +1599,6 @@ typedef struct {
  *  0b110101..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b110110..Reserved
  *  0b110111..Reserved
- *  *..
  */
 #define INPUTMUX_CMP0_TRIG_TRIGIN(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CMP0_TRIG_TRIGIN_SHIFT)) & INPUTMUX_CMP0_TRIG_TRIGIN_MASK)
 /*! @} */
@@ -1669,7 +1667,6 @@ typedef struct {
  *  0b110111..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111000..Reserved
  *  0b111001..Reserved
- *  *..
  */
 #define INPUTMUX_ADC0_TRIGM_ADC0_TRIG_TRIGIN(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_ADC0_TRIGM_ADC0_TRIG_TRIGIN_SHIFT)) & INPUTMUX_ADC0_TRIGM_ADC0_TRIG_TRIGIN_MASK)
 /*! @} */
@@ -1741,7 +1738,6 @@ typedef struct {
  *  0b110111..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111000..Reserved
  *  0b111001..Reserved
- *  *..
  */
 #define INPUTMUX_ADC1_TRIGM_ADC1_TRIG_TRIGIN(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_ADC1_TRIGM_ADC1_TRIG_TRIGIN_SHIFT)) & INPUTMUX_ADC1_TRIGM_ADC1_TRIG_TRIGIN_MASK)
 /*! @} */
@@ -1813,7 +1809,6 @@ typedef struct {
  *  0b110111..Reserved
  *  0b111000..Reserved
  *  0b111001..Reserved
- *  *..
  */
 #define INPUTMUX_DAC0_TRIG_TRIGIN(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_DAC0_TRIG_TRIGIN_SHIFT)) & INPUTMUX_DAC0_TRIG_TRIGIN_MASK)
 /*! @} */
@@ -1894,7 +1889,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC0_TRIG_INP(x)                (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC0_TRIG_INP_SHIFT)) & INPUTMUX_QDC0_TRIG_INP_MASK)
 /*! @} */
@@ -1975,7 +1969,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC0_HOME_INP(x)                (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC0_HOME_INP_SHIFT)) & INPUTMUX_QDC0_HOME_INP_MASK)
 /*! @} */
@@ -2056,7 +2049,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC0_INDEX_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC0_INDEX_INP_SHIFT)) & INPUTMUX_QDC0_INDEX_INP_MASK)
 /*! @} */
@@ -2137,7 +2129,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC0_PHASEB_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC0_PHASEB_INP_SHIFT)) & INPUTMUX_QDC0_PHASEB_INP_MASK)
 /*! @} */
@@ -2218,7 +2209,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC0_PHASEA_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC0_PHASEA_INP_SHIFT)) & INPUTMUX_QDC0_PHASEA_INP_MASK)
 /*! @} */
@@ -2299,7 +2289,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC0_ICAP1_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC0_ICAP1_INP_SHIFT)) & INPUTMUX_QDC0_ICAP1_INP_MASK)
 /*! @} */
@@ -2380,7 +2369,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC0_ICAP2_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC0_ICAP2_INP_SHIFT)) & INPUTMUX_QDC0_ICAP2_INP_MASK)
 /*! @} */
@@ -2461,7 +2449,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC0_ICAP3_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC0_ICAP3_INP_SHIFT)) & INPUTMUX_QDC0_ICAP3_INP_MASK)
 /*! @} */
@@ -2542,7 +2529,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC1_TRIG_INP(x)                (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC1_TRIG_INP_SHIFT)) & INPUTMUX_QDC1_TRIG_INP_MASK)
 /*! @} */
@@ -2623,7 +2609,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC1_HOME_INP(x)                (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC1_HOME_INP_SHIFT)) & INPUTMUX_QDC1_HOME_INP_MASK)
 /*! @} */
@@ -2704,7 +2689,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC1_INDEX_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC1_INDEX_INP_SHIFT)) & INPUTMUX_QDC1_INDEX_INP_MASK)
 /*! @} */
@@ -2785,7 +2769,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC1_PHASEB_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC1_PHASEB_INP_SHIFT)) & INPUTMUX_QDC1_PHASEB_INP_MASK)
 /*! @} */
@@ -2866,7 +2849,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC1_PHASEA_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC1_PHASEA_INP_SHIFT)) & INPUTMUX_QDC1_PHASEA_INP_MASK)
 /*! @} */
@@ -2947,7 +2929,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC1_ICAP1_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC1_ICAP1_INP_SHIFT)) & INPUTMUX_QDC1_ICAP1_INP_MASK)
 /*! @} */
@@ -3028,7 +3009,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC1_ICAP2_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC1_ICAP2_INP_SHIFT)) & INPUTMUX_QDC1_ICAP2_INP_MASK)
 /*! @} */
@@ -3109,7 +3089,6 @@ typedef struct {
  *  0b1000011..PWM1_SM2_OUT_TRIG1 input is selected
  *  0b1000100..Reserved
  *  0b1000101..Reserved
- *  *..
  */
 #define INPUTMUX_QDC1_ICAP3_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_QDC1_ICAP3_INP_SHIFT)) & INPUTMUX_QDC1_ICAP3_INP_MASK)
 /*! @} */
@@ -3182,7 +3161,6 @@ typedef struct {
  *  0b111011..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM0_SM0_EXTA0_TRIGIN(x)    (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM0_SM0_EXTA0_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM0_SM0_EXTA0_TRIGIN_MASK)
 /*! @} */
@@ -3255,7 +3233,6 @@ typedef struct {
  *  0b111011..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM0_SM0_EXTSYNC_TRIGIN(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM0_SM0_EXTSYNC_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM0_SM0_EXTSYNC_TRIGIN_MASK)
 /*! @} */
@@ -3328,7 +3305,6 @@ typedef struct {
  *  0b111011..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM0_SM1_EXTA_TRIGIN(x)     (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM0_SM1_EXTA_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM0_SM1_EXTA_TRIGIN_MASK)
 /*! @} */
@@ -3401,7 +3377,6 @@ typedef struct {
  *  0b111011..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM0_SM1_EXTSYNC_TRIGIN(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM0_SM1_EXTSYNC_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM0_SM1_EXTSYNC_TRIGIN_MASK)
 /*! @} */
@@ -3474,7 +3449,6 @@ typedef struct {
  *  0b111011..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM0_SM2_EXTA_TRIGIN(x)     (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM0_SM2_EXTA_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM0_SM2_EXTA_TRIGIN_MASK)
 /*! @} */
@@ -3547,7 +3521,6 @@ typedef struct {
  *  0b111011..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM0_SM2_EXTSYNC_TRIGIN(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM0_SM2_EXTSYNC_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM0_SM2_EXTSYNC_TRIGIN_MASK)
 /*! @} */
@@ -3620,7 +3593,6 @@ typedef struct {
  *  0b111011..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM0_FAULT_TRIGIN(x)        (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM0_FAULT_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM0_FAULT_TRIGIN_MASK)
 /*! @} */
@@ -3693,7 +3665,6 @@ typedef struct {
  *  0b111011..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM0_FORCE_TRIGIN(x)        (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM0_FORCE_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM0_FORCE_TRIGIN_MASK)
 /*! @} */
@@ -3766,7 +3737,6 @@ typedef struct {
  *  0b111011..PWM0_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM1_SM0_EXTA0_TRIGIN(x)    (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM1_SM0_EXTA0_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM1_SM0_EXTA0_TRIGIN_MASK)
 /*! @} */
@@ -3839,7 +3809,6 @@ typedef struct {
  *  0b111011..PWM0_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM1_SM0_EXTSYNC_TRIGIN(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM1_SM0_EXTSYNC_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM1_SM0_EXTSYNC_TRIGIN_MASK)
 /*! @} */
@@ -3912,7 +3881,6 @@ typedef struct {
  *  0b111011..PWM0_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM1_SM1_EXTA_TRIGIN(x)     (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM1_SM1_EXTA_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM1_SM1_EXTA_TRIGIN_MASK)
 /*! @} */
@@ -3985,7 +3953,6 @@ typedef struct {
  *  0b111011..PWM0_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM1_SM1_EXTSYNC_TRIGIN(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM1_SM1_EXTSYNC_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM1_SM1_EXTSYNC_TRIGIN_MASK)
 /*! @} */
@@ -4058,7 +4025,6 @@ typedef struct {
  *  0b111011..PWM0_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM1_SM2_EXTA_TRIGIN(x)     (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM1_SM2_EXTA_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM1_SM2_EXTA_TRIGIN_MASK)
 /*! @} */
@@ -4131,7 +4097,6 @@ typedef struct {
  *  0b111011..PWM0_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM1_SM2_EXTSYNC_TRIGIN(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM1_SM2_EXTSYNC_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM1_SM2_EXTSYNC_TRIGIN_MASK)
 /*! @} */
@@ -4204,7 +4169,6 @@ typedef struct {
  *  0b111011..PWM0_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM1_FAULT_TRIGIN(x)        (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM1_FAULT_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM1_FAULT_TRIGIN_MASK)
 /*! @} */
@@ -4277,7 +4241,6 @@ typedef struct {
  *  0b111011..PWM0_SM2_MUX_TRIG1 input is selected
  *  0b111100..Reserved
  *  0b111101..Reserved
- *  *..
  */
 #define INPUTMUX_FLEXPWM1_FORCE_TRIGIN(x)        (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXPWM1_FORCE_TRIGIN_SHIFT)) & INPUTMUX_FLEXPWM1_FORCE_TRIGIN_MASK)
 /*! @} */
@@ -4297,7 +4260,6 @@ typedef struct {
  *  0b0110..EXTTRIG_IN7 input is selected
  *  0b0111..AOI1_OUT0 input is selected
  *  0b1000..AOI1_OUT1 input is selected
- *  *..
  */
 #define INPUTMUX_PWM0_EXT_CLK_TRIGIN(x)          (((uint32_t)(((uint32_t)(x)) << INPUTMUX_PWM0_EXT_CLK_TRIGIN_SHIFT)) & INPUTMUX_PWM0_EXT_CLK_TRIGIN_MASK)
 /*! @} */
@@ -4317,7 +4279,6 @@ typedef struct {
  *  0b0110..EXTTRIG_IN7 input is selected
  *  0b0111..AOI1_OUT0 input is selected
  *  0b1000..AOI1_OUT1 input is selected
- *  *..
  */
 #define INPUTMUX_PWM1_EXT_CLK_TRIGIN(x)          (((uint32_t)(((uint32_t)(x)) << INPUTMUX_PWM1_EXT_CLK_TRIGIN_SHIFT)) & INPUTMUX_PWM1_EXT_CLK_TRIGIN_MASK)
 /*! @} */
@@ -4409,7 +4370,6 @@ typedef struct {
  *  0b1001110..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b1001111..Reserved
  *  0b1010000..Reserved
- *  *..
  */
 #define INPUTMUX_AOI0_INPUTK_AOI0_INPUT_INP(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_AOI0_INPUTK_AOI0_INPUT_INP_SHIFT)) & INPUTMUX_AOI0_INPUTK_AOI0_INPUT_INP_MASK)
 /*! @} */
@@ -4429,7 +4389,6 @@ typedef struct {
  *  0b0011..LPUART2 lpuart_trg_txdata input is selected
  *  0b0100..LPUART3 lpuart_trg_txdata input is selected
  *  0b0101..LPUART4 lpuart_trg_txda input is selected
- *  *..
  */
 #define INPUTMUX_USBFS_TRIG_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_USBFS_TRIG_INP_SHIFT)) & INPUTMUX_USBFS_TRIG_INP_MASK)
 /*! @} */
@@ -4458,7 +4417,6 @@ typedef struct {
  *  0b01111..AOI1_OUT1 input is selected
  *  0b10000..AOI1_OUT2 input is selected
  *  0b10001..AOI1_OUT3 input is selected
- *  *..
  */
 #define INPUTMUX_EXT_TRIG0_INP(x)                (((uint32_t)(((uint32_t)(x)) << INPUTMUX_EXT_TRIG0_INP_SHIFT)) & INPUTMUX_EXT_TRIG0_INP_MASK)
 /*! @} */
@@ -4525,7 +4483,6 @@ typedef struct {
  *  0b110101..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b110110..Reserved
  *  0b110111..Reserved
- *  *..
  */
 #define INPUTMUX_CMP1_TRIG_TRIGIN(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CMP1_TRIG_TRIGIN_SHIFT)) & INPUTMUX_CMP1_TRIG_TRIGIN_MASK)
 /*! @} */
@@ -4579,7 +4536,6 @@ typedef struct {
  *  0b101000..FlexIO CH1 input is selected
  *  0b101001..FlexIO CH2 input is selected
  *  0b101010..FlexIO CH3 input is selected
- *  *..
  */
 #define INPUTMUX_LPI2C2_TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPI2C2_TRIG_INP_SHIFT)) & INPUTMUX_LPI2C2_TRIG_INP_MASK)
 /*! @} */
@@ -4648,7 +4604,6 @@ typedef struct {
  *  0b110111..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b111000..Reserved
  *  0b111001..Reserved
- *  *..
  */
 #define INPUTMUX_OPAMP0_TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_OPAMP0_TRIG_INP_SHIFT)) & INPUTMUX_OPAMP0_TRIG_INP_MASK)
 /*! @} */
@@ -4702,7 +4657,6 @@ typedef struct {
  *  0b101000..FlexIO CH1 input is selected
  *  0b101001..FlexIO CH2 input is selected
  *  0b101010..FlexIO CH3 input is selected
- *  *..
  */
 #define INPUTMUX_LPI2C0_TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPI2C0_TRIG_INP_SHIFT)) & INPUTMUX_LPI2C0_TRIG_INP_MASK)
 /*! @} */
@@ -4756,7 +4710,6 @@ typedef struct {
  *  0b101000..FlexIO CH1 input is selected
  *  0b101001..FlexIO CH2 input is selected
  *  0b101010..FlexIO CH3 input is selected
- *  *..
  */
 #define INPUTMUX_LPI2C1_TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPI2C1_TRIG_INP_SHIFT)) & INPUTMUX_LPI2C1_TRIG_INP_MASK)
 /*! @} */
@@ -4810,7 +4763,6 @@ typedef struct {
  *  0b101000..FlexIO CH1 input is selected
  *  0b101001..FlexIO CH2 input is selected
  *  0b101010..FlexIO CH3 input is selected
- *  *..
  */
 #define INPUTMUX_LPSPI0_TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPSPI0_TRIG_INP_SHIFT)) & INPUTMUX_LPSPI0_TRIG_INP_MASK)
 /*! @} */
@@ -4864,7 +4816,6 @@ typedef struct {
  *  0b101000..FlexIO CH1 input is selected
  *  0b101001..FlexIO CH2 input is selected
  *  0b101010..FlexIO CH3 input is selected
- *  *..
  */
 #define INPUTMUX_LPSPI1_TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPSPI1_TRIG_INP_SHIFT)) & INPUTMUX_LPSPI1_TRIG_INP_MASK)
 /*! @} */
@@ -4923,7 +4874,6 @@ typedef struct {
  *  0b101101..FlexIO CH1 input is selected
  *  0b101110..FlexIO CH2 input is selected
  *  0b101111..FlexIO CH3 input is selected
- *  *..
  */
 #define INPUTMUX_LPUART0_INP(x)                  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPUART0_INP_SHIFT)) & INPUTMUX_LPUART0_INP_MASK)
 /*! @} */
@@ -4982,7 +4932,6 @@ typedef struct {
  *  0b101101..FlexIO CH1 input is selected
  *  0b101110..FlexIO CH2 input is selected
  *  0b101111..FlexIO CH3 input is selected
- *  *..
  */
 #define INPUTMUX_LPUART1_INP(x)                  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPUART1_INP_SHIFT)) & INPUTMUX_LPUART1_INP_MASK)
 /*! @} */
@@ -5041,7 +4990,6 @@ typedef struct {
  *  0b101101..FlexIO CH1 input is selected
  *  0b101110..FlexIO CH2 input is selected
  *  0b101111..FlexIO CH3 input is selected
- *  *..
  */
 #define INPUTMUX_LPUART2_INP(x)                  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPUART2_INP_SHIFT)) & INPUTMUX_LPUART2_INP_MASK)
 /*! @} */
@@ -5100,7 +5048,6 @@ typedef struct {
  *  0b101101..FlexIO CH1 input is selected
  *  0b101110..FlexIO CH2 input is selected
  *  0b101111..FlexIO CH3 input is selected
- *  *..
  */
 #define INPUTMUX_LPUART3_INP(x)                  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPUART3_INP_SHIFT)) & INPUTMUX_LPUART3_INP_MASK)
 /*! @} */
@@ -5159,7 +5106,6 @@ typedef struct {
  *  0b101101..FlexIO CH1 input is selected
  *  0b101110..FlexIO CH2 input is selected
  *  0b101111..FlexIO CH3 input is selected
- *  *..
  */
 #define INPUTMUX_LPUART4_INP(x)                  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPUART4_INP_SHIFT)) & INPUTMUX_LPUART4_INP_MASK)
 /*! @} */
@@ -5251,7 +5197,6 @@ typedef struct {
  *  0b1001110..LPI2C2 Slave End of Packet
  *  0b1001111..LPI2C3 Master End of Packet
  *  0b1010000..LPI2C3 Slave End of Packet
- *  *..
  */
 #define INPUTMUX_FLEXIO_TRIGN_FLEXIO_TRIG_INP(x) (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FLEXIO_TRIGN_FLEXIO_TRIG_INP_SHIFT)) & INPUTMUX_FLEXIO_TRIGN_FLEXIO_TRIG_INP_MASK)
 /*! @} */

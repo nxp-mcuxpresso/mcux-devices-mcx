@@ -1,26 +1,38 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
+**                          MCXA145VFT
+**                          MCXA145VLH
 **                          MCXA145VLL
 **                          MCXA145VMP
 **                          MCXA145VPJ
+**                          MCXA146VFT
+**                          MCXA146VLH
 **                          MCXA146VLL
 **                          MCXA146VMP
 **                          MCXA146VPJ
+**                          MCXA154VFT
+**                          MCXA154VLH
 **                          MCXA154VLL
 **                          MCXA154VMP
 **                          MCXA154VPJ
+**                          MCXA155VFT
+**                          MCXA155VLH
 **                          MCXA155VLL
 **                          MCXA155VMP
 **                          MCXA155VPJ
+**                          MCXA156VFT
+**                          MCXA156VLH
 **                          MCXA156VLL
 **                          MCXA156VMP
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240705
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPCMP
@@ -51,17 +63,17 @@
 #if !defined(LPCMP_H_)
 #define LPCMP_H_                                 /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
+#if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
-#elif (defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
+#elif (defined(CPU_MCXA145VFT) || defined(CPU_MCXA145VLH) || defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
 #include "MCXA145_COMMON.h"
-#elif (defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
+#elif (defined(CPU_MCXA146VFT) || defined(CPU_MCXA146VLH) || defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
 #include "MCXA146_COMMON.h"
-#elif (defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
+#elif (defined(CPU_MCXA154VFT) || defined(CPU_MCXA154VLH) || defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
 #include "MCXA154_COMMON.h"
-#elif (defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
+#elif (defined(CPU_MCXA155VFT) || defined(CPU_MCXA155VLH) || defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
 #include "MCXA155_COMMON.h"
-#elif (defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
+#elif (defined(CPU_MCXA156VFT) || defined(CPU_MCXA156VLH) || defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
 #include "MCXA156_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -471,8 +483,8 @@ typedef struct {
 #define LPCMP_RRCR0_RR_EN_MASK                   (0x1U)
 #define LPCMP_RRCR0_RR_EN_SHIFT                  (0U)
 /*! RR_EN - Round-Robin Enable
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define LPCMP_RRCR0_RR_EN(x)                     (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR0_RR_EN_SHIFT)) & LPCMP_RRCR0_RR_EN_MASK)
 
@@ -585,64 +597,64 @@ typedef struct {
 #define LPCMP_RRCR1_RR_CH0EN_MASK                (0x1U)
 #define LPCMP_RRCR1_RR_CH0EN_SHIFT               (0U)
 /*! RR_CH0EN - Channel 0 Input Enable in Trigger Mode
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define LPCMP_RRCR1_RR_CH0EN(x)                  (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR1_RR_CH0EN_SHIFT)) & LPCMP_RRCR1_RR_CH0EN_MASK)
 
 #define LPCMP_RRCR1_RR_CH1EN_MASK                (0x2U)
 #define LPCMP_RRCR1_RR_CH1EN_SHIFT               (1U)
 /*! RR_CH1EN - Channel 1 Input Enable in Trigger Mode
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define LPCMP_RRCR1_RR_CH1EN(x)                  (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR1_RR_CH1EN_SHIFT)) & LPCMP_RRCR1_RR_CH1EN_MASK)
 
 #define LPCMP_RRCR1_RR_CH2EN_MASK                (0x4U)
 #define LPCMP_RRCR1_RR_CH2EN_SHIFT               (2U)
 /*! RR_CH2EN - Channel 2 Input Enable in Trigger Mode
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define LPCMP_RRCR1_RR_CH2EN(x)                  (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR1_RR_CH2EN_SHIFT)) & LPCMP_RRCR1_RR_CH2EN_MASK)
 
 #define LPCMP_RRCR1_RR_CH3EN_MASK                (0x8U)
 #define LPCMP_RRCR1_RR_CH3EN_SHIFT               (3U)
 /*! RR_CH3EN - Channel 3 Input Enable in Trigger Mode
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define LPCMP_RRCR1_RR_CH3EN(x)                  (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR1_RR_CH3EN_SHIFT)) & LPCMP_RRCR1_RR_CH3EN_MASK)
 
 #define LPCMP_RRCR1_RR_CH4EN_MASK                (0x10U)
 #define LPCMP_RRCR1_RR_CH4EN_SHIFT               (4U)
 /*! RR_CH4EN - Channel 4 Input Enable in Trigger Mode
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define LPCMP_RRCR1_RR_CH4EN(x)                  (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR1_RR_CH4EN_SHIFT)) & LPCMP_RRCR1_RR_CH4EN_MASK)
 
 #define LPCMP_RRCR1_RR_CH5EN_MASK                (0x20U)
 #define LPCMP_RRCR1_RR_CH5EN_SHIFT               (5U)
 /*! RR_CH5EN - Channel 5 Input Enable in Trigger Mode
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define LPCMP_RRCR1_RR_CH5EN(x)                  (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR1_RR_CH5EN_SHIFT)) & LPCMP_RRCR1_RR_CH5EN_MASK)
 
 #define LPCMP_RRCR1_RR_CH6EN_MASK                (0x40U)
 #define LPCMP_RRCR1_RR_CH6EN_SHIFT               (6U)
 /*! RR_CH6EN - Channel 6 Input Enable in Trigger Mode
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define LPCMP_RRCR1_RR_CH6EN(x)                  (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR1_RR_CH6EN_SHIFT)) & LPCMP_RRCR1_RR_CH6EN_MASK)
 
 #define LPCMP_RRCR1_RR_CH7EN_MASK                (0x80U)
 #define LPCMP_RRCR1_RR_CH7EN_SHIFT               (7U)
 /*! RR_CH7EN - Channel 7 Input Enable in Trigger Mode
- *  0b1..Enable
  *  0b0..Disable
+ *  0b1..Enable
  */
 #define LPCMP_RRCR1_RR_CH7EN(x)                  (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR1_RR_CH7EN_SHIFT)) & LPCMP_RRCR1_RR_CH7EN_MASK)
 

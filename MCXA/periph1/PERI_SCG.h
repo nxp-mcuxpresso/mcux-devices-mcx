@@ -1,26 +1,38 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA144VLL
+**     Processors:          MCXA144VFT
+**                          MCXA144VLH
+**                          MCXA144VLL
 **                          MCXA144VMP
 **                          MCXA144VPJ
+**                          MCXA145VFT
+**                          MCXA145VLH
 **                          MCXA145VLL
 **                          MCXA145VMP
 **                          MCXA145VPJ
+**                          MCXA146VFT
+**                          MCXA146VLH
 **                          MCXA146VLL
 **                          MCXA146VMP
 **                          MCXA146VPJ
+**                          MCXA154VFT
+**                          MCXA154VLH
 **                          MCXA154VLL
 **                          MCXA154VMP
 **                          MCXA154VPJ
+**                          MCXA155VFT
+**                          MCXA155VLH
 **                          MCXA155VLL
 **                          MCXA155VMP
 **                          MCXA155VPJ
+**                          MCXA156VFT
+**                          MCXA156VLH
 **                          MCXA156VLL
 **                          MCXA156VMP
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b240705
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SCG
@@ -51,17 +63,17 @@
 #if !defined(SCG_H_)
 #define SCG_H_                                   /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
+#if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
-#elif (defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
+#elif (defined(CPU_MCXA145VFT) || defined(CPU_MCXA145VLH) || defined(CPU_MCXA145VLL) || defined(CPU_MCXA145VMP) || defined(CPU_MCXA145VPJ))
 #include "MCXA145_COMMON.h"
-#elif (defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
+#elif (defined(CPU_MCXA146VFT) || defined(CPU_MCXA146VLH) || defined(CPU_MCXA146VLL) || defined(CPU_MCXA146VMP) || defined(CPU_MCXA146VPJ))
 #include "MCXA146_COMMON.h"
-#elif (defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
+#elif (defined(CPU_MCXA154VFT) || defined(CPU_MCXA154VLH) || defined(CPU_MCXA154VLL) || defined(CPU_MCXA154VMP) || defined(CPU_MCXA154VPJ))
 #include "MCXA154_COMMON.h"
-#elif (defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
+#elif (defined(CPU_MCXA155VFT) || defined(CPU_MCXA155VLH) || defined(CPU_MCXA155VLL) || defined(CPU_MCXA155VMP) || defined(CPU_MCXA155VPJ))
 #include "MCXA155_COMMON.h"
-#elif (defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
+#elif (defined(CPU_MCXA156VFT) || defined(CPU_MCXA156VLH) || defined(CPU_MCXA156VLL) || defined(CPU_MCXA156VMP) || defined(CPU_MCXA156VPJ))
 #include "MCXA156_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -163,32 +175,32 @@ typedef struct {
 #define SCG_PARAM_SOSCCLKPRES_MASK               (0x2U)
 #define SCG_PARAM_SOSCCLKPRES_SHIFT              (1U)
 /*! SOSCCLKPRES - SOSC Clock Present
- *  0b1..SOSC clock source is present
  *  0b0..SOSC clock source is not present
+ *  0b1..SOSC clock source is present
  */
 #define SCG_PARAM_SOSCCLKPRES(x)                 (((uint32_t)(((uint32_t)(x)) << SCG_PARAM_SOSCCLKPRES_SHIFT)) & SCG_PARAM_SOSCCLKPRES_MASK)
 
 #define SCG_PARAM_SIRCCLKPRES_MASK               (0x4U)
 #define SCG_PARAM_SIRCCLKPRES_SHIFT              (2U)
 /*! SIRCCLKPRES - SIRC Clock Present
- *  0b1..SIRC clock source is present
  *  0b0..SIRC clock source is not present
+ *  0b1..SIRC clock source is present
  */
 #define SCG_PARAM_SIRCCLKPRES(x)                 (((uint32_t)(((uint32_t)(x)) << SCG_PARAM_SIRCCLKPRES_SHIFT)) & SCG_PARAM_SIRCCLKPRES_MASK)
 
 #define SCG_PARAM_FIRCCLKPRES_MASK               (0x8U)
 #define SCG_PARAM_FIRCCLKPRES_SHIFT              (3U)
 /*! FIRCCLKPRES - FIRC Clock Present
- *  0b1..FIRC clock source is present
  *  0b0..FIRC clock source is not present
+ *  0b1..FIRC clock source is present
  */
 #define SCG_PARAM_FIRCCLKPRES(x)                 (((uint32_t)(((uint32_t)(x)) << SCG_PARAM_FIRCCLKPRES_SHIFT)) & SCG_PARAM_FIRCCLKPRES_MASK)
 
 #define SCG_PARAM_ROSCCLKPRES_MASK               (0x10U)
 #define SCG_PARAM_ROSCCLKPRES_SHIFT              (4U)
 /*! ROSCCLKPRES - ROSC Clock Present
- *  0b1..ROSC clock source is present
  *  0b0..ROSC clock source is not present
+ *  0b1..ROSC clock source is present
  */
 #define SCG_PARAM_ROSCCLKPRES(x)                 (((uint32_t)(((uint32_t)(x)) << SCG_PARAM_ROSCCLKPRES_SHIFT)) & SCG_PARAM_ROSCCLKPRES_MASK)
 /*! @} */
@@ -626,10 +638,10 @@ typedef struct {
 #define SCG_FIRCCFG_FREQ_SEL_MASK                (0xEU)
 #define SCG_FIRCCFG_FREQ_SEL_SHIFT               (1U)
 /*! FREQ_SEL - Frequency select
- *  0b111..192 MHz FIRC clock selected
- *  0b101..96 MHz FIRC clock selected
- *  0b011..64 MHz FIRC clock selected
  *  0b001..48 MHz FIRC clock selected, divided from 192 MHz
+ *  0b011..64 MHz FIRC clock selected
+ *  0b101..96 MHz FIRC clock selected
+ *  0b111..192 MHz FIRC clock selected
  */
 #define SCG_FIRCCFG_FREQ_SEL(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_FIRCCFG_FREQ_SEL_SHIFT)) & SCG_FIRCCFG_FREQ_SEL_MASK)
 /*! @} */

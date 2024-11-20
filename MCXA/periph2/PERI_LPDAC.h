@@ -8,6 +8,14 @@
 **                          MCXA166VLL
 **                          MCXA166VLQ
 **                          MCXA166VPN
+**                          MCXA175VLH
+**                          MCXA175VLL
+**                          MCXA175VLQ
+**                          MCXA175VPN
+**                          MCXA176VLH
+**                          MCXA176VLL
+**                          MCXA176VLQ
+**                          MCXA176VPN
 **                          MCXA255VLH
 **                          MCXA255VLL
 **                          MCXA255VLQ
@@ -26,7 +34,7 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241025
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPDAC
@@ -61,6 +69,10 @@
 #include "MCXA165_COMMON.h"
 #elif (defined(CPU_MCXA166VLH) || defined(CPU_MCXA166VLL) || defined(CPU_MCXA166VLQ) || defined(CPU_MCXA166VPN))
 #include "MCXA166_COMMON.h"
+#elif (defined(CPU_MCXA175VLH) || defined(CPU_MCXA175VLL) || defined(CPU_MCXA175VLQ) || defined(CPU_MCXA175VPN))
+#include "MCXA175_COMMON.h"
+#elif (defined(CPU_MCXA176VLH) || defined(CPU_MCXA176VLL) || defined(CPU_MCXA176VLQ) || defined(CPU_MCXA176VPN))
+#include "MCXA176_COMMON.h"
 #elif (defined(CPU_MCXA255VLH) || defined(CPU_MCXA255VLL) || defined(CPU_MCXA255VLQ) || defined(CPU_MCXA255VPN))
 #include "MCXA255_COMMON.h"
 #elif (defined(CPU_MCXA256VLH) || defined(CPU_MCXA256VLL) || defined(CPU_MCXA256VLQ) || defined(CPU_MCXA256VPN))
@@ -115,7 +127,7 @@
 typedef struct {
   __I  uint32_t VERID;                             /**< Version Identifier, offset: 0x0 */
   __I  uint32_t PARAM;                             /**< Parameter, offset: 0x4 */
-  __O  uint32_t DATA;                              /**< Data, offset: 0x8 */
+  __IO uint32_t DATA;                              /**< Data, offset: 0x8 */
   __IO uint32_t GCR;                               /**< Global Control, offset: 0xC */
   __IO uint32_t FCR;                               /**< DAC FIFO Control, offset: 0x10 */
   __I  uint32_t FPR;                               /**< DAC FIFO Pointer, offset: 0x14 */
@@ -123,7 +135,7 @@ typedef struct {
   __IO uint32_t IER;                               /**< Interrupt Enable, offset: 0x1C */
   __IO uint32_t DER;                               /**< DMA Enable, offset: 0x20 */
   __IO uint32_t RCR;                               /**< Reset Control, offset: 0x24 */
-  __O  uint32_t TCR;                               /**< Trigger Control, offset: 0x28 */
+  __IO uint32_t TCR;                               /**< Trigger Control, offset: 0x28 */
   __IO uint32_t PCR;                               /**< Periodic Trigger Control, offset: 0x2C */
 } LPDAC_Type;
 

@@ -4,7 +4,7 @@
 ;            MCXA146
 ;  @version: 1.0
 ;  @date:    2022-3-29
-;  @build:   b240110
+;  @build:   b241120
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -134,7 +134,7 @@ __vector_table_0x1c
         DCD     CMP0_IRQHandler                               ;Comparator interrupt
         DCD     CMP1_IRQHandler                               ;Comparator interrupt
         DCD     Reserved82_IRQHandler                         ;Reserved interrupt
-        DCD     DAC0_IRQHandler                               ;Digital-to-Analog Converter 0 - General Purpose interrupt
+        DCD     Reserved83_IRQHandler                         ;Reserved interrupt
         DCD     Reserved84_IRQHandler                         ;Reserved interrupt
         DCD     Reserved85_IRQHandler                         ;Reserved interrupt
         DCD     Reserved86_IRQHandler                         ;Reserved interrupt
@@ -146,16 +146,16 @@ __vector_table_0x1c
         DCD     Reserved92_IRQHandler                         ;Reserved interrupt
         DCD     LPI2C2_IRQHandler                             ;Low-Power Inter Integrated Circuit interrupt
         DCD     LPI2C3_IRQHandler                             ;Low-Power Inter Integrated Circuit interrupt
-        DCD     FLEXPWM1_RELOAD_ERROR_IRQHandler              ;FlexPWM1_reload_error interrupt
-        DCD     FLEXPWM1_FAULT_IRQHandler                     ;FlexPWM1_fault interrupt
-        DCD     FLEXPWM1_SUBMODULE0_IRQHandler                ;FlexPWM1 Submodule 0 capture/compare/reload interrupt
-        DCD     FLEXPWM1_SUBMODULE1_IRQHandler                ;FlexPWM1 Submodule 1 capture/compare/reload interrupt
-        DCD     FLEXPWM1_SUBMODULE2_IRQHandler                ;FlexPWM1 Submodule 2 capture/compare/reload interrupt
+        DCD     Reserved95_IRQHandler                         ;Reserved interrupt
+        DCD     Reserved96_IRQHandler                         ;Reserved interrupt
+        DCD     Reserved97_IRQHandler                         ;Reserved interrupt
+        DCD     Reserved98_IRQHandler                         ;Reserved interrupt
+        DCD     Reserved99_IRQHandler                         ;Reserved interrupt
         DCD     Reserved100_IRQHandler                        ;Reserved interrupt
-        DCD     QDC1_COMPARE_IRQHandler                       ;Compare
-        DCD     QDC1_HOME_IRQHandler                          ;Home
-        DCD     QDC1_WATCHDOG_IRQHandler                      ;Watchdog / Simultaneous A and B Change
-        DCD     QDC1_INDEX_IRQHandler                         ;Index / Roll Over / Roll Under
+        DCD     Reserved101_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved102_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved103_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved104_IRQHandler                        ;Reserved interrupt
 __Vectors_End
 
 __Vectors       EQU   __vector_table
@@ -704,11 +704,11 @@ Reserved82_IRQHandler
         LDR     R0, =Reserved82_DriverIRQHandler
         BX      R0
 
-        PUBWEAK DAC0_IRQHandler
-        PUBWEAK DAC0_DriverIRQHandler
+        PUBWEAK Reserved83_IRQHandler
+        PUBWEAK Reserved83_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-DAC0_IRQHandler
-        LDR     R0, =DAC0_DriverIRQHandler
+Reserved83_IRQHandler
+        LDR     R0, =Reserved83_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved84_IRQHandler
@@ -788,39 +788,39 @@ LPI2C3_IRQHandler
         LDR     R0, =LPI2C3_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM1_RELOAD_ERROR_IRQHandler
-        PUBWEAK FLEXPWM1_RELOAD_ERROR_DriverIRQHandler
+        PUBWEAK Reserved95_IRQHandler
+        PUBWEAK Reserved95_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM1_RELOAD_ERROR_IRQHandler
-        LDR     R0, =FLEXPWM1_RELOAD_ERROR_DriverIRQHandler
+Reserved95_IRQHandler
+        LDR     R0, =Reserved95_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM1_FAULT_IRQHandler
-        PUBWEAK FLEXPWM1_FAULT_DriverIRQHandler
+        PUBWEAK Reserved96_IRQHandler
+        PUBWEAK Reserved96_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM1_FAULT_IRQHandler
-        LDR     R0, =FLEXPWM1_FAULT_DriverIRQHandler
+Reserved96_IRQHandler
+        LDR     R0, =Reserved96_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM1_SUBMODULE0_IRQHandler
-        PUBWEAK FLEXPWM1_SUBMODULE0_DriverIRQHandler
+        PUBWEAK Reserved97_IRQHandler
+        PUBWEAK Reserved97_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM1_SUBMODULE0_IRQHandler
-        LDR     R0, =FLEXPWM1_SUBMODULE0_DriverIRQHandler
+Reserved97_IRQHandler
+        LDR     R0, =Reserved97_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM1_SUBMODULE1_IRQHandler
-        PUBWEAK FLEXPWM1_SUBMODULE1_DriverIRQHandler
+        PUBWEAK Reserved98_IRQHandler
+        PUBWEAK Reserved98_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM1_SUBMODULE1_IRQHandler
-        LDR     R0, =FLEXPWM1_SUBMODULE1_DriverIRQHandler
+Reserved98_IRQHandler
+        LDR     R0, =Reserved98_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM1_SUBMODULE2_IRQHandler
-        PUBWEAK FLEXPWM1_SUBMODULE2_DriverIRQHandler
+        PUBWEAK Reserved99_IRQHandler
+        PUBWEAK Reserved99_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM1_SUBMODULE2_IRQHandler
-        LDR     R0, =FLEXPWM1_SUBMODULE2_DriverIRQHandler
+Reserved99_IRQHandler
+        LDR     R0, =Reserved99_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved100_IRQHandler
@@ -830,32 +830,32 @@ Reserved100_IRQHandler
         LDR     R0, =Reserved100_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC1_COMPARE_IRQHandler
-        PUBWEAK QDC1_COMPARE_DriverIRQHandler
+        PUBWEAK Reserved101_IRQHandler
+        PUBWEAK Reserved101_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC1_COMPARE_IRQHandler
-        LDR     R0, =QDC1_COMPARE_DriverIRQHandler
+Reserved101_IRQHandler
+        LDR     R0, =Reserved101_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC1_HOME_IRQHandler
-        PUBWEAK QDC1_HOME_DriverIRQHandler
+        PUBWEAK Reserved102_IRQHandler
+        PUBWEAK Reserved102_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC1_HOME_IRQHandler
-        LDR     R0, =QDC1_HOME_DriverIRQHandler
+Reserved102_IRQHandler
+        LDR     R0, =Reserved102_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC1_WATCHDOG_IRQHandler
-        PUBWEAK QDC1_WATCHDOG_DriverIRQHandler
+        PUBWEAK Reserved103_IRQHandler
+        PUBWEAK Reserved103_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC1_WATCHDOG_IRQHandler
-        LDR     R0, =QDC1_WATCHDOG_DriverIRQHandler
+Reserved103_IRQHandler
+        LDR     R0, =Reserved103_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC1_INDEX_IRQHandler
-        PUBWEAK QDC1_INDEX_DriverIRQHandler
+        PUBWEAK Reserved104_IRQHandler
+        PUBWEAK Reserved104_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC1_INDEX_IRQHandler
-        LDR     R0, =QDC1_INDEX_DriverIRQHandler
+Reserved104_IRQHandler
+        LDR     R0, =Reserved104_DriverIRQHandler
         BX      R0
 
 Reserved16_DriverIRQHandler
@@ -925,7 +925,7 @@ ADC1_DriverIRQHandler
 CMP0_DriverIRQHandler
 CMP1_DriverIRQHandler
 Reserved82_DriverIRQHandler
-DAC0_DriverIRQHandler
+Reserved83_DriverIRQHandler
 Reserved84_DriverIRQHandler
 Reserved85_DriverIRQHandler
 Reserved86_DriverIRQHandler
@@ -937,16 +937,16 @@ GPIO4_DriverIRQHandler
 Reserved92_DriverIRQHandler
 LPI2C2_DriverIRQHandler
 LPI2C3_DriverIRQHandler
-FLEXPWM1_RELOAD_ERROR_DriverIRQHandler
-FLEXPWM1_FAULT_DriverIRQHandler
-FLEXPWM1_SUBMODULE0_DriverIRQHandler
-FLEXPWM1_SUBMODULE1_DriverIRQHandler
-FLEXPWM1_SUBMODULE2_DriverIRQHandler
+Reserved95_DriverIRQHandler
+Reserved96_DriverIRQHandler
+Reserved97_DriverIRQHandler
+Reserved98_DriverIRQHandler
+Reserved99_DriverIRQHandler
 Reserved100_DriverIRQHandler
-QDC1_COMPARE_DriverIRQHandler
-QDC1_HOME_DriverIRQHandler
-QDC1_WATCHDOG_DriverIRQHandler
-QDC1_INDEX_DriverIRQHandler
+Reserved101_DriverIRQHandler
+Reserved102_DriverIRQHandler
+Reserved103_DriverIRQHandler
+Reserved104_DriverIRQHandler
 DefaultISR
         B .
 

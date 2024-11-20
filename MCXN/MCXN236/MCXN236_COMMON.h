@@ -1,6 +1,7 @@
 /*
 ** ###################################################################
 **     Processors:          MCXN236VDF
+**                          MCXN236VKL
 **                          MCXN236VNL
 **                          MCXN236VPB
 **
@@ -11,7 +12,7 @@
 **
 **     Reference manual:    MCXN23XRM
 **     Version:             rev. 1.0, 2023-10-01
-**     Build:               b241024
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN236

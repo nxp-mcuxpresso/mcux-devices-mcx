@@ -1,14 +1,16 @@
 /*
 ** ###################################################################
 **     Processors:          MCXN235VDF
+**                          MCXN235VKL
 **                          MCXN235VNL
 **                          MCXN235VPB
 **                          MCXN236VDF
+**                          MCXN236VKL
 **                          MCXN236VNL
 **                          MCXN236VPB
 **
 **     Version:             rev. 1.0, 2023-10-01
-**     Build:               b241024
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CRC
@@ -39,9 +41,9 @@
 #if !defined(CRC_H_)
 #define CRC_H_                                   /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXN235VDF) || defined(CPU_MCXN235VNL) || defined(CPU_MCXN235VPB))
+#if (defined(CPU_MCXN235VDF) || defined(CPU_MCXN235VKL) || defined(CPU_MCXN235VNL) || defined(CPU_MCXN235VPB))
 #include "MCXN235_COMMON.h"
-#elif (defined(CPU_MCXN236VDF) || defined(CPU_MCXN236VNL) || defined(CPU_MCXN236VPB))
+#elif (defined(CPU_MCXN236VDF) || defined(CPU_MCXN236VKL) || defined(CPU_MCXN236VNL) || defined(CPU_MCXN236VPB))
 #include "MCXN236_COMMON.h"
 #else
   #error "No valid CPU defined!"

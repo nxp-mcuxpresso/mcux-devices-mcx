@@ -1,6 +1,7 @@
 /*
 ** ###################################################################
 **     Processors:          MCXN946VDF_cm33_core1
+**                          MCXN946VKL_cm33_core1
 **                          MCXN946VNL_cm33_core1
 **                          MCXN946VPB_cm33_core1
 **
@@ -11,7 +12,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 2.0, 2023-02-01
-**     Build:               b241024
+**     Build:               b241120
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN946_cm33_core1

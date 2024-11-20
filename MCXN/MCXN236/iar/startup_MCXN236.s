@@ -4,7 +4,7 @@
 ;            MCXN236
 ;  @version: 1.0
 ;  @date:    2023-10-1
-;  @build:   b241024
+;  @build:   b241120
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.

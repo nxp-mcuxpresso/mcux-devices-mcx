@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241016
+**     Build:               b241120
 **
 **     Abstract:
 **         Chip specific module features.
@@ -126,6 +126,8 @@
 #define FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ (1)
 /* @brief Has calibration average (bitfield CTRL[CAL_AVGS]). */
 #define FSL_FEATURE_LPADC_HAS_CTRL_CAL_AVGS (1)
+/* @brief Has High Speed Mode Trim Request (bitfield CTRL[CALHS]). */
+#define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (1)
 /* @brief Has internal clock (bitfield CFG[ADCKEN]). */
 #define FSL_FEATURE_LPADC_HAS_CFG_ADCKEN (0)
 /* @brief Enable support for low voltage reference on option 1 reference (bitfield CFG[VREF1RNG]). */
@@ -230,6 +232,8 @@
 #define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO_FILTER_MAX_NUMBER (32)
 /* @brief Does not support Supervisor Mode (bitfield MCR[SUPV]. */
 #define FSL_FEATURE_FLEXCAN_HAS_NO_SUPV_SUPPORT (0)
+/* @brief Support payload endianness selection (bitfield CTRL2[PES]). */
+#define FSL_FEATURE_FLEXCAN_HAS_ENDIANNESS_SELECTION (1)
 
 /* CDOG module features */
 

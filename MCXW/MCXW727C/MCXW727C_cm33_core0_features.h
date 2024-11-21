@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240819
+**     Build:               b241120
 **
 **     Abstract:
 **         Chip specific module features.
@@ -229,6 +229,8 @@
 #define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO_FILTER_MAX_NUMBER (32)
 /* @brief Does not support Supervisor Mode (bitfield MCR[SUPV]. */
 #define FSL_FEATURE_FLEXCAN_HAS_NO_SUPV_SUPPORT (1)
+/* @brief Support payload endianness selection (bitfield CTRL2[PES]). */
+#define FSL_FEATURE_FLEXCAN_HAS_ENDIANNESS_SELECTION (1)
 
 /* CCM32K module features */
 

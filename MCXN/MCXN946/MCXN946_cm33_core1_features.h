@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b241031
+**     Build:               b241112
 **
 **     Abstract:
 **         Chip specific module features.
@@ -144,7 +144,7 @@
     #define FSL_FEATURE_SOC_WWDT_COUNT (2)
     /* @brief WUU availability on the SoC. */
     #define FSL_FEATURE_SOC_WUU_COUNT (1)
-#elif defined(CPU_MCXN946VNL_cm33_core1)
+#elif defined(CPU_MCXN946VKL_cm33_core1) || defined(CPU_MCXN946VNL_cm33_core1)
     /* @brief CACHE64_CTRL availability on the SoC. */
     #define FSL_FEATURE_SOC_CACHE64_CTRL_COUNT (1)
     /* @brief CACHE64_POLSEL availability on the SoC. */
@@ -888,6 +888,8 @@
 #define FSL_FEATURE_PWM_HAS_CAPTURE_ON_CHANNELB (1)
 /* @brief If (e)FlexPWM has module capture functionality on X channels (inputs). */
 #define FSL_FEATURE_PWM_HAS_CAPTURE_ON_CHANNELX (1)
+/* @brief Has ERRATA_51989. */
+#define FSL_FEATURE_PWM_HAS_ERRATA_51989 (1)
 
 /* QDC module features */
 

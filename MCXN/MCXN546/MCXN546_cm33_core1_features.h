@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b241031
+**     Build:               b241112
 **
 **     Abstract:
 **         Chip specific module features.
@@ -788,6 +788,8 @@
 #define FSL_FEATURE_PWM_HAS_CAPTURE_ON_CHANNELB (1)
 /* @brief If (e)FlexPWM has module capture functionality on X channels (inputs). */
 #define FSL_FEATURE_PWM_HAS_CAPTURE_ON_CHANNELX (1)
+/* @brief Has ERRATA_51989. */
+#define FSL_FEATURE_PWM_HAS_ERRATA_51989 (1)
 
 /* QDC module features */
 

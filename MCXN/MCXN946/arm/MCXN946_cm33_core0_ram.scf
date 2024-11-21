@@ -2,13 +2,14 @@
 /*
 ** ###################################################################
 **     Processors:          MCXN946VDF_cm33_core0
+**                          MCXN946VKL_cm33_core0
 **                          MCXN946VNL_cm33_core0
 **                          MCXN946VPB_cm33_core0
 **
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b240612
+**     Build:               b241105
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler

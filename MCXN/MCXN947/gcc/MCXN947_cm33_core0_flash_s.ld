@@ -1,13 +1,14 @@
 /*
 ** ###################################################################
 **     Processors:          MCXN947VDF_cm33_core0
+**                          MCXN947VKL_cm33_core0
 **                          MCXN947VNL_cm33_core0
 **                          MCXN947VPB_cm33_core0
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b240612
+**     Build:               b241105
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

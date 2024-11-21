@@ -1,13 +1,14 @@
 /*
 ** ###################################################################
 **     Processors:          MCXN947VDF_cm33_core0
+**                          MCXN947VKL_cm33_core0
 **                          MCXN947VNL_cm33_core0
 **                          MCXN947VPB_cm33_core0
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b240612
+**     Build:               b241105
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -44,7 +45,7 @@ MEMORY
   rpmsg_sh_mem          (RW)  : ORIGIN = 0x2004E000 - RPMSG_SHMEM_SIZE, LENGTH = RPMSG_SHMEM_SIZE
   m_flash1              (RX)  : ORIGIN = 0x00100000, LENGTH = 0x00100000
   m_sramx               (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00018000
-  m_flash_config        (RX)  : ORIGIN = 0x80000400, LENGTH = 0x00000300
+  m_flash_config        (RX)  : ORIGIN = 0x80000400, LENGTH = 0x00000400
   m_usb_sram            (RW)  : ORIGIN = 0x400BA000, LENGTH = 0x00001000
 }
 

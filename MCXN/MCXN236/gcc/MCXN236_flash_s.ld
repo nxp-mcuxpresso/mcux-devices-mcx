@@ -1,13 +1,14 @@
 /*
 ** ###################################################################
 **     Processors:          MCXN236VDF
+**                          MCXN236VKL
 **                          MCXN236VNL
 **                          MCXN236VPB
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXN23XRM
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b240613
+**     Build:               b241105
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

@@ -3,6 +3,8 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 menu "Device specific drivers configuration"
-     rsource "./Kconfig_clock"
-     rsource "./Kconfig_romapi"
+
+    rsource "../../MCXW727C/drivers/Kconfig_clock"
+    rsource "../../MCXW727C/drivers/Kconfig_romapi"
+
 endmenu

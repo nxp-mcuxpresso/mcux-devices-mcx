@@ -16,14 +16,6 @@
 **                          MCXA176VLL
 **                          MCXA176VLQ
 **                          MCXA176VPN
-**                          MCXA255VLH
-**                          MCXA255VLL
-**                          MCXA255VLQ
-**                          MCXA255VPN
-**                          MCXA256VLH
-**                          MCXA256VLL
-**                          MCXA256VLQ
-**                          MCXA256VPN
 **                          MCXA275VLH
 **                          MCXA275VLL
 **                          MCXA275VLQ
@@ -73,10 +65,6 @@
 #include "MCXA175_COMMON.h"
 #elif (defined(CPU_MCXA176VLH) || defined(CPU_MCXA176VLL) || defined(CPU_MCXA176VLQ) || defined(CPU_MCXA176VPN))
 #include "MCXA176_COMMON.h"
-#elif (defined(CPU_MCXA255VLH) || defined(CPU_MCXA255VLL) || defined(CPU_MCXA255VLQ) || defined(CPU_MCXA255VPN))
-#include "MCXA255_COMMON.h"
-#elif (defined(CPU_MCXA256VLH) || defined(CPU_MCXA256VLL) || defined(CPU_MCXA256VLQ) || defined(CPU_MCXA256VPN))
-#include "MCXA256_COMMON.h"
 #elif (defined(CPU_MCXA275VLH) || defined(CPU_MCXA275VLL) || defined(CPU_MCXA275VLQ) || defined(CPU_MCXA275VPN))
 #include "MCXA275_COMMON.h"
 #elif (defined(CPU_MCXA276VLH) || defined(CPU_MCXA276VLL) || defined(CPU_MCXA276VLQ) || defined(CPU_MCXA276VPN))

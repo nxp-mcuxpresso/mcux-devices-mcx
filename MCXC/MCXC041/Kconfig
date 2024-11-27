@@ -5,7 +5,7 @@
 
 rsource "Kconfig.chip"
 rsource "drivers/Kconfig"
-rsource "../../../arm/Kconfig.common"
+rsource "../../../../devices/arm/Kconfig.common"
 rsource "Kconfig.defconfig"
 
 ## Project segment and component dependency data

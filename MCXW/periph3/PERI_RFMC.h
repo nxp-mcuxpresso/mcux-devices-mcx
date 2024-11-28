@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for RFMC
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file RFMC.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for RFMC
  *
  * CMSIS Peripheral Access Layer for RFMC
@@ -507,12 +507,12 @@ typedef struct {
 #define RFMC_RF2P4GHZ_CTRL_SFA_TRIG_EN_MASK      (0x1C0000U)
 #define RFMC_RF2P4GHZ_CTRL_SFA_TRIG_EN_SHIFT     (18U)
 /*! SFA_TRIG_EN - SFA Trigger Enable
- *  0bxx0..MAN Low Power Controller is not allowed to cause an SFA trigger.
- *  0bxx1..MAN Low Power Controller is allowed to cause an SFA trigger.
- *  0bx0x..WOR Low Power Controller is not allowed to cause an SFA trigger.
- *  0bx1x..WOR Low Power Controller is allowed to cause an SFA trigger.
  *  0b0xx..Bluetooth LE Low Power Controller is not allowed to cause an SFA trigger.
  *  0b1xx..Bluetooth LE Low Power Controller is allowed to cause an SFA trigger.
+ *  0bx0x..WOR Low Power Controller is not allowed to cause an SFA trigger.
+ *  0bx1x..WOR Low Power Controller is allowed to cause an SFA trigger.
+ *  0bxx0..MAN Low Power Controller is not allowed to cause an SFA trigger.
+ *  0bxx1..MAN Low Power Controller is allowed to cause an SFA trigger.
  */
 #define RFMC_RF2P4GHZ_CTRL_SFA_TRIG_EN(x)        (((uint32_t)(((uint32_t)(x)) << RFMC_RF2P4GHZ_CTRL_SFA_TRIG_EN_SHIFT)) & RFMC_RF2P4GHZ_CTRL_SFA_TRIG_EN_MASK)
 
@@ -537,14 +537,14 @@ typedef struct {
 #define RFMC_RF2P4GHZ_CTRL_CLK_OVR_MASK          (0xF000000U)
 #define RFMC_RF2P4GHZ_CTRL_CLK_OVR_SHIFT         (24U)
 /*! CLK_OVR - Clock Gating Override
- *  0bxxx0..TIMER clock only enabled when TIM_EN=1
- *  0bxxx1..TIMER clock always enabled
- *  0bxx0x..MAN power controller clock only enabled when MAN_EN=1 (default)
- *  0bxx1x..MAN power controller clock always enabled
- *  0bx0xx..WOR power controller clock only enabled when WOR_EN=1 (default)
- *  0bx1xx..WOR power controller clock always enabled
  *  0b0xxx..Bluetooth LE power controller clock (and 32kHz clock used by Bluetooth LE link layer) only enabled when BLE_LP_EN=1 (default)
  *  0b1xxx..Bluetooth LE power controller clock (and 32kHz clock used by Bluetooth LE link layer) always enabled
+ *  0bx0xx..WOR power controller clock only enabled when WOR_EN=1 (default)
+ *  0bx1xx..WOR power controller clock always enabled
+ *  0bxx0x..MAN power controller clock only enabled when MAN_EN=1 (default)
+ *  0bxx1x..MAN power controller clock always enabled
+ *  0bxxx0..TIMER clock only enabled when TIM_EN=1
+ *  0bxxx1..TIMER clock always enabled
  */
 #define RFMC_RF2P4GHZ_CTRL_CLK_OVR(x)            (((uint32_t)(((uint32_t)(x)) << RFMC_RF2P4GHZ_CTRL_CLK_OVR_SHIFT)) & RFMC_RF2P4GHZ_CTRL_CLK_OVR_MASK)
 

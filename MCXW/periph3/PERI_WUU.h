@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for WUU
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file WUU.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for WUU
  *
  * CMSIS Peripheral Access Layer for WUU
@@ -134,7 +134,6 @@ typedef struct {
  *  0b0000000000000000..Standard features implemented
  *  0b0000000000000001..Support for DMA/Trigger generation from wake-up pins and filters enabled. Support for
  *                      external pin/filter detection during all power modes enabled.
- *  *..
  */
 #define WUU_VERID_FEATURE(x)                     (((uint32_t)(((uint32_t)(x)) << WUU_VERID_FEATURE_SHIFT)) & WUU_VERID_FEATURE_MASK)
 

@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for RF_CMC1
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file RF_CMC1.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for RF_CMC1
  *
  * CMSIS Peripheral Access Layer for RF_CMC1
@@ -214,7 +214,7 @@ typedef struct {
  *  0b00..No clock
  *  0b01..Core Clock
  *  0b10..Radio Oscillator
- *  0b11..Reserved
+ *  0b11..32kHz clock
  */
 #define RF_CMC1_TPM2_CFG_CLK_MUX_SEL(x)          (((uint32_t)(((uint32_t)(x)) << RF_CMC1_TPM2_CFG_CLK_MUX_SEL_SHIFT)) & RF_CMC1_TPM2_CFG_CLK_MUX_SEL_MASK)
 /*! @} */
@@ -275,7 +275,10 @@ typedef struct {
 
 #define RF_CMC1_SPC_HP_CTRL_SPC_HP_REQ_MASK      (0x1U)
 #define RF_CMC1_SPC_HP_CTRL_SPC_HP_REQ_SHIFT     (0U)
-/*! SPC_HP_REQ - SPC High Power Request */
+/*! SPC_HP_REQ - SPC High Power Request
+ *  0b0..No High Power Mode request to SPC
+ *  0b1..High Power Mode request to SPC active
+ */
 #define RF_CMC1_SPC_HP_CTRL_SPC_HP_REQ(x)        (((uint32_t)(((uint32_t)(x)) << RF_CMC1_SPC_HP_CTRL_SPC_HP_REQ_SHIFT)) & RF_CMC1_SPC_HP_CTRL_SPC_HP_REQ_MASK)
 
 #define RF_CMC1_SPC_HP_CTRL_SPC_HP_MODE_MASK     (0x1EU)
@@ -289,7 +292,10 @@ typedef struct {
 
 #define RF_CMC1_SPC_HP_STAT_SPC_HP_ACK_MASK      (0x1U)
 #define RF_CMC1_SPC_HP_STAT_SPC_HP_ACK_SHIFT     (0U)
-/*! SPC_HP_ACK - SPC High Power Mode entry acknowledge status */
+/*! SPC_HP_ACK - SPC High Power Mode entry acknowledge status
+ *  0b0..SPC High Power Mode request not acknowledged
+ *  0b1..SPC High Power Mode request acknowledged
+ */
 #define RF_CMC1_SPC_HP_STAT_SPC_HP_ACK(x)        (((uint32_t)(((uint32_t)(x)) << RF_CMC1_SPC_HP_STAT_SPC_HP_ACK_SHIFT)) & RF_CMC1_SPC_HP_STAT_SPC_HP_ACK_MASK)
 /*! @} */
 

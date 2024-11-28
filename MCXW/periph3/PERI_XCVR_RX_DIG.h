@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for XCVR_RX_DIG
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file XCVR_RX_DIG.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for XCVR_RX_DIG
  *
  * CMSIS Peripheral Access Layer for XCVR_RX_DIG
@@ -220,8 +220,8 @@ typedef struct {
 #define XCVR_RX_DIG_CTRL0_RX_IQMC_EN_MASK        (0x2U)
 #define XCVR_RX_DIG_CTRL0_RX_IQMC_EN_SHIFT       (1U)
 /*! RX_IQMC_EN - IQ Mismatch Compensation Enable
- *  0b1..IQ mismatch compensation is enabled.
  *  0b0..IQ mismatch compensation is disabled.
+ *  0b1..IQ mismatch compensation is enabled.
  */
 #define XCVR_RX_DIG_CTRL0_RX_IQMC_EN(x)          (((uint32_t)(((uint32_t)(x)) << XCVR_RX_DIG_CTRL0_RX_IQMC_EN_SHIFT)) & XCVR_RX_DIG_CTRL0_RX_IQMC_EN_MASK)
 
@@ -241,14 +241,14 @@ typedef struct {
 #define XCVR_RX_DIG_CTRL0_CIC_RATE_MASK          (0x7000U)
 #define XCVR_RX_DIG_CTRL0_CIC_RATE_SHIFT         (12U)
 /*! CIC_RATE - CIC Decimation Rate
- *  0b111..Reserved
- *  0b110..Reserved
- *  0b101..Decimation Rate is 32.
- *  0b100..Decimation Rate is 16.
- *  0b011..Decimation Rate is 8.
- *  0b010..Decimation Rate is 4.
- *  0b001..Decimation Rate is 2.
  *  0b000..Decimation Rate is 1.
+ *  0b001..Decimation Rate is 2.
+ *  0b010..Decimation Rate is 4.
+ *  0b011..Decimation Rate is 8.
+ *  0b100..Decimation Rate is 16.
+ *  0b101..Decimation Rate is 32.
+ *  0b110..Reserved
+ *  0b111..Reserved
  */
 #define XCVR_RX_DIG_CTRL0_CIC_RATE(x)            (((uint32_t)(((uint32_t)(x)) << XCVR_RX_DIG_CTRL0_CIC_RATE_SHIFT)) & XCVR_RX_DIG_CTRL0_CIC_RATE_MASK)
 
@@ -347,14 +347,14 @@ typedef struct {
 #define XCVR_RX_DIG_CTRL0_DRS_CIC_RATE_MASK      (0x7000U)
 #define XCVR_RX_DIG_CTRL0_DRS_CIC_RATE_SHIFT     (12U)
 /*! CIC_RATE - CIC Decimation Rate
- *  0b111..Reserved
- *  0b110..Reserved
- *  0b101..Decimation Rate is 32.
- *  0b100..Decimation Rate is 16.
- *  0b011..Decimation Rate is 8.
- *  0b010..Decimation Rate is 4.
- *  0b001..Decimation Rate is 2.
  *  0b000..Decimation Rate is 1.
+ *  0b001..Decimation Rate is 2.
+ *  0b010..Decimation Rate is 4.
+ *  0b011..Decimation Rate is 8.
+ *  0b100..Decimation Rate is 16.
+ *  0b101..Decimation Rate is 32.
+ *  0b110..Reserved
+ *  0b111..Reserved
  */
 #define XCVR_RX_DIG_CTRL0_DRS_CIC_RATE(x)        (((uint32_t)(((uint32_t)(x)) << XCVR_RX_DIG_CTRL0_DRS_CIC_RATE_SHIFT)) & XCVR_RX_DIG_CTRL0_DRS_CIC_RATE_MASK)
 /*! @} */

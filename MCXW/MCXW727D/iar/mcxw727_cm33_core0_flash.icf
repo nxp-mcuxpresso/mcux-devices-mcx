@@ -5,9 +5,9 @@
 **                          MCXW727DMFTA_cm33_core0
 **
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
-**     Reference manual:    Rev. 6, 05/22/2022
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240815
+**     Reference manual:    Rev. 1, 2024-10-13
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -22,6 +22,13 @@
 ** ###################################################################
 */
 
+define exported symbol core1_image_start     = 0x48800000;
+define exported symbol core1_image_end       = 0x4883FFFF;
+
+if (isdefinedsymbol(__use_shmem__)) {
+  define exported symbol rpmsg_sh_mem_start    = 0x489C8800;
+  define exported symbol rpmsg_sh_mem_end      = 0x489CA000;
+}
 
 /* Stack and Heap Sizes */
 if (isdefinedsymbol(__stack_size__)) {
@@ -59,12 +66,19 @@ define region DATA_region             = mem:[from m_data0_start to m_data0_end]
                                       | mem:[from m_data1_start to m_data1_end];
 define region CSTACK_region           = mem:[from m_stack_start to m_stack_end];
 
+if (isdefinedsymbol(__use_shmem__)) {
+  define region rpmsg_sh_mem_region     = mem:[from rpmsg_sh_mem_start to rpmsg_sh_mem_end];
+}
+
 define block CSTACK    with alignment = 8, size = __size_cstack__   { };
 define block HEAP      with alignment = 8, size = __size_heap__     { };
 define block RW        { readwrite };
 define block ZI        { zi };
 
 initialize by copy { readwrite, section .textrw };
+
+define region core1_region = mem:[from core1_image_start to core1_image_end];
+define block CORE1_IMAGE_BLOCK          { section  __core1_image };
 
 if (isdefinedsymbol(__USE_DLIB_PERTHREAD))
 {
@@ -74,9 +88,17 @@ if (isdefinedsymbol(__USE_DLIB_PERTHREAD))
 
 do not initialize  { section .noinit };
 
+if (isdefinedsymbol(__use_shmem__)) {
+  do not initialize  { section rpmsg_sh_mem_section };
+}
+
 place at address mem: m_interrupts_start    { readonly section .intvec };
 place in TEXT_region                        { readonly };
 place in DATA_region                        { block RW };
 place in DATA_region                        { block ZI };
 place in DATA_region                        { last block HEAP };
 place in CSTACK_region                      { block CSTACK };
+if (isdefinedsymbol(__use_shmem__)) {
+  place in rpmsg_sh_mem_region                { section rpmsg_sh_mem_section };
+}
+place in core1_region                       { block CORE1_IMAGE_BLOCK };

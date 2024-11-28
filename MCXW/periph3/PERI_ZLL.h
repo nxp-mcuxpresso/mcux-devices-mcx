@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ZLL
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file ZLL.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for ZLL
  *
  * CMSIS Peripheral Access Layer for ZLL
@@ -1628,16 +1628,16 @@ typedef struct {
 #define ZLL_ENHACK_CTRL0_SW_LEN_RDY_MASK         (0x2U)
 #define ZLL_ENHACK_CTRL0_SW_LEN_RDY_SHIFT        (1U)
 /*! SW_LEN_RDY - Software enhanced acknowledgment frame Length field ready
- *  0b1..Software enhanced acknowledgment frame Length field is ready in RAM
  *  0b0..Software enhanced acknowledgment frame Length field is not ready.
+ *  0b1..Software enhanced acknowledgment frame Length field is ready in RAM
  */
 #define ZLL_ENHACK_CTRL0_SW_LEN_RDY(x)           (((uint32_t)(((uint32_t)(x)) << ZLL_ENHACK_CTRL0_SW_LEN_RDY_SHIFT)) & ZLL_ENHACK_CTRL0_SW_LEN_RDY_MASK)
 
 #define ZLL_ENHACK_CTRL0_SW_HIE_RDY_MASK         (0x4U)
 #define ZLL_ENHACK_CTRL0_SW_HIE_RDY_SHIFT        (2U)
 /*! SW_HIE_RDY - Software enhanced acknowledgment frame HIE field ready
- *  0b1..Software enhanced acknowledgment frame HIE field is ready in RAM
  *  0b0..Software enhanced acknowledgment frame HIE field is not ready.
+ *  0b1..Software enhanced acknowledgment frame HIE field is ready in RAM
  */
 #define ZLL_ENHACK_CTRL0_SW_HIE_RDY(x)           (((uint32_t)(((uint32_t)(x)) << ZLL_ENHACK_CTRL0_SW_HIE_RDY_SHIFT)) & ZLL_ENHACK_CTRL0_SW_HIE_RDY_MASK)
 

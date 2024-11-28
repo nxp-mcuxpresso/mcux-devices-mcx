@@ -6,9 +6,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    Rev. 6, 05/22/2022
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240815
+**     Reference manual:    Rev. 1, 2024-10-13
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -23,8 +23,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -32,7 +32,7 @@
 /*!
  * @file MCXW727D_cm33_core1
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief Device specific configuration file for MCXW727D_cm33_core1
  *        (implementation file)
  *

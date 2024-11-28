@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TRGMUX
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file TRGMUX.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for TRGMUX
  *
  * CMSIS Peripheral Access Layer for TRGMUX
@@ -150,6 +150,16 @@ typedef enum _trgmux_source
     kTRGMUX_SourceSpc0DcdcBurst     = 65U,         /**< SPC0 DCDC Burst Trig is selected */
     kTRGMUX_SourceRf2p4gTofTimestamp = 66U,        /**< RF-2.4G TOF TIMESTAMP TRIG is selected */
     kTRGMUX_SourceRf2p4gLantSw      = 67U,         /**< RF-2.4G LANT_SW is selected */
+    kTRGMUX_SourceEzhIntChannel8    = 68U,         /**< EZH Interrupt channel 8 is selected */
+    kTRGMUX_SourceEzhIntChannel9    = 69U,         /**< EZH Interrupt channel 9 is selected */
+    kTRGMUX_SourceEzhIntChannel10   = 70U,         /**< EZH Interrupt channel 10 is selected */
+    kTRGMUX_SourceEzhIntChannel11   = 71U,         /**< EZH Interrupt channel 11 is selected */
+    kTRGMUX_SourceEzhIntChannel12   = 72U,         /**< EZH Interrupt channel 12 is selected */
+    kTRGMUX_SourceEzhIntChannel13   = 73U,         /**< EZH Interrupt channel 13 is selected */
+    kTRGMUX_SourceEzhIntChannel14   = 74U,         /**< EZH Interrupt channel 14 is selected */
+    kTRGMUX_SourceEzhIntChannel15   = 75U,         /**< EZH Interrupt channel 15 is selected */
+    kTRGMUX_SourceCpu0TxEv          = 76U,         /**< CM33 (Main) */
+    kTRGMUX_SourceCpu1TxEv          = 77U,         /**< CM33 (Radio) */
 } trgmux_source_t;
 
 /* @} */

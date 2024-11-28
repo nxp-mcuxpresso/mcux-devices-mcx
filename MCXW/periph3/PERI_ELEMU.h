@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ELEMU
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file ELEMU.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for ELEMU
  *
  * CMSIS Peripheral Access Layer for ELEMU
@@ -110,7 +110,7 @@ typedef struct {
   __I  uint32_t RSR;                               /**< Receive Status Register, offset: 0x12C */
        uint8_t RESERVED_2[204];
   __IO uint32_t UNUSED1;                           /**< Unused Register 1, offset: 0x1FC */
-  __O  uint32_t TR[ELEMU_TR_COUNT];                /**< Transmit Register, array offset: 0x200, array step: 0x4 */
+  __IO uint32_t TR[ELEMU_TR_COUNT];                /**< Transmit Register, array offset: 0x200, array step: 0x4 */
        uint8_t RESERVED_3[64];
   __I  uint32_t RR[ELEMU_RR_COUNT];                /**< Receive Register, array offset: 0x280, array step: 0x4 */
        uint8_t RESERVED_4[376];

@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FLEXIO
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file FLEXIO.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for FLEXIO
  *
  * CMSIS Peripheral Access Layer for FLEXIO
@@ -138,10 +138,10 @@ typedef struct {
   __IO uint32_t PINFEN;                            /**< Pin Falling Edge Enable, offset: 0x5C */
   __IO uint32_t PINOUTD;                           /**< Pin Output Data, offset: 0x60 */
   __IO uint32_t PINOUTE;                           /**< Pin Output Enable, offset: 0x64 */
-  __O  uint32_t PINOUTDIS;                         /**< Pin Output Disable, offset: 0x68 */
-  __O  uint32_t PINOUTCLR;                         /**< Pin Output Clear, offset: 0x6C */
-  __O  uint32_t PINOUTSET;                         /**< Pin Output Set, offset: 0x70 */
-  __O  uint32_t PINOUTTOG;                         /**< Pin Output Toggle, offset: 0x74 */
+  __IO uint32_t PINOUTDIS;                         /**< Pin Output Disable, offset: 0x68 */
+  __IO uint32_t PINOUTCLR;                         /**< Pin Output Clear, offset: 0x6C */
+  __IO uint32_t PINOUTSET;                         /**< Pin Output Set, offset: 0x70 */
+  __IO uint32_t PINOUTTOG;                         /**< Pin Output Toggle, offset: 0x74 */
        uint8_t RESERVED_5[8];
   __IO uint32_t SHIFTCTL[FLEXIO_SHIFTCTL_COUNT];   /**< Shifter Control, array offset: 0x80, array step: 0x4 */
        uint8_t RESERVED_6[96];
@@ -291,8 +291,8 @@ typedef struct {
 #define FLEXIO_SHIFTSTAT_SSF_SHIFT               (0U)
 /*! SSF - Shifter Status Flag
  *  0b00000000..Clear
- *  0b00000001..Set
  *  0b00000000..No effect
+ *  0b00000001..Set
  *  0b00000001..Clear the flag
  */
 #define FLEXIO_SHIFTSTAT_SSF(x)                  (((uint32_t)(((uint32_t)(x)) << FLEXIO_SHIFTSTAT_SSF_SHIFT)) & FLEXIO_SHIFTSTAT_SSF_MASK)
@@ -305,8 +305,8 @@ typedef struct {
 #define FLEXIO_SHIFTERR_SEF_SHIFT                (0U)
 /*! SEF - Shifter Error Flag
  *  0b00000000..Clear
- *  0b00000001..Set
  *  0b00000000..No effect
+ *  0b00000001..Set
  *  0b00000001..Clear the flag
  */
 #define FLEXIO_SHIFTERR_SEF(x)                   (((uint32_t)(((uint32_t)(x)) << FLEXIO_SHIFTERR_SEF_SHIFT)) & FLEXIO_SHIFTERR_SEF_MASK)
@@ -319,8 +319,8 @@ typedef struct {
 #define FLEXIO_TIMSTAT_TSF_SHIFT                 (0U)
 /*! TSF - Timer Status Flag
  *  0b00000000..Clear
- *  0b00000001..Set
  *  0b00000000..No effect
+ *  0b00000001..Set
  *  0b00000001..Clear the flag
  */
 #define FLEXIO_TIMSTAT_TSF(x)                    (((uint32_t)(((uint32_t)(x)) << FLEXIO_TIMSTAT_TSF_SHIFT)) & FLEXIO_TIMSTAT_TSF_MASK)
@@ -387,8 +387,8 @@ typedef struct {
 #define FLEXIO_TRGSTAT_ETSF_SHIFT                (0U)
 /*! ETSF - External Trigger Status Flag
  *  0b0000..Clear
- *  0b0001..Set
  *  0b0000..No effect
+ *  0b0001..Set
  *  0b0001..Clear the flag
  */
 #define FLEXIO_TRGSTAT_ETSF(x)                   (((uint32_t)(((uint32_t)(x)) << FLEXIO_TRGSTAT_ETSF_SHIFT)) & FLEXIO_TRGSTAT_ETSF_MASK)
@@ -410,8 +410,8 @@ typedef struct {
 #define FLEXIO_PINSTAT_PSF_SHIFT                 (0U)
 /*! PSF - Pin Status Flag
  *  0b00000000000000000000000000000000..Clear
- *  0b00000000000000000000000000000001..Set
  *  0b00000000000000000000000000000000..No effect
+ *  0b00000000000000000000000000000001..Set
  *  0b00000000000000000000000000000001..Clear the flag
  */
 #define FLEXIO_PINSTAT_PSF(x)                    (((uint32_t)(((uint32_t)(x)) << FLEXIO_PINSTAT_PSF_SHIFT)) & FLEXIO_PINSTAT_PSF_MASK)

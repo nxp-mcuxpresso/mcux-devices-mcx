@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CMC
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file CMC.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for CMC
  *
  * CMSIS Peripheral Access Layer for CMC
@@ -108,7 +108,7 @@ typedef struct {
   __IO uint32_t CKCTRL;                            /**< Clock Control, offset: 0x10 */
   __IO uint32_t CKSTAT;                            /**< Clock Status, offset: 0x14 */
   __IO uint32_t PMPROT;                            /**< Power Mode Protection, offset: 0x18 */
-  __O  uint32_t GPMCTRL;                           /**< Global Power Mode Control, offset: 0x1C */
+  __IO uint32_t GPMCTRL;                           /**< Global Power Mode Control, offset: 0x1C */
   __IO uint32_t PMCTRL[CMC_PMCTRL_COUNT];          /**< Power Mode Control, array offset: 0x20, array step: 0x4 */
        uint8_t RESERVED_1[88];
   __I  uint32_t SRS;                               /**< System Reset Status, offset: 0x80 */
@@ -173,9 +173,9 @@ typedef struct {
 /*! CKMODE - Clocking Mode
  *  0b0000..Core clock is on
  *  0b0001..Core clock is off
- *  0b0011..Core and platform clocks are gated
- *  0b0111..Core, platform, and peripheral clocks are gated, but no change in Low-Power mode
- *  0b1111..Core, platform, and peripheral clocks are gated, and core enters Low-Power mode.
+ *  0b0011..Core and platform clocks are off
+ *  0b0111..Core, platform, and peripheral clocks are off, but no change in Low-Power mode
+ *  0b1111..Core, platform, and peripheral clocks are off, and core enters Low-Power mode
  */
 #define CMC_CKCTRL_CKMODE(x)                     (((uint32_t)(((uint32_t)(x)) << CMC_CKCTRL_CKMODE_SHIFT)) & CMC_CKCTRL_CKMODE_MASK)
 
@@ -194,12 +194,11 @@ typedef struct {
 #define CMC_CKSTAT_CKMODE_MASK                   (0xFU)
 #define CMC_CKSTAT_CKMODE_SHIFT                  (0U)
 /*! CKMODE - Low Power Status
- *  0b0000..Core clock not gated
- *  0b0001..Core clock was gated
- *  0b0011..Core and platform clocks were gated
- *  0b0111..Core, platform, and peripheral clocks were gated
- *  0b1111..Core, platform, and peripheral clocks were gated, and power domain entered Low-Power mode
- *  *..
+ *  0b0000..Core clock is on
+ *  0b0001..Core clock is off
+ *  0b0011..Core and platform clocks are off
+ *  0b0111..Core, platform, and peripheral clocks are off, but no change in Low-Power mode
+ *  0b1111..Core, platform, and peripheral clocks are off, and core enters Low-Power mode
  */
 #define CMC_CKSTAT_CKMODE(x)                     (((uint32_t)(((uint32_t)(x)) << CMC_CKSTAT_CKMODE_SHIFT)) & CMC_CKSTAT_CKMODE_MASK)
 
@@ -398,14 +397,6 @@ typedef struct {
  */
 #define CMC_SRS_WDOG1(x)                         (((uint32_t)(((uint32_t)(x)) << CMC_SRS_WDOG1_SHIFT)) & CMC_SRS_WDOG1_MASK)
 
-#define CMC_SRS_JTAG_MASK                        (0x10000000U)
-#define CMC_SRS_JTAG_SHIFT                       (28U)
-/*! JTAG - JTAG System Reset
- *  0b0..Reset not generated
- *  0b1..Reset generated
- */
-#define CMC_SRS_JTAG(x)                          (((uint32_t)(((uint32_t)(x)) << CMC_SRS_JTAG_SHIFT)) & CMC_SRS_JTAG_MASK)
-
 #define CMC_SRS_SECVIO_MASK                      (0x40000000U)
 #define CMC_SRS_SECVIO_SHIFT                     (30U)
 /*! SECVIO - Security Violation Reset
@@ -563,14 +554,6 @@ typedef struct {
  */
 #define CMC_SSRS_WDOG1(x)                        (((uint32_t)(((uint32_t)(x)) << CMC_SSRS_WDOG1_SHIFT)) & CMC_SSRS_WDOG1_MASK)
 
-#define CMC_SSRS_JTAG_MASK                       (0x10000000U)
-#define CMC_SSRS_JTAG_SHIFT                      (28U)
-/*! JTAG - JTAG System Reset
- *  0b0..Reset not generated
- *  0b1..Reset generated
- */
-#define CMC_SSRS_JTAG(x)                         (((uint32_t)(((uint32_t)(x)) << CMC_SSRS_JTAG_SHIFT)) & CMC_SSRS_JTAG_MASK)
-
 #define CMC_SSRS_SECVIO_MASK                     (0x40000000U)
 #define CMC_SSRS_SECVIO_SHIFT                    (30U)
 /*! SECVIO - Security Violation Reset
@@ -606,14 +589,6 @@ typedef struct {
  *  0b1..Interrupt enabled
  */
 #define CMC_SRIE_LPACK(x)                        (((uint32_t)(((uint32_t)(x)) << CMC_SRIE_LPACK_SHIFT)) & CMC_SRIE_LPACK_MASK)
-
-#define CMC_SRIE_SCG_MASK                        (0x1000U)
-#define CMC_SRIE_SCG_SHIFT                       (12U)
-/*! SCG - System Clock Generation Reset
- *  0b0..Interrupt disabled
- *  0b1..Interrupt enabled
- */
-#define CMC_SRIE_SCG(x)                          (((uint32_t)(((uint32_t)(x)) << CMC_SRIE_SCG_SHIFT)) & CMC_SRIE_SCG_MASK)
 
 #define CMC_SRIE_WDOG0_MASK                      (0x2000U)
 #define CMC_SRIE_WDOG0_SHIFT                     (13U)

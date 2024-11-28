@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CCM32K
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file CCM32K.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for CCM32K
  *
  * CMSIS Peripheral Access Layer for CCM32K
@@ -255,8 +255,8 @@ typedef struct {
 #define CCM32K_OSC32K_CTRL_SOX_EN_MASK           (0x1000000U)
 #define CCM32K_OSC32K_CTRL_SOX_EN_SHIFT          (24U)
 /*! SOX_EN - Crystal mode enable
- *  0b1..Required for crystal mode operation
  *  0b0..Not supported for crystal mode operation
+ *  0b1..Required for crystal mode operation
  */
 #define CCM32K_OSC32K_CTRL_SOX_EN(x)             (((uint32_t)(((uint32_t)(x)) << CCM32K_OSC32K_CTRL_SOX_EN_SHIFT)) & CCM32K_OSC32K_CTRL_SOX_EN_MASK)
 
@@ -293,24 +293,24 @@ typedef struct {
 #define CCM32K_STATUS_OSC32K_ACTIVE_MASK         (0x4U)
 #define CCM32K_STATUS_OSC32K_ACTIVE_SHIFT        (2U)
 /*! OSC32K_ACTIVE - 32 kHz Oscillator active bit
- *  0b1..OSC32K is the active clock source
  *  0b0..OSC32K is not the active clock source
+ *  0b1..OSC32K is the active clock source
  */
 #define CCM32K_STATUS_OSC32K_ACTIVE(x)           (((uint32_t)(((uint32_t)(x)) << CCM32K_STATUS_OSC32K_ACTIVE_SHIFT)) & CCM32K_STATUS_OSC32K_ACTIVE_MASK)
 
 #define CCM32K_STATUS_FRO32K_ACTIVE_MASK         (0x10U)
 #define CCM32K_STATUS_FRO32K_ACTIVE_SHIFT        (4U)
 /*! FRO32K_ACTIVE - 32 kHz FRO active bit
- *  0b1..FRO32K is the active clock source
  *  0b0..FRO32K is not the active clock source
+ *  0b1..FRO32K is the active clock source
  */
 #define CCM32K_STATUS_FRO32K_ACTIVE(x)           (((uint32_t)(((uint32_t)(x)) << CCM32K_STATUS_FRO32K_ACTIVE_SHIFT)) & CCM32K_STATUS_FRO32K_ACTIVE_MASK)
 
 #define CCM32K_STATUS_CLOCK_DET_MASK             (0x40U)
 #define CCM32K_STATUS_CLOCK_DET_SHIFT            (6U)
 /*! CLOCK_DET - Clock Detect
- *  0b1..Clock error is detected
  *  0b0..Clock error is not detected
+ *  0b1..Clock error is detected
  */
 #define CCM32K_STATUS_CLOCK_DET(x)               (((uint32_t)(((uint32_t)(x)) << CCM32K_STATUS_CLOCK_DET_SHIFT)) & CCM32K_STATUS_CLOCK_DET_MASK)
 /*! @} */

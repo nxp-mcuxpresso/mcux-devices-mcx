@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SCG
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file SCG.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for SCG
  *
  * CMSIS Peripheral Access Layer for SCG
@@ -142,19 +142,19 @@ typedef struct {
 #define SCG_PARAM_CLKPRES_SHIFT                  (0U)
 /*! CLKPRES - Clock Present
  *  0b00000000-0b00000001..Reserved
- *  0bxxxxxx1x..System OSC (SOSC) is present.
- *  0bxxxxx1xx..Slow IRC (SIRC) is present.
- *  0bxxxx1xxx..Fast IRC (FIRC) is present.
  *  0bxxx1xxxx..RTC OSC (ROSC) is present.
+ *  0bxxxx1xxx..Fast IRC (FIRC) is present.
+ *  0bxxxxx1xx..Slow IRC (SIRC) is present.
+ *  0bxxxxxx1x..System OSC (SOSC) is present.
  */
 #define SCG_PARAM_CLKPRES(x)                     (((uint32_t)(((uint32_t)(x)) << SCG_PARAM_CLKPRES_SHIFT)) & SCG_PARAM_CLKPRES_MASK)
 
 #define SCG_PARAM_DIVPRES_MASK                   (0xF8000000U)
 #define SCG_PARAM_DIVPRES_SHIFT                  (27U)
 /*! DIVPRES - Divider Present
- *  0bxxxx1..System DIVSLOW is present.
- *  0bxxx1x..System DIVBUS is present.
  *  0b1xxxx..System DIVCORE is present.
+ *  0bxxx1x..System DIVBUS is present.
+ *  0bxxxx1..System DIVSLOW is present.
  */
 #define SCG_PARAM_DIVPRES(x)                     (((uint32_t)(((uint32_t)(x)) << SCG_PARAM_DIVPRES_SHIFT)) & SCG_PARAM_DIVPRES_MASK)
 /*! @} */

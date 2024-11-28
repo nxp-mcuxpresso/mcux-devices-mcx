@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MU
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file MU.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for MU
  *
  * CMSIS Peripheral Access Layer for MU
@@ -112,7 +112,7 @@ typedef struct {
   __I  uint32_t VER;                               /**< Version ID, offset: 0x0 */
   __I  uint32_t PAR;                               /**< Parameter, offset: 0x4 */
   __IO uint32_t CR;                                /**< Control, offset: 0x8 */
-  __IO uint32_t SR;                                /**< Status, offset: 0xC */
+  __I  uint32_t SR;                                /**< Status, offset: 0xC */
   __IO uint32_t CCR0;                              /**< Core Control 0, offset: 0x10 */
   __IO uint32_t CIER0;                             /**< Core Interrupt Enable 0, offset: 0x14 */
   __IO uint32_t CSSR0;                             /**< Core Sticky Status 0, offset: 0x18 */
@@ -130,7 +130,7 @@ typedef struct {
   __IO uint32_t RCR;                               /**< Receive Control, offset: 0x128 */
   __I  uint32_t RSR;                               /**< Receive Status, offset: 0x12C */
        uint8_t RESERVED_3[208];
-  __O  uint32_t TR[MU_TR_COUNT];                   /**< Transmit, array offset: 0x200, array step: 0x4 */
+  __IO uint32_t TR[MU_TR_COUNT];                   /**< Transmit, array offset: 0x200, array step: 0x4 */
        uint8_t RESERVED_4[112];
   __I  uint32_t RR[MU_RR_COUNT];                   /**< Receive, array offset: 0x280, array step: 0x4 */
 } MU_Type;
@@ -197,14 +197,6 @@ typedef struct {
  *  0b1..Reset
  */
 #define MU_CR_MUR(x)                             (((uint32_t)(((uint32_t)(x)) << MU_CR_MUR_SHIFT)) & MU_CR_MUR_MASK)
-
-#define MU_CR_MURIE_MASK                         (0x2U)
-#define MU_CR_MURIE_SHIFT                        (1U)
-/*! MURIE - MUB Reset Interrupt Enable
- *  0b0..Disable
- *  0b1..Enable
- */
-#define MU_CR_MURIE(x)                           (((uint32_t)(((uint32_t)(x)) << MU_CR_MURIE_SHIFT)) & MU_CR_MURIE_MASK)
 /*! @} */
 
 /*! @name SR - Status */
@@ -217,16 +209,6 @@ typedef struct {
  *  0b1..In reset
  */
 #define MU_SR_MURS(x)                            (((uint32_t)(((uint32_t)(x)) << MU_SR_MURS_SHIFT)) & MU_SR_MURS_MASK)
-
-#define MU_SR_MURIP_MASK                         (0x2U)
-#define MU_SR_MURIP_SHIFT                        (1U)
-/*! MURIP - MU Reset Interrupt Pending Flag
- *  0b0..Reset not issued
- *  0b1..Reset issued
- *  0b0..No effect
- *  0b1..Clear the flag
- */
-#define MU_SR_MURIP(x)                           (((uint32_t)(((uint32_t)(x)) << MU_SR_MURIP_SHIFT)) & MU_SR_MURIP_MASK)
 
 #define MU_SR_EP_MASK                            (0x4U)
 #define MU_SR_EP_SHIFT                           (2U)
@@ -255,8 +237,8 @@ typedef struct {
 #define MU_SR_TEP_MASK                           (0x20U)
 #define MU_SR_TEP_SHIFT                          (5U)
 /*! TEP - MUB Transmit Empty Pending
- *  0b0..Not pending; MUA is reading no Receive (RRn) register
- *  0b1..Pending; MUA is reading a Receive (RRn) register
+ *  0b0..No MUA transmit empty event pending
+ *  0b1..Pending; any TCR[TIEn] field is 1 and TSR[TEn] flag is set
  */
 #define MU_SR_TEP(x)                             (((uint32_t)(((uint32_t)(x)) << MU_SR_TEP_SHIFT)) & MU_SR_TEP_MASK)
 
@@ -598,8 +580,8 @@ typedef struct {
 #define MU_GSR_GIP0_SHIFT                        (0U)
 /*! GIP0 - MUB General-Purpose Interrupt Request Pending
  *  0b0..Not pending
- *  0b1..Pending
  *  0b0..No effect
+ *  0b1..Pending
  *  0b1..Clear the flag
  */
 #define MU_GSR_GIP0(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP0_SHIFT)) & MU_GSR_GIP0_MASK)
@@ -608,8 +590,8 @@ typedef struct {
 #define MU_GSR_GIP1_SHIFT                        (1U)
 /*! GIP1 - MUB General-Purpose Interrupt Request Pending
  *  0b0..Not pending
- *  0b1..Pending
  *  0b0..No effect
+ *  0b1..Pending
  *  0b1..Clear the flag
  */
 #define MU_GSR_GIP1(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP1_SHIFT)) & MU_GSR_GIP1_MASK)
@@ -618,8 +600,8 @@ typedef struct {
 #define MU_GSR_GIP2_SHIFT                        (2U)
 /*! GIP2 - MUB General-Purpose Interrupt Request Pending
  *  0b0..Not pending
- *  0b1..Pending
  *  0b0..No effect
+ *  0b1..Pending
  *  0b1..Clear the flag
  */
 #define MU_GSR_GIP2(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP2_SHIFT)) & MU_GSR_GIP2_MASK)
@@ -628,8 +610,8 @@ typedef struct {
 #define MU_GSR_GIP3_SHIFT                        (3U)
 /*! GIP3 - MUB General-Purpose Interrupt Request Pending
  *  0b0..Not pending
- *  0b1..Pending
  *  0b0..No effect
+ *  0b1..Pending
  *  0b1..Clear the flag
  */
 #define MU_GSR_GIP3(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP3_SHIFT)) & MU_GSR_GIP3_MASK)

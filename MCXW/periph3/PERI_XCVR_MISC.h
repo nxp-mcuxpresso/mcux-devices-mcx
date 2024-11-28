@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for XCVR_MISC
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file XCVR_MISC.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for XCVR_MISC
  *
  * CMSIS Peripheral Access Layer for XCVR_MISC
@@ -1403,8 +1403,8 @@ typedef struct {
  *  0b010..aa_fnd_to_ll
  *  0b011..tx_dig_en
  *  0b100..seq_spare3
- *  0b110..nbu trigger
  *  0b101..lcl pattern_match
+ *  0b110..nbu trigger
  *  0b111-0b111..Reserved
  */
 #define XCVR_MISC_RSM_CTRL0_RSM_TRIG_SEL(x)      (((uint32_t)(((uint32_t)(x)) << XCVR_MISC_RSM_CTRL0_RSM_TRIG_SEL_SHIFT)) & XCVR_MISC_RSM_CTRL0_RSM_TRIG_SEL_MASK)
@@ -1460,13 +1460,13 @@ typedef struct {
 #define XCVR_MISC_RSM_CTRL2_RSM_RTT_TYPE_MASK    (0x700000U)
 #define XCVR_MISC_RSM_CTRL2_RSM_RTT_TYPE_SHIFT   (20U)
 /*! RSM_RTT_TYPE - RSM_RTT_TYPE
- *  0b110..128-bit payload
- *  0b101..96-bit payload
- *  0b100..64-bit payload
- *  0b011..32-bit payload
- *  0b010..96-bit payload
- *  0b001..32-bit payload
  *  0b000..no payload
+ *  0b001..32-bit payload
+ *  0b010..96-bit payload
+ *  0b011..32-bit payload
+ *  0b100..64-bit payload
+ *  0b101..96-bit payload
+ *  0b110..128-bit payload
  */
 #define XCVR_MISC_RSM_CTRL2_RSM_RTT_TYPE(x)      (((uint32_t)(((uint32_t)(x)) << XCVR_MISC_RSM_CTRL2_RSM_RTT_TYPE_SHIFT)) & XCVR_MISC_RSM_CTRL2_RSM_RTT_TYPE_MASK)
 
@@ -1603,8 +1603,8 @@ typedef struct {
 #define XCVR_MISC_RSM_CTRL7_RSM_TIME_CORR_DELTA_MASK (0xC0000U)
 #define XCVR_MISC_RSM_CTRL7_RSM_TIME_CORR_DELTA_SHIFT (18U)
 /*! RSM_TIME_CORR_DELTA - Timing drift delta value
- *  0b01..+1 us
  *  0b00..0 us
+ *  0b01..+1 us
  *  0b11..-1 us
  */
 #define XCVR_MISC_RSM_CTRL7_RSM_TIME_CORR_DELTA(x) (((uint32_t)(((uint32_t)(x)) << XCVR_MISC_RSM_CTRL7_RSM_TIME_CORR_DELTA_SHIFT)) & XCVR_MISC_RSM_CTRL7_RSM_TIME_CORR_DELTA_MASK)
@@ -1890,8 +1890,8 @@ typedef struct {
 #define XCVR_MISC_RSM_CONFIG_BUFF_RSM_CONFIG_BUFF_LOC_MASK (0x1000U)
 #define XCVR_MISC_RSM_CONFIG_BUFF_RSM_CONFIG_BUFF_LOC_SHIFT (12U)
 /*! RSM_CONFIG_BUFF_LOC - RSM CONFIG BUFFER LOCATION
- *  0b1..located in Rx Packet RAM
  *  0b0..located in Tx Packet RAM
+ *  0b1..located in Rx Packet RAM
  */
 #define XCVR_MISC_RSM_CONFIG_BUFF_RSM_CONFIG_BUFF_LOC(x) (((uint32_t)(((uint32_t)(x)) << XCVR_MISC_RSM_CONFIG_BUFF_RSM_CONFIG_BUFF_LOC_SHIFT)) & XCVR_MISC_RSM_CONFIG_BUFF_RSM_CONFIG_BUFF_LOC_MASK)
 
@@ -1936,8 +1936,8 @@ typedef struct {
 #define XCVR_MISC_RSM_RESULT_BUFF_RSM_RESULT_BUFF_LOC_MASK (0x1000U)
 #define XCVR_MISC_RSM_RESULT_BUFF_RSM_RESULT_BUFF_LOC_SHIFT (12U)
 /*! RSM_RESULT_BUFF_LOC - RSM RESULT BUFFER LOCATION
- *  0b1..located in RX Packet RAM
  *  0b0..located in TX Packet RAM
+ *  0b1..located in RX Packet RAM
  */
 #define XCVR_MISC_RSM_RESULT_BUFF_RSM_RESULT_BUFF_LOC(x) (((uint32_t)(((uint32_t)(x)) << XCVR_MISC_RSM_RESULT_BUFF_RSM_RESULT_BUFF_LOC_SHIFT)) & XCVR_MISC_RSM_RESULT_BUFF_RSM_RESULT_BUFF_LOC_MASK)
 

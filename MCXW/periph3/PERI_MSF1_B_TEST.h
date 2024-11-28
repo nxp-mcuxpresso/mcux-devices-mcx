@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MSF1_B_test
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file MSF1_B_test.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for MSF1_B_test
  *
  * CMSIS Peripheral Access Layer for MSF1_B_test
@@ -180,7 +180,7 @@ typedef struct {
   __IO uint32_t R_CNT_LOOP_CTRL;                   /**< BIST Loop Count Control Register, offset: 0x21C */
   __IO uint32_t R_TIMER_CTRL;                      /**< BIST Timer Control Register, offset: 0x220 */
   __IO uint32_t R_TEST_CTRL;                       /**< BIST Test Control Register, offset: 0x224 */
-  __O  uint32_t R_ABORT_LOOP;                      /**< BIST Abort Loop Register, offset: 0x228 */
+  __IO uint32_t R_ABORT_LOOP;                      /**< BIST Abort Loop Register, offset: 0x228 */
   __I  uint32_t R_ADR_QUERY;                       /**< BIST Address Query Register, offset: 0x22C */
   __I  uint32_t R_DOUT_QUERY0;                     /**< BIST DOUT Query 0 Register, offset: 0x230 */
        uint8_t RESERVED_5[8];

@@ -5,9 +5,9 @@
 **                          MCXW727DMFTA_cm33_core0
 **
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
-**     Reference manual:    Rev. 6, 05/22/2022
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240815
+**     Reference manual:    Rev. 1, 2024-10-13
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM

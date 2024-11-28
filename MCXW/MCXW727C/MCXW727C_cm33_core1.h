@@ -6,9 +6,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    Rev. 6, 05/22/2022
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Reference manual:    Rev. 1, 2024-10-13
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW727C_cm33_core1
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file MCXW727C_cm33_core1.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for MCXW727C_cm33_core1
  *
  * CMSIS Peripheral Access Layer for MCXW727C_cm33_core1

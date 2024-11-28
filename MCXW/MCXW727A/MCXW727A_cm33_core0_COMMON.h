@@ -6,9 +6,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    Rev. 6, 05/22/2022
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Reference manual:    Rev. 1, 2024-10-13
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW727A_cm33_core0
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file MCXW727A_cm33_core0_COMMON.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for MCXW727A_cm33_core0
  *
  * CMSIS Peripheral Access Layer for MCXW727A_cm33_core0
@@ -393,33 +393,33 @@ typedef enum IRQn {
   #define CRC_BASE_PTRS                            { CRC0 }
 #endif
 
-/* DBG - Peripheral instance base addresses */
+/* DBGMB - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  /** Peripheral DBG base address */
-  #define DBG_BASE                                 (0x58000000u)
-  /** Peripheral DBG base address */
-  #define DBG_BASE_NS                              (0x48000000u)
-  /** Peripheral DBG base pointer */
-  #define DBG                                      ((DBG_Type *)DBG_BASE)
-  /** Peripheral DBG base pointer */
-  #define DBG_NS                                   ((DBG_Type *)DBG_BASE_NS)
-  /** Array initializer of DBG peripheral base addresses */
-  #define DBG_BASE_ADDRS                           { DBG_BASE }
-  /** Array initializer of DBG peripheral base pointers */
-  #define DBG_BASE_PTRS                            { DBG }
-  /** Array initializer of DBG peripheral base addresses */
-  #define DBG_BASE_ADDRS_NS                        { DBG_BASE_NS }
-  /** Array initializer of DBG peripheral base pointers */
-  #define DBG_BASE_PTRS_NS                         { DBG_NS }
+  /** Peripheral DBGMB base address */
+  #define DBGMB_BASE                               (0x58000000u)
+  /** Peripheral DBGMB base address */
+  #define DBGMB_BASE_NS                            (0x48000000u)
+  /** Peripheral DBGMB base pointer */
+  #define DBGMB                                    ((DBGMB_Type *)DBGMB_BASE)
+  /** Peripheral DBGMB base pointer */
+  #define DBGMB_NS                                 ((DBGMB_Type *)DBGMB_BASE_NS)
+  /** Array initializer of DBGMB peripheral base addresses */
+  #define DBGMB_BASE_ADDRS                         { DBGMB_BASE }
+  /** Array initializer of DBGMB peripheral base pointers */
+  #define DBGMB_BASE_PTRS                          { DBGMB }
+  /** Array initializer of DBGMB peripheral base addresses */
+  #define DBGMB_BASE_ADDRS_NS                      { DBGMB_BASE_NS }
+  /** Array initializer of DBGMB peripheral base pointers */
+  #define DBGMB_BASE_PTRS_NS                       { DBGMB_NS }
 #else
-  /** Peripheral DBG base address */
-  #define DBG_BASE                                 (0x48000000u)
-  /** Peripheral DBG base pointer */
-  #define DBG                                      ((DBG_Type *)DBG_BASE)
-  /** Array initializer of DBG peripheral base addresses */
-  #define DBG_BASE_ADDRS                           { DBG_BASE }
-  /** Array initializer of DBG peripheral base pointers */
-  #define DBG_BASE_PTRS                            { DBG }
+  /** Peripheral DBGMB base address */
+  #define DBGMB_BASE                               (0x48000000u)
+  /** Peripheral DBGMB base pointer */
+  #define DBGMB                                    ((DBGMB_Type *)DBGMB_BASE)
+  /** Array initializer of DBGMB peripheral base addresses */
+  #define DBGMB_BASE_ADDRS                         { DBGMB_BASE }
+  /** Array initializer of DBGMB peripheral base pointers */
+  #define DBGMB_BASE_PTRS                          { DBGMB }
 #endif
 
 /* DMA - Peripheral instance base addresses */
@@ -2315,7 +2315,7 @@ typedef enum IRQn {
  * @{
  */
 
-#ifdef ((MCXW727A_cm33_core0_H_) || (MCXW727C_cm33_core0_H_) || (MCXW727D_cm33_core0_H_))
+#if defined(MCXW727A_cm33_core0_H_) || defined(MCXW727C_cm33_core0_H_) || defined(MCXW727D_cm33_core0_H_)
 #define RADIO_IS_GEN_4P7 (1)
 #define NXP_RADIO_GEN (470)
 #define IS_APP_CORE (1)
@@ -2347,7 +2347,15 @@ static inline uint8_t Chip_GetVersion(void)
 {
     return DEVICE_REVISION_A0;
 }
-#elif defined((MCXW727A_cm33_core1_H_) || (MCXW727C_cm33_core1_H_) || (MCXW727D_cm33_core1_H_))
+
+/*
+ * CE STCMs base address.
+ */
+#define CE_STCM5_BASE (0x20020000u)
+#define CE_STCM6_BASE (0x20028000u)
+#define CE_STCM7_BASE (0x20030000u)
+
+#elif defined(MCXW727A_cm33_core1_H_) || defined(MCXW727C_cm33_core1_H_) || defined(MCXW727D_cm33_core1_H_)
 #define RADIO_IS_GEN_4P7 (1)
 #define NXP_RADIO_GEN (470)
 #define IS_APP_CORE (0)

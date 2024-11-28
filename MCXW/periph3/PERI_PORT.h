@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PORT
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file PORT.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for PORT
  *
  * CMSIS Peripheral Access Layer for PORT
@@ -100,8 +100,8 @@
 typedef struct {
   __I  uint32_t VERID;                             /**< Version ID, offset: 0x0 */
        uint8_t RESERVED_0[12];
-  __O  uint32_t GPCLR;                             /**< Global Pin Control Low, offset: 0x10 */
-  __O  uint32_t GPCHR;                             /**< Global Pin Control High, offset: 0x14 */
+  __IO uint32_t GPCLR;                             /**< Global Pin Control Low, offset: 0x10 */
+  __IO uint32_t GPCHR;                             /**< Global Pin Control High, offset: 0x14 */
        uint8_t RESERVED_1[8];
   __IO uint32_t CONFIG;                            /**< Configuration, offset: 0x20 */
        uint8_t RESERVED_2[28];

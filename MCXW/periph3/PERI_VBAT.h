@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for VBAT
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file VBAT.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for VBAT
  *
  * CMSIS Peripheral Access Layer for VBAT
@@ -157,8 +157,8 @@ typedef struct {
 #define VBAT_STATUSA_POR_DET_SHIFT               (0U)
 /*! POR_DET - POR Detect Flag
  *  0b0..Not reset
- *  0b1..Reset
  *  0b0..No effect
+ *  0b1..Reset
  *  0b1..Clear the flag
  */
 #define VBAT_STATUSA_POR_DET(x)                  (((uint32_t)(((uint32_t)(x)) << VBAT_STATUSA_POR_DET_SHIFT)) & VBAT_STATUSA_POR_DET_MASK)
@@ -167,8 +167,8 @@ typedef struct {
 #define VBAT_STATUSA_WAKEUP_FLAG_SHIFT           (1U)
 /*! WAKEUP_FLAG - Wakeup Pin Flag
  *  0b0..Not asserted
- *  0b1..Asserted
  *  0b0..No effect
+ *  0b1..Asserted
  *  0b1..Clear the flag
  */
 #define VBAT_STATUSA_WAKEUP_FLAG(x)              (((uint32_t)(((uint32_t)(x)) << VBAT_STATUSA_WAKEUP_FLAG_SHIFT)) & VBAT_STATUSA_WAKEUP_FLAG_MASK)
@@ -177,8 +177,8 @@ typedef struct {
 #define VBAT_STATUSA_TIMER0_FLAG_SHIFT           (2U)
 /*! TIMER0_FLAG - Bandgap Timer 0 Flag
  *  0b0..Not reached
- *  0b1..Reached
  *  0b0..No effect
+ *  0b1..Reached
  *  0b1..Clear the flag
  */
 #define VBAT_STATUSA_TIMER0_FLAG(x)              (((uint32_t)(((uint32_t)(x)) << VBAT_STATUSA_TIMER0_FLAG_SHIFT)) & VBAT_STATUSA_TIMER0_FLAG_MASK)
@@ -187,8 +187,8 @@ typedef struct {
 #define VBAT_STATUSA_TIMER1_FLAG_SHIFT           (3U)
 /*! TIMER1_FLAG - Bandgap Timer 1 Flag
  *  0b0..Not reached
- *  0b1..Reached
  *  0b0..No effect
+ *  0b1..Reached
  *  0b1..Clear the flag
  */
 #define VBAT_STATUSA_TIMER1_FLAG(x)              (((uint32_t)(((uint32_t)(x)) << VBAT_STATUSA_TIMER1_FLAG_SHIFT)) & VBAT_STATUSA_TIMER1_FLAG_MASK)
@@ -409,14 +409,14 @@ typedef struct {
 #define VBAT_LDOTIMER0_TIMCFG_MASK               (0x7U)
 #define VBAT_LDOTIMER0_TIMCFG_SHIFT              (0U)
 /*! TIMCFG - Timeout Configuration
- *  0b111..7.8125 ms
- *  0b110..15.625 ms
- *  0b101..31.25 ms
- *  0b100..62.5 ms
- *  0b011..125 ms
- *  0b010..250 ms
- *  0b001..500 ms
  *  0b000..1 s
+ *  0b001..500 ms
+ *  0b010..250 ms
+ *  0b011..125 ms
+ *  0b100..62.5 ms
+ *  0b101..31.25 ms
+ *  0b110..15.625 ms
+ *  0b111..7.8125 ms
  */
 #define VBAT_LDOTIMER0_TIMCFG(x)                 (((uint32_t)(((uint32_t)(x)) << VBAT_LDOTIMER0_TIMCFG_SHIFT)) & VBAT_LDOTIMER0_TIMCFG_MASK)
 

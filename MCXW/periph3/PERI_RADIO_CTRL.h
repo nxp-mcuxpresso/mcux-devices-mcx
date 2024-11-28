@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for RADIO_CTRL
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file RADIO_CTRL.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for RADIO_CTRL
  *
  * CMSIS Peripheral Access Layer for RADIO_CTRL
@@ -95,7 +95,7 @@
 
 /** RADIO_CTRL - Register Layout Typedef */
 typedef struct {
-  __I  uint32_t LL_STATUS;                         /**< LL Status Register, offset: 0x0 */
+       uint8_t RESERVED_0[4];
   __IO uint32_t LL_CTRL;                           /**< LL Control Register, offset: 0x4 */
   __IO uint32_t RF_CTRL;                           /**< Radio Control Register, offset: 0x8 */
   __IO uint32_t RF_CLK_CTRL;                       /**< Radio Clock Control Register, offset: 0xC */
@@ -105,10 +105,9 @@ typedef struct {
   __IO uint32_t PACKET_RAM_CTRL;                   /**< PACKET RAM Control Register, offset: 0x1C */
   __IO uint32_t BLE_PHY_CTRL;                      /**< BLE PHY Interface Control Register, offset: 0x20 */
   __IO uint32_t DTEST_CTRL;                        /**< DTEST Control register, offset: 0x24 */
-       uint8_t RESERVED_0[8];
+       uint8_t RESERVED_1[8];
   __IO uint32_t DTEST_PIN_CTRL2;                   /**< DTEST PIN Control 2 register, offset: 0x30 */
-       uint8_t RESERVED_1[4];
-  __IO uint32_t FPGA_CTRL;                         /**< FPGA Control register, offset: 0x38 */
+       uint8_t RESERVED_2[8];
   __IO uint32_t PACKET_RAM_TO_IPS_CTRL;            /**< Packet RAM to IPS transfer control and status, offset: 0x3C */
 } RADIO_CTRL_Type;
 
@@ -120,27 +119,6 @@ typedef struct {
  * @addtogroup RADIO_CTRL_Register_Masks RADIO_CTRL Register Masks
  * @{
  */
-
-/*! @name LL_STATUS - LL Status Register */
-/*! @{ */
-
-#define RADIO_CTRL_LL_STATUS_LL_PRESENT_MASK     (0x3FU)
-#define RADIO_CTRL_LL_STATUS_LL_PRESENT_SHIFT    (0U)
-/*! LL_PRESENT - LL present status */
-#define RADIO_CTRL_LL_STATUS_LL_PRESENT(x)       (((uint32_t)(((uint32_t)(x)) << RADIO_CTRL_LL_STATUS_LL_PRESENT_SHIFT)) & RADIO_CTRL_LL_STATUS_LL_PRESENT_MASK)
-
-#define RADIO_CTRL_LL_STATUS_BLE_VERSION_MASK    (0xF00U)
-#define RADIO_CTRL_LL_STATUS_BLE_VERSION_SHIFT   (8U)
-/*! BLE_VERSION - Bluetooth LE Version
- *  0b0000..No Bluetooth LE
- *  0b0001..Bluetooth LE 5.1
- *  0b0010..Bluetooth LE 5.2
- *  0b0011..Bluetooth LE 5.3
- *  0b0100-0b1110..Reserved
- *  0b1111..Bluetooth LE Upgrade
- */
-#define RADIO_CTRL_LL_STATUS_BLE_VERSION(x)      (((uint32_t)(((uint32_t)(x)) << RADIO_CTRL_LL_STATUS_BLE_VERSION_SHIFT)) & RADIO_CTRL_LL_STATUS_BLE_VERSION_MASK)
-/*! @} */
 
 /*! @name LL_CTRL - LL Control Register */
 /*! @{ */
@@ -469,10 +447,10 @@ typedef struct {
 #define RADIO_CTRL_COEX_CTRL_RF_PRIORITY_INV_MASK (0xC00U)
 #define RADIO_CTRL_COEX_CTRL_RF_PRIORITY_INV_SHIFT (10U)
 /*! RF_PRIORITY_INV - RF_PRIORITY Invert
- *  0bx0..rf_priority[0] is not inverted.
- *  0bx1..rf_priority[0] is inverted.
  *  0b0x..rf_priority[1] is not inverted.
  *  0b1x..rf_priority[1] is inverted.
+ *  0bx0..rf_priority[0] is not inverted.
+ *  0bx1..rf_priority[0] is inverted.
  */
 #define RADIO_CTRL_COEX_CTRL_RF_PRIORITY_INV(x)  (((uint32_t)(((uint32_t)(x)) << RADIO_CTRL_COEX_CTRL_RF_PRIORITY_INV_SHIFT)) & RADIO_CTRL_COEX_CTRL_RF_PRIORITY_INV_MASK)
 
@@ -701,41 +679,6 @@ typedef struct {
  *  0b1011-0b1111..reserved
  */
 #define RADIO_CTRL_DTEST_PIN_CTRL2_DTEST_PIN11_OVRD_SEL(x) (((uint32_t)(((uint32_t)(x)) << RADIO_CTRL_DTEST_PIN_CTRL2_DTEST_PIN11_OVRD_SEL_SHIFT)) & RADIO_CTRL_DTEST_PIN_CTRL2_DTEST_PIN11_OVRD_SEL_MASK)
-/*! @} */
-
-/*! @name FPGA_CTRL - FPGA Control register */
-/*! @{ */
-
-#define RADIO_CTRL_FPGA_CTRL_HOP_FREQ_WORD_MASK  (0xFFFFU)
-#define RADIO_CTRL_FPGA_CTRL_HOP_FREQ_WORD_SHIFT (0U)
-/*! HOP_FREQ_WORD - HOP FREQ WORD to PLL_DIG */
-#define RADIO_CTRL_FPGA_CTRL_HOP_FREQ_WORD(x)    (((uint32_t)(((uint32_t)(x)) << RADIO_CTRL_FPGA_CTRL_HOP_FREQ_WORD_SHIFT)) & RADIO_CTRL_FPGA_CTRL_HOP_FREQ_WORD_MASK)
-
-#define RADIO_CTRL_FPGA_CTRL_TGT_POWER_LL_MASK   (0x3F0000U)
-#define RADIO_CTRL_FPGA_CTRL_TGT_POWER_LL_SHIFT  (16U)
-/*! TGT_POWER_LL - Target Power Register */
-#define RADIO_CTRL_FPGA_CTRL_TGT_POWER_LL(x)     (((uint32_t)(((uint32_t)(x)) << RADIO_CTRL_FPGA_CTRL_TGT_POWER_LL_SHIFT)) & RADIO_CTRL_FPGA_CTRL_TGT_POWER_LL_MASK)
-
-#define RADIO_CTRL_FPGA_CTRL_HDI_DBUS_MODE_MASK  (0x20000000U)
-#define RADIO_CTRL_FPGA_CTRL_HDI_DBUS_MODE_SHIFT (29U)
-/*! HDI_DBUS_MODE - HDI Mode Select Register
- *  0b0..HDI Dbus Mode disabled. (default)
- *  0b1..HDI Dbus Mode enabled
- */
-#define RADIO_CTRL_FPGA_CTRL_HDI_DBUS_MODE(x)    (((uint32_t)(((uint32_t)(x)) << RADIO_CTRL_FPGA_CTRL_HDI_DBUS_MODE_SHIFT)) & RADIO_CTRL_FPGA_CTRL_HDI_DBUS_MODE_MASK)
-
-#define RADIO_CTRL_FPGA_CTRL_DATA_RATE_SEL_MASK  (0x40000000U)
-#define RADIO_CTRL_FPGA_CTRL_DATA_RATE_SEL_SHIFT (30U)
-/*! DATA_RATE_SEL - Data Rate Select Register */
-#define RADIO_CTRL_FPGA_CTRL_DATA_RATE_SEL(x)    (((uint32_t)(((uint32_t)(x)) << RADIO_CTRL_FPGA_CTRL_DATA_RATE_SEL_SHIFT)) & RADIO_CTRL_FPGA_CTRL_DATA_RATE_SEL_MASK)
-
-#define RADIO_CTRL_FPGA_CTRL_HDI_MODE_MASK       (0x80000000U)
-#define RADIO_CTRL_FPGA_CTRL_HDI_MODE_SHIFT      (31U)
-/*! HDI_MODE - HDI Mode Select Register
- *  0b0..HDI Mode disabled. (default)
- *  0b1..HDI Mode enabled
- */
-#define RADIO_CTRL_FPGA_CTRL_HDI_MODE(x)         (((uint32_t)(((uint32_t)(x)) << RADIO_CTRL_FPGA_CTRL_HDI_MODE_SHIFT)) & RADIO_CTRL_FPGA_CTRL_HDI_MODE_MASK)
 /*! @} */
 
 /*! @name PACKET_RAM_TO_IPS_CTRL - Packet RAM to IPS transfer control and status */

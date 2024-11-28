@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ADC
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file ADC.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for ADC
  *
  * CMSIS Peripheral Access Layer for ADC
@@ -114,7 +114,7 @@ typedef struct {
   __IO uint32_t CFG;                               /**< Configuration Register, offset: 0x20 */
   __IO uint32_t PAUSE;                             /**< Pause Register, offset: 0x24 */
        uint8_t RESERVED_1[12];
-  __O  uint32_t SWTRIG;                            /**< Software Trigger Register, offset: 0x34 */
+  __IO uint32_t SWTRIG;                            /**< Software Trigger Register, offset: 0x34 */
   __IO uint32_t TSTAT;                             /**< Trigger Status Register, offset: 0x38 */
        uint8_t RESERVED_2[4];
   __IO uint32_t OFSTRIM;                           /**< Offset Trim Register, offset: 0x40 */
@@ -777,14 +777,6 @@ typedef struct {
  *  0b11..Lowest priority, Level 4
  */
 #define ADC_TCTRL_TPRI(x)                        (((uint32_t)(((uint32_t)(x)) << ADC_TCTRL_TPRI_SHIFT)) & ADC_TCTRL_TPRI_MASK)
-
-#define ADC_TCTRL_RSYNC_MASK                     (0x8000U)
-#define ADC_TCTRL_RSYNC_SHIFT                    (15U)
-/*! RSYNC - Trigger Resync
- *  0b0..Disable
- *  0b1..Enable
- */
-#define ADC_TCTRL_RSYNC(x)                       (((uint32_t)(((uint32_t)(x)) << ADC_TCTRL_RSYNC_SHIFT)) & ADC_TCTRL_RSYNC_MASK)
 
 #define ADC_TCTRL_TDLY_MASK                      (0xF0000U)
 #define ADC_TCTRL_TDLY_SHIFT                     (16U)

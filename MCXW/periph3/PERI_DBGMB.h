@@ -7,11 +7,11 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
-**         CMSIS Peripheral Access Layer for DBG
+**         CMSIS Peripheral Access Layer for DBGMB
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
 **     Copyright 2016-2024 NXP
@@ -21,23 +21,23 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
 
 /*!
- * @file DBG.h
+ * @file DBGMB.h
  * @version 1.0
- * @date 2023-05-20
- * @brief CMSIS Peripheral Access Layer for DBG
+ * @date 2024-10-13
+ * @brief CMSIS Peripheral Access Layer for DBGMB
  *
- * CMSIS Peripheral Access Layer for DBG
+ * CMSIS Peripheral Access Layer for DBGMB
  */
 
-#if !defined(DBG_H_)
-#define DBG_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(DBGMB_H_)
+#define DBGMB_H_                                 /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -85,120 +85,120 @@
 #endif
 
 /* ----------------------------------------------------------------------------
-   -- DBG Peripheral Access Layer
+   -- DBGMB Peripheral Access Layer
    ---------------------------------------------------------------------------- */
 
 /*!
- * @addtogroup DBG_Peripheral_Access_Layer DBG Peripheral Access Layer
+ * @addtogroup DBGMB_Peripheral_Access_Layer DBGMB Peripheral Access Layer
  * @{
  */
 
-/** DBG - Register Layout Typedef */
+/** DBGMB - Register Layout Typedef */
 typedef struct {
   __IO uint32_t CSW;                               /**< Command and Status Word, offset: 0x0 */
   __IO uint32_t REQUEST;                           /**< Request Value, offset: 0x4 */
   __IO uint32_t RETURN;                            /**< Return Value, offset: 0x8 */
        uint8_t RESERVED_0[240];
   __I  uint32_t ID;                                /**< Identification, offset: 0xFC */
-} DBG_Type;
+} DBGMB_Type;
 
 /* ----------------------------------------------------------------------------
-   -- DBG Register Masks
+   -- DBGMB Register Masks
    ---------------------------------------------------------------------------- */
 
 /*!
- * @addtogroup DBG_Register_Masks DBG Register Masks
+ * @addtogroup DBGMB_Register_Masks DBGMB Register Masks
  * @{
  */
 
 /*! @name CSW - Command and Status Word */
 /*! @{ */
 
-#define DBG_CSW_RESYNCH_REQ_MASK                 (0x1U)
-#define DBG_CSW_RESYNCH_REQ_SHIFT                (0U)
+#define DBGMB_CSW_RESYNCH_REQ_MASK               (0x1U)
+#define DBGMB_CSW_RESYNCH_REQ_SHIFT              (0U)
 /*! RESYNCH_REQ - Resynchronization Request
  *  0b0..No request
  *  0b1..Request for resynchronization
  */
-#define DBG_CSW_RESYNCH_REQ(x)                   (((uint32_t)(((uint32_t)(x)) << DBG_CSW_RESYNCH_REQ_SHIFT)) & DBG_CSW_RESYNCH_REQ_MASK)
+#define DBGMB_CSW_RESYNCH_REQ(x)                 (((uint32_t)(((uint32_t)(x)) << DBGMB_CSW_RESYNCH_REQ_SHIFT)) & DBGMB_CSW_RESYNCH_REQ_MASK)
 
-#define DBG_CSW_REQ_PENDING_MASK                 (0x2U)
-#define DBG_CSW_REQ_PENDING_SHIFT                (1U)
+#define DBGMB_CSW_REQ_PENDING_MASK               (0x2U)
+#define DBGMB_CSW_REQ_PENDING_SHIFT              (1U)
 /*! REQ_PENDING - Request Pending
  *  0b0..No request pending
  *  0b1..Request for resynchronization pending
  */
-#define DBG_CSW_REQ_PENDING(x)                   (((uint32_t)(((uint32_t)(x)) << DBG_CSW_REQ_PENDING_SHIFT)) & DBG_CSW_REQ_PENDING_MASK)
+#define DBGMB_CSW_REQ_PENDING(x)                 (((uint32_t)(((uint32_t)(x)) << DBGMB_CSW_REQ_PENDING_SHIFT)) & DBGMB_CSW_REQ_PENDING_MASK)
 
-#define DBG_CSW_DBG_OR_ERR_MASK                  (0x4U)
-#define DBG_CSW_DBG_OR_ERR_SHIFT                 (2U)
+#define DBGMB_CSW_DBG_OR_ERR_MASK                (0x4U)
+#define DBGMB_CSW_DBG_OR_ERR_SHIFT               (2U)
 /*! DBG_OR_ERR - DBGMB Overrun Error
  *  0b0..No overrun
  *  0b1..Overrun occurred
  */
-#define DBG_CSW_DBG_OR_ERR(x)                    (((uint32_t)(((uint32_t)(x)) << DBG_CSW_DBG_OR_ERR_SHIFT)) & DBG_CSW_DBG_OR_ERR_MASK)
+#define DBGMB_CSW_DBG_OR_ERR(x)                  (((uint32_t)(((uint32_t)(x)) << DBGMB_CSW_DBG_OR_ERR_SHIFT)) & DBGMB_CSW_DBG_OR_ERR_MASK)
 
-#define DBG_CSW_AHB_OR_ERR_MASK                  (0x8U)
-#define DBG_CSW_AHB_OR_ERR_SHIFT                 (3U)
+#define DBGMB_CSW_AHB_OR_ERR_MASK                (0x8U)
+#define DBGMB_CSW_AHB_OR_ERR_SHIFT               (3U)
 /*! AHB_OR_ERR - AHB Overrun Error
  *  0b0..No overrun
  *  0b1..Overrun occurred
  */
-#define DBG_CSW_AHB_OR_ERR(x)                    (((uint32_t)(((uint32_t)(x)) << DBG_CSW_AHB_OR_ERR_SHIFT)) & DBG_CSW_AHB_OR_ERR_MASK)
+#define DBGMB_CSW_AHB_OR_ERR(x)                  (((uint32_t)(((uint32_t)(x)) << DBGMB_CSW_AHB_OR_ERR_SHIFT)) & DBGMB_CSW_AHB_OR_ERR_MASK)
 
-#define DBG_CSW_SOFT_RESET_MASK                  (0x10U)
-#define DBG_CSW_SOFT_RESET_SHIFT                 (4U)
+#define DBGMB_CSW_SOFT_RESET_MASK                (0x10U)
+#define DBGMB_CSW_SOFT_RESET_SHIFT               (4U)
 /*! SOFT_RESET - Soft Reset
  *  0b0..No effect
  *  0b1..Reset
  */
-#define DBG_CSW_SOFT_RESET(x)                    (((uint32_t)(((uint32_t)(x)) << DBG_CSW_SOFT_RESET_SHIFT)) & DBG_CSW_SOFT_RESET_MASK)
+#define DBGMB_CSW_SOFT_RESET(x)                  (((uint32_t)(((uint32_t)(x)) << DBGMB_CSW_SOFT_RESET_SHIFT)) & DBGMB_CSW_SOFT_RESET_MASK)
 
-#define DBG_CSW_CHIP_RESET_REQ_MASK              (0x20U)
-#define DBG_CSW_CHIP_RESET_REQ_SHIFT             (5U)
+#define DBGMB_CSW_CHIP_RESET_REQ_MASK            (0x20U)
+#define DBGMB_CSW_CHIP_RESET_REQ_SHIFT           (5U)
 /*! CHIP_RESET_REQ - Chip Reset Request
  *  0b0..No effect
  *  0b1..Reset
  */
-#define DBG_CSW_CHIP_RESET_REQ(x)                (((uint32_t)(((uint32_t)(x)) << DBG_CSW_CHIP_RESET_REQ_SHIFT)) & DBG_CSW_CHIP_RESET_REQ_MASK)
+#define DBGMB_CSW_CHIP_RESET_REQ(x)              (((uint32_t)(((uint32_t)(x)) << DBGMB_CSW_CHIP_RESET_REQ_SHIFT)) & DBGMB_CSW_CHIP_RESET_REQ_MASK)
 /*! @} */
 
 /*! @name REQUEST - Request Value */
 /*! @{ */
 
-#define DBG_REQUEST_REQUEST_MASK                 (0xFFFFFFFFU)
-#define DBG_REQUEST_REQUEST_SHIFT                (0U)
+#define DBGMB_REQUEST_REQUEST_MASK               (0xFFFFFFFFU)
+#define DBGMB_REQUEST_REQUEST_SHIFT              (0U)
 /*! REQUEST - Request Value */
-#define DBG_REQUEST_REQUEST(x)                   (((uint32_t)(((uint32_t)(x)) << DBG_REQUEST_REQUEST_SHIFT)) & DBG_REQUEST_REQUEST_MASK)
+#define DBGMB_REQUEST_REQUEST(x)                 (((uint32_t)(((uint32_t)(x)) << DBGMB_REQUEST_REQUEST_SHIFT)) & DBGMB_REQUEST_REQUEST_MASK)
 /*! @} */
 
 /*! @name RETURN - Return Value */
 /*! @{ */
 
-#define DBG_RETURN_RET_MASK                      (0xFFFFFFFFU)
-#define DBG_RETURN_RET_SHIFT                     (0U)
+#define DBGMB_RETURN_RET_MASK                    (0xFFFFFFFFU)
+#define DBGMB_RETURN_RET_SHIFT                   (0U)
 /*! RET - Return Value */
-#define DBG_RETURN_RET(x)                        (((uint32_t)(((uint32_t)(x)) << DBG_RETURN_RET_SHIFT)) & DBG_RETURN_RET_MASK)
+#define DBGMB_RETURN_RET(x)                      (((uint32_t)(((uint32_t)(x)) << DBGMB_RETURN_RET_SHIFT)) & DBGMB_RETURN_RET_MASK)
 /*! @} */
 
 /*! @name ID - Identification */
 /*! @{ */
 
-#define DBG_ID_ID_MASK                           (0xFFFFFFFFU)
-#define DBG_ID_ID_SHIFT                          (0U)
+#define DBGMB_ID_ID_MASK                         (0xFFFFFFFFU)
+#define DBGMB_ID_ID_SHIFT                        (0U)
 /*! ID - Identification Value */
-#define DBG_ID_ID(x)                             (((uint32_t)(((uint32_t)(x)) << DBG_ID_ID_SHIFT)) & DBG_ID_ID_MASK)
+#define DBGMB_ID_ID(x)                           (((uint32_t)(((uint32_t)(x)) << DBGMB_ID_ID_SHIFT)) & DBGMB_ID_ID_MASK)
 /*! @} */
 
 
 /*!
  * @}
- */ /* end of group DBG_Register_Masks */
+ */ /* end of group DBGMB_Register_Masks */
 
 
 /*!
  * @}
- */ /* end of group DBG_Peripheral_Access_Layer */
+ */ /* end of group DBGMB_Peripheral_Access_Layer */
 
 
 /*
@@ -224,5 +224,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* DBG_H_ */
+#endif  /* DBGMB_H_ */
 

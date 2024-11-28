@@ -6,9 +6,9 @@
 **                          MCXW727DMFTA_cm33_core0
 **
 **     Compiler:            Keil ARM C/C++ Compiler
-**     Reference manual:    Rev. 6, 05/22/2022
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240815
+**     Reference manual:    Rev. 1, 2024-10-13
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -49,11 +49,26 @@
 #define  m_data1_start                  0x20000000
 #define  m_data1_size                   0x00038000
 
+#define m_core1_image_start            0x48800000
+#define m_core1_image_size             0x00040000
+
+#if (defined(__use_shmem__))
+  #define m_rpmsg_sh_mem_start         0x489C8800
+  #define m_rpmsg_sh_mem_size          0x00001800
+#endif
+
 LR_m_text m_text_start m_text_size {   ; load region size_region
   ER_m_text m_text_start FIXED m_text_size { ; load address = execution address
     * (InRoot$$Sections)
     .ANY (+RO)
   }
+
+#if (defined(__use_shmem__))
+  RPMSG_SH_MEM m_rpmsg_sh_mem_start UNINIT m_rpmsg_sh_mem_size { ; Shared memory used by RPMSG
+    * (rpmsg_sh_mem_section)
+  }
+#endif
+
   RW_m_data0 m_data0_start m_data0_size { ; RW data
     .ANY (+RW +ZI)
   }
@@ -69,5 +84,11 @@ LR_m_text m_text_start m_text_size {   ; load region size_region
 LR_m_interrupts m_interrupts_start m_interrupts_size {
   VECTOR_ROM m_interrupts_start m_interrupts_size { ; load address = execution address
     * (RESET,+FIRST)
+  }
+}
+
+LR_CORE1_IMAGE m_core1_image_start {
+  CORE1_REGION m_core1_image_start m_core1_image_size {
+    *(*core1_code)
   }
 }

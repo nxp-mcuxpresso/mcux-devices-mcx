@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b241120
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         Chip specific module features.
@@ -14,8 +14,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -256,7 +256,7 @@
 /* @brief Has DIER register */
 #define FSL_FEATURE_CMC_HAS_DIER_REG (1)
 /* @brief Has system clock generation reset (register bit SCG[SRIE]) */
-#define FSL_FEATURE_CMC_HAS_SRIE_SCG_BIT (1)
+#define FSL_FEATURE_CMC_HAS_SRIE_SCG_BIT (0)
 
 /* EDMA module features */
 
@@ -560,7 +560,7 @@
 /* @brief MU does not support core event pending. Register bit SR[CEP]. */
 #define FSL_FEATURE_MU_NO_CEP (0)
 /* @brief MU supports reset interrupt. Register bit SR[MURIP]. */
-#define FSL_FEATURE_MU_HAS_SR_MURIP (1)
+#define FSL_FEATURE_MU_HAS_SR_MURIP (0)
 /* @brief MU has bit CCR0[RSTH]. */
 #define FSL_FEATURE_MU_HAS_RSTH (0)
 /* @brief MU has bit CCR0[RSTH] by instance. */

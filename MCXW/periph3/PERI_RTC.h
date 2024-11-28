@@ -7,8 +7,8 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b241128
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for RTC
@@ -21,8 +21,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file RTC.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for RTC
  *
  * CMSIS Peripheral Access Layer for RTC
@@ -159,13 +159,13 @@ typedef struct {
 #define RTC_TCR_TCR_MASK                         (0xFFU)
 #define RTC_TCR_TCR_SHIFT                        (0U)
 /*! TCR - Time Compensation Register
- *  0b10000000..Time Prescaler Register overflows every 32896 clock cycles.
- *  0b10000001..Time Prescaler Register overflows every 32895 clock cycles.
- *  0b11111111..Time Prescaler Register overflows every 32769 clock cycles.
  *  0b00000000..Time Prescaler Register overflows every 32768 clock cycles.
  *  0b00000001..Time Prescaler Register overflows every 32767 clock cycles.
  *  0b01111110..Time Prescaler Register overflows every 32642 clock cycles.
  *  0b01111111..Time Prescaler Register overflows every 32641 clock cycles.
+ *  0b10000000..Time Prescaler Register overflows every 32896 clock cycles.
+ *  0b10000001..Time Prescaler Register overflows every 32895 clock cycles.
+ *  0b11111111..Time Prescaler Register overflows every 32769 clock cycles.
  */
 #define RTC_TCR_TCR(x)                           (((uint32_t)(((uint32_t)(x)) << RTC_TCR_TCR_SHIFT)) & RTC_TCR_TCR_MASK)
 

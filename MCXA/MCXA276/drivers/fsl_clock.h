@@ -683,8 +683,8 @@ typedef enum _clock_div_name
     kCLOCK_DivAHBCLK    = (0x380U), /*!< AHBCLK    clock divider */
     kCLOCK_DivFRO_HF    = (0x388U), /*!< FROHF     clock divider */
     kCLOCK_DivFRO_LF    = (0x38CU), /*!< FROLF     clock divider */
-    kCLOCK_DivPLL1CLK   = (0x3ECU), /*!< PLL1CLK   clock divider */
-    kCLOCK_DivMax       = (0x3ECU), /*!< MAX       clock divider */
+    kCLOCK_DivPLL1CLK   = (0x3E4U), /*!< PLL1CLK   clock divider */
+    kCLOCK_DivMax       = (0x3E4U), /*!< MAX       clock divider */
 } clock_div_name_t;
 
 /*!

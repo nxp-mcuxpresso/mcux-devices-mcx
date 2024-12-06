@@ -4,11 +4,12 @@
 **     Processors:          MCXA276VLH
 **                          MCXA276VLL
 **                          MCXA276VLQ
+**                          MCXA276VPN
 **
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b240326
+**     Build:               b241119
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -46,8 +47,8 @@
 #define  m_data_start                  0x20000000
 #define  m_data_size                   0x0003C000
 
-#define  m_sramx0_start                0x04000000;
-#define  m_sramx0_size                 0x00002000;
+#define  m_sramx0_start                0x04000000
+#define  m_sramx0_size                 0x00002000
 
 LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region size_region
 

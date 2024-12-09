@@ -8,7 +8,7 @@
 **
 **     Reference manual:    Rev. 1, 2024-10-13
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b241128
+**     Build:               b241209
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW727C_cm33_core1
@@ -124,7 +124,7 @@ typedef enum IRQn {
  * @{
  */
 
-#define __MPU_PRESENT                  0         /**< Defines if an MPU is present or not */
+#define __MPU_PRESENT                  1         /**< Defines if an MPU is present or not */
 #define __NVIC_PRIO_BITS               3         /**< Number of priority bits implemented in the NVIC */
 #define __Vendor_SysTickConfig         0         /**< Vendor specific implementation of SysTickConfig is defined */
 #define __FPU_PRESENT                  0         /**< Defines if an FPU is present or not */

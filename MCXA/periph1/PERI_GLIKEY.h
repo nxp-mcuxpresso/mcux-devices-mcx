@@ -32,7 +32,7 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241120
+**     Build:               b241209
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for GLIKEY
@@ -120,7 +120,7 @@
 /** GLIKEY - Register Layout Typedef */
 typedef struct {
   __IO uint32_t CTRL_0;                            /**< Control Register 0 SFR, offset: 0x0 */
-  __IO uint32_t CTRL_1;                            /**< Control Regsiter 1 SFR, offset: 0x4 */
+  __IO uint32_t CTRL_1;                            /**< Control Register 1 SFR, offset: 0x4 */
   __IO uint32_t INTR_CTRL;                         /**< Interrupt Control, offset: 0x8 */
   __I  uint32_t STATUS;                            /**< Status, offset: 0xC */
        uint8_t RESERVED_0[236];
@@ -168,7 +168,7 @@ typedef struct {
 #define GLIKEY_CTRL_0_RESERVED31(x)              (((uint32_t)(((uint32_t)(x)) << GLIKEY_CTRL_0_RESERVED31_SHIFT)) & GLIKEY_CTRL_0_RESERVED31_MASK)
 /*! @} */
 
-/*! @name CTRL_1 - Control Regsiter 1 SFR */
+/*! @name CTRL_1 - Control Register 1 SFR */
 /*! @{ */
 
 #define GLIKEY_CTRL_1_READ_INDEX_MASK            (0xFFU)
@@ -290,10 +290,10 @@ typedef struct {
 /*! Reserved15 - Reserved */
 #define GLIKEY_VERSION_RESERVED15(x)             (((uint32_t)(((uint32_t)(x)) << GLIKEY_VERSION_RESERVED15_SHIFT)) & GLIKEY_VERSION_RESERVED15_MASK)
 
-#define GLIKEY_VERSION_RESERVED16_MASK           (0x30000U)
-#define GLIKEY_VERSION_RESERVED16_SHIFT          (16U)
-/*! Reserved16 - Reserved */
-#define GLIKEY_VERSION_RESERVED16(x)             (((uint32_t)(((uint32_t)(x)) << GLIKEY_VERSION_RESERVED16_SHIFT)) & GLIKEY_VERSION_RESERVED16_MASK)
+#define GLIKEY_VERSION_MILESTONE_MASK            (0x30000U)
+#define GLIKEY_VERSION_MILESTONE_SHIFT           (16U)
+/*! MILESTONE - Release milestone. 00-PREL, 01-BR, 10-SI, 11-GO. */
+#define GLIKEY_VERSION_MILESTONE(x)              (((uint32_t)(((uint32_t)(x)) << GLIKEY_VERSION_MILESTONE_SHIFT)) & GLIKEY_VERSION_MILESTONE_MASK)
 
 #define GLIKEY_VERSION_FSM_CONFIG_MASK           (0x40000U)
 #define GLIKEY_VERSION_FSM_CONFIG_SHIFT          (18U)

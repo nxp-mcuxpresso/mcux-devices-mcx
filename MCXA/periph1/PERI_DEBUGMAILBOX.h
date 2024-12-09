@@ -32,7 +32,7 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241120
+**     Build:               b241209
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DEBUGMAILBOX
@@ -172,12 +172,18 @@ typedef struct {
 
 #define DEBUGMAILBOX_CSW_SOFT_RESET_MASK         (0x10U)
 #define DEBUGMAILBOX_CSW_SOFT_RESET_SHIFT        (4U)
-/*! SOFT_RESET - Soft Reset */
+/*! SOFT_RESET - Soft Reset
+ *  0b0..No effect
+ *  0b1..Reset
+ */
 #define DEBUGMAILBOX_CSW_SOFT_RESET(x)           (((uint32_t)(((uint32_t)(x)) << DEBUGMAILBOX_CSW_SOFT_RESET_SHIFT)) & DEBUGMAILBOX_CSW_SOFT_RESET_MASK)
 
 #define DEBUGMAILBOX_CSW_CHIP_RESET_REQ_MASK     (0x20U)
 #define DEBUGMAILBOX_CSW_CHIP_RESET_REQ_SHIFT    (5U)
-/*! CHIP_RESET_REQ - Chip Reset Request */
+/*! CHIP_RESET_REQ - Chip Reset Request
+ *  0b0..No effect
+ *  0b1..Reset
+ */
 #define DEBUGMAILBOX_CSW_CHIP_RESET_REQ(x)       (((uint32_t)(((uint32_t)(x)) << DEBUGMAILBOX_CSW_CHIP_RESET_REQ_SHIFT)) & DEBUGMAILBOX_CSW_CHIP_RESET_REQ_MASK)
 /*! @} */
 

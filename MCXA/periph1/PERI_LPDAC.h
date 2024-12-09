@@ -32,7 +32,7 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241120
+**     Build:               b241209
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPDAC
@@ -212,7 +212,7 @@ typedef struct {
 #define LPDAC_GCR_FIFOEN_MASK                    (0x8U)
 #define LPDAC_GCR_FIFOEN_SHIFT                   (3U)
 /*! FIFOEN - FIFO Enable
- *  0b0..Enables FIFO mode and disables Buffer mode. Any data written to DATA[DATA] goes to buffer then goes to conversion.
+ *  0b0..Disables FIFO mode and enables Buffer mode. Any data written to DATA[DATA] goes to buffer then goes to conversion.
  *  0b1..Enables FIFO mode. Data will be first read from FIFO to buffer and then goes to conversion.
  */
 #define LPDAC_GCR_FIFOEN(x)                      (((uint32_t)(((uint32_t)(x)) << LPDAC_GCR_FIFOEN_SHIFT)) & LPDAC_GCR_FIFOEN_MASK)

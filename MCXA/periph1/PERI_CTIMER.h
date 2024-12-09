@@ -32,7 +32,7 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241120
+**     Build:               b241209
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CTIMER
@@ -619,6 +619,8 @@ typedef struct {
  *  0b011..Capture channel 1 falling edge
  *  0b100..Capture channel 2 rising edge
  *  0b101..Capture channel 2 falling edge
+ *  0b110..Capture channel 3 rising edge
+ *  0b111..Capture channel 3 falling edge
  */
 #define CTIMER_CTCR_SELCC(x)                     (((uint32_t)(((uint32_t)(x)) << CTIMER_CTCR_SELCC_SHIFT)) & CTIMER_CTCR_SELCC_MASK)
 /*! @} */

@@ -32,7 +32,7 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241120
+**     Build:               b241209
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SPC
@@ -149,7 +149,7 @@ typedef struct {
        uint8_t RESERVED_8[4];
   __IO uint32_t EVD_CFG;                           /**< External Voltage Domain Configuration, offset: 0x140 */
        uint8_t RESERVED_9[444];
-       uint32_t CORELDO_CFG;                       /**< LDO_CORE Configuration, offset: 0x300 */
+  __IO uint32_t CORELDO_CFG;                       /**< LDO_CORE Configuration, offset: 0x300 */
 } SPC_Type;
 
 /* ----------------------------------------------------------------------------
@@ -354,7 +354,7 @@ typedef struct {
  *  0b00..
  *  0b01..Regulate to mid voltage (1.0 V)
  *  0b10..Regulate to normal voltage (1.1 V)
- *  0b11..Reserved
+ *  0b11..Regulate to overdrive voltage (1.15 V)
  */
 #define SPC_ACTIVE_CFG_CORELDO_VDD_LVL(x)        (((uint32_t)(((uint32_t)(x)) << SPC_ACTIVE_CFG_CORELDO_VDD_LVL_SHIFT)) & SPC_ACTIVE_CFG_CORELDO_VDD_LVL_MASK)
 
@@ -424,10 +424,10 @@ typedef struct {
 #define SPC_LP_CFG_CORELDO_VDD_LVL_MASK          (0xCU)
 #define SPC_LP_CFG_CORELDO_VDD_LVL_SHIFT         (2U)
 /*! CORELDO_VDD_LVL - LDO_CORE VDD Regulator Voltage Level
- *  0b00..Retention voltage
+ *  0b00..Reserved
  *  0b01..Mid voltage (1.0 V)
  *  0b10..Normal voltage (1.1 V)
- *  0b11..Reserved
+ *  0b11..Overdrive voltage (1.15 V)
  */
 #define SPC_LP_CFG_CORELDO_VDD_LVL(x)            (((uint32_t)(((uint32_t)(x)) << SPC_LP_CFG_CORELDO_VDD_LVL_SHIFT)) & SPC_LP_CFG_CORELDO_VDD_LVL_MASK)
 
@@ -606,14 +606,6 @@ typedef struct {
  */
 #define SPC_VD_SYS_CFG_HVDIE(x)                  (((uint32_t)(((uint32_t)(x)) << SPC_VD_SYS_CFG_HVDIE_SHIFT)) & SPC_VD_SYS_CFG_HVDIE_MASK)
 
-#define SPC_VD_SYS_CFG_LVSEL_MASK                (0x100U)
-#define SPC_VD_SYS_CFG_LVSEL_SHIFT               (8U)
-/*! LVSEL - System Low-Voltage Level Select
- *  0b0..Normal
- *  0b1..Safe
- */
-#define SPC_VD_SYS_CFG_LVSEL(x)                  (((uint32_t)(((uint32_t)(x)) << SPC_VD_SYS_CFG_LVSEL_SHIFT)) & SPC_VD_SYS_CFG_LVSEL_MASK)
-
 #define SPC_VD_SYS_CFG_LOCK_MASK                 (0x10000U)
 #define SPC_VD_SYS_CFG_LOCK_SHIFT                (16U)
 /*! LOCK - System Voltage Detect Reset Enable Lock
@@ -640,6 +632,15 @@ typedef struct {
 #define SPC_EVD_CFG_EVDSTAT_SHIFT                (16U)
 /*! EVDSTAT - External Voltage Domain Status */
 #define SPC_EVD_CFG_EVDSTAT(x)                   (((uint32_t)(((uint32_t)(x)) << SPC_EVD_CFG_EVDSTAT_SHIFT)) & SPC_EVD_CFG_EVDSTAT_MASK)
+/*! @} */
+
+/*! @name CORELDO_CFG - LDO_CORE Configuration */
+/*! @{ */
+
+#define SPC_CORELDO_CFG_CORELDO_SPARE0_MASK      (0x10000U)
+#define SPC_CORELDO_CFG_CORELDO_SPARE0_SHIFT     (16U)
+/*! CORELDO_SPARE0 - CORELDO SPARE0 */
+#define SPC_CORELDO_CFG_CORELDO_SPARE0(x)        (((uint32_t)(((uint32_t)(x)) << SPC_CORELDO_CFG_CORELDO_SPARE0_SHIFT)) & SPC_CORELDO_CFG_CORELDO_SPARE0_MASK)
 /*! @} */
 
 

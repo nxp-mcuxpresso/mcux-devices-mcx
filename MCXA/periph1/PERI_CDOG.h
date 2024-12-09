@@ -32,7 +32,7 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241120
+**     Build:               b241209
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CDOG
@@ -246,17 +246,17 @@ typedef struct {
 
 #define CDOG_STATUS_NUMTOF_MASK                  (0xFFU)
 #define CDOG_STATUS_NUMTOF_SHIFT                 (0U)
-/*! NUMTOF - Number of TIMEOUT faults since the last POR */
+/*! NUMTOF - Number of TIMEOUT faults (FLAGS[TIMEOUT_FLAG]) since the last POR */
 #define CDOG_STATUS_NUMTOF(x)                    (((uint32_t)(((uint32_t)(x)) << CDOG_STATUS_NUMTOF_SHIFT)) & CDOG_STATUS_NUMTOF_MASK)
 
 #define CDOG_STATUS_NUMMISCOMPF_MASK             (0xFF00U)
 #define CDOG_STATUS_NUMMISCOMPF_SHIFT            (8U)
-/*! NUMMISCOMPF - Number of MISCOMPARE faults since the last POR */
+/*! NUMMISCOMPF - Number of MISCOMPARE faults (FLAGS[MISCOMPARE_FLAG]) since the last POR */
 #define CDOG_STATUS_NUMMISCOMPF(x)               (((uint32_t)(((uint32_t)(x)) << CDOG_STATUS_NUMMISCOMPF_SHIFT)) & CDOG_STATUS_NUMMISCOMPF_MASK)
 
 #define CDOG_STATUS_NUMILSEQF_MASK               (0xFF0000U)
 #define CDOG_STATUS_NUMILSEQF_SHIFT              (16U)
-/*! NUMILSEQF - Number of SEQUENCE faults since the last POR */
+/*! NUMILSEQF - Number of SEQUENCE faults (FLAGS[SEQUENCE_FLAG]) since the last POR */
 #define CDOG_STATUS_NUMILSEQF(x)                 (((uint32_t)(((uint32_t)(x)) << CDOG_STATUS_NUMILSEQF_SHIFT)) & CDOG_STATUS_NUMILSEQF_MASK)
 
 #define CDOG_STATUS_CURST_MASK                   (0xF0000000U)
@@ -270,17 +270,17 @@ typedef struct {
 
 #define CDOG_STATUS2_NUMCNTF_MASK                (0xFFU)
 #define CDOG_STATUS2_NUMCNTF_SHIFT               (0U)
-/*! NUMCNTF - Number of CONTROL faults since the last POR */
+/*! NUMCNTF - Number of CONTROL faults (FLAGS[CONTROL_FLAG]) since the last POR */
 #define CDOG_STATUS2_NUMCNTF(x)                  (((uint32_t)(((uint32_t)(x)) << CDOG_STATUS2_NUMCNTF_SHIFT)) & CDOG_STATUS2_NUMCNTF_MASK)
 
 #define CDOG_STATUS2_NUMILLSTF_MASK              (0xFF00U)
 #define CDOG_STATUS2_NUMILLSTF_SHIFT             (8U)
-/*! NUMILLSTF - Number of STATE faults since the last POR */
+/*! NUMILLSTF - Number of STATE faults (FLAGS[STATE_FLAG]) since the last POR */
 #define CDOG_STATUS2_NUMILLSTF(x)                (((uint32_t)(((uint32_t)(x)) << CDOG_STATUS2_NUMILLSTF_SHIFT)) & CDOG_STATUS2_NUMILLSTF_MASK)
 
 #define CDOG_STATUS2_NUMILLA_MASK                (0xFF0000U)
 #define CDOG_STATUS2_NUMILLA_SHIFT               (16U)
-/*! NUMILLA - Number of ADDRESS faults since the last POR */
+/*! NUMILLA - Number of ADDRESS faults (FLAGS[ADDR_FLAG]) since the last POR */
 #define CDOG_STATUS2_NUMILLA(x)                  (((uint32_t)(((uint32_t)(x)) << CDOG_STATUS2_NUMILLA_SHIFT)) & CDOG_STATUS2_NUMILLA_MASK)
 /*! @} */
 

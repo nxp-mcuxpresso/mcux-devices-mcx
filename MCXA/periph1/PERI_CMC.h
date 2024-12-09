@@ -32,7 +32,7 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241120
+**     Build:               b241209
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CMC
@@ -184,8 +184,9 @@ typedef struct {
 #define CMC_CKCTRL_CKMODE_MASK                   (0xFU)
 #define CMC_CKCTRL_CKMODE_SHIFT                  (0U)
 /*! CKMODE - Clocking Mode
- *  0b0000..No clock gating
- *  0b1111..Core, platform, and peripheral clocks are gated, and core enters Low-Power mode.
+ *  0b0000..Core clock is on
+ *  0b0001..Core clock is off
+ *  0b1111..Core, platform, and peripheral clocks are off, and core enters Low-Power mode
  */
 #define CMC_CKCTRL_CKMODE(x)                     (((uint32_t)(((uint32_t)(x)) << CMC_CKCTRL_CKMODE_SHIFT)) & CMC_CKCTRL_CKMODE_MASK)
 
@@ -204,8 +205,9 @@ typedef struct {
 #define CMC_CKSTAT_CKMODE_MASK                   (0xFU)
 #define CMC_CKSTAT_CKMODE_SHIFT                  (0U)
 /*! CKMODE - Low Power Status
- *  0b0000..Core clock not gated
- *  0b1111..Core, platform, and peripheral clocks were gated, and power domain entered Low-Power mode
+ *  0b0000..Core clock is on
+ *  0b0001..Core clock is off
+ *  0b1111..Core, platform, and peripheral clocks are off, and core enters Low-Power mode
  */
 #define CMC_CKSTAT_CKMODE(x)                     (((uint32_t)(((uint32_t)(x)) << CMC_CKSTAT_CKMODE_SHIFT)) & CMC_CKSTAT_CKMODE_MASK)
 

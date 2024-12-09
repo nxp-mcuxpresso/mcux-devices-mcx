@@ -32,7 +32,7 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241120
+**     Build:               b241209
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPSPI
@@ -487,9 +487,9 @@ typedef struct {
 
 #define LPSPI_CFGR1_MASTER_MASK                  (0x1U)
 #define LPSPI_CFGR1_MASTER_SHIFT                 (0U)
-/*! MASTER - Master Mode
- *  0b0..Slave mode
- *  0b1..Master mode
+/*! MASTER - Controller Mode
+ *  0b0..Peripheral mode
+ *  0b1..Controller mode
  */
 #define LPSPI_CFGR1_MASTER(x)                    (((uint32_t)(((uint32_t)(x)) << LPSPI_CFGR1_MASTER_SHIFT)) & LPSPI_CFGR1_MASTER_MASK)
 
@@ -790,7 +790,7 @@ typedef struct {
 #define LPSPI_RSR_SOF_MASK                       (0x1U)
 #define LPSPI_RSR_SOF_SHIFT                      (0U)
 /*! SOF - Start of Frame
- *  0b0..Subsequent data word
+ *  0b0..Subsequent data word or RX FIFO is empty (RXEMPTY=1).
  *  0b1..First data word
  */
 #define LPSPI_RSR_SOF(x)                         (((uint32_t)(((uint32_t)(x)) << LPSPI_RSR_SOF_SHIFT)) & LPSPI_RSR_SOF_MASK)

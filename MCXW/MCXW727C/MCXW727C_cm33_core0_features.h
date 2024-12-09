@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b241128
+**     Build:               b241209
 **
 **     Abstract:
 **         Chip specific module features.
@@ -731,10 +731,7 @@
 /* @brief Has TPM_TRIG. */
 #define FSL_FEATURE_TPM_HAS_TRIG (1)
 /* @brief Whether TRIG register has effect. */
-#define FSL_FEATURE_TPM_TRIG_HAS_EFFECTn(x) \
-    (((x) == TPM0) ? (1) : \
-    (((x) == TPM1) ? (1) : \
-    (((x) == TPM2) ? (0) : (-1))))
+#define FSL_FEATURE_TPM_TRIG_HAS_EFFECTn(x) (1)
 /* @brief Has global time base enable. */
 #define FSL_FEATURE_TPM_HAS_GLOBAL_TIME_BASE_EN (1)
 /* @brief Has global time base sync. */
@@ -750,10 +747,7 @@
 /* @brief Has TPM_POL. */
 #define FSL_FEATURE_TPM_HAS_POL (1)
 /* @brief Whether POL register has effect. */
-#define FSL_FEATURE_TPM_POL_HAS_EFFECTn(x) \
-    (((x) == TPM0) ? (1) : \
-    (((x) == TPM1) ? (1) : \
-    (((x) == TPM2) ? (0) : (-1))))
+#define FSL_FEATURE_TPM_POL_HAS_EFFECTn(x) (1)
 /* @brief Has TPM_FILTER register. */
 #define FSL_FEATURE_TPM_HAS_FILTER (1)
 /* @brief Whether FILTER register has effect. */

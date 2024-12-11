@@ -26,7 +26,7 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241120
+**     Build:               b241211
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA
@@ -749,7 +749,6 @@ typedef struct {
 #define DMA_TCD_ATTR_SMOD_SHIFT                  (11U)
 /*! SMOD - Source Address Modulo
  *  0b00000..Source address modulo feature disabled
- *  0b00001..Source address modulo feature enabled for any non-zero value [1-31]
  */
 #define DMA_TCD_ATTR_SMOD(x)                     (((uint16_t)(((uint16_t)(x)) << DMA_TCD_ATTR_SMOD_SHIFT)) & DMA_TCD_ATTR_SMOD_MASK)
 /*! @} */

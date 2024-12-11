@@ -26,7 +26,7 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241120
+**     Build:               b241211
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SMARTDMA
@@ -118,10 +118,7 @@ typedef struct {
   __IO uint32_t CTRL;                              /**< Control, offset: 0x24 */
   __I  uint32_t PC;                                /**< Program Counter, offset: 0x28 */
   __I  uint32_t SP;                                /**< Stack Pointer, offset: 0x2C */
-  __IO uint32_t BREAK_ADDR;                        /**< Breakpoint Address, offset: 0x30 */
-  __IO uint32_t BREAK_VECT;                        /**< Breakpoint Vector, offset: 0x34 */
-  __IO uint32_t EMER_VECT;                         /**< Emergency Vector, offset: 0x38 */
-  __IO uint32_t EMER_SEL;                          /**< Emergency Select, offset: 0x3C */
+       uint8_t RESERVED_1[16];
   __IO uint32_t ARM2EZH;                           /**< ARM to EZH Interrupt Control, offset: 0x40 */
   __IO uint32_t EZH2ARM;                           /**< EZH to ARM Trigger, offset: 0x44 */
   __IO uint32_t PENDTRAP;                          /**< Pending Trap Control, offset: 0x48 */
@@ -195,47 +192,6 @@ typedef struct {
 #define SMARTDMA_SP_SP_SHIFT                     (0U)
 /*! SP - Stack Pointer */
 #define SMARTDMA_SP_SP(x)                        (((uint32_t)(((uint32_t)(x)) << SMARTDMA_SP_SP_SHIFT)) & SMARTDMA_SP_SP_MASK)
-/*! @} */
-
-/*! @name BREAK_ADDR - Breakpoint Address */
-/*! @{ */
-
-#define SMARTDMA_BREAK_ADDR_ADDR_MASK            (0xFFFFFFFCU)
-#define SMARTDMA_BREAK_ADDR_ADDR_SHIFT           (2U)
-/*! ADDR - 32-bit address to swap to EZHB_BREAK_VECT location */
-#define SMARTDMA_BREAK_ADDR_ADDR(x)              (((uint32_t)(((uint32_t)(x)) << SMARTDMA_BREAK_ADDR_ADDR_SHIFT)) & SMARTDMA_BREAK_ADDR_ADDR_MASK)
-/*! @} */
-
-/*! @name BREAK_VECT - Breakpoint Vector */
-/*! @{ */
-
-#define SMARTDMA_BREAK_VECT_VEC_MASK             (0xFFFFFFFCU)
-#define SMARTDMA_BREAK_VECT_VEC_SHIFT            (2U)
-/*! VEC - Vector address of user debug routine. */
-#define SMARTDMA_BREAK_VECT_VEC(x)               (((uint32_t)(((uint32_t)(x)) << SMARTDMA_BREAK_VECT_VEC_SHIFT)) & SMARTDMA_BREAK_VECT_VEC_MASK)
-/*! @} */
-
-/*! @name EMER_VECT - Emergency Vector */
-/*! @{ */
-
-#define SMARTDMA_EMER_VECT_VEC_MASK              (0xFFFFFFFCU)
-#define SMARTDMA_EMER_VECT_VEC_SHIFT             (2U)
-/*! VEC - Vector address of emergency code routine */
-#define SMARTDMA_EMER_VECT_VEC(x)                (((uint32_t)(((uint32_t)(x)) << SMARTDMA_EMER_VECT_VEC_SHIFT)) & SMARTDMA_EMER_VECT_VEC_MASK)
-/*! @} */
-
-/*! @name EMER_SEL - Emergency Select */
-/*! @{ */
-
-#define SMARTDMA_EMER_SEL_EN_MASK                (0x100U)
-#define SMARTDMA_EMER_SEL_EN_SHIFT               (8U)
-/*! EN - Emergency code routine */
-#define SMARTDMA_EMER_SEL_EN(x)                  (((uint32_t)(((uint32_t)(x)) << SMARTDMA_EMER_SEL_EN_SHIFT)) & SMARTDMA_EMER_SEL_EN_MASK)
-
-#define SMARTDMA_EMER_SEL_RQ_MASK                (0x200U)
-#define SMARTDMA_EMER_SEL_RQ_SHIFT               (9U)
-/*! RQ - Software emergency request */
-#define SMARTDMA_EMER_SEL_RQ(x)                  (((uint32_t)(((uint32_t)(x)) << SMARTDMA_EMER_SEL_RQ_SHIFT)) & SMARTDMA_EMER_SEL_RQ_MASK)
 /*! @} */
 
 /*! @name ARM2EZH - ARM to EZH Interrupt Control */

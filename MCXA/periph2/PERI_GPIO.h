@@ -26,7 +26,7 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241120
+**     Build:               b241211
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for GPIO

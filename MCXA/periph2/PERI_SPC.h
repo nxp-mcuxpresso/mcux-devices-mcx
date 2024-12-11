@@ -26,7 +26,7 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241120
+**     Build:               b241211
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SPC
@@ -143,7 +143,7 @@ typedef struct {
        uint8_t RESERVED_8[4];
   __IO uint32_t EVD_CFG;                           /**< External Voltage Domain Configuration, offset: 0x140 */
        uint8_t RESERVED_9[444];
-       uint32_t CORELDO_CFG;                       /**< LDO_CORE Configuration, offset: 0x300 */
+  __IO uint32_t CORELDO_CFG;                       /**< LDO_CORE Configuration, offset: 0x300 */
 } SPC_Type;
 
 /* ----------------------------------------------------------------------------
@@ -626,6 +626,15 @@ typedef struct {
 #define SPC_EVD_CFG_EVDSTAT_SHIFT                (16U)
 /*! EVDSTAT - External Voltage Domain Status */
 #define SPC_EVD_CFG_EVDSTAT(x)                   (((uint32_t)(((uint32_t)(x)) << SPC_EVD_CFG_EVDSTAT_SHIFT)) & SPC_EVD_CFG_EVDSTAT_MASK)
+/*! @} */
+
+/*! @name CORELDO_CFG - LDO_CORE Configuration */
+/*! @{ */
+
+#define SPC_CORELDO_CFG_CORELDO_SPARE0_MASK      (0x10000U)
+#define SPC_CORELDO_CFG_CORELDO_SPARE0_SHIFT     (16U)
+/*! CORELDO_SPARE0 - CORELDO SPARE0 */
+#define SPC_CORELDO_CFG_CORELDO_SPARE0(x)        (((uint32_t)(((uint32_t)(x)) << SPC_CORELDO_CFG_CORELDO_SPARE0_SHIFT)) & SPC_CORELDO_CFG_CORELDO_SPARE0_MASK)
 /*! @} */
 
 

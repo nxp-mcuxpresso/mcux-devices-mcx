@@ -2369,14 +2369,14 @@ typedef enum IRQn {
  * @param value Value of the bit field.
  * @return Masked and shifted value.
  */
-#define NXP_VAL2FLD(field, value)    (((value) << (field ## _SHIFT)) & (field ## _MASK))
+#define NXP_VAL2FLD(field, value) (((value) << (field##_SHIFT)) & (field##_MASK))
 /**
  * @brief Mask and right-shift a register value to extract a bit field value.
  * @param field Name of the register bit field.
  * @param value Value of the register.
  * @return Masked and shifted bit field value.
  */
-#define NXP_FLD2VAL(field, value)    (((value) & (field ## _MASK)) >> (field ## _SHIFT))
+#define NXP_FLD2VAL(field, value) (((value) & (field##_MASK)) >> (field##_SHIFT))
 
 /*!
  * @}

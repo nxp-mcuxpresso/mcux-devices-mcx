@@ -4554,7 +4554,7 @@ typedef enum _inputmux_connection_t
     kINPUTMUX_Pwm1Sm0OutTrig0ToFlexioTrigger            = 73U + (FLEXIO_TRIG0_REG << PMUX_SHIFT),
     kINPUTMUX_Pwm1Sm1OutTrig0ToFlexioTrigger            = 74U + (FLEXIO_TRIG0_REG << PMUX_SHIFT),
     kINPUTMUX_Pwm1Sm2OutTrig0ToFlexioTrigger            = 75U + (FLEXIO_TRIG0_REG << PMUX_SHIFT),
-    kINPUTMUX_Pwm1Sm3OutTrig0ToFlexioTrigger            = 75U + (FLEXIO_TRIG0_REG << PMUX_SHIFT),
+    kINPUTMUX_Pwm1Sm3OutTrig0ToFlexioTrigger            = 76U + (FLEXIO_TRIG0_REG << PMUX_SHIFT),
     kINPUTMUX_Lpi2c2MasterEndOfPacketToFlexioTrigger    = 77U + (FLEXIO_TRIG0_REG << PMUX_SHIFT),
     kINPUTMUX_Lpi2c2SlaveEndOfPacketToFlexioTrigger     = 78U + (FLEXIO_TRIG0_REG << PMUX_SHIFT),
     kINPUTMUX_Lpi2c3MasterEndOfPacketToFlexioTrigger    = 79U + (FLEXIO_TRIG0_REG << PMUX_SHIFT),

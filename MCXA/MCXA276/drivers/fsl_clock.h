@@ -415,175 +415,175 @@ typedef enum _clock_attach_id
     kFRO_HF_DIV_to_I3C0FCLK = CLK_ATTACH_MUX(kCLOCK_SelI3C0_FCLK, 2U), /*!< Attach FRO_HF_DIV to I3C0FCLK. */
     kCLK_IN_to_I3C0FCLK     = CLK_ATTACH_MUX(kCLOCK_SelI3C0_FCLK, 3U), /*!< Attach CLK_IN to I3C0FCLK.     */
     kCLK_1M_to_I3C0FCLK     = CLK_ATTACH_MUX(kCLOCK_SelI3C0_FCLK, 5U), /*!< Attach CLK_1M to I3C0FCLK.     */
-    kPll1ClkDiv_to_I3C0FCLK = CLK_ATTACH_MUX(kCLOCK_SelI3C0_FCLK, 6U), /*!< Attach Pll1ClkDiv to I3C0FCLK.  */
+    kPll1ClkDiv_to_I3C0FCLK = CLK_ATTACH_MUX(kCLOCK_SelI3C0_FCLK, 6U), /*!< Attach Pll1ClkDiv to I3C0FCLK. */
     kNONE_to_I3C0FCLK       = CLK_ATTACH_MUX(kCLOCK_SelI3C0_FCLK, 7U), /*!< Attach NONE to I3C0FCLK.       */
 
-    kFRO_LF_DIV_to_CTIMER0 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 0U),    /*!< Attach FRO_LF_DIV to CTIMER0.  */
-    kFRO_HF_to_CTIMER0     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 1U),    /*!< Attach FRO_HF to CTIMER0.  */
-    kCLK_IN_to_CTIMER0     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 3U),    /*!< Attach CLK_IN to CTIMER0.  */
-    kCLK_16K_to_CTIMER0    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 4U),    /*!< Attach CLK_16K to CTIMER0. */
-    kCLK_1M_to_CTIMER0     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 5U),    /*!< Attach CLK_1M to CTIMER0.  */
-    kPll1ClkDiv_to_CTIMER0 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 6U),    /*!< Attach Pll1ClkDiv to CTIMER0.  */
-    kNONE_to_CTIMER0       = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 7U),    /*!< Attach NONE to CTIMER0.    */
+    kFRO_LF_DIV_to_CTIMER0 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 0U),    /*!< Attach FRO_LF_DIV to CTIMER0. */
+    kFRO_HF_to_CTIMER0     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 1U),    /*!< Attach FRO_HF to CTIMER0.     */
+    kCLK_IN_to_CTIMER0     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 3U),    /*!< Attach CLK_IN to CTIMER0.     */
+    kCLK_16K_to_CTIMER0    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 4U),    /*!< Attach CLK_16K to CTIMER0.    */
+    kCLK_1M_to_CTIMER0     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 5U),    /*!< Attach CLK_1M to CTIMER0.     */
+    kPll1ClkDiv_to_CTIMER0 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 6U),    /*!< Attach Pll1ClkDiv to CTIMER0. */
+    kNONE_to_CTIMER0       = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 7U),    /*!< Attach NONE to CTIMER0.       */
 
-    kFRO_LF_DIV_to_CTIMER1 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 0U),    /*!< Attach FRO_LF_DIV to CTIMER1.  */
-    kFRO_HF_to_CTIMER1     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 1U),    /*!< Attach FRO_HF to CTIMER1.  */
-    kCLK_IN_to_CTIMER1     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 3U),    /*!< Attach CLK_IN to CTIMER1.  */
-    kCLK_16K_to_CTIMER1    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 4U),    /*!< Attach CLK_16K to CTIMER1. */
-    kCLK_1M_to_CTIMER1     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 5U),    /*!< Attach CLK_1M to CTIMER1.  */
-    kPll1ClkDiv_to_CTIMER1 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 6U),    /*!< Attach Pll1ClkDiv to CTIMER1.  */
-    kNONE_to_CTIMER1       = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 7U),    /*!< Attach NONE to CTIMER1.    */
+    kFRO_LF_DIV_to_CTIMER1 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 0U),    /*!< Attach FRO_LF_DIV to CTIMER1. */
+    kFRO_HF_to_CTIMER1     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 1U),    /*!< Attach FRO_HF to CTIMER1.     */
+    kCLK_IN_to_CTIMER1     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 3U),    /*!< Attach CLK_IN to CTIMER1.     */
+    kCLK_16K_to_CTIMER1    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 4U),    /*!< Attach CLK_16K to CTIMER1.    */
+    kCLK_1M_to_CTIMER1     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 5U),    /*!< Attach CLK_1M to CTIMER1.     */
+    kPll1ClkDiv_to_CTIMER1 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 6U),    /*!< Attach Pll1ClkDiv to CTIMER1. */
+    kNONE_to_CTIMER1       = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 7U),    /*!< Attach NONE to CTIMER1.       */
 
-    kFRO_LF_DIV_to_CTIMER2 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 0U),    /*!< Attach FRO_LF_DIV to CTIMER2.  */
-    kFRO_HF_to_CTIMER2     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 1U),    /*!< Attach FRO_HF to CTIMER2.  */
-    kCLK_IN_to_CTIMER2     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 3U),    /*!< Attach CLK_IN to CTIMER2.  */
-    kCLK_16K_to_CTIMER2    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 4U),    /*!< Attach CLK_16K to CTIMER2. */
-    kCLK_1M_to_CTIMER2     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 5U),    /*!< Attach CLK_1M to CTIMER2.  */
-    kPll1ClkDiv_to_CTIMER2 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 6U),    /*!< Attach Pll1ClkDiv to CTIMER2.  */
-    kNONE_to_CTIMER2       = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 7U),    /*!< Attach NONE to CTIMER2.    */
+    kFRO_LF_DIV_to_CTIMER2 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 0U),    /*!< Attach FRO_LF_DIV to CTIMER2. */
+    kFRO_HF_to_CTIMER2     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 1U),    /*!< Attach FRO_HF to CTIMER2.     */
+    kCLK_IN_to_CTIMER2     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 3U),    /*!< Attach CLK_IN to CTIMER2.     */
+    kCLK_16K_to_CTIMER2    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 4U),    /*!< Attach CLK_16K to CTIMER2.    */
+    kCLK_1M_to_CTIMER2     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 5U),    /*!< Attach CLK_1M to CTIMER2.     */
+    kPll1ClkDiv_to_CTIMER2 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 6U),    /*!< Attach Pll1ClkDiv to CTIMER2. */
+    kNONE_to_CTIMER2       = CLK_ATTACH_MUX(kCLOCK_SelCTIMER2, 7U),    /*!< Attach NONE to CTIMER2.       */
 
-    kFRO_LF_DIV_to_CTIMER3 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 0U),    /*!< Attach FRO_LF_DIV to CTIMER3.  */
-    kFRO_HF_to_CTIMER3     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 1U),    /*!< Attach FRO_HF to CTIMER3.  */
-    kCLK_IN_to_CTIMER3     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 3U),    /*!< Attach CLK_IN to CTIMER3.  */
-    kCLK_16K_to_CTIMER3    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 4U),    /*!< Attach CLK_16K to CTIMER3. */
-    kCLK_1M_to_CTIMER3     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 5U),    /*!< Attach CLK_1M to CTIMER3.  */
-    kPll1ClkDiv_to_CTIMER3 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 6U),    /*!< Attach Pll1ClkDiv to CTIMER3.  */
-    kNONE_to_CTIMER3       = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 7U),    /*!< Attach NONE to CTIMER3.    */
+    kFRO_LF_DIV_to_CTIMER3 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 0U),    /*!< Attach FRO_LF_DIV to CTIMER3. */
+    kFRO_HF_to_CTIMER3     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 1U),    /*!< Attach FRO_HF to CTIMER3.     */
+    kCLK_IN_to_CTIMER3     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 3U),    /*!< Attach CLK_IN to CTIMER3.     */
+    kCLK_16K_to_CTIMER3    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 4U),    /*!< Attach CLK_16K to CTIMER3.    */
+    kCLK_1M_to_CTIMER3     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 5U),    /*!< Attach CLK_1M to CTIMER3.     */
+    kPll1ClkDiv_to_CTIMER3 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 6U),    /*!< Attach Pll1ClkDiv to CTIMER3. */
+    kNONE_to_CTIMER3       = CLK_ATTACH_MUX(kCLOCK_SelCTIMER3, 7U),    /*!< Attach NONE to CTIMER3.       */
 
-    kFRO_LF_DIV_to_CTIMER4 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 0U),    /*!< Attach FRO_LF_DIV to CTIMER4.  */
-    kFRO_HF_to_CTIMER4     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 1U),    /*!< Attach FRO_HF to CTIMER4.  */
-    kCLK_IN_to_CTIMER4     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 3U),    /*!< Attach CLK_IN to CTIMER4.  */
-    kCLK_16K_to_CTIMER4    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 4U),    /*!< Attach CLK_16K to CTIMER4. */
-    kCLK_1M_to_CTIMER4     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 5U),    /*!< Attach CLK_1M to CTIMER4.  */
-    kPll1ClkDiv_to_CTIMER4 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 6U),    /*!< Attach Pll1ClkDiv to CTIMER4.  */
-    kNONE_to_CTIMER4       = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 7U),    /*!< Attach NONE to CTIMER4.    */
+    kFRO_LF_DIV_to_CTIMER4 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 0U),    /*!< Attach FRO_LF_DIV to CTIMER4. */
+    kFRO_HF_to_CTIMER4     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 1U),    /*!< Attach FRO_HF to CTIMER4.     */
+    kCLK_IN_to_CTIMER4     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 3U),    /*!< Attach CLK_IN to CTIMER4.     */
+    kCLK_16K_to_CTIMER4    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 4U),    /*!< Attach CLK_16K to CTIMER4.    */
+    kCLK_1M_to_CTIMER4     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 5U),    /*!< Attach CLK_1M to CTIMER4.     */
+    kPll1ClkDiv_to_CTIMER4 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 6U),    /*!< Attach Pll1ClkDiv to CTIMER4. */
+    kNONE_to_CTIMER4       = CLK_ATTACH_MUX(kCLOCK_SelCTIMER4, 7U),    /*!< Attach NONE to CTIMER4.       */
 
-    kFRO_LF_DIV_to_FLEXIO0 = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 0U),    /*!< Attach FRO_LF_DIV to FLEXIO0.  */
-    kFRO_HF_to_FLEXIO0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 1U),    /*!< Attach FRO_HF to FLEXIO0.  */
-    kCLK_IN_to_FLEXIO0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 3U),    /*!< Attach CLK_IN to FLEXIO0.  */
-    kCLK_1M_to_FLEXIO0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 5U),    /*!< Attach CLK_1M to FLEXIO0.  */
-    kPll1ClkDiv_to_FLEXIO0 = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 6U),    /*!< Attach Pll1ClkDiv to FLEXIO0.  */
-    kNONE_to_FLEXIO0       = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 7U),    /*!< Attach NONE to FLEXIO0.    */
+    kFRO_LF_DIV_to_FLEXIO0 = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 0U),    /*!< Attach FRO_LF_DIV to FLEXIO0. */
+    kFRO_HF_to_FLEXIO0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 1U),    /*!< Attach FRO_HF to FLEXIO0.     */
+    kCLK_IN_to_FLEXIO0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 3U),    /*!< Attach CLK_IN to FLEXIO0.     */
+    kCLK_1M_to_FLEXIO0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 5U),    /*!< Attach CLK_1M to FLEXIO0.     */
+    kPll1ClkDiv_to_FLEXIO0 = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 6U),    /*!< Attach Pll1ClkDiv to FLEXIO0. */
+    kNONE_to_FLEXIO0       = CLK_ATTACH_MUX(kCLOCK_SelFLEXIO0, 7U),    /*!< Attach NONE to FLEXIO0.       */
 
-    kFRO_HF_to_FLEXCAN0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 1U),  /*!< Attach FRO_HF to FLEXCAN0.*/
-    kFRO_HF_DIV_to_FLEXCAN0 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 2U),  /*!< Attach FRO_HF_DIV to FLEXCAN0.*/
-    kCLK_IN_to_FLEXCAN0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 3U),  /*!< Attach CLK_IN to FLEXCAN0.    */
-    kPll1ClkDiv_to_FLEXCAN0 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 6U),  /*!< Attach Pll1ClkDiv to FLEXCAN0.    */
-    kNONE_to_FLEXCAN0       = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 7U),  /*!< Attach NONE to FLEXCAN0.      */
+    kFRO_HF_to_FLEXCAN0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 1U),  /*!< Attach FRO_HF to FLEXCAN0.     */
+    kFRO_HF_DIV_to_FLEXCAN0 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 2U),  /*!< Attach FRO_HF_DIV to FLEXCAN0. */
+    kCLK_IN_to_FLEXCAN0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 3U),  /*!< Attach CLK_IN to FLEXCAN0.     */
+    kPll1ClkDiv_to_FLEXCAN0 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 6U),  /*!< Attach Pll1ClkDiv to FLEXCAN0. */
+    kNONE_to_FLEXCAN0       = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 7U),  /*!< Attach NONE to FLEXCAN0.       */
 
-    kFRO_HF_to_FLEXCAN1     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 1U),  /*!< Attach FRO_HF to FLEXCAN1.*/
-    kFRO_HF_DIV_to_FLEXCAN1 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 2U),  /*!< Attach FRO_HF_DIV to FLEXCAN1.*/
-    kCLK_IN_to_FLEXCAN1     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 3U),  /*!< Attach CLK_IN to FLEXCAN1.    */
-    kPll1ClkDiv_to_FLEXCAN1 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 6U),  /*!< Attach Pll1ClkDiv to FLEXCAN1.    */
-    kNONE_to_FLEXCAN1       = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 7U),  /*!< Attach NONE to FLEXCAN1.      */
+    kFRO_HF_to_FLEXCAN1     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 1U),  /*!< Attach FRO_HF to FLEXCAN1.     */
+    kFRO_HF_DIV_to_FLEXCAN1 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 2U),  /*!< Attach FRO_HF_DIV to FLEXCAN1. */
+    kCLK_IN_to_FLEXCAN1     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 3U),  /*!< Attach CLK_IN to FLEXCAN1.     */
+    kPll1ClkDiv_to_FLEXCAN1 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 6U),  /*!< Attach Pll1ClkDiv to FLEXCAN1. */
+    kNONE_to_FLEXCAN1       = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 7U),  /*!< Attach NONE to FLEXCAN1.       */
 
-    kFRO_LF_DIV_to_DAC0 = CLK_ATTACH_MUX(kCLOCK_SelDAC0, 0U),          /*!< Attach FRO_LF_DIV to DAC0.      */
+    kFRO_LF_DIV_to_DAC0 = CLK_ATTACH_MUX(kCLOCK_SelDAC0, 0U),          /*!< Attach FRO_LF_DIV to DAC0.  */
     kFRO_HF_DIV_to_DAC0 = CLK_ATTACH_MUX(kCLOCK_SelDAC0, 2U),          /*!< Attach FRO_HF_DIV to DAC0.  */
     kCLK_IN_to_DAC0     = CLK_ATTACH_MUX(kCLOCK_SelDAC0, 3U),          /*!< Attach CLK_IN to DAC0.      */
     kCLK_1M_to_DAC0     = CLK_ATTACH_MUX(kCLOCK_SelDAC0, 5U),          /*!< Attach CLK_1M to DAC0.      */
-    kPll1ClkDiv_to_DAC0 = CLK_ATTACH_MUX(kCLOCK_SelDAC0, 6U),          /*!< Attach Pll1ClkDiv to DAC0.      */
+    kPll1ClkDiv_to_DAC0 = CLK_ATTACH_MUX(kCLOCK_SelDAC0, 6U),          /*!< Attach Pll1ClkDiv to DAC0.  */
     kNONE_to_DAC0       = CLK_ATTACH_MUX(kCLOCK_SelDAC0, 7U),          /*!< Attach NONE to DAC0.        */
 
-    kFRO_LF_DIV_to_LPI2C0 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C0, 0U),      /*!< Attach FRO_LF_DIV to LPI2C0.     */
+    kFRO_LF_DIV_to_LPI2C0 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C0, 0U),      /*!< Attach FRO_LF_DIV to LPI2C0. */
     kFRO_HF_DIV_to_LPI2C0 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C0, 2U),      /*!< Attach FRO_HF_DIV to LPI2C0. */
     kCLK_IN_to_LPI2C0     = CLK_ATTACH_MUX(kCLOCK_SelLPI2C0, 3U),      /*!< Attach CLK_IN to LPI2C0.     */
     kCLK_1M_to_LPI2C0     = CLK_ATTACH_MUX(kCLOCK_SelLPI2C0, 5U),      /*!< Attach CLK_1M to LPI2C0.     */
-    kPll1ClkDiv_to_LPI2C0 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C0, 6U),      /*!< Attach Pll1ClkDiv to LPI2C0.     */
+    kPll1ClkDiv_to_LPI2C0 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C0, 6U),      /*!< Attach Pll1ClkDiv to LPI2C0. */
     kNONE_to_LPI2C0       = CLK_ATTACH_MUX(kCLOCK_SelLPI2C0, 7U),      /*!< Attach NONE to LPI2C0.       */
 
-    kFRO_LF_DIV_to_LPI2C1 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C1, 0U),      /*!< Attach FRO_LF_DIV to LPI2C1.     */
+    kFRO_LF_DIV_to_LPI2C1 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C1, 0U),      /*!< Attach FRO_LF_DIV to LPI2C1. */
     kFRO_HF_DIV_to_LPI2C1 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C1, 2U),      /*!< Attach FRO_HF_DIV to LPI2C1. */
     kCLK_IN_to_LPI2C1     = CLK_ATTACH_MUX(kCLOCK_SelLPI2C1, 3U),      /*!< Attach CLK_IN to LPI2C1.     */
     kCLK_1M_to_LPI2C1     = CLK_ATTACH_MUX(kCLOCK_SelLPI2C1, 5U),      /*!< Attach CLK_1M to LPI2C1.     */
-    kPll1ClkDiv_to_LPI2C1 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C1, 6U),      /*!< Attach Pll1ClkDiv to LPI2C1.     */
+    kPll1ClkDiv_to_LPI2C1 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C1, 6U),      /*!< Attach Pll1ClkDiv to LPI2C1. */
     kNONE_to_LPI2C1       = CLK_ATTACH_MUX(kCLOCK_SelLPI2C1, 7U),      /*!< Attach NONE to LPI2C1.       */
 
-    kFRO_LF_DIV_to_LPI2C2 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C2, 0U),      /*!< Attach FRO_LF_DIV to LPI2C2.     */
+    kFRO_LF_DIV_to_LPI2C2 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C2, 0U),      /*!< Attach FRO_LF_DIV to LPI2C2. */
     kFRO_HF_DIV_to_LPI2C2 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C2, 2U),      /*!< Attach FRO_HF_DIV to LPI2C2. */
     kCLK_IN_to_LPI2C2     = CLK_ATTACH_MUX(kCLOCK_SelLPI2C2, 3U),      /*!< Attach CLK_IN to LPI2C2.     */
     kCLK_1M_to_LPI2C2     = CLK_ATTACH_MUX(kCLOCK_SelLPI2C2, 5U),      /*!< Attach CLK_1M to LPI2C2.     */
-    kPll1ClkDiv_to_LPI2C2 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C2, 6U),      /*!< Attach Pll1ClkDiv to LPI2C2.     */
+    kPll1ClkDiv_to_LPI2C2 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C2, 6U),      /*!< Attach Pll1ClkDiv to LPI2C2. */
     kNONE_to_LPI2C2       = CLK_ATTACH_MUX(kCLOCK_SelLPI2C2, 7U),      /*!< Attach NONE to LPI2C2.       */
 
-    kFRO_LF_DIV_to_LPI2C3 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C3, 0U),      /*!< Attach FRO_LF_DIV to LPI2C3.     */
+    kFRO_LF_DIV_to_LPI2C3 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C3, 0U),      /*!< Attach FRO_LF_DIV to LPI2C3. */
     kFRO_HF_DIV_to_LPI2C3 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C3, 2U),      /*!< Attach FRO_HF_DIV to LPI2C3. */
     kCLK_IN_to_LPI2C3     = CLK_ATTACH_MUX(kCLOCK_SelLPI2C3, 3U),      /*!< Attach CLK_IN to LPI2C3.     */
     kCLK_1M_to_LPI2C3     = CLK_ATTACH_MUX(kCLOCK_SelLPI2C3, 5U),      /*!< Attach CLK_1M to LPI2C3.     */
-    kPll1ClkDiv_to_LPI2C3 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C3, 6U),      /*!< Attach Pll1ClkDiv to LPI2C3.     */
+    kPll1ClkDiv_to_LPI2C3 = CLK_ATTACH_MUX(kCLOCK_SelLPI2C3, 6U),      /*!< Attach Pll1ClkDiv to LPI2C3. */
     kNONE_to_LPI2C3       = CLK_ATTACH_MUX(kCLOCK_SelLPI2C3, 7U),      /*!< Attach NONE to LPI2C3.       */
 
-    kFRO_LF_DIV_to_LPSPI0 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 0U),      /*!< Attach FRO_LF_DIV to LPSPI0.     */
+    kFRO_LF_DIV_to_LPSPI0 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 0U),      /*!< Attach FRO_LF_DIV to LPSPI0. */
     kFRO_HF_DIV_to_LPSPI0 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 2U),      /*!< Attach FRO_HF_DIV to LPSPI0. */
     kCLK_IN_to_LPSPI0     = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 3U),      /*!< Attach CLK_IN to LPSPI0.     */
     kCLK_1M_to_LPSPI0     = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 5U),      /*!< Attach CLK_1M to LPSPI0.     */
     kPll1ClkDiv_to_LPSPI0 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 6U),      /*!< Attach Pll1ClkDiv to LPSPI0. */
     kNONE_to_LPSPI0       = CLK_ATTACH_MUX(kCLOCK_SelLPSPI0, 7U),      /*!< Attach NONE to LPSPI0.       */
 
-    kFRO_LF_DIV_to_LPSPI1 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 0U),      /*!< Attach FRO_LF_DIV to LPSPI1.     */
+    kFRO_LF_DIV_to_LPSPI1 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 0U),      /*!< Attach FRO_LF_DIV to LPSPI1. */
     kFRO_HF_DIV_to_LPSPI1 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 2U),      /*!< Attach FRO_HF_DIV to LPSPI1. */
     kCLK_IN_to_LPSPI1     = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 3U),      /*!< Attach CLK_IN to LPSPI1.     */
     kCLK_1M_to_LPSPI1     = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 5U),      /*!< Attach CLK_1M to LPSPI1.     */
     kPll1ClkDiv_to_LPSPI1 = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 6U),      /*!< Attach Pll1ClkDiv to LPSPI1. */
     kNONE_to_LPSPI1       = CLK_ATTACH_MUX(kCLOCK_SelLPSPI1, 7U),      /*!< Attach NONE to LPSPI1.       */
 
-    kFRO_LF_DIV_to_LPUART0 = CLK_ATTACH_MUX(kCLOCK_SelLPUART0, 0U),    /*!< Attach FRO_LF_DIV to LPUART0.     */
+    kFRO_LF_DIV_to_LPUART0 = CLK_ATTACH_MUX(kCLOCK_SelLPUART0, 0U),    /*!< Attach FRO_LF_DIV to LPUART0. */
     kFRO_HF_DIV_to_LPUART0 = CLK_ATTACH_MUX(kCLOCK_SelLPUART0, 2U),    /*!< Attach FRO_HF_DIV to LPUART0. */
     kCLK_IN_to_LPUART0     = CLK_ATTACH_MUX(kCLOCK_SelLPUART0, 3U),    /*!< Attach CLK_IN to LPUART0.     */
     kCLK_16K_to_LPUART0    = CLK_ATTACH_MUX(kCLOCK_SelLPUART0, 4U),    /*!< Attach CLK_16K to LPUART0.    */
     kCLK_1M_to_LPUART0     = CLK_ATTACH_MUX(kCLOCK_SelLPUART0, 5U),    /*!< Attach CLK_1M to LPUART0.     */
-    kPll1ClkDiv_to_LPUART0 = CLK_ATTACH_MUX(kCLOCK_SelLPUART0, 6U),    /*!< Attach Pll1ClkDiv to LPUART0.     */
+    kPll1ClkDiv_to_LPUART0 = CLK_ATTACH_MUX(kCLOCK_SelLPUART0, 6U),    /*!< Attach Pll1ClkDiv to LPUART0. */
     kNONE_to_LPUART0       = CLK_ATTACH_MUX(kCLOCK_SelLPUART0, 7U),    /*!< Attach NONE to LPUART0.       */
 
-    kFRO_LF_DIV_to_LPUART1 = CLK_ATTACH_MUX(kCLOCK_SelLPUART1, 0U),    /*!< Attach FRO_LF_DIV to LPUART1.     */
+    kFRO_LF_DIV_to_LPUART1 = CLK_ATTACH_MUX(kCLOCK_SelLPUART1, 0U),    /*!< Attach FRO_LF_DIV to LPUART1. */
     kFRO_HF_DIV_to_LPUART1 = CLK_ATTACH_MUX(kCLOCK_SelLPUART1, 2U),    /*!< Attach FRO_HF_DIV to LPUART1. */
     kCLK_IN_to_LPUART1     = CLK_ATTACH_MUX(kCLOCK_SelLPUART1, 3U),    /*!< Attach CLK_IN to LPUART1.     */
     kCLK_16K_to_LPUART1    = CLK_ATTACH_MUX(kCLOCK_SelLPUART1, 4U),    /*!< Attach CLK_16K to LPUART1.    */
     kCLK_1M_to_LPUART1     = CLK_ATTACH_MUX(kCLOCK_SelLPUART1, 5U),    /*!< Attach CLK_1M to LPUART1.     */
-    kPll1ClkDiv_to_LPUART1 = CLK_ATTACH_MUX(kCLOCK_SelLPUART1, 6U),    /*!< Attach Pll1ClkDiv to LPUART1.     */
+    kPll1ClkDiv_to_LPUART1 = CLK_ATTACH_MUX(kCLOCK_SelLPUART1, 6U),    /*!< Attach Pll1ClkDiv to LPUART1. */
     kNONE_to_LPUART1       = CLK_ATTACH_MUX(kCLOCK_SelLPUART1, 7U),    /*!< Attach NONE to LPUART1.       */
 
-    kFRO_LF_DIV_to_LPUART2 = CLK_ATTACH_MUX(kCLOCK_SelLPUART2, 0U),    /*!< Attach FRO_LF_DIV to LPUART2.     */
+    kFRO_LF_DIV_to_LPUART2 = CLK_ATTACH_MUX(kCLOCK_SelLPUART2, 0U),    /*!< Attach FRO_LF_DIV to LPUART2. */
     kFRO_HF_DIV_to_LPUART2 = CLK_ATTACH_MUX(kCLOCK_SelLPUART2, 2U),    /*!< Attach FRO_HF_DIV to LPUART2. */
     kCLK_IN_to_LPUART2     = CLK_ATTACH_MUX(kCLOCK_SelLPUART2, 3U),    /*!< Attach CLK_IN to LPUART2.     */
     kCLK_16K_to_LPUART2    = CLK_ATTACH_MUX(kCLOCK_SelLPUART2, 4U),    /*!< Attach CLK_16K to LPUART2.    */
     kCLK_1M_to_LPUART2     = CLK_ATTACH_MUX(kCLOCK_SelLPUART2, 5U),    /*!< Attach CLK_1M to LPUART2.     */
-    kPll1ClkDiv_to_LPUART2 = CLK_ATTACH_MUX(kCLOCK_SelLPUART2, 6U),    /*!< Attach Pll1ClkDiv to LPUART2.     */
+    kPll1ClkDiv_to_LPUART2 = CLK_ATTACH_MUX(kCLOCK_SelLPUART2, 6U),    /*!< Attach Pll1ClkDiv to LPUART2. */
     kNONE_to_LPUART2       = CLK_ATTACH_MUX(kCLOCK_SelLPUART2, 7U),    /*!< Attach NONE to LPUART2.       */
 
-    kFRO_LF_DIV_to_LPUART3 = CLK_ATTACH_MUX(kCLOCK_SelLPUART3, 0U),    /*!< Attach FRO_LF_DIV to LPUART2.     */
+    kFRO_LF_DIV_to_LPUART3 = CLK_ATTACH_MUX(kCLOCK_SelLPUART3, 0U),    /*!< Attach FRO_LF_DIV to LPUART2. */
     kFRO_HF_DIV_to_LPUART3 = CLK_ATTACH_MUX(kCLOCK_SelLPUART3, 2U),    /*!< Attach FRO_HF_DIV to LPUART2. */
     kCLK_IN_to_LPUART3     = CLK_ATTACH_MUX(kCLOCK_SelLPUART3, 3U),    /*!< Attach CLK_IN to LPUART2.     */
     kCLK_16K_to_LPUART3    = CLK_ATTACH_MUX(kCLOCK_SelLPUART3, 4U),    /*!< Attach CLK_16K to LPUART2.    */
     kCLK_1M_to_LPUART3     = CLK_ATTACH_MUX(kCLOCK_SelLPUART3, 5U),    /*!< Attach CLK_1M to LPUART2.     */
-    kPll1ClkDiv_to_LPUART3 = CLK_ATTACH_MUX(kCLOCK_SelLPUART3, 6U),    /*!< Attach Pll1ClkDiv to LPUART3.     */
+    kPll1ClkDiv_to_LPUART3 = CLK_ATTACH_MUX(kCLOCK_SelLPUART3, 6U),    /*!< Attach Pll1ClkDiv to LPUART3. */
     kNONE_to_LPUART3       = CLK_ATTACH_MUX(kCLOCK_SelLPUART3, 7U),    /*!< Attach NONE to LPUART2.       */
 
-    kFRO_LF_DIV_to_LPUART4 = CLK_ATTACH_MUX(kCLOCK_SelLPUART4, 0U),    /*!< Attach FRO_LF_DIV to LPUART4.     */
+    kFRO_LF_DIV_to_LPUART4 = CLK_ATTACH_MUX(kCLOCK_SelLPUART4, 0U),    /*!< Attach FRO_LF_DIV to LPUART4. */
     kFRO_HF_DIV_to_LPUART4 = CLK_ATTACH_MUX(kCLOCK_SelLPUART4, 2U),    /*!< Attach FRO_HF_DIV to LPUART4. */
     kCLK_IN_to_LPUART4     = CLK_ATTACH_MUX(kCLOCK_SelLPUART4, 3U),    /*!< Attach CLK_IN to LPUART4.     */
     kCLK_16K_to_LPUART4    = CLK_ATTACH_MUX(kCLOCK_SelLPUART4, 4U),    /*!< Attach CLK_16K to LPUART4.    */
     kCLK_1M_to_LPUART4     = CLK_ATTACH_MUX(kCLOCK_SelLPUART4, 5U),    /*!< Attach CLK_1M to LPUART4.     */
-    kPll1ClkDiv_to_LPUART4 = CLK_ATTACH_MUX(kCLOCK_SelLPUART4, 6U),    /*!< Attach Pll1ClkDiv to LPUART4.     */
+    kPll1ClkDiv_to_LPUART4 = CLK_ATTACH_MUX(kCLOCK_SelLPUART4, 6U),    /*!< Attach Pll1ClkDiv to LPUART4. */
     kNONE_to_LPUART4       = CLK_ATTACH_MUX(kCLOCK_SelLPUART4, 7U),    /*!< Attach NONE to LPUART4.       */
 
-    kFRO_LF_DIV_to_LPUART5 = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 0U),    /*!< Attach FRO_LF_DIV to LPUART5.     */
+    kFRO_LF_DIV_to_LPUART5 = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 0U),    /*!< Attach FRO_LF_DIV to LPUART5. */
     kFRO_HF_DIV_to_LPUART5 = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 2U),    /*!< Attach FRO_HF_DIV to LPUART5. */
     kCLK_IN_to_LPUART5     = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 3U),    /*!< Attach CLK_IN to LPUART5.     */
     kCLK_16K_to_LPUART5    = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 4U),    /*!< Attach CLK_16K to LPUART5.    */
     kCLK_1M_to_LPUART5     = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 5U),    /*!< Attach CLK_1M to LPUART5.     */
-    kPll1ClkDiv_to_LPUART5 = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 6U),    /*!< Attach Pll1ClkDiv to LPUART5.     */
+    kPll1ClkDiv_to_LPUART5 = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 6U),    /*!< Attach Pll1ClkDiv to LPUART5. */
     kNONE_to_LPUART5       = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 7U),    /*!< Attach NONE to LPUART5.       */
 
     kPll1Clk_to_USB0 = CLK_ATTACH_MUX(kCLOCK_SelUSB0, 0U),             /*!< Attach Pll1Clk to USB0. */
-    kCLK_45M_to_USB0 = CLK_ATTACH_MUX(kCLOCK_SelUSB0, 1U),             /*!< Attach FRO_HF to USB0. */
-    kCLK_IN_to_USB0  = CLK_ATTACH_MUX(kCLOCK_SelUSB0, 2U),             /*!< Attach CLK_IN to USB0. */
-    kNONE_to_USB0    = CLK_ATTACH_MUX(kCLOCK_SelUSB0, 3U),             /*!< Attach NONE to USB0.   */
+    kCLK_45M_to_USB0 = CLK_ATTACH_MUX(kCLOCK_SelUSB0, 1U),             /*!< Attach FRO_HF to USB0.  */
+    kCLK_IN_to_USB0  = CLK_ATTACH_MUX(kCLOCK_SelUSB0, 2U),             /*!< Attach CLK_IN to USB0.  */
+    kNONE_to_USB0    = CLK_ATTACH_MUX(kCLOCK_SelUSB0, 3U),             /*!< Attach NONE to USB0.    */
 
-    kFRO_LF_DIV_to_LPTMR0 = CLK_ATTACH_MUX(kCLOCK_SelLPTMR0, 0U),      /*!< Attach FRO_LF_DIV to LPTMR0.     */
+    kFRO_LF_DIV_to_LPTMR0 = CLK_ATTACH_MUX(kCLOCK_SelLPTMR0, 0U),      /*!< Attach FRO_LF_DIV to LPTMR0. */
     kFRO_HF_DIV_to_LPTMR0 = CLK_ATTACH_MUX(kCLOCK_SelLPTMR0, 2U),      /*!< Attach FRO_HF_DIV to LPTMR0. */
     kCLK_IN_to_LPTMR0     = CLK_ATTACH_MUX(kCLOCK_SelLPTMR0, 3U),      /*!< Attach CLK_IN to LPTMR0.     */
     kCLK_1M_to_LPTMR0     = CLK_ATTACH_MUX(kCLOCK_SelLPTMR0, 5U),      /*!< Attach CLK_1M to LPTMR0.     */
-    kPll1ClkDiv_to_LPTMR0 = CLK_ATTACH_MUX(kCLOCK_SelLPTMR0, 6U),      /*!< Attach Pll1ClkDiv to LPTMR0.     */
+    kPll1ClkDiv_to_LPTMR0 = CLK_ATTACH_MUX(kCLOCK_SelLPTMR0, 6U),      /*!< Attach Pll1ClkDiv to LPTMR0. */
     kNONE_to_LPTMR0       = CLK_ATTACH_MUX(kCLOCK_SelLPTMR0, 7U),      /*!< Attach NONE to LPTMR0.       */
 
     kCLK_16K_to_OSTIMER = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 0U),      /*!< Attach FRO16K to OSTIMER0. */
@@ -591,31 +591,31 @@ typedef enum _clock_attach_id
     kNONE_to_OSTIMER    = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 3U),      /*!< Attach NONE to OSTIMER0.   */
 
     kFRO_LF_DIV_to_ADC = CLK_ATTACH_MUX(kCLOCK_SelADC, 0U),            /*!< Attach FRO_LF_DIV to ADC. */
-    kFRO_HF_to_ADC     = CLK_ATTACH_MUX(kCLOCK_SelADC, 1U),            /*!< Attach FRO_HF to ADC. */
-    kCLK_IN_to_ADC     = CLK_ATTACH_MUX(kCLOCK_SelADC, 3U),            /*!< Attach CLK_IN to ADC. */
-    kCLK_1M_to_ADC     = CLK_ATTACH_MUX(kCLOCK_SelADC, 5U),            /*!< Attach CLK_1M to ADC. */
+    kFRO_HF_to_ADC     = CLK_ATTACH_MUX(kCLOCK_SelADC, 1U),            /*!< Attach FRO_HF to ADC.     */
+    kCLK_IN_to_ADC     = CLK_ATTACH_MUX(kCLOCK_SelADC, 3U),            /*!< Attach CLK_IN to ADC.     */
+    kCLK_1M_to_ADC     = CLK_ATTACH_MUX(kCLOCK_SelADC, 5U),            /*!< Attach CLK_1M to ADC.     */
     kPll1ClkDiv_to_ADC = CLK_ATTACH_MUX(kCLOCK_SelADC, 6U),            /*!< Attach Pll1ClkDiv to ADC. */
-    kNONE_to_ADC       = CLK_ATTACH_MUX(kCLOCK_SelADC, 7U),            /*!< Attach NONE to ADC.   */
+    kNONE_to_ADC       = CLK_ATTACH_MUX(kCLOCK_SelADC, 7U),            /*!< Attach NONE to ADC.       */
 
-    kFRO_LF_DIV_to_CMP0 = CLK_ATTACH_MUX(kCLOCK_SelCMP0_RR, 0U),       /*!< Attach FRO_LF_DIV to CMP0.     */
+    kFRO_LF_DIV_to_CMP0 = CLK_ATTACH_MUX(kCLOCK_SelCMP0_RR, 0U),       /*!< Attach FRO_LF_DIV to CMP0. */
     kFRO_HF_DIV_to_CMP0 = CLK_ATTACH_MUX(kCLOCK_SelCMP0_RR, 2U),       /*!< Attach FRO_HF_DIV to CMP0. */
     kCLK_IN_to_CMP0     = CLK_ATTACH_MUX(kCLOCK_SelCMP0_RR, 3U),       /*!< Attach CLK_IN to CMP0.     */
     kCLK_1M_to_CMP0     = CLK_ATTACH_MUX(kCLOCK_SelCMP0_RR, 5U),       /*!< Attach CLK_1M to CMP0.     */
-    kPll1ClkDiv_to_CMP0 = CLK_ATTACH_MUX(kCLOCK_SelCMP0_RR, 6U),       /*!< Attach Pll1ClkDiv to CMP0.     */
+    kPll1ClkDiv_to_CMP0 = CLK_ATTACH_MUX(kCLOCK_SelCMP0_RR, 6U),       /*!< Attach Pll1ClkDiv to CMP0. */
     kNONE_to_CMP0       = CLK_ATTACH_MUX(kCLOCK_SelCMP0_RR, 7U),       /*!< Attach NONE to CMP0.       */
 
-    kFRO_LF_DIV_to_CMP1 = CLK_ATTACH_MUX(kCLOCK_SelCMP1_RR, 0U),       /*!< Attach FRO_LF_DIV to CMP1.     */
+    kFRO_LF_DIV_to_CMP1 = CLK_ATTACH_MUX(kCLOCK_SelCMP1_RR, 0U),       /*!< Attach FRO_LF_DIV to CMP1. */
     kFRO_HF_DIV_to_CMP1 = CLK_ATTACH_MUX(kCLOCK_SelCMP1_RR, 2U),       /*!< Attach FRO_HF_DIV to CMP1. */
     kCLK_IN_to_CMP1     = CLK_ATTACH_MUX(kCLOCK_SelCMP1_RR, 3U),       /*!< Attach CLK_IN to CMP1.     */
     kCLK_1M_to_CMP1     = CLK_ATTACH_MUX(kCLOCK_SelCMP1_RR, 5U),       /*!< Attach CLK_1M to CMP1.     */
-    kPll1ClkDiv_to_CMP1 = CLK_ATTACH_MUX(kCLOCK_SelCMP1_RR, 6U),       /*!< Attach Pll1ClkDiv to CMP1.     */
+    kPll1ClkDiv_to_CMP1 = CLK_ATTACH_MUX(kCLOCK_SelCMP1_RR, 6U),       /*!< Attach Pll1ClkDiv to CMP1. */
     kNONE_to_CMP1       = CLK_ATTACH_MUX(kCLOCK_SelCMP1_RR, 7U),       /*!< Attach NONE to CMP1.       */
 
-    kFRO_LF_DIV_to_CMP2 = CLK_ATTACH_MUX(kCLOCK_SelCMP2_RR, 0U),       /*!< Attach FRO_LF_DIV to CMP2.     */
+    kFRO_LF_DIV_to_CMP2 = CLK_ATTACH_MUX(kCLOCK_SelCMP2_RR, 0U),       /*!< Attach FRO_LF_DIV to CMP2. */
     kFRO_HF_DIV_to_CMP2 = CLK_ATTACH_MUX(kCLOCK_SelCMP2_RR, 2U),       /*!< Attach FRO_HF_DIV to CMP2. */
     kCLK_IN_to_CMP2     = CLK_ATTACH_MUX(kCLOCK_SelCMP2_RR, 3U),       /*!< Attach CLK_IN to CMP2.     */
     kCLK_1M_to_CMP2     = CLK_ATTACH_MUX(kCLOCK_SelCMP2_RR, 5U),       /*!< Attach CLK_1M to CMP2.     */
-    kPll1ClkDiv_to_CMP2 = CLK_ATTACH_MUX(kCLOCK_SelCMP2_RR, 6U),       /*!< Attach Pll1ClkDiv to CMP2.     */
+    kPll1ClkDiv_to_CMP2 = CLK_ATTACH_MUX(kCLOCK_SelCMP2_RR, 6U),       /*!< Attach Pll1ClkDiv to CMP2. */
     kNONE_to_CMP2       = CLK_ATTACH_MUX(kCLOCK_SelCMP2_RR, 7U),       /*!< Attach NONE to CMP2.       */
 
     kCPU_CLK_to_TRACE = CLK_ATTACH_MUX(kCLOCK_SelTRACE, 0U),           /*!< Attach CPU_CLK to TRACE. */
@@ -623,11 +623,11 @@ typedef enum _clock_attach_id
     kCLK_16K_to_TRACE = CLK_ATTACH_MUX(kCLOCK_SelTRACE, 2U),           /*!< Attach CLK_16K to TRACE. */
     kNONE_to_TRACE    = CLK_ATTACH_MUX(kCLOCK_SelTRACE, 3U),           /*!< Attach NONE to TRACE.    */
 
-    kFRO_LF_DIV_to_CLKOUT = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 0U),      /*!< Attach FRO_LF_DIV to CLKOUT.     */
+    kFRO12M_to_CLKOUT     = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 0U),      /*!< Attach FRO_12M to CLKOUT.    */
     kFRO_HF_DIV_to_CLKOUT = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 1U),      /*!< Attach FRO_HF_DIV to CLKOUT. */
     kCLK_IN_to_CLKOUT     = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 2U),      /*!< Attach CLK_IN to CLKOUT.     */
     kCLK_16K_to_CLKOUT    = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 3U),      /*!< Attach CLK_16K to CLKOUT.    */
-    kPll1Clk_to_CLKOUT    = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 5U),      /*!< Attach Pll1Clk to CLKOUT.   */
+    kPll1Clk_to_CLKOUT    = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 5U),      /*!< Attach Pll1Clk to CLKOUT.    */
     kSLOW_CLK_to_CLKOUT   = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 6U),      /*!< Attach SLOW_CLK to CLKOUT.   */
     kNONE_to_CLKOUT       = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 7U),      /*!< Attach NONE to CLKOUT.       */
 

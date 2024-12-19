@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241120
+**     Build:               b241219
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA166
@@ -96,12 +96,12 @@ typedef enum IRQn {
   MBC0_IRQn                    = 14,               /**< MBC secure violation interrupt */
   SCG0_IRQn                    = 15,               /**< System Clock Generator interrupt */
   SPC0_IRQn                    = 16,               /**< System Power Controller interrupt */
-  TDET_IRQn                    = 17,               /**< TDET interrrupt */
+  Reserved33_IRQn              = 17,               /**< Reserved interrupt */
   WUU0_IRQn                    = 18,               /**< Wake Up Unit interrupt */
   CAN0_IRQn                    = 19,               /**< Controller Area Network 0 interrupt */
-  CAN1_IRQn                    = 20,               /**< Controller Area Network 1 interrupt */
-  FLEXIO_IRQn                  = 23,               /**< Flexible Input/Output interrupt */
-  I3C0_IRQn                    = 24,               /**< Improved Inter Integrated Circuit interrupt 0 */
+  Reserved36_IRQn              = 20,               /**< Reserved interrupt */
+  Reserved39_IRQn              = 23,               /**< Reserved interrupt */
+  Reserved40_IRQn              = 24,               /**< Reserved interrupt */
   LPI2C0_IRQn                  = 26,               /**< Low-Power Inter Integrated Circuit 0 interrupt */
   LPI2C1_IRQn                  = 27,               /**< Low-Power Inter Integrated Circuit 1 interrupt */
   LPSPI0_IRQn                  = 28,               /**< Low-Power Serial Peripheral Interface 0 interrupt */
@@ -111,7 +111,7 @@ typedef enum IRQn {
   LPUART2_IRQn                 = 33,               /**< Low-Power Universal Asynchronous Receive/Transmit 2 interrupt */
   LPUART3_IRQn                 = 34,               /**< Low-Power Universal Asynchronous Receive/Transmit 3 interrupt */
   LPUART4_IRQn                 = 35,               /**< Low-Power Universal Asynchronous Receive/Transmit 4 interrupt */
-  USB0_IRQn                    = 36,               /**< Universal Serial Bus - Full Speed interrupt */
+  Reserved52_IRQn              = 36,               /**< Reserved interrupt */
   CDOG0_IRQn                   = 38,               /**< Code Watchdog Timer 0 interrupt */
   CTIMER0_IRQn                 = 39,               /**< Standard counter/timer 0 interrupt */
   CTIMER1_IRQn                 = 40,               /**< Standard counter/timer 1 interrupt */
@@ -160,15 +160,15 @@ typedef enum IRQn {
   LPUART5_IRQn                 = 95,               /**< Low-Power Universal Asynchronous Receive/Transmit interrupt */
   MAU_IRQn                     = 107,              /**< MAU interrupt */
   SMARTDMA_IRQn                = 108,              /**< SmartDMA interrupt */
-  CDOG1_IRQn                   = 109,              /**< Code Watchdog Timer 1 interrupt */
-  PKC_IRQn                     = 110,              /**< PKC interrupt */
-  SGI_IRQn                     = 111,              /**< SGI interrupt */
-  TRNG0_IRQn                   = 113,              /**< True Random Number Generator interrupt */
+  Reserved125_IRQn             = 109,              /**< Reserved interrupt */
+  Reserved126_IRQn             = 110,              /**< Reserved interrupt */
+  Reserved127_IRQn             = 111,              /**< Reserved interrupt */
+  Reserved129_IRQn             = 113,              /**< Reserved interrupt */
   ADC2_IRQn                    = 116,              /**< Analog-to-Digital Converter 2 interrupt */
   ADC3_IRQn                    = 117,              /**< Analog-to-Digital Converter 3 interrupt */
   RTC_IRQn                     = 119,              /**< RTC alarm interrupt */
   RTC_1HZ_IRQn                 = 120,              /**< RTC 1Hz interrupt */
-  SLCD_IRQn                    = 121               /**< SLCD frame start interrupt */
+  Reserved137_IRQn             = 121               /**< Reserved interrupt */
 } IRQn_Type;
 
 /*!

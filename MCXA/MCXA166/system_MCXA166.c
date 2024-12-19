@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241120
+**     Build:               b241219
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -85,6 +85,7 @@ __attribute__ ((weak)) void SystemInit (void) {
     SCB->VTOR = (uint32_t) &__Vectors;
 #endif
 #endif
+
     /* Enable the LPCAC */
     SYSCON->LPCAC_CTRL |= SYSCON_LPCAC_CTRL_LPCAC_MEM_REQ_MASK;
     SYSCON->LPCAC_CTRL &= ~SYSCON_LPCAC_CTRL_DIS_LPCAC_MASK;

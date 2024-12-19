@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241120
+**     Build:               b241219
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA176
@@ -96,7 +96,7 @@ typedef enum IRQn {
   MBC0_IRQn                    = 14,               /**< MBC secure violation interrupt */
   SCG0_IRQn                    = 15,               /**< System Clock Generator interrupt */
   SPC0_IRQn                    = 16,               /**< System Power Controller interrupt */
-  TDET_IRQn                    = 17,               /**< TDET interrrupt */
+  Reserved33_IRQn              = 17,               /**< Reserved interrupt */
   WUU0_IRQn                    = 18,               /**< Wake Up Unit interrupt */
   CAN0_IRQn                    = 19,               /**< Controller Area Network 0 interrupt */
   CAN1_IRQn                    = 20,               /**< Controller Area Network 1 interrupt */
@@ -160,10 +160,10 @@ typedef enum IRQn {
   LPUART5_IRQn                 = 95,               /**< Low-Power Universal Asynchronous Receive/Transmit interrupt */
   MAU_IRQn                     = 107,              /**< MAU interrupt */
   SMARTDMA_IRQn                = 108,              /**< SmartDMA interrupt */
-  CDOG1_IRQn                   = 109,              /**< Code Watchdog Timer 1 interrupt */
-  PKC_IRQn                     = 110,              /**< PKC interrupt */
-  SGI_IRQn                     = 111,              /**< SGI interrupt */
-  TRNG0_IRQn                   = 113,              /**< True Random Number Generator interrupt */
+  Reserved125_IRQn             = 109,              /**< Reserved interrupt */
+  Reserved126_IRQn             = 110,              /**< Reserved interrupt */
+  Reserved127_IRQn             = 111,              /**< Reserved interrupt */
+  Reserved129_IRQn             = 113,              /**< Reserved interrupt */
   ADC2_IRQn                    = 116,              /**< Analog-to-Digital Converter 2 interrupt */
   ADC3_IRQn                    = 117,              /**< Analog-to-Digital Converter 3 interrupt */
   RTC_IRQn                     = 119,              /**< RTC alarm interrupt */

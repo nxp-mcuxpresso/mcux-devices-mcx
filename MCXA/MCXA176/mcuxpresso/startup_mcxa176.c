@@ -1,7 +1,7 @@
 //*****************************************************************************
 // MCXA176 startup code for use with MCUXpresso IDE
 //
-// Version : 201124
+// Version : 191224
 //*****************************************************************************
 //
 // Copyright 2016-2024 NXP
@@ -95,7 +95,7 @@ WEAK void GLIKEY0_IRQHandler(void);
 WEAK void MBC0_IRQHandler(void);
 WEAK void SCG0_IRQHandler(void);
 WEAK void SPC0_IRQHandler(void);
-WEAK void TDET_IRQHandler(void);
+WEAK void Reserved33_IRQHandler(void);
 WEAK void WUU0_IRQHandler(void);
 WEAK void CAN0_IRQHandler(void);
 WEAK void CAN1_IRQHandler(void);
@@ -187,11 +187,11 @@ WEAK void Reserved121_IRQHandler(void);
 WEAK void Reserved122_IRQHandler(void);
 WEAK void MAU_IRQHandler(void);
 WEAK void SMARTDMA_IRQHandler(void);
-WEAK void CDOG1_IRQHandler(void);
-WEAK void PKC_IRQHandler(void);
-WEAK void SGI_IRQHandler(void);
+WEAK void Reserved125_IRQHandler(void);
+WEAK void Reserved126_IRQHandler(void);
+WEAK void Reserved127_IRQHandler(void);
 WEAK void Reserved128_IRQHandler(void);
-WEAK void TRNG0_IRQHandler(void);
+WEAK void Reserved129_IRQHandler(void);
 WEAK void Reserved130_IRQHandler(void);
 WEAK void Reserved131_IRQHandler(void);
 WEAK void ADC2_IRQHandler(void);
@@ -224,7 +224,7 @@ void GLIKEY0_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void MBC0_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void SCG0_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void SPC0_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
-void TDET_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
+void Reserved33_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void WUU0_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void CAN0_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void CAN1_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
@@ -316,11 +316,11 @@ void Reserved121_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved122_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void MAU_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void SMARTDMA_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
-void CDOG1_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
-void PKC_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
-void SGI_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
+void Reserved125_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
+void Reserved126_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
+void Reserved127_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved128_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
-void TRNG0_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
+void Reserved129_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved130_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved131_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void ADC2_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
@@ -395,7 +395,7 @@ void (* const g_pfnVectors[])(void) = {
     MBC0_IRQHandler,                   // 30 : MBC secure violation interrupt
     SCG0_IRQHandler,                   // 31 : System Clock Generator interrupt
     SPC0_IRQHandler,                   // 32 : System Power Controller interrupt
-    TDET_IRQHandler,                   // 33 : TDET interrrupt
+    Reserved33_IRQHandler,             // 33 : Reserved interrupt
     WUU0_IRQHandler,                   // 34 : Wake Up Unit interrupt
     CAN0_IRQHandler,                   // 35 : Controller Area Network 0 interrupt
     CAN1_IRQHandler,                   // 36 : Controller Area Network 1 interrupt
@@ -487,11 +487,11 @@ void (* const g_pfnVectors[])(void) = {
     Reserved122_IRQHandler,            // 122: Reserved interrupt
     MAU_IRQHandler,                    // 123: MAU interrupt
     SMARTDMA_IRQHandler,               // 124: SmartDMA interrupt
-    CDOG1_IRQHandler,                  // 125: Code Watchdog Timer 1 interrupt
-    PKC_IRQHandler,                    // 126: PKC interrupt
-    SGI_IRQHandler,                    // 127: SGI interrupt
+    Reserved125_IRQHandler,            // 125: Reserved interrupt
+    Reserved126_IRQHandler,            // 126: Reserved interrupt
+    Reserved127_IRQHandler,            // 127: Reserved interrupt
     Reserved128_IRQHandler,            // 128: Reserved interrupt
-    TRNG0_IRQHandler,                  // 129: True Random Number Generator interrupt
+    Reserved129_IRQHandler,            // 129: Reserved interrupt
     Reserved130_IRQHandler,            // 130: Reserved interrupt
     Reserved131_IRQHandler,            // 131: Reserved interrupt
     ADC2_IRQHandler,                   // 132: Analog-to-Digital Converter 2 interrupt
@@ -751,8 +751,8 @@ WEAK void SPC0_IRQHandler(void)
 {   SPC0_DriverIRQHandler();
 }
 
-WEAK void TDET_IRQHandler(void)
-{   TDET_DriverIRQHandler();
+WEAK void Reserved33_IRQHandler(void)
+{   Reserved33_DriverIRQHandler();
 }
 
 WEAK void WUU0_IRQHandler(void)
@@ -1119,24 +1119,24 @@ WEAK void SMARTDMA_IRQHandler(void)
 {   SMARTDMA_DriverIRQHandler();
 }
 
-WEAK void CDOG1_IRQHandler(void)
-{   CDOG1_DriverIRQHandler();
+WEAK void Reserved125_IRQHandler(void)
+{   Reserved125_DriverIRQHandler();
 }
 
-WEAK void PKC_IRQHandler(void)
-{   PKC_DriverIRQHandler();
+WEAK void Reserved126_IRQHandler(void)
+{   Reserved126_DriverIRQHandler();
 }
 
-WEAK void SGI_IRQHandler(void)
-{   SGI_DriverIRQHandler();
+WEAK void Reserved127_IRQHandler(void)
+{   Reserved127_DriverIRQHandler();
 }
 
 WEAK void Reserved128_IRQHandler(void)
 {   Reserved128_DriverIRQHandler();
 }
 
-WEAK void TRNG0_IRQHandler(void)
-{   TRNG0_DriverIRQHandler();
+WEAK void Reserved129_IRQHandler(void)
+{   Reserved129_DriverIRQHandler();
 }
 
 WEAK void Reserved130_IRQHandler(void)

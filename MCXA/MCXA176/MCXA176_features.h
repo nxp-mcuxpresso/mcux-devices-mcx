@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241120
+**     Build:               b241223
 **
 **     Abstract:
 **         Chip specific module features.
@@ -172,6 +172,16 @@
 #define FSL_FEATURE_LPADC_HAS_CFG_HPT_EXDI (1)
 /* @brief Indicate LPADC CFG register TPRICTRL bitfield width. */
 #define FSL_FEATURE_LPADC_CFG_TPRICTRL_BITFIELD_WIDTH (2)
+/* @brief Has internal temperature sensor. */
+#define FSL_FEATURE_LPADC_HAS_INTERNAL_TEMP_SENSOR (1)
+/* @brief Temperature sensor parameter A (slope). */
+#define FSL_FEATURE_LPADC_TEMP_PARAMETER_A (738.0f)
+/* @brief Temperature sensor parameter B (offset). */
+#define FSL_FEATURE_LPADC_TEMP_PARAMETER_B (287.5f)
+/* @brief Temperature sensor parameter Alpha. */
+#define FSL_FEATURE_LPADC_TEMP_PARAMETER_ALPHA (10.06f)
+/* @brief The buffer size of temperature sensor. */
+#define FSL_FEATURE_LPADC_TEMP_SENS_BUFFER_SIZE (2U)
 
 /* AOI module features */
 
@@ -501,8 +511,6 @@
 #define FSL_FEATURE_I3C_HAS_NO_SLAVE_IBI_MR_HJ (0)
 /* @brief Has SCL delay after START. */
 #define FSL_FEATURE_I3C_HAS_START_SCL_DELAY (1)
-/* @brief Has no the master write data register for DMA. */
-#define FSL_FEATURE_I3C_HAS_NO_MASTER_DMA_WDATA_REG (0)
 
 /* LPI2C module features */
 

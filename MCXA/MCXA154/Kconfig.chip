@@ -118,6 +118,11 @@ config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
     default "MCXA154" if MCUX_HW_DEVICE_ID_MCXA154
 
+config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA154
+
 # ip information
 config MCUX_HW_IP_DriverType_AOI
     bool

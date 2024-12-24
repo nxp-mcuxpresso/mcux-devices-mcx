@@ -30,6 +30,11 @@ config MCUX_HW_DEVICE_PART
     default "MCXN947VPB" if MCUX_HW_DEVICE_PART_MCXN947VPB
     default "MCXN947VNL" if MCUX_HW_DEVICE_PART_MCXN947VNL
 
+config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN947
+
 # ip information
 config MCUX_HW_IP_DriverType_AHBSC
     bool

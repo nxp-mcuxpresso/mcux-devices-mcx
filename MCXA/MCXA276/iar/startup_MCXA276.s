@@ -3,8 +3,8 @@
 ;  @purpose: CMSIS Cortex-M33 Core Device Startup File
 ;            MCXA276
 ;  @version: 1.0
-;  @date:    2024-3-26
-;  @build:   b241120
+;  @date:    2024-11-21
+;  @build:   b241224
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -181,7 +181,7 @@ __vector_table_0x1c
         DCD     SGI_IRQHandler                                ;SGI interrupt
         DCD     Reserved128_IRQHandler                        ;xxx Interrupt 128
         DCD     TRNG0_IRQHandler                              ;True Random Number Generator interrupt
-        DCD     Reserved130_IRQHandler                        ;xxx Interrupt 130
+        DCD     SECURE_ERR_IRQHandler                         ;Secure IP Error interrupt. It OR SGI, PKC, TRNG error together.
         DCD     Reserved131_IRQHandler                        ;xxx Interrupt 131
         DCD     ADC2_IRQHandler                               ;Analog-to-Digital Converter 2 interrupt
         DCD     ADC3_IRQHandler                               ;Analog-to-Digital Converter 3 interrupt
@@ -1066,11 +1066,11 @@ TRNG0_IRQHandler
         LDR     R0, =TRNG0_DriverIRQHandler
         BX      R0
 
-        PUBWEAK Reserved130_IRQHandler
-        PUBWEAK Reserved130_DriverIRQHandler
+        PUBWEAK SECURE_ERR_IRQHandler
+        PUBWEAK SECURE_ERR_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-Reserved130_IRQHandler
-        LDR     R0, =Reserved130_DriverIRQHandler
+SECURE_ERR_IRQHandler
+        LDR     R0, =SECURE_ERR_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved131_IRQHandler
@@ -1236,7 +1236,7 @@ PKC_DriverIRQHandler
 SGI_DriverIRQHandler
 Reserved128_DriverIRQHandler
 TRNG0_DriverIRQHandler
-Reserved130_DriverIRQHandler
+SECURE_ERR_DriverIRQHandler
 Reserved131_DriverIRQHandler
 ADC2_DriverIRQHandler
 ADC3_DriverIRQHandler

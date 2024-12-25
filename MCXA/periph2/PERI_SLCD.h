@@ -25,8 +25,8 @@
 **                          MCXA276VLQ
 **                          MCXA276VPN
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241211
+**     Version:             rev. 1.0, 2024-11-21
+**     Build:               b241224
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SLCD
@@ -39,8 +39,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2024-03-26)
-**         Initial version based on Rev1 DraftC RM
+**     - rev. 1.0 (2024-11-21)
+**         Initial version based on Rev1 RM
 **
 ** ###################################################################
 */
@@ -48,7 +48,7 @@
 /*!
  * @file SLCD.h
  * @version 1.0
- * @date 2024-03-26
+ * @date 2024-11-21
  * @brief CMSIS Peripheral Access Layer for SLCD
  *
  * CMSIS Peripheral Access Layer for SLCD

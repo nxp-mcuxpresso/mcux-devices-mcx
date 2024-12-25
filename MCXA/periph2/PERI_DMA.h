@@ -25,8 +25,8 @@
 **                          MCXA276VLQ
 **                          MCXA276VPN
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241211
+**     Version:             rev. 1.0, 2024-11-21
+**     Build:               b241224
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA
@@ -39,8 +39,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2024-03-26)
-**         Initial version based on Rev1 DraftC RM
+**     - rev. 1.0 (2024-11-21)
+**         Initial version based on Rev1 RM
 **
 ** ###################################################################
 */
@@ -48,7 +48,7 @@
 /*!
  * @file DMA.h
  * @version 1.0
- * @date 2024-03-26
+ * @date 2024-11-21
  * @brief CMSIS Peripheral Access Layer for DMA
  *
  * CMSIS Peripheral Access Layer for DMA
@@ -749,6 +749,7 @@ typedef struct {
 #define DMA_TCD_ATTR_SMOD_SHIFT                  (11U)
 /*! SMOD - Source Address Modulo
  *  0b00000..Source address modulo feature disabled
+ *  0b00001..Source address modulo feature enabled for any non-zero value [1-31]
  */
 #define DMA_TCD_ATTR_SMOD(x)                     (((uint16_t)(((uint16_t)(x)) << DMA_TCD_ATTR_SMOD_SHIFT)) & DMA_TCD_ATTR_SMOD_MASK)
 /*! @} */

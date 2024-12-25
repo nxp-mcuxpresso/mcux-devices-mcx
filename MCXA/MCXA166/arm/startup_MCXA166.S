@@ -3,8 +3,8 @@
 /*  @purpose: CMSIS Cortex-M33 Core Device Startup File                      */
 /*            MCXA166                                                        */
 /*  @version: 1.0                                                            */
-/*  @date:    2024-3-26                                                      */
-/*  @build:   b241219                                                        */
+/*  @date:    2024-11-21                                                     */
+/*  @build:   b241224                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -153,7 +153,7 @@ __Vectors:
     .long   Reserved127_IRQHandler                          /* Reserved interrupt*/
     .long   Reserved128_IRQHandler                          /* xxx Interrupt 128*/
     .long   Reserved129_IRQHandler                          /* Reserved interrupt*/
-    .long   Reserved130_IRQHandler                          /* xxx Interrupt 130*/
+    .long   Reserved130_IRQHandler                          /* Reserved interrupt*/
     .long   Reserved131_IRQHandler                          /* xxx Interrupt 131*/
     .long   ADC2_IRQHandler                                 /* Analog-to-Digital Converter 2 interrupt*/
     .long   ADC3_IRQHandler                                 /* Analog-to-Digital Converter 3 interrupt*/

@@ -1,7 +1,7 @@
 //*****************************************************************************
 // MCXA276 startup code for use with MCUXpresso IDE
 //
-// Version : 201124
+// Version : 241224
 //*****************************************************************************
 //
 // Copyright 2016-2024 NXP
@@ -192,7 +192,7 @@ WEAK void PKC_IRQHandler(void);
 WEAK void SGI_IRQHandler(void);
 WEAK void Reserved128_IRQHandler(void);
 WEAK void TRNG0_IRQHandler(void);
-WEAK void Reserved130_IRQHandler(void);
+WEAK void SECURE_ERR_IRQHandler(void);
 WEAK void Reserved131_IRQHandler(void);
 WEAK void ADC2_IRQHandler(void);
 WEAK void ADC3_IRQHandler(void);
@@ -321,7 +321,7 @@ void PKC_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void SGI_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved128_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void TRNG0_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
-void Reserved130_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
+void SECURE_ERR_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved131_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void ADC2_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void ADC3_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
@@ -492,7 +492,7 @@ void (* const g_pfnVectors[])(void) = {
     SGI_IRQHandler,                    // 127: SGI interrupt
     Reserved128_IRQHandler,            // 128: Reserved interrupt
     TRNG0_IRQHandler,                  // 129: True Random Number Generator interrupt
-    Reserved130_IRQHandler,            // 130: Reserved interrupt
+    SECURE_ERR_IRQHandler,             // 130: Secure IP Error interrupt. It OR SGI, PKC, TRNG error together.
     Reserved131_IRQHandler,            // 131: Reserved interrupt
     ADC2_IRQHandler,                   // 132: Analog-to-Digital Converter 2 interrupt
     ADC3_IRQHandler,                   // 133: Analog-to-Digital Converter 3 interrupt
@@ -1139,8 +1139,8 @@ WEAK void TRNG0_IRQHandler(void)
 {   TRNG0_DriverIRQHandler();
 }
 
-WEAK void Reserved130_IRQHandler(void)
-{   Reserved130_DriverIRQHandler();
+WEAK void SECURE_ERR_IRQHandler(void)
+{   SECURE_ERR_DriverIRQHandler();
 }
 
 WEAK void Reserved131_IRQHandler(void)

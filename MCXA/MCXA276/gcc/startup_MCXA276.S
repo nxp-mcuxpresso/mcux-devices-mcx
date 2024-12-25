@@ -3,8 +3,8 @@
 /*  @purpose: CMSIS Cortex-M33 Core Device Startup File                      */
 /*            MCXA276                                                        */
 /*  @version: 1.0                                                            */
-/*  @date:    2024-3-26                                                      */
-/*  @build:   b241120                                                        */
+/*  @date:    2024-11-21                                                     */
+/*  @build:   b241224                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -152,7 +152,7 @@ __Vectors:
     .long   SGI_IRQHandler                                  /* SGI interrupt*/
     .long   Reserved128_IRQHandler                          /* xxx Interrupt 128*/
     .long   TRNG0_IRQHandler                                /* True Random Number Generator interrupt*/
-    .long   Reserved130_IRQHandler                          /* xxx Interrupt 130*/
+    .long   SECURE_ERR_IRQHandler                           /* Secure IP Error interrupt. It OR SGI, PKC, TRNG error together. */
     .long   Reserved131_IRQHandler                          /* xxx Interrupt 131*/
     .long   ADC2_IRQHandler                                 /* Analog-to-Digital Converter 2 interrupt*/
     .long   ADC3_IRQHandler                                 /* Analog-to-Digital Converter 3 interrupt*/
@@ -1364,12 +1364,12 @@ TRNG0_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak Reserved130_IRQHandler
-    .type Reserved130_IRQHandler, %function
-Reserved130_IRQHandler:
-    ldr   r0,=Reserved130_DriverIRQHandler
+    .weak SECURE_ERR_IRQHandler
+    .type SECURE_ERR_IRQHandler, %function
+SECURE_ERR_IRQHandler:
+    ldr   r0,=SECURE_ERR_DriverIRQHandler
     bx    r0
-    .size Reserved130_IRQHandler, . - Reserved130_IRQHandler
+    .size SECURE_ERR_IRQHandler, . - SECURE_ERR_IRQHandler
 
     .align 1
     .thumb_func
@@ -1562,7 +1562,7 @@ SLCD_IRQHandler:
     def_irq_handler    SGI_DriverIRQHandler
     def_irq_handler    Reserved128_DriverIRQHandler
     def_irq_handler    TRNG0_DriverIRQHandler
-    def_irq_handler    Reserved130_DriverIRQHandler
+    def_irq_handler    SECURE_ERR_DriverIRQHandler
     def_irq_handler    Reserved131_DriverIRQHandler
     def_irq_handler    ADC2_DriverIRQHandler
     def_irq_handler    ADC3_DriverIRQHandler

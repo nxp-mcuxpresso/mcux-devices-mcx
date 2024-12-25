@@ -3,8 +3,8 @@
 ;  @purpose: CMSIS Cortex-M33 Core Device Startup File
 ;            MCXA176
 ;  @version: 1.0
-;  @date:    2024-3-26
-;  @build:   b241219
+;  @date:    2024-11-21
+;  @build:   b241224
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -181,7 +181,7 @@ __vector_table_0x1c
         DCD     Reserved127_IRQHandler                        ;Reserved interrupt
         DCD     Reserved128_IRQHandler                        ;xxx Interrupt 128
         DCD     Reserved129_IRQHandler                        ;Reserved interrupt
-        DCD     Reserved130_IRQHandler                        ;xxx Interrupt 130
+        DCD     Reserved130_IRQHandler                        ;Reserved interrupt
         DCD     Reserved131_IRQHandler                        ;xxx Interrupt 131
         DCD     ADC2_IRQHandler                               ;Analog-to-Digital Converter 2 interrupt
         DCD     ADC3_IRQHandler                               ;Analog-to-Digital Converter 3 interrupt

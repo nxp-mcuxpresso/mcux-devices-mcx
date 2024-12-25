@@ -10,9 +10,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241120
+**     Reference manual:    MCXAP144M180FS6_RM_Rev.1
+**     Version:             rev. 1.0, 2024-11-21
+**     Build:               b241224
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA275
@@ -25,8 +25,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2024-03-26)
-**         Initial version based on Rev1 DraftC RM
+**     - rev. 1.0 (2024-11-21)
+**         Initial version based on Rev1 RM
 **
 ** ###################################################################
 */
@@ -34,7 +34,7 @@
 /*!
  * @file MCXA275_COMMON.h
  * @version 1.0
- * @date 2024-03-26
+ * @date 2024-11-21
  * @brief CMSIS Peripheral Access Layer for MCXA275
  *
  * CMSIS Peripheral Access Layer for MCXA275
@@ -164,6 +164,7 @@ typedef enum IRQn {
   PKC_IRQn                     = 110,              /**< PKC interrupt */
   SGI_IRQn                     = 111,              /**< SGI interrupt */
   TRNG0_IRQn                   = 113,              /**< True Random Number Generator interrupt */
+  SECURE_ERR_IRQn              = 114,              /**< Secure IP Error interrupt. It OR SGI, PKC, TRNG error together.  */
   ADC2_IRQn                    = 116,              /**< Analog-to-Digital Converter 2 interrupt */
   ADC3_IRQn                    = 117,              /**< Analog-to-Digital Converter 3 interrupt */
   RTC_IRQn                     = 119,              /**< RTC alarm interrupt */

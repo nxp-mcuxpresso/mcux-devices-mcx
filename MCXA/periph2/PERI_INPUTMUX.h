@@ -25,8 +25,8 @@
 **                          MCXA276VLQ
 **                          MCXA276VPN
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241211
+**     Version:             rev. 1.0, 2024-11-21
+**     Build:               b241224
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for INPUTMUX
@@ -39,8 +39,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2024-03-26)
-**         Initial version based on Rev1 DraftC RM
+**     - rev. 1.0 (2024-11-21)
+**         Initial version based on Rev1 RM
 **
 ** ###################################################################
 */
@@ -48,7 +48,7 @@
 /*!
  * @file INPUTMUX.h
  * @version 1.0
- * @date 2024-03-26
+ * @date 2024-11-21
  * @brief CMSIS Peripheral Access Layer for INPUTMUX
  *
  * CMSIS Peripheral Access Layer for INPUTMUX
@@ -1145,6 +1145,7 @@ typedef struct {
  *  0b0100111..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b0101000..PWM1_SM3_MUX_TRIG0 input is selected
  *  0b0101001..PWM1_SM3_MUX_TRIG1 input is selected
+ *  0b0111111..Reserved(NO Clock)
  */
 #define INPUTMUX_FREQMEAS_REF_INP(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FREQMEAS_REF_INP_SHIFT)) & INPUTMUX_FREQMEAS_REF_INP_MASK)
 /*! @} */
@@ -1197,6 +1198,7 @@ typedef struct {
  *  0b0100111..PWM1_SM2_MUX_TRIG1 input is selected
  *  0b0101000..PWM1_SM3_MUX_TRIG0 input is selected
  *  0b0101001..PWM1_SM3_MUX_TRIG1 input is selected
+ *  0b0111111..Reserved(NO Clock)
  */
 #define INPUTMUX_FREQMEAS_TAR_INP(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_FREQMEAS_TAR_INP_SHIFT)) & INPUTMUX_FREQMEAS_TAR_INP_MASK)
 /*! @} */

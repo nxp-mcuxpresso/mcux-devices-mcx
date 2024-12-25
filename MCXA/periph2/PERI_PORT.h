@@ -25,8 +25,8 @@
 **                          MCXA276VLQ
 **                          MCXA276VPN
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241211
+**     Version:             rev. 1.0, 2024-11-21
+**     Build:               b241224
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PORT
@@ -39,8 +39,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2024-03-26)
-**         Initial version based on Rev1 DraftC RM
+**     - rev. 1.0 (2024-11-21)
+**         Initial version based on Rev1 RM
 **
 ** ###################################################################
 */
@@ -48,7 +48,7 @@
 /*!
  * @file PORT.h
  * @version 1.0
- * @date 2024-03-26
+ * @date 2024-11-21
  * @brief CMSIS Peripheral Access Layer for PORT
  *
  * CMSIS Peripheral Access Layer for PORT
@@ -126,7 +126,7 @@ typedef struct {
   __IO uint32_t CALIB0;                            /**< Calibration 0, offset: 0x60, available only on: PORT0, PORT1, PORT3, PORT4 (missing on PORT2) */
   __IO uint32_t CALIB1;                            /**< Calibration 1, offset: 0x64, available only on: PORT0, PORT1, PORT3, PORT4 (missing on PORT2) */
        uint8_t RESERVED_3[24];
-  __IO uint32_t PCR[PORT_PCR_COUNT];               /**< Pin Control 0..Pin Control 31, array offset: 0x80, array step: 0x4, irregular array, not all indices are valid */
+  __IO uint32_t PCR[PORT_PCR_COUNT];               /**< Pin Control 0..Pin Control 31, array offset: 0x80, array step: 0x4 */
 } PORT_Type;
 
 /* ----------------------------------------------------------------------------

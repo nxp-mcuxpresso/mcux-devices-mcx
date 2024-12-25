@@ -10,9 +10,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241120
+**     Reference manual:    MCXAP144M180FS6_RM_Rev.1
+**     Version:             rev. 1.0, 2024-11-21
+**     Build:               b241224
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -27,8 +27,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2024-03-26)
-**         Initial version based on Rev1 DraftC RM
+**     - rev. 1.0 (2024-11-21)
+**         Initial version based on Rev1 RM
 **
 ** ###################################################################
 */
@@ -36,7 +36,7 @@
 /*!
  * @file MCXA275
  * @version 1.0
- * @date 2024-03-26
+ * @date 2024-11-21
  * @brief Device specific configuration file for MCXA275 (implementation file)
  *
  * Provides a system configuration function and a global variable that contains
@@ -85,6 +85,7 @@ __attribute__ ((weak)) void SystemInit (void) {
     SCB->VTOR = (uint32_t) &__Vectors;
 #endif
 #endif
+
     /* Enable the LPCAC */
     SYSCON->LPCAC_CTRL |= SYSCON_LPCAC_CTRL_LPCAC_MEM_REQ_MASK;
     SYSCON->LPCAC_CTRL &= ~SYSCON_LPCAC_CTRL_DIS_LPCAC_MASK;

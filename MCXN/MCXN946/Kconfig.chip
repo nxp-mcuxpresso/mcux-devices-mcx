@@ -91,11 +91,6 @@ config MCUX_HW_IP_DriverType_EIM
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN946
 
-config MCUX_HW_IP_DriverType_EMVSIM
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN946
-
 config MCUX_HW_IP_DriverType_ERM
     bool
     default y
@@ -271,11 +266,6 @@ config MCUX_HW_IP_DriverType_OTPC
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN946
 
-config MCUX_HW_IP_DriverType_PDM
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN946
-
 config MCUX_HW_IP_DriverType_PINT
     bool
     default y
@@ -376,11 +366,6 @@ config MCUX_HW_IP_DriverType_TRDC_1
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN946
 
-config MCUX_HW_IP_DriverType_TSI_V6
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN946
-
 config MCUX_HW_IP_DriverType_USBHSDCD
     bool
     default y
@@ -407,11 +392,6 @@ config MCUX_HW_IP_DriverType_USB_HSDCD
     depends on MCUX_HW_DEVICE_ID_MCXN946
 
 config MCUX_HW_IP_DriverType_USB_PHY
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN946
-
-config MCUX_HW_IP_DriverType_USDHC
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN946

@@ -165,6 +165,11 @@ config MCUX_HW_IP_DriverType_FLEXCAN
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA175
 
+config MCUX_HW_IP_DriverType_FLEXIO
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA175
+
 config MCUX_HW_IP_DriverType_FMC
     bool
     default y
@@ -186,6 +191,11 @@ config MCUX_HW_IP_DriverType_GLIKEY
     depends on MCUX_HW_DEVICE_ID_MCXA175
 
 config MCUX_HW_IP_DriverType_GPIO
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA175
+
+config MCUX_HW_IP_DriverType_I3C
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA175
@@ -290,7 +300,17 @@ config MCUX_HW_IP_DriverType_SCG
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA175
 
+config MCUX_HW_IP_DriverType_SLCD40
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA175
+
 config MCUX_HW_IP_DriverType_TRDC_1
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA175
+
+config MCUX_HW_IP_DriverType_USB_HOST_DEVICE_KHCI
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA175

@@ -291,11 +291,6 @@ config MCUX_HW_IP_DriverType_POWERQUAD
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN547
 
-config MCUX_HW_IP_DriverType_PRINCE
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN547
-
 config MCUX_HW_IP_DriverType_PUFCTRL
     bool
     default y
@@ -312,11 +307,6 @@ config MCUX_HW_IP_DriverType_PWM
     depends on MCUX_HW_DEVICE_ID_MCXN547
 
 config MCUX_HW_IP_DriverType_QDC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN547
-
-config MCUX_HW_IP_DriverType_RNG_1
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN547
@@ -407,11 +397,6 @@ config MCUX_HW_IP_DriverType_USB_PHY
     depends on MCUX_HW_DEVICE_ID_MCXN547
 
 config MCUX_HW_IP_DriverType_USDHC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN547
-
-config MCUX_HW_IP_DriverType_USIM
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN547

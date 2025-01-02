@@ -296,11 +296,6 @@ config MCUX_HW_IP_DriverType_PRINCE
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN546
 
-config MCUX_HW_IP_DriverType_PUF
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN546
-
 config MCUX_HW_IP_DriverType_PUFCTRL
     bool
     default y
@@ -322,11 +317,6 @@ config MCUX_HW_IP_DriverType_QDC
     depends on MCUX_HW_DEVICE_ID_MCXN546
 
 config MCUX_HW_IP_DriverType_RNG_1
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN546
-
-config MCUX_HW_IP_DriverType_RTC
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN546

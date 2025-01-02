@@ -314,11 +314,6 @@ config MCUX_HW_IP_DriverType_PORT
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN235
 
-config MCUX_HW_IP_DriverType_PUF
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN235
-
 config MCUX_HW_IP_DriverType_PUFCTRL
     bool
     default y
@@ -335,11 +330,6 @@ config MCUX_HW_IP_DriverType_PWM
     depends on MCUX_HW_DEVICE_ID_MCXN235
 
 config MCUX_HW_IP_DriverType_QDC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN235
-
-config MCUX_HW_IP_DriverType_RTC
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN235

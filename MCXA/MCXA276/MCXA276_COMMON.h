@@ -338,6 +338,16 @@ typedef enum IRQn {
 /** Array initializer of DEBUGMAILBOX peripheral base pointers */
 #define DEBUGMAILBOX_BASE_PTRS                   { DBGMAILBOX }
 
+/* DIGTMP - Peripheral instance base addresses */
+/** Peripheral TDET0 base address */
+#define TDET0_BASE                               (0x400E9000u)
+/** Peripheral TDET0 base pointer */
+#define TDET0                                    ((DIGTMP_Type *)TDET0_BASE)
+/** Array initializer of DIGTMP peripheral base addresses */
+#define DIGTMP_BASE_ADDRS                        { TDET0_BASE }
+/** Array initializer of DIGTMP peripheral base pointers */
+#define DIGTMP_BASE_PTRS                         { TDET0 }
+
 /* DMA - Peripheral instance base addresses */
 /** Peripheral DMA0 base address */
 #define DMA0_BASE                                (0x40080000u)
@@ -790,16 +800,6 @@ typedef enum IRQn {
 #define SYSCON_BASE_ADDRS                        { SYSCON_BASE }
 /** Array initializer of SYSCON peripheral base pointers */
 #define SYSCON_BASE_PTRS                         { SYSCON }
-
-/* TDET - Peripheral instance base addresses */
-/** Peripheral TDET0 base address */
-#define TDET0_BASE                               (0x400E9000u)
-/** Peripheral TDET0 base pointer */
-#define TDET0                                    ((TDET_Type *)TDET0_BASE)
-/** Array initializer of TDET peripheral base addresses */
-#define TDET_BASE_ADDRS                          { TDET0_BASE }
-/** Array initializer of TDET peripheral base pointers */
-#define TDET_BASE_PTRS                           { TDET0 }
 
 /* TRDC - Peripheral instance base addresses */
 /** Peripheral MBC0 base address */

@@ -35,6 +35,11 @@ config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN546
 
+config MCUX_HW_IP_DriverType_SMARTCARD_EMVSIM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN546
+
 # ip information
 config MCUX_HW_IP_DriverType_AHBSC
     bool

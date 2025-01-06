@@ -6,9 +6,9 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Compiler:            Keil ARM C/C++ Compiler
-**     Reference manual:    Rev. 1, 2024-10-13
-**     Version:             rev. 1.0, 2024-10-13
-**     Build:               b241128
+**     Reference manual:    Rev. 6, 05/22/2022
+**     Version:             rev. 1.0, 2023-05-20
+**     Build:               b240815
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler

@@ -103,11 +103,6 @@ config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
     default "MCXW716C" if MCUX_HW_DEVICE_ID_MCXW716CxxxA
 
-config MCUX_HW_IP_DriverType_LPUART_LIN
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXW716CxxxA
-
 # ip information
 config MCUX_HW_IP_DriverType_ATX
     bool

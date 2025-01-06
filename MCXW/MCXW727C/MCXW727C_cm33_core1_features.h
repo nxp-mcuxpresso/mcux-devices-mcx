@@ -1,13 +1,13 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b241209
+**     Build:               b250106
 **
 **     Abstract:
 **         Chip specific module features.
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -47,6 +47,8 @@
 #define FSL_FEATURE_SOC_EDMA_COUNT (1)
 /* @brief EWM availability on the SoC. */
 #define FSL_FEATURE_SOC_EWM_COUNT (1)
+/* @brief FLEXCAN availability on the SoC. */
+#define FSL_FEATURE_SOC_FLEXCAN_COUNT (2)
 /* @brief FLEXIO availability on the SoC. */
 #define FSL_FEATURE_SOC_FLEXIO_COUNT (1)
 /* @brief FMC availability on the SoC. */
@@ -190,6 +192,59 @@
 #define FSL_FEATURE_LPADC_TEMP_PARAMETER_ALPHA (9.1f)
 /* @brief The buffer size of temperature sensor. */
 #define FSL_FEATURE_LPADC_TEMP_SENS_BUFFER_SIZE (2U)
+
+/* FLEXCAN module features */
+
+/* @brief Has more than 64 MBs. */
+#define FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB (0)
+/* @brief Message buffer size */
+#define FSL_FEATURE_FLEXCAN_HAS_MESSAGE_BUFFER_MAX_NUMBERn(x) (32)
+/* @brief Has doze mode support (register bit field MCR[DOZE]). */
+#define FSL_FEATURE_FLEXCAN_HAS_DOZE_MODE_SUPPORT (1)
+/* @brief Insatnce has doze mode support (register bit field MCR[DOZE]). */
+#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_DOZE_MODE_SUPPORTn(x) (1)
+/* @brief Has a glitch filter on the receive pin (register bit field MCR[WAKSRC]). */
+#define FSL_FEATURE_FLEXCAN_HAS_GLITCH_FILTER (1)
+/* @brief Has extended interrupt mask and flag register (register IMASK2, IFLAG2). */
+#define FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER (0)
+/* @brief Instance has extended bit timing register (register CBT). */
+#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_EXTENDED_TIMING_REGISTERn(x) (1)
+/* @brief Has a receive FIFO DMA feature (register bit field MCR[DMA]). */
+#define FSL_FEATURE_FLEXCAN_HAS_RX_FIFO_DMA (1)
+/* @brief Instance has a receive FIFO DMA feature (register bit field MCR[DMA]). */
+#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_RX_FIFO_DMAn(x) (1)
+/* @brief Remove CAN Engine Clock Source Selection from unsupported part. */
+#define FSL_FEATURE_FLEXCAN_SUPPORT_ENGINE_CLK_SEL_REMOVE (1)
+/* @brief Instance remove CAN Engine Clock Source Selection from unsupported part. */
+#define FSL_FEATURE_FLEXCAN_INSTANCE_SUPPORT_ENGINE_CLK_SEL_REMOVEn(x) (1)
+/* @brief Is affected by errata with ID 5641 (Module does not transmit a message that is enabled to be transmitted at a specific moment during the arbitration process). */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_5641 (0)
+/* @brief Is affected by errata with ID 5829 (FlexCAN: FlexCAN does not transmit a message that is enabled to be transmitted in a specific moment during the arbitration process). */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_5829 (0)
+/* @brief Is affected by errata with ID 6032 (FlexCAN: A frame with wrong ID or payload is transmitted into the CAN bus when the Message Buffer under transmission is either aborted or deactivated while the CAN bus is in the Bus Idle state). */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_6032 (0)
+/* @brief Is affected by errata with ID 9595 (FlexCAN: Corrupt frame possible if the Freeze Mode or the Low-Power Mode are entered during a Bus-Off state). */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_9595 (0)
+/* @brief Has CAN with Flexible Data rate (CAN FD) protocol. */
+#define FSL_FEATURE_FLEXCAN_HAS_FLEXIBLE_DATA_RATE (1)
+/* @brief CAN instance support Flexible Data rate (CAN FD) protocol. */
+#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_FLEXIBLE_DATA_RATEn(x) (1)
+/* @brief Has memory error control (register MECR). */
+#define FSL_FEATURE_FLEXCAN_HAS_MEMORY_ERROR_CONTROL (0)
+/* @brief Has enhanced bit timing register (register EPRS, ENCBT, EDCBT and ETDC). */
+#define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_BIT_TIMING_REG (1)
+/* @brief Has Pretended Networking mode support. */
+#define FSL_FEATURE_FLEXCAN_HAS_PN_MODE (1)
+/* @brief Has Enhanced Rx FIFO. */
+#define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO (1)
+/* @brief Enhanced Rx FIFO size (Indicates how many CAN FD messages can be stored). */
+#define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO_SIZE (12)
+/* @brief The number of enhanced Rx FIFO filter element registers. */
+#define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO_FILTER_MAX_NUMBER (32)
+/* @brief Does not support Supervisor Mode (bitfield MCR[SUPV]. */
+#define FSL_FEATURE_FLEXCAN_HAS_NO_SUPV_SUPPORT (1)
+/* @brief Support payload endianness selection (bitfield CTRL2[PES]). */
+#define FSL_FEATURE_FLEXCAN_HAS_ENDIANNESS_SELECTION (1)
 
 /* CCM32K module features */
 

@@ -8,13 +8,13 @@
 **
 **     Reference manual:    Rev. 1, 2024-10-13
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b241128
+**     Build:               b250106
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW727C_cm33_core1
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -47,6 +47,7 @@
 #include "PERI_BRIC.h"
 #include "PERI_BTRTU1.h"
 #include "PERI_BTU2_REG.h"
+#include "PERI_CAN.h"
 #include "PERI_CCM32K.h"
 #include "PERI_CIU2.h"
 #include "PERI_CMC.h"

@@ -7,22 +7,22 @@
 **                          MCXW727DMFTA_cm33_core0
 **                          MCXW727DMFTA_cm33_core1
 **
-**     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Version:             rev. 1.0, 2024-10-13
+**     Build:               b250106
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CIU2
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-05-20)
-**         Initial version.
+**     - rev. 1.0 (2024-10-13)
+**         Rev. 1, 2024-10-13
 **
 ** ###################################################################
 */
@@ -30,7 +30,7 @@
 /*!
  * @file CIU2.h
  * @version 1.0
- * @date 2023-05-20
+ * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for CIU2
  *
  * CMSIS Peripheral Access Layer for CIU2

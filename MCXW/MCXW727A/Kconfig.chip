@@ -22,11 +22,6 @@ config MCUX_HW_DEVICE_PART
     string
     default "MCXW727AMFTA" if MCUX_HW_DEVICE_PART_MCXW727AMFTA
 
-config MCUX_HW_IP_DriverType_LPUART_LIN
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXW727AxxxA
-
 # ip information
 config MCUX_HW_IP_DriverType_ATX
     bool
@@ -59,11 +54,6 @@ config MCUX_HW_IP_DriverType_BTU2_REG
     depends on MCUX_HW_DEVICE_ID_MCXW727AxxxA
 
 config MCUX_HW_IP_DriverType_CCM32K
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXW727AxxxA
-
-config MCUX_HW_IP_DriverType_CE
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXW727AxxxA

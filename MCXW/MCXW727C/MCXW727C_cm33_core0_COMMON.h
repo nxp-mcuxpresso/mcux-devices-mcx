@@ -8,13 +8,13 @@
 **
 **     Reference manual:    Rev. 1, 2024-10-13
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b241128
+**     Build:               b250106
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW727C_cm33_core0
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -2369,14 +2369,14 @@ typedef enum IRQn {
  * @param value Value of the bit field.
  * @return Masked and shifted value.
  */
-#define NXP_VAL2FLD(field, value) (((value) << (field##_SHIFT)) & (field##_MASK))
+#define NXP_VAL2FLD(field, value)    (((value) << (field ## _SHIFT)) & (field ## _MASK))
 /**
  * @brief Mask and right-shift a register value to extract a bit field value.
  * @param field Name of the register bit field.
  * @param value Value of the register.
  * @return Masked and shifted bit field value.
  */
-#define NXP_FLD2VAL(field, value) (((value) & (field##_MASK)) >> (field##_SHIFT))
+#define NXP_FLD2VAL(field, value)    (((value) & (field ## _MASK)) >> (field ## _SHIFT))
 
 /*!
  * @}

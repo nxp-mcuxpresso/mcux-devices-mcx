@@ -1,13 +1,13 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b241209
+**     Build:               b250106
 **
 **     Abstract:
 **         Chip specific module features.
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -183,6 +183,8 @@
 
 /* FLEXCAN module features */
 
+/* @brief Has more than 64 MBs. */
+#define FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB (0)
 /* @brief Message buffer size */
 #define FSL_FEATURE_FLEXCAN_HAS_MESSAGE_BUFFER_MAX_NUMBERn(x) (32)
 /* @brief Has doze mode support (register bit field MCR[DOZE]). */

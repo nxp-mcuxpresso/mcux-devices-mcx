@@ -23,4 +23,8 @@ menu "Device specific drivers configuration"
          bool "Use driver reset"
          default y
 
+    config MCUX_COMPONENT_driver.trdc_soc
+         bool "Use driver trdc_soc"
+         default n
+
 endmenu

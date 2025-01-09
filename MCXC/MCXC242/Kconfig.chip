@@ -116,11 +116,6 @@ config MCUX_HW_IP_DriverType_CRC
     default y
     depends on MCUX_HW_DEVICE_ID_MCXC242
 
-config MCUX_HW_IP_DriverType_DAC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXC242
-
 config MCUX_HW_IP_DriverType_DMA
     bool
     default y

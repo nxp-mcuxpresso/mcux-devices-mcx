@@ -34,13 +34,13 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 2.0, 2023-02-01
-**     Build:               b241120
+**     Build:               b250109
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FLEXSPI
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -281,24 +281,6 @@ typedef struct {
  *  0b11..Flash-memory-provided read strobe and input from DQS pad
  */
 #define FLEXSPI_MCR0_RXCLKSRC(x)                 (((uint32_t)(((uint32_t)(x)) << FLEXSPI_MCR0_RXCLKSRC_SHIFT)) & FLEXSPI_MCR0_RXCLKSRC_MASK)
-
-#define FLEXSPI_MCR0_ARDFEN_MASK                 (0x40U)
-#define FLEXSPI_MCR0_ARDFEN_SHIFT                (6U)
-/*! ARDFEN - AHB Read Access to IP Receive FIFO Enable
- *  0b0..AHB read access disabled. IP bus reads IP receive FIFO. AHB Bus read access to IP receive FIFO memory space produces bus error.
- *  0b1..AHB read access enabled. AHB bus reads IP receive FIFO. IP Bus read access to IP receive FIFO memory
- *       space returns data zero and causes no bus error.
- */
-#define FLEXSPI_MCR0_ARDFEN(x)                   (((uint32_t)(((uint32_t)(x)) << FLEXSPI_MCR0_ARDFEN_SHIFT)) & FLEXSPI_MCR0_ARDFEN_MASK)
-
-#define FLEXSPI_MCR0_ATDFEN_MASK                 (0x80U)
-#define FLEXSPI_MCR0_ATDFEN_SHIFT                (7U)
-/*! ATDFEN - AHB Write Access to IP Transmit FIFO Enable
- *  0b0..AHB write access disabled. IP bus writes to IP transmit FIFO. AHB bus write access to IP transmit FIFO memory space produces bus error.
- *  0b1..AHB write access enabled. AHB bus writes to IP transmit FIFO. IP Bus write access to IP transmit FIFO
- *       memory space is ignored and causes no bus error.
- */
-#define FLEXSPI_MCR0_ATDFEN(x)                   (((uint32_t)(((uint32_t)(x)) << FLEXSPI_MCR0_ATDFEN_SHIFT)) & FLEXSPI_MCR0_ATDFEN_MASK)
 
 #define FLEXSPI_MCR0_SERCLKDIV_MASK              (0x700U)
 #define FLEXSPI_MCR0_SERCLKDIV_SHIFT             (8U)

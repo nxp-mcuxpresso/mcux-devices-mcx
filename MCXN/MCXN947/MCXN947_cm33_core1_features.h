@@ -1,13 +1,13 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b241112
+**     Build:               b250109
 **
 **     Abstract:
 **         Chip specific module features.
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -291,8 +291,6 @@
 #define FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ (1)
 /* @brief Has calibration average (bitfield CTRL[CAL_AVGS]). */
 #define FSL_FEATURE_LPADC_HAS_CTRL_CAL_AVGS (1)
-/* @brief Has High Speed Mode Trim Request (bitfield CTRL[CALHS]). */
-#define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (0)
 /* @brief Has internal clock (bitfield CFG[ADCKEN]). */
 #define FSL_FEATURE_LPADC_HAS_CFG_ADCKEN (0)
 /* @brief Enable support for low voltage reference on option 1 reference (bitfield CFG[VREF1RNG]). */
@@ -407,6 +405,8 @@
 #define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO_FILTER_MAX_NUMBER (32)
 /* @brief Does not support Supervisor Mode (bitfield MCR[SUPV]. */
 #define FSL_FEATURE_FLEXCAN_HAS_NO_SUPV_SUPPORT (1)
+/* @brief Support payload endianness selection (bitfield CTRL2[PES]). */
+#define FSL_FEATURE_FLEXCAN_HAS_ENDIANNESS_SELECTION (0)
 /* @brief FlexCAN maximum data rate. */
 #define FSL_FEATURE_FLEXCAN_MAX_CANFD_BITRATE (10000000)
 
@@ -607,9 +607,9 @@
 /* @brief FlexSPI0 and FlexSPI1 have shared IRQ */
 #define FSL_FEATURE_FLEXSPI_HAS_SHARED_IRQ0_IRQ1 (0)
 /* @brief FlexSPI has no MCR0 ARDFEN bit */
-#define FSL_FEATURE_FLEXSPI_HAS_NO_MCR0_ARDFEN (0)
+#define FSL_FEATURE_FLEXSPI_HAS_NO_MCR0_ARDFEN (1)
 /* @brief FlexSPI has no MCR0 ATDFEN bit */
-#define FSL_FEATURE_FLEXSPI_HAS_NO_MCR0_ATDFEN (0)
+#define FSL_FEATURE_FLEXSPI_HAS_NO_MCR0_ATDFEN (1)
 /* @brief FlexSPI DMA needs multiple DES to transfer */
 #define FSL_FEATURE_FLEXSPI_DMA_MULTIPLE_DES (1)
 /* @brief FlexSPI AHB RX buffer size (byte) */

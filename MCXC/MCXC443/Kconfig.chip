@@ -55,10 +55,10 @@ config MCUX_HW_DEVICE_ID_MCXC443
 choice MCUX_HW_DEVICE_PART_MCXC443
     prompt "Device MCXC443 Part"
     config MCUX_HW_DEVICE_PART_MCXC443VLH
-    bool "Device part MCXC443VLH"
+    bool "MCXC443VLH"
     select MCUX_HW_DEVICE_ID_MCXC443
     config MCUX_HW_DEVICE_PART_MCXC443VMP
-    bool "Device part MCXC443VMP"
+    bool "MCXC443VMP"
     select MCUX_HW_DEVICE_ID_MCXC443
 endchoice
 

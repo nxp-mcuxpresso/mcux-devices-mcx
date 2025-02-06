@@ -7,6 +7,6 @@ config MCUX_HAS_COMPONENT_driver.romapi
     default y
 
 config MCUX_COMPONENT_driver.romapi
-    bool "Use driver romapi"
+    bool "romapi"
     select MCUX_COMPONENT_driver.common
     depends on MCUX_HAS_COMPONENT_driver.romapi

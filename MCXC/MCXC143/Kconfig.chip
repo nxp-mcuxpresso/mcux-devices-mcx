@@ -55,10 +55,10 @@ config MCUX_HW_DEVICE_ID_MCXC143
 choice MCUX_HW_DEVICE_PART_MCXC143
     prompt "Device MCXC143 Part"
     config MCUX_HW_DEVICE_PART_MCXC143VFT
-    bool "Device part MCXC143VFT"
+    bool "MCXC143VFT"
     select MCUX_HW_DEVICE_ID_MCXC143
     config MCUX_HW_DEVICE_PART_MCXC143VFM
-    bool "Device part MCXC143VFM"
+    bool "MCXC143VFM"
     select MCUX_HW_DEVICE_ID_MCXC143
 endchoice
 

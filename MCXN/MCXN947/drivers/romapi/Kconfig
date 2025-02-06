@@ -7,26 +7,26 @@ config MCUX_HAS_COMPONENT_driver.romapi
     default y
 
 config MCUX_COMPONENT_driver.romapi
-    bool "Use driver romapi"
+    bool "romapi"
     select MCUX_COMPONENT_driver.common
     depends on MCUX_HAS_COMPONENT_driver.romapi
 
 config MCUX_COMPONENT_driver.mem_interface
-    bool "Use driver mem_interface"
+    bool "mem_interface"
     select MCUX_COMPONENT_driver.common
     depends on MCUX_HAS_COMPONENT_driver.romapi
 
 config MCUX_COMPONENT_driver.romapi_nboot
-    bool "Use driver romapi_nboot"
+    bool "romapi_nboot"
     select MCUX_COMPONENT_driver.common
     depends on MCUX_HAS_COMPONENT_driver.romapi
 
 config MCUX_COMPONENT_driver.runbootloader
-    bool "Use driver runbootloader"
+    bool "runbootloader"
     select MCUX_COMPONENT_driver.common
     depends on MCUX_HAS_COMPONENT_driver.romapi
 
 config MCUX_COMPONENT_driver.romapi_flashiap
-    bool "Use driver romapi_flashiap"
+    bool "romapi_flashiap"
     select MCUX_COMPONENT_driver.common
     depends on MCUX_HAS_COMPONENT_driver.romapi

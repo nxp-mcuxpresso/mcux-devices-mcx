@@ -63,19 +63,19 @@ config MCUX_HW_DEVICE_ID_MCXA154
 choice MCUX_HW_DEVICE_PART_MCXA154
     prompt "Device MCXA154 Part"
     config MCUX_HW_DEVICE_PART_MCXA154VPJ
-    bool "Device part MCXA154VPJ"
+    bool "MCXA154VPJ"
     select MCUX_HW_DEVICE_ID_MCXA154
     config MCUX_HW_DEVICE_PART_MCXA154VLL
-    bool "Device part MCXA154VLL"
+    bool "MCXA154VLL"
     select MCUX_HW_DEVICE_ID_MCXA154
     config MCUX_HW_DEVICE_PART_MCXA154VMP
-    bool "Device part MCXA154VMP"
+    bool "MCXA154VMP"
     select MCUX_HW_DEVICE_ID_MCXA154
     config MCUX_HW_DEVICE_PART_MCXA154VLH
-    bool "Device part MCXA154VLH"
+    bool "MCXA154VLH"
     select MCUX_HW_DEVICE_ID_MCXA154
     config MCUX_HW_DEVICE_PART_MCXA154VFT
-    bool "Device part MCXA154VFT"
+    bool "MCXA154VFT"
     select MCUX_HW_DEVICE_ID_MCXA154
 endchoice
 

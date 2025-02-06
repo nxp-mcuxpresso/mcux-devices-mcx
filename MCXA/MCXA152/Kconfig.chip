@@ -63,16 +63,16 @@ config MCUX_HW_DEVICE_ID_MCXA152
 choice MCUX_HW_DEVICE_PART_MCXA152
     prompt "Device MCXA152 Part"
     config MCUX_HW_DEVICE_PART_MCXA152VLH
-    bool "Device part MCXA152VLH"
+    bool "MCXA152VLH"
     select MCUX_HW_DEVICE_ID_MCXA152
     config MCUX_HW_DEVICE_PART_MCXA152VFT
-    bool "Device part MCXA152VFT"
+    bool "MCXA152VFT"
     select MCUX_HW_DEVICE_ID_MCXA152
     config MCUX_HW_DEVICE_PART_MCXA152VFM
-    bool "Device part MCXA152VFM"
+    bool "MCXA152VFM"
     select MCUX_HW_DEVICE_ID_MCXA152
     config MCUX_HW_DEVICE_PART_MCXA152VLF
-    bool "Device part MCXA152VLF"
+    bool "MCXA152VLF"
     select MCUX_HW_DEVICE_ID_MCXA152
 endchoice
 

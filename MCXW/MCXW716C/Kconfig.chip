@@ -63,10 +63,10 @@ config MCUX_HW_DEVICE_ID_MCXW716CxxxA
 choice MCUX_HW_DEVICE_PART_MCXW716C
     prompt "Device MCXW716C Part"
     config MCUX_HW_DEVICE_PART_MCXW716CMFTA
-    bool "Device part MCXW716CMFTA"
+    bool "MCXW716CMFTA"
     select MCUX_HW_DEVICE_ID_MCXW716CxxxA
     config MCUX_HW_DEVICE_PART_MCXW716CMFPA
-    bool "Device part MCXW716CMFPA"
+    bool "MCXW716CMFPA"
     select MCUX_HW_DEVICE_ID_MCXW716CxxxA
 endchoice
 

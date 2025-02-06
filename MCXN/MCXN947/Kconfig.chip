@@ -10,13 +10,13 @@ config MCUX_HW_DEVICE_ID_MCXN947
 choice MCUX_HW_DEVICE_PART_MCXN947
     prompt "Device MCXN947 Part"
     config MCUX_HW_DEVICE_PART_MCXN947VDF
-    bool "Device part MCXN947VDF"
+    bool "MCXN947VDF"
     select MCUX_HW_DEVICE_ID_MCXN947
     config MCUX_HW_DEVICE_PART_MCXN947VPB
-    bool "Device part MCXN947VPB"
+    bool "MCXN947VPB"
     select MCUX_HW_DEVICE_ID_MCXN947
     config MCUX_HW_DEVICE_PART_MCXN947VNL
-    bool "Device part MCXN947VNL"
+    bool "MCXN947VNL"
     select MCUX_HW_DEVICE_ID_MCXN947
 endchoice
 

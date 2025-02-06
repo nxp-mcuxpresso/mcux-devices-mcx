@@ -10,13 +10,13 @@ config MCUX_HW_DEVICE_ID_MCXN946
 choice MCUX_HW_DEVICE_PART_MCXN946
     prompt "Device MCXN946 Part"
     config MCUX_HW_DEVICE_PART_MCXN946VDF
-    bool "Device part MCXN946VDF"
+    bool "MCXN946VDF"
     select MCUX_HW_DEVICE_ID_MCXN946
     config MCUX_HW_DEVICE_PART_MCXN946VPB
-    bool "Device part MCXN946VPB"
+    bool "MCXN946VPB"
     select MCUX_HW_DEVICE_ID_MCXN946
     config MCUX_HW_DEVICE_PART_MCXN946VNL
-    bool "Device part MCXN946VNL"
+    bool "MCXN946VNL"
     select MCUX_HW_DEVICE_ID_MCXN946
 endchoice
 

@@ -63,13 +63,13 @@ config MCUX_HW_DEVICE_ID_MCXN235
 choice MCUX_HW_DEVICE_PART_MCXN235
     prompt "Device MCXN235 Part"
     config MCUX_HW_DEVICE_PART_MCXN235VDF
-    bool "Device part MCXN235VDF"
+    bool "MCXN235VDF"
     select MCUX_HW_DEVICE_ID_MCXN235
     config MCUX_HW_DEVICE_PART_MCXN235VPB
-    bool "Device part MCXN235VPB"
+    bool "MCXN235VPB"
     select MCUX_HW_DEVICE_ID_MCXN235
     config MCUX_HW_DEVICE_PART_MCXN235VNL
-    bool "Device part MCXN235VNL"
+    bool "MCXN235VNL"
     select MCUX_HW_DEVICE_ID_MCXN235
 endchoice
 

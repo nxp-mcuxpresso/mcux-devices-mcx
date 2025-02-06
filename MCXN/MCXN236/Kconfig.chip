@@ -63,13 +63,13 @@ config MCUX_HW_DEVICE_ID_MCXN236
 choice MCUX_HW_DEVICE_PART_MCXN236
     prompt "Device MCXN236 Part"
     config MCUX_HW_DEVICE_PART_MCXN236VDF
-    bool "Device part MCXN236VDF"
+    bool "MCXN236VDF"
     select MCUX_HW_DEVICE_ID_MCXN236
     config MCUX_HW_DEVICE_PART_MCXN236VPB
-    bool "Device part MCXN236VPB"
+    bool "MCXN236VPB"
     select MCUX_HW_DEVICE_ID_MCXN236
     config MCUX_HW_DEVICE_PART_MCXN236VNL
-    bool "Device part MCXN236VNL"
+    bool "MCXN236VNL"
     select MCUX_HW_DEVICE_ID_MCXN236
 endchoice
 

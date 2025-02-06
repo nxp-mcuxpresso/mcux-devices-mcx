@@ -6,7 +6,7 @@
 menu "Device specific drivers configuration"
 
     config MCUX_COMPONENT_driver.clock
-         bool "Use driver clock"
+         bool "clock"
          default y
 
 endmenu

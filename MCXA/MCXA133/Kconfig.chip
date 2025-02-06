@@ -63,13 +63,13 @@ config MCUX_HW_DEVICE_ID_MCXA133
 choice MCUX_HW_DEVICE_PART_MCXA133
     prompt "Device MCXA133 Part"
     config MCUX_HW_DEVICE_PART_MCXA133VFT
-    bool "Device part MCXA133VFT"
+    bool "MCXA133VFT"
     select MCUX_HW_DEVICE_ID_MCXA133
     config MCUX_HW_DEVICE_PART_MCXA133VFM
-    bool "Device part MCXA133VFM"
+    bool "MCXA133VFM"
     select MCUX_HW_DEVICE_ID_MCXA133
     config MCUX_HW_DEVICE_PART_MCXA133VLF
-    bool "Device part MCXA133VLF"
+    bool "MCXA133VLF"
     select MCUX_HW_DEVICE_ID_MCXA133
 endchoice
 

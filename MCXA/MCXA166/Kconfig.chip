@@ -63,16 +63,16 @@ config MCUX_HW_DEVICE_ID_MCXA166
 choice MCUX_HW_DEVICE_PART_MCXA166
     prompt "Device MCXA166 Part"
     config MCUX_HW_DEVICE_PART_MCXA166VLQ
-    bool "Device part MCXA166VLQ"
+    bool "MCXA166VLQ"
     select MCUX_HW_DEVICE_ID_MCXA166
     config MCUX_HW_DEVICE_PART_MCXA166VLL
-    bool "Device part MCXA166VLL"
+    bool "MCXA166VLL"
     select MCUX_HW_DEVICE_ID_MCXA166
     config MCUX_HW_DEVICE_PART_MCXA166VLH
-    bool "Device part MCXA166VLH"
+    bool "MCXA166VLH"
     select MCUX_HW_DEVICE_ID_MCXA166
     config MCUX_HW_DEVICE_PART_MCXA166VPN
-    bool "Device part MCXA166VPN"
+    bool "MCXA166VPN"
     select MCUX_HW_DEVICE_ID_MCXA166
 endchoice
 

@@ -55,10 +55,10 @@ config MCUX_HW_DEVICE_ID_MCXC242
 choice MCUX_HW_DEVICE_PART_MCXC242
     prompt "Device MCXC242 Part"
     config MCUX_HW_DEVICE_PART_MCXC242VFM
-    bool "Device part MCXC242VFM"
+    bool "MCXC242VFM"
     select MCUX_HW_DEVICE_ID_MCXC242
     config MCUX_HW_DEVICE_PART_MCXC242VLH
-    bool "Device part MCXC242VLH"
+    bool "MCXC242VLH"
     select MCUX_HW_DEVICE_ID_MCXC242
 endchoice
 

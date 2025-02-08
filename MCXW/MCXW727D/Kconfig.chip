@@ -143,6 +143,11 @@ config MCUX_HW_IP_DriverType_LPADC
     default y
     depends on MCUX_HW_DEVICE_ID_MCXW727DxxxA
 
+config MCUX_HW_IP_DriverType_LPCAC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW727DxxxA
+
 config MCUX_HW_IP_DriverType_LPCMP
     bool
     default y

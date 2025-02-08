@@ -28,7 +28,7 @@ device.hardware_data:
             - id: "PROGRAM_FLASH"
               name: "PROGRAM_FLASH"
               addr: 0x0
-              size: 0x80000
+              size: 0x7e000
               type: "Flash"
               access: "RO"
               default: true
@@ -62,7 +62,7 @@ device.hardware_data:
               access: "RO"
         total_memory:
           ram_size_kb: 136
-          flash_size_kb: 512
+          flash_size_kb: 504
         part:
           - name: "MCXA275VLQ"
           - name: "MCXA275VLL"

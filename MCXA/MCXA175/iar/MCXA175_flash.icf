@@ -6,15 +6,15 @@
 **                          MCXA175VPN
 **
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
-**     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
+**     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241119
+**     Build:               b250208
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -41,7 +41,7 @@ define symbol m_interrupts_start               = 0x00000000;
 define symbol m_interrupts_end                 = 0x000003FF;
 
 define symbol m_text_start                     = 0x00000400;
-define symbol m_text_end                       = 0x0007FFFF;
+define symbol m_text_end                       = 0x0007DFFF;
 
 define symbol m_data_start                     = 0x20000000;
 define symbol m_data_end                       = 0x2001DFFF;

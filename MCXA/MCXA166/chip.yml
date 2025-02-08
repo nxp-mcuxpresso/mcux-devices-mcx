@@ -28,7 +28,7 @@ device.hardware_data:
             - id: "PROGRAM_FLASH"
               name: "PROGRAM_FLASH"
               addr: 0x0
-              size: 0x100000
+              size: 0xfe000
               type: "Flash"
               access: "RO"
               default: true
@@ -62,7 +62,7 @@ device.hardware_data:
               access: "RO"
         total_memory:
           ram_size_kb: 256
-          flash_size_kb: 1024
+          flash_size_kb: 1016
         part:
           - name: "MCXA166VLQ"
           - name: "MCXA166VLL"

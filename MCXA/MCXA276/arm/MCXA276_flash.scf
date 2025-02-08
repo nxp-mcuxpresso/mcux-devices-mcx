@@ -7,15 +7,15 @@
 **                          MCXA276VPN
 **
 **     Compiler:            Keil ARM C/C++ Compiler
-**     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
+**     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b241119
+**     Build:               b250208
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -42,7 +42,7 @@
 #define  m_interrupts_size             0x00000400
 
 #define  m_text_start                  0x00000400
-#define  m_text_size                   0x000FFC00
+#define  m_text_size                   0x000FDC00
 
 #define  m_data_start                  0x20000000
 #define  m_data_size                   0x0003C000

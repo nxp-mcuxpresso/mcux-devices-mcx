@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXN23XRM
 **     Version:             rev. 1.0, 2023-10-01
-**     Build:               b241120
+**     Build:               b250206
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -20,7 +20,7 @@
 **         the oscillator (PLL) that is part of the microcontroller device.
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -53,11 +53,9 @@ extern "C" {
 
 #include <stdint.h>
 
-
-                #define DEFAULT_SYSTEM_CLOCK           48000000u           /* Default System clock value */
+#define DEFAULT_SYSTEM_CLOCK           48000000u           /* Default System clock value */
 #define CLK_FRO_12MHZ                  12000000u           /* FRO 12  MHz (fro_12m)  */
 #define CLK_FRO_144MHZ                144000000u           /* FRO 144 MHz (fro_144m) */
-
 
 
 /**

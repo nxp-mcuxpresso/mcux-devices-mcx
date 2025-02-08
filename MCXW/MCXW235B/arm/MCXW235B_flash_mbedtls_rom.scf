@@ -1,0 +1,72 @@
+#!armclang --target=arm-arm-none-eabi -march=armv8-m.main -E -x c
+/*
+** ###################################################################
+**     Processors:          MCXW235BIHNAR
+**                          MCXW235BIUKAR
+**
+**     Compiler:            Keil ARM C/C++ Compiler
+**
+**
+**     Copyright 2016 Freescale Semiconductor, Inc.
+**     Copyright 2016-2024 NXP
+**     SPDX-License-Identifier: BSD-3-Clause
+**
+**     http:                 www.nxp.com
+**     mail:                 support@nxp.com
+**
+** ###################################################################
+*/
+
+
+/* Sizes */
+#if (defined(__stack_size__))
+  #define Stack_Size                   __stack_size__
+#else
+  #define Stack_Size                   0x0500
+#endif
+
+#if (defined(__heap_size__))
+  #define Heap_Size                    __heap_size__
+#else
+  #define Heap_Size                    0x0400
+#endif
+
+#define  m_interrupts_start            0x00000000
+#define  m_interrupts_size             0x00000200
+
+#define m_text_start                   0x00000200
+#define m_text_size                    0x00037E00
+
+/* 80k (SRAM0 = 16k, SRAM1 = 32k, SRAM2 = 32K) RAM to fit data segment */
+/* First 16K (from 0x20004000 until 0x20008000) ram should should not be used because is used by ROM API functions */
+/* Next 4K (from 0x20008000 until 0x20009000), ram should not be used because it is used by mbedTLS ROM functions */
+/* Next 56K (from 0x20009000 until 0x20017000)*, ram is used for data memory */
+/* Last 4K (from 0x20017000 until 0x20018000) ram is used to put code (typically interrupts, because interrupts cannot be executed from flash while flash IAP functions are executed)*/
+#define  m_data_start                  0x20009000
+#define  m_data_size                   0x0000E000
+#define m_ram_code_start               0x20017000
+#define m_ram_code_size                0x00001000
+
+
+LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region size_region
+
+  VECTOR_ROM m_interrupts_start m_interrupts_size { ; load address = execution address
+    * (.isr_vector,+FIRST)
+  }
+
+  ER_m_text m_text_start FIXED m_text_size { ; load address = execution address
+    * (InRoot$$Sections)
+    .ANY (+RO)
+  }
+  ER_m_ram_code m_ram_code_start m_ram_code_size {
+    *(.ram_code) 
+  }   
+  RW_m_data m_data_start m_data_size-Stack_Size-Heap_Size { ; RW data
+    .ANY (+RW +ZI)
+  }
+  ARM_LIB_HEAP +0 EMPTY Heap_Size {    ; Heap region growing up
+  }
+  ARM_LIB_STACK m_data_start+m_data_size EMPTY -Stack_Size { ; Stack region growing down
+  } 
+  ScatterAssert(ImageLimit(ARM_LIB_STACK) <= 0x20018000); Check for RAM overflow. ARM_LIB_STACK is last segment in RAM, its limit may not exceed last RAM address.
+}

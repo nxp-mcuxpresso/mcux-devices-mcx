@@ -50,6 +50,9 @@ extern "C" {
 #endif
 
 #include <stdint.h>
+#if defined(SDK_OS_FREE_RTOS)
+#include "FreeRTOSConfig.h"
+#endif  
 
 #define DEFAULT_SYSTEM_CLOCK           12000000u           /* Default System clock value */
 #define CLK_RTC_32K_CLK                32768u              /* RTC oscillator 32 kHz output (32k_clk */
@@ -57,6 +60,26 @@ extern "C" {
 #define CLK_FRO_32MHZ                  32000000u           /* FRO 32 MHz (fro_32m) */
 #define CLK_FRO_48MHZ                  48000000u           /* FRO 48 MHz (fro_48m) */
 #define CLK_CLK_IN                     16000000u           /* Default CLK_IN pin clock */
+
+#if defined(SDK_OS_FREE_RTOS)
+/** The baseline priority level */
+/* The interrupt may never be higher than configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY to prevent
+ * memory corruption */
+#define NVIC_PRIO_BASE configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY
+#else  /* SDK_OS_FREE_RTOS */
+/** The baseline priority level */
+#define NVIC_PRIO_BASE 0
+#endif /* SDK_OS_FREE_RTOS */
+
+#if defined(SUPPORT_MASTER_CONNECTION) || defined(SUPPORT_SLAVE_CONNECTION)
+#ifndef NVIC_LL_IRQ_PRIORITY
+#define NVIC_LL_IRQ_PRIORITY 2
+#endif /* NVIC_LL_IRQ_DEFAULT_PRIORITY */
+
+#ifndef NVIC_DEFAULT_PRIORITY
+#define NVIC_DEFAULT_PRIORITY 3
+#endif /* NVIC_DEFAULT_PRIORITY */
+#endif
 
 /**
  * @brief System clock frequency (core clock)

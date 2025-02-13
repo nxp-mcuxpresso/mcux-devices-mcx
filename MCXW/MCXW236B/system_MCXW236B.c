@@ -91,6 +91,22 @@ __attribute__ ((weak)) void SystemInit (void)
 #if !defined(DONT_ENABLE_DISABLED_RAMBANKS)
     SYSCON->AHBCLKCTRLSET[0] = SYSCON_AHBCLKCTRL0_SRAM_CTRL1_MASK | SYSCON_AHBCLKCTRL0_SRAM_CTRL2_MASK;
 #endif
+
+#if defined(SUPPORT_MASTER_CONNECTION) || defined(SUPPORT_SLAVE_CONNECTION)
+    /* Make sure BLE link layer interrupts have highest priority in the system (prerequisite of the system). */
+    for (int irq = 0; irq <= WAKE_PAD_IRQn; irq++)
+    {
+        if (irq == BLE_LL_IRQn || irq == BLE_SLP_TMR_IRQn)
+        {
+            NVIC_SetPriority(irq, NVIC_PRIO_BASE + NVIC_LL_IRQ_PRIORITY);
+        }
+        else
+        {
+            NVIC_SetPriority(irq, NVIC_PRIO_BASE + NVIC_DEFAULT_PRIORITY);
+        }
+    }
+#endif
+
     SystemInitHook();
 }
 

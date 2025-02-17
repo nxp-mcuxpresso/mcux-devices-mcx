@@ -13,5 +13,6 @@ menu "Device specific drivers configuration"
     rsource "./Kconfig_power"
     rsource "./Kconfig_reset"
     rsource "./Kconfig_romapi"
+    rsource "./Kconfig_timer_manager"
 
 endmenu

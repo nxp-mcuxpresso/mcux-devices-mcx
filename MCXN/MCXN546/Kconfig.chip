@@ -256,6 +256,11 @@ config MCUX_HW_IP_DriverType_MRT
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN546
 
+config MCUX_HW_IP_DriverType_NPX
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN546
+
 config MCUX_HW_IP_DriverType_OSTIMER
     bool
     default y

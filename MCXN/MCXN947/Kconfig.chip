@@ -261,6 +261,11 @@ config MCUX_HW_IP_DriverType_MRT
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN947
 
+config MCUX_HW_IP_DriverType_NPX
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN947
+
 config MCUX_HW_IP_DriverType_OPAMP
     bool
     default y

@@ -1,0 +1,69 @@
+---
+
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXE247
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXE247"
+        full_name: "MCXE247"
+        name: "MCXE247"
+        platform: "MCX"
+        series: "MCXE"
+        family: "MCXE24x"
+        subfamily: "MCXE247"
+        frequency_mhz: 0
+        core:
+          - name: "Cortex-M4F"
+            type: "cm4f"
+            id: "core0"
+            description: "M4 core"
+            fpu: "SP_FPU"
+            mpu: false
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH"
+              name: "PROGRAM_FLASH"
+              addr: 0x0
+              size: 0x180000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+            - id: "SRAM_LOWER"
+              name: "SRAM_LOWER"
+              addr: 0x1ffe0000
+              size: 0x20000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "SRAM_UPPER"
+              name: "SRAM_UPPER"
+              addr: 0x20000000
+              size: 0x1f000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "FLEX_RAM"
+              name: "FLEX_RAM"
+              addr: 0x14000000
+              size: 0x1000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "FLEX_NVM"
+              name: "FLEX_NVM"
+              addr: 0x10000000
+              size: 0x8000
+              type: "DFlash"
+              access: "RO"
+              default: true
+        total_memory:
+          ram_size_kb: 252
+          flash_size_kb: 1536
+        part:
+          - name: "MCXE247VLL"
+          - name: "MCXE247VLQ"
+        modules:
+...

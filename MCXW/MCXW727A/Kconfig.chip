@@ -140,7 +140,7 @@ config MCUX_HW_IP_DriverType_LPADC
 
 config MCUX_HW_IP_DriverType_LPCAC
     bool
-    default y
+    default y if MCUX_HW_DEVICE_MCXW727A_CORE_ID_cm33_core0
     depends on MCUX_HW_DEVICE_ID_MCXW727AxxxA
 
 config MCUX_HW_IP_DriverType_LPCMP

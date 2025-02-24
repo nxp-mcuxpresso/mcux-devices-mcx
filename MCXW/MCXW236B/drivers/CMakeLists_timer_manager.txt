@@ -5,9 +5,11 @@
 if (CONFIG_MCUX_COMPONENT_component.timer_manager.mcxw23)
     mcux_component_version(1.0.0)
     mcux_add_source(
-        SOURCES fsl_component_timer_manager.c fsl_component_timer_manager.h
+        SOURCES timer_manager_mcxw23/fsl_component_timer_manager.c
+                timer_manager_mcxw23/fsl_component_timer_manager.h
     )
-    mcux_add_include( INCLUDES . )
+    mcux_add_include( INCLUDES timer_manager_mcxw23/. )
+    mcux_add_configuration(CC "-DHAL_CTIMER_COUNTER_RESET=false -DUSE_MCXW23_TIMER_MANAGER")
 endif()
 
 if (CONFIG_MCUX_PRJSEG_configure.timer_manager_enable_time_stamp)

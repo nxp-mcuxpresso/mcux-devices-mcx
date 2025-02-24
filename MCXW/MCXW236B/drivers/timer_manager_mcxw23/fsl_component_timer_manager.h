@@ -3,9 +3,10 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
+#ifndef __TIMER_MANAGER_MCXW23_H__
+#define __TIMER_MANAGER_MCXW23_H__
 
-#ifndef __TIMERS_MANAGER_MCXW23_H__
-#define __TIMERS_MANAGER_MCXW23_H__
+#include "fsl_adapter_timer.h"
 
 #ifndef SDK_COMPONENT_DEPENDENCY_FSL_COMMON
 #define SDK_COMPONENT_DEPENDENCY_FSL_COMMON (1U)
@@ -26,23 +27,14 @@
 /*!
  * @brief The timer manager component
  *
- * The timer manager is built based on the timer adapter component provided by the NXP
- * MCUXpresso SDK. It could provide the features below:
- * shall support SingleShot,repeater,one-minute timer,one-second timer and low power mode
- * shall support timer open ,close, start and stop operation, and support callback function install
- * And provide 1ms accuracy timers
+ * The MCXW23 timer manager is built based on the timer adapter component.
+ *  It is only compatible with devices from the MCXW23 family.
+ *  It provides the features below:
+ * @li shall support SingleShot, repeater, one-minute timer, one-second timer and low power mode
+ * @li shall support timer open, close, start and stop operation, and support callback function install
+ *   and provide 1ms accuracy timers
  *
- * The timer manager would be used with different HW timer modules like FTM, PIT, LPTMR.
- * But at the same time, only one HW timer module could be used. On different platforms,different
- * HW timer module would be used. For the platforms which have multiple HW timer modules,
- * one HW timer module would be selected as the default, but it is easy to change the default
- * HW timer module to another. Just two steps to switch the HW timer module:
- * 1.Remove the default HW timer module source file from the project
- * 2.Add the expected HW timer module source file to the project.
- * For example, in platform FRDM-K64F, there are two HW timer modules available, FTM and PIT.
- * FTM is used as the default HW timer, so ftm_adapter.c and timer.h is included in the project by
- * default.If PIT is expected to be used as the HW timer, ftm_adapter.c need to be removed from the
- * project and pit_adapter.c should be included in the project
+ * The MCXW23 timer manager can be used with either Ctimer hardware module or OStimer hardware module.
  *
  */
 /*****************************************************************************
@@ -51,7 +43,7 @@
 ******************************************************************************
 *****************************************************************************/
 /*
- * @brief   Configures the common task enable.If set to 1, then timer will use common task and consume less ram/flash
+ * @brief   Configures the common task enable. If set to 1, then timer will use common task and consume less ram/flash
  * size.
  */
 #ifndef TM_COMMON_TASK_ENABLE
@@ -91,13 +83,17 @@
 #endif
 
 /*! @brief Definition of timer manager handle size. */
+#if defined(TIMER_PORT_TYPE_OSTIMER)
 #define TIMER_HANDLE_SIZE (32U)
+#else
+#define TIMER_HANDLE_SIZE (24U)
+#endif
 
 /*!
  * @brief Defines the timer manager handle
  *
  * This macro is used to define a 4 byte aligned timer manager handle.
- * Then use "(eeprom_handle_t)name" to get the timer manager handle.
+ * Then use "(timer_handle_t)name" to get the timer manager handle.
  *
  * The macro should be global and could be optional. You could also define timer manager handle by yourself.
  *
@@ -153,8 +149,8 @@ typedef struct _timer_config
 {
     uint32_t srcClock_Hz; /**< The timer source clock frequency. */
     uint8_t instance; /*!< Hardware timer module instance, that will be the foundation of the timer manager, based on
-           which the software timers will be defined. For example: if you want use FTM0,then the instance
-                           is configured to 0, if you want use FTM2 hardware timer, then configure the instance
+                           which the software timers will be defined. For example: if you want use CTIMER0, then the instance
+                           is configured to 0, if you want use CTIMER2 hardware timer, then configure the instance
                            to 2, detail information please refer to the SOC corresponding RM. Invalid instance
                            value will cause initialization failure. */
 
@@ -171,6 +167,7 @@ typedef struct _timer_config
 
 #endif
 } timer_config_t;
+
 
 /*
  * @brief   Timer handle
@@ -312,8 +309,8 @@ timer_status_t TM_InstallCallback(timer_handle_t timerHandle, timer_callback_t c
  */
 timer_status_t TM_StartWithDelay(timer_handle_t timerHandle,
                                  uint8_t timerType,
-                                 uint64_t timerDelay,
-                                 uint64_t timerInterval);
+                                 hal_timer_time_t timerDelay,
+                                 hal_timer_time_t timerInterval);
 
 /*!
  * @brief  Start a specified timer
@@ -321,7 +318,7 @@ timer_status_t TM_StartWithDelay(timer_handle_t timerHandle,
  * This function is similar to TM_StartWithDelay where timerDelay and timerInterval are equal to timerTimeout.
  * See TM_StartWithDelay for more details.
  */
-timer_status_t TM_Start(timer_handle_t timerHandle, uint8_t timerType, uint64_t timerTimeout);
+timer_status_t TM_Start(timer_handle_t timerHandle, uint8_t timerType, hal_timer_time_t timerTimeout);
 
 /*!
  * @brief  Stop a specified timer
@@ -358,7 +355,7 @@ uint8_t TM_IsTimerReady(timer_handle_t timerHandle);
  *
  * @retval remaining time in microseconds until first timer timeouts.
  */
-uint64_t TM_GetRemainingTime(timer_handle_t timerHandle);
+hal_timer_time_t TM_GetRemainingTime(timer_handle_t timerHandle);
 
 /*!
  * @brief Get the first expire time of timer
@@ -368,7 +365,7 @@ uint64_t TM_GetRemainingTime(timer_handle_t timerHandle);
  *
  * @retval return the first expire time of all timer.
  */
-uint64_t TM_GetFirstExpireTime(uint8_t timerType);
+hal_timer_time_t TM_GetFirstExpireTime(uint8_t timerType);
 
 /*!
  * @brief Returns the handle of the timer of the first allocated timer that has the
@@ -394,7 +391,7 @@ uint8_t TM_AreAllTimersOff(void);
  *
  * @retval return microseconds that wasn't counted before entering in sleep.
  */
-uint64_t TM_NotCountedTimeBeforeSleep(void);
+hal_timer_time_t TM_NotCountedTimeBeforeSleep(void);
 
 /*!
  * @brief Sync low power timer in sleep mode, This function is called by Low Power module;
@@ -415,10 +412,12 @@ void TM_MakeTimerTaskReady(void);
  * @brief Get a time-stamp value
  *
  */
-uint64_t TM_GetTimestamp(void);
+hal_timer_time_t TM_GetTimestamp(void);
+
 
 #if defined(__cplusplus)
 }
 #endif
+
 /*! @}*/
-#endif /* #ifndef __TIMERS_MANAGER_MCXW23_H__ */
+#endif /* #ifndef __TIMER_MANAGER_MCXW23_H__ */

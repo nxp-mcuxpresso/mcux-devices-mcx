@@ -44,9 +44,12 @@
 ******************************************************************************
 *****************************************************************************/
 #define mTmrDummyEvent_c (1UL << 16U)
+
+#ifndef PROCESSING_TIME_UPDATE_MATCH_US
 #define PROCESSING_TIME_UPDATE_MATCH_US \
     (200U +                             \
-     50U) /* Value defined by measuring HAL_TimerUpdateMatchValue using fsl_adapter_ostimer, added 50 us margin */
+     50U) /* Value defined by measuring HAL_TimerUpdateMatchValueInTicks using fsl_adapter_ostimer, added 50 us margin */
+#endif 
 
 /**@brief Timer status. */
 typedef enum _timer_state
@@ -70,8 +73,8 @@ typedef struct _timer_handle_struct_t
     struct _timer_handle_struct_t *next; /*!< LIST_ element of the link */
     volatile uint8_t tmrStatus;          /*!< Software timer status */
     volatile uint8_t tmrType;            /*!< Software timer mode*/
-    uint64_t intervalInTicks;            /*!< The timer interval for recurring software timers */
-    uint64_t scheduledTimeInTicks;       /*!< The scheduled software timer expiration time */
+    hal_timer_time_t intervalInTicks;            /*!< The timer interval for recurring software timers */
+    hal_timer_time_t scheduledTimeInTicks;       /*!< The scheduled software timer expiration time */
     timer_callback_t pfCallBack;         /*!< Callback function of the software timer */
     void *param;                         /*!< Parameter of callback function of the software timer */
 } timer_handle_struct_t;
@@ -96,7 +99,8 @@ typedef struct _timermanager_state
     volatile uint8_t hardwareTimerIsRunning;       /*!< Underlying hardware timer is running */
     uint8_t initialized;                           /*!< Timer manager's underlying timer is initialized */
     bool hardwareTimerAlwaysOn;                    /*!< Timer manager's underlying timer is always on */
-    uint32_t updateMatchProcTimeTicks; /*!< The time it takes to execute the HAL_TimerUpdateMatchValue function */
+    uint32_t hardwareTimerClockHz;                 /*!< Timer manager's underlying timer clock frequency */
+    uint32_t updateMatchProcTimeTicks; /*!< The time it takes to execute the HAL_TimerUpdateMatchValueInTicks function */
 } timermanager_state_t;
 
 /*****************************************************************************
@@ -175,9 +179,9 @@ static OSA_TASK_DEFINE(TimerManagerTask, TM_TASK_PRIORITY, 1, TM_TASK_STACK_SIZE
  * \param[in] b the second argument
  * \return    1 when a>b else 0
  *---------------------------------------------------------------------------*/
-static uint8_t IsGreaterThan(uint64_t a, uint64_t b)
+static uint8_t IsGreaterThan(hal_timer_time_t a, hal_timer_time_t b)
 {
-    uint8_t resolution = HAL_TimerGetRangeInBits((hal_timer_handle_t)s_timermanager.halTimerHandle);
+    uint8_t resolution = HAL_TIMER_RANGE_IN_BITS;
 
     if (resolution == 32)
     {
@@ -201,9 +205,31 @@ static uint8_t IsGreaterThan(uint64_t a, uint64_t b)
  * \brief     Returns the mask of the timer resolution
  * \return    the mask of the timer resolution
  *---------------------------------------------------------------------------*/
-static uint64_t GetTimerResolutionMask(void)
+static hal_timer_time_t GetTimerResolutionMask(void)
 {
-    return (((uint64_t)1 << HAL_TimerGetRangeInBits((hal_timer_handle_t)s_timermanager.halTimerHandle)) - 1);
+    return (((uint64_t)1 << HAL_TIMER_RANGE_IN_BITS) - 1);
+}
+
+/*!-------------------------------------------------------------------------
+ * \brief     Computes the first value after a timer wrap-around based on its resolution in ticks.
+ * \details   This function determines the smallest timer value after an overflow occurs, 
+ *            given the timer's bit range.
+ * \return    The first value after the timer wraps around.
+ *---------------------------------------------------------------------------*/
+static hal_timer_time_t HAL_TimerGetFirstOverflowValueInTicks(void)
+{
+    return ((hal_timer_time_t)1 << (HAL_TIMER_RANGE_IN_BITS - 1));
+}
+
+/*!-------------------------------------------------------------------------
+ * \brief     Computes the first value after a timer wrap-around based on its resolution in milliseconds.
+ * \details   This function determines the smallest timer value after an overflow occurs, 
+ *            given the timer's bit range.
+ * \return    The first value after the timer wraps around.
+ *---------------------------------------------------------------------------*/
+static hal_timer_time_t HAL_TimerGetFirstOverflowValueInMs(void)
+{
+    return COUNT_TO_MSEC(HAL_TimerGetFirstOverflowValueInTicks(), s_timermanager.hardwareTimerClockHz);
 }
 
 /*!-------------------------------------------------------------------------
@@ -310,10 +336,8 @@ static void UpdateMatch()
     /* Are there active timers? */
     if ((0U != activeLPTimerNum) || (0U != activeTimerNum))
     {
-        uint64_t currentTimeInTicks = HAL_TimerGetCurrentTicks((hal_timer_handle_t)s_timermanager.halTimerHandle);
-        uint64_t firstFutureTime =
-            ((uint64_t)1 << (HAL_TimerGetRangeInBits((hal_timer_handle_t)s_timermanager.halTimerHandle) -
-                             1)); /* Put first starting value value far in future */
+        hal_timer_time_t currentTimeInTicks = HAL_TimerGetCurrentTicks((hal_timer_handle_t)s_timermanager.halTimerHandle);
+        hal_timer_time_t firstFutureTime = HAL_TimerGetFirstOverflowValueInTicks(); /* Put first starting value value far in future */
         timer_state_t state;
         /* Yes, check which comes first */
 
@@ -335,7 +359,7 @@ static void UpdateMatch()
         }
 
         /* Configure the timer to interrupt on first future timer.
-        Take into account, the processing time it takes to execute HAL_TimerUpdateMatchValue when programming new match.
+        Take into account, the processing time it takes to execute HAL_TimerUpdateMatchValueInTicks when programming new match.
         We have to make sure that, the new match is always in the future.
         If the firstFutureTime is very close to current time, it can happen,
         that by the time the match is programmed, the value of firstFutureTime is already in the past.
@@ -344,11 +368,11 @@ static void UpdateMatch()
         currentTimeInTicks = HAL_TimerGetCurrentTicks((hal_timer_handle_t)s_timermanager.halTimerHandle);
         if (IsGreaterThan(firstFutureTime, currentTimeInTicks + s_timermanager.updateMatchProcTimeTicks))
         {
-            HAL_TimerUpdateMatchValue((hal_timer_handle_t)s_timermanager.halTimerHandle, firstFutureTime);
+            HAL_TimerUpdateMatchValueInTicks((hal_timer_handle_t)s_timermanager.halTimerHandle, firstFutureTime);
         }
         else
         {
-            HAL_TimerUpdateMatchValue((hal_timer_handle_t)s_timermanager.halTimerHandle,
+            HAL_TimerUpdateMatchValueInTicks((hal_timer_handle_t)s_timermanager.halTimerHandle,
                                       currentTimeInTicks + s_timermanager.updateMatchProcTimeTicks);
         }
 
@@ -380,7 +404,7 @@ static void TimerManagerTask(void *param)
 #endif
         uint32_t regPrimask         = DisableGlobalIRQ();
         timer_handle_struct_t *th   = s_timermanager.timerHead;
-        uint64_t currentTimeInTicks = HAL_TimerGetCurrentTicks((hal_timer_handle_t)s_timermanager.halTimerHandle);
+        hal_timer_time_t currentTimeInTicks = HAL_TimerGetCurrentTicks((hal_timer_handle_t)s_timermanager.halTimerHandle);
 
         /* Sort the list of timers chronologically to make sure the callback functions are called in the
          * correct order*/
@@ -574,6 +598,8 @@ timer_status_t TM_Init(timer_config_t *timerConfig)
         halTimerConfig.instance              = timerConfig->instance;
         halTimerConfig.clockSrcSelect        = timerConfig->clockSrcSelect;
         s_timermanager.hardwareTimerAlwaysOn = timerConfig->hardwareTimerAlwaysOn;
+        s_timermanager.hardwareTimerClockHz = timerConfig->srcClock_Hz;
+
 
         s_timermanager.updateMatchProcTimeTicks =
             (uint32_t)(PROCESSING_TIME_UPDATE_MATCH_US / (1e6 / timerConfig->srcClock_Hz));
@@ -612,7 +638,6 @@ timer_status_t TM_Init(timer_config_t *timerConfig)
         halTimeStampConfig.clockSrcSelect = timerConfig->clockSrcSelect;
         HAL_TimeStampInit(halTimeStampHandle, &halTimeStampConfig);
 #endif
-        HAL_TimerUpdateMatchValue((hal_timer_handle_t)s_timermanager.halTimerHandle, 0);
         s_timermanager.initialized = 1U;
     }
     return kStatus_TimerSuccess;
@@ -695,7 +720,7 @@ void TM_EnterLowpower(void)
  * @brief Get a time-stamp value
  *
  */
-uint64_t TM_GetTimestamp(void)
+hal_timer_time_t TM_GetTimestamp(void)
 {
 #if (defined(TM_ENABLE_TIME_STAMP) && (TM_ENABLE_TIME_STAMP > 0U))
     return HAL_GetTimeStamp((hal_time_stamp_handle_t)s_timermanager.halTimeStampHandle);
@@ -846,19 +871,19 @@ timer_status_t TM_InstallCallback(timer_handle_t timerHandle, timer_callback_t c
  */
 timer_status_t TM_StartWithDelay(timer_handle_t timerHandle,
                                  uint8_t timerType,
-                                 uint64_t timerDelay,
-                                 uint64_t timerInterval)
+                                 hal_timer_time_t timerDelayMs,
+                                 hal_timer_time_t timerIntervalMs)
 {
     timer_status_t status = kStatus_TimerSuccess;
     timer_handle_struct_t *th = timerHandle;
 
-    uint32_t freq               = HAL_TimerGetFrequency((hal_timer_handle_t)s_timermanager.halTimerHandle);
-    uint64_t currentTimeInTicks = HAL_TimerGetCurrentTicks((hal_timer_handle_t)s_timermanager.halTimerHandle);
+    uint32_t freq               = s_timermanager.hardwareTimerClockHz;
+    hal_timer_time_t currentTimeInTicks = HAL_TimerGetCurrentTicks((hal_timer_handle_t)s_timermanager.halTimerHandle);
     uint32_t multiplier         = (uint8_t)timerType & (uint8_t)kTimerModeSetMinuteTimer ? 1000U * 1000U * 60 :
                                   (uint8_t)timerType & (uint8_t)kTimerModeSetSecondTimer ? 1000U * 1000U :
                                   (uint8_t)timerType & (uint8_t)kTimerModeSetMicrosTimer ? 1 :
                                                                                            1000U;
-    uint64_t delay;
+    hal_timer_time_t delayInTicks;
 
     assert(timerHandle);
 
@@ -868,31 +893,29 @@ timer_status_t TM_StartWithDelay(timer_handle_t timerHandle,
         assert(status == kStatus_TimerSuccess);
     }
 
-    TimerSetTimerType(timerHandle, timerType);
-    th->intervalInTicks = USEC_TO_COUNT((uint64_t)multiplier * timerInterval, freq);
-    delay               = USEC_TO_COUNT((uint64_t)multiplier * timerDelay, freq);
-
-    /* Check whether the interval is within range */
     /* The range is limited to below value to be able to handle integer wrapping correctly */
-    if (th->intervalInTicks >=
-        ((uint64_t)1 << (HAL_TimerGetRangeInBits((hal_timer_handle_t)s_timermanager.halTimerHandle) - 1)))
+    if (timerIntervalMs >= HAL_TimerGetFirstOverflowValueInMs())
     {
         return kStatus_TimerOutOfRange;
     }
 
     /* Check whether the delay is within range */
     /* The range is limited to below value to be able to handle integer wrapping correctly */
-    if (delay >= ((uint64_t)1 << (HAL_TimerGetRangeInBits((hal_timer_handle_t)s_timermanager.halTimerHandle) - 1)))
+    if (timerDelayMs >= HAL_TimerGetFirstOverflowValueInMs())
     {
         return kStatus_TimerOutOfRange;
     }
+
+    TimerSetTimerType(timerHandle, timerType);
+    th->intervalInTicks = USEC_TO_COUNT((hal_timer_time_t)multiplier * timerIntervalMs, freq);
+    delayInTicks               = USEC_TO_COUNT((hal_timer_time_t)multiplier * timerDelayMs, freq);
 
     if (!(s_timermanager.hardwareTimerAlwaysOn))
     {
         HAL_TimerEnable(s_timermanager.halTimerHandle);
     }
 
-    th->scheduledTimeInTicks = (delay + currentTimeInTicks) & GetTimerResolutionMask();
+    th->scheduledTimeInTicks = (delayInTicks + currentTimeInTicks) & GetTimerResolutionMask();
 
     /* Enable timer, the timer task will do the rest of the work. */
     TimerActivate(timerHandle);
@@ -910,7 +933,7 @@ timer_status_t TM_StartWithDelay(timer_handle_t timerHandle,
  * @retval kStatus_TimerSuccess    Timer start successful.
  * @retval kStatus_TimerOutOfRange      The interval is out of range and could cause integer wrapping issues.
  */
-timer_status_t TM_Start(timer_handle_t timerHandle, uint8_t timerType, uint64_t timerTimeout)
+timer_status_t TM_Start(timer_handle_t timerHandle, uint8_t timerType, hal_timer_time_t timerTimeout)
 {
     return TM_StartWithDelay(timerHandle, timerType, timerTimeout, timerTimeout);
 }
@@ -944,11 +967,11 @@ timer_status_t TM_Stop(timer_handle_t timerHandle)
  *
  * @retval remaining time in microseconds until specified timer times out.
  */
-uint64_t TM_GetRemainingTime(timer_handle_t timerHandle)
+hal_timer_time_t TM_GetRemainingTime(timer_handle_t timerHandle)
 {
     timer_handle_struct_t *timerState = timerHandle;
-    uint64_t currentTimeInTicks       = HAL_TimerGetCurrentTicks((hal_timer_handle_t)s_timermanager.halTimerHandle);
-    uint32_t freq                     = HAL_TimerGetFrequency((hal_timer_handle_t)s_timermanager.halTimerHandle);
+    hal_timer_time_t currentTimeInTicks       = HAL_TimerGetCurrentTicks((hal_timer_handle_t)s_timermanager.halTimerHandle);
+    uint32_t freq                     = s_timermanager.hardwareTimerClockHz;
     assert(timerHandle);
     /* Return the planned time minus current time taking into account that the timer has expired */
     return COUNT_TO_USEC(IsGreaterThan(timerState->scheduledTimeInTicks, currentTimeInTicks) ?
@@ -964,10 +987,10 @@ uint64_t TM_GetRemainingTime(timer_handle_t timerHandle)
  *
  * @retval return the first expire time in microseconds of all timers.
  */
-uint64_t TM_GetFirstExpireTime(uint8_t timerType)
+hal_timer_time_t TM_GetFirstExpireTime(uint8_t timerType)
 {
-    uint64_t min = 0xFFFFFFFFFFFFFFFFU;
-    uint64_t remainingTime;
+    hal_timer_time_t min = GetTimerResolutionMask();
+    hal_timer_time_t remainingTime;
 
     timer_handle_struct_t *th = s_timermanager.timerHead;
     while (NULL != th)
@@ -1014,11 +1037,11 @@ timer_handle_t TM_GetFirstTimerWithParam(void *param)
  *
  * @retval return microseconds that wasn't counted before entering in sleep.
  */
-uint64_t TM_NotCountedTimeBeforeSleep(void)
+hal_timer_time_t TM_NotCountedTimeBeforeSleep(void)
 {
 #if (defined(TM_ENABLE_LOW_POWER_TIMER) && (TM_ENABLE_LOW_POWER_TIMER > 0U))
-    uint64_t timeUs = 0;
-    uint64_t currentTimeInUs;
+    hal_timer_time_t timeUs = 0;
+    hal_timer_time_t currentTimeInUs;
 
     if (0U != s_timermanager.numberOfLowPowerActiveTimers)
     {

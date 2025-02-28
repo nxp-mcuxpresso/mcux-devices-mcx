@@ -196,6 +196,12 @@ extern volatile uint32_t g_xtal0Freq;
         kCLOCK_FlexioTrig0, kCLOCK_FlexioTrig1 \
     }
 
+/*! @brief Clock ip name array for MPU. */
+#define SYSMPU_CLOCKS  \
+    {                  \
+        kCLOCK_Mpu     \
+    }
+
 /*!
  * @brief LPO clock frequency.
  */

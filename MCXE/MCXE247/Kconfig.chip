@@ -223,7 +223,7 @@ config MCUX_HW_IP_DriverType_PORT
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE247
 
-config MCUX_HW_IP_DriverType_QSPI
+config MCUX_HW_IP_DriverType_QUADSPI
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE247

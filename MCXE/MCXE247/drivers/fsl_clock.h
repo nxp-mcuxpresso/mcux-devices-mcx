@@ -69,8 +69,8 @@ extern volatile uint32_t g_xtal0Freq;
         kCLOCK_Dmamux0 \
     }
 
-/*! @brief Clock ip name array for CAN. */
-#define CAN_CLOCKS                            \
+/*! @brief Clock ip name array for FlexCAN. */
+#define FLEXCAN_CLOCKS                        \
     {                                         \
         kCLOCK_Can0, kCLOCK_Can1, kCLOCK_Can2 \
     }

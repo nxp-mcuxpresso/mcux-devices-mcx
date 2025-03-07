@@ -4,7 +4,7 @@
 /*            MCXE247                                                        */
 /*  @version: 1.0                                                            */
 /*  @date:    2025-2-21                                                      */
-/*  @build:   b250221                                                        */
+/*  @build:   b250306                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -116,21 +116,21 @@ __isr_vector:
     .long   ENET_Error_IRQHandler                           /* Ethernet MAC Error and miscelaneous Interrupt*/
     .long   ENET_Graceful_Stop_IRQHandler                   /* Ethernet MAC graceful stop Interrupt*/
     .long   ENET_Wake_IRQHandler                            /* Ethernet MAC wake from sleep Interrupt*/
-    .long   CAN0_ORed_Message_Buffer_IRQHandler             /* CAN0 OR'ed interrupt*/
+    .long   CAN0_ORed_IRQHandler                            /* CAN0 OR'ed interrupt*/
     .long   CAN0_Error_IRQHandler                           /* CAN0 Interrupt indicating that errors were detected on the CAN bus*/
     .long   CAN0_Wake_Up_IRQHandler                         /* CAN0 Interrupt asserted when Pretended Networking operation is enabled, and a valid message matches the selected filter criteria during Low Power mode*/
     .long   CAN0_ORed_0_15_MB_IRQHandler                    /* CAN0 OR'ed Message buffer (0-15)*/
     .long   CAN0_ORed_16_31_MB_IRQHandler                   /* CAN0 OR'ed Message buffer (16-31)*/
     .long   Reserved99_IRQHandler                           /* xxx Interrupt 99*/
     .long   Reserved100_IRQHandler                          /* xxx Interrupt 100*/
-    .long   CAN1_ORed_Message_buffer_IRQHandler             /* CAN1 OR'ed interrupt*/
+    .long   CAN1_ORed_IRQHandler                            /* CAN1 OR'ed interrupt*/
     .long   CAN1_Error_IRQHandler                           /* CAN1 Interrupt indicating that errors were detected on the CAN bus*/
     .long   Reserved103_IRQHandler                          /* xxx Interrupt 103*/
     .long   CAN1_ORed_0_15_MB_IRQHandler                    /* CAN1 OR'ed Message buffer (0-15)*/
     .long   CAN1_ORed_16_31_MB_IRQHandler                   /* CAN1 OR'ed Message buffer (16-31)*/
     .long   Reserved106_IRQHandler                          /* xxx Interrupt 106*/
     .long   Reserved107_IRQHandler                          /* xxx Interrupt 107*/
-    .long   CAN2_ORed_Message_buffer_IRQHandler             /* CAN2 OR'ed interrupt*/
+    .long   CAN2_ORed_IRQHandler                            /* CAN2 OR'ed interrupt*/
     .long   CAN2_Error_IRQHandler                           /* CAN2 Interrupt indicating that errors were detected on the CAN bus*/
     .long   Reserved110_IRQHandler                          /* xxx Interrupt 110*/
     .long   CAN2_ORed_0_15_MB_IRQHandler                    /* CAN2 OR'ed Message buffer (0-15)*/
@@ -793,12 +793,12 @@ ENET_Wake_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak CAN0_ORed_Message_Buffer_IRQHandler
-    .type CAN0_ORed_Message_Buffer_IRQHandler, %function
-CAN0_ORed_Message_Buffer_IRQHandler:
+    .weak CAN0_ORed_IRQHandler
+    .type CAN0_ORed_IRQHandler, %function
+CAN0_ORed_IRQHandler:
     ldr   r0,=CAN0_DriverIRQHandler
     bx    r0
-    .size CAN0_ORed_Message_Buffer_IRQHandler, . - CAN0_ORed_Message_Buffer_IRQHandler
+    .size CAN0_ORed_IRQHandler, . - CAN0_ORed_IRQHandler
 
     .align 1
     .thumb_func
@@ -838,12 +838,12 @@ CAN0_ORed_16_31_MB_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak CAN1_ORed_Message_buffer_IRQHandler
-    .type CAN1_ORed_Message_buffer_IRQHandler, %function
-CAN1_ORed_Message_buffer_IRQHandler:
+    .weak CAN1_ORed_IRQHandler
+    .type CAN1_ORed_IRQHandler, %function
+CAN1_ORed_IRQHandler:
     ldr   r0,=CAN1_DriverIRQHandler
     bx    r0
-    .size CAN1_ORed_Message_buffer_IRQHandler, . - CAN1_ORed_Message_buffer_IRQHandler
+    .size CAN1_ORed_IRQHandler, . - CAN1_ORed_IRQHandler
 
     .align 1
     .thumb_func
@@ -874,12 +874,12 @@ CAN1_ORed_16_31_MB_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak CAN2_ORed_Message_buffer_IRQHandler
-    .type CAN2_ORed_Message_buffer_IRQHandler, %function
-CAN2_ORed_Message_buffer_IRQHandler:
+    .weak CAN2_ORed_IRQHandler
+    .type CAN2_ORed_IRQHandler, %function
+CAN2_ORed_IRQHandler:
     ldr   r0,=CAN2_DriverIRQHandler
     bx    r0
-    .size CAN2_ORed_Message_buffer_IRQHandler, . - CAN2_ORed_Message_buffer_IRQHandler
+    .size CAN2_ORed_IRQHandler, . - CAN2_ORed_IRQHandler
 
     .align 1
     .thumb_func

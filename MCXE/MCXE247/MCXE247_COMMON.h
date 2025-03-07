@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXE24x RM Rev.1
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250221
+**     Build:               b250306
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE247
@@ -143,16 +143,16 @@ typedef enum IRQn {
   ENET_Error_IRQn              = 75,               /**< Ethernet MAC Error and miscelaneous Interrupt */
   ENET_Graceful_Stop_IRQn      = 76,               /**< Ethernet MAC graceful stop Interrupt */
   ENET_Wake_IRQn               = 77,               /**< Ethernet MAC wake from sleep Interrupt */
-  CAN0_ORed_Message_Buffer_IRQn = 78,              /**< CAN0 OR'ed interrupt */
+  CAN0_ORed_IRQn               = 78,               /**< CAN0 OR'ed interrupt */
   CAN0_Error_IRQn              = 79,               /**< CAN0 Interrupt indicating that errors were detected on the CAN bus */
   CAN0_Wake_Up_IRQn            = 80,               /**< CAN0 Interrupt asserted when Pretended Networking operation is enabled, and a valid message matches the selected filter criteria during Low Power mode */
   CAN0_ORed_0_15_MB_IRQn       = 81,               /**< CAN0 OR'ed Message buffer (0-15) */
   CAN0_ORed_16_31_MB_IRQn      = 82,               /**< CAN0 OR'ed Message buffer (16-31) */
-  CAN1_ORed_Message_buffer_IRQn = 85,              /**< CAN1 OR'ed interrupt */
+  CAN1_ORed_IRQn               = 85,               /**< CAN1 OR'ed interrupt */
   CAN1_Error_IRQn              = 86,               /**< CAN1 Interrupt indicating that errors were detected on the CAN bus */
   CAN1_ORed_0_15_MB_IRQn       = 88,               /**< CAN1 OR'ed Message buffer (0-15) */
   CAN1_ORed_16_31_MB_IRQn      = 89,               /**< CAN1 OR'ed Message buffer (16-31) */
-  CAN2_ORed_Message_buffer_IRQn = 92,              /**< CAN2 OR'ed interrupt */
+  CAN2_ORed_IRQn               = 92,               /**< CAN2 OR'ed interrupt */
   CAN2_Error_IRQn              = 93,               /**< CAN2 Interrupt indicating that errors were detected on the CAN bus */
   CAN2_ORed_0_15_MB_IRQn       = 95,               /**< CAN2 OR'ed Message buffer (0-15) */
   CAN2_ORed_16_31_MB_IRQn      = 96,               /**< CAN2 OR'ed Message buffer (16-31) */
@@ -264,22 +264,29 @@ typedef enum IRQn {
 #define AIPS_BASE_PTRS                           { AIPS }
 
 /* CAN - Peripheral instance base addresses */
-/** Peripheral FLEXCAN0 base address */
-#define FLEXCAN0_BASE                            (0x40024000u)
-/** Peripheral FLEXCAN0 base pointer */
-#define FLEXCAN0                                 ((CAN_Type *)FLEXCAN0_BASE)
-/** Peripheral FLEXCAN1 base address */
-#define FLEXCAN1_BASE                            (0x40025000u)
-/** Peripheral FLEXCAN1 base pointer */
-#define FLEXCAN1                                 ((CAN_Type *)FLEXCAN1_BASE)
-/** Peripheral FLEXCAN2 base address */
-#define FLEXCAN2_BASE                            (0x4002B000u)
-/** Peripheral FLEXCAN2 base pointer */
-#define FLEXCAN2                                 ((CAN_Type *)FLEXCAN2_BASE)
+/** Peripheral CAN0 base address */
+#define CAN0_BASE                                (0x40024000u)
+/** Peripheral CAN0 base pointer */
+#define CAN0                                     ((CAN_Type *)CAN0_BASE)
+/** Peripheral CAN1 base address */
+#define CAN1_BASE                                (0x40025000u)
+/** Peripheral CAN1 base pointer */
+#define CAN1                                     ((CAN_Type *)CAN1_BASE)
+/** Peripheral CAN2 base address */
+#define CAN2_BASE                                (0x4002B000u)
+/** Peripheral CAN2 base pointer */
+#define CAN2                                     ((CAN_Type *)CAN2_BASE)
 /** Array initializer of CAN peripheral base addresses */
-#define CAN_BASE_ADDRS                           { FLEXCAN0_BASE, FLEXCAN1_BASE, FLEXCAN2_BASE }
+#define CAN_BASE_ADDRS                           { CAN0_BASE, CAN1_BASE, CAN2_BASE }
 /** Array initializer of CAN peripheral base pointers */
-#define CAN_BASE_PTRS                            { FLEXCAN0, FLEXCAN1, FLEXCAN2 }
+#define CAN_BASE_PTRS                            { CAN0, CAN1, CAN2 }
+/** Interrupt vectors for the CAN peripheral type */
+#define CAN_Rx_Warning_IRQS                      { CAN0_ORed_IRQn, CAN1_ORed_IRQn, CAN2_ORed_IRQn }
+#define CAN_Tx_Warning_IRQS                      { CAN0_ORed_IRQn, CAN1_ORed_IRQn, CAN2_ORed_IRQn }
+#define CAN_Wake_Up_IRQS                         { CAN0_Wake_Up_IRQn, NotAvail_IRQn, NotAvail_IRQn }
+#define CAN_Error_IRQS                           { CAN0_Error_IRQn, CAN1_Error_IRQn, CAN2_Error_IRQn }
+#define CAN_Bus_Off_IRQS                         { CAN0_ORed_IRQn, CAN1_ORed_IRQn, CAN2_ORed_IRQn }
+#define CAN_ORed_Message_buffer_IRQS             { { CAN0_ORed_0_15_MB_IRQn, CAN0_ORed_16_31_MB_IRQn }, { CAN1_ORed_0_15_MB_IRQn, CAN1_ORed_16_31_MB_IRQn }, { CAN2_ORed_0_15_MB_IRQn, CAN2_ORed_16_31_MB_IRQn } }
 
 /* CMP - Peripheral instance base addresses */
 /** Peripheral CMP0 base address */

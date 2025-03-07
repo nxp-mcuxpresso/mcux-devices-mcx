@@ -43,3 +43,4 @@ config MCUX_HW_DEVICE_MCXE247
     select MCUX_COMPONENT_driver.lpspi_edma if MCUX_COMPONENT_driver.cmsis_lpspi
     select MCUX_COMPONENT_driver.lpi2c_edma if MCUX_COMPONENT_driver.cmsis_lpi2c
     select MCUX_COMPONENT_driver.lpuart_edma if MCUX_COMPONENT_driver.cmsis_lpuart
+    select MCUX_COMPONENT_driver.flexcan_soc if MCUX_COMPONENT_driver.flexcan

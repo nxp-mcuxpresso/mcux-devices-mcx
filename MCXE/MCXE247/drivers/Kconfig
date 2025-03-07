@@ -9,4 +9,8 @@ menu "Device specific drivers configuration"
          bool "clock"
          default y
 
+    config MCUX_COMPONENT_driver.flexcan_soc
+         bool "flexcan_soc"
+         default n
+
 endmenu

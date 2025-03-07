@@ -4,7 +4,7 @@
 ;            MCXE247
 ;  @version: 1.0
 ;  @date:    2025-2-21
-;  @build:   b250221
+;  @build:   b250306
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -145,21 +145,21 @@ __vector_table_0x1c
         DCD     ENET_Error_IRQHandler                         ;Ethernet MAC Error and miscelaneous Interrupt
         DCD     ENET_Graceful_Stop_IRQHandler                 ;Ethernet MAC graceful stop Interrupt
         DCD     ENET_Wake_IRQHandler                          ;Ethernet MAC wake from sleep Interrupt
-        DCD     CAN0_ORed_Message_Buffer_IRQHandler           ;CAN0 OR'ed interrupt
+        DCD     CAN0_ORed_IRQHandler                          ;CAN0 OR'ed interrupt
         DCD     CAN0_Error_IRQHandler                         ;CAN0 Interrupt indicating that errors were detected on the CAN bus
         DCD     CAN0_Wake_Up_IRQHandler                       ;CAN0 Interrupt asserted when Pretended Networking operation is enabled, and a valid message matches the selected filter criteria during Low Power mode
         DCD     CAN0_ORed_0_15_MB_IRQHandler                  ;CAN0 OR'ed Message buffer (0-15)
         DCD     CAN0_ORed_16_31_MB_IRQHandler                 ;CAN0 OR'ed Message buffer (16-31)
         DCD     Reserved99_IRQHandler                         ;xxx Interrupt 99
         DCD     Reserved100_IRQHandler                        ;xxx Interrupt 100
-        DCD     CAN1_ORed_Message_buffer_IRQHandler           ;CAN1 OR'ed interrupt
+        DCD     CAN1_ORed_IRQHandler                          ;CAN1 OR'ed interrupt
         DCD     CAN1_Error_IRQHandler                         ;CAN1 Interrupt indicating that errors were detected on the CAN bus
         DCD     Reserved103_IRQHandler                        ;xxx Interrupt 103
         DCD     CAN1_ORed_0_15_MB_IRQHandler                  ;CAN1 OR'ed Message buffer (0-15)
         DCD     CAN1_ORed_16_31_MB_IRQHandler                 ;CAN1 OR'ed Message buffer (16-31)
         DCD     Reserved106_IRQHandler                        ;xxx Interrupt 106
         DCD     Reserved107_IRQHandler                        ;xxx Interrupt 107
-        DCD     CAN2_ORed_Message_buffer_IRQHandler           ;CAN2 OR'ed interrupt
+        DCD     CAN2_ORed_IRQHandler                          ;CAN2 OR'ed interrupt
         DCD     CAN2_Error_IRQHandler                         ;CAN2 Interrupt indicating that errors were detected on the CAN bus
         DCD     Reserved110_IRQHandler                        ;xxx Interrupt 110
         DCD     CAN2_ORed_0_15_MB_IRQHandler                  ;CAN2 OR'ed Message buffer (0-15)
@@ -699,10 +699,10 @@ ENET_Wake_IRQHandler
         LDR     R0, =ENET_Wake_DriverIRQHandler
         BX      R0
 
-        PUBWEAK CAN0_ORed_Message_Buffer_IRQHandler
+        PUBWEAK CAN0_ORed_IRQHandler
         PUBWEAK CAN0_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-CAN0_ORed_Message_Buffer_IRQHandler
+CAN0_ORed_IRQHandler
         LDR     R0, =CAN0_DriverIRQHandler
         BX      R0
 
@@ -732,10 +732,10 @@ CAN0_ORed_16_31_MB_IRQHandler
 
         PUBWEAK Reserved99_IRQHandler
         PUBWEAK Reserved100_IRQHandler
-        PUBWEAK CAN1_ORed_Message_buffer_IRQHandler
+        PUBWEAK CAN1_ORed_IRQHandler
         PUBWEAK CAN1_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-CAN1_ORed_Message_buffer_IRQHandler
+CAN1_ORed_IRQHandler
         LDR     R0, =CAN1_DriverIRQHandler
         BX      R0
 
@@ -760,10 +760,10 @@ CAN1_ORed_16_31_MB_IRQHandler
 
         PUBWEAK Reserved106_IRQHandler
         PUBWEAK Reserved107_IRQHandler
-        PUBWEAK CAN2_ORed_Message_buffer_IRQHandler
+        PUBWEAK CAN2_ORed_IRQHandler
         PUBWEAK CAN2_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-CAN2_ORed_Message_buffer_IRQHandler
+CAN2_ORed_IRQHandler
         LDR     R0, =CAN2_DriverIRQHandler
         BX      R0
 

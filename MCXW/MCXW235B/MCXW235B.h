@@ -10,17 +10,14 @@
 **
 **     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b241118
+**     Build:               b250310
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW235B
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
-**
-**     NXP Confidential and Proprietary - use of this software is
-**     governed by the LA_OPT_FSL_OPEN_3RD_PARTY_IP License distributed
-**     with this Material.
+**     Copyright 2016-2025 NXP
+**     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
 **     mail:                 support@nxp.com

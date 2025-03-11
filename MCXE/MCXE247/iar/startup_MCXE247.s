@@ -4,7 +4,7 @@
 ;            MCXE247
 ;  @version: 1.0
 ;  @date:    2025-2-21
-;  @build:   b250306
+;  @build:   b250311
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.

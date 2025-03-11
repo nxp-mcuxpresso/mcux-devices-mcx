@@ -4,7 +4,7 @@
 **                          MCXE247VLQ
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250221
+**     Build:               b250311
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SCG
@@ -897,14 +897,6 @@ typedef struct {
 
 /*! @name SPLLCFG - System PLL Configuration Register */
 /*! @{ */
-
-#define SCG_SPLLCFG_SOURCE_MASK                  (0x1U)
-#define SCG_SPLLCFG_SOURCE_SHIFT                 (0U)
-/*! SOURCE - Clock Source
- *  0b0..System OSC (SOSC)
- *  0b1..Fast IRC (FIRC)
- */
-#define SCG_SPLLCFG_SOURCE(x)                    (((uint32_t)(((uint32_t)(x)) << SCG_SPLLCFG_SOURCE_SHIFT)) & SCG_SPLLCFG_SOURCE_MASK)
 
 #define SCG_SPLLCFG_PREDIV_MASK                  (0x700U)
 #define SCG_SPLLCFG_PREDIV_SHIFT                 (8U)

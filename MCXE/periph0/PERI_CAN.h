@@ -4,7 +4,7 @@
 **                          MCXE247VLQ
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250305
+**     Build:               b250311
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CAN

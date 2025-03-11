@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXE24x RM Rev.1
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250221
+**     Build:               b250311
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -116,12 +116,7 @@ void SystemCoreClockUpdate (void) {
       break;
     case 0x6:
       /* System PLL */
-      if (((SCG->SPLLCFG & SCG_SPLLCFG_SOURCE_MASK) >> SCG_SPLLCFG_SOURCE_SHIFT) != 0U) {
-        SCGOUTClock = 48000000U + ((SCG->FIRCCFG & SCG_FIRCCFG_RANGE_MASK) >> SCG_FIRCCFG_RANGE_SHIFT) * 4000000U;
-      }
-      else {
-        SCGOUTClock = CPU_XTAL_CLK_HZ;
-      }
+      SCGOUTClock = CPU_XTAL_CLK_HZ;
       prediv = (uint16_t)(((SCG->SPLLCFG & SCG_SPLLCFG_PREDIV_MASK) >> SCG_SPLLCFG_PREDIV_SHIFT) + 1U);
       multi = (uint16_t)(((SCG->SPLLCFG & SCG_SPLLCFG_MULT_MASK) >> SCG_SPLLCFG_MULT_SHIFT) + 16U);
       SCGOUTClock = SCGOUTClock * multi / (prediv * 2U);

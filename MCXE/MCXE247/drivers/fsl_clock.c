@@ -995,8 +995,7 @@ status_t CLOCK_InitSysPll(const scg_spll_config_t *config)
     SCG->SPLLDIV = SCG_SPLLDIV_SPLLDIV1(config->div1) | SCG_SPLLDIV_SPLLDIV2(config->div2);
 
     /* Step 2. Set PLL configuration. */
-    SCG->SPLLCFG =
-        SCG_SPLLCFG_SOURCE(config->src) | SCG_SPLLCFG_PREDIV(config->prediv) | SCG_SPLLCFG_MULT(config->mult);
+    SCG->SPLLCFG = SCG_SPLLCFG_PREDIV(config->prediv) | SCG_SPLLCFG_MULT(config->mult);
 
     /* Step 3. Enable clock. */
     SCG->SPLLCSR = (uint32_t)SCG_SPLLCSR_SPLLEN_MASK | config->enableMode;
@@ -1052,14 +1051,7 @@ static uint32_t CLOCK_GetSysPllCommonFreq(void)
 {
     uint32_t freq = 0U;
 
-    if ((SCG->SPLLCFG & SCG_SPLLCFG_SOURCE_MASK) != 0UL) /* If use FIRC */
-    {
-        freq = CLOCK_GetFircFreq();
-    }
-    else /* Use System OSC. */
-    {
-        freq = CLOCK_GetSysOscFreq();
-    }
+    freq = CLOCK_GetSysOscFreq();
 
     if (freq != 0UL) /* If source is valid. */
     {

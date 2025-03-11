@@ -562,15 +562,6 @@ typedef struct _scg_firc_config_t
 } scg_firc_config_t;
 
 /*!
- * @brief SCG system PLL clock source.
- */
-typedef enum _scg_spll_src
-{
-    kSCG_SysPllSrcSysOsc, /*!< System PLL clock source is system OSC. */
-    kSCG_SysPllSrcFirc    /*!< System PLL clock source is fast IRC.   */
-} scg_spll_src_t;
-
-/*!
  * @brief SCG system PLL monitor mode.
  */
 typedef enum _scg_spll_monitor_mode
@@ -598,7 +589,6 @@ typedef struct _scg_spll_config
     scg_async_clk_div_t div1; /*!< SPLLDIV1 value.                          */
     scg_async_clk_div_t div2; /*!< SPLLDIV2 value.                          */
 
-    scg_spll_src_t src; /*!< Clock source.                            */
     uint8_t prediv;     /*!< PLL reference clock divider.             */
     uint8_t mult;       /*!< System PLL multiplier.                   */
 } scg_spll_config_t;

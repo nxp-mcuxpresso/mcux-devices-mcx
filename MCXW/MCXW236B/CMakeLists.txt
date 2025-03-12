@@ -15,3 +15,7 @@ if(CONFIG_MCUX_COMPONENT_driver.trng)
         CC "-DTRNG0=TRNG -DTRNG0_IRQn=TRNG_IRQn"
     )
 endif()
+
+#### Needed so the project segment is visible to the generator 
+if(CONFIG_MCUX_PRJSEG_module.wireless.health_care_iot_common)
+endif()

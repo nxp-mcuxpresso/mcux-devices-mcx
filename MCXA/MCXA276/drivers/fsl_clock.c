@@ -596,7 +596,7 @@ static uint32_t CLOCK_GetFroHfFreq(void)
  */
 static uint32_t CLOCK_GetFroHfDivFreq(void)
 {
-    return CLOCK_GetFroHfFreq() / ((SYSCON->FROHFDIV & 0xfU) + 1U);
+    return CLOCK_GetFroHfFreq() / ((SYSCON->FROHFDIV & SYSCON_FROHFDIV_DIV_MASK) + 1U);
 }
 
 /* Get LF FRO DIV Clk */
@@ -605,7 +605,7 @@ static uint32_t CLOCK_GetFroHfDivFreq(void)
  */
 static uint32_t CLOCK_GetFroLfDivFreq(void)
 {
-    return CLOCK_GetFro12MFreq() / ((SYSCON->FROLFDIV & 0xfU) + 1U);
+    return CLOCK_GetFro12MFreq() / ((SYSCON->FROLFDIV & SYSCON_FROLFDIV_DIV_MASK) + 1U);
 }
 
 /* Get CLK_45M frequency */
@@ -655,7 +655,7 @@ static uint32_t CLOCK_GetExtClkFreq(void)
 /* Get Pll1ClkDiv */
 uint32_t CLOCK_GetPll1ClkDivFreq(void)
 {
-    return CLOCK_GetPll1ClkFreq() / ((SYSCON->PLL1CLKDIV & 0xfU) + 1U);
+    return CLOCK_GetPll1ClkFreq() / ((SYSCON->PLL1CLKDIV & SYSCON_PLL1CLKDIV_DIV_MASK) + 1U);
 }
 
 /* Get MAIN Clk */
@@ -696,7 +696,7 @@ uint32_t CLOCK_GetMainClk(void)
  */
 uint32_t CLOCK_GetCoreSysClkFreq(void)
 {
-    return CLOCK_GetMainClk() / ((SYSCON->AHBCLKDIV & 0xFFU) + 1U);
+    return CLOCK_GetMainClk() / ((SYSCON->AHBCLKDIV & SYSCON_AHBCLKDIV_DIV_MASK) + 1U);
 }
 
 /* Get I3C Clk */

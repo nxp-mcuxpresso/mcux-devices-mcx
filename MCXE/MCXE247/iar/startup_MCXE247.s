@@ -4,7 +4,7 @@
 ;            MCXE247
 ;  @version: 1.0
 ;  @date:    2025-2-21
-;  @build:   b250311
+;  @build:   b250313
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -700,90 +700,100 @@ ENET_Wake_IRQHandler
         BX      R0
 
         PUBWEAK CAN0_ORed_IRQHandler
-        PUBWEAK CAN0_DriverIRQHandler
+        PUBWEAK CAN0_ORed_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN0_ORed_IRQHandler
-        LDR     R0, =CAN0_DriverIRQHandler
+        LDR     R0, =CAN0_ORed_DriverIRQHandler
         BX      R0
 
         PUBWEAK CAN0_Error_IRQHandler
+        PUBWEAK CAN0_Error_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN0_Error_IRQHandler
-        LDR     R0, =CAN0_DriverIRQHandler
+        LDR     R0, =CAN0_Error_DriverIRQHandler
         BX      R0
 
         PUBWEAK CAN0_Wake_Up_IRQHandler
+        PUBWEAK CAN0_Wake_Up_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN0_Wake_Up_IRQHandler
-        LDR     R0, =CAN0_DriverIRQHandler
+        LDR     R0, =CAN0_Wake_Up_DriverIRQHandler
         BX      R0
 
         PUBWEAK CAN0_ORed_0_15_MB_IRQHandler
+        PUBWEAK CAN0_ORed_0_15_MB_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN0_ORed_0_15_MB_IRQHandler
-        LDR     R0, =CAN0_DriverIRQHandler
+        LDR     R0, =CAN0_ORed_0_15_MB_DriverIRQHandler
         BX      R0
 
         PUBWEAK CAN0_ORed_16_31_MB_IRQHandler
+        PUBWEAK CAN0_ORed_16_31_MB_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN0_ORed_16_31_MB_IRQHandler
-        LDR     R0, =CAN0_DriverIRQHandler
+        LDR     R0, =CAN0_ORed_16_31_MB_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved99_IRQHandler
         PUBWEAK Reserved100_IRQHandler
         PUBWEAK CAN1_ORed_IRQHandler
-        PUBWEAK CAN1_DriverIRQHandler
+        PUBWEAK CAN1_ORed_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN1_ORed_IRQHandler
-        LDR     R0, =CAN1_DriverIRQHandler
+        LDR     R0, =CAN1_ORed_DriverIRQHandler
         BX      R0
 
         PUBWEAK CAN1_Error_IRQHandler
+        PUBWEAK CAN1_Error_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN1_Error_IRQHandler
-        LDR     R0, =CAN1_DriverIRQHandler
+        LDR     R0, =CAN1_Error_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved103_IRQHandler
         PUBWEAK CAN1_ORed_0_15_MB_IRQHandler
+        PUBWEAK CAN1_ORed_0_15_MB_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN1_ORed_0_15_MB_IRQHandler
-        LDR     R0, =CAN1_DriverIRQHandler
+        LDR     R0, =CAN1_ORed_0_15_MB_DriverIRQHandler
         BX      R0
 
         PUBWEAK CAN1_ORed_16_31_MB_IRQHandler
+        PUBWEAK CAN1_ORed_16_31_MB_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN1_ORed_16_31_MB_IRQHandler
-        LDR     R0, =CAN1_DriverIRQHandler
+        LDR     R0, =CAN1_ORed_16_31_MB_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved106_IRQHandler
         PUBWEAK Reserved107_IRQHandler
         PUBWEAK CAN2_ORed_IRQHandler
-        PUBWEAK CAN2_DriverIRQHandler
+        PUBWEAK CAN2_ORed_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN2_ORed_IRQHandler
-        LDR     R0, =CAN2_DriverIRQHandler
+        LDR     R0, =CAN2_ORed_DriverIRQHandler
         BX      R0
 
         PUBWEAK CAN2_Error_IRQHandler
+        PUBWEAK CAN2_Error_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN2_Error_IRQHandler
-        LDR     R0, =CAN2_DriverIRQHandler
+        LDR     R0, =CAN2_Error_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved110_IRQHandler
         PUBWEAK CAN2_ORed_0_15_MB_IRQHandler
+        PUBWEAK CAN2_ORed_0_15_MB_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN2_ORed_0_15_MB_IRQHandler
-        LDR     R0, =CAN2_DriverIRQHandler
+        LDR     R0, =CAN2_ORed_0_15_MB_DriverIRQHandler
         BX      R0
 
         PUBWEAK CAN2_ORed_16_31_MB_IRQHandler
+        PUBWEAK CAN2_ORed_16_31_MB_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 CAN2_ORed_16_31_MB_IRQHandler
-        LDR     R0, =CAN2_DriverIRQHandler
+        LDR     R0, =CAN2_ORed_16_31_MB_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved113_IRQHandler
@@ -916,15 +926,25 @@ ENET_Receive_DriverIRQHandler
 ENET_Error_DriverIRQHandler
 ENET_Graceful_Stop_DriverIRQHandler
 ENET_Wake_DriverIRQHandler
-CAN0_DriverIRQHandler
+CAN0_ORed_DriverIRQHandler
+CAN0_Error_DriverIRQHandler
+CAN0_Wake_Up_DriverIRQHandler
+CAN0_ORed_0_15_MB_DriverIRQHandler
+CAN0_ORed_16_31_MB_DriverIRQHandler
 Reserved99_IRQHandler
 Reserved100_IRQHandler
-CAN1_DriverIRQHandler
+CAN1_ORed_DriverIRQHandler
+CAN1_Error_DriverIRQHandler
 Reserved103_IRQHandler
+CAN1_ORed_0_15_MB_DriverIRQHandler
+CAN1_ORed_16_31_MB_DriverIRQHandler
 Reserved106_IRQHandler
 Reserved107_IRQHandler
-CAN2_DriverIRQHandler
+CAN2_ORed_DriverIRQHandler
+CAN2_Error_DriverIRQHandler
 Reserved110_IRQHandler
+CAN2_ORed_0_15_MB_DriverIRQHandler
+CAN2_ORed_16_31_MB_DriverIRQHandler
 Reserved113_IRQHandler
 Reserved114_IRQHandler
 FTM0_Ch0_Ch1_IRQHandler

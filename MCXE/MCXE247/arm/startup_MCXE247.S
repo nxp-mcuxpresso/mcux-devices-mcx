@@ -4,7 +4,7 @@
 /*            MCXE247                                                        */
 /*  @version: 1.0                                                            */
 /*  @date:    2025-2-21                                                      */
-/*  @build:   b250311                                                        */
+/*  @build:   b250313                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -724,7 +724,7 @@ ENET_Wake_IRQHandler:
     .weak CAN0_ORed_IRQHandler
     .type CAN0_ORed_IRQHandler, %function
 CAN0_ORed_IRQHandler:
-    ldr   r0,=CAN0_DriverIRQHandler
+    ldr   r0,=CAN0_ORed_DriverIRQHandler
     bx    r0
     .size CAN0_ORed_IRQHandler, . - CAN0_ORed_IRQHandler
 
@@ -733,7 +733,7 @@ CAN0_ORed_IRQHandler:
     .weak CAN0_Error_IRQHandler
     .type CAN0_Error_IRQHandler, %function
 CAN0_Error_IRQHandler:
-    ldr   r0,=CAN0_DriverIRQHandler
+    ldr   r0,=CAN0_Error_DriverIRQHandler
     bx    r0
     .size CAN0_Error_IRQHandler, . - CAN0_Error_IRQHandler
 
@@ -742,7 +742,7 @@ CAN0_Error_IRQHandler:
     .weak CAN0_Wake_Up_IRQHandler
     .type CAN0_Wake_Up_IRQHandler, %function
 CAN0_Wake_Up_IRQHandler:
-    ldr   r0,=CAN0_DriverIRQHandler
+    ldr   r0,=CAN0_Wake_Up_DriverIRQHandler
     bx    r0
     .size CAN0_Wake_Up_IRQHandler, . - CAN0_Wake_Up_IRQHandler
 
@@ -751,7 +751,7 @@ CAN0_Wake_Up_IRQHandler:
     .weak CAN0_ORed_0_15_MB_IRQHandler
     .type CAN0_ORed_0_15_MB_IRQHandler, %function
 CAN0_ORed_0_15_MB_IRQHandler:
-    ldr   r0,=CAN0_DriverIRQHandler
+    ldr   r0,=CAN0_ORed_0_15_MB_DriverIRQHandler
     bx    r0
     .size CAN0_ORed_0_15_MB_IRQHandler, . - CAN0_ORed_0_15_MB_IRQHandler
 
@@ -760,7 +760,7 @@ CAN0_ORed_0_15_MB_IRQHandler:
     .weak CAN0_ORed_16_31_MB_IRQHandler
     .type CAN0_ORed_16_31_MB_IRQHandler, %function
 CAN0_ORed_16_31_MB_IRQHandler:
-    ldr   r0,=CAN0_DriverIRQHandler
+    ldr   r0,=CAN0_ORed_16_31_MB_DriverIRQHandler
     bx    r0
     .size CAN0_ORed_16_31_MB_IRQHandler, . - CAN0_ORed_16_31_MB_IRQHandler
 
@@ -769,7 +769,7 @@ CAN0_ORed_16_31_MB_IRQHandler:
     .weak CAN1_ORed_IRQHandler
     .type CAN1_ORed_IRQHandler, %function
 CAN1_ORed_IRQHandler:
-    ldr   r0,=CAN1_DriverIRQHandler
+    ldr   r0,=CAN1_ORed_DriverIRQHandler
     bx    r0
     .size CAN1_ORed_IRQHandler, . - CAN1_ORed_IRQHandler
 
@@ -778,7 +778,7 @@ CAN1_ORed_IRQHandler:
     .weak CAN1_Error_IRQHandler
     .type CAN1_Error_IRQHandler, %function
 CAN1_Error_IRQHandler:
-    ldr   r0,=CAN1_DriverIRQHandler
+    ldr   r0,=CAN1_Error_DriverIRQHandler
     bx    r0
     .size CAN1_Error_IRQHandler, . - CAN1_Error_IRQHandler
 
@@ -787,7 +787,7 @@ CAN1_Error_IRQHandler:
     .weak CAN1_ORed_0_15_MB_IRQHandler
     .type CAN1_ORed_0_15_MB_IRQHandler, %function
 CAN1_ORed_0_15_MB_IRQHandler:
-    ldr   r0,=CAN1_DriverIRQHandler
+    ldr   r0,=CAN1_ORed_0_15_MB_DriverIRQHandler
     bx    r0
     .size CAN1_ORed_0_15_MB_IRQHandler, . - CAN1_ORed_0_15_MB_IRQHandler
 
@@ -796,7 +796,7 @@ CAN1_ORed_0_15_MB_IRQHandler:
     .weak CAN1_ORed_16_31_MB_IRQHandler
     .type CAN1_ORed_16_31_MB_IRQHandler, %function
 CAN1_ORed_16_31_MB_IRQHandler:
-    ldr   r0,=CAN1_DriverIRQHandler
+    ldr   r0,=CAN1_ORed_16_31_MB_DriverIRQHandler
     bx    r0
     .size CAN1_ORed_16_31_MB_IRQHandler, . - CAN1_ORed_16_31_MB_IRQHandler
 
@@ -805,7 +805,7 @@ CAN1_ORed_16_31_MB_IRQHandler:
     .weak CAN2_ORed_IRQHandler
     .type CAN2_ORed_IRQHandler, %function
 CAN2_ORed_IRQHandler:
-    ldr   r0,=CAN2_DriverIRQHandler
+    ldr   r0,=CAN2_ORed_DriverIRQHandler
     bx    r0
     .size CAN2_ORed_IRQHandler, . - CAN2_ORed_IRQHandler
 
@@ -814,7 +814,7 @@ CAN2_ORed_IRQHandler:
     .weak CAN2_Error_IRQHandler
     .type CAN2_Error_IRQHandler, %function
 CAN2_Error_IRQHandler:
-    ldr   r0,=CAN2_DriverIRQHandler
+    ldr   r0,=CAN2_Error_DriverIRQHandler
     bx    r0
     .size CAN2_Error_IRQHandler, . - CAN2_Error_IRQHandler
 
@@ -823,7 +823,7 @@ CAN2_Error_IRQHandler:
     .weak CAN2_ORed_0_15_MB_IRQHandler
     .type CAN2_ORed_0_15_MB_IRQHandler, %function
 CAN2_ORed_0_15_MB_IRQHandler:
-    ldr   r0,=CAN2_DriverIRQHandler
+    ldr   r0,=CAN2_ORed_0_15_MB_DriverIRQHandler
     bx    r0
     .size CAN2_ORed_0_15_MB_IRQHandler, . - CAN2_ORed_0_15_MB_IRQHandler
 
@@ -832,7 +832,7 @@ CAN2_ORed_0_15_MB_IRQHandler:
     .weak CAN2_ORed_16_31_MB_IRQHandler
     .type CAN2_ORed_16_31_MB_IRQHandler, %function
 CAN2_ORed_16_31_MB_IRQHandler:
-    ldr   r0,=CAN2_DriverIRQHandler
+    ldr   r0,=CAN2_ORed_16_31_MB_DriverIRQHandler
     bx    r0
     .size CAN2_ORed_16_31_MB_IRQHandler, . - CAN2_ORed_16_31_MB_IRQHandler
 
@@ -928,15 +928,25 @@ CAN2_ORed_16_31_MB_IRQHandler:
     def_irq_handler    ENET_Error_DriverIRQHandler
     def_irq_handler    ENET_Graceful_Stop_DriverIRQHandler
     def_irq_handler    ENET_Wake_DriverIRQHandler
-    def_irq_handler    CAN0_DriverIRQHandler
+    def_irq_handler    CAN0_ORed_DriverIRQHandler
+    def_irq_handler    CAN0_Error_DriverIRQHandler
+    def_irq_handler    CAN0_Wake_Up_DriverIRQHandler
+    def_irq_handler    CAN0_ORed_0_15_MB_DriverIRQHandler
+    def_irq_handler    CAN0_ORed_16_31_MB_DriverIRQHandler
     def_irq_handler    Reserved99_IRQHandler
     def_irq_handler    Reserved100_IRQHandler
-    def_irq_handler    CAN1_DriverIRQHandler
+    def_irq_handler    CAN1_ORed_DriverIRQHandler
+    def_irq_handler    CAN1_Error_DriverIRQHandler
     def_irq_handler    Reserved103_IRQHandler
+    def_irq_handler    CAN1_ORed_0_15_MB_DriverIRQHandler
+    def_irq_handler    CAN1_ORed_16_31_MB_DriverIRQHandler
     def_irq_handler    Reserved106_IRQHandler
     def_irq_handler    Reserved107_IRQHandler
-    def_irq_handler    CAN2_DriverIRQHandler
+    def_irq_handler    CAN2_ORed_DriverIRQHandler
+    def_irq_handler    CAN2_Error_DriverIRQHandler
     def_irq_handler    Reserved110_IRQHandler
+    def_irq_handler    CAN2_ORed_0_15_MB_DriverIRQHandler
+    def_irq_handler    CAN2_ORed_16_31_MB_DriverIRQHandler
     def_irq_handler    Reserved113_IRQHandler
     def_irq_handler    Reserved114_IRQHandler
     def_irq_handler    FTM0_Ch0_Ch1_IRQHandler

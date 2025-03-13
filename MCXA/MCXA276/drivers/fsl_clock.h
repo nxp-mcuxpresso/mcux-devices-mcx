@@ -474,7 +474,7 @@ typedef enum _clock_attach_id
     kFRO_HF_to_FLEXCAN1     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 1U),  /*!< Attach FRO_HF to FLEXCAN1.     */
     kFRO_HF_DIV_to_FLEXCAN1 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 2U),  /*!< Attach FRO_HF_DIV to FLEXCAN1. */
     kCLK_IN_to_FLEXCAN1     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 3U),  /*!< Attach CLK_IN to FLEXCAN1.     */
-    kPll1ClkDiv_to_FLEXCAN1 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 6U),  /*!< Attach Pll1ClkDiv to FLEXCAN1. */
+    kPll1Clk_to_FLEXCAN1    = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 6U),  /*!< Attach Pll1Clk to FLEXCAN1.    */
     kNONE_to_FLEXCAN1       = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 7U),  /*!< Attach NONE to FLEXCAN1.       */
 
     kFRO_LF_DIV_to_DAC0 = CLK_ATTACH_MUX(kCLOCK_SelDAC0, 0U),          /*!< Attach FRO_LF_DIV to DAC0.  */

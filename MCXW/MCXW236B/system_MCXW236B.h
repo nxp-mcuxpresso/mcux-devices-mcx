@@ -61,25 +61,26 @@ extern "C" {
 #define CLK_FRO_48MHZ                  48000000u           /* FRO 48 MHz (fro_48m) */
 #define CLK_CLK_IN                     16000000u           /* Default CLK_IN pin clock */
 
-#if defined(SDK_OS_FREE_RTOS)
 /** The baseline priority level */
+#if defined(SDK_OS_FREE_RTOS)
 /* The interrupt may never be higher than configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY to prevent
  * memory corruption */
 #define NVIC_PRIO_BASE configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY
 #else  /* SDK_OS_FREE_RTOS */
-/** The baseline priority level */
 #define NVIC_PRIO_BASE 0
 #endif /* SDK_OS_FREE_RTOS */
 
 #if defined(SUPPORT_MASTER_CONNECTION) || defined(SUPPORT_SLAVE_CONNECTION)
-#ifndef NVIC_LL_IRQ_PRIORITY
-#define NVIC_LL_IRQ_PRIORITY 2
-#endif /* NVIC_LL_IRQ_DEFAULT_PRIORITY */
-
 #ifndef NVIC_DEFAULT_PRIORITY
-#define NVIC_DEFAULT_PRIORITY 3
+#define NVIC_DEFAULT_PRIORITY NVIC_PRIO_BASE + 3
 #endif /* NVIC_DEFAULT_PRIORITY */
-#endif
+#ifndef NVIC_LL_IRQ_PRIORITY
+#define NVIC_LL_IRQ_PRIORITY NVIC_PRIO_BASE + 2
+#endif /* NVIC_LL_IRQ_DEFAULT_PRIORITY */
+#ifndef HAL_TIMER_ISR_PRIORITY
+#define HAL_TIMER_ISR_PRIORITY NVIC_DEFAULT_PRIORITY
+#endif/* HAL_TIMER_ISR_PRIORITY */
+#endif /* defined(SUPPORT_MASTER_CONNECTION) || defined(SUPPORT_SLAVE_CONNECTION) */
 
 /**
  * @brief System clock frequency (core clock)

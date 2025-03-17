@@ -98,11 +98,11 @@ __attribute__ ((weak)) void SystemInit (void)
     {
         if (irq == BLE_LL_IRQn || irq == BLE_SLP_TMR_IRQn)
         {
-            NVIC_SetPriority(irq, NVIC_PRIO_BASE + NVIC_LL_IRQ_PRIORITY);
+            NVIC_SetPriority(irq, NVIC_LL_IRQ_PRIORITY);
         }
         else
         {
-            NVIC_SetPriority(irq, NVIC_PRIO_BASE + NVIC_DEFAULT_PRIORITY);
+            NVIC_SetPriority(irq, NVIC_DEFAULT_PRIORITY);
         }
     }
 #endif

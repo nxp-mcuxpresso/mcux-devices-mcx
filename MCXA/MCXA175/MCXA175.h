@@ -12,13 +12,13 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b241224
+**     Build:               b250320
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA175
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -64,6 +64,7 @@
 #include "PERI_GPIO.h"
 #include "PERI_I3C.h"
 #include "PERI_INPUTMUX.h"
+#include "PERI_LCD.h"
 #include "PERI_LPCMP.h"
 #include "PERI_LPDAC.h"
 #include "PERI_LPI2C.h"
@@ -78,7 +79,6 @@
 #include "PERI_PWM.h"
 #include "PERI_RTC.h"
 #include "PERI_SCG.h"
-#include "PERI_SLCD.h"
 #include "PERI_SMARTDMA.h"
 #include "PERI_SPC.h"
 #include "PERI_SYSCON.h"

@@ -4,11 +4,11 @@
 ;            MCXA275
 ;  @version: 1.0
 ;  @date:    2024-11-21
-;  @build:   b241224
+;  @build:   b250324
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
-; Copyright 2016-2024 NXP
+; Copyright 2016-2025 NXP
 ; SPDX-License-Identifier: BSD-3-Clause
 ;
 ; The modules in this file are included in the libraries, and may be replaced
@@ -188,7 +188,7 @@ __vector_table_0x1c
         DCD     Reserved134_IRQHandler                        ;xxx Interrupt 134
         DCD     RTC_IRQHandler                                ;RTC alarm interrupt
         DCD     RTC_1HZ_IRQHandler                            ;RTC 1Hz interrupt
-        DCD     SLCD_IRQHandler                               ;SLCD frame start interrupt
+        DCD     LCD_IRQHandler                                ;SLCD frame start interrupt
 __Vectors_End
 
 __Vectors       EQU   __vector_table
@@ -1115,11 +1115,11 @@ RTC_1HZ_IRQHandler
         LDR     R0, =RTC_1HZ_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SLCD_IRQHandler
-        PUBWEAK SLCD_DriverIRQHandler
+        PUBWEAK LCD_IRQHandler
+        PUBWEAK LCD_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SLCD_IRQHandler
-        LDR     R0, =SLCD_DriverIRQHandler
+LCD_IRQHandler
+        LDR     R0, =LCD_DriverIRQHandler
         BX      R0
 
 Reserved16_DriverIRQHandler
@@ -1243,7 +1243,7 @@ ADC3_DriverIRQHandler
 Reserved134_DriverIRQHandler
 RTC_DriverIRQHandler
 RTC_1HZ_DriverIRQHandler
-SLCD_DriverIRQHandler
+LCD_DriverIRQHandler
 DefaultISR
         B .
 

@@ -4,11 +4,11 @@
 /*            MCXA175                                                        */
 /*  @version: 1.0                                                            */
 /*  @date:    2024-11-21                                                     */
-/*  @build:   b241224                                                        */
+/*  @build:   b250324                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
-/* Copyright 2016-2024 NXP                                                   */
+/* Copyright 2016-2025 NXP                                                   */
 /* SPDX-License-Identifier: BSD-3-Clause                                     */
 /*****************************************************************************/
 /* Version: GCC for ARM Embedded Processors                                  */
@@ -160,7 +160,7 @@ __Vectors:
     .long   Reserved134_IRQHandler                          /* xxx Interrupt 134*/
     .long   RTC_IRQHandler                                  /* RTC alarm interrupt*/
     .long   RTC_1HZ_IRQHandler                              /* RTC 1Hz interrupt*/
-    .long   SLCD_IRQHandler                                 /* SLCD frame start interrupt*/
+    .long   LCD_IRQHandler                                  /* SLCD frame start interrupt*/
 
     .size    __Vectors, . - __Vectors
 
@@ -1336,12 +1336,12 @@ RTC_1HZ_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak SLCD_IRQHandler
-    .type SLCD_IRQHandler, %function
-SLCD_IRQHandler:
-    ldr   r0,=SLCD_DriverIRQHandler
+    .weak LCD_IRQHandler
+    .type LCD_IRQHandler, %function
+LCD_IRQHandler:
+    ldr   r0,=LCD_DriverIRQHandler
     bx    r0
-    .size SLCD_IRQHandler, . - SLCD_IRQHandler
+    .size LCD_IRQHandler, . - LCD_IRQHandler
 
 
 /*    Macro to define default handlers. Default handler
@@ -1479,6 +1479,6 @@ SLCD_IRQHandler:
     def_irq_handler    Reserved134_DriverIRQHandler
     def_irq_handler    RTC_DriverIRQHandler
     def_irq_handler    RTC_1HZ_DriverIRQHandler
-    def_irq_handler    SLCD_DriverIRQHandler
+    def_irq_handler    LCD_DriverIRQHandler
 
     .end

@@ -12,13 +12,13 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b241224
+**     Build:               b250324
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA176
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -169,7 +169,7 @@ typedef enum IRQn {
   ADC3_IRQn                    = 117,              /**< Analog-to-Digital Converter 3 interrupt */
   RTC_IRQn                     = 119,              /**< RTC alarm interrupt */
   RTC_1HZ_IRQn                 = 120,              /**< RTC 1Hz interrupt */
-  SLCD_IRQn                    = 121               /**< SLCD frame start interrupt */
+  LCD_IRQn                     = 121               /**< SLCD frame start interrupt */
 } IRQn_Type;
 
 /*!
@@ -486,6 +486,18 @@ typedef enum IRQn {
 /** Array initializer of INPUTMUX peripheral base pointers */
 #define INPUTMUX_BASE_PTRS                       { INPUTMUX0 }
 
+/* LCD - Peripheral instance base addresses */
+/** Peripheral LCD0 base address */
+#define LCD0_BASE                                (0x400C2000u)
+/** Peripheral LCD0 base pointer */
+#define LCD0                                     ((LCD_Type *)LCD0_BASE)
+/** Array initializer of LCD peripheral base addresses */
+#define LCD_BASE_ADDRS                           { LCD0_BASE }
+/** Array initializer of LCD peripheral base pointers */
+#define LCD_BASE_PTRS                            { LCD0 }
+/** Interrupt vectors for the LCD peripheral type */
+#define LCD_IRQS                                 { LCD_IRQn }
+
 /* LPCMP - Peripheral instance base addresses */
 /** Peripheral CMP0 base address */
 #define CMP0_BASE                                (0x400B1000u)
@@ -724,18 +736,6 @@ typedef enum IRQn {
 #define SCG_BASE_ADDRS                           { SCG0_BASE }
 /** Array initializer of SCG peripheral base pointers */
 #define SCG_BASE_PTRS                            { SCG0 }
-
-/* SLCD - Peripheral instance base addresses */
-/** Peripheral SLCD0 base address */
-#define SLCD0_BASE                               (0x400C2000u)
-/** Peripheral SLCD0 base pointer */
-#define SLCD0                                    ((SLCD_Type *)SLCD0_BASE)
-/** Array initializer of SLCD peripheral base addresses */
-#define SLCD_BASE_ADDRS                          { SLCD0_BASE }
-/** Array initializer of SLCD peripheral base pointers */
-#define SLCD_BASE_PTRS                           { SLCD0 }
-/** Interrupt vectors for the SLCD peripheral type */
-#define SLCD_IRQS                                { SLCD_IRQn }
 
 /* SMARTDMA - Peripheral instance base addresses */
 /** Peripheral SMARTDMA0 base address */

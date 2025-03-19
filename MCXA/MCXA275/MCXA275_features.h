@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250218
+**     Build:               b250320
 **
 **     Abstract:
 **         Chip specific module features.
@@ -515,6 +515,23 @@
 #define FSL_FEATURE_I3C_HAS_NO_SLAVE_IBI_MR_HJ (0)
 /* @brief Has SCL delay after START. */
 #define FSL_FEATURE_I3C_HAS_START_SCL_DELAY (1)
+
+/* SLCD module features */
+
+/* @brief The SLCD module is designed for low-voltage and low-power operation */
+#define FSL_FEATURE_SLCD_LP_CONTROL (1)
+/* @brief Has Multi Alternate Clock Source (register bit GCR[ATLSOURCE]).  */
+#define FSL_FEATURE_SLCD_HAS_MULTI_ALTERNATE_CLOCK_SOURCE (0)
+/* @brief Has fast frame rate (register bit GCR[FFR]). */
+#define FSL_FEATURE_SLCD_HAS_FAST_FRAME_RATE (0)
+/* @brief Has frame frequency interrupt (register bit GCR[LCDIEN]). */
+#define FSL_FEATURE_SLCD_HAS_FRAME_FREQUENCY_INTERRUPT (1)
+/* @brief Has pad safe (register bit GCR[PADSAFE]). */
+#define FSL_FEATURE_SLCD_HAS_PAD_SAFE (0)
+/* @brief Has lcd wait (register bit GCR[LCDWAIT]). */
+#define FSL_FEATURE_SLCD_HAS_LCD_WAIT (0)
+/* @brief Has lcd doze enable (register bit GCR[LCDDOZE]). */
+#define FSL_FEATURE_SLCD_HAS_LCD_DOZE_ENABLE (1)
 
 /* LPI2C module features */
 

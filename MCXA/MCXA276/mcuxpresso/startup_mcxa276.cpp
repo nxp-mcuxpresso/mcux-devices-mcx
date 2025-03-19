@@ -1,11 +1,10 @@
 //*****************************************************************************
 // MCXA276 startup code for use with MCUXpresso IDE
 //
-// Version : 241224
+// Version : 240325
 //*****************************************************************************
 //
-// Copyright 2016-2024 NXP
-// All rights reserved.
+// Copyright 2016-2025 NXP
 //
 // SPDX-License-Identifier: BSD-3-Clause
 //*****************************************************************************
@@ -199,7 +198,7 @@ WEAK void ADC3_IRQHandler(void);
 WEAK void Reserved134_IRQHandler(void);
 WEAK void RTC_IRQHandler(void);
 WEAK void RTC_1HZ_IRQHandler(void);
-WEAK void SLCD_IRQHandler(void);
+WEAK void LCD_IRQHandler(void);
 
 //*****************************************************************************
 // Forward declaration of the driver IRQ handlers. These are aliased
@@ -328,7 +327,7 @@ void ADC3_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved134_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void RTC_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void RTC_1HZ_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
-void SLCD_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
+void LCD_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 
 //*****************************************************************************
 // The entry point for the application.
@@ -499,7 +498,7 @@ void (* const g_pfnVectors[])(void) = {
     Reserved134_IRQHandler,            // 134: Reserved interrupt
     RTC_IRQHandler,                    // 135: RTC alarm interrupt
     RTC_1HZ_IRQHandler,                // 136: RTC 1Hz interrupt
-    SLCD_IRQHandler,                   // 137: SLCD frame start interrupt
+    LCD_IRQHandler,                    // 137: SLCD frame start interrupt
 }; /* End of g_pfnVectors */
 
 //*****************************************************************************
@@ -1167,8 +1166,8 @@ WEAK void RTC_1HZ_IRQHandler(void)
 {   RTC_1HZ_DriverIRQHandler();
 }
 
-WEAK void SLCD_IRQHandler(void)
-{   SLCD_DriverIRQHandler();
+WEAK void LCD_IRQHandler(void)
+{   LCD_DriverIRQHandler();
 }
 
 //*****************************************************************************

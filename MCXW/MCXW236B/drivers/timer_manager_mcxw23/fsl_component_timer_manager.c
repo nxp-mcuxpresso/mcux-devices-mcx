@@ -8,6 +8,7 @@
 #if (defined(TM_ENABLE_TIME_STAMP) && (TM_ENABLE_TIME_STAMP > 0U))
 #include "fsl_adapter_time_stamp.h"
 #endif
+
 /*
  * The OSA_USED macro can only be defined when the OSA component is used.
  * If the source code of the OSA component does not exist, the OSA_USED cannot be defined.

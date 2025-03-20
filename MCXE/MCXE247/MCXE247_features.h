@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250311
+**     Build:               b250320
 **
 **     Abstract:
 **         Chip specific module features.
@@ -157,7 +157,9 @@
 #define FSL_FEATURE_FLEXCAN_ENTER_FREEZE_MODE (1)
 /* @brief Count of Message buffer interrrupts. */
 #define FSL_FEATURE_FLEXCAN_MB_IRQ_COUNT (2)
-/* @brief Instance has external time tick option (register bit field CTRL2[TIMER_SRC]). */
+/* @brief Has time tick source selection (bitfield CTRL2[TIMER_SRC]) */
+#define FSL_FEATURE_FLEXCAN_HAS_EXTERNAL_TIME_TICK (1)
+/* @brief Instance has time tick source selection (register bit field CTRL2[TIMER_SRC]). */
 #define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_EXTERNAL_TIME_TICKn(x) \
     (((x) == CAN0) ? (1) : \
     (((x) == CAN1) ? (0) : \
@@ -231,6 +233,8 @@
 #define FSL_FEATURE_DMAMUX_HAS_A_ON (0)
 /* @brief Register CHCFGn width. */
 #define FSL_FEATURE_DMAMUX_CHCFG_REGISTER_WIDTH (8)
+/* @brief Register CHCFGn sorted in order 3, 2 ,1 ,0 ,7 ,6 ,5 ,4 ... */
+#define FSL_FEATURE_DMAMUX_CHANNEL_NEEDS_ENDIAN_CONVERT (0)
 
 /* ENET module features */
 

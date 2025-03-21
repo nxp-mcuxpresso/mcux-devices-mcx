@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250206
+**     Build:               b250321
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

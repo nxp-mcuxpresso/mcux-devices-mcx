@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXA1 User manual
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b250206
+**     Build:               b250321
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -58,7 +58,10 @@ extern "C" {
 #define CLK_FRO_12MHZ                  12000000u           /* FRO 12 MHz (fro_12m) */
 #define CLK_FRO_32MHZ                  32000000u           /* FRO 32 MHz (fro_32m) */
 #define CLK_FRO_48MHZ                  48000000u           /* FRO 48 MHz (fro_48m) */
+
+#ifndef CLK_CLK_IN
 #define CLK_CLK_IN                     16000000u           /* Default CLK_IN pin clock */
+#endif /* CLK_CLK_IN */
 
 
 /**

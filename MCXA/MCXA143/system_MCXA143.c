@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXA1 User manual
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b250206
+**     Build:               b250321
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -124,7 +124,7 @@ __attribute__ ((weak)) void SystemInit (void) {
 
 void SystemCoreClockUpdate (void) {
 #if __has_include("fsl_clock.h")
-    /* Get frequency of Core System*/
+    /* Get frequency of Core System */
     SystemCoreClock = CLOCK_GetCoreSysClkFreq();
 #endif
 }

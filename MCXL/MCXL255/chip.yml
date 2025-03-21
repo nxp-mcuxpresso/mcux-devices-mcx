@@ -1,0 +1,79 @@
+---
+#####################################################################################
+# This file is placed under devices/<device>
+#
+# The following components(manifest_content) are translated from the devices/<device>.meta
+# and devices/<device>_device.meta
+#
+# They are used contained the information for manifest generation usage. Currently, they are
+# not related to SW components actions
+#
+# The naming for this component must be consistent in all devices. Generator can get the contents
+# of them directly from the name.
+#
+#####################################################################################
+
+# automatically, from fromChipModel & then carefully handcrafted
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXL255
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXL255"
+        full_name: "MCXL255"
+        name: "MCXL255"
+        platform: "MCX"
+        series: "MCXL"
+        family: "MCXL2XX"
+        subfamily: "MCXL255"
+        frequency_mhz: 96
+        core:
+          - name: "Cortex-M33"
+            type: "cm33"
+            id: "cm33"
+            description: "Main core"
+            fpu: "SP_FPU"
+            dsp: true
+            mpu: true
+            sau: true
+          - name: "Cortex-M0P"
+            type: "cm0p"
+            id: "cm0plus"
+            description: "AON core"
+            fpu: "NO_FPU"
+            dsp: false
+            mpu: false
+            sau: false
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH"
+              name: "PROGRAM_FLASH"
+              addr: 0x0
+              size: 0x80000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+            - id: "SRAM"
+              name: "SRAM"
+              addr: 0x28000000
+              size: 0x1e000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "SRAMX0"
+              name: "SRAMX0"
+              addr: 0x4000000
+              size: 0x2000
+              type: "RAM"
+              access: "RW"
+              default: true
+        total_memory:
+          ram_size_kb: 128
+          flash_size_kb: 512
+        part:
+          - name: "MCXL255VLL"
+          - name: "MCXL255VDF"
+        modules:
+...

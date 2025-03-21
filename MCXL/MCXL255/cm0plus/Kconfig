@@ -1,0 +1,9 @@
+
+config MCUX_HW_DEVICE_MCXL255_CORE_ID_CM0P
+    bool
+    default y
+
+#    imply MCUX_COMPONENT_driver.cache_armv7_m0 if MCUX_PRJSEG_module.device.suite
+
+rsource "Kconfig.chip"
+rsource "Kconfig.defconfig"

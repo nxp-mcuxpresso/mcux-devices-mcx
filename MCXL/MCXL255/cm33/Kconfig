@@ -1,0 +1,11 @@
+
+config MCUX_HW_DEVICE_MCXL255_CORE_ID_CM33
+    bool
+    default y
+
+#FIXME: cache?
+#    imply MCUX_COMPONENT_driver.cache_xcache if MCUX_PRJSEG_module.device.suite
+
+rsource "Kconfig.chip"
+rsource "Kconfig.defconfig"
+#rsource "../xip/Kconfig" FIXME do we need xip?

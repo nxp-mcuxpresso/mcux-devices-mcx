@@ -1,0 +1,40 @@
+# Copyright 2024 NXP
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+menu "Device specific drivers configuration"
+
+    config MCUX_COMPONENT_driver.clock
+         bool "Use driver clock"
+         default n
+
+    config MCUX_COMPONENT_driver.edma_soc
+         bool "Use driver edma_soc"
+         default n
+
+    config MCUX_COMPONENT_driver.inputmux_connections
+         bool "Use driver inputmux_connections"
+         default y
+
+    config MCUX_COMPONENT_driver.ipmq
+         bool "Use driver ipmq"
+         default n
+
+    config MCUX_COMPONENT_driver.power
+         bool "Use driver power"
+         default n
+
+    config MCUX_COMPONENT_driver.reset
+         bool "Use driver reset"
+         default y
+
+    config MCUX_COMPONENT_driver.romapi
+         bool "Use driver romapi"
+         default n
+
+    config MCUX_COMPONENT_driver.trdc_soc
+         bool "Use driver trdc_soc"
+         default n
+
+endmenu

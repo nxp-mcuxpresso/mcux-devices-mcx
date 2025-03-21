@@ -42,7 +42,7 @@ define symbol m_text_start                     = 0x000002C8;
 define symbol m_text_end                       = 0x0005FFFF;
 
 define exported symbol core1_image_start       = 0x00060000;
-define exported symbol core1_image_end         = 0x0007FFFF;
+define exported symbol core1_image_end         = 0x0007DFFF;
 
 define symbol m_data_start                     = 0x28000000;
 define symbol m_data_end                       = 0x2801DFFF;

@@ -13,7 +13,7 @@
 **
 **     Reference manual:    MCXA18 User manual
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b250321
+**     Build:               b250325
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

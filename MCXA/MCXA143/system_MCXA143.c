@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXA1 User manual
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b250321
+**     Build:               b250325
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -115,6 +115,10 @@ __attribute__ ((weak)) void SystemInit (void) {
 
     /* Route the PMC bandgap buffer signal to the ADC */
     SPC0->CORELDO_CFG |= (1U << 24U);
+
+    /* Enables flash speculation */
+    SYSCON->NVM_CTRL &= ~(SYSCON_NVM_CTRL_DIS_MBECC_ERR_DATA_MASK | SYSCON_NVM_CTRL_DIS_MBECC_ERR_INST_MASK);
+    SYSCON->NVM_CTRL &= ~SYSCON_NVM_CTRL_DIS_FLASH_SPEC_MASK;
   SystemInitHook();
 }
 

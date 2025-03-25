@@ -1,15 +1,16 @@
 /*
- * Copyright 2024 NXP
+ * Copyright 2025 NXP
  *
  * All rights reserved.
  * SPDX-License-Identifier: BSD-3-Clause
  */
 #include "fsl_power.h"
+#if __CORTEX_M == 33U
 #include "fsl_cmc.h"
 #include "fsl_wuu.h"
+#endif /* __CORTEX_M */
 #include "fsl_mu.h"
-#include "fsl_ipmq.h"
-#include "fsl_aon_common.h"
+#include "fsl_smm.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -22,20 +23,14 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-
-typedef struct _power_deep_power_down_info
+typedef enum _power_mu_transfer_state
 {
-    uint32_t wakeupSourceMask : 16U;
-    uint32_t ramBlocksMask : 16U;
-    uint8_t powerMode : 2U;
-    uint8_t offVdd : 1U;
-    uint8_t policy : 1U;
-    uint8_t clockSource : 2U;
-    uint8_t reserved : 2U;
-    int8_t logicPatch;
-    uint8_t vddConfig;
-    uint8_t reserved2;
-} power_deep_power_down_info_t;
+    kPower_MuTransferIdle = 0U,
+    kPower_MuTransferStart = 1U,
+    kPower_MuTransferEndWithNACK = 2U,
+    kPower_MuTransferEndWithACK = 3U,
+    kPower_MuTransferWrong = 4U,
+} power_mu_transfer_state_t;
 
 volatile power_wakeup_source_info_t g_powerWakeupSourceInfo = {
     .aonWakeupSourceMask    = 0UL,
@@ -47,70 +42,164 @@ volatile power_wakeup_source_info_t g_powerWakeupSourceInfo = {
     .wuuPinDmaTrigConfig[1] = 0UL,
 };
 
-static status_t Power_MailToAonEnterDPD(power_deep_power_down_info_t *ptrInfo, uint8_t userData);
+volatile power_mu_transfer_state_t g_powerMuTransferState = kPower_MuTransferIdle;
+
 static void Power_RecordWUURegisterValue(void);
 
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+power_user_callback_t g_powerUserCallback = NULL;
+void *g_powerUserCallbackData = NULL;
+volatile power_mu_message_t g_powerRequestMuMsg;
+
+uint32_t g_Handle_Offset = 0xFFFFFFFFUL;
+
+#if __CORTEX_M == 33U
+#define POWER_USED_MU   (MUA)
+#elif __CORTEX_M == 0U
+#define POWER_USED_MU   (MUB)
+#endif /* __CORTEX_M */
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
 
-static status_t Power_MailToAonEnterDPD(power_deep_power_down_info_t *ptrInfo, uint8_t userData)
-{
-    ipmq_ret_value_t ret = kIPMQ_Ret_Error;
-
-    /* Send message to AON. */
-    IPMQ_SendMessage(kIPMQ_MsgOpcode_DeepPowerDown, userData, 2U, (uint32_t *)ptrInfo);
-
-    /* Listening responce from AON. */
-    uint8_t payloadSize;
-    uint32_t payloadValue;
-
-    ret = IPMQ_ReceiveMessage(kIPMQ_MsgOpcode_DeepPowerDown, userData, &payloadValue, &payloadSize);
-
-    if (ret != kIPMQ_Ret_ReceiveAck)
-    {
-        if ((ret == kIPMQ_Ret_ReceiveNACK) && (payloadSize == 1U) && (payloadValue == 1UL))
-        {
-            return kStatus_Power_WrongWakeupSource;
-        }
-        else
-        {
-            return kStatus_Power_InvalidResponse;
-        }
-    }
-
-    /* Invoke CMC API to set Main domain as Deep power down mode and then
-       execute WFI instruction. */
-    CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
-    CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
-    CMC_SetGlobalPowerMode(CMC, kCMC_DeepPowerDown);
-
-    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-    __DSB();
-    __WFI();
-    __ISB();
-
-    return kStatus_Success;
-}
-
 static void Power_RecordWUURegisterValue(void)
 {
+#if __CORTEX_M == 33U
     g_powerWakeupSourceInfo.wuuPinIntEnable[0]     = WUU0->PE1;
     g_powerWakeupSourceInfo.wuuPinIntEnable[1]     = WUU0->PE2;
     g_powerWakeupSourceInfo.wuuModuleIntEnable     = WUU0->ME;
     g_powerWakeupSourceInfo.wuuModuleDmaTrigEnable = WUU0->DE;
     g_powerWakeupSourceInfo.wuuPinDmaTrigConfig[0] = WUU0->PDC1;
     g_powerWakeupSourceInfo.wuuPinDmaTrigConfig[1] = WUU0->PDC2;
+#endif
+}
+
+static status_t Power_VerifyMuMessage(uint32_t message, bool msgIsRequest)
+{
+    power_mu_message_t msg;
+    msg.wordFormat = message;
+
+    if (msg.strcutFormat.syncCode != 0x5A)
+    {
+        return kStatus_POWER_MuTransferError;
+    }
+    else
+    {
+#if 0
+        if (msgIsRequest == false)
+        {
+            if ((msg.strcutFormat.direction == g_powerRequestMuMsg.strcutFormat.direction) ||
+                (msg.strcutFormat.reqestLowPowerMode != g_powerRequestMuMsg.strcutFormat.reqestLowPowerMode) ||
+                (msg.strcutFormat.sharedHandleAddrOff != g_powerRequestMuMsg.strcutFormat.sharedHandleAddrOff))
+            {
+                return kStatus_POWER_MuTransferError;
+            }
+        }
+#endif
+        return kStatus_Success;
+    }
+}
+
+static uint32_t Power_PopulateMuMessage(power_mu_message_type_t msgType, power_mu_message_direction_t msgDirection,
+    power_low_power_mode_t lowPowerMode, bool init, uint32_t sharedHandleAddrOff)
+{
+    power_mu_message_t msg;
+
+    msg.strcutFormat.syncCode = 0x5A; 
+    msg.strcutFormat.type = msgType;
+    msg.strcutFormat.direction = msgDirection;
+    msg.strcutFormat.reqestLowPowerMode = lowPowerMode;
+    msg.strcutFormat.init = init;
+    msg.strcutFormat.sharedHandleAddrOff = sharedHandleAddrOff;
+
+    return msg.wordFormat;
+}
+
+#if __CORTEX_M == 0U
+static status_t Power_ReqestCM33StartLpSeq(power_low_power_mode_t targetMode)
+{
+    uint32_t tmp32 = 0UL;
+    power_handle_t *curHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+
+    tmp32 = Power_PopulateMuMessage(kPower_MsgTypeRequest, kPower_MsgDirAonToMain, targetMode, false, g_Handle_Offset);
+    MU_SendMsg(POWER_USED_MU, curHandle->muChannelId, tmp32);
+
+    /* Waiting for response from CM0P. */
+    while(g_powerMuTransferState != kPower_MuTransferStart)
+    {
+    }
+    if (g_powerMuTransferState == kPower_MuTransferWrong)
+    {
+        return kStatus_POWER_MuTransferError;
+    }
+    if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
+    {
+        return kStatus_POWER_RequestNotAllowed;
+    }
+
+    return kStatus_Success;
+}
+
+#endif /* __CORTEX_M == 0U */
+
+/*!
+ * brief Create shared power handle.
+ * 
+ * param[in] handle Pointer to a handle in type of power_handle_t, must be in shared RAM.
+ * param[in] muChannelId MU channel ID used by power driver.
+ *
+ * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
+ * retval kStatus_Power_HandleDuplicated Shared power handle already be created.
+ * retval kStatus_Success Created handle successfully.
+ */
+status_t Power_CreateHandle(power_handle_t *handle,
+    uint32_t muChannelId)
+{
+#if __CORTEX_M == 33U
+    assert((uint32_t)handle >= POWER_SHARED_RAM_BASE_ADDR);
+#endif
+
+    (void)memset(handle, 0UL, sizeof(power_handle_t));
+
+    handle->muChannelId = muChannelId;
+    handle->curPowerMode = kPower_Active;
+
+    handle->dualCoreSynced = false;
+    handle->requestCM33Start = false;
+
+    /* Record offset of handle. */
+    g_Handle_Offset = (uint32_t)handle - POWER_SHARED_RAM_BASE_ADDR;
+    /* Inform another that attemp to create handle. */
+    uint32_t tmp32 = Power_PopulateMuMessage(kPower_MsgTypeRequest, kPower_MsgDirMainToAon, kPower_Active, true, g_Handle_Offset);
+
+    g_powerMuTransferState = kPower_MuTransferIdle;
+    MU_SendMsg(POWER_USED_MU, muChannelId, tmp32);
+    g_powerMuTransferState = kPower_MuTransferStart;
+
+    /* Waiting for response from CM0P. */
+    while(g_powerMuTransferState == kPower_MuTransferStart)
+    {
+    }
+    if (g_powerMuTransferState == kPower_MuTransferWrong)
+    {
+        return kStatus_POWER_MuTransferError;
+    }
+    if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
+    {
+        return kStatus_Power_HandleDuplicated;
+    }
+
+    handle->dualCoreSynced = true;
+    return kStatus_Success;
 }
 
 /*!
- * @brief Enable input wakeup source, once enabled it will be effective until disabled
+ * brief Enable input wakeup source, once enabled it will be effective until disabled
  *
- * @param[in] ws Specify the coded wakeup source, please refer to @ref power_wakeup_source_t for details.
+ * param[in] ws Specify the coded wakeup source, please refer to power_wakeup_source_t for details.
  */
 void Power_EnableWakeupSource(power_wakeup_source_t ws)
 {
@@ -118,14 +207,18 @@ void Power_EnableWakeupSource(power_wakeup_source_t ws)
     uint32_t wuuIndex;
     uint32_t wuuEvent;
     uint32_t pinEdge;
+    uint32_t wakeupDomain;
     bool isWuuExtPin;
     bool isCm33Ws;
+#if __CORTEX_M == 33U
     wuu_external_wakeup_pin_config_t tmpPinConfig;
+#endif
 
     POWER_DECODE_WS((uint32_t)ws);
 
     if (isCm33Ws == true)
     {
+#if __CORTEX_M == 33U
         if (isWuuExtPin == true)
         {
             tmpPinConfig.edge  = (wuu_external_pin_edge_detection_t)pinEdge;
@@ -137,38 +230,62 @@ void Power_EnableWakeupSource(power_wakeup_source_t ws)
         {
             WUU_SetInternalWakeUpModulesConfig(WUU0, wuuIndex, (wuu_internal_wakeup_module_event_t)wuuEvent);
         }
+#elif __CORTEX_M == 0U
+        (void)wuuIndex;
+        (void)wuuEvent;
+        (void)isWuuExtPin;
+#endif
     }
     else
+  
     {
         g_powerWakeupSourceInfo.aonWakeupSourceMask |= 1UL << aonIndex;
+        if (wakeupDomain == 0)
+        {
+            SMM_EnableWakeupSourceToMainCpu(AON__SMM, aonIndex);
+        }
+        else if (wakeupDomain == 1)
+        {
+            SMM_EnableWakeupSourceToAonCpu(AON__SMM, aonIndex);
+        }
+        else
+        {
+            SMM_EnableWakeupSourceToAonCpu(AON__SMM, aonIndex);
+            SMM_EnableWakeupSourceToMainCpu(AON__SMM, aonIndex);
+        }
 
         if (aonIndex == 5U)
         {
             /* In case of external interrupt. */
-
-            if (pinEdge == 0UL)
+            smm_ext_int_config_t extIntConfig = {
+                .maskExtIntPin = false,
+            };
+            if (pinEdge == 2UL)
             {
-                (void)Aon_RegClearBits((uint32_t)(&(AON__SMM->CNFG)), SMM_CNFG_EXT_INTP_POL_MASK, 0U);
+                extIntConfig.extIntPolarity = kSMM_ExtIntFallingEdge;
             }
-            else
+            else if (pinEdge == 1UL)
             {
-                (void)Aon_RegSetBits((uint32_t)(&(AON__SMM->CNFG)), SMM_CNFG_EXT_INTP_POL_MASK, 0U);
+                extIntConfig.extIntPolarity = kSMM_ExtIntRisingEdge;
             }
+            SMM_SetExtInterruptConfig(AON__SMM, &extIntConfig);
         }
     }
 
     Power_RecordWUURegisterValue();
 
+#if __CORTEX_M == 33U
     if ((g_powerWakeupSourceInfo.wuuPinIntEnable[0] != 0UL) || (g_powerWakeupSourceInfo.wuuPinIntEnable[1] != 0UL))
     {
         EnableIRQ(WUU0_IRQn);
     }
+#endif
 }
 
 /*!
- * @brief Disable input wakeup source.
+ * brief Disable input wakeup source.
  *
- * @param[in] ws Specify the coded wakeup source, please refer to @ref power_wakeup_source_t for details.
+ * param[in] ws Specify the coded wakeup source, please refer to power_wakeup_source_t for details.
  */
 void Power_DisableWakeupSource(power_wakeup_source_t ws)
 {
@@ -176,6 +293,7 @@ void Power_DisableWakeupSource(power_wakeup_source_t ws)
     uint32_t wuuIndex;
     uint32_t wuuEvent;
     uint32_t pinEdge;
+    uint32_t wakeupDomain;
     bool isWuuExtPin;
     bool isCm33Ws;
 
@@ -184,6 +302,7 @@ void Power_DisableWakeupSource(power_wakeup_source_t ws)
     (void)pinEdge;
     if (isCm33Ws == true)
     {
+#if __CORTEX_M == 33U
         if (isWuuExtPin == true)
         {
             WUU_ClearExternalWakeupPinsConfig(WUU0, wuuIndex);
@@ -192,24 +311,43 @@ void Power_DisableWakeupSource(power_wakeup_source_t ws)
         {
             WUU_ClearInternalWakeUpModulesConfig(WUU0, wuuIndex, (wuu_internal_wakeup_module_event_t)wuuEvent);
         }
+#elif __CORTEX_M == 0U
+        (void)wuuIndex;
+        (void)wuuEvent;
+        (void)isWuuExtPin;
+#endif
     }
     else
     {
-        g_powerWakeupSourceInfo.aonWakeupSourceMask &= ~(1UL << aonIndex);
+        if (wakeupDomain == 0)
+        {
+            SMM_DisableWakeupSourceToMainCpu(AON__SMM, aonIndex);
+        }
+        else if (wakeupDomain == 1)
+        {
+            SMM_DisableWakeupSourceToAonCpu(AON__SMM, aonIndex);
+        }
+        else
+        {
+            SMM_DisableWakeupSourceToAonCpu(AON__SMM, aonIndex);
+            SMM_DisableWakeupSourceToMainCpu(AON__SMM, aonIndex);
+        }
     }
 
     Power_RecordWUURegisterValue();
 
+#if __CORTEX_M == 33U
     if ((g_powerWakeupSourceInfo.wuuPinIntEnable[0] == 0UL) && (g_powerWakeupSourceInfo.wuuPinIntEnable[1] == 0UL))
     {
         DisableIRQ(WUU0_IRQn);
     }
+#endif 
 }
 
 /*!
- * @brief Dump information of all configured wakeup sources, in type of @ref power_wakeup_source_info_t.
+ * brief Dump information of all configured wakeup sources, in type of power_wakeup_source_info_t.
  *
- * @param[out] ptrWsInfo Pointer to the variable to store dumped wakeup source information.
+ * param[out] ptrWsInfo Pointer to the variable to store dumped wakeup source information.
  */
 void Power_DumpEnabledWakeSource(power_wakeup_source_info_t *ptrWsInfo)
 {
@@ -219,275 +357,667 @@ void Power_DumpEnabledWakeSource(power_wakeup_source_info_t *ptrWsInfo)
 }
 
 /*!
- * @brief Get latest mask of wakeup sources which cause AON domain exit DPD modes.
+ * brief Get latest mask of wakeup sources which cause the wake-up to main CPU.
  *
- * @param[out] ptrWakeupSourceMask Pointer to the variable to store mask of wakeup sources.
- * @param[in] userData User data send with the message, return with the ACK/NACK feedback, can be used by application.
- *
- * @retval kStatus_Success Succeed to get last boot information.
- * @retval kStatus_Power_InvalidResponse Invalid response from AON.
+ * param[out] ptrWakeupSourceMask Pointer to the variable to store mask of wakeup sources.
  */
-status_t Power_GetWakeupSource(uint32_t *ptrWakeupSourceMask, uint8_t userData)
+void Power_GetWakeupSource(uint32_t *ptrWakeupSourceMask)
 {
-    ipmq_ret_value_t ret = kIPMQ_Ret_Error;
-
-    IPMQ_SendMessage(kIPMQ_MsgOpcode_WakeupSource, userData, 0U, NULL);
-
-    uint8_t responsePayloadSize;
-    uint32_t responsePayload;
-    ret = IPMQ_ReceiveMessage(kIPMQ_MsgOpcode_WakeupSource, userData, &responsePayload, &responsePayloadSize);
-
-    if (ret != kIPMQ_Ret_ReceiveAck)
-    {
-        *ptrWakeupSourceMask = IPMQ_USELESS_VALUE;
-        if (ret == kIPMQ_Ret_ReceiveNACK)
-        {
-            /* @todo Analysis nack reason, depends on AON specificion. */
-            return 1;
-        }
-        else
-        {
-            return kStatus_Power_InvalidResponse;
-        }
-    }
-    else
-    {
-        *ptrWakeupSourceMask = responsePayload;
-        return kStatus_Success;
-    }
+    *ptrWakeupSourceMask = SMM_GetWakeupSourceStatus(AON__SMM);
 }
 
 /*!
- * @brief Set the whole device into deep sleep mode.
- *
- * @param[in] userData User data send with the message, return with the ACK/NACK feedback, can be used by application.
+ * brief Register user callback.
+ * 
+ * param[in] callback Pointer to callback in type of power_user_callback_t.
+ * param[in] userData Pointer to user data.
  */
-status_t Power_EnterDeepSleep(uint8_t userData)
+void Power_RegisterUserCallback(power_user_callback_t callback, void *userData)
 {
+    g_powerUserCallback = callback;
+    g_powerUserCallbackData = userData;
+}
+
+/*!
+ * brief Unregister user callback.
+ */
+void Power_UnRegisterUserCallback(void)
+{
+    g_powerUserCallback = NULL;
+    g_powerUserCallbackData = NULL;
+}
+
+/*!
+* brief Enter selected low power mode.
+* 
+* param[in] lowpowerMode Indicate specific low power mode.
+* param config Point to low power configurations.
+*
+* retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
+* retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
+*/
+status_t Power_EnterLowPowerMode(power_low_power_mode_t lowpowerMode, void *config)
+{
+    status_t status = kStatus_Success; 
+    switch(lowpowerMode)
+    {
+        case kPower_Sleep:
+        {
+            (void)config;
+            status = Power_EnterSleep();
+            break;
+        } 
+        case kPower_DeepSleep:
+        {
+            status = Power_EnterDeepSleep((power_ds_config_t *)config);
+            break;
+        }
+        case kPower_PowerDown1:
+        {
+            status = Power_EnterPowerDown1((power_pd_config_t *)config);
+            break;
+        }
+        case kPower_PowerDown2:
+        {
+            status = Power_EnterPowerDown2((power_pd_config_t *)config);
+            break;
+        }
+        case kPower_DeepPowerDown1:
+        {
+            status = Power_EnterDeepPowerDown1((power_dpd1_config_t *)config);
+            break;
+        }
+        case kPower_DeepPowerDown2:
+        {
+            status = Power_EnterDeepPowerDown2((power_dpd2_config_t *)config);
+            break;
+        }
+        case kPower_DeepPowerDown3:
+        {
+            status = Power_EnterDeepPowerDown3((power_dpd3_config_t *)config);
+            break;
+        }
+        case kPower_ShutDown:
+        {
+            status = Power_EnterShutDown((power_sd_config_t *)config);
+            break;
+        }
+        default:
+        {
+            /* Avoid MISRA violation. */
+            break;
+        }
+    }
+
+    return status;
+}
+
+/*!
+ * brief Enter the sleep mode.
+ * 
+ * This function is used to put the system into sleep mode.
+ * 
+ * retval kStatus_Success Successfully entered sleep mode.
+ * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
+ * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
+ */
+status_t Power_EnterSleep(void)
+{
+#if __CORTEX_M == 33U
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    sharedHandle->curPowerMode = kPower_Sleep;
+    __DSB();
+    __WFI();
+    __ISB();
+
+    return kStatus_Success;
+#elif __CORTEX_M == 0U
+    return Power_ReqestCM33StartLpSeq(kPower_Sleep);
+#endif /* __CORTEX_M == 33U */
+}
+
+
+/*!
+ * brief Enter Deep Sleep mode.
+ * 
+ * This function attempts to put the system into Deep Sleep mode with the provided configuration.
+ * 
+ * param[in] config Pointer to the Deep Sleep mode configuration.
+ * 
+ * retval kStatus_Success Successfully entered Deep Sleep mode.
+ * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
+ * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
+ */
+status_t Power_EnterDeepSleep(power_ds_config_t *config)
+{
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    memcpy(sharedHandle->lpConfig, config, sizeof(power_ds_config_t));
+#if __CORTEX_M == 33U
     /* Invoke CMC API to set Main domain as Deep power down mode and then
        execute WFI instruction. */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowDeepSleepMode);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
     CMC_SetGlobalPowerMode(CMC, kCMC_DeepSleepMode);
-
+    sharedHandle->requestCM33Start = false;
+    sharedHandle->curPowerMode = kPower_DeepSleep;
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     __DSB();
     __WFI();
     __ISB();
+
     return kStatus_Success;
+#elif __CORTEX_M == 0U
+    sharedHandle->requestCM33Start = true;
+    return Power_ReqestCM33StartLpSeq(kPower_DeepSleep);
+#endif /* __CORTEX_M == 33U */
 }
 
 /*!
- * @brief Set the whole device into deep power down 1 mode.
- *
- * @note In deep power down 1 mode, the main CPU(Cortex-M33) core complete sub cluster is power off including VDD DC2DC
- * are powered off, and the main CPU core SRAM can be either maintained at retention or also power down.
- *
- * @note All Main domain FROs are power down.
- *
- * @note The AON ADVC domain and the AON CPU core(Cortex-M0+) are still alive at this mode.
- *
- * @param[in] ramBlocksToRetain Should be the OR'ed value of @ref power_sram_array_t.
- * @param[in] advcClockSource The clock source of AON_CLK in deep power down 1 mode,
- *                      please refer to @ref power_aon_clock_source_t.
- * @param[in] wakeupPolicy Specify the wakeup policy, please refer to @ref power_wakeup_policy_t.
- * @param[in] logicPatch The logic patch to use, please note that it is in signed type.
- * @param[in] offVdd Keep/shutdown VDD power supply, true in case of keep VDD power supply.
- * @param[in] userData User data send with the message, return with the ACK/NACK feedback, can be used by application.
- *
- * @retval kStatus_Power_WrongWakeupSource Fail to enter DPD1, due to the enabled wakeup source is not allowed..
- * @retval kStatus_Power_InvalidResponse Fail to enter DPD1, due to an invalid response is detected.
- * @retval kStatus_Success Success to enter and wakeup from DPD1. @todo Warm boot is not supported.
+ * brief Enter Power Down 1 mode.
+ * 
+ * This function attempts to put the system into Power Down 1 mode with the provided configuration.
+ * 
+ * param[in] config Pointer to the Power Down 1 mode configuration.
+ * 
+ * retval kStatus_Success Successfully entered Power Down 1 mode.
+ * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
+ * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  */
-status_t Power_EnterDeepPowerDown1(uint16_t ramBlocksToRetain,
-                                   power_aon_clock_source_t advcClockSource,
-                                   power_wakeup_policy_t wakeupPolicy,
-                                   int8_t logicPatch,
-                                   bool offVdd,
-                                   uint8_t userData)
+status_t Power_EnterPowerDown1(power_pd_config_t *config)
 {
-    /* Enable any wakeup source is enabled before enter into deep power down1 mode. */
-    assert(g_powerWakeupSourceInfo.aonWakeupSourceMask != 0UL);
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    memcpy(sharedHandle->lpConfig, config, sizeof(power_pd_config_t));
+#if __CORTEX_M == 33U
 
-    power_deep_power_down_info_t deepPowerDown1Info;
+    SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
+    SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
+    SMM_StartPowerDownSequence(AON__SMM);
 
-    deepPowerDown1Info.wakeupSourceMask = (uint16_t)(g_powerWakeupSourceInfo.aonWakeupSourceMask);
-    deepPowerDown1Info.ramBlocksMask    = ramBlocksToRetain;
-    deepPowerDown1Info.powerMode        = (uint8_t)kPower_DeepPowerDown1;
-    deepPowerDown1Info.offVdd           = offVdd;
-    deepPowerDown1Info.policy           = wakeupPolicy;
-    deepPowerDown1Info.clockSource      = advcClockSource;
-    deepPowerDown1Info.logicPatch       = logicPatch;
-    deepPowerDown1Info.vddConfig        = 0U;
+    /* TODO: WUU settings? */
 
-    return Power_MailToAonEnterDPD(&deepPowerDown1Info, userData);
+    CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
+    CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
+    CMC_SetGlobalPowerMode(CMC, kCMC_PowerDownMode);
+
+    sharedHandle->requestCM33Start = false;
+    sharedHandle->curPowerMode = kPower_PowerDown1;
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+    __DSB();
+    __ISB();
+    __WFI();
+
+    return kStatus_Success;
+#elif __CORTEX_M == 0U
+    sharedHandle->requestCM33Start = true;
+    return Power_ReqestCM33StartLpSeq(kPower_PowerDown1);
+#endif /* __CORTEX_M == 33U */
 }
 
 /*!
- * @brief Set the whole device into deep power down 2 mode.
- *
- * @note In deep power down 2 mode, all the main CPU domain including a VDD DC2DC are powered off(it is possible to
- * keep the VDD DC2DC on to have fast wakeup).
- *
- * @note All Main domain FROs are power down.
- *
- * @note The AON CPU subsystem is power off and the AON ADVC block is active.
- * @note VDD_CORE_1P0 is active in this mode.
- *
- * @param[in] ramBlocksToRetain Should be the OR'ed value of @ref power_sram_array_t.
- * @param[in] advcClockSource The clock source of AON_CLK in deep power down 1 mode,
- *                      please refer to @ref power_aon_clock_source_t.
- * @param[in] wakeupPolicy Specify the wakeup policy, please refer to @ref power_wakeup_policy_t.
- * @param[in] logicPatch The logic patch to use, please note that it is in signed type.
- * @param[in] offVdd Keep/shutdown VDD power supply, true in case of keep VDD power supply.
- * @param[in] vddConfig Specify the output voltage of VDD at DPD2 mode, LSB = 9.5mV.
- * @param[in] userData User data send with the message, return with the ACK/NACK feedback, can be used by application.
- *
- * @retval kStatus_Power_WrongWakeupSource Fail to enter DPD2, due to the enabled wakeup source is not allowed..
- * @retval kStatus_Power_InvalidResponse Fail to enter DPD2, due to an invalid response is detected.
- * @retval kStatus_Success Success to enter and wakeup from DPD2. @todo Warm boot is not supported.
+ * brief Enter Power Down 2 mode.
+ * 
+ * This function attempts to put the system into Power Down 2 mode with the provided configuration.
+ * 
+ * param[in] config Pointer to the Power Down 2 mode configuration.
+ * 
+ * retval kStatus_Success Successfully entered Power Down 2 mode.
+ * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
+ * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  */
-status_t Power_EnterDeepPowerDown2(uint16_t ramBlocksToRetain,
-                                   power_aon_clock_source_t advcClockSource,
-                                   power_wakeup_policy_t wakeupPolicy,
-                                   int8_t logicPatch,
-                                   bool offVdd,
-                                   uint8_t vddConfig,
-                                   uint8_t userData)
+status_t Power_EnterPowerDown2(power_pd_config_t *config)
 {
-    /* Enable any of wakeup source for DPD2 is enabled. */
-    assert((g_powerWakeupSourceInfo.aonWakeupSourceMask & POWER_DPD2_WS_BIT_MASK) != 0UL);
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    memcpy(sharedHandle->lpConfig, config, sizeof(power_pd_config_t));
+#if __CORTEX_M == 33U
+    /* 1. Configuration for SMM. */
+    SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
+    SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
+    SMM_EnableIvsModeForSramRetention(AON__SMM, true);
+    SMM_StartPowerDownSequence(AON__SMM);
 
-    power_deep_power_down_info_t deepPowerDown2Info;
-
-    deepPowerDown2Info.powerMode        = kPower_DeepPowerDown2;
-    deepPowerDown2Info.wakeupSourceMask = g_powerWakeupSourceInfo.aonWakeupSourceMask;
-    deepPowerDown2Info.ramBlocksMask    = ramBlocksToRetain;
-    deepPowerDown2Info.offVdd           = offVdd;
-    deepPowerDown2Info.policy           = (uint8_t)wakeupPolicy;
-    deepPowerDown2Info.clockSource      = (uint8_t)advcClockSource;
-    deepPowerDown2Info.logicPatch       = (int8_t)logicPatch;
-    deepPowerDown2Info.vddConfig        = vddConfig;
-
-    return Power_MailToAonEnterDPD(&deepPowerDown2Info, userData);
-}
-
-/*!
- * @brief Set the whole device into deep power down 3 mode.
- *
- * @note Both the AON and main CPU domain are power off.
- * @note Only RTC and PMU analog control blocks are active.
- *
- * @param[in] logicPatch The logic patch to use, please note that it is in signed type.
- * @param[in] userData User data send with the message, return with the ACK/NACK feedback, can be used by application.
-
- * @retval kStatus_Power_WrongWakeupSource Fail to enter DPD2, due to the enabled wakeup source is not allowed.
- * @retval kStatus_Power_InvalidResponse Fail to enter DPD2, due to an invalid response is detected.
- * @retval kStatus_Success Success to enter and wakeup from DPD2. @todo Warm boot is not supported.
- */
-status_t Power_EnterDeepPowerDown3(int8_t logicPatch, uint8_t userData)
-{
-    /* Enable any of wakeup source for DPD3 is enabled. */
-    assert((g_powerWakeupSourceInfo.aonWakeupSourceMask & POWER_DPD3_WS_BIT_MASK) != 0UL);
-
-    power_deep_power_down_info_t deepPowerDown3Info;
-
-    deepPowerDown3Info.powerMode        = kPower_DeepPowerDown3;
-    deepPowerDown3Info.wakeupSourceMask = g_powerWakeupSourceInfo.aonWakeupSourceMask;
-    deepPowerDown3Info.ramBlocksMask    = 0U;   /* None of RAM blocks retainted in DPD3. */
-    deepPowerDown3Info.offVdd           = true; /* VDD power supply auto shutdown in DPD3. */
-    deepPowerDown3Info.policy           = 0U;   /* Useless in DPD3. */
-    deepPowerDown3Info.clockSource      = 0U;   /* Useless in DPD3. */
-    deepPowerDown3Info.logicPatch       = logicPatch;
-    deepPowerDown3Info.vddConfig        = 0U;   /* Useless in DPD3. */
-
-    return Power_MailToAonEnterDPD(&deepPowerDown3Info, userData);
-}
-
-/*!
- * @brief Set the whole device into shut down mode.
- *
- * @note All blocks including CPU subsystem, AON, and RTC are off and only the PMU analog control is active.
- *
- * @note Only EXT_INT can wakeup device from shutdown mode.
- *
- * @param[in] logicPatch The logic patch to use, please note that it is in signed type.
- * @param[in] userData User data send with the message, return with the ACK/NACK feedback, can be used by application.
- *
- * @retval kStatus_Power_InvalidResponse Fail to enter DPD2, due to an invalid response is detected.
- * @retval kStatus_Success Success to enter and wakeup from DPD2. @todo Warm boot is not supported.
- */
-status_t Power_EnterShutDown(int8_t logicPatch, uint8_t userData)
-{
-    /* Enable any of wakeup source for shutdown is enabled. */
-    assert((g_powerWakeupSourceInfo.aonWakeupSourceMask & POWER_SHUTDOWN_WS_BIT_MASK) != 0UL);
-
-    power_deep_power_down_info_t shutDownInfo;
-
-    shutDownInfo.powerMode        = kPower_ShutDown;
-    shutDownInfo.wakeupSourceMask = g_powerWakeupSourceInfo.aonWakeupSourceMask;
-    shutDownInfo.ramBlocksMask    = 0U;   /* None of RAM blocks retained in shutdown mode. */
-    shutDownInfo.offVdd           = true; /* VDD power supply auto shutdown in shutdown mode. */
-    shutDownInfo.policy           = 0U;   /* Useless in Shutdown mode. */
-    shutDownInfo.clockSource      = 0U;   /* Useless in shutdown mode. */
-    shutDownInfo.logicPatch       = -1;
-    shutDownInfo.vddConfig        = 0U;
-
-    return Power_MailToAonEnterDPD(&shutDownInfo, userData);
-}
-
-/*!
- * @brief Abort flow of entering deep power down modes(including DPD1, DPD2, DPD3 and shutdown).
- *
- * @param[in] userData User data send with the message, return with the ACK/NACK feedback, can be used by application.
- */
-void Power_AbortAonDeepPowerDownFlow(uint8_t userData)
-{
-    IPMQ_SendMessage(kIPMQ_MsgOpcode_DeepPowerDownAbort, userData, 0U, NULL);
-    (void)IPMQ_ReceiveMessage(kIPMQ_MsgOpcode_DeepPowerDownAbort, userData, NULL, NULL);
-}
-
-/*!
- * @brief Return last boot information, including wakeup reason, backup register value, retention cuts of RAM, and so
- * on.
- *
- * @param[out] ptrWakeupBootInfo Pointer to a variable in type of @ref power_boot_info_t to store last boot information.
- * @param[in] userData User data send with the message, return with the ACK/NACK feedback, can be used by application.
- *
- * @retval kStatus_Success Succeed to get last boot information.
- * @retval kStatus_Power_InvalidResponse Invalid response from AON.
- */
-status_t Power_GetBootInfo(power_boot_info_t *ptrWakeupBootInfo, uint8_t userData)
-{
-    ipmq_ret_value_t ret = kIPMQ_Ret_Error;
-
-    IPMQ_SendMessage(kIPMQ_MsgOpcode_BootReason, userData, 0U, NULL);
-
-    uint32_t responsePayload[4];
-    uint8_t responsePayloadSize;
-    ret = IPMQ_ReceiveMessage(kIPMQ_MsgOpcode_BootReason, userData, responsePayload, &responsePayloadSize);
-
-    if (ret != kIPMQ_Ret_ReceiveAck)
+    /* 2. Software configuration for CM0P. */
+    if (sharedHandle->requestCM33Start != true)
     {
-        (void)ptrWakeupBootInfo;
+        /* Inform CM0P to execute WFI. */
+        power_mu_message_t msg = {
+            .strcutFormat = {
+                .syncCode = 0x5A,
+                .type = kPower_MsgTypeRequest,
+                .direction = kPower_MsgDirMainToAon,
+                .reqestLowPowerMode = kPower_PowerDown2,
+                .sharedHandleAddrOff = 0UL,
+            }
+        };
+        g_powerMuTransferState = kPower_MuTransferStart;
+        g_powerRequestMuMsg = msg;
+        MU_SendMsg(MUA, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
 
-        if (ret == kIPMQ_Ret_ReceiveNACK)
+        /* Waiting for response from CM0P. */
+        while(g_powerMuTransferState != kPower_MuTransferStart)
         {
-            /* @todo Lack of info of NACk reason. */
-            return 1;
+        }
+        if (g_powerMuTransferState == kPower_MuTransferWrong)
+        {
+            return kStatus_POWER_MuTransferError;
+        }
+        if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
+        {
+            return kStatus_POWER_RequestNotAllowed;
+        }
+    }
+
+    /* 3. TODO: Configuration for WUU? */
+
+    /* 4. Configuration for CMC. */
+    CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
+    CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
+    CMC_SetGlobalPowerMode(CMC, kCMC_PowerDownMode);
+    sharedHandle->requestCM33Start = false;
+    sharedHandle->curPowerMode = kPower_PowerDown2;
+    /* 5. Software configuration for CM33. */
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+    __DSB();
+    __ISB();
+    __WFI();
+    
+    return kStatus_Success;
+#elif __CORTEX_M == 0U
+    status_t status = kStatus_Success;
+    sharedHandle->requestCM33Start = true;
+
+    status = Power_ReqestCM33StartLpSeq(kPower_PowerDown2);
+
+    if (status == kStatus_Success)
+    {
+        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+        __DSB();
+        __ISB();
+        __WFI();
+    }
+
+    return status;
+#endif /* __CORTEX_M == 33U */
+}
+
+/*!
+ * brief Enter Deep Power Down 1 mode.
+ * 
+ * This function attempts to put the system into Deep Power Down 1 mode with the provided configuration.
+ * 
+ * param[in] config Pointer to the Deep Power Down 1 mode configuration.
+ * 
+ * retval kStatus_Success Successfully entered Deep Power Down 1 mode.
+ * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
+ * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
+ */
+status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
+{
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+
+    memcpy(sharedHandle->lpConfig, config, sizeof(power_dpd1_config_t));
+#if __CORTEX_M == 33U
+    /* 1. Configuration for SMM. */
+    SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
+    SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
+    SMM_EnableIvsModeForSramRetention(AON__SMM, true);
+    SMM_StartPowerDownSequence(AON__SMM);
+
+    /* 2. Configuration for CMC. */
+    CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
+    CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
+    CMC_SetGlobalPowerMode(CMC, kCMC_DeepPowerDown);
+    sharedHandle->requestCM33Start = false;
+    sharedHandle->curPowerMode = kPower_DeepPowerDown1;
+
+    /* 3. Software configuration for CM33. */
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+    __DSB();
+    __ISB();
+    __WFI();
+
+    return kStatus_Success;
+#elif __CORTEX_M == 0U
+    sharedHandle->requestCM33Start = true;
+    return Power_ReqestCM33StartLpSeq(kPower_DeepPowerDown1);
+#endif /* __CORTEX_M == 33U */
+}
+
+
+/*!
+ * brief Enter Deep Power Down 2 mode.
+ * 
+ * This function attempts to put the system into Deep Power Down 2 mode with the provided configuration.
+ * 
+ * param[in] config Pointer to the Deep Power Down 2 mode configuration.
+ * 
+ * retval kStatus_Success Successfully entered Deep Power Down 2 mode.
+ * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
+ * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
+ */
+status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
+{
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+#if __CORTEX_M == 33U
+    memcpy(sharedHandle->lpConfig, config, sizeof(power_dpd2_config_t));
+
+    /*1. Configuration for SMM. */
+    SMM_PowerOffAonSramAutomatically(AON__SMM, config->aonRamArraysToRetain);
+    SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
+    SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
+    SMM_EnableIvsModeForSramRetention(AON__SMM, true);
+    SMM_SwitchToXTAL32(AON__SMM, config->switchToX32K);
+    SMM_StartAonDPD2Sequence(AON__SMM);
+    
+    /*2. Software configuration for CM0P. */
+    if (sharedHandle->requestCM33Start != true)
+    {
+        /* Inform CM0P to execute WFI. */
+        power_mu_message_t msg = {
+            .strcutFormat = {
+                .syncCode = 0x5A,
+                .type = kPower_MsgTypeRequest,
+                .direction = kPower_MsgDirMainToAon,
+                .reqestLowPowerMode = kPower_DeepPowerDown2,
+                .sharedHandleAddrOff = 0UL,
+            }
+        };
+        g_powerMuTransferState = kPower_MuTransferStart;
+        g_powerRequestMuMsg = msg;
+        MU_SendMsg(MUA, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
+
+        /* Waiting for response from CM0P. */
+        while(g_powerMuTransferState != kPower_MuTransferStart)
+        {
+        }
+        if (g_powerMuTransferState == kPower_MuTransferWrong)
+        {
+            return kStatus_POWER_MuTransferError;
+        }
+        if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
+        {
+            return kStatus_POWER_RequestNotAllowed;
+        }
+    }
+
+    /* 3. Configuration for CMC */
+    CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
+    CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
+    CMC_SetGlobalPowerMode(CMC, kCMC_DeepPowerDown);
+    sharedHandle->requestCM33Start = false;
+    sharedHandle->curPowerMode = kPower_DeepPowerDown2;
+    /* 4. Software configuration for CM33. */
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+    __DSB();
+    __ISB();
+    __WFI();
+
+    return kStatus_Success;
+#else
+    status_t status = kStatus_Success;
+
+    if (sharedHandle->curPowerMode != kPower_DeepPowerDown1)
+    {
+        sharedHandle->requestCM33Start = true;
+
+        status = Power_ReqestCM33StartLpSeq(kPower_PowerDown2);
+    }
+
+    if (status == kStatus_Success)
+    {
+        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+        __DSB();
+        __ISB();
+        __WFI();
+    }
+
+    return status;
+#endif /* __CORTEX_M == 33U */
+}
+
+/*!
+ * brief Enter Deep Power Down 3 mode.
+ * 
+ * This function attempts to put the system into Deep Power Down 3 mode with the provided configuration.
+ * 
+ * param[in] config Pointer to the Deep Power Down 3 mode configuration.
+ * 
+ * retval kStatus_Success Successfully entered Deep Power Down 3 mode.
+ * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
+ * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
+ */
+status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config)
+{
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    memcpy(sharedHandle->lpConfig, config, sizeof(power_dpd3_config_t));
+#if __CORTEX_M == 33U
+
+    /* 1. Configuration of SMM. */
+    SMM_StartAonShutDownSequence(AON__SMM);
+
+    /*2. Software configuration for CM0P. */
+    if (sharedHandle->requestCM33Start != true)
+    {
+        /* Inform CM0P to execute WFI. */
+        power_mu_message_t msg = {
+            .strcutFormat = {
+                .syncCode = 0x5A,
+                .type = kPower_MsgTypeRequest,
+                .direction = kPower_MsgDirMainToAon,
+                .reqestLowPowerMode = kPower_DeepPowerDown3,
+                .sharedHandleAddrOff = 0UL,
+            }
+        };
+        g_powerMuTransferState = kPower_MuTransferStart;
+        g_powerRequestMuMsg = msg;
+        MU_SendMsg(MUA, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
+
+        /* Waiting for response from CM0P. */
+        while(g_powerMuTransferState != kPower_MuTransferStart)
+        {
+        }
+        if (g_powerMuTransferState == kPower_MuTransferWrong)
+        {
+            return kStatus_POWER_MuTransferError;
+        }
+        if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
+        {
+            return kStatus_POWER_RequestNotAllowed;
+        }
+    }
+
+    /*3. Configuration of CMC */
+    CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
+    CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
+    CMC_SetGlobalPowerMode(CMC, kCMC_DeepPowerDown);
+    sharedHandle->requestCM33Start = false;
+    sharedHandle->curPowerMode = kPower_DeepPowerDown3;
+    /* 4. Software configuration for CM33. */
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+    __DSB();
+    __ISB();
+    __WFI();
+
+    return kStatus_Success;
+#else
+    status_t status = kStatus_Success;
+    sharedHandle->requestCM33Start = true;
+
+    status = Power_ReqestCM33StartLpSeq(kPower_DeepPowerDown3);
+
+    if (status == kStatus_Success)
+    {
+        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+        __DSB();
+        __ISB();
+        __WFI();
+    }
+
+    return status;
+#endif /* __CORTEX == 33U */
+}
+
+/*!
+ * brief Enter Shutdown mode.
+ * 
+ * This function attempts to put the system into Shutdown mode with the provided configuration.
+ * 
+ * param[in] config Pointer to the Shutdown mode configuration.
+ * 
+ * retval kStatus_Success Successfully entered Shutdown mode.
+ * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
+ * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
+ */
+status_t Power_EnterShutDown(power_sd_config_t *config)
+{
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+
+    memcpy(sharedHandle->lpConfig, config, sizeof(power_sd_config_t));
+#if __CORTEX_M == 33U
+    /* 1. Configuration of SMM. */
+    SMM_StartAonShutDownSequence(AON__SMM);
+
+    /*2. Software configuration for CM0P. */
+    if (sharedHandle->requestCM33Start != true)
+    {
+        /* Inform CM0P to execute WFI. */
+        power_mu_message_t msg = {
+            .strcutFormat = {
+                .syncCode = 0x5A,
+                .type = kPower_MsgTypeRequest,
+                .direction = kPower_MsgDirMainToAon,
+                .reqestLowPowerMode = kPower_ShutDown,
+                .sharedHandleAddrOff = 0UL,
+            }
+        };
+        g_powerMuTransferState = kPower_MuTransferStart;
+        g_powerRequestMuMsg = msg;
+        MU_SendMsg(MUA, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
+
+        /* Waiting for response from CM0P. */
+        while(g_powerMuTransferState != kPower_MuTransferStart)
+        {
+        }
+        if (g_powerMuTransferState == kPower_MuTransferWrong)
+        {
+            return kStatus_POWER_MuTransferError;
+        }
+        if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
+        {
+            return kStatus_POWER_RequestNotAllowed;
+        }
+    }
+
+    /*3. Configuration of CMC */
+    CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
+    CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
+    CMC_SetGlobalPowerMode(CMC, kCMC_DeepPowerDown);
+    sharedHandle->requestCM33Start = false;
+    sharedHandle->curPowerMode = kPower_ShutDown;
+    /* 4. Software configuration for CM33. */
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+    __DSB();
+    __ISB();
+    __WFI();
+
+    return kStatus_Success;
+#elif __CORTEX_M == 0U
+    status_t status = kStatus_Success;
+    sharedHandle->requestCM33Start = true;
+
+    status = Power_ReqestCM33StartLpSeq(kPower_ShutDown);
+
+    if (status == kStatus_Success)
+    {
+        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+        __DSB();
+        __ISB();
+        __WFI();
+    }
+
+    return status;
+#endif /* __CORTEX_M == 0U */
+}
+
+/*!
+ * brief Callback function for handling power MU messages.
+ * 
+ * This function is called when a power MU message is received. It processes the message
+ * based on the given message content and the channel ID.
+ * 
+ * param[in] message The received power MU message.
+ * param[in] channelId The ID of the channel on which the message was received.
+ * 
+ * retval None This function does not return a value.
+ */
+void Power_MuMessageCallback(uint32_t message, uint32_t channelId)
+{
+    power_mu_message_t msg;
+    uint32_t tmp32;
+    power_mu_message_type_t resType;
+    bool userAllowed = false;
+    msg.wordFormat = message;
+    power_low_power_mode_t targetLowPowerMode = msg.strcutFormat.reqestLowPowerMode;
+    uint32_t lpConfigAddr = POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset + offsetof(power_handle_t, lpConfig[0]);
+
+    if (msg.strcutFormat.type == kPower_MsgTypeRequest)
+    {
+        if (Power_VerifyMuMessage(message, true) != kStatus_Success)
+        {
+            resType = kPower_MsgTypeNACK;
         }
         else
         {
-            return kStatus_Power_InvalidResponse;
+            if (msg.strcutFormat.init == true)
+            {
+                g_Handle_Offset = msg.strcutFormat.sharedHandleAddrOff;
+                resType = kPower_MsgTypeACK;
+            }
+            else
+            {
+                if (g_powerUserCallback != NULL)
+                {
+                    userAllowed = g_powerUserCallback(targetLowPowerMode, (void *)lpConfigAddr, g_powerUserCallbackData);
+                }
+
+                resType = ((userAllowed == false) ? kPower_MsgTypeNACK : kPower_MsgTypeACK);
+            }
+        }
+        /* Return response to CM0P */
+        tmp32 = Power_PopulateMuMessage(resType, kPower_MsgDirAonToMain, targetLowPowerMode, false, msg.strcutFormat.sharedHandleAddrOff);
+        MU_SendMsg(POWER_USED_MU, channelId, tmp32);
+
+        if (userAllowed)
+        {
+#if __CORTEX_M == 33U
+            (void)Power_EnterLowPowerMode(targetLowPowerMode, (void *)lpConfigAddr);
+#elif __CORTEX_M == 0U
+            if ((targetLowPowerMode == kPower_PowerDown2) || (targetLowPowerMode == kPower_DeepPowerDown2))
+            {
+              /* If CM0P approve to enter target low power mode, execute WFI. */
+              SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+              __DSB();
+              __ISB();
+              __WFI();
+            }
+#endif /* __CORTEX_M */
+
         }
     }
     else
     {
-        ptrWakeupBootInfo->wakeupReason    = responsePayload[0U];
-        ptrWakeupBootInfo->backupReg       = responsePayload[1U];
-        ptrWakeupBootInfo->retentionBlocks = responsePayload[2U];
-        ptrWakeupBootInfo->rtcAlive        = (responsePayload[3U] != 0UL) ? true : false;
-
-        return kStatus_Success;
+        /* Handle response from CM0P */
+        if (Power_VerifyMuMessage(message, false) != kStatus_Success)
+        {
+            g_powerMuTransferState = kPower_MuTransferWrong;
+        }
+        if (msg.strcutFormat.type == kPower_MsgTypeACK)
+        {
+            g_powerMuTransferState = kPower_MuTransferEndWithACK;
+        }
+        else
+        {
+            g_powerMuTransferState = kPower_MuTransferEndWithNACK;
+        }
     }
 }
+

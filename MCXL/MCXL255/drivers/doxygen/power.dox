@@ -1,17 +1,33 @@
 /*!
 @defgroup power POWER Driver
-@details POWER driver is the wrapper of CMC, MU, and some power-related driver. It provide a highly-integrated software interfaces to the application layer.
+@details POWER driver is the wrapper of CMC, MU, SMM, PMIC driver. It provides a highly-integrated software interface to the application layer for power management operations.
 
 #Wakeup Source Control Interfaces
-Functions in this group are used to enable/disable selected wakeup source.
+Functions in this group are used to enable/disable selected wakeup sources and retrieve wakeup source information:
+- Power_EnableWakeupSource: Enables a specific wakeup source
+- Power_DisableWakeupSource: Disables a specific wakeup source
+- Power_DumpEnabledWakeSource: Retrieves information about all configured wakeup sources
+- Power_GetWakeupSource: Gets the mask of wakeup sources that caused the last wake-up
 
 #Low Power Modes Control Interfaces
-Power_EnterDeepSleep: Set device into deep sleep mode.
-Power_EnterDeepPowerDown1: Set device into deep power down 1 mode.
-Power_EnterDeepPowerDown2: Set device into deep power down 2 mode.
-Power_EnterDeepPowerDown3: Set device into deep power down 3 mode.
-Power_EnterShutDown: Set device into shutdown mode.
-Power_AbortAonDeepPowerDownFlow: Abort flow of entering deep power down modes(including DPD1, DPD2, DPD3 and shutdown).
-#Boot Interfaces
+Functions in this group manage various low power modes and their configurations:
+- Power_EnterLowPowerMode: Enters a specified low power mode
+- Power_EnterSleep: Enters sleep mode
+- Power_EnterDeepSleep: Enters deep sleep mode
+- Power_EnterPowerDown1: Enters power down mode 1
+- Power_EnterPowerDown2: Enters power down mode 2
+- Power_EnterDeepPowerDown1: Enters deep power down mode 1
+- Power_EnterDeepPowerDown2: Enters deep power down mode 2
+- Power_EnterDeepPowerDown3: Enters deep power down mode 3
+- Power_EnterShutDown: Enters shutdown mode
+
+#Callback Management Interfaces
+Functions for managing user callbacks during power state transitions:
+- Power_RegisterUserCallback: Registers a user callback function
+- Power_UnRegisterUserCallback: Unregisters the user callback function
+
+#Initialization Interface
+Function for initializing the power management system:
+- Power_CreateHandle: Creates a shared power handle for power management operations
 
 */

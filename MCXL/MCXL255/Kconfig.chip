@@ -196,7 +196,7 @@ config MCUX_HW_IP_DriverType_LPUART
 
 config MCUX_HW_IP_DriverType_MCX_CMC
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_MRCC
@@ -231,7 +231,7 @@ config MCUX_HW_IP_DriverType_SCG
 
 config MCUX_HW_IP_DriverType_SMM
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_SWD
@@ -251,7 +251,7 @@ config MCUX_HW_IP_DriverType_UTICK
 
 config MCUX_HW_IP_DriverType_WUU
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_WWDT
@@ -270,6 +270,11 @@ config MCUX_HW_IP_DriverType_KPP
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_SLCD
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+
+config MCUX_HW_IP_DriverType_PMIC
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx

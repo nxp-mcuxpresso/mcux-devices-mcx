@@ -137,6 +137,11 @@ void CLOCK_SetClkDiv(clock_div_name_t div_name, uint32_t divided_by_value, bool 
 {
     volatile uint32_t *pClkDiv;
 
+    if (div_name > kCLOCK_DivMax)
+    {
+        return;
+    }
+
     pClkDiv = &(SYSCON->SYSTICKCLKDIV0);
     if (reset)
     {
@@ -623,8 +628,14 @@ uint32_t CLOCK_GetCTimerClkFreq(uint32_t id)
 uint32_t CLOCK_GetSystickClkFreq(uint32_t id)
 {
     volatile uint32_t *pSystickClkDiv;
+
     pSystickClkDiv = &(SYSCON->SYSTICKCLKDIV0);
     uint32_t freq  = 0U;
+
+    if (id >= SYSCON_SYSTICKCLKSEL_SYSTICKCLKSELX_SYSTICKCLKSELX_COUNT)
+    {
+        return 0;
+    }
 
     switch ((uint32_t)(SYSCON->SYSTICKCLKSELX[id]))
     {

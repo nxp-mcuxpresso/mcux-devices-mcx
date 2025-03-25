@@ -1,5 +1,12 @@
 # CLOCK
 
+## [2.1.1]
+
+- Improvements
+  - Fixed the coverity high issues in clock driver.
+    Before using the pointer, check the passed parameter to ensure that
+    it will not corrupt or misinterpret adjacent memory locations.
+
 ## [2.1.0]
 
 - New Features

@@ -22,8 +22,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.1.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 1, 0))
+/*! @brief CLOCK driver version 2.1.1. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 1, 1))
 /*@}*/
 
 /* Definition for delay API in clock driver, users can redefine it to the real application. */
@@ -601,7 +601,8 @@ typedef enum _clock_div_name
     kCLOCK_DivFrohfClk    = 34,
     kCLOCK_DivWdtClk      = 35,
     kCLOCK_DivSctClk      = 45,
-    kCLOCK_DivSpifiClk    = 52
+    kCLOCK_DivSpifiClk    = 52,
+    kCLOCK_DivMax         = 52,
 } clock_div_name_t;
 
 /*

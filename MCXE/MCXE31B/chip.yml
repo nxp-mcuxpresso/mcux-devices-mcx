@@ -1,0 +1,67 @@
+---
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXE31B
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXE31B"
+        full_name: "MCXE31B"
+        name: "MCXE31B"
+        platform: "MCXE31"
+        series: "MCXE"
+        family: "MCXE31x"
+        subfamily: ""
+        frequency_mhz: 160
+        core:
+          - name: "Cortex-M7F"
+            type: "cm7f"
+            id: "core0"
+            description: "M7 core"
+            fpu: "SP_FPU"
+            mpu: true
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH"
+              name: "PROGRAM_FLASH"
+              addr: 0x400000
+              size: 0x400000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+            - id: "DATA_FLASH"
+              name: "DATA_FLASH"
+              addr: 0x10000000
+              size: 0x20000
+              type: "Flash"
+              access: "RW"
+              default: true
+            - id: "ITCM"
+              name: "ITCM"
+              addr: 0x0
+              size: 0x8000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "DTCM"
+              name: "DTCM"
+              addr: 0x20000000
+              size: 0x10000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "SRAM"
+              name: "SRAM"
+              addr: 0x20400000
+              size: 0x50000
+              type: "RAM"
+              access: "RW"
+              default: true
+        total_memory:
+          ram_size_kb: 416
+          flash_size_kb: 4224
+        part:
+          - name: "MCXE31BMPB"
+        modules:
+...

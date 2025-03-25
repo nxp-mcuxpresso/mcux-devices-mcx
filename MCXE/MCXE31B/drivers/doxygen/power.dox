@@ -1,0 +1,20 @@
+/*!
+@defgroup pmc PMC: Power Management Controller
+@details The MCUXpresso SDK provides a peripheral driver for the Power Management Controller (PMC) module of
+MCUXpresso SDK devices. The PMC module contains internal voltage regulator, power on reset, low-voltage detect
+system, and high-voltage detect system.
+
+# Function groups (#PMCFunc)
+The PMC driver supports to config voltage regulators, low-voltage and high-voltage detect, interrupt status access and process.
+
+## Voltage regulator {#PMCVoltageRegulator}
+Configures the voltage regulator.
+
+## Voltage detect interrupt interface {#PMCInterrupt}
+Enables the voltage detect interrupt, get and clear the interrupt flags.
+
+## Power Mdoe interface
+Identify and switch power mode.
+
+*/
+

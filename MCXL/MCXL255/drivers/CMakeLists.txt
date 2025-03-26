@@ -1,7 +1,8 @@
-# Copyright 2024 NXP
-# All rights reserved.
+# Copyright 2024-2025 NXP
 #
 # SPDX-License-Identifier: BSD-3-Clause
+
+mcux_add_cmakelists(${SdkRootDirPath}/${device_root}/MCX/MCXL/MCXL255/drivers/romapi)
 
 if (CONFIG_MCUX_COMPONENT_driver.clock)
     mcux_add_source( SOURCES fsl_clock.c fsl_clock.h )
@@ -30,11 +31,6 @@ endif()
 
 if (CONFIG_MCUX_COMPONENT_driver.reset)
     mcux_add_source( SOURCES fsl_reset.c fsl_reset.h )
-    mcux_add_include( INCLUDES . )
-endif()
-
-if (CONFIG_MCUX_COMPONENT_driver.romapi)
-    mcux_add_source( SOURCES fsl_romapi.h )
     mcux_add_include( INCLUDES . )
 endif()
 

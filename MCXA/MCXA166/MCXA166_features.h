@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250218
+**     Build:               b250326
 **
 **     Abstract:
 **         Chip specific module features.
@@ -212,6 +212,8 @@
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_5829 (0)
 /* @brief Is affected by errata with ID 6032 (FlexCAN: A frame with wrong ID or payload is transmitted into the CAN bus when the Message Buffer under transmission is either aborted or deactivated while the CAN bus is in the Bus Idle state). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_6032 (0)
+/* @brief Is affected by errata with ID 8341 (FlexCAN: Entering Freeze Mode or Low Power Mode from Normal Mode can cause the FlexCAN module to stop operating.). */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_8341 (0)
 /* @brief Is affected by errata with ID 9595 (FlexCAN: Corrupt frame possible if the Freeze Mode or the Low-Power Mode are entered during a Bus-Off state). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_9595 (0)
 /* @brief Has CAN with Flexible Data rate (CAN FD) protocol. */
@@ -234,6 +236,14 @@
 #define FSL_FEATURE_FLEXCAN_HAS_NO_SUPV_SUPPORT (0)
 /* @brief Support payload endianness selection (bitfield CTRL2[PES]). */
 #define FSL_FEATURE_FLEXCAN_HAS_ENDIANNESS_SELECTION (1)
+/* @brief Enter Freeze mode before entering Disable and Stop mode. */
+#define FSL_FEATURE_FLEXCAN_ENTER_FREEZE_MODE (0)
+/* @brief Instance has external time tick option (register bit field CTRL2[TIMER_SRC]). */
+#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_EXTERNAL_TIME_TICKn(x) (0)
+/* @brief Instance has Pretended Networking option (register bit field MCR[PNET_EN]). */
+#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_PN_MODEn(x) (1)
+/* @brief Does not support self wakeup. */
+#define FSL_FEATURE_FLEXCAN_HAS_NO_SLFWAK_SUPPORT (0)
 
 /* CDOG module features */
 
@@ -721,6 +731,13 @@
 #define FSL_FEATURE_PMC_HAS_NO_OSTIMER_REG (1)
 /* @brief Starter register discontinuous. */
 #define FSL_FEATURE_SYSCON_STARTER_DISCONTINUOUS (1)
+
+/* SysTick module features */
+
+/* @brief Systick has external reference clock. */
+#define FSL_FEATURE_SYSTICK_HAS_EXT_REF (0)
+/* @brief Systick external reference clock is core clock divided by this value. */
+#define FSL_FEATURE_SYSTICK_EXT_REF_CORE_DIV (0)
 
 /* UTICK module features */
 

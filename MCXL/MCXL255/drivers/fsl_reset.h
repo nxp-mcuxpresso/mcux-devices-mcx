@@ -37,7 +37,7 @@
 typedef enum _SYSCON_RSTn
 {
 #if __CORTEX_M == (33U) /* Building on the main core */
-    /* https://chip-explorer.nxp.com/chip/MCXL20/RM/mcxl20-mcxl20/1.8/?rm=13.6.2&reg=syscon.syscon_mrcc.mrcc0.json%2CGLB_RST0 */
+    /* Check syscon mrcc CGLB_RST0 in RM */
     kINPUTMUX0_RST_SHIFT_RSTn = (0U | (0U)),          /*!< INPUTMUX0    reset control */
     kCTIMER0_RST_SHIFT_RSTn   = (0U | (1U)),          /*!< CTIMER0      reset control */
     kCTIMER1_RST_SHIFT_RSTn   = (0U | (2U)),          /*!< CTIMER1      reset control */
@@ -63,7 +63,7 @@ typedef enum _SYSCON_RSTn
     kLPUART1_RST_SHIFT_RSTn   = (0U | (27U)),         /*!< LPUART1      reset control */
     kOSTIMER0_RST_SHIFT_RSTn  = (0U | (29U)),         /*!< OSTIMER0     reset control */
 
-    /* https://chip-explorer.nxp.com/chip/MCXL20/RM/mcxl20-mcxl20/1.8/?rm=13.6.2&reg=syscon.syscon_mrcc.mrcc0.json%2CGLB_RST1 */
+    /* Check syscon mrcc CGLB_RST1 in RM */
     kPKC0_RST_SHIFT_RSTn      = ((1U << 8) | (0U)),   /*!< PKC0         reset control */
     kPORT1_RST_SHIFT_RSTn     = ((1U << 8) | (1U)),   /*!< PORT1        reset control */
     kPORT2_RST_SHIFT_RSTn     = ((1U << 8) | (2U)),   /*!< PORT2        reset control */
@@ -72,7 +72,7 @@ typedef enum _SYSCON_RSTn
     kTRNG0_RST_SHIFT_RSTn     = ((1U << 8) | (8U)),   /*!< TRNG0        reset control */
 #endif /* Building on the main core */
 
-    /* https://chip-explorer.nxp.com/chip/MCXL20/RM/mcxl20-mcxl20/1.9/?rm=42.9.6     */
+    /* Check AON CGU RST_SUB_BLK in RM */
     kAonUART_RST_SHIFT_RSTn    = ((2U << 8) | (0U)),  /*!< AON UART    reset control */
     kAonI2C_RST_SHIFT_RSTn     = ((2U << 8) | (1U)),  /*!< AON I2C     reset control */
     kAonCAL_RST_SHIFT_RSTn     = ((2U << 8) | (2U)),  /*!< AON CAL     reset control */

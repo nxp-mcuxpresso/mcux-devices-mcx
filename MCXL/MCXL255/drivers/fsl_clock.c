@@ -1075,7 +1075,6 @@ uint32_t CLOCK_GetWwdtClkFreq(void)
  *  return Frequency of LPTMR functional Clock
  */
 uint32_t CLOCK_GetLptmrClkFreq(void)
-// https://chip-explorer.nxp.com/chip/MCXL20/RM/mcxl20-mcxl20/1.9?rm=21.3.2
 {
     return CLOCK_GetFreq(kCLOCK_SLOW_CLK);
 }

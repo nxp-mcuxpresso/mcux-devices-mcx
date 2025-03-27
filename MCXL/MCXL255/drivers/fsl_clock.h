@@ -75,7 +75,7 @@ typedef enum _clock_ip_name
 {
 #if __CORTEX_M == (33U) /* Building on the main core */
 
-    /* https://chip-explorer.nxp.com/chip/MCXL20/RM/mcxl20-mcxl20/1.8/?rm=13.6.1.67&reg=syscon.syscon_mrcc.mrcc0.json%2CGLB_CC0 */
+    /* Check syscon mrcc reg, in RM */
     kCLOCK_InputMux          = (0x00U | (0U)),                         /*!< Clock gate name: INPUTMUX0      */
     kCLOCK_GateINPUTMUX0     = (0x00U | (0U)),                         /*!< Clock gate name: INPUTMUX0      */
     kCLOCK_GateCTIMER0       = (0x00U | (1U)),                         /*!< Clock gate name: CTIMER0        */
@@ -107,8 +107,6 @@ typedef enum _clock_ip_name
     kCLOCK_GatePERIPH_GROUP0 = (0x00U | (30U)),                        /*!< Clock gate name: PERIPH_GROUP_0 */
     kCLOCK_GatePERIPH_GROUP1 = (0x00U | (31U)),                        /*!< Clock gate name: PERIPH_GROUP_1 */
 
-
-    /* https://chip-explorer.nxp.com/chip/MCXL20/RM/mcxl20-mcxl20/1.8/?rm=13.6.1.67&reg=syscon.syscon_mrcc.mrcc0.json%2CGLB_CC1 */
     kCLOCK_GatePKC0          = ((0x4U << 16U) | (0x10U << 8U) | (0U)), /*!< Clock gate name: PKC0           */
     kCLOCK_GatePORT1         = ((0x4U << 16U) | (0x10U << 8U) | (1U)), /*!< Clock gate name: PORT1          */
     kCLOCK_GatePORT2         = ((0x4U << 16U) | (0x10U << 8U) | (2U)), /*!< Clock gate name: PORT2          */
@@ -122,7 +120,7 @@ typedef enum _clock_ip_name
 
 #endif /* Building on the main core */
 
-    /* https://chip-explorer.nxp.com/chip/MCXL20/RM/mcxl20-mcxl20/1.9/?rm=42.9.5 */
+    /* Check AON CGU PER_CLK_EN in RM */
     kCLOCK_GateAonUART       = ((1U<<24U) | (0U)),                     /*!< Clock gate name: AON UART       */
     kCLOCK_GateAonI2C        = ((1U<<24U) | (1U)),                     /*!< Clock gate name: AON I2C        */
     kCLOCK_GateAonAPB        = ((1U<<24U) | (2U)),                     /*!< Clock gate name: AON APB        */

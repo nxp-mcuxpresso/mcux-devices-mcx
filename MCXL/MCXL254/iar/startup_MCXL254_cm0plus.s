@@ -4,7 +4,7 @@
 ;            MCXL254_cm0plus
 ;  @version: 1.0
 ;  @date:    2023-1-9
-;  @build:   b250320
+;  @build:   b250327
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -88,7 +88,7 @@ __vector_table_0x1c
         DCD     SMM_EXT_IRQHandler                            ;External interrupt
         DCD     CGU_IRQHandler                                ;CGU IRQ
         DCD     PMU_IRQHandler                                ;PMU IRQ
-        DCD     KPP_AON_IRQHandler                            ;Keypad Interrupt
+        DCD     KPP_IRQHandler                                ;Keypad Interrupt
         DCD     LPADC_AON_IRQHandler                          ;Analog-to-Digital Converter interrupt
         DCD     SGLCD_AON_IRQHandler                          ;SLCD frame start interrupt
         DCD     TMR0_AON_IRQHandler                           ;ORed QTMR Interrupts
@@ -306,11 +306,11 @@ PMU_IRQHandler
         LDR     R0, =PMU_DriverIRQHandler
         BX      R0
 
-        PUBWEAK KPP_AON_IRQHandler
-        PUBWEAK KPP_AON_DriverIRQHandler
+        PUBWEAK KPP_IRQHandler
+        PUBWEAK KPP_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-KPP_AON_IRQHandler
-        LDR     R0, =KPP_AON_DriverIRQHandler
+KPP_IRQHandler
+        LDR     R0, =KPP_DriverIRQHandler
         BX      R0
 
         PUBWEAK LPADC_AON_IRQHandler
@@ -404,7 +404,7 @@ RTC_XTAL_DriverIRQHandler
 SMM_EXT_DriverIRQHandler
 CGU_DriverIRQHandler
 PMU_DriverIRQHandler
-KPP_AON_DriverIRQHandler
+KPP_DriverIRQHandler
 LPADC_AON_DriverIRQHandler
 SGLCD_AON_DriverIRQHandler
 TMR0_AON_DriverIRQHandler

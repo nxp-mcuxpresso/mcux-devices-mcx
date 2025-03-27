@@ -1,7 +1,7 @@
 //*****************************************************************************
 // MCXL253_cm0plus startup code for use with MCUXpresso IDE
 //
-// Version : 200325
+// Version : 270325
 //*****************************************************************************
 //
 // Copyright 2016-2025 NXP
@@ -96,7 +96,7 @@ WEAK void RTC_XTAL_IRQHandler(void);
 WEAK void SMM_EXT_IRQHandler(void);
 WEAK void CGU_IRQHandler(void);
 WEAK void PMU_IRQHandler(void);
-WEAK void KPP_AON_IRQHandler(void);
+WEAK void KPP_IRQHandler(void);
 WEAK void LPADC_AON_IRQHandler(void);
 WEAK void SGLCD_AON_IRQHandler(void);
 WEAK void TMR0_AON_IRQHandler(void);
@@ -135,7 +135,7 @@ void RTC_XTAL_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void SMM_EXT_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void CGU_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void PMU_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
-void KPP_AON_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
+void KPP_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void LPADC_AON_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void SGLCD_AON_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void TMR0_AON_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
@@ -216,7 +216,7 @@ void (* const g_pfnVectors[])(void) = {
     SMM_EXT_IRQHandler,      // 34: External interrupt
     CGU_IRQHandler,          // 35: CGU IRQ
     PMU_IRQHandler,          // 36: PMU IRQ
-    KPP_AON_IRQHandler,      // 37: Keypad Interrupt
+    KPP_IRQHandler,          // 37: Keypad Interrupt
     LPADC_AON_IRQHandler,    // 38: Analog-to-Digital Converter interrupt
     SGLCD_AON_IRQHandler,    // 39: SLCD frame start interrupt
     TMR0_AON_IRQHandler,     // 40: ORed QTMR Interrupts
@@ -470,8 +470,8 @@ WEAK_AV void PMU_IRQHandler(void)
 {   PMU_DriverIRQHandler();
 }
 
-WEAK_AV void KPP_AON_IRQHandler(void)
-{   KPP_AON_DriverIRQHandler();
+WEAK_AV void KPP_IRQHandler(void)
+{   KPP_DriverIRQHandler();
 }
 
 WEAK_AV void LPADC_AON_IRQHandler(void)

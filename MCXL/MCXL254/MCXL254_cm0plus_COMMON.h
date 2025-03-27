@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftF
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250327
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL254_cm0plus
@@ -89,7 +89,7 @@ typedef enum IRQn {
   SMM_EXT_IRQn                 = 18,               /**< External interrupt */
   CGU_IRQn                     = 19,               /**< CGU IRQ */
   PMU_IRQn                     = 20,               /**< PMU IRQ */
-  KPP_AON_IRQn                 = 21,               /**< Keypad Interrupt */
+  KPP_IRQn                     = 21,               /**< Keypad Interrupt */
   LPADC_AON_IRQn               = 22,               /**< Analog-to-Digital Converter interrupt */
   SGLCD_AON_IRQn               = 23,               /**< SLCD frame start interrupt */
   TMR0_AON_IRQn                = 24,               /**< ORed QTMR Interrupts */
@@ -250,7 +250,7 @@ typedef enum IRQn {
   #define KPP_BASE_PTRS                            { AON__KPP0 }
 #endif
 /** Interrupt vectors for the KPP peripheral type */
-#define KPP_IRQS                                 { KPP_AON_IRQn }
+#define KPP_IRQS                                 { KPP_IRQn }
 
 /* LCD - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
@@ -456,9 +456,6 @@ typedef enum IRQn {
   /** Array initializer of LPUART peripheral base pointers */
   #define LPUART_BASE_PTRS                         { (LPUART_Type *)0u, (LPUART_Type *)0u, AON__LPUART0 }
 #endif
-/** Interrupt vectors for the LPUART peripheral type */
-#define LPUART_RX_TX_IRQS                        { NotAvail_IRQn, NotAvail_IRQn, LPUART0_AON_IRQn }
-#define LPUART_ERR_IRQS                          { NotAvail_IRQn, NotAvail_IRQn, LPUART0_AON_IRQn }
 
 /* MU - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))

@@ -4,7 +4,7 @@
 /*            MCXL254_cm33                                                   */
 /*  @version: 1.0                                                            */
 /*  @date:    2023-1-9                                                       */
-/*  @build:   b250320                                                        */
+/*  @build:   b250327                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -187,7 +187,7 @@ __Vectors:
     .long   Reserved161_IRQHandler                          /* xxx Interrupt 161*/
     .long   Reserved162_IRQHandler                          /* xxx Interrupt 162*/
     .long   Reserved163_IRQHandler                          /* xxx Interrupt 163*/
-    .long   KPP_AON_IRQHandler                              /* Keypad Interrupt*/
+    .long   KPP_IRQHandler                                  /* Keypad Interrupt*/
     .long   LPADC_AON_IRQHandler                            /* ADC Summary Interrupt*/
     .long   Reserved166_IRQHandler                          /* xxx Interrupt 166*/
     .long   TMR0_AON_IRQHandler                             /* ORed QTMR Interrupts*/
@@ -1619,12 +1619,12 @@ Reserved163_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak KPP_AON_IRQHandler
-    .type KPP_AON_IRQHandler, %function
-KPP_AON_IRQHandler:
-    ldr   r0,=KPP_AON_DriverIRQHandler
+    .weak KPP_IRQHandler
+    .type KPP_IRQHandler, %function
+KPP_IRQHandler:
+    ldr   r0,=KPP_DriverIRQHandler
     bx    r0
-    .size KPP_AON_IRQHandler, . - KPP_AON_IRQHandler
+    .size KPP_IRQHandler, . - KPP_IRQHandler
 
     .align 1
     .thumb_func
@@ -1906,7 +1906,7 @@ SGLCD_FFAULT_AON_IRQHandler:
     def_irq_handler    Reserved161_DriverIRQHandler
     def_irq_handler    Reserved162_DriverIRQHandler
     def_irq_handler    Reserved163_DriverIRQHandler
-    def_irq_handler    KPP_AON_DriverIRQHandler
+    def_irq_handler    KPP_DriverIRQHandler
     def_irq_handler    LPADC_AON_DriverIRQHandler
     def_irq_handler    Reserved166_DriverIRQHandler
     def_irq_handler    TMR0_AON_DriverIRQHandler

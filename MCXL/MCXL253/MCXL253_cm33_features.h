@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250327
 **
 **     Abstract:
 **         Chip specific module features.
@@ -369,7 +369,7 @@
 /* @brief Has BLR register */
 #define FSL_FEATURE_MCX_CMC_HAS_BLR_REG (1)
 /* @brief Has SCR bit in  BSR register */
-#define FSL_FEATURE_MCX_CMC_HAS_BSR_SCR_BIT (0)
+#define FSL_FEATURE_MCX_CMC_HAS_BSR_SCR_BIT (1)
 
 /* CRC module features */
 

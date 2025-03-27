@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftF
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250327
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL253_cm33
@@ -134,7 +134,7 @@ typedef enum IRQn {
   RTC_ALARM2_IRQn              = 142,              /**< RTC alarm 2 */
   RTC_WDT_IRQn                 = 143,              /**< RTC watchdog */
   RTC_XTAL_IRQn                = 144,              /**< RTC XTAL Fail */
-  KPP_AON_IRQn                 = 148,              /**< Keypad Interrupt */
+  KPP_IRQn                     = 148,              /**< Keypad Interrupt */
   LPADC_AON_IRQn               = 149,              /**< ADC Summary Interrupt */
   TMR0_AON_IRQn                = 151,              /**< ORed QTMR Interrupts */
   TMR1_AON_IRQn                = 152,              /**< ORed QTMR Interrupts */
@@ -553,9 +553,6 @@ typedef enum IRQn {
   /** Array initializer of DMA peripheral base pointers */
   #define DMA_BASE_PTRS                            { DMA0, DMA1 }
 #endif
-/** Interrupt vectors for the DMA peripheral type */
-#define DMA_IRQS                                 { { DMA0_CH0_IRQn, DMA0_CH1_IRQn, DMA0_CH2_IRQn, DMA0_CH3_IRQn }, { DMA1_CH0_IRQn, DMA1_CH1_IRQn, DMA1_CH2_IRQn, DMA1_CH3_IRQn } }
-#define DMA_ERROR_IRQS                           { { DMA0_CH0_IRQn, DMA0_CH1_IRQn, DMA0_CH2_IRQn, DMA0_CH3_IRQn }, { DMA1_CH0_IRQn, DMA1_CH1_IRQn, DMA1_CH2_IRQn, DMA1_CH3_IRQn } }
 
 /* ERM - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
@@ -887,7 +884,7 @@ typedef enum IRQn {
   #define KPP_BASE_PTRS                            { AON__KPP0 }
 #endif
 /** Interrupt vectors for the KPP peripheral type */
-#define KPP_IRQS                                 { KPP_AON_IRQn }
+#define KPP_IRQS                                 { KPP_IRQn }
 
 /* LCD - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
@@ -1198,9 +1195,6 @@ typedef enum IRQn {
   /** Array initializer of LPUART peripheral base pointers */
   #define LPUART_BASE_PTRS                         { LPUART0, LPUART1, AON__LPUART0 }
 #endif
-/** Interrupt vectors for the LPUART peripheral type */
-#define LPUART_RX_TX_IRQS                        { LPUART0_IRQn, LPUART1_IRQn, LPUART0_AON_IRQn }
-#define LPUART_ERR_IRQS                          { LPUART0_IRQn, LPUART1_IRQn, LPUART0_AON_IRQn }
 
 /* MBC - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

@@ -4,7 +4,7 @@
 ;            MCXL254_cm33
 ;  @version: 1.0
 ;  @date:    2023-1-9
-;  @build:   b250320
+;  @build:   b250327
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -215,7 +215,7 @@ __vector_table_0x1c
         DCD     Reserved161_IRQHandler                        ;xxx Interrupt 161
         DCD     Reserved162_IRQHandler                        ;xxx Interrupt 162
         DCD     Reserved163_IRQHandler                        ;xxx Interrupt 163
-        DCD     KPP_AON_IRQHandler                            ;Keypad Interrupt
+        DCD     KPP_IRQHandler                                ;Keypad Interrupt
         DCD     LPADC_AON_IRQHandler                          ;ADC Summary Interrupt
         DCD     Reserved166_IRQHandler                        ;xxx Interrupt 166
         DCD     TMR0_AON_IRQHandler                           ;ORed QTMR Interrupts
@@ -1344,11 +1344,11 @@ Reserved163_IRQHandler
         LDR     R0, =Reserved163_DriverIRQHandler
         BX      R0
 
-        PUBWEAK KPP_AON_IRQHandler
-        PUBWEAK KPP_AON_DriverIRQHandler
+        PUBWEAK KPP_IRQHandler
+        PUBWEAK KPP_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-KPP_AON_IRQHandler
-        LDR     R0, =KPP_AON_DriverIRQHandler
+KPP_IRQHandler
+        LDR     R0, =KPP_DriverIRQHandler
         BX      R0
 
         PUBWEAK LPADC_AON_IRQHandler
@@ -1590,7 +1590,7 @@ RTC_XTAL_DriverIRQHandler
 Reserved161_DriverIRQHandler
 Reserved162_DriverIRQHandler
 Reserved163_DriverIRQHandler
-KPP_AON_DriverIRQHandler
+KPP_DriverIRQHandler
 LPADC_AON_DriverIRQHandler
 Reserved166_DriverIRQHandler
 TMR0_AON_DriverIRQHandler

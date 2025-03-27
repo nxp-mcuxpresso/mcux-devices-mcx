@@ -1,7 +1,7 @@
 //*****************************************************************************
 // MCXL254_cm33 startup code for use with MCUXpresso IDE
 //
-// Version : 200325
+// Version : 270325
 //*****************************************************************************
 //
 // Copyright 2016-2025 NXP
@@ -224,7 +224,7 @@ WEAK void RTC_XTAL_IRQHandler(void);
 WEAK void Reserved161_IRQHandler(void);
 WEAK void Reserved162_IRQHandler(void);
 WEAK void Reserved163_IRQHandler(void);
-WEAK void KPP_AON_IRQHandler(void);
+WEAK void KPP_IRQHandler(void);
 WEAK void LPADC_AON_IRQHandler(void);
 WEAK void Reserved166_IRQHandler(void);
 WEAK void TMR0_AON_IRQHandler(void);
@@ -393,7 +393,7 @@ void RTC_XTAL_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved161_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved162_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved163_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
-void KPP_AON_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
+void KPP_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void LPADC_AON_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void Reserved166_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
 void TMR0_AON_DriverIRQHandler(void) ALIAS(IntDefaultHandler);
@@ -604,7 +604,7 @@ void (* const g_pfnVectors[])(void) = {
     Reserved161_IRQHandler,           // 161: Reserved interrupt
     Reserved162_IRQHandler,           // 162: Reserved interrupt
     Reserved163_IRQHandler,           // 163: Reserved interrupt
-    KPP_AON_IRQHandler,               // 164: Keypad Interrupt
+    KPP_IRQHandler,                   // 164: Keypad Interrupt
     LPADC_AON_IRQHandler,             // 165: ADC Summary Interrupt
     Reserved166_IRQHandler,           // 166: Reserved interrupt
     TMR0_AON_IRQHandler,              // 167: ORed QTMR Interrupts
@@ -1385,8 +1385,8 @@ WEAK void Reserved163_IRQHandler(void)
 {   Reserved163_DriverIRQHandler();
 }
 
-WEAK void KPP_AON_IRQHandler(void)
-{   KPP_AON_DriverIRQHandler();
+WEAK void KPP_IRQHandler(void)
+{   KPP_DriverIRQHandler();
 }
 
 WEAK void LPADC_AON_IRQHandler(void)

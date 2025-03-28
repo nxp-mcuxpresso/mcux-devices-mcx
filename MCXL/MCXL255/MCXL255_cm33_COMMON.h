@@ -1195,6 +1195,8 @@ typedef enum IRQn {
   /** Array initializer of LPUART peripheral base pointers */
   #define LPUART_BASE_PTRS                         { LPUART0, LPUART1, AON__LPUART0 }
 #endif
+/** Interrupt vectors for the LPUART peripheral type */
+#define LPUART_RX_TX_IRQS                        { LPUART0_IRQn, LPUART1_IRQn, LPUART0_AON_IRQn}
 
 /* MBC - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

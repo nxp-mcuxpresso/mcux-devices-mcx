@@ -181,11 +181,12 @@ Reserved18_IRQHandler
         BX      R0
 
         PUBWEAK LPUART0_AON_IRQHandler
-        PUBWEAK LPUART0_AON_DriverIRQHandler
+        PUBWEAK LPUART_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 LPUART0_AON_IRQHandler
-        LDR     R0, =LPUART0_AON_DriverIRQHandler
-        BX      R0
+        LDR     R1, =LPUART_DriverIRQHandler
+        LDR     R0, =2 ;instance number from MCXL255_cm0plus_COMMON.h
+        BX      R1
 
         PUBWEAK Reserved20_IRQHandler
         PUBWEAK Reserved20_DriverIRQHandler
@@ -386,7 +387,7 @@ ADVC_IRQHandler
 Reserved16_DriverIRQHandler
 LPI2C0_AON_DriverIRQHandler
 Reserved18_DriverIRQHandler
-LPUART0_AON_DriverIRQHandler
+LPUART_DriverIRQHandler
 Reserved20_DriverIRQHandler
 GPIO00_AON_DriverIRQHandler
 Reserved22_DriverIRQHandler

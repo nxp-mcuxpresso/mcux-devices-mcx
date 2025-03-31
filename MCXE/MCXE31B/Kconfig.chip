@@ -127,6 +127,11 @@ config MCUX_HW_IP_DriverType_EDMA4
 #    default y
 #    depends on MCUX_HW_DEVICE_ID_MCXE31B
 
+config MCUX_HW_IP_DriverType_EMIOS
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE31B
+
 #config MCUX_HW_IP_DriverType_ERM
 #    bool
 #    default y

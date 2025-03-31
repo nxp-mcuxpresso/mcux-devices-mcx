@@ -602,6 +602,118 @@ typedef enum _trgmux_device
 /* @} */
 
 /*!
+ * @addtogroup tspc_group1_pad
+ * @{ */
+
+/*******************************************************************************
+ * Definitions
+*******************************************************************************/
+
+/*!
+ * @brief Structure for the TSPC group1
+ *
+ * Defines the structure for the TSPC group1 pads.
+ */
+typedef enum _tspc_group1_pads
+{
+    kTSPC_Group1PTD1                = 0U,          /**< TSPC pad mask PTD1 in group 1 */
+    kTSPC_Group1PTD0                = 1U,          /**< TSPC pad mask PTD0 in group 1 */
+    kTSPC_Group1PTB3                = 2U,          /**< TSPC pad mask PTB3 in group 1 */
+    kTSPC_Group1PTB2                = 3U,          /**< TSPC pad mask PTB2 in group 1 */
+    kTSPC_Group1PTB1                = 4U,          /**< TSPC pad mask PTB1 in group 1 */
+    kTSPC_Group1PTB0                = 5U,          /**< TSPC pad mask PTB0 in group 1 */
+    kTSPC_Group1PTC9                = 6U,          /**< TSPC pad mask PTC9 in group 1 */
+    kTSPC_Group1PTC8                = 7U,          /**< TSPC pad mask PTC8 in group 1 */
+    kTSPC_Group1PTA7                = 8U,          /**< TSPC pad mask PTA7 in group 1 */
+    kTSPC_Group1PTB13               = 9U,          /**< TSPC pad mask PTB13 in group 1 */
+    kTSPC_Group1PTD3                = 10U,         /**< TSPC pad mask PTD3 in group 1 */
+    kTSPC_Group1PTD2                = 11U,         /**< TSPC pad mask PTD2 in group 1 */
+    kTSPC_Group1PTE16               = 12U,         /**< TSPC pad mask PTE16 in group 1 */
+    kTSPC_Group1PTE15               = 13U,         /**< TSPC pad mask PTE15 in group 1 */
+    kTSPC_Group1PTE11               = 14U,         /**< TSPC pad mask PTE11 in group 1 */
+    kTSPC_Group1PTE10               = 15U,         /**< TSPC pad mask PTE10 in group 1 */
+    kTSPC_Group1PTC12               = 16U,         /**< TSPC pad mask PTC12 in group 1 */
+    kTSPC_Group1PTC11               = 17U,         /**< TSPC pad mask PTC11 in group 1 */
+    kTSPC_Group1PTC10               = 18U,         /**< TSPC pad mask PTC10 in group 1 */
+    kTSPC_Group1PTA6                = 19U,         /**< TSPC pad mask PTA6 in group 1. */
+    kTSPC_Group1PTB17               = 20U,         /**< TSPC pad mask PTB17 in group 1 */
+    kTSPC_Group1PTB15               = 21U,         /**< TSPC pad mask PTB15 in group 1 */
+    kTSPC_Group1PTB14               = 22U,         /**< TSPC pad mask PTB14 in group 1 */
+    kTSPC_Group1PTB12               = 23U,         /**< TSPC pad mask PTB12 in group 1 */
+    kTSPC_Group1PTD4                = 24U,         /**< TSPC pad mask PTD4 in group 1 */
+    kTSPC_Group1PTA18               = 25U,         /**< TSPC pad mask PTA18 in group 1 */
+    kTSPC_Group1PTA19               = 26U,         /**< TSPC pad mask PTA19 in group 1 */
+    kTSPC_Group1PTA20               = 27U,         /**< TSPC pad mask PTA20 in group 1 */
+    kTSPC_Group1PTA21               = 28U,         /**< TSPC pad mask PTA21 in group 1 */
+    kTSPC_Group1PTE5                = 29U,         /**< TSPC pad mask PTE5 in group 1 */
+    kTSPC_Group1PTE4                = 30U,         /**< TSPC pad mask PTE4 in group 1 */
+    kTSPC_Group1PTC21               = 31U,         /**< TSPC pad mask PTC21 in group 1 */
+    kTSPC_Group1PTC23               = 32U,         /**< TSPC pad mask PTC23 in group 1 */
+    kTSPC_Group1PTC24               = 33U,         /**< TSPC pad mask PTC24 in group 1 */
+    kTSPC_Group1PTC25               = 34U,         /**< TSPC pad mask PTC25 in group 1 */
+    kTSPC_Group1PTC26               = 35U,         /**< TSPC pad mask PTC26 in group 1 */
+    kTSPC_Group1PTC27               = 36U,         /**< TSPC pad mask PTC27 in group 1 */
+    kTSPC_Group1PTC28               = 37U,         /**< TSPC pad mask PTC28 in group 1 */
+    kTSPC_Group1PTC29               = 38U,         /**< TSPC pad mask PTC29 in group 1 */
+    kTSPC_Group1PTC30               = 39U,         /**< TSPC pad mask PTC30 in group 1 */
+    kTSPC_Group1PTC31               = 40U,         /**< TSPC pad mask PTC31 in group 1 */
+    kTSPC_Group1PTE7                = 41U,         /**< TSPC pad mask PTE7 in group 1 */
+    kTSPC_Group1PTA17               = 42U,         /**< TSPC pad mask PTA17 in group 1 */
+    kTSPC_Group1PTD20               = 43U,         /**< TSPC pad mask PTD20 in group 1 */
+    kTSPC_Group1PTD21               = 44U,         /**< TSPC pad mask PTD21 in group 1 */
+    kTSPC_Group1PTD22               = 45U,         /**< TSPC pad mask PTD22 in group 1 */
+} tspc_group1_pads_t;
+
+/*!
+ * @brief Structure for the TSPC group2
+ *
+ * Defines the structure for the TSPC group2 pads.
+ */
+typedef enum _tspc_group2_pads
+{
+    kTSPC_Group2PTA3                = 0U,          /**< TSPC pad mask PTA3 in group 2 */
+    kTSPC_Group2PTA2                = 1U,          /**< TSPC pad mask PTA2 in group 2 */
+    kTSPC_Group2PTA0                = 2U,          /**< TSPC pad mask PTA0 in group 2 */
+    kTSPC_Group2PTC7                = 3U,          /**< TSPC pad mask PTC7 in group 2 */
+    kTSPC_Group2PTA13               = 4U,          /**< TSPC pad mask PTA13 in group 2 */
+    kTSPC_Group2PTA11               = 5U,          /**< TSPC pad mask PTA11 in group 2 */
+    kTSPC_Group2PTA10               = 6U,          /**< TSPC pad mask PTA10 in group 2 */
+    kTSPC_Group2PTC5                = 7U,          /**< TSPC pad mask PTC5 in group 2 */
+    kTSPC_Group2PTA4                = 8U,          /**< TSPC pad mask PTA4 in group 2 */
+    kTSPC_Group2PTB11               = 9U,          /**< TSPC pad mask PTB11 in group 2 */
+    kTSPC_Group2PTB10               = 10U,         /**< TSPC pad mask PTB10 in group 2 */
+    kTSPC_Group2PTB9                = 11U,         /**< TSPC pad mask PTB9 in group 2 */
+    kTSPC_Group2PTB8                = 12U,         /**< TSPC pad mask PTB8 in group 2 */
+    kTSPC_Group2PTA16               = 13U,         /**< TSPC pad mask PTA16 in group 2 */
+    kTSPC_Group2PTA15               = 14U,         /**< TSPC pad mask PTA15 in group 2 */
+    kTSPC_Group2PTE6                = 15U,         /**< TSPC pad mask PTE6 in group 2 */
+    kTSPC_Group2PTE2                = 16U,         /**< TSPC pad mask PTE2 in group 2 */
+    kTSPC_Group2PTA14               = 17U,         /**< TSPC pad mask PTA14 in group 2 */
+    kTSPC_Group2PTE1                = 18U,         /**< TSPC pad mask PTE1 in group 2 */
+    kTSPC_Group2PTE0                = 19U,         /**< TSPC pad mask PTE0 in group 2 */
+    kTSPC_Group2PTA9                = 20U,         /**< TSPC pad mask PTA9 in group 2 */
+    kTSPC_Group2PTA12               = 21U,         /**< TSPC pad mask PTA12 in group 2 */
+    kTSPC_Group2PTD23               = 22U,         /**< TSPC pad mask PTD23 in group 2 */
+    kTSPC_Group2PTD24               = 23U,         /**< TSPC pad mask PTD24 in group 2 */
+    kTSPC_Group2PTD26               = 24U,         /**< TSPC pad mask PTD26 in group 2 */
+    kTSPC_Group2PTD27               = 25U,         /**< TSPC pad mask PTD27 in group 2 */
+    kTSPC_Group2PTD28               = 26U,         /**< TSPC pad mask PTD28 in group 2 */
+    kTSPC_Group2PTD29               = 27U,         /**< TSPC pad mask PTD29 in group 2 */
+    kTSPC_Group2PTD30               = 28U,         /**< TSPC pad mask PTD30 in group 2 */
+    kTSPC_Group2PTD31               = 29U,         /**< TSPC pad mask PTD31 in group 2 */
+    kTSPC_Group2PTE17               = 30U,         /**< TSPC pad mask PTE17 in group 2 */
+    kTSPC_Group2PTE18               = 31U,         /**< TSPC pad mask PTE18 in group 2 */
+    kTSPC_Group2PTE21               = 32U,         /**< TSPC pad mask PTE21 in group 2 */
+    kTSPC_Group2PTE22               = 33U,         /**< TSPC pad mask PTE22 in group 2 */
+    kTSPC_Group2PTE23               = 34U,         /**< TSPC pad mask PTE23 in group 2 */
+    kTSPC_Group2PTE24               = 35U,         /**< TSPC pad mask PTE24 in group 2 */
+    kTSPC_Group2PTE25               = 36U,         /**< TSPC pad mask PTE25 in group 2 */
+    kTSPC_Group2PTE26               = 37U,         /**< TSPC pad mask PTE26 in group 2 */
+} tspc_group2_pads_t;
+
+/* @} */
+
+/*!
  * @addtogroup xbic
  * @{
  */

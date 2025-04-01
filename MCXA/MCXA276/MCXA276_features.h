@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250326
+**     Build:               b250401
 **
 **     Abstract:
 **         Chip specific module features.
@@ -831,19 +831,19 @@
 /* TRNG module features */
 
 /* @brief TRNG does not support SCR4L. */
-#define FSL_FEATURE_TRNG_HAS_NO_TRNG_SCR4L (0)
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_SCR4L (1)
 /* @brief TRNG does not support SCR5L. */
-#define FSL_FEATURE_TRNG_HAS_NO_TRNG_SCR5L (0)
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_SCR5L (1)
 /* @brief TRNG does not support SCR6L. */
 #define FSL_FEATURE_TRNG_HAS_NO_TRNG_SCR6L (1)
 /* @brief TRNG does not support PKRMAX. */
-#define FSL_FEATURE_TRNG_HAS_NO_TRNG_PKRMAX (0)
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_PKRMAX (1)
 /* @brief TRNG does not support SAMP mode. */
 #define FSL_FEATURE_TRNG_HAS_NO_TRNG_MCTL_SAMP_MODE (1)
 /* @brief TRNG does not support ACC. */
 #define FSL_FEATURE_TRNG_HAS_NO_TRNG_ACC (1)
 /* @brief TRNG does not support SBLIM. */
-#define FSL_FEATURE_TRNG_HAS_NO_TRNG_SBLIM (0)
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_SBLIM (1)
 /* @brief TRNG supports reset control. */
 #define FSL_FEATURE_TRNG_HAS_RSTCTL (0)
 /* @brief TRNG does not support FOR_CLK mode. */

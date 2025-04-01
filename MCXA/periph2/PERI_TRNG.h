@@ -26,13 +26,13 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b241224
+**     Build:               b250401
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TRNG
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -112,22 +112,15 @@
  */
 
 /** TRNG - Size of Registers Arrays */
-#define TRNG_ENTA_COUNT                           1u
+#define TRNG_ENTA_COUNT                           8u
 
 /** TRNG - Register Layout Typedef */
 typedef struct {
   __IO uint32_t MCTL;                              /**< Miscellaneous Control Register, offset: 0x0 */
   __IO uint32_t SCMISC;                            /**< Statistical Check Miscellaneous Register, offset: 0x4 */
-  __IO uint32_t PKRRNG;                            /**< Poker Range Register, offset: 0x8 */
-  union {                                          /* offset: 0xC */
-    __IO uint32_t PKRMAX;                            /**< Poker Maximum Limit Register, offset: 0xC */
-    __I  uint32_t PKRSQ;                             /**< Poker Square Calculation Result Register, offset: 0xC */
-  };
+       uint8_t RESERVED_0[8];
   __IO uint32_t SDCTL;                             /**< Seed Control Register, offset: 0x10 */
-  union {                                          /* offset: 0x14 */
-    __IO uint32_t SBLIM;                             /**< Sparse Bit Limit Register, offset: 0x14 */
-    __I  uint32_t TOTSAM;                            /**< Total Samples Register, offset: 0x14 */
-  };
+       uint8_t RESERVED_1[4];
   union {                                          /* offset: 0x18 */
     __IO uint32_t FRQMIN;                            /**< Frequency Count Minimum Limit Register, offset: 0x18 */
     __I  uint32_t OSC2_FRQCNT;                       /**< Oscillator-2 Frequency Count Register, offset: 0x18 */
@@ -152,36 +145,15 @@ typedef struct {
     __I  uint32_t SCR3C;                             /**< Statistical Check Run Length 3 Count Register, offset: 0x2C */
     __IO uint32_t SCR3L;                             /**< Statistical Check Run Length 3 Limit Register, offset: 0x2C */
   };
-  union {                                          /* offset: 0x30 */
-    __I  uint32_t SCR4C;                             /**< Statistical Check Run Length 4 Count Register, offset: 0x30 */
-    __IO uint32_t SCR4L;                             /**< Statistical Check Run Length 4 Limit Register, offset: 0x30 */
-  };
-  union {                                          /* offset: 0x34 */
-    __I  uint32_t SCR5C;                             /**< Statistical Check Run Length 5 Count Register, offset: 0x34 */
-    __IO uint32_t SCR5L;                             /**< Statistical Check Run Length 5 Limit Register, offset: 0x34 */
-  };
-  union {                                          /* offset: 0x38 */
-    __I  uint32_t SCR6PC;                            /**< Statistical Check Run Length 6+ Count Register, offset: 0x38 */
-    __IO uint32_t SCR6PL;                            /**< Statistical Check Run Length 6+ Limit Register, offset: 0x38 */
-  };
+       uint8_t RESERVED_2[12];
   __I  uint32_t STATUS;                            /**< Status Register, offset: 0x3C */
   __I  uint32_t ENT[TRNG_ENTA_COUNT];              /**< Entropy Read Register, array offset: 0x40, array step: 0x4 */
-       uint8_t RESERVED_0[60];
-  __I  uint32_t PKRCNT10;                          /**< Statistical Check Poker Count 1 and 0 Register, offset: 0x80 */
-  __I  uint32_t PKRCNT32;                          /**< Statistical Check Poker Count 3 and 2 Register, offset: 0x84 */
-  __I  uint32_t PKRCNT54;                          /**< Statistical Check Poker Count 5 and 4 Register, offset: 0x88 */
-  __I  uint32_t PKRCNT76;                          /**< Statistical Check Poker Count 7 and 6 Register, offset: 0x8C */
-  __I  uint32_t PKRCNT98;                          /**< Statistical Check Poker Count 9 and 8 Register, offset: 0x90 */
-  __I  uint32_t PKRCNTBA;                          /**< Statistical Check Poker Count B and A Register, offset: 0x94 */
-  __I  uint32_t PKRCNTDC;                          /**< Statistical Check Poker Count D and C Register, offset: 0x98 */
-  __I  uint32_t PKRCNTFE;                          /**< Statistical Check Poker Count F and E Register, offset: 0x9C */
+       uint8_t RESERVED_3[64];
   __IO uint32_t SEC_CFG;                           /**< Security Configuration Register, offset: 0xA0 */
   __IO uint32_t INT_CTRL;                          /**< Interrupt Control Register, offset: 0xA4 */
   __IO uint32_t INT_MASK;                          /**< Mask Register, offset: 0xA8 */
   __I  uint32_t INT_STATUS;                        /**< Interrupt Status Register, offset: 0xAC */
-  __I  uint32_t CSER;                              /**< Common Security Error Register, offset: 0xB0 */
-  __O  uint32_t CSCLR;                             /**< Common Security Clear Register, offset: 0xB4 */
-       uint8_t RESERVED_1[52];
+       uint8_t RESERVED_4[60];
   __IO uint32_t OSC2_CTL;                          /**< TRNG Oscillator 2 Control Register, offset: 0xEC */
   __I  uint32_t VID1;                              /**< Version ID Register (MS), offset: 0xF0 */
   __I  uint32_t VID2;                              /**< Version ID Register (LS), offset: 0xF4 */
@@ -209,10 +181,10 @@ typedef struct {
  */
 #define TRNG_MCTL_OSC_DIV(x)                     (((uint32_t)(((uint32_t)(x)) << TRNG_MCTL_OSC_DIV_SHIFT)) & TRNG_MCTL_OSC_DIV_MASK)
 
-#define TRNG_MCTL_DIS_SLF_TST_MASK               (0x10U)
-#define TRNG_MCTL_DIS_SLF_TST_SHIFT              (4U)
-/*! DIS_SLF_TST - Disable Self-Tests */
-#define TRNG_MCTL_DIS_SLF_TST(x)                 (((uint32_t)(((uint32_t)(x)) << TRNG_MCTL_DIS_SLF_TST_SHIFT)) & TRNG_MCTL_DIS_SLF_TST_MASK)
+#define TRNG_MCTL_CLK_OUT_EN_MASK                (0x10U)
+#define TRNG_MCTL_CLK_OUT_EN_SHIFT               (4U)
+/*! CLK_OUT_EN - Clock Output Enable */
+#define TRNG_MCTL_CLK_OUT_EN(x)                  (((uint32_t)(((uint32_t)(x)) << TRNG_MCTL_CLK_OUT_EN_SHIFT)) & TRNG_MCTL_CLK_OUT_EN_MASK)
 
 #define TRNG_MCTL_TRNG_ACC_MASK                  (0x20U)
 #define TRNG_MCTL_TRNG_ACC_SHIFT                 (5U)
@@ -279,14 +251,6 @@ typedef struct {
  *  0b1..TRNG is in Program Mode
  */
 #define TRNG_MCTL_PRGM(x)                        (((uint32_t)(((uint32_t)(x)) << TRNG_MCTL_PRGM_SHIFT)) & TRNG_MCTL_PRGM_MASK)
-
-#define TRNG_MCTL_INTG_ERR_MASK                  (0x80000000U)
-#define TRNG_MCTL_INTG_ERR_SHIFT                 (31U)
-/*! INTG_ERR - Integrity Error
- *  0b0..TRNG detected no internal bit error
- *  0b1..TRNG detected internal bit error(s)
- */
-#define TRNG_MCTL_INTG_ERR(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_MCTL_INTG_ERR_SHIFT)) & TRNG_MCTL_INTG_ERR_MASK)
 /*! @} */
 
 /*! @name SCMISC - Statistical Check Miscellaneous Register */
@@ -301,32 +265,6 @@ typedef struct {
 #define TRNG_SCMISC_RTY_CT(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_SCMISC_RTY_CT_SHIFT)) & TRNG_SCMISC_RTY_CT_MASK)
 /*! @} */
 
-/*! @name PKRRNG - Poker Range Register */
-/*! @{ */
-
-#define TRNG_PKRRNG_PKR_RNG_MASK                 (0xFFFFU)
-#define TRNG_PKRRNG_PKR_RNG_SHIFT                (0U)
-#define TRNG_PKRRNG_PKR_RNG(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_PKRRNG_PKR_RNG_SHIFT)) & TRNG_PKRRNG_PKR_RNG_MASK)
-/*! @} */
-
-/*! @name PKRMAX - Poker Maximum Limit Register */
-/*! @{ */
-
-#define TRNG_PKRMAX_PKR_MAX_MASK                 (0xFFFFFFU)
-#define TRNG_PKRMAX_PKR_MAX_SHIFT                (0U)
-/*! PKR_MAX - Poker Maximum Limit. */
-#define TRNG_PKRMAX_PKR_MAX(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_PKRMAX_PKR_MAX_SHIFT)) & TRNG_PKRMAX_PKR_MAX_MASK)
-/*! @} */
-
-/*! @name PKRSQ - Poker Square Calculation Result Register */
-/*! @{ */
-
-#define TRNG_PKRSQ_PKR_SQ_MASK                   (0xFFFFFFU)
-#define TRNG_PKRSQ_PKR_SQ_SHIFT                  (0U)
-/*! PKR_SQ - Poker Square Calculation Result. */
-#define TRNG_PKRSQ_PKR_SQ(x)                     (((uint32_t)(((uint32_t)(x)) << TRNG_PKRSQ_PKR_SQ_SHIFT)) & TRNG_PKRSQ_PKR_SQ_MASK)
-/*! @} */
-
 /*! @name SDCTL - Seed Control Register */
 /*! @{ */
 
@@ -337,22 +275,6 @@ typedef struct {
 #define TRNG_SDCTL_ENT_DLY_MASK                  (0xFFFF0000U)
 #define TRNG_SDCTL_ENT_DLY_SHIFT                 (16U)
 #define TRNG_SDCTL_ENT_DLY(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_SDCTL_ENT_DLY_SHIFT)) & TRNG_SDCTL_ENT_DLY_MASK)
-/*! @} */
-
-/*! @name SBLIM - Sparse Bit Limit Register */
-/*! @{ */
-
-#define TRNG_SBLIM_SB_LIM_MASK                   (0x3FFU)
-#define TRNG_SBLIM_SB_LIM_SHIFT                  (0U)
-#define TRNG_SBLIM_SB_LIM(x)                     (((uint32_t)(((uint32_t)(x)) << TRNG_SBLIM_SB_LIM_SHIFT)) & TRNG_SBLIM_SB_LIM_MASK)
-/*! @} */
-
-/*! @name TOTSAM - Total Samples Register */
-/*! @{ */
-
-#define TRNG_TOTSAM_TOT_SAM_MASK                 (0xFFFFFU)
-#define TRNG_TOTSAM_TOT_SAM_SHIFT                (0U)
-#define TRNG_TOTSAM_TOT_SAM(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_TOTSAM_TOT_SAM_SHIFT)) & TRNG_TOTSAM_TOT_SAM_MASK)
 /*! @} */
 
 /*! @name FRQMIN - Frequency Count Minimum Limit Register */
@@ -483,78 +405,6 @@ typedef struct {
 #define TRNG_SCR3L_RUN3_RNG(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_SCR3L_RUN3_RNG_SHIFT)) & TRNG_SCR3L_RUN3_RNG_MASK)
 /*! @} */
 
-/*! @name SCR4C - Statistical Check Run Length 4 Count Register */
-/*! @{ */
-
-#define TRNG_SCR4C_R4_0_CT_MASK                  (0xFFFU)
-#define TRNG_SCR4C_R4_0_CT_SHIFT                 (0U)
-#define TRNG_SCR4C_R4_0_CT(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_SCR4C_R4_0_CT_SHIFT)) & TRNG_SCR4C_R4_0_CT_MASK)
-
-#define TRNG_SCR4C_R4_1_CT_MASK                  (0xFFF0000U)
-#define TRNG_SCR4C_R4_1_CT_SHIFT                 (16U)
-#define TRNG_SCR4C_R4_1_CT(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_SCR4C_R4_1_CT_SHIFT)) & TRNG_SCR4C_R4_1_CT_MASK)
-/*! @} */
-
-/*! @name SCR4L - Statistical Check Run Length 4 Limit Register */
-/*! @{ */
-
-#define TRNG_SCR4L_RUN4_MAX_MASK                 (0xFFFU)
-#define TRNG_SCR4L_RUN4_MAX_SHIFT                (0U)
-#define TRNG_SCR4L_RUN4_MAX(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_SCR4L_RUN4_MAX_SHIFT)) & TRNG_SCR4L_RUN4_MAX_MASK)
-
-#define TRNG_SCR4L_RUN4_RNG_MASK                 (0xFFF0000U)
-#define TRNG_SCR4L_RUN4_RNG_SHIFT                (16U)
-#define TRNG_SCR4L_RUN4_RNG(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_SCR4L_RUN4_RNG_SHIFT)) & TRNG_SCR4L_RUN4_RNG_MASK)
-/*! @} */
-
-/*! @name SCR5C - Statistical Check Run Length 5 Count Register */
-/*! @{ */
-
-#define TRNG_SCR5C_R5_0_CT_MASK                  (0x7FFU)
-#define TRNG_SCR5C_R5_0_CT_SHIFT                 (0U)
-#define TRNG_SCR5C_R5_0_CT(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_SCR5C_R5_0_CT_SHIFT)) & TRNG_SCR5C_R5_0_CT_MASK)
-
-#define TRNG_SCR5C_R5_1_CT_MASK                  (0x7FF0000U)
-#define TRNG_SCR5C_R5_1_CT_SHIFT                 (16U)
-#define TRNG_SCR5C_R5_1_CT(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_SCR5C_R5_1_CT_SHIFT)) & TRNG_SCR5C_R5_1_CT_MASK)
-/*! @} */
-
-/*! @name SCR5L - Statistical Check Run Length 5 Limit Register */
-/*! @{ */
-
-#define TRNG_SCR5L_RUN5_MAX_MASK                 (0x7FFU)
-#define TRNG_SCR5L_RUN5_MAX_SHIFT                (0U)
-#define TRNG_SCR5L_RUN5_MAX(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_SCR5L_RUN5_MAX_SHIFT)) & TRNG_SCR5L_RUN5_MAX_MASK)
-
-#define TRNG_SCR5L_RUN5_RNG_MASK                 (0x7FF0000U)
-#define TRNG_SCR5L_RUN5_RNG_SHIFT                (16U)
-#define TRNG_SCR5L_RUN5_RNG(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_SCR5L_RUN5_RNG_SHIFT)) & TRNG_SCR5L_RUN5_RNG_MASK)
-/*! @} */
-
-/*! @name SCR6PC - Statistical Check Run Length 6+ Count Register */
-/*! @{ */
-
-#define TRNG_SCR6PC_R6P_0_CT_MASK                (0x7FFU)
-#define TRNG_SCR6PC_R6P_0_CT_SHIFT               (0U)
-#define TRNG_SCR6PC_R6P_0_CT(x)                  (((uint32_t)(((uint32_t)(x)) << TRNG_SCR6PC_R6P_0_CT_SHIFT)) & TRNG_SCR6PC_R6P_0_CT_MASK)
-
-#define TRNG_SCR6PC_R6P_1_CT_MASK                (0x7FF0000U)
-#define TRNG_SCR6PC_R6P_1_CT_SHIFT               (16U)
-#define TRNG_SCR6PC_R6P_1_CT(x)                  (((uint32_t)(((uint32_t)(x)) << TRNG_SCR6PC_R6P_1_CT_SHIFT)) & TRNG_SCR6PC_R6P_1_CT_MASK)
-/*! @} */
-
-/*! @name SCR6PL - Statistical Check Run Length 6+ Limit Register */
-/*! @{ */
-
-#define TRNG_SCR6PL_RUN6P_MAX_MASK               (0x7FFU)
-#define TRNG_SCR6PL_RUN6P_MAX_SHIFT              (0U)
-#define TRNG_SCR6PL_RUN6P_MAX(x)                 (((uint32_t)(((uint32_t)(x)) << TRNG_SCR6PL_RUN6P_MAX_SHIFT)) & TRNG_SCR6PL_RUN6P_MAX_MASK)
-
-#define TRNG_SCR6PL_RUN6P_RNG_MASK               (0x7FF0000U)
-#define TRNG_SCR6PL_RUN6P_RNG_SHIFT              (16U)
-#define TRNG_SCR6PL_RUN6P_RNG(x)                 (((uint32_t)(((uint32_t)(x)) << TRNG_SCR6PL_RUN6P_RNG_SHIFT)) & TRNG_SCR6PL_RUN6P_RNG_MASK)
-/*! @} */
-
 /*! @name STATUS - Status Register */
 /*! @{ */
 
@@ -606,62 +456,6 @@ typedef struct {
  */
 #define TRNG_STATUS_TF3BR1(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_STATUS_TF3BR1_SHIFT)) & TRNG_STATUS_TF3BR1_MASK)
 
-#define TRNG_STATUS_TF4BR0_MASK                  (0x40U)
-#define TRNG_STATUS_TF4BR0_SHIFT                 (6U)
-/*! TF4BR0
- *  0b0..The 4-Bit Run, Sampling 0s Test has passed
- *  0b1..The 4-Bit Run, Sampling 0s Test has failed
- */
-#define TRNG_STATUS_TF4BR0(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_STATUS_TF4BR0_SHIFT)) & TRNG_STATUS_TF4BR0_MASK)
-
-#define TRNG_STATUS_TF4BR1_MASK                  (0x80U)
-#define TRNG_STATUS_TF4BR1_SHIFT                 (7U)
-/*! TF4BR1
- *  0b0..The 4-Bit Run, Sampling 1s Test has passed
- *  0b1..The 4-Bit Run, Sampling 1s Test has failed
- */
-#define TRNG_STATUS_TF4BR1(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_STATUS_TF4BR1_SHIFT)) & TRNG_STATUS_TF4BR1_MASK)
-
-#define TRNG_STATUS_TF5BR0_MASK                  (0x100U)
-#define TRNG_STATUS_TF5BR0_SHIFT                 (8U)
-/*! TF5BR0
- *  0b0..The 5-Bit Run, Sampling 0s Test has passed
- *  0b1..The 5-Bit Run, Sampling 0s Test has failed
- */
-#define TRNG_STATUS_TF5BR0(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_STATUS_TF5BR0_SHIFT)) & TRNG_STATUS_TF5BR0_MASK)
-
-#define TRNG_STATUS_TF5BR1_MASK                  (0x200U)
-#define TRNG_STATUS_TF5BR1_SHIFT                 (9U)
-/*! TF5BR1
- *  0b0..The 5-Bit Run, Sampling 1s Test has passed
- *  0b1..The 5-Bit Run, Sampling 1s Test has failed
- */
-#define TRNG_STATUS_TF5BR1(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_STATUS_TF5BR1_SHIFT)) & TRNG_STATUS_TF5BR1_MASK)
-
-#define TRNG_STATUS_TF6PBR0_MASK                 (0x400U)
-#define TRNG_STATUS_TF6PBR0_SHIFT                (10U)
-/*! TF6PBR0
- *  0b0..The 6 Plus Bit Run, Sampling 0s Test has passed
- *  0b1..the 6 Plus Bit Run, Sampling 0s Test has failed
- */
-#define TRNG_STATUS_TF6PBR0(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_STATUS_TF6PBR0_SHIFT)) & TRNG_STATUS_TF6PBR0_MASK)
-
-#define TRNG_STATUS_TF6PBR1_MASK                 (0x800U)
-#define TRNG_STATUS_TF6PBR1_SHIFT                (11U)
-/*! TF6PBR1 - Test Fail, 6 Plus Bit Run, Sampling 1s.
- *  0b0..The 6 Plus Bit Run, Sampling 1s Test has passed
- *  0b1..The 6 Plus Bit Run, Sampling 1s Test has failed
- */
-#define TRNG_STATUS_TF6PBR1(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_STATUS_TF6PBR1_SHIFT)) & TRNG_STATUS_TF6PBR1_MASK)
-
-#define TRNG_STATUS_TFSB_MASK                    (0x1000U)
-#define TRNG_STATUS_TFSB_SHIFT                   (12U)
-/*! TFSB - Test Fail, Sparse Bit.
- *  0b0..The Sparse Bit Test has passed
- *  0b1..The Sparse Bit Test has failed
- */
-#define TRNG_STATUS_TFSB(x)                      (((uint32_t)(((uint32_t)(x)) << TRNG_STATUS_TFSB_SHIFT)) & TRNG_STATUS_TFSB_MASK)
-
 #define TRNG_STATUS_TFLR_MASK                    (0x2000U)
 #define TRNG_STATUS_TFLR_SHIFT                   (13U)
 /*! TFLR - Test Fail, Long Run.
@@ -669,14 +463,6 @@ typedef struct {
  *  0b1..The Long Run Test has failed
  */
 #define TRNG_STATUS_TFLR(x)                      (((uint32_t)(((uint32_t)(x)) << TRNG_STATUS_TFLR_SHIFT)) & TRNG_STATUS_TFLR_MASK)
-
-#define TRNG_STATUS_TFP_MASK                     (0x4000U)
-#define TRNG_STATUS_TFP_SHIFT                    (14U)
-/*! TFP
- *  0b0..The Poker Test has passed
- *  0b1..The Poker Test has failed
- */
-#define TRNG_STATUS_TFP(x)                       (((uint32_t)(((uint32_t)(x)) << TRNG_STATUS_TFP_SHIFT)) & TRNG_STATUS_TFP_MASK)
 
 #define TRNG_STATUS_TFMB_MASK                    (0x8000U)
 #define TRNG_STATUS_TFMB_SHIFT                   (15U)
@@ -700,109 +486,7 @@ typedef struct {
 /*! @} */
 
 /* The count of TRNG_ENTA_ENT */
-#define TRNG_ENTA_ENT_COUNT                      (1U)
-
-/*! @name PKRCNT10 - Statistical Check Poker Count 1 and 0 Register */
-/*! @{ */
-
-#define TRNG_PKRCNT10_PKR_0_CT_MASK              (0xFFFFU)
-#define TRNG_PKRCNT10_PKR_0_CT_SHIFT             (0U)
-#define TRNG_PKRCNT10_PKR_0_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNT10_PKR_0_CT_SHIFT)) & TRNG_PKRCNT10_PKR_0_CT_MASK)
-
-#define TRNG_PKRCNT10_PKR_1_CT_MASK              (0xFFFF0000U)
-#define TRNG_PKRCNT10_PKR_1_CT_SHIFT             (16U)
-#define TRNG_PKRCNT10_PKR_1_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNT10_PKR_1_CT_SHIFT)) & TRNG_PKRCNT10_PKR_1_CT_MASK)
-/*! @} */
-
-/*! @name PKRCNT32 - Statistical Check Poker Count 3 and 2 Register */
-/*! @{ */
-
-#define TRNG_PKRCNT32_PKR_2_CT_MASK              (0xFFFFU)
-#define TRNG_PKRCNT32_PKR_2_CT_SHIFT             (0U)
-#define TRNG_PKRCNT32_PKR_2_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNT32_PKR_2_CT_SHIFT)) & TRNG_PKRCNT32_PKR_2_CT_MASK)
-
-#define TRNG_PKRCNT32_PKR_3_CT_MASK              (0xFFFF0000U)
-#define TRNG_PKRCNT32_PKR_3_CT_SHIFT             (16U)
-#define TRNG_PKRCNT32_PKR_3_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNT32_PKR_3_CT_SHIFT)) & TRNG_PKRCNT32_PKR_3_CT_MASK)
-/*! @} */
-
-/*! @name PKRCNT54 - Statistical Check Poker Count 5 and 4 Register */
-/*! @{ */
-
-#define TRNG_PKRCNT54_PKR_4_CT_MASK              (0xFFFFU)
-#define TRNG_PKRCNT54_PKR_4_CT_SHIFT             (0U)
-#define TRNG_PKRCNT54_PKR_4_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNT54_PKR_4_CT_SHIFT)) & TRNG_PKRCNT54_PKR_4_CT_MASK)
-
-#define TRNG_PKRCNT54_PKR_5_CT_MASK              (0xFFFF0000U)
-#define TRNG_PKRCNT54_PKR_5_CT_SHIFT             (16U)
-#define TRNG_PKRCNT54_PKR_5_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNT54_PKR_5_CT_SHIFT)) & TRNG_PKRCNT54_PKR_5_CT_MASK)
-/*! @} */
-
-/*! @name PKRCNT76 - Statistical Check Poker Count 7 and 6 Register */
-/*! @{ */
-
-#define TRNG_PKRCNT76_PKR_6_CT_MASK              (0xFFFFU)
-#define TRNG_PKRCNT76_PKR_6_CT_SHIFT             (0U)
-#define TRNG_PKRCNT76_PKR_6_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNT76_PKR_6_CT_SHIFT)) & TRNG_PKRCNT76_PKR_6_CT_MASK)
-
-#define TRNG_PKRCNT76_PKR_7_CT_MASK              (0xFFFF0000U)
-#define TRNG_PKRCNT76_PKR_7_CT_SHIFT             (16U)
-#define TRNG_PKRCNT76_PKR_7_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNT76_PKR_7_CT_SHIFT)) & TRNG_PKRCNT76_PKR_7_CT_MASK)
-/*! @} */
-
-/*! @name PKRCNT98 - Statistical Check Poker Count 9 and 8 Register */
-/*! @{ */
-
-#define TRNG_PKRCNT98_PKR_8_CT_MASK              (0xFFFFU)
-#define TRNG_PKRCNT98_PKR_8_CT_SHIFT             (0U)
-/*! PKR_8_CT - Poker 8h Count */
-#define TRNG_PKRCNT98_PKR_8_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNT98_PKR_8_CT_SHIFT)) & TRNG_PKRCNT98_PKR_8_CT_MASK)
-
-#define TRNG_PKRCNT98_PKR_9_CT_MASK              (0xFFFF0000U)
-#define TRNG_PKRCNT98_PKR_9_CT_SHIFT             (16U)
-/*! PKR_9_CT - Poker 9h Count */
-#define TRNG_PKRCNT98_PKR_9_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNT98_PKR_9_CT_SHIFT)) & TRNG_PKRCNT98_PKR_9_CT_MASK)
-/*! @} */
-
-/*! @name PKRCNTBA - Statistical Check Poker Count B and A Register */
-/*! @{ */
-
-#define TRNG_PKRCNTBA_PKR_A_CT_MASK              (0xFFFFU)
-#define TRNG_PKRCNTBA_PKR_A_CT_SHIFT             (0U)
-/*! PKR_A_CT - Poker Ah Count */
-#define TRNG_PKRCNTBA_PKR_A_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNTBA_PKR_A_CT_SHIFT)) & TRNG_PKRCNTBA_PKR_A_CT_MASK)
-
-#define TRNG_PKRCNTBA_PKR_B_CT_MASK              (0xFFFF0000U)
-#define TRNG_PKRCNTBA_PKR_B_CT_SHIFT             (16U)
-/*! PKR_B_CT - Poker Bh Count */
-#define TRNG_PKRCNTBA_PKR_B_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNTBA_PKR_B_CT_SHIFT)) & TRNG_PKRCNTBA_PKR_B_CT_MASK)
-/*! @} */
-
-/*! @name PKRCNTDC - Statistical Check Poker Count D and C Register */
-/*! @{ */
-
-#define TRNG_PKRCNTDC_PKR_C_CT_MASK              (0xFFFFU)
-#define TRNG_PKRCNTDC_PKR_C_CT_SHIFT             (0U)
-/*! PKR_C_CT - Poker Ch Count */
-#define TRNG_PKRCNTDC_PKR_C_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNTDC_PKR_C_CT_SHIFT)) & TRNG_PKRCNTDC_PKR_C_CT_MASK)
-
-#define TRNG_PKRCNTDC_PKR_D_CT_MASK              (0xFFFF0000U)
-#define TRNG_PKRCNTDC_PKR_D_CT_SHIFT             (16U)
-/*! PKR_D_CT - Poker Dh Count */
-#define TRNG_PKRCNTDC_PKR_D_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNTDC_PKR_D_CT_SHIFT)) & TRNG_PKRCNTDC_PKR_D_CT_MASK)
-/*! @} */
-
-/*! @name PKRCNTFE - Statistical Check Poker Count F and E Register */
-/*! @{ */
-
-#define TRNG_PKRCNTFE_PKR_E_CT_MASK              (0xFFFFU)
-#define TRNG_PKRCNTFE_PKR_E_CT_SHIFT             (0U)
-#define TRNG_PKRCNTFE_PKR_E_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNTFE_PKR_E_CT_SHIFT)) & TRNG_PKRCNTFE_PKR_E_CT_MASK)
-
-#define TRNG_PKRCNTFE_PKR_F_CT_MASK              (0xFFFF0000U)
-#define TRNG_PKRCNTFE_PKR_F_CT_SHIFT             (16U)
-#define TRNG_PKRCNTFE_PKR_F_CT(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_PKRCNTFE_PKR_F_CT_SHIFT)) & TRNG_PKRCNTFE_PKR_F_CT_MASK)
-/*! @} */
+#define TRNG_ENTA_ENT_COUNT                      (8U)
 
 /*! @name SEC_CFG - Security Configuration Register */
 /*! @{ */
@@ -922,78 +606,6 @@ typedef struct {
  *  0b1..TRNG has detected internal fault.
  */
 #define TRNG_INT_STATUS_INTG_FLT(x)              (((uint32_t)(((uint32_t)(x)) << TRNG_INT_STATUS_INTG_FLT_SHIFT)) & TRNG_INT_STATUS_INTG_FLT_MASK)
-/*! @} */
-
-/*! @name CSER - Common Security Error Register */
-/*! @{ */
-
-#define TRNG_CSER_RED_SIGS_MASK                  (0x1U)
-#define TRNG_CSER_RED_SIGS_SHIFT                 (0U)
-/*! RED_SIGS - Redundant Signals error/fault Detected
- *  0b0..No redundant signal error/fault
- *  0b1..Redundant signal error/fault detected.
- */
-#define TRNG_CSER_RED_SIGS(x)                    (((uint32_t)(((uint32_t)(x)) << TRNG_CSER_RED_SIGS_SHIFT)) & TRNG_CSER_RED_SIGS_MASK)
-
-#define TRNG_CSER_RED_FSM_MASK                   (0x2U)
-#define TRNG_CSER_RED_FSM_SHIFT                  (1U)
-/*! RED_FSM - Redundant FSM error/fault detected
- *  0b0..No redundant FSM error/fault
- *  0b1..Redundant FSM error/fault detected.
- */
-#define TRNG_CSER_RED_FSM(x)                     (((uint32_t)(((uint32_t)(x)) << TRNG_CSER_RED_FSM_SHIFT)) & TRNG_CSER_RED_FSM_MASK)
-
-#define TRNG_CSER_LOCAL_EDC_MASK                 (0x4U)
-#define TRNG_CSER_LOCAL_EDC_SHIFT                (2U)
-/*! LOCAL_EDC - Local-EDC error/fault detected
- *  0b0..No Local-EDC error/fault detected.
- *  0b1..Local-EDC error/fault detected.
- */
-#define TRNG_CSER_LOCAL_EDC(x)                   (((uint32_t)(((uint32_t)(x)) << TRNG_CSER_LOCAL_EDC_SHIFT)) & TRNG_CSER_LOCAL_EDC_MASK)
-
-#define TRNG_CSER_BUS_EDC_MASK                   (0x8U)
-#define TRNG_CSER_BUS_EDC_SHIFT                  (3U)
-/*! BUS_EDC - Bus-EDC error/fault detected
- *  0b0..No Bus-EDC error/fault detected.
- *  0b1..Bus-EDC error/fault detected.
- */
-#define TRNG_CSER_BUS_EDC(x)                     (((uint32_t)(((uint32_t)(x)) << TRNG_CSER_BUS_EDC_SHIFT)) & TRNG_CSER_BUS_EDC_MASK)
-/*! @} */
-
-/*! @name CSCLR - Common Security Clear Register */
-/*! @{ */
-
-#define TRNG_CSCLR_RED_SIGS_CLR_MASK             (0x1U)
-#define TRNG_CSCLR_RED_SIGS_CLR_SHIFT            (0U)
-/*! RED_SIGS_CLR - Redundant Signals error/fault Detected
- *  0b0..No effect, ignored
- *  0b1..Clears the CSER[RED_SIGS] bit.
- */
-#define TRNG_CSCLR_RED_SIGS_CLR(x)               (((uint32_t)(((uint32_t)(x)) << TRNG_CSCLR_RED_SIGS_CLR_SHIFT)) & TRNG_CSCLR_RED_SIGS_CLR_MASK)
-
-#define TRNG_CSCLR_RED_FSM_CLR_MASK              (0x2U)
-#define TRNG_CSCLR_RED_FSM_CLR_SHIFT             (1U)
-/*! RED_FSM_CLR
- *  0b0..No effect, ignored
- *  0b1..Clears the CSER[RED_FSM] bit.
- */
-#define TRNG_CSCLR_RED_FSM_CLR(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_CSCLR_RED_FSM_CLR_SHIFT)) & TRNG_CSCLR_RED_FSM_CLR_MASK)
-
-#define TRNG_CSCLR_LOCAL_EDC_CLR_MASK            (0x4U)
-#define TRNG_CSCLR_LOCAL_EDC_CLR_SHIFT           (2U)
-/*! LOCAL_EDC_CLR
- *  0b0..No effect, ignored
- *  0b1..Clears the CSER[LOCAL_EDC] bit.
- */
-#define TRNG_CSCLR_LOCAL_EDC_CLR(x)              (((uint32_t)(((uint32_t)(x)) << TRNG_CSCLR_LOCAL_EDC_CLR_SHIFT)) & TRNG_CSCLR_LOCAL_EDC_CLR_MASK)
-
-#define TRNG_CSCLR_BUS_EDC_CLR_MASK              (0x8U)
-#define TRNG_CSCLR_BUS_EDC_CLR_SHIFT             (3U)
-/*! BUS_EDC_CLR
- *  0b0..No effect, ignored
- *  0b1..Clears the CSER[BUS_EDC] bit.
- */
-#define TRNG_CSCLR_BUS_EDC_CLR(x)                (((uint32_t)(((uint32_t)(x)) << TRNG_CSCLR_BUS_EDC_CLR_SHIFT)) & TRNG_CSCLR_BUS_EDC_CLR_MASK)
 /*! @} */
 
 /*! @name OSC2_CTL - TRNG Oscillator 2 Control Register */

@@ -26,13 +26,13 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b241224
+**     Build:               b250401
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SGI
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -684,7 +684,6 @@ typedef struct {
 
 #define SGI_SGI_STATUS_BUSY_MASK                 (0x1U)
 #define SGI_SGI_STATUS_BUSY_SHIFT                (0U)
-/*! busy - Combined busy flag that remains high */
 #define SGI_SGI_STATUS_BUSY(x)                   (((uint32_t)(((uint32_t)(x)) << SGI_SGI_STATUS_BUSY_SHIFT)) & SGI_SGI_STATUS_BUSY_MASK)
 
 #define SGI_SGI_STATUS_OFLOW_MASK                (0x2U)
@@ -700,7 +699,7 @@ typedef struct {
 #define SGI_SGI_STATUS_ERROR_MASK                (0x38U)
 #define SGI_SGI_STATUS_ERROR_SHIFT               (3U)
 /*! error - Error detected
- *  0b000..ERROR(all values other than 0x05 indicate ERROR)
+ *  0b000..ERROR (all values other than 0x05 indicate ERROR)
  *  0b101..NO_ERROR
  */
 #define SGI_SGI_STATUS_ERROR(x)                  (((uint32_t)(((uint32_t)(x)) << SGI_SGI_STATUS_ERROR_SHIFT)) & SGI_SGI_STATUS_ERROR_MASK)
@@ -756,7 +755,6 @@ typedef struct {
 
 #define SGI_SGI_COUNT_COUNT_MASK                 (0xFFFFU)
 #define SGI_SGI_COUNT_COUNT_SHIFT                (0U)
-/*! count - Calculation counter, incremented with */
 #define SGI_SGI_COUNT_COUNT(x)                   (((uint32_t)(((uint32_t)(x)) << SGI_SGI_COUNT_COUNT_SHIFT)) & SGI_SGI_COUNT_COUNT_MASK)
 
 #define SGI_SGI_COUNT_COUNT_RSVD_MASK            (0xFFFF0000U)
@@ -779,57 +777,110 @@ typedef struct {
 
 #define SGI_SGI_CTRL_START_MASK                  (0x1U)
 #define SGI_SGI_CTRL_START_SHIFT                 (0U)
-/*! start - Start crypto operation */
+/*! start - Start crypto operation
+ *  0b0..Clr has no effect
+ *  0b1..Set to start operation
+ */
 #define SGI_SGI_CTRL_START(x)                    (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_START_SHIFT)) & SGI_SGI_CTRL_START_MASK)
 
 #define SGI_SGI_CTRL_DECRYPT_MASK                (0x2U)
 #define SGI_SGI_CTRL_DECRYPT_SHIFT               (1U)
-/*! decrypt - Sets Cipher direction(AES and DES) */
+/*! decrypt - Sets Cipher direction(AES and DES)
+ *  0b0..Encryption
+ *  0b1..Decryption
+ */
 #define SGI_SGI_CTRL_DECRYPT(x)                  (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_DECRYPT_SHIFT)) & SGI_SGI_CTRL_DECRYPT_MASK)
 
 #define SGI_SGI_CTRL_AESKEYSZ_MASK               (0xCU)
 #define SGI_SGI_CTRL_AESKEYSZ_SHIFT              (2U)
-/*! aeskeysz - Sets AES key size */
+/*! aeskeysz
+ *  0b00..AES-128
+ *  0b10..AES-256
+ *  0b11..RFU (defaults to AES-128)
+ */
 #define SGI_SGI_CTRL_AESKEYSZ(x)                 (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_AESKEYSZ_SHIFT)) & SGI_SGI_CTRL_AESKEYSZ_MASK)
 
 #define SGI_SGI_CTRL_CRYPTO_OP_MASK              (0x70U)
 #define SGI_SGI_CTRL_CRYPTO_OP_SHIFT             (4U)
-/*! crypto_op - Sets 'Crypto Operation' type */
+/*! crypto_op - Sets 'Crypto Operation' type
+ *  0b000..AES
+ *  0b001..DES (If Included)
+ *  0b010..TDES (If Included)
+ *  0b011..GFMUL(If Included)
+ *  0b100..SHA2 (If Included)
+ *  0b101..CMAC (If Included)
+ *  0b110-0b111..others - RFU (Defaults to 1st available OP)
+ */
 #define SGI_SGI_CTRL_CRYPTO_OP(x)                (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_CRYPTO_OP_SHIFT)) & SGI_SGI_CTRL_CRYPTO_OP_MASK)
 
 #define SGI_SGI_CTRL_INSEL_MASK                  (0x780U)
 #define SGI_SGI_CTRL_INSEL_SHIFT                 (7U)
-/*! insel - 4'b0000 - DATIN[0] */
+/*! insel
+ *  0b0000..DATIN[0]
+ *  0b0001..DATIN[1]*
+ *  0b0010..DATIN[2]*
+ *  0b0011..DATIN[3]*
+ *  0b0100..DATIN[0] ^ DATOUT
+ *  0b0101..DATIN[1] ^ DATOUT*
+ *  0b0110..DATIN[2] ^ DATOUT*
+ *  0b0111..DATIN[3] ^ DATOUT*
+ *  0b1000..DATOUT
+ *  0b1001-0b1111..others - DATIN[0] * - only if DATIN[num] exists, else [0]
+ */
 #define SGI_SGI_CTRL_INSEL(x)                    (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_INSEL_SHIFT)) & SGI_SGI_CTRL_INSEL_MASK)
 
 #define SGI_SGI_CTRL_OUTSEL_MASK                 (0x3800U)
 #define SGI_SGI_CTRL_OUTSEL_SHIFT                (11U)
-/*! outsel - 3'b000 - DATOUT = 'Kernel Res' */
+/*! outsel
+ *  0b000..DATOUT = 'Kernel Res'
+ *  0b001..DATOUT = 'Kernel Res' ^ DATIN[0]
+ *  0b010..DATOUT = 'Kernel Res' ^ DATIN[1]*
+ *  0b011..DATOUT = 'Kernel Res' ^ DATIN[2]*
+ *  0b100..DATOUT = 'Kernel Res' ^DATIN[3]*
+ *  0b101-0b111..others - DATOUT = 'Kernel Res' * - only if DATIN[num] exists, else [0]
+ */
 #define SGI_SGI_CTRL_OUTSEL(x)                   (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_OUTSEL_SHIFT)) & SGI_SGI_CTRL_OUTSEL_MASK)
 
 #define SGI_SGI_CTRL_DATOUT_RES_MASK             (0xC000U)
 #define SGI_SGI_CTRL_DATOUT_RES_SHIFT            (14U)
-/*! datout_res - Kernels data out options */
+/*! datout_res
+ *  0b00..END_UP
+ *  0b01..START_UP
+ *  0b10..TRIGGER_UP
+ *  0b11..NO_UP
+ */
 #define SGI_SGI_CTRL_DATOUT_RES(x)               (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_DATOUT_RES_SHIFT)) & SGI_SGI_CTRL_DATOUT_RES_MASK)
 
 #define SGI_SGI_CTRL_AES_EN_MASK                 (0x10000U)
 #define SGI_SGI_CTRL_AES_EN_SHIFT                (16U)
-/*! aes_en - AES Kernel Enable */
+/*! aes_en
+ *  0b0..AES disabled
+ *  0b1..AES enabled
+ */
 #define SGI_SGI_CTRL_AES_EN(x)                   (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_AES_EN_SHIFT)) & SGI_SGI_CTRL_AES_EN_MASK)
 
 #define SGI_SGI_CTRL_DES_EN_MASK                 (0x20000U)
 #define SGI_SGI_CTRL_DES_EN_SHIFT                (17U)
-/*! des_en - DES Kernel Enable */
+/*! des_en
+ *  0b0..DES disabled
+ *  0b1..DES enabled
+ */
 #define SGI_SGI_CTRL_DES_EN(x)                   (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_DES_EN_SHIFT)) & SGI_SGI_CTRL_DES_EN_MASK)
 
 #define SGI_SGI_CTRL_GCM_EN_MASK                 (0x40000U)
 #define SGI_SGI_CTRL_GCM_EN_SHIFT                (18U)
-/*! gcm_en - GFMUL Kernel Enable */
+/*! gcm_en
+ *  0b0..GFMUL disabled
+ *  0b1..GFMUL enabled
+ */
 #define SGI_SGI_CTRL_GCM_EN(x)                   (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_GCM_EN_SHIFT)) & SGI_SGI_CTRL_GCM_EN_MASK)
 
 #define SGI_SGI_CTRL_PRNG_EN_MASK                (0x80000U)
 #define SGI_SGI_CTRL_PRNG_EN_SHIFT               (19U)
-/*! prng_en - PRNG Enable(only if SGI has internal PRNG, Please */
+/*! prng_en - PRNG Enable (only if SGI has internal PRNG)
+ *  0b0..PRNG Disabled
+ *  0b1..PRNG Enabled
+ */
 #define SGI_SGI_CTRL_PRNG_EN(x)                  (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_PRNG_EN_SHIFT)) & SGI_SGI_CTRL_PRNG_EN_MASK)
 
 #define SGI_SGI_CTRL_INKEYSEL_MASK               (0x1F00000U)
@@ -839,17 +890,26 @@ typedef struct {
 
 #define SGI_SGI_CTRL_TDESKEY_MASK                (0x2000000U)
 #define SGI_SGI_CTRL_TDESKEY_SHIFT               (25U)
-/*! tdeskey - Triple-DES Key Configuration */
+/*! tdeskey
+ *  0b0..2-key TDES
+ *  0b1..3-key TDES
+ */
 #define SGI_SGI_CTRL_TDESKEY(x)                  (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_TDESKEY_SHIFT)) & SGI_SGI_CTRL_TDESKEY_MASK)
 
 #define SGI_SGI_CTRL_AES_NO_KL_MASK              (0x4000000U)
 #define SGI_SGI_CTRL_AES_NO_KL_SHIFT             (26U)
-/*! aes_no_kl - AES No decryption key schedule */
+/*! aes_no_kl
+ *  0b0..new AES key will be loaded
+ *  0b1..No AES key will be loaded, and previously loaded key will be used.
+ */
 #define SGI_SGI_CTRL_AES_NO_KL(x)                (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_AES_NO_KL_SHIFT)) & SGI_SGI_CTRL_AES_NO_KL_MASK)
 
 #define SGI_SGI_CTRL_AES_SEL_MASK                (0x8000000U)
 #define SGI_SGI_CTRL_AES_SEL_SHIFT               (27U)
-/*! aes_sel - AES Dual Selection */
+/*! aes_sel
+ *  0b0..First AES selected
+ *  0b1..Second AES selected (when enabled)
+ */
 #define SGI_SGI_CTRL_AES_SEL(x)                  (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL_AES_SEL_SHIFT)) & SGI_SGI_CTRL_AES_SEL_MASK)
 
 #define SGI_SGI_CTRL_CTRL_RSVD_MASK              (0xF0000000U)
@@ -863,37 +923,58 @@ typedef struct {
 
 #define SGI_SGI_CTRL2_FLUSH_MASK                 (0x1U)
 #define SGI_SGI_CTRL2_FLUSH_SHIFT                (0U)
-/*! flush - Start Full SGI Flush */
+/*! flush - Start Full SGI Flush
+ *  0b0..Clr has no effect
+ *  0b1..Set to start flush
+ */
 #define SGI_SGI_CTRL2_FLUSH(x)                   (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_FLUSH_SHIFT)) & SGI_SGI_CTRL2_FLUSH_MASK)
 
 #define SGI_SGI_CTRL2_KEY_FLUSH_MASK             (0x2U)
 #define SGI_SGI_CTRL2_KEY_FLUSH_SHIFT            (1U)
-/*! key_flush - Start KEY register-bank Flush */
+/*! key_flush - Start KEY register-bank Flush
+ *  0b0..Clr has no effect
+ *  0b1..Set to start flush
+ */
 #define SGI_SGI_CTRL2_KEY_FLUSH(x)               (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_KEY_FLUSH_SHIFT)) & SGI_SGI_CTRL2_KEY_FLUSH_MASK)
 
 #define SGI_SGI_CTRL2_DATIN_FLUSH_MASK           (0x4U)
 #define SGI_SGI_CTRL2_DATIN_FLUSH_SHIFT          (2U)
-/*! datin_flush - Start DATIN register-bank Flush */
+/*! datin_flush - Start DATIN register-bank Flush
+ *  0b0..Clr has no effect
+ *  0b1..Set to start flush
+ */
 #define SGI_SGI_CTRL2_DATIN_FLUSH(x)             (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_DATIN_FLUSH_SHIFT)) & SGI_SGI_CTRL2_DATIN_FLUSH_MASK)
 
 #define SGI_SGI_CTRL2_INCR_MASK                  (0x8U)
 #define SGI_SGI_CTRL2_INCR_SHIFT                 (3U)
-/*! incr - Increment(Triggered by SFR write) */
+/*! incr - Increment(Triggered by SFR write)
+ *  0b0..INCR-On-Write disabled
+ *  0b1..INCR-On-Write enabled
+ */
 #define SGI_SGI_CTRL2_INCR(x)                    (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_INCR_SHIFT)) & SGI_SGI_CTRL2_INCR_MASK)
 
 #define SGI_SGI_CTRL2_XORWR_MASK                 (0x10U)
 #define SGI_SGI_CTRL2_XORWR_SHIFT                (4U)
-/*! xorwr - Write-XOR control */
+/*! xorwr - Write-XOR control
+ *  0b0..XOR-On-Write disabled
+ *  0b1..XOR-On-Write enabled
+ */
 #define SGI_SGI_CTRL2_XORWR(x)                   (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_XORWR_SHIFT)) & SGI_SGI_CTRL2_XORWR_MASK)
 
 #define SGI_SGI_CTRL2_FLUSHWR_MASK               (0x20U)
 #define SGI_SGI_CTRL2_FLUSHWR_SHIFT              (5U)
-/*! flushwr - Flush Write control */
+/*! flushwr - Flush Write control
+ *  0b0..Flush-Write disabled
+ *  0b1..Flush-Write enabled
+ */
 #define SGI_SGI_CTRL2_FLUSHWR(x)                 (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_FLUSHWR_SHIFT)) & SGI_SGI_CTRL2_FLUSHWR_MASK)
 
 #define SGI_SGI_CTRL2_INCR_CIN_MASK              (0x40U)
 #define SGI_SGI_CTRL2_INCR_CIN_SHIFT             (6U)
-/*! incr_cin - Increment Carry-In control */
+/*! incr_cin - Increment Carry-In control
+ *  0b0..Carry-In for INCR is 1
+ *  0b1..Carry-In for INCR is overflow from previous INCR operation
+ */
 #define SGI_SGI_CTRL2_INCR_CIN(x)                (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_INCR_CIN_SHIFT)) & SGI_SGI_CTRL2_INCR_CIN_MASK)
 
 #define SGI_SGI_CTRL2_CTRL2_RSVD3_MASK           (0x80U)
@@ -903,17 +984,26 @@ typedef struct {
 
 #define SGI_SGI_CTRL2_SMASKEN_MASK               (0x100U)
 #define SGI_SGI_CTRL2_SMASKEN_SHIFT              (8U)
-/*! smasken - SFRMASK Enable */
+/*! smasken - SFRMASK Enable
+ *  0b0..SFRMASK feature Disabled
+ *  0b1..SFRMASK feature Enabled
+ */
 #define SGI_SGI_CTRL2_SMASKEN(x)                 (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_SMASKEN_SHIFT)) & SGI_SGI_CTRL2_SMASKEN_MASK)
 
 #define SGI_SGI_CTRL2_SMASKSTEP_MASK             (0x200U)
 #define SGI_SGI_CTRL2_SMASKSTEP_SHIFT            (9U)
-/*! smaskstep - SFRSEED increment control */
+/*! smaskstep - SFRSEED increment control
+ *  0b0..SFRSEED increments every regbank access
+ *  0b1..SFRSEED increments every regbank access PLUS when SFRSEED in read
+ */
 #define SGI_SGI_CTRL2_SMASKSTEP(x)               (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_SMASKSTEP_SHIFT)) & SGI_SGI_CTRL2_SMASKSTEP_MASK)
 
 #define SGI_SGI_CTRL2_SMASKSW_MASK               (0x400U)
 #define SGI_SGI_CTRL2_SMASKSW_SHIFT              (10U)
-/*! smasksw - SFRMASK MASK control */
+/*! smasksw - SFRMASK MASK control
+ *  0b0..SFR MASK output directly controlled by HW mask generator
+ *  0b1..SFR MASK output directly controlled by SW
+ */
 #define SGI_SGI_CTRL2_SMASKSW(x)                 (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_SMASKSW_SHIFT)) & SGI_SGI_CTRL2_SMASKSW_MASK)
 
 #define SGI_SGI_CTRL2_CTRL2_RSVD2_MASK           (0x800U)
@@ -933,17 +1023,26 @@ typedef struct {
 
 #define SGI_SGI_CTRL2_RKEY_MASK                  (0x200000U)
 #define SGI_SGI_CTRL2_RKEY_SHIFT                 (21U)
-/*! rkey - Crypto result location */
+/*! rkey - Crypto result location
+ *  0b0..DATOUT register bank
+ *  0b1..KEY register bank
+ */
 #define SGI_SGI_CTRL2_RKEY(x)                    (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_RKEY_SHIFT)) & SGI_SGI_CTRL2_RKEY_MASK)
 
 #define SGI_SGI_CTRL2_BYTES_ORDER_MASK           (0x400000U)
 #define SGI_SGI_CTRL2_BYTES_ORDER_SHIFT          (22U)
-/*! bytes_order - Byte order of regbank read/write data */
+/*! bytes_order - Byte order of regbank read/write data
+ *  0b0..Normal
+ *  0b1..Swapped
+ */
 #define SGI_SGI_CTRL2_BYTES_ORDER(x)             (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_BYTES_ORDER_SHIFT)) & SGI_SGI_CTRL2_BYTES_ORDER_MASK)
 
 #define SGI_SGI_CTRL2_GCM_INXOR_MASK             (0x800000U)
 #define SGI_SGI_CTRL2_GCM_INXOR_SHIFT            (23U)
-/*! gcm_inxor - GCM INXOR */
+/*! gcm_inxor - GCM INXOR
+ *  0b0..GCM INXOR disabled
+ *  0b1..GCM INXOR enabled
+ */
 #define SGI_SGI_CTRL2_GCM_INXOR(x)               (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CTRL2_GCM_INXOR_SHIFT)) & SGI_SGI_CTRL2_GCM_INXOR_MASK)
 
 #define SGI_SGI_CTRL2_CTRL2_RSVD1_MASK           (0xFF000000U)
@@ -957,7 +1056,6 @@ typedef struct {
 
 #define SGI_SGI_DUMMY_CTRL_DDCTRL_MASK           (0x3FFU)
 #define SGI_SGI_DUMMY_CTRL_DDCTRL_SHIFT          (0U)
-/*! ddctrl - DES dummy control */
 #define SGI_SGI_DUMMY_CTRL_DDCTRL(x)             (((uint32_t)(((uint32_t)(x)) << SGI_SGI_DUMMY_CTRL_DDCTRL_SHIFT)) & SGI_SGI_DUMMY_CTRL_DDCTRL_MASK)
 
 #define SGI_SGI_DUMMY_CTRL_DMYCTL_RSVD2_MASK     (0xFC00U)
@@ -967,7 +1065,6 @@ typedef struct {
 
 #define SGI_SGI_DUMMY_CTRL_ADCTRL_MASK           (0x3FF0000U)
 #define SGI_SGI_DUMMY_CTRL_ADCTRL_SHIFT          (16U)
-/*! adctrl - AES dummy control */
 #define SGI_SGI_DUMMY_CTRL_ADCTRL(x)             (((uint32_t)(((uint32_t)(x)) << SGI_SGI_DUMMY_CTRL_ADCTRL_SHIFT)) & SGI_SGI_DUMMY_CTRL_ADCTRL_MASK)
 
 #define SGI_SGI_DUMMY_CTRL_DMYCTL_RSVD1_MASK     (0xFC000000U)
@@ -999,17 +1096,28 @@ typedef struct {
 
 #define SGI_SGI_SHA2_CTRL_SHA2_EN_MASK           (0x1U)
 #define SGI_SGI_SHA2_CTRL_SHA2_EN_SHIFT          (0U)
-/*! sha2_en - SHA enable */
+/*! sha2_en - SHA enable
+ *  0b0..SHA disabled
+ *  0b1..SHA enabled
+ */
 #define SGI_SGI_SHA2_CTRL_SHA2_EN(x)             (((uint32_t)(((uint32_t)(x)) << SGI_SGI_SHA2_CTRL_SHA2_EN_SHIFT)) & SGI_SGI_SHA2_CTRL_SHA2_EN_MASK)
 
 #define SGI_SGI_SHA2_CTRL_SHA2_MODE_MASK         (0x2U)
 #define SGI_SGI_SHA2_CTRL_SHA2_MODE_SHIFT        (1U)
-/*! sha2_mode - SHA mode normal or automatic */
+/*! sha2_mode - SHA mode normal or automatic
+ *  0b0..SHA NORM Mode
+ *  0b1..SHA AUTO Mode
+ */
 #define SGI_SGI_SHA2_CTRL_SHA2_MODE(x)           (((uint32_t)(((uint32_t)(x)) << SGI_SGI_SHA2_CTRL_SHA2_MODE_SHIFT)) & SGI_SGI_SHA2_CTRL_SHA2_MODE_MASK)
 
 #define SGI_SGI_SHA2_CTRL_SHA2_SIZE_MASK         (0xCU)
 #define SGI_SGI_SHA2_CTRL_SHA2_SIZE_SHIFT        (2U)
-/*! sha2_size - SHA size 0=224;1=256;2=384;3=512 */
+/*! sha2_size
+ *  0b00..SHA-224
+ *  0b01..SHA-256
+ *  0b10..SHA-384(or SHA-224 if SHA-256 only)
+ *  0b11..SHA-512 (or SHA-256 if SHA-256 only)
+ */
 #define SGI_SGI_SHA2_CTRL_SHA2_SIZE(x)           (((uint32_t)(((uint32_t)(x)) << SGI_SGI_SHA2_CTRL_SHA2_SIZE_SHIFT)) & SGI_SGI_SHA2_CTRL_SHA2_SIZE_MASK)
 
 #define SGI_SGI_SHA2_CTRL_SHA2_LOW_LIM_MASK      (0xF0U)
@@ -1024,22 +1132,34 @@ typedef struct {
 
 #define SGI_SGI_SHA2_CTRL_SHA2_COUNT_EN_MASK     (0x1000U)
 #define SGI_SGI_SHA2_CTRL_SHA2_COUNT_EN_SHIFT    (12U)
-/*! sha2_count_en - SHA Calculation counter enable */
+/*! sha2_count_en - SHA Calculation counter enable
+ *  0b0..SHA operation DOES NOT increment COUNT
+ *  0b1..SHA operation DOES increment count
+ */
 #define SGI_SGI_SHA2_CTRL_SHA2_COUNT_EN(x)       (((uint32_t)(((uint32_t)(x)) << SGI_SGI_SHA2_CTRL_SHA2_COUNT_EN_SHIFT)) & SGI_SGI_SHA2_CTRL_SHA2_COUNT_EN_MASK)
 
 #define SGI_SGI_SHA2_CTRL_HASH_RELOAD_MASK       (0x2000U)
 #define SGI_SGI_SHA2_CTRL_HASH_RELOAD_SHIFT      (13U)
-/*! hash_reload - SHA HASH reload */
+/*! hash_reload - SHA HASH reload
+ *  0b0..No HASH reload
+ *  0b1..HASH reload enabled
+ */
 #define SGI_SGI_SHA2_CTRL_HASH_RELOAD(x)         (((uint32_t)(((uint32_t)(x)) << SGI_SGI_SHA2_CTRL_HASH_RELOAD_SHIFT)) & SGI_SGI_SHA2_CTRL_HASH_RELOAD_MASK)
 
 #define SGI_SGI_SHA2_CTRL_SHA2_STOP_MASK         (0x4000U)
 #define SGI_SGI_SHA2_CTRL_SHA2_STOP_SHIFT        (14U)
-/*! sha2_stop - STOP SHA AUTO mode */
+/*! sha2_stop - STOP SHA AUTO mode
+ *  0b0..Keep running
+ *  0b1..Stop auto mode
+ */
 #define SGI_SGI_SHA2_CTRL_SHA2_STOP(x)           (((uint32_t)(((uint32_t)(x)) << SGI_SGI_SHA2_CTRL_SHA2_STOP_SHIFT)) & SGI_SGI_SHA2_CTRL_SHA2_STOP_MASK)
 
 #define SGI_SGI_SHA2_CTRL_NO_AUTO_INIT_MASK      (0x8000U)
 #define SGI_SGI_SHA2_CTRL_NO_AUTO_INIT_SHIFT     (15U)
-/*! no_auto_init - SHA no automatic HASH initialisation */
+/*! no_auto_init - SHA no automatic HASH initialisation
+ *  0b0..SHA automatic HASH initialisation
+ *  0b1..No SHA automatic HASH initialisation
+ */
 #define SGI_SGI_SHA2_CTRL_NO_AUTO_INIT(x)        (((uint32_t)(((uint32_t)(x)) << SGI_SGI_SHA2_CTRL_NO_AUTO_INIT_SHIFT)) & SGI_SGI_SHA2_CTRL_NO_AUTO_INIT_MASK)
 
 #define SGI_SGI_SHA2_CTRL_SHA2CTL_RSVD_MASK      (0xFFFF0000U)
@@ -1191,7 +1311,19 @@ typedef struct {
 
 #define SGI_SGI_CONFIG2_AES_USED_MASK            (0xFU)
 #define SGI_SGI_CONFIG2_AES_USED_SHIFT           (0U)
-/*! aes_used - 0=Apollo; 1=Aegis; 2=Ayna; 3=Athenium; 4=Ajax; */
+/*! aes_used
+ *  0b0000..Apollo
+ *  0b0001..Aegis
+ *  0b0010..Ayna
+ *  0b0011..Athenium
+ *  0b0100..Ajax
+ *  0b0101..Aegis_hs
+ *  0b0110..Athenium_hs
+ *  0b0111..ATE
+ *  0b1000..ATOM
+ *  0b1001..Asterix
+ *  0b1010-0b1111..RFU
+ */
 #define SGI_SGI_CONFIG2_AES_USED(x)              (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CONFIG2_AES_USED_SHIFT)) & SGI_SGI_CONFIG2_AES_USED_MASK)
 
 #define SGI_SGI_CONFIG2_AES_NUM_SBOXES_MASK      (0x1F0U)
@@ -1201,7 +1333,11 @@ typedef struct {
 
 #define SGI_SGI_CONFIG2_AES_KEYSIZE_MASK         (0x600U)
 #define SGI_SGI_CONFIG2_AES_KEYSIZE_SHIFT        (9U)
-/*! aes_keysize - 0=128-Only,1=192-Only, 2=256-Only, 3=All Keysizes */
+/*! aes_keysize
+ *  0b00..128 0nly
+ *  0b10..256 only
+ *  0b11..All key sizes
+ */
 #define SGI_SGI_CONFIG2_AES_KEYSIZE(x)           (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CONFIG2_AES_KEYSIZE_SHIFT)) & SGI_SGI_CONFIG2_AES_KEYSIZE_MASK)
 
 #define SGI_SGI_CONFIG2_CONFIG2B_RSVD_MASK       (0xF800U)
@@ -1211,7 +1347,15 @@ typedef struct {
 
 #define SGI_SGI_CONFIG2_DES_USED_MASK            (0xF0000U)
 #define SGI_SGI_CONFIG2_DES_USED_SHIFT           (16U)
-/*! des_used - 0=Dakar; 1=Danube; 2=Depicta; 3=Digi; 4=Date; */
+/*! des_used
+ *  0b0000..Dakar
+ *  0b0001..Danube
+ *  0b0010..Depicta
+ *  0b0011..Digi
+ *  0b0100..Date
+ *  0b0101..Desert
+ *  0b0110-0b1111..RFU
+ */
 #define SGI_SGI_CONFIG2_DES_USED(x)              (((uint32_t)(((uint32_t)(x)) << SGI_SGI_CONFIG2_DES_USED_SHIFT)) & SGI_SGI_CONFIG2_DES_USED_MASK)
 
 #define SGI_SGI_CONFIG2_DES_NUM_SBOXES_MASK      (0x1F00000U)
@@ -1230,12 +1374,16 @@ typedef struct {
 
 #define SGI_SGI_AUTO_MODE_AUTO_MODE_EN_MASK      (0x1U)
 #define SGI_SGI_AUTO_MODE_AUTO_MODE_EN_SHIFT     (0U)
-/*! auto_mode_en - auto_start_en */
+/*! auto_mode_en - auto_start_en
+ *  0b1..auto mode has been selected
+ */
 #define SGI_SGI_AUTO_MODE_AUTO_MODE_EN(x)        (((uint32_t)(((uint32_t)(x)) << SGI_SGI_AUTO_MODE_AUTO_MODE_EN_SHIFT)) & SGI_SGI_AUTO_MODE_AUTO_MODE_EN_MASK)
 
 #define SGI_SGI_AUTO_MODE_AUTO_MODE_STOP_MASK    (0x2U)
 #define SGI_SGI_AUTO_MODE_AUTO_MODE_STOP_SHIFT   (1U)
-/*! auto_mode_stop - auto_mode_stop */
+/*! auto_mode_stop - auto_mode_stop
+ *  0b1..exit auto mode as soon as the data has been emptied
+ */
 #define SGI_SGI_AUTO_MODE_AUTO_MODE_STOP(x)      (((uint32_t)(((uint32_t)(x)) << SGI_SGI_AUTO_MODE_AUTO_MODE_STOP_SHIFT)) & SGI_SGI_AUTO_MODE_AUTO_MODE_STOP_MASK)
 
 #define SGI_SGI_AUTO_MODE_AUTO_MODE_RSVD1_MASK   (0xCU)
@@ -1245,7 +1393,12 @@ typedef struct {
 
 #define SGI_SGI_AUTO_MODE_INCR_MODE_MASK         (0x30U)
 #define SGI_SGI_AUTO_MODE_INCR_MODE_SHIFT        (4U)
-/*! incr_mode - CTR increment mode */
+/*! incr_mode - CTR increment mode
+ *  0b00..2**32 increment mode
+ *  0b01..2**64 increment mode
+ *  0b10..2**96 increment mode
+ *  0b11..2**128 increment mode
+ */
 #define SGI_SGI_AUTO_MODE_INCR_MODE(x)           (((uint32_t)(((uint32_t)(x)) << SGI_SGI_AUTO_MODE_INCR_MODE_SHIFT)) & SGI_SGI_AUTO_MODE_INCR_MODE_MASK)
 
 #define SGI_SGI_AUTO_MODE_AUTO_MODE_RSVD2_MASK   (0xC0U)
@@ -1256,12 +1409,12 @@ typedef struct {
 #define SGI_SGI_AUTO_MODE_CMD_MASK               (0xFF00U)
 #define SGI_SGI_AUTO_MODE_CMD_SHIFT              (8U)
 /*! cmd - Auto mode of operation
- *  0b00000000..8'h00 - ECB mode
- *  0b00000001..8'h01 - CTR mode
- *  0b00000010..8'h02 - CBC mode
- *  0b00000011..8'h03 - CBCMAC mode
- *  0b00010000..8'h10 - Key Wrap/Unwrap(128 bit key data)
- *  0b00010001..8'h11 - Key Wrap/Unwrap(256 bit key data)
+ *  0b00000000..ECB mode
+ *  0b00000001..CTR mode
+ *  0b00000010..CBC mode
+ *  0b00000011..CBCMAC mode
+ *  0b00010000..Key Wrap/Unwrap (128 bit key data)
+ *  0b00010001..Key Wrap/Unwrap (256 bit key data)
  */
 #define SGI_SGI_AUTO_MODE_CMD(x)                 (((uint32_t)(((uint32_t)(x)) << SGI_SGI_AUTO_MODE_CMD_SHIFT)) & SGI_SGI_AUTO_MODE_CMD_MASK)
 
@@ -1276,7 +1429,10 @@ typedef struct {
 
 #define SGI_SGI_AUTO_DMA_CTRL_IFE_MASK           (0x1U)
 #define SGI_SGI_AUTO_DMA_CTRL_IFE_SHIFT          (0U)
-/*! ife - Input FIFO DMA Enable */
+/*! ife - Input FIFO DMA Enable
+ *  0b0..DMA handshake disabled
+ *  0b1..DMA handshake enabled
+ */
 #define SGI_SGI_AUTO_DMA_CTRL_IFE(x)             (((uint32_t)(((uint32_t)(x)) << SGI_SGI_AUTO_DMA_CTRL_IFE_SHIFT)) & SGI_SGI_AUTO_DMA_CTRL_IFE_MASK)
 
 #define SGI_SGI_AUTO_DMA_CTRL_AUTO_DMA_RSVD1_MASK (0xFEU)
@@ -1286,7 +1442,10 @@ typedef struct {
 
 #define SGI_SGI_AUTO_DMA_CTRL_OFE_MASK           (0x100U)
 #define SGI_SGI_AUTO_DMA_CTRL_OFE_SHIFT          (8U)
-/*! ofe - Ouput FIFO DMA Enable */
+/*! ofe - Ouput FIFO DMA Enable
+ *  0b0..DMA handshake disabled
+ *  0b1..DMA handshake enabled
+ */
 #define SGI_SGI_AUTO_DMA_CTRL_OFE(x)             (((uint32_t)(((uint32_t)(x)) << SGI_SGI_AUTO_DMA_CTRL_OFE_SHIFT)) & SGI_SGI_AUTO_DMA_CTRL_OFE_MASK)
 
 #define SGI_SGI_AUTO_DMA_CTRL_AUTO_DMA_RSVD2_MASK (0xFFFFFE00U)
@@ -1300,7 +1459,6 @@ typedef struct {
 
 #define SGI_SGI_PRNG_SW_SEED_SEED_MASK           (0xFFFFFFFFU)
 #define SGI_SGI_PRNG_SW_SEED_SEED_SHIFT          (0U)
-/*! seed - 32-bits SEED field. A write to the SEED field */
 #define SGI_SGI_PRNG_SW_SEED_SEED(x)             (((uint32_t)(((uint32_t)(x)) << SGI_SGI_PRNG_SW_SEED_SEED_SHIFT)) & SGI_SGI_PRNG_SW_SEED_SEED_MASK)
 /*! @} */
 
@@ -1309,7 +1467,6 @@ typedef struct {
 
 #define SGI_SGI_KEY_CTRL_KEY_WO_MASK             (0xFFFFFFFFU)
 #define SGI_SGI_KEY_CTRL_KEY_WO_SHIFT            (0U)
-/*! key_wo - SGI Key control register(1-bit per KEY SFR) */
 #define SGI_SGI_KEY_CTRL_KEY_WO(x)               (((uint32_t)(((uint32_t)(x)) << SGI_SGI_KEY_CTRL_KEY_WO_SHIFT)) & SGI_SGI_KEY_CTRL_KEY_WO_MASK)
 /*! @} */
 
@@ -1376,7 +1533,6 @@ typedef struct {
 
 #define SGI_SGI_ACCESS_ERR_APB_MASTER_MASK       (0xF0U)
 #define SGI_SGI_ACCESS_ERR_APB_MASTER_SHIFT      (4U)
-/*! apb_master - APB Master that triggered first APB error */
 #define SGI_SGI_ACCESS_ERR_APB_MASTER(x)         (((uint32_t)(((uint32_t)(x)) << SGI_SGI_ACCESS_ERR_APB_MASTER_SHIFT)) & SGI_SGI_ACCESS_ERR_APB_MASTER_MASK)
 
 #define SGI_SGI_ACCESS_ERR_ACCERR_RSVD2_MASK     (0xFFFFFF00U)
@@ -1404,7 +1560,6 @@ typedef struct {
 
 #define SGI_SGI_INT_STATUS_INT_PDONE_MASK        (0x1U)
 #define SGI_SGI_INT_STATUS_INT_PDONE_SHIFT       (0U)
-/*! int_pdone - Interrupt status flag: */
 #define SGI_SGI_INT_STATUS_INT_PDONE(x)          (((uint32_t)(((uint32_t)(x)) << SGI_SGI_INT_STATUS_INT_PDONE_SHIFT)) & SGI_SGI_INT_STATUS_INT_PDONE_MASK)
 
 #define SGI_SGI_INT_STATUS_INTST_RSVD_MASK       (0xFFFFFFFEU)

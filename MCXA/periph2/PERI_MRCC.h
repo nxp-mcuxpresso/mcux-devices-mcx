@@ -26,13 +26,13 @@
 **                          MCXA276VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b241224
+**     Build:               b250401
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MRCC
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -917,14 +917,6 @@ typedef struct {
  */
 #define MRCC_MRCC_GLB_CC0_ERM0(x)                (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_GLB_CC0_ERM0_SHIFT)) & MRCC_MRCC_GLB_CC0_ERM0_MASK)
 
-#define MRCC_MRCC_GLB_CC0_FMC_MASK               (0x10000U)
-#define MRCC_MRCC_GLB_CC0_FMC_SHIFT              (16U)
-/*! FMC - FMC
- *  0b0..Peripheral clock is disabled
- *  0b1..Peripheral clock is enabled
- */
-#define MRCC_MRCC_GLB_CC0_FMC(x)                 (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_GLB_CC0_FMC_SHIFT)) & MRCC_MRCC_GLB_CC0_FMC_MASK)
-
 #define MRCC_MRCC_GLB_CC0_AOI1_MASK              (0x20000U)
 #define MRCC_MRCC_GLB_CC0_AOI1_SHIFT             (17U)
 /*! AOI1 - AOI1
@@ -1558,14 +1550,6 @@ typedef struct {
  *  0b1..Automatic clock gating is enabled
  */
 #define MRCC_MRCC_GLB_ACC0_ERM0(x)               (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_GLB_ACC0_ERM0_SHIFT)) & MRCC_MRCC_GLB_ACC0_ERM0_MASK)
-
-#define MRCC_MRCC_GLB_ACC0_FMC_MASK              (0x10000U)
-#define MRCC_MRCC_GLB_ACC0_FMC_SHIFT             (16U)
-/*! FMC - FMC
- *  0b0..Automatic clock gating is disabled
- *  0b1..Automatic clock gating is enabled
- */
-#define MRCC_MRCC_GLB_ACC0_FMC(x)                (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_GLB_ACC0_FMC_SHIFT)) & MRCC_MRCC_GLB_ACC0_FMC_MASK)
 
 #define MRCC_MRCC_GLB_ACC0_AOI1_MASK             (0x20000U)
 #define MRCC_MRCC_GLB_ACC0_AOI1_SHIFT            (17U)

@@ -37,7 +37,7 @@ config MCUX_HW_FPV4_SP
 
 config MCUX_HW_INT_PRIO_BITS
     int
-    default 3
+    default 4
 
 config MCUX_HW_DSP
     bool

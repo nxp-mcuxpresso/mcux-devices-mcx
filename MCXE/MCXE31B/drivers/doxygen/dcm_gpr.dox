@@ -1,0 +1,10 @@
+/*!
+@defgroup dcm_gpr DCM_GPR: Device Configuration Module General-Purpose Registers
+@details The MCUXpresso SDK provides a driver for the Device Configuration Module.
+
+The DCM_GPR driver supports:
+  - Module miscllaneous configuration.
+  - Chip standby exit configuration.
+  - Internal supply voltage monitoring.
+
+*/

@@ -1,6 +1,5 @@
 /*
- * Copyright 2024, NXP
- * All rights reserved.
+ * Copyright 2024-2025 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -50,8 +49,8 @@ typedef enum _SYSCON_RSTn
     kERM0_RST_SHIFT_RSTn      = (0U | (10U)),         /*!< ERM0         reset control */
     kLPI2C0_RST_SHIFT_RSTn    = (0U | (14U)),         /*!< LPI2C0       reset control */
     kLPI2C1_RST_SHIFT_RSTn    = (0U | (15U)),         /*!< LPI2C1       reset control */
-    kLPSPI0_RST_SHIFT_RSTn    = (0U | (14U)),         /*!< LPSPI0       reset control */
-    kLPSPI1_RST_SHIFT_RSTn    = (0U | (16U)),         /*!< LPSPI1       reset control */
+    kLPSPI0_RST_SHIFT_RSTn    = (0U | (16U)),         /*!< LPSPI0       reset control */
+    kLPSPI1_RST_SHIFT_RSTn    = (0U | (17U)),         /*!< LPSPI1       reset control */
     kLPUART0_RST_SHIFT_RSTn   = (0U | (18U)),         /*!< LPUART0      reset control */
     kADC0_RST_SHIFT_RSTn      = (0U | (19U)),         /*!< ADC0         reset control */
     kATX0_RST_SHIFT_RSTn      = (0U | (20U)),         /*!< ATX0         reset control */
@@ -128,7 +127,7 @@ typedef enum _SYSCON_RSTn
     } /* Reset bits for LPUART peripheral */
 #define LPSPI_RSTS                                     \
     {                                                  \
-        kLPSPI0_RST_SHIFT_RSTn, kLPSPI0_RST_SHIFT_RSTn \
+        kLPSPI0_RST_SHIFT_RSTn, kLPSPI1_RST_SHIFT_RSTn \
     } /* Reset bits for LPSPI peripheral */
 #define LPI2C_RSTS             \
     {                          \

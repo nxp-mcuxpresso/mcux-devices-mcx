@@ -1085,7 +1085,7 @@ void Reset_Handler(void) {
     }
 #ifdef __STARTUP_INITIALIZE_RAMFUNCTION
     pDataSrc = (uint32_t *)__ram_function_flash_start;
-    pDataDest = (uint32_t *)__noncache_data_start__;
+    pDataDest = (uint32_t *)__ram_function_start__;
     while (pDataDest < __ram_function_end__)
     {
         *pDataDest++ = *pDataSrc++;
@@ -1093,7 +1093,7 @@ void Reset_Handler(void) {
 #endif // __STARTUP_INITIALIZE_RAMFUNCTION
 #ifdef __STARTUP_INITIALIZE_NONCACHEDATA
     pDataSrc = (uint32_t *)__noncache_data_flash_start;
-    pDataDest = (uint32_t *)__ram_function_start__;
+    pDataDest = (uint32_t *)__noncache_data_start__;
     while (pDataDest < __noncache_data_end__)
     {
         *pDataDest++ = *pDataSrc++;
@@ -1105,7 +1105,7 @@ void Reset_Handler(void) {
     {
         *pDataDest++ = 0;
     }
-#endif
+#endif // __STARTUP_INITIALIZE_NONCACHEDATA
 #ifdef __STARTUP_INITIALIZE_QADATA
     pDataSrc = (uint32_t *)__qadata_flash_start;
     pDataDest = (uint32_t *)__qadata_start__;

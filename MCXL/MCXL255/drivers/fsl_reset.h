@@ -166,7 +166,7 @@ typedef enum _SYSCON_RSTn
     } /* Reset bits for LPUART peripheral */
 #define LPI2C_RSTS             \
     {                          \
-        kAonI2C_RST_SHIFT_RSTn \
+        NotAvail_RSTn, NotAvail_RSTn, kAonI2C_RST_SHIFT_RSTn \
     } /* Reset bits for LPI2C peripheral */
 #define CTIMER_RSTS                                         \
     {                                                       \

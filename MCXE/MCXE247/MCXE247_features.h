@@ -876,7 +876,9 @@
 /* @brief QSPI has command usage error flag. */
 #define FSL_FEATURE_QSPI_HAS_IP_COMMAND_USAGE_ERROR (0)
 /* @brief QSPI has no SOCCR register. */
-#define FSL_FEATURE_QSPI_HAS_NO_SOCCR_REG (1)
+#define FSL_FEATURE_QSPI_HAS_NO_SOCCR_REG (0)
+/* @brief there is Soc specific configuration. */
+#define FSL_FEATURE_QSPI_HAS_SOC_SPECIFIC_CONFIG (1)
 /* @brief QSPI support individual mode. */
 #define FSL_FEATURE_QSPI_SUPPORT_INDIVIDUAL_MODE (1)
 /* @brief QSPI support dual die. */

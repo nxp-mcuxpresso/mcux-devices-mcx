@@ -651,7 +651,9 @@
 /* @brief there is no END_CFG bit in MCR register. */
 #define FSL_FEATURE_QSPI_HAS_NO_MCR_END (1)
 /* @brief there is no SOCCR register. */
-#define FSL_FEATURE_QSPI_HAS_NO_SOCCR_REG (1)
+#define FSL_FEATURE_QSPI_HAS_NO_SOCCR_REG (0)
+/* @brief there is Soc specific configuration. */
+#define FSL_FEATURE_QSPI_HAS_SOC_SPECIFIC_CONFIG (1)
 /* @brief there is DLLCRA register. */
 #define FSL_FEATURE_QSPI_HAS_DLLCRA (1)
 /* @brief there is data learning feature. */

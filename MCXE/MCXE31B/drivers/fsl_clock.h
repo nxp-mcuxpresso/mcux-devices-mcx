@@ -701,6 +701,17 @@ typedef struct _pll_config
     uint8_t outDiv[PLL_PLLODIV_COUNT]; /*!< PLL Output Divider. */
 } pll_config_t;
 
+/*!
+ * @brief Clock Source PCFS configuration structure.
+ */
+typedef struct _clock_pcfs_config_t
+{
+    uint32_t maxAllowableIDDchange; /*!< Maximum variation of current per time (mA/microsec) -  max allowable IDD change
+                                       is determined by the user's power supply design. */
+    uint32_t stepDuration;          /*!< Step duration of each PCFS step (time per step in us). */
+    uint32_t clkSrcFreq; /*!< Frequency of the clock source from which ramp-down and to which ramp-up are processed. */
+} clock_pcfs_config_t;
+
 /*******************************************************************************
  * API
  ******************************************************************************/
@@ -837,6 +848,14 @@ void CLOCK_AttachClk(clock_attach_id_t connection);
  * @return  Nothing
  */
 void CLOCK_SelectSafeClock(clock_attach_id_t connection);
+
+/**
+ * @brief Configure the Progressive Clock Frequency Switch(PCFS) for MC_CGM MUX0.
+ * @param  connection  : Clock to be configured. Only MUX_0 clock supports PCFS, kPLL_PHI0_CLK_to_MUX0.
+ * @param  config : PCFS configuration.
+ * @return  Nothing
+ */
+void CLOCK_ProgressiveClockFrequencySwitch(clock_attach_id_t connection, clock_pcfs_config_t const *config);
 
 /**
  * @brief Get the clock selection status.

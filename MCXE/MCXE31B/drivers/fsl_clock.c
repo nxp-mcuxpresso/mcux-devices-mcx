@@ -18,6 +18,11 @@
 #define CLOCK_MUX_DC_REG(mux, dc) (*((volatile uint32_t *)((uint32_t)(&(MC_CGM->MUX_0_DC_0)) + (mux)*0x40U + (dc)*4U)))
 #define CLOCK_MUX_CSS_REG(mux)    (*((volatile uint32_t *)((uint32_t)(&(MC_CGM->MUX_0_CSS)) + (mux)*0x40U)))
 
+/* Pcfs settings that are dependent on device */
+#define CLOCK_IP_DYNAMIC_IDD_CHANGE 2360U /* microA per MHz */
+#define CLOCK_IP_A_MAX_SIZE         4U
+static const uint32_t AMax[CLOCK_IP_A_MAX_SIZE]     = {5U, 10U, 150U, 200U};
+static const uint32_t PcfsRate[CLOCK_IP_A_MAX_SIZE] = {12U, 48U, 112U, 184U};
 /*******************************************************************************
  * Variables
  *****************************************************************************/
@@ -125,6 +130,105 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
         {
             CLOCK_TUPLE_MUX_CSC_REG(connection) = MC_CGM_MUX_5_CSC_SELCTL(src);
         }
+    }
+}
+
+/* ProgressiveClockFrequencySwitch */
+void CLOCK_ProgressiveClockFrequencySwitch(clock_attach_id_t connection, clock_pcfs_config_t const *config)
+{
+    assert(config != NULL);
+
+    uint32_t src = connection & 0xFFU;
+
+    /* Only MUX_0 supported. */
+    assert(((connection & 0xFF00U) >> 8U) == 0U);
+
+    uint32_t Finput = 0U;
+    uint32_t Fsafe  = 0U;
+    uint32_t Rate   = 0U;
+    uint32_t Amax, i, temp1, temp2, temp3, k;
+
+    uint32_t sdur;
+    uint32_t divcInit;
+    uint32_t divcRate;
+    uint32_t divStartValue;
+    uint32_t divEndValue;
+
+    Finput = config->clkSrcFreq / 1000000U;
+    Fsafe  = CLOCK_FIRC_CLK_FREQ / 1000000U;
+
+    Amax = (config->maxAllowableIDDchange * 1000000U / (Finput * CLOCK_IP_DYNAMIC_IDD_CHANGE));
+    Rate = Amax;
+
+    /* Round pcfs rate by rounding amax */
+    if (Amax <= AMax[0U])
+    {
+        Rate = PcfsRate[0U];
+    }
+    else if (Amax >= AMax[CLOCK_IP_A_MAX_SIZE - 1U])
+    {
+        Rate = PcfsRate[CLOCK_IP_A_MAX_SIZE - 1U];
+    }
+    else
+    {
+        for (i = 1U; i < CLOCK_IP_A_MAX_SIZE; i++)
+        {
+            if (AMax[CLOCK_IP_A_MAX_SIZE - 1U] < Amax)
+            {
+                Rate = PcfsRate[i - 1U];
+            }
+        }
+    }
+
+    /* Calculate K by using formula k = ceil(0.5 + sqrt(0.25 - (2000 * (1 -(Finput/fsafe)) / Rate))) */
+
+    temp1 = 256U + ((2048000 * Finput) / (Fsafe * Rate)) - (2048000 / Rate); /* * 1024. */
+    temp2 = 1UL << 30U; /* The second-to-top bit is set: use 1uL<<30 for uint32 type  */
+    temp3 = 0U;
+
+    /* "one" starts at the highest power of four <= than the argument */
+    while (temp2 > temp1)
+    {
+        temp2 = temp2 >> 2;
+    }
+    /* Implement sqrt from K formula by using a square-root computing in embedded C */
+    while (temp2 != 0U)
+    {
+        if (temp1 >= (temp3 + temp2))
+        {
+            temp1 = temp1 - (temp3 + temp2);
+            temp3 = temp3 + (temp2 << 1U);
+        }
+
+        temp3 = temp3 >> 1U;
+        temp2 = temp2 >> 2U;
+    }
+
+    k = (64U + 127U + (temp3 << 2U)) >>
+        7U; /* Calculated K from k = ceil(0.5 + sqrt(0.25 - (2000 * (1 -(Fi/Fsafe)) / Rate))) */
+
+    sdur          = config->stepDuration * Fsafe;
+    divcInit      = Rate * k;
+    divcRate      = Rate;
+    divStartValue = 999U + ((Rate * k * (k + 1U)) >> 1U);
+    divEndValue   = (Finput * 1000U / Fsafe) - 1U;
+
+    /* Configure pcfs registers */
+    MC_CGM->PCFS_SDUR  = MC_CGM_PCFS_SDUR_SDUR(sdur);
+    MC_CGM->PCFS_DIVC8 = MC_CGM_PCFS_DIVC8_RATE(divcRate) | MC_CGM_PCFS_DIVC8_INIT(divcInit);
+    MC_CGM->PCFS_DIVE8 = MC_CGM_PCFS_DIVE8_DIVE(divEndValue);
+    MC_CGM->PCFS_DIVS8 = MC_CGM_PCFS_DIVS8_DIVS(divStartValue);
+
+    while ((CLOCK_TUPLE_MUX_CSS_REG(connection) & MC_CGM_MUX_0_CSS_SWIP_MASK) != 0)
+    {
+    }
+    CLOCK_TUPLE_MUX_CSC_REG(connection) = (src << MC_CGM_MUX_0_CSC_SELCTL_SHIFT) | MC_CGM_MUX_0_CSC_CLK_SW_MASK |
+                                          MC_CGM_MUX_0_CSC_RAMPDOWN_MASK | MC_CGM_MUX_0_CSC_RAMPUP_MASK;
+    while ((CLOCK_TUPLE_MUX_CSS_REG(connection) & MC_CGM_MUX_0_CSS_CLK_SW_MASK) == 0)
+    {
+    }
+    while ((CLOCK_TUPLE_MUX_CSS_REG(connection) & MC_CGM_MUX_0_CSS_SWIP_MASK) != 0)
+    {
     }
 }
 

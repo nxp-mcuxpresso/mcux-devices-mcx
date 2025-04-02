@@ -70,24 +70,6 @@ void SystemInit(void)
         SCB_EnableICache();
     }
 
-    /* Enables PMC last mile regulator.  */
-    if ((PMC->LVSC & PMC_LVSC_LVD15S_MASK) != 0U)
-    {
-        /* External bipolar junction transistor is connected between external voltage and V15 input pin. */
-        PMC->CONFIG |= PMC_CONFIG_LMBCTLEN_MASK;
-    }
-    while((PMC->LVSC & PMC_LVSC_LVD15S_MASK) != 0U)
-    {
-    }
-    PMC->CONFIG |= PMC_CONFIG_LMEN_MASK;
-    while((PMC->CONFIG & PMC_CONFIG_LMSTAT_MASK) == 0u)
-    {
-    }
-
-    /* Configure SRAM read wait states. */
-    PRAMC_0->PRCR1 |= PRAMC_PRCR1_FT_DIS_MASK;
-    PRAMC_1->PRCR1 |= PRAMC_PRCR1_FT_DIS_MASK;
-
     SystemInitHook();
 }
 

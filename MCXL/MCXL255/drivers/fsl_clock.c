@@ -1355,11 +1355,11 @@ uint32_t CLOCK_GetFroAonFreq(void)
     }
     else if(CGU_CLK_CONFIG_SEL_MODE(AON__CGU->CLK_CONFIG))
     {
-        return 4000000U;
+        return 10000000U;
     }
     else
     {
-        return 10000000U;
+        return 4000000U;
     }
 }
 

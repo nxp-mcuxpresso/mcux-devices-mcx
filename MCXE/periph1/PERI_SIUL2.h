@@ -1877,7 +1877,7 @@ typedef struct {
 /*! @name MSCR - SIUL2 Multiplexed Signal Configuration Register */
 /*! @{ */
 
-#define SIUL2_MSCR_SSS_MASK                      (0x7U)
+#define SIUL2_MSCR_SSS_MASK                      (0xFU)
 #define SIUL2_MSCR_SSS_SHIFT                     (0U)
 /*! SSS - Source Signal Select */
 #define SIUL2_MSCR_SSS(x)                        (((uint32_t)(((uint32_t)(x)) << SIUL2_MSCR_SSS_SHIFT)) & SIUL2_MSCR_SSS_MASK)

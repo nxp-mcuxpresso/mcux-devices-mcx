@@ -139,11 +139,11 @@ typedef enum _SYSCON_RSTn
     } /* Reset bits for LPI2C peripheral */
 #define CMP_RSTS                          \
     {                                       \
-        kAonCMP0_RST_SHIFT_RSTn, kCMP0_RST_SHIFT_RSTn \
+        kCMP0_RST_SHIFT_RSTn \
     } /* Reset bits for CMP peripherals */
 #define LPACMP_RSTS                          \
     {                                       \
-        NotAvail_RSTn \
+        kAonCMP0_RST_SHIFT_RSTn \
     } /* Reset bits for LPCMP peripheral */
 #define OSTIMER_RSTS             \
     {                            \

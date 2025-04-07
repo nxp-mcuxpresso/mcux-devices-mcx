@@ -163,6 +163,12 @@ typedef enum _clock_ip_name
         kCLOCK_GateAonLCD   \
     }
 
+/*! @brief Clock ip name array for LPACMP. */
+#define LPACMP_CLOCKS      \
+    {                   \
+        kCLOCK_GateAonCMP0 \
+    }
+
 /*! @brief Clock ip name array for AOI. */
 #define AOI_CLOCKS      \
     {                   \

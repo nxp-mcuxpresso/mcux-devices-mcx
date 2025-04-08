@@ -499,39 +499,6 @@ typedef struct _scg_sirc_config
 } scg_sirc_config_t;
 
 /*!
- * @brief SCG fast IRC trim predivided value for system OSC.
- */
-typedef enum _scg_firc_trim_div
-{
-    kSCG_FircTrimDivBy1,    /*!< Divided by 1.    */
-    kSCG_FircTrimDivBy128,  /*!< Divided by 128.  */
-    kSCG_FircTrimDivBy256,  /*!< Divided by 256.  */
-    kSCG_FircTrimDivBy512,  /*!< Divided by 512.  */
-    kSCG_FircTrimDivBy1024, /*!< Divided by 1024. */
-    kSCG_FircTrimDivBy2048  /*!< Divided by 2048. */
-} scg_firc_trim_div_t;
-
-/*!
- * @brief SCG fast IRC trim source.
- */
-typedef enum _scg_firc_trim_src
-{
-    kSCG_FircTrimSrcSysOsc = 2U, /*!< System OSC.                 */
-} scg_firc_trim_src_t;
-
-/*!
- * @brief SCG fast IRC clock trim configuration.
- */
-typedef struct _scg_firc_trim_config
-{
-    scg_firc_trim_src_t trimSrc;   /*!< Trim source.                          */
-    scg_firc_trim_div_t trimDiv;   /*!< Trim predivided value for the system OSC.  */
-
-    uint8_t trimCoar; /*!< Trim coarse value; Irrelevant if trimMode is kSCG_FircTrimUpdate. */
-    uint8_t trimFine; /*!< Trim fine value; Irrelevant if trimMode is kSCG_FircTrimUpdate. */
-} scg_firc_trim_config_t;
-
-/*!
  * @brief SCG fast IRC clock frequency range.
  */
 typedef enum _scg_firc_range
@@ -553,12 +520,11 @@ typedef struct _scg_firc_config_t
 {
     uint32_t enableMode; /*!< Enable mode, OR'ed value of _scg_firc_enable_mode. */
 
-    scg_async_clk_div_t div1; /*!< SIRCDIV1 value.                          */
+    scg_async_clk_div_t div1; /*!< FIRCDIV1 value.                          */
     scg_async_clk_div_t div2; /*!< FIRCDIV2 value.                          */
 
     scg_firc_range_t range; /*!< Fast IRC frequency range.                 */
-
-    const scg_firc_trim_config_t *trimConfig; /*!< Pointer to the FIRC trim configuration; set NULL to disable trim. */
+    const uint32_t *trimConfig; /*!< Set NULL to disable trim. Trim is not supported on MCXE24x. */
 } scg_firc_config_t;
 
 /*!

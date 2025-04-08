@@ -316,3 +316,8 @@ config MCUX_HW_IP_DriverType_FLASH_C40
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE31B
+
+config MCUX_HW_IP_DriverType_TSPC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE31B

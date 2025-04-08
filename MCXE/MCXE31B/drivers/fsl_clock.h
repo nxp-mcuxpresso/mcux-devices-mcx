@@ -247,6 +247,12 @@ extern volatile uint32_t g_xtal0Freq;
         kCLOCK_Swt0, \
     }
 
+/*! @brief Clock ip name array for TSPC. */
+#define TSPC_CLOCKS  \
+    {                \
+        kCLOCK_Tspc, \
+    }
+
 #define MC_ME_TUPLE_PRTN_MASK  (0x0FFF0000U)
 #define MC_ME_TUPLE_PRTN_SHIFT (16U)
 #define MC_ME_TUPLE_BIT_MASK   (0x1FU)

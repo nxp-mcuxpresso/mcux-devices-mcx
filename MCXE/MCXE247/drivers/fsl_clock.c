@@ -273,7 +273,8 @@ uint32_t CLOCK_GetIpFreq(clock_ip_name_t name)
 
     /* FTM uses SCG DIV1 clock, others use SCG DIV2 clock. */
     if ((kCLOCK_Ftm0 == name) || (kCLOCK_Ftm1 == name) || (kCLOCK_Ftm2 == name) || (kCLOCK_Ftm3 == name) || \
-        (kCLOCK_Ftm4 == name) || (kCLOCK_Ftm5 == name) || (kCLOCK_Ftm6 == name) || (kCLOCK_Ftm7 == name))
+        (kCLOCK_Ftm4 == name) || (kCLOCK_Ftm5 == name) || (kCLOCK_Ftm6 == name) || (kCLOCK_Ftm7 == name) || \
+        (kCLOCK_Enet == name))
     {
         asycClk = kSCG_AsyncDiv1Clk;
     }
@@ -419,7 +420,7 @@ status_t CLOCK_InitSysOsc(const scg_sosc_config_t *config)
 
     /* Now start to set up OSC clock. */
     /* Step 1. Setup dividers. */
-    SCG->SOSCDIV = SCG_SOSCDIV_SOSCDIV2(config->div2);
+    SCG->SOSCDIV = SCG_SOSCDIV_SOSCDIV1(config->div1) | SCG_SOSCDIV_SOSCDIV2(config->div2);
 
     /* Step 2. Set OSC configuration. */
     SCG->SOSCCFG = (uint32_t)(config->workMode) | SCG_SOSCCFG_RANGE(range);
@@ -567,7 +568,7 @@ status_t CLOCK_InitSirc(const scg_sirc_config_t *config)
     {
         /* Now start to set up SIRC clock. */
         /* Step 1. Setup dividers. */
-        SCG->SIRCDIV = SCG_SIRCDIV_SIRCDIV2(config->div2);
+        SCG->SIRCDIV = SCG_SIRCDIV_SIRCDIV1(config->div1) | SCG_SIRCDIV_SIRCDIV2(config->div2);
 
         /* Step 2. Set SIRC configuration. */
         SCG->SIRCCFG = SCG_SIRCCFG_RANGE(config->range);
@@ -710,7 +711,7 @@ status_t CLOCK_InitFirc(const scg_firc_config_t *config)
 
     /* Now start to set up FIRC clock. */
     /* Step 1. Setup dividers. */
-    SCG->FIRCDIV = SCG_FIRCDIV_FIRCDIV2(config->div2);
+    SCG->FIRCDIV = SCG_FIRCDIV_FIRCDIV1(config->div1) | SCG_FIRCDIV_FIRCDIV2(config->div2);
 
     /* Step 2. Set FIRC configuration. */
     SCG->FIRCCFG = SCG_FIRCCFG_RANGE(config->range);

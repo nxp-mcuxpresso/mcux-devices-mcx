@@ -463,9 +463,10 @@ typedef struct _scg_sosc_config
     scg_sosc_monitor_mode_t monitorMode; /*!< Clock monitor mode selected.                        */
     uint8_t enableMode;                  /*!< Enable mode, OR'ed value of _scg_sosc_enable_mode.  */
 
-    scg_async_clk_div_t div2; /*!< SOSCDIV2 value.                          */
+    scg_async_clk_div_t div1; /*!< SOSCDIV1 value. */
+    scg_async_clk_div_t div2; /*!< SOSCDIV2 value. */
 
-    scg_sosc_mode_t workMode; /*!< OSC work mode.                           */
+    scg_sosc_mode_t workMode; /*!< OSC work mode. */
 } scg_sosc_config_t;
 
 /*!
@@ -928,8 +929,7 @@ static inline void CLOCK_SetSysOscAsyncClkDiv(scg_async_clk_t asyncClk, scg_asyn
             reg = (reg & ~SCG_SOSCDIV_SOSCDIV2_MASK) | SCG_SOSCDIV_SOSCDIV2(divider);
             break;
         default:
-            /* All the cases have been listed above, the default clause should not be reached. */
-            assert(false);
+            reg = (reg & ~SCG_SOSCDIV_SOSCDIV1_MASK) | SCG_SOSCDIV_SOSCDIV1(divider);
             break;
     }
 
@@ -1052,8 +1052,7 @@ static inline void CLOCK_SetSircAsyncClkDiv(scg_async_clk_t asyncClk, scg_async_
             reg = (reg & ~SCG_SIRCDIV_SIRCDIV2_MASK) | SCG_SIRCDIV_SIRCDIV2(divider);
             break;
         default:
-            /* All the cases have been listed above, the default clause should not be reached. */
-            assert(false);
+            reg = (reg & ~SCG_SIRCDIV_SIRCDIV1_MASK) | SCG_SIRCDIV_SIRCDIV1(divider);
             break;
     }
 
@@ -1138,8 +1137,7 @@ static inline void CLOCK_SetFircAsyncClkDiv(scg_async_clk_t asyncClk, scg_async_
             reg = (reg & ~SCG_FIRCDIV_FIRCDIV2_MASK) | SCG_FIRCDIV_FIRCDIV2(divider);
             break;
         default:
-            /* All the cases have been listed above, the default clause should not be reached. */
-            assert(false);
+            reg = (reg & ~SCG_FIRCDIV_FIRCDIV1_MASK) | SCG_FIRCDIV_FIRCDIV1(divider);
             break;
     }
 

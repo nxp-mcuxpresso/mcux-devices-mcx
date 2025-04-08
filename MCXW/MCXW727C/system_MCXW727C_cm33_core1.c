@@ -8,7 +8,7 @@
 **
 **     Reference manual:    Rev. 1, 2024-10-13
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250408
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -89,6 +89,13 @@ __attribute__ ((weak)) void SystemInit (void) {
     extern void(*const g_pfnVectors[]) (void);
     SCB->VTOR = (uint32_t) &g_pfnVectors;
 #endif
+
+  /* Disable aGDET interrupt and reset */
+  SPC0->ACTIVE_CFG |= SPC_ACTIVE_CFG_GLITCH_DETECT_DISABLE_MASK;
+  SPC0->LP_CFG |= SPC_ACTIVE_CFG_GLITCH_DETECT_DISABLE_MASK;
+  SPC0->GLITCH_DETECT_SC &= ~SPC_GLITCH_DETECT_SC_LOCK_MASK;
+  SPC0->GLITCH_DETECT_SC = 0x3D;
+  SPC0->GLITCH_DETECT_SC |= SPC_GLITCH_DETECT_SC_LOCK_MASK;
 
   SystemInitHook();
 }

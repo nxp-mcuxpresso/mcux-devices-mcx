@@ -474,8 +474,7 @@ typedef struct _scg_sosc_config
  */
 typedef enum _scg_sirc_range
 {
-    kSCG_SircRangeLow, /*!< Slow IRC low range clock (2 MHz).   */
-    kSCG_SircRangeHigh /*!< Slow IRC high range clock (8 MHz). */
+    kSCG_SircRangeHigh = 1U /*!< Slow IRC high range clock (8 MHz). */
 } scg_sirc_range_t;
 
 /*! @brief SIRC enable mode. */

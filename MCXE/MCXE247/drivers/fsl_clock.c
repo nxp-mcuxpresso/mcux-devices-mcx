@@ -16,7 +16,7 @@
 #define FSL_COMPONENT_ID "platform.drivers.clock"
 #endif
 
-#define SCG_SIRC_LOW_RANGE_FREQ  2000000U /* Slow IRC low range clock frequency. */
+#define SCG_SIRC_LOW_RANGE_FREQ  0U /* Slow IRC low range is not available. */
 #define SCG_SIRC_HIGH_RANGE_FREQ 8000000U /* Slow IRC high range clock frequency.   */
 
 #define SCG_FIRC_FREQ0 48000000U /* Fast IRC trimed clock frequency(48MHz). */
@@ -41,7 +41,7 @@
  * the range of SCG_SPLL_REF_MIN to SCG_SPLL_REF_MAX.
  */
 #define SCG_SPLL_REF_MIN 8000000UL
-#define SCG_SPLL_REF_MAX 32000000UL
+#define SCG_SPLL_REF_MAX 16000000UL
 
 #define SCG_CSR_SCS_VAL ((SCG->CSR & SCG_CSR_SCS_MASK) >> SCG_CSR_SCS_SHIFT)
 #define SCG_SOSCDIV_SOSCDIV1_VAL ((SCG->SOSCDIV & SCG_SOSCDIV_SOSCDIV1_MASK) >> SCG_SOSCDIV_SOSCDIV1_SHIFT)
@@ -392,15 +392,11 @@ status_t CLOCK_InitSysOsc(const scg_sosc_config_t *config)
     /* If crystal oscillator used, need to get RANGE value base on frequency. */
     if (kSCG_SysOscModeExt != config->workMode)
     {
-        if ((config->freq >= 32768U) && (config->freq <= 40000U))
-        {
-            range = 1U;
-        }
-        else if ((config->freq >= 1000000U) && (config->freq <= 8000000U))
+        if ((config->freq >= 4000000U) && (config->freq <= 8000000U))
         {
             range = 2U;
         }
-        else if ((config->freq >= 8000000U) && (config->freq <= 32000000U))
+        else if ((config->freq >= 8000000U) && (config->freq <= 40000000U))
         {
             range = 3U;
         }

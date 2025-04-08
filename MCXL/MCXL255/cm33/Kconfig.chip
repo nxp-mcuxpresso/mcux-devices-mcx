@@ -39,6 +39,14 @@ config MCUX_HW_INT_PRIO_BITS
     int
     default 3
 
+config MCUX_HW_DSP
+    bool
+    default y
+
+config MCUX_HW_SAU
+    bool
+    default y
+
 config MCUX_TOOLCHAIN_MCUX_STARTUP
     string
     default "mcxl255_cm33"

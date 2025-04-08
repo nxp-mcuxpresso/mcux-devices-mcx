@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for WKPU
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file WKPU.h
+ * @file PERI_WKPU.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for WKPU
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for WKPU
  */
 
-#if !defined(WKPU_H_)
-#define WKPU_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_WKPU_H_)
+#define PERI_WKPU_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -115,8 +115,8 @@ typedef struct {
 #define WKPU_NSR_NOVF1_MASK                      (0x400000U)
 #define WKPU_NSR_NOVF1_SHIFT                     (22U)
 /*! NOVF1 - NMI Overrun Status Flag 1
- *  0b0..No overrun occurred
  *  0b0..No effect
+ *  0b0..No overrun occurred
  *  0b1..An overrun occurred
  *  0b1..Clear the flag
  */
@@ -125,8 +125,8 @@ typedef struct {
 #define WKPU_NSR_NIF1_MASK                       (0x800000U)
 #define WKPU_NSR_NIF1_SHIFT                      (23U)
 /*! NIF1 - NMI Status Flag 1
- *  0b0..No event occurred on the pad
  *  0b0..No effect
+ *  0b0..No event occurred on the pad
  *  0b1..An event occurred
  *  0b1..Clear the flag
  */
@@ -135,8 +135,8 @@ typedef struct {
 #define WKPU_NSR_NOVF0_MASK                      (0x40000000U)
 #define WKPU_NSR_NOVF0_SHIFT                     (30U)
 /*! NOVF0 - NMI Overrun Status Flag 0
- *  0b0..No overrun occurred
  *  0b0..No effect
+ *  0b0..No overrun occurred
  *  0b1..An overrun occurred
  *  0b1..Clear the flag
  */
@@ -145,8 +145,8 @@ typedef struct {
 #define WKPU_NSR_NIF0_MASK                       (0x80000000U)
 #define WKPU_NSR_NIF0_SHIFT                      (31U)
 /*! NIF0 - NMI Status Flag 0
- *  0b0..No event occurred on the pad
  *  0b0..No effect
+ *  0b0..No event occurred on the pad
  *  0b1..An event occurred
  *  0b1..Clear the flag
  */
@@ -399,5 +399,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* WKPU_H_ */
+#endif  /* PERI_WKPU_H_ */
 

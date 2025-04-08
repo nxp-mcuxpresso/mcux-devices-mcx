@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MU
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file MU.h
+ * @file PERI_MU.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for MU
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for MU
  */
 
-#if !defined(MU_H_)
-#define MU_H_                                    /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_MU_H_)
+#define PERI_MU_H_                               /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -87,9 +87,9 @@ typedef struct {
   __I  uint32_t PAR;                               /**< Parameter Register, offset: 0x4 */
   __IO uint32_t CR;                                /**< Control Register, offset: 0x8 */
   __IO uint32_t SR;                                /**< Status Register, offset: 0xC */
-  __IO uint32_t CCR0;                              /**< Core Control Register 0, offset: 0x10 */
+  __IO uint32_t CCR0;                              /**< Core Control Register 0, offset: 0x10, available only on: MU_0.MUB/MU0_B (missing on MU_1.MUA/MU_1__MUA, MU_1.MUB/MU1_B) */
        uint8_t RESERVED_0[4];
-  __IO uint32_t CSSR0;                             /**< Core Sticky Status Register 0, offset: 0x18 */
+  __IO uint32_t CSSR0;                             /**< Core Sticky Status Register 0, offset: 0x18, available only on: MU_0.MUB/MU0_B (missing on MU_1.MUA/MU_1__MUA, MU_1.MUB/MU1_B) */
        uint8_t RESERVED_1[228];
   __IO uint32_t FCR;                               /**< Flag Control Register, offset: 0x100 */
   __I  uint32_t FSR;                               /**< Flag Status Register, offset: 0x104 */
@@ -174,8 +174,8 @@ typedef struct {
 #define MU_CR_MURIE_MASK                         (0x2U)
 #define MU_CR_MURIE_SHIFT                        (1U)
 /*! MURIE - MUB Reset Interrupt Enable
- *  0b0..Disables Processor B-side MU Reset Interrupt request due to MU reset issued by MUA.
- *  0b1..Enables Processor B-side MU Reset Interrupt request due to MU reset issued by MUA.
+ *  0b0..Disables Processor A-side MU Reset Interrupt request due to MU reset issued by MUB.
+ *  0b1..Enables Processor A-side MU Reset Interrupt request due to MU reset issued by MUB.
  */
 #define MU_CR_MURIE(x)                           (((uint32_t)(((uint32_t)(x)) << MU_CR_MURIE_SHIFT)) & MU_CR_MURIE_MASK)
 /*! @} */
@@ -202,16 +202,16 @@ typedef struct {
 #define MU_SR_EP_MASK                            (0x4U)
 #define MU_SR_EP_SHIFT                           (2U)
 /*! EP - MUB Side Event Pending
- *  0b0..The MUB side event is not pending.
- *  0b1..The MUB side event is pending.
+ *  0b0..The MUA side event is not pending.
+ *  0b1..The MUA side event is pending.
  */
 #define MU_SR_EP(x)                              (((uint32_t)(((uint32_t)(x)) << MU_SR_EP_SHIFT)) & MU_SR_EP_MASK)
 
 #define MU_SR_FUP_MASK                           (0x8U)
 #define MU_SR_FUP_SHIFT                          (3U)
 /*! FUP - MUB Flags Update Pending
- *  0b0..No pending update flags(initiated by MUB) are in process
- *  0b1..Pending update flags(initiated by MUB) are in process
+ *  0b0..No pending update flags(initiated by MUA) are in process
+ *  0b1..Pending update flags(initiated by MUA) are in process
  */
 #define MU_SR_FUP(x)                             (((uint32_t)(((uint32_t)(x)) << MU_SR_FUP_SHIFT)) & MU_SR_FUP_MASK)
 
@@ -529,7 +529,7 @@ typedef struct {
 
 #define MU_FSR_F0_MASK                           (0x1U)
 #define MU_FSR_F0_SHIFT                          (0U)
-/*! F0 - MUA to MUB Side Flag n
+/*! F0 - MUB to MUA Side Flag n
  *  0b0..Fn bit in the MUA FCR register is written 0.
  *  0b1..Fn bit in the MUA FCR register is written 1.
  */
@@ -537,7 +537,7 @@ typedef struct {
 
 #define MU_FSR_F1_MASK                           (0x2U)
 #define MU_FSR_F1_SHIFT                          (1U)
-/*! F1 - MUA to MUB Side Flag n
+/*! F1 - MUB to MUA Side Flag n
  *  0b0..Fn bit in the MUA FCR register is written 0.
  *  0b1..Fn bit in the MUA FCR register is written 1.
  */
@@ -545,7 +545,7 @@ typedef struct {
 
 #define MU_FSR_F2_MASK                           (0x4U)
 #define MU_FSR_F2_SHIFT                          (2U)
-/*! F2 - MUA to MUB Side Flag n
+/*! F2 - MUB to MUA Side Flag n
  *  0b0..Fn bit in the MUA FCR register is written 0.
  *  0b1..Fn bit in the MUA FCR register is written 1.
  */
@@ -790,8 +790,8 @@ typedef struct {
 #define MU_GIER_GIE0_MASK                        (0x1U)
 #define MU_GIER_GIE0_SHIFT                       (0U)
 /*! GIE0 - MUB General Purpose Interrupt Enable n
- *  0b0..Disables MUB General Interrupt n.
- *  0b1..Enables MUB General Interrupt n.
+ *  0b0..Disables MUA General Interrupt n.
+ *  0b1..Enables MUA General Interrupt n.
  */
 #define MU_GIER_GIE0(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GIER_GIE0_SHIFT)) & MU_GIER_GIE0_MASK)
 
@@ -1050,8 +1050,8 @@ typedef struct {
 #define MU_GCR_GIR0_MASK                         (0x1U)
 #define MU_GCR_GIR0_SHIFT                        (0U)
 /*! GIR0 - MUB General Purpose Interrupt Request n
- *  0b0..MUB General Interrupt n is not requested to the MUA.
- *  0b1..MUB General Interrupt n is requested to the MUA.
+ *  0b0..MUA General Interrupt n is not requested to the MUB.
+ *  0b1..MUA General Interrupt n is requested to the MUB.
  */
 #define MU_GCR_GIR0(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GCR_GIR0_SHIFT)) & MU_GCR_GIR0_MASK)
 
@@ -1310,8 +1310,8 @@ typedef struct {
 #define MU_GSR_GIP0_MASK                         (0x1U)
 #define MU_GSR_GIP0_SHIFT                        (0U)
 /*! GIP0 - MUB General Interrupt Request Pending n
- *  0b0..MUB general purpose interrupt n is not pending.
- *  0b1..MUB general purpose interrupt n is pending.
+ *  0b0..MUA general purpose interrupt n is not pending.
+ *  0b1..MUA general purpose interrupt n is pending.
  */
 #define MU_GSR_GIP0(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP0_SHIFT)) & MU_GSR_GIP0_MASK)
 
@@ -1570,32 +1570,32 @@ typedef struct {
 #define MU_TCR_TIE0_MASK                         (0x1U)
 #define MU_TCR_TIE0_SHIFT                        (0U)
 /*! TIE0 - MUB Transmit Interrupt Enable n
- *  0b0..Disables MUB Transmit Interrupt n. (default)
- *  0b1..Enables MUB Transmit Interrupt n.
+ *  0b0..Disables MUA Transmit Interrupt n. (default)
+ *  0b1..Enables MUA Transmit Interrupt n.
  */
 #define MU_TCR_TIE0(x)                           (((uint32_t)(((uint32_t)(x)) << MU_TCR_TIE0_SHIFT)) & MU_TCR_TIE0_MASK)
 
 #define MU_TCR_TIE1_MASK                         (0x2U)
 #define MU_TCR_TIE1_SHIFT                        (1U)
 /*! TIE1 - MUB Transmit Interrupt Enable n
- *  0b0..Disables MUB Transmit Interrupt n. (default)
- *  0b1..Enables MUB Transmit Interrupt n.
+ *  0b0..Disables MUA Transmit Interrupt n. (default)
+ *  0b1..Enables MUA Transmit Interrupt n.
  */
 #define MU_TCR_TIE1(x)                           (((uint32_t)(((uint32_t)(x)) << MU_TCR_TIE1_SHIFT)) & MU_TCR_TIE1_MASK)
 
 #define MU_TCR_TIE2_MASK                         (0x4U)
 #define MU_TCR_TIE2_SHIFT                        (2U)
 /*! TIE2 - MUB Transmit Interrupt Enable n
- *  0b0..Disables MUB Transmit Interrupt n. (default)
- *  0b1..Enables MUB Transmit Interrupt n.
+ *  0b0..Disables MUA Transmit Interrupt n. (default)
+ *  0b1..Enables MUA Transmit Interrupt n.
  */
 #define MU_TCR_TIE2(x)                           (((uint32_t)(((uint32_t)(x)) << MU_TCR_TIE2_SHIFT)) & MU_TCR_TIE2_MASK)
 
 #define MU_TCR_TIE3_MASK                         (0x8U)
 #define MU_TCR_TIE3_SHIFT                        (3U)
 /*! TIE3 - MUB Transmit Interrupt Enable n
- *  0b0..Disables MUB Transmit Interrupt n. (default)
- *  0b1..Enables MUB Transmit Interrupt n.
+ *  0b0..Disables MUA Transmit Interrupt n. (default)
+ *  0b1..Enables MUA Transmit Interrupt n.
  */
 #define MU_TCR_TIE3(x)                           (((uint32_t)(((uint32_t)(x)) << MU_TCR_TIE3_SHIFT)) & MU_TCR_TIE3_MASK)
 /*! @} */
@@ -1606,32 +1606,32 @@ typedef struct {
 #define MU_TSR_TE0_MASK                          (0x1U)
 #define MU_TSR_TE0_SHIFT                         (0U)
 /*! TE0 - MUB Transmit Register n Empty
- *  0b0..MUB TRn register is not empty.
- *  0b1..MUB TRn register is empty.
+ *  0b0..MUA TRn register is not empty.
+ *  0b1..MUA TRn register is empty.
  */
 #define MU_TSR_TE0(x)                            (((uint32_t)(((uint32_t)(x)) << MU_TSR_TE0_SHIFT)) & MU_TSR_TE0_MASK)
 
 #define MU_TSR_TE1_MASK                          (0x2U)
 #define MU_TSR_TE1_SHIFT                         (1U)
 /*! TE1 - MUB Transmit Register n Empty
- *  0b0..MUB TRn register is not empty.
- *  0b1..MUB TRn register is empty.
+ *  0b0..MUA TRn register is not empty.
+ *  0b1..MUA TRn register is empty.
  */
 #define MU_TSR_TE1(x)                            (((uint32_t)(((uint32_t)(x)) << MU_TSR_TE1_SHIFT)) & MU_TSR_TE1_MASK)
 
 #define MU_TSR_TE2_MASK                          (0x4U)
 #define MU_TSR_TE2_SHIFT                         (2U)
 /*! TE2 - MUB Transmit Register n Empty
- *  0b0..MUB TRn register is not empty.
- *  0b1..MUB TRn register is empty.
+ *  0b0..MUA TRn register is not empty.
+ *  0b1..MUA TRn register is empty.
  */
 #define MU_TSR_TE2(x)                            (((uint32_t)(((uint32_t)(x)) << MU_TSR_TE2_SHIFT)) & MU_TSR_TE2_MASK)
 
 #define MU_TSR_TE3_MASK                          (0x8U)
 #define MU_TSR_TE3_SHIFT                         (3U)
 /*! TE3 - MUB Transmit Register n Empty
- *  0b0..MUB TRn register is not empty.
- *  0b1..MUB TRn register is empty.
+ *  0b0..MUA TRn register is not empty.
+ *  0b1..MUA TRn register is empty.
  */
 #define MU_TSR_TE3(x)                            (((uint32_t)(((uint32_t)(x)) << MU_TSR_TE3_SHIFT)) & MU_TSR_TE3_MASK)
 /*! @} */
@@ -1642,32 +1642,32 @@ typedef struct {
 #define MU_RCR_RIE0_MASK                         (0x1U)
 #define MU_RCR_RIE0_SHIFT                        (0U)
 /*! RIE0 - MUB Receive Interrupt Enable n
- *  0b0..Disables MUB Receive Interrupt n.
- *  0b1..Enables MUB Receive Interrupt n.
+ *  0b0..Disables MUA Receive Interrupt n.
+ *  0b1..Enables MUA Receive Interrupt n.
  */
 #define MU_RCR_RIE0(x)                           (((uint32_t)(((uint32_t)(x)) << MU_RCR_RIE0_SHIFT)) & MU_RCR_RIE0_MASK)
 
 #define MU_RCR_RIE1_MASK                         (0x2U)
 #define MU_RCR_RIE1_SHIFT                        (1U)
 /*! RIE1 - MUB Receive Interrupt Enable n
- *  0b0..Disables MUB Receive Interrupt n.
- *  0b1..Enables MUB Receive Interrupt n.
+ *  0b0..Disables MUA Receive Interrupt n.
+ *  0b1..Enables MUA Receive Interrupt n.
  */
 #define MU_RCR_RIE1(x)                           (((uint32_t)(((uint32_t)(x)) << MU_RCR_RIE1_SHIFT)) & MU_RCR_RIE1_MASK)
 
 #define MU_RCR_RIE2_MASK                         (0x4U)
 #define MU_RCR_RIE2_SHIFT                        (2U)
 /*! RIE2 - MUB Receive Interrupt Enable n
- *  0b0..Disables MUB Receive Interrupt n.
- *  0b1..Enables MUB Receive Interrupt n.
+ *  0b0..Disables MUA Receive Interrupt n.
+ *  0b1..Enables MUA Receive Interrupt n.
  */
 #define MU_RCR_RIE2(x)                           (((uint32_t)(((uint32_t)(x)) << MU_RCR_RIE2_SHIFT)) & MU_RCR_RIE2_MASK)
 
 #define MU_RCR_RIE3_MASK                         (0x8U)
 #define MU_RCR_RIE3_SHIFT                        (3U)
 /*! RIE3 - MUB Receive Interrupt Enable n
- *  0b0..Disables MUB Receive Interrupt n.
- *  0b1..Enables MUB Receive Interrupt n.
+ *  0b0..Disables MUA Receive Interrupt n.
+ *  0b1..Enables MUA Receive Interrupt n.
  */
 #define MU_RCR_RIE3(x)                           (((uint32_t)(((uint32_t)(x)) << MU_RCR_RIE3_SHIFT)) & MU_RCR_RIE3_MASK)
 /*! @} */
@@ -1678,32 +1678,32 @@ typedef struct {
 #define MU_RSR_RF0_MASK                          (0x1U)
 #define MU_RSR_RF0_SHIFT                         (0U)
 /*! RF0 - MUB Receive Register n Full
- *  0b0..MUB RRn register is not full.
- *  0b1..MUB RRn register has received data from MUA TRn register and is ready to be read by the MUB.
+ *  0b0..MUA RRn register is not full.
+ *  0b1..MUA RRn register has received data from MUB TRn register and is ready to be read by the MUA.
  */
 #define MU_RSR_RF0(x)                            (((uint32_t)(((uint32_t)(x)) << MU_RSR_RF0_SHIFT)) & MU_RSR_RF0_MASK)
 
 #define MU_RSR_RF1_MASK                          (0x2U)
 #define MU_RSR_RF1_SHIFT                         (1U)
 /*! RF1 - MUB Receive Register n Full
- *  0b0..MUB RRn register is not full.
- *  0b1..MUB RRn register has received data from MUA TRn register and is ready to be read by the MUB.
+ *  0b0..MUA RRn register is not full.
+ *  0b1..MUA RRn register has received data from MUB TRn register and is ready to be read by the MUA.
  */
 #define MU_RSR_RF1(x)                            (((uint32_t)(((uint32_t)(x)) << MU_RSR_RF1_SHIFT)) & MU_RSR_RF1_MASK)
 
 #define MU_RSR_RF2_MASK                          (0x4U)
 #define MU_RSR_RF2_SHIFT                         (2U)
 /*! RF2 - MUB Receive Register n Full
- *  0b0..MUB RRn register is not full.
- *  0b1..MUB RRn register has received data from MUA TRn register and is ready to be read by the MUB.
+ *  0b0..MUA RRn register is not full.
+ *  0b1..MUA RRn register has received data from MUB TRn register and is ready to be read by the MUA.
  */
 #define MU_RSR_RF2(x)                            (((uint32_t)(((uint32_t)(x)) << MU_RSR_RF2_SHIFT)) & MU_RSR_RF2_MASK)
 
 #define MU_RSR_RF3_MASK                          (0x8U)
 #define MU_RSR_RF3_SHIFT                         (3U)
 /*! RF3 - MUB Receive Register n Full
- *  0b0..MUB RRn register is not full.
- *  0b1..MUB RRn register has received data from MUA TRn register and is ready to be read by the MUB.
+ *  0b0..MUA RRn register is not full.
+ *  0b1..MUA RRn register has received data from MUB TRn register and is ready to be read by the MUA.
  */
 #define MU_RSR_RF3(x)                            (((uint32_t)(((uint32_t)(x)) << MU_RSR_RF3_SHIFT)) & MU_RSR_RF3_MASK)
 /*! @} */
@@ -1760,5 +1760,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* MU_H_ */
+#endif  /* PERI_MU_H_ */
 

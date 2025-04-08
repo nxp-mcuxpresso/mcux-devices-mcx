@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250314
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TRGMUX

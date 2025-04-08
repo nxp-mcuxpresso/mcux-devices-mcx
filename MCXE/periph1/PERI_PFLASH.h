@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PFLASH
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file PFLASH.h
+ * @file PERI_PFLASH.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for PFLASH
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for PFLASH
  */
 
-#if !defined(PFLASH_H_)
-#define PFLASH_H_                                /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_PFLASH_H_)
+#define PERI_PFLASH_H_                           /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -540,5 +540,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* PFLASH_H_ */
+#endif  /* PERI_PFLASH_H_ */
 

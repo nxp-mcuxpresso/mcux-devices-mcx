@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPI2C
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file LPI2C.h
+ * @file PERI_LPI2C.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for LPI2C
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for LPI2C
  */
 
-#if !defined(LPI2C_H_)
-#define LPI2C_H_                                 /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_LPI2C_H_)
+#define PERI_LPI2C_H_                            /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -1222,5 +1222,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* LPI2C_H_ */
+#endif  /* PERI_LPI2C_H_ */
 

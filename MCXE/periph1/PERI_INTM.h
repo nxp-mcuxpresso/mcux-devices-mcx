@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for INTM
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file INTM.h
+ * @file PERI_INTM.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for INTM
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for INTM
  */
 
-#if !defined(INTM_H_)
-#define INTM_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_INTM_H_)
+#define PERI_INTM_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -203,5 +203,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* INTM_H_ */
+#endif  /* PERI_INTM_H_ */
 

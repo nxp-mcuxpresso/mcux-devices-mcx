@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TEMPSENSE
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file TEMPSENSE.h
+ * @file PERI_TEMPSENSE.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for TEMPSENSE
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for TEMPSENSE
  */
 
-#if !defined(TEMPSENSE_H_)
-#define TEMPSENSE_H_                             /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_TEMPSENSE_H_)
+#define PERI_TEMPSENSE_H_                        /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -176,5 +176,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* TEMPSENSE_H_ */
+#endif  /* PERI_TEMPSENSE_H_ */
 

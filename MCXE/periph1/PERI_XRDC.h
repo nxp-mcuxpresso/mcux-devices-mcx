@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for XRDC
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file XRDC.h
+ * @file PERI_XRDC.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for XRDC
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for XRDC
  */
 
-#if !defined(XRDC_H_)
-#define XRDC_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_XRDC_H_)
+#define PERI_XRDC_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -394,8 +394,8 @@ typedef struct {
 #define XRDC_CR_LK1_MASK                         (0x40000000U)
 #define XRDC_CR_LK1_SHIFT                        (30U)
 /*! LK1 - Lock
- *  0b0..Unlocked
  *  0b0..No effect
+ *  0b0..Unlocked
  *  0b1..Locks
  */
 #define XRDC_CR_LK1(x)                           (((uint32_t)(((uint32_t)(x)) << XRDC_CR_LK1_SHIFT)) & XRDC_CR_LK1_MASK)
@@ -911,8 +911,8 @@ typedef struct {
 #define XRDC_MDA_W_LK1_MASK                      (0x40000000U)
 #define XRDC_MDA_W_LK1_SHIFT                     (30U)
 /*! LK1 - Lock
- *  0b0..Unlocked
  *  0b0..No effect
+ *  0b0..Unlocked
  *  0b1..Locks
  */
 #define XRDC_MDA_W_LK1(x)                        (((uint32_t)(((uint32_t)(x)) << XRDC_MDA_W_LK1_SHIFT)) & XRDC_MDA_W_LK1_MASK)
@@ -1087,5 +1087,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* XRDC_H_ */
+#endif  /* PERI_XRDC_H_ */
 

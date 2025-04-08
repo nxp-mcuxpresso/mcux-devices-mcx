@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ADC
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file ADC.h
+ * @file PERI_ADC.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for ADC
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for ADC
  */
 
-#if !defined(ADC_H_)
-#define ADC_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_ADC_H_)
+#define PERI_ADC_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -215,8 +215,8 @@ typedef struct {
 #define ADC_MCR_ABORT_MASK                       (0x40U)
 #define ADC_MCR_ABORT_SHIFT                      (6U)
 /*! ABORT - Abort Conversion
- *  0b0..Undefined
  *  0b0..Conversion continues
+ *  0b0..Undefined
  *  0b1..Conversion aborted
  */
 #define ADC_MCR_ABORT(x)                         (((uint32_t)(((uint32_t)(x)) << ADC_MCR_ABORT_SHIFT)) & ADC_MCR_ABORT_MASK)
@@ -224,8 +224,8 @@ typedef struct {
 #define ADC_MCR_ABORTCHAIN_MASK                  (0x80U)
 #define ADC_MCR_ABORTCHAIN_SHIFT                 (7U)
 /*! ABORTCHAIN - Abort Chain
- *  0b0..Undefined
  *  0b0..Conversion continues
+ *  0b0..Undefined
  *  0b1..Conversion aborted
  */
 #define ADC_MCR_ABORTCHAIN(x)                    (((uint32_t)(((uint32_t)(x)) << ADC_MCR_ABORTCHAIN_SHIFT)) & ADC_MCR_ABORTCHAIN_MASK)
@@ -440,8 +440,8 @@ typedef struct {
 /*! ECH - End Of Chain Conversion
  *  0b0..Indicates no ECH interrupt generated
  *  0b0..No effect
- *  0b1..Indicates an ECH interrupt has been generated
  *  0b1..Clears flag
+ *  0b1..Indicates an ECH interrupt has been generated
  */
 #define ADC_ISR_ECH(x)                           (((uint32_t)(((uint32_t)(x)) << ADC_ISR_ECH_SHIFT)) & ADC_ISR_ECH_MASK)
 
@@ -450,8 +450,8 @@ typedef struct {
 /*! EOC - End Of Conversion
  *  0b0..No EOC interrupt generated
  *  0b0..No effect
- *  0b1..Interrupt generated
  *  0b1..Clears flag
+ *  0b1..Interrupt generated
  */
 #define ADC_ISR_EOC(x)                           (((uint32_t)(((uint32_t)(x)) << ADC_ISR_EOC_SHIFT)) & ADC_ISR_EOC_MASK)
 
@@ -460,8 +460,8 @@ typedef struct {
 /*! JECH - End Of Injected Chain Conversion
  *  0b0..No JECH interrupt generated
  *  0b0..No effect
- *  0b1..JECH interrupt generated
  *  0b1..Clears flag
+ *  0b1..JECH interrupt generated
  */
 #define ADC_ISR_JECH(x)                          (((uint32_t)(((uint32_t)(x)) << ADC_ISR_JECH_SHIFT)) & ADC_ISR_JECH_MASK)
 
@@ -470,8 +470,8 @@ typedef struct {
 /*! JEOC - End Of Injected Conversion
  *  0b0..No JEOC interrupt generated
  *  0b0..No effect
- *  0b1..JEOC interrupt generated
  *  0b1..Clears flag
+ *  0b1..JEOC interrupt generated
  */
 #define ADC_ISR_JEOC(x)                          (((uint32_t)(((uint32_t)(x)) << ADC_ISR_JEOC_SHIFT)) & ADC_ISR_JEOC_MASK)
 
@@ -480,8 +480,8 @@ typedef struct {
 /*! EOBCTU - End Of BCTU Conversion
  *  0b0..No EOBCTU interrupt generated
  *  0b0..No effect
- *  0b1..EOBCTU interrupt generated
  *  0b1..Clears flag
+ *  0b1..EOBCTU interrupt generated
  */
 #define ADC_ISR_EOBCTU(x)                        (((uint32_t)(((uint32_t)(x)) << ADC_ISR_EOBCTU_SHIFT)) & ADC_ISR_EOBCTU_MASK)
 /*! @} */
@@ -494,8 +494,8 @@ typedef struct {
 /*! PIEOCF0 - Precision Input End Of Conversion Flag 0
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR0_PIEOCF0(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR0_PIEOCF0_SHIFT)) & ADC_CEOCFR0_PIEOCF0_MASK)
 
@@ -504,8 +504,8 @@ typedef struct {
 /*! PIEOCF1 - Precision Input End Of Conversion Flag 1
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR0_PIEOCF1(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR0_PIEOCF1_SHIFT)) & ADC_CEOCFR0_PIEOCF1_MASK)
 
@@ -514,8 +514,8 @@ typedef struct {
 /*! PIEOCF2 - Precision Input End Of Conversion Flag 2
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR0_PIEOCF2(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR0_PIEOCF2_SHIFT)) & ADC_CEOCFR0_PIEOCF2_MASK)
 
@@ -524,8 +524,8 @@ typedef struct {
 /*! PIEOCF3 - Precision Input End Of Conversion Flag 3
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR0_PIEOCF3(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR0_PIEOCF3_SHIFT)) & ADC_CEOCFR0_PIEOCF3_MASK)
 
@@ -534,8 +534,8 @@ typedef struct {
 /*! PIEOCF4 - Precision Input End Of Conversion Flag 4
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR0_PIEOCF4(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR0_PIEOCF4_SHIFT)) & ADC_CEOCFR0_PIEOCF4_MASK)
 
@@ -544,8 +544,8 @@ typedef struct {
 /*! PIEOCF5 - Precision Input End Of Conversion Flag 5
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR0_PIEOCF5(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR0_PIEOCF5_SHIFT)) & ADC_CEOCFR0_PIEOCF5_MASK)
 
@@ -554,8 +554,8 @@ typedef struct {
 /*! PIEOCF6 - Precision Input End Of Conversion Flag 6
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR0_PIEOCF6(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR0_PIEOCF6_SHIFT)) & ADC_CEOCFR0_PIEOCF6_MASK)
 
@@ -564,8 +564,8 @@ typedef struct {
 /*! PIEOCF7 - Precision Input End Of Conversion Flag 7
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR0_PIEOCF7(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR0_PIEOCF7_SHIFT)) & ADC_CEOCFR0_PIEOCF7_MASK)
 /*! @} */
@@ -578,8 +578,8 @@ typedef struct {
 /*! SIEOCF0 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF0(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF0_SHIFT)) & ADC_CEOCFR1_SIEOCF0_MASK)
 
@@ -588,8 +588,8 @@ typedef struct {
 /*! SIEOCF1 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF1(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF1_SHIFT)) & ADC_CEOCFR1_SIEOCF1_MASK)
 
@@ -598,8 +598,8 @@ typedef struct {
 /*! SIEOCF2 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF2(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF2_SHIFT)) & ADC_CEOCFR1_SIEOCF2_MASK)
 
@@ -608,8 +608,8 @@ typedef struct {
 /*! SIEOCF3 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF3(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF3_SHIFT)) & ADC_CEOCFR1_SIEOCF3_MASK)
 
@@ -618,8 +618,8 @@ typedef struct {
 /*! SIEOCF4 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF4(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF4_SHIFT)) & ADC_CEOCFR1_SIEOCF4_MASK)
 
@@ -628,8 +628,8 @@ typedef struct {
 /*! SIEOCF5 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF5(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF5_SHIFT)) & ADC_CEOCFR1_SIEOCF5_MASK)
 
@@ -638,8 +638,8 @@ typedef struct {
 /*! SIEOCF6 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF6(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF6_SHIFT)) & ADC_CEOCFR1_SIEOCF6_MASK)
 
@@ -648,8 +648,8 @@ typedef struct {
 /*! SIEOCF7 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF7(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF7_SHIFT)) & ADC_CEOCFR1_SIEOCF7_MASK)
 
@@ -658,8 +658,8 @@ typedef struct {
 /*! SIEOCF8 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF8(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF8_SHIFT)) & ADC_CEOCFR1_SIEOCF8_MASK)
 
@@ -668,8 +668,8 @@ typedef struct {
 /*! SIEOCF9 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF9(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF9_SHIFT)) & ADC_CEOCFR1_SIEOCF9_MASK)
 
@@ -678,8 +678,8 @@ typedef struct {
 /*! SIEOCF10 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF10(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF10_SHIFT)) & ADC_CEOCFR1_SIEOCF10_MASK)
 
@@ -688,8 +688,8 @@ typedef struct {
 /*! SIEOCF11 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF11(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF11_SHIFT)) & ADC_CEOCFR1_SIEOCF11_MASK)
 
@@ -698,8 +698,8 @@ typedef struct {
 /*! SIEOCF12 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF12(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF12_SHIFT)) & ADC_CEOCFR1_SIEOCF12_MASK)
 
@@ -708,8 +708,8 @@ typedef struct {
 /*! SIEOCF13 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF13(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF13_SHIFT)) & ADC_CEOCFR1_SIEOCF13_MASK)
 
@@ -718,8 +718,8 @@ typedef struct {
 /*! SIEOCF14 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF14(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF14_SHIFT)) & ADC_CEOCFR1_SIEOCF14_MASK)
 
@@ -728,8 +728,8 @@ typedef struct {
 /*! SIEOCF15 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF15(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF15_SHIFT)) & ADC_CEOCFR1_SIEOCF15_MASK)
 
@@ -738,8 +738,8 @@ typedef struct {
 /*! SIEOCF16 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF16(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF16_SHIFT)) & ADC_CEOCFR1_SIEOCF16_MASK)
 
@@ -748,8 +748,8 @@ typedef struct {
 /*! SIEOCF17 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF17(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF17_SHIFT)) & ADC_CEOCFR1_SIEOCF17_MASK)
 
@@ -758,8 +758,8 @@ typedef struct {
 /*! SIEOCF18 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF18(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF18_SHIFT)) & ADC_CEOCFR1_SIEOCF18_MASK)
 
@@ -768,8 +768,8 @@ typedef struct {
 /*! SIEOCF19 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF19(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF19_SHIFT)) & ADC_CEOCFR1_SIEOCF19_MASK)
 
@@ -778,8 +778,8 @@ typedef struct {
 /*! SIEOCF20 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF20(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF20_SHIFT)) & ADC_CEOCFR1_SIEOCF20_MASK)
 
@@ -788,8 +788,8 @@ typedef struct {
 /*! SIEOCF21 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF21(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF21_SHIFT)) & ADC_CEOCFR1_SIEOCF21_MASK)
 
@@ -798,8 +798,8 @@ typedef struct {
 /*! SIEOCF22 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF22(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF22_SHIFT)) & ADC_CEOCFR1_SIEOCF22_MASK)
 
@@ -808,8 +808,8 @@ typedef struct {
 /*! SIEOCF23 - Standard Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR1_SIEOCF23(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR1_SIEOCF23_SHIFT)) & ADC_CEOCFR1_SIEOCF23_MASK)
 /*! @} */
@@ -822,8 +822,8 @@ typedef struct {
 /*! EIEOCF0 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF0(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF0_SHIFT)) & ADC_CEOCFR2_EIEOCF0_MASK)
 
@@ -832,8 +832,8 @@ typedef struct {
 /*! EIEOCF1 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF1(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF1_SHIFT)) & ADC_CEOCFR2_EIEOCF1_MASK)
 
@@ -842,8 +842,8 @@ typedef struct {
 /*! EIEOCF2 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF2(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF2_SHIFT)) & ADC_CEOCFR2_EIEOCF2_MASK)
 
@@ -852,8 +852,8 @@ typedef struct {
 /*! EIEOCF3 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF3(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF3_SHIFT)) & ADC_CEOCFR2_EIEOCF3_MASK)
 
@@ -862,8 +862,8 @@ typedef struct {
 /*! EIEOCF4 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF4(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF4_SHIFT)) & ADC_CEOCFR2_EIEOCF4_MASK)
 
@@ -872,8 +872,8 @@ typedef struct {
 /*! EIEOCF5 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF5(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF5_SHIFT)) & ADC_CEOCFR2_EIEOCF5_MASK)
 
@@ -882,8 +882,8 @@ typedef struct {
 /*! EIEOCF6 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF6(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF6_SHIFT)) & ADC_CEOCFR2_EIEOCF6_MASK)
 
@@ -892,8 +892,8 @@ typedef struct {
 /*! EIEOCF7 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF7(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF7_SHIFT)) & ADC_CEOCFR2_EIEOCF7_MASK)
 
@@ -902,8 +902,8 @@ typedef struct {
 /*! EIEOCF8 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF8(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF8_SHIFT)) & ADC_CEOCFR2_EIEOCF8_MASK)
 
@@ -912,8 +912,8 @@ typedef struct {
 /*! EIEOCF9 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF9(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF9_SHIFT)) & ADC_CEOCFR2_EIEOCF9_MASK)
 
@@ -922,8 +922,8 @@ typedef struct {
 /*! EIEOCF10 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF10(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF10_SHIFT)) & ADC_CEOCFR2_EIEOCF10_MASK)
 
@@ -932,8 +932,8 @@ typedef struct {
 /*! EIEOCF11 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF11(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF11_SHIFT)) & ADC_CEOCFR2_EIEOCF11_MASK)
 
@@ -942,8 +942,8 @@ typedef struct {
 /*! EIEOCF12 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF12(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF12_SHIFT)) & ADC_CEOCFR2_EIEOCF12_MASK)
 
@@ -952,8 +952,8 @@ typedef struct {
 /*! EIEOCF13 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF13(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF13_SHIFT)) & ADC_CEOCFR2_EIEOCF13_MASK)
 
@@ -962,8 +962,8 @@ typedef struct {
 /*! EIEOCF14 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF14(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF14_SHIFT)) & ADC_CEOCFR2_EIEOCF14_MASK)
 
@@ -972,8 +972,8 @@ typedef struct {
 /*! EIEOCF15 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF15(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF15_SHIFT)) & ADC_CEOCFR2_EIEOCF15_MASK)
 
@@ -982,8 +982,8 @@ typedef struct {
 /*! EIEOCF16 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF16(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF16_SHIFT)) & ADC_CEOCFR2_EIEOCF16_MASK)
 
@@ -992,8 +992,8 @@ typedef struct {
 /*! EIEOCF17 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF17(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF17_SHIFT)) & ADC_CEOCFR2_EIEOCF17_MASK)
 
@@ -1002,8 +1002,8 @@ typedef struct {
 /*! EIEOCF18 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF18(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF18_SHIFT)) & ADC_CEOCFR2_EIEOCF18_MASK)
 
@@ -1012,8 +1012,8 @@ typedef struct {
 /*! EIEOCF19 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF19(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF19_SHIFT)) & ADC_CEOCFR2_EIEOCF19_MASK)
 
@@ -1022,8 +1022,8 @@ typedef struct {
 /*! EIEOCF20 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF20(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF20_SHIFT)) & ADC_CEOCFR2_EIEOCF20_MASK)
 
@@ -1032,8 +1032,8 @@ typedef struct {
 /*! EIEOCF21 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF21(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF21_SHIFT)) & ADC_CEOCFR2_EIEOCF21_MASK)
 
@@ -1042,8 +1042,8 @@ typedef struct {
 /*! EIEOCF22 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF22(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF22_SHIFT)) & ADC_CEOCFR2_EIEOCF22_MASK)
 
@@ -1052,8 +1052,8 @@ typedef struct {
 /*! EIEOCF23 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF23(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF23_SHIFT)) & ADC_CEOCFR2_EIEOCF23_MASK)
 
@@ -1062,8 +1062,8 @@ typedef struct {
 /*! EIEOCF24 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF24(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF24_SHIFT)) & ADC_CEOCFR2_EIEOCF24_MASK)
 
@@ -1072,8 +1072,8 @@ typedef struct {
 /*! EIEOCF25 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF25(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF25_SHIFT)) & ADC_CEOCFR2_EIEOCF25_MASK)
 
@@ -1082,8 +1082,8 @@ typedef struct {
 /*! EIEOCF26 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF26(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF26_SHIFT)) & ADC_CEOCFR2_EIEOCF26_MASK)
 
@@ -1092,8 +1092,8 @@ typedef struct {
 /*! EIEOCF27 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF27(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF27_SHIFT)) & ADC_CEOCFR2_EIEOCF27_MASK)
 
@@ -1102,8 +1102,8 @@ typedef struct {
 /*! EIEOCF28 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF28(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF28_SHIFT)) & ADC_CEOCFR2_EIEOCF28_MASK)
 
@@ -1112,8 +1112,8 @@ typedef struct {
 /*! EIEOCF29 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF29(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF29_SHIFT)) & ADC_CEOCFR2_EIEOCF29_MASK)
 
@@ -1122,8 +1122,8 @@ typedef struct {
 /*! EIEOCF30 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF30(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF30_SHIFT)) & ADC_CEOCFR2_EIEOCF30_MASK)
 
@@ -1132,8 +1132,8 @@ typedef struct {
 /*! EIEOCF31 - External Input End Of Conversion Flag
  *  0b0..Conversion not complete
  *  0b0..No effect
- *  0b1..Conversion complete
  *  0b1..Clears flag
+ *  0b1..Conversion complete
  */
 #define ADC_CEOCFR2_EIEOCF31(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_CEOCFR2_EIEOCF31_SHIFT)) & ADC_CEOCFR2_EIEOCF31_MASK)
 /*! @} */
@@ -1714,8 +1714,8 @@ typedef struct {
 /*! LAWIF1 - Low Analog Watchdog Interrupt Flag 1
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF1(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF1_SHIFT)) & ADC_WTISR_LAWIF1_MASK)
 
@@ -1724,8 +1724,8 @@ typedef struct {
 /*! HAWIF1 - High Analog Watchdog Interrupt Flag 1
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF1(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF1_SHIFT)) & ADC_WTISR_HAWIF1_MASK)
 
@@ -1734,8 +1734,8 @@ typedef struct {
 /*! LAWIF2 - Low Analog Watchdog Interrupt Flag 2
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF2(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF2_SHIFT)) & ADC_WTISR_LAWIF2_MASK)
 
@@ -1744,8 +1744,8 @@ typedef struct {
 /*! HAWIF2 - High Analog Watchdog Interrupt Flag 2
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF2(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF2_SHIFT)) & ADC_WTISR_HAWIF2_MASK)
 
@@ -1754,8 +1754,8 @@ typedef struct {
 /*! LAWIF3 - Low Analog Watchdog Interrupt Flag 3
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF3(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF3_SHIFT)) & ADC_WTISR_LAWIF3_MASK)
 
@@ -1764,8 +1764,8 @@ typedef struct {
 /*! HAWIF3 - High Analog Watchdog Interrupt Flag 3
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF3(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF3_SHIFT)) & ADC_WTISR_HAWIF3_MASK)
 
@@ -1774,8 +1774,8 @@ typedef struct {
 /*! LAWIF4 - Low Analog Watchdog Interrupt Flag 4
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF4(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF4_SHIFT)) & ADC_WTISR_LAWIF4_MASK)
 
@@ -1784,8 +1784,8 @@ typedef struct {
 /*! HAWIF4 - High Analog Watchdog Interrupt Flag 4
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF4(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF4_SHIFT)) & ADC_WTISR_HAWIF4_MASK)
 
@@ -1794,8 +1794,8 @@ typedef struct {
 /*! LAWIF5 - Low Analog Watchdog Interrupt Flag 5
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF5(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF5_SHIFT)) & ADC_WTISR_LAWIF5_MASK)
 
@@ -1804,8 +1804,8 @@ typedef struct {
 /*! HAWIF5 - High Analog Watchdog Interrupt Flag 5
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF5(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF5_SHIFT)) & ADC_WTISR_HAWIF5_MASK)
 
@@ -1814,8 +1814,8 @@ typedef struct {
 /*! LAWIF6 - Low Analog Watchdog Interrupt Flag 6
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF6(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF6_SHIFT)) & ADC_WTISR_LAWIF6_MASK)
 
@@ -1824,8 +1824,8 @@ typedef struct {
 /*! HAWIF6 - High Analog Watchdog Interrupt Flag 6
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF6(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF6_SHIFT)) & ADC_WTISR_HAWIF6_MASK)
 
@@ -1834,8 +1834,8 @@ typedef struct {
 /*! LAWIF7 - Low Analog Watchdog Interrupt Flag 7
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF7(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF7_SHIFT)) & ADC_WTISR_LAWIF7_MASK)
 
@@ -1844,8 +1844,8 @@ typedef struct {
 /*! HAWIF7 - High Analog Watchdog Interrupt Flag 7
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF7(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF7_SHIFT)) & ADC_WTISR_HAWIF7_MASK)
 
@@ -1854,8 +1854,8 @@ typedef struct {
 /*! LAWIF8 - Low Analog Watchdog Interrupt Flag 8
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF8(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF8_SHIFT)) & ADC_WTISR_LAWIF8_MASK)
 
@@ -1864,8 +1864,8 @@ typedef struct {
 /*! HAWIF8 - High Analog Watchdog Interrupt Flag 8
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF8(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF8_SHIFT)) & ADC_WTISR_HAWIF8_MASK)
 
@@ -1874,8 +1874,8 @@ typedef struct {
 /*! LAWIF9 - Low Analog Watchdog Interrupt Flag 9
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF9(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF9_SHIFT)) & ADC_WTISR_LAWIF9_MASK)
 
@@ -1884,8 +1884,8 @@ typedef struct {
 /*! HAWIF9 - High Analog Watchdog Interrupt Flag 9
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF9(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF9_SHIFT)) & ADC_WTISR_HAWIF9_MASK)
 
@@ -1894,8 +1894,8 @@ typedef struct {
 /*! LAWIF10 - Low Analog Watchdog Interrupt Flag 10
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF10(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF10_SHIFT)) & ADC_WTISR_LAWIF10_MASK)
 
@@ -1904,8 +1904,8 @@ typedef struct {
 /*! HAWIF10 - High Analog Watchdog Interrupt Flag 10
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF10(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF10_SHIFT)) & ADC_WTISR_HAWIF10_MASK)
 
@@ -1914,8 +1914,8 @@ typedef struct {
 /*! LAWIF11 - Low Analog Watchdog Interrupt Flag 11
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF11(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF11_SHIFT)) & ADC_WTISR_LAWIF11_MASK)
 
@@ -1924,8 +1924,8 @@ typedef struct {
 /*! HAWIF11 - High Analog Watchdog Interrupt Flag 11
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF11(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF11_SHIFT)) & ADC_WTISR_HAWIF11_MASK)
 
@@ -1934,8 +1934,8 @@ typedef struct {
 /*! LAWIF12 - Low Analog Watchdog Interrupt Flag 12
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF12(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF12_SHIFT)) & ADC_WTISR_LAWIF12_MASK)
 
@@ -1944,8 +1944,8 @@ typedef struct {
 /*! HAWIF12 - High Analog Watchdog Interrupt Flag 12
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF12(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF12_SHIFT)) & ADC_WTISR_HAWIF12_MASK)
 
@@ -1954,8 +1954,8 @@ typedef struct {
 /*! LAWIF13 - Low Analog Watchdog Interrupt Flag 13
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF13(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF13_SHIFT)) & ADC_WTISR_LAWIF13_MASK)
 
@@ -1964,8 +1964,8 @@ typedef struct {
 /*! HAWIF13 - High Analog Watchdog Interrupt Flag 13
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF13(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF13_SHIFT)) & ADC_WTISR_HAWIF13_MASK)
 
@@ -1974,8 +1974,8 @@ typedef struct {
 /*! LAWIF14 - Low Analog Watchdog Interrupt Flag 14
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF14(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF14_SHIFT)) & ADC_WTISR_LAWIF14_MASK)
 
@@ -1984,8 +1984,8 @@ typedef struct {
 /*! HAWIF14 - High Analog Watchdog Interrupt Flag 14
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF14(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF14_SHIFT)) & ADC_WTISR_HAWIF14_MASK)
 
@@ -1994,8 +1994,8 @@ typedef struct {
 /*! LAWIF15 - Low Analog Watchdog Interrupt Flag 15
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF15(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF15_SHIFT)) & ADC_WTISR_LAWIF15_MASK)
 
@@ -2004,8 +2004,8 @@ typedef struct {
 /*! HAWIF15 - High Analog Watchdog Interrupt Flag 15
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF15(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF15_SHIFT)) & ADC_WTISR_HAWIF15_MASK)
 
@@ -2014,8 +2014,8 @@ typedef struct {
 /*! LAWIF16 - Low Analog Watchdog Interrupt Flag 16
  *  0b0..Conversion result is greater than the specified low threshold
  *  0b0..No effect
- *  0b1..Conversion result is lower than the specified low threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is lower than the specified low threshold
  */
 #define ADC_WTISR_LAWIF16(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_LAWIF16_SHIFT)) & ADC_WTISR_LAWIF16_MASK)
 
@@ -2024,8 +2024,8 @@ typedef struct {
 /*! HAWIF16 - High Analog Watchdog Interrupt Flag 16
  *  0b0..Conversion result is lower than the specified high threshold
  *  0b0..No effect
- *  0b1..Conversion result is higher than the specified high threshold
  *  0b1..Clears flag
+ *  0b1..Conversion result is higher than the specified high threshold
  */
 #define ADC_WTISR_HAWIF16(x)                     (((uint32_t)(((uint32_t)(x)) << ADC_WTISR_HAWIF16_SHIFT)) & ADC_WTISR_HAWIF16_MASK)
 /*! @} */
@@ -5604,8 +5604,8 @@ typedef struct {
 /*! AWOR_CH0 - Analog Watchdog Out Of Range For Precision Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR0_AWOR_CH0(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR0_AWOR_CH0_SHIFT)) & ADC_AWORR0_AWOR_CH0_MASK)
 
@@ -5614,8 +5614,8 @@ typedef struct {
 /*! AWOR_CH1 - Analog Watchdog Out Of Range For Precision Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR0_AWOR_CH1(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR0_AWOR_CH1_SHIFT)) & ADC_AWORR0_AWOR_CH1_MASK)
 
@@ -5624,8 +5624,8 @@ typedef struct {
 /*! AWOR_CH2 - Analog Watchdog Out Of Range For Precision Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR0_AWOR_CH2(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR0_AWOR_CH2_SHIFT)) & ADC_AWORR0_AWOR_CH2_MASK)
 
@@ -5634,8 +5634,8 @@ typedef struct {
 /*! AWOR_CH3 - Analog Watchdog Out Of Range For Precision Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR0_AWOR_CH3(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR0_AWOR_CH3_SHIFT)) & ADC_AWORR0_AWOR_CH3_MASK)
 
@@ -5644,8 +5644,8 @@ typedef struct {
 /*! AWOR_CH4 - Analog Watchdog Out Of Range For Precision Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR0_AWOR_CH4(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR0_AWOR_CH4_SHIFT)) & ADC_AWORR0_AWOR_CH4_MASK)
 
@@ -5654,8 +5654,8 @@ typedef struct {
 /*! AWOR_CH5 - Analog Watchdog Out Of Range For Precision Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR0_AWOR_CH5(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR0_AWOR_CH5_SHIFT)) & ADC_AWORR0_AWOR_CH5_MASK)
 
@@ -5664,8 +5664,8 @@ typedef struct {
 /*! AWOR_CH6 - Analog Watchdog Out Of Range For Precision Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR0_AWOR_CH6(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR0_AWOR_CH6_SHIFT)) & ADC_AWORR0_AWOR_CH6_MASK)
 
@@ -5674,8 +5674,8 @@ typedef struct {
 /*! AWOR_CH7 - Analog Watchdog Out Of Range For Precision Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR0_AWOR_CH7(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR0_AWOR_CH7_SHIFT)) & ADC_AWORR0_AWOR_CH7_MASK)
 /*! @} */
@@ -5688,8 +5688,8 @@ typedef struct {
 /*! AWOR_CH0 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH0(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH0_SHIFT)) & ADC_AWORR1_AWOR_CH0_MASK)
 
@@ -5698,8 +5698,8 @@ typedef struct {
 /*! AWOR_CH1 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH1(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH1_SHIFT)) & ADC_AWORR1_AWOR_CH1_MASK)
 
@@ -5708,8 +5708,8 @@ typedef struct {
 /*! AWOR_CH2 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH2(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH2_SHIFT)) & ADC_AWORR1_AWOR_CH2_MASK)
 
@@ -5718,8 +5718,8 @@ typedef struct {
 /*! AWOR_CH3 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH3(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH3_SHIFT)) & ADC_AWORR1_AWOR_CH3_MASK)
 
@@ -5728,8 +5728,8 @@ typedef struct {
 /*! AWOR_CH4 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH4(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH4_SHIFT)) & ADC_AWORR1_AWOR_CH4_MASK)
 
@@ -5738,8 +5738,8 @@ typedef struct {
 /*! AWOR_CH5 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH5(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH5_SHIFT)) & ADC_AWORR1_AWOR_CH5_MASK)
 
@@ -5748,8 +5748,8 @@ typedef struct {
 /*! AWOR_CH6 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH6(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH6_SHIFT)) & ADC_AWORR1_AWOR_CH6_MASK)
 
@@ -5758,8 +5758,8 @@ typedef struct {
 /*! AWOR_CH7 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH7(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH7_SHIFT)) & ADC_AWORR1_AWOR_CH7_MASK)
 
@@ -5768,8 +5768,8 @@ typedef struct {
 /*! AWOR_CH8 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH8(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH8_SHIFT)) & ADC_AWORR1_AWOR_CH8_MASK)
 
@@ -5778,8 +5778,8 @@ typedef struct {
 /*! AWOR_CH9 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH9(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH9_SHIFT)) & ADC_AWORR1_AWOR_CH9_MASK)
 
@@ -5788,8 +5788,8 @@ typedef struct {
 /*! AWOR_CH10 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH10(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH10_SHIFT)) & ADC_AWORR1_AWOR_CH10_MASK)
 
@@ -5798,8 +5798,8 @@ typedef struct {
 /*! AWOR_CH11 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH11(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH11_SHIFT)) & ADC_AWORR1_AWOR_CH11_MASK)
 
@@ -5808,8 +5808,8 @@ typedef struct {
 /*! AWOR_CH12 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH12(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH12_SHIFT)) & ADC_AWORR1_AWOR_CH12_MASK)
 
@@ -5818,8 +5818,8 @@ typedef struct {
 /*! AWOR_CH13 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH13(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH13_SHIFT)) & ADC_AWORR1_AWOR_CH13_MASK)
 
@@ -5828,8 +5828,8 @@ typedef struct {
 /*! AWOR_CH14 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH14(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH14_SHIFT)) & ADC_AWORR1_AWOR_CH14_MASK)
 
@@ -5838,8 +5838,8 @@ typedef struct {
 /*! AWOR_CH15 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH15(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH15_SHIFT)) & ADC_AWORR1_AWOR_CH15_MASK)
 
@@ -5848,8 +5848,8 @@ typedef struct {
 /*! AWOR_CH16 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH16(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH16_SHIFT)) & ADC_AWORR1_AWOR_CH16_MASK)
 
@@ -5858,8 +5858,8 @@ typedef struct {
 /*! AWOR_CH17 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH17(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH17_SHIFT)) & ADC_AWORR1_AWOR_CH17_MASK)
 
@@ -5868,8 +5868,8 @@ typedef struct {
 /*! AWOR_CH18 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH18(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH18_SHIFT)) & ADC_AWORR1_AWOR_CH18_MASK)
 
@@ -5878,8 +5878,8 @@ typedef struct {
 /*! AWOR_CH19 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH19(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH19_SHIFT)) & ADC_AWORR1_AWOR_CH19_MASK)
 
@@ -5888,8 +5888,8 @@ typedef struct {
 /*! AWOR_CH20 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH20(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH20_SHIFT)) & ADC_AWORR1_AWOR_CH20_MASK)
 
@@ -5898,8 +5898,8 @@ typedef struct {
 /*! AWOR_CH21 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH21(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH21_SHIFT)) & ADC_AWORR1_AWOR_CH21_MASK)
 
@@ -5908,8 +5908,8 @@ typedef struct {
 /*! AWOR_CH22 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH22(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH22_SHIFT)) & ADC_AWORR1_AWOR_CH22_MASK)
 
@@ -5918,8 +5918,8 @@ typedef struct {
 /*! AWOR_CH23 - Analog Watchdog Out Of Range For Standard Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR1_AWOR_CH23(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR1_AWOR_CH23_SHIFT)) & ADC_AWORR1_AWOR_CH23_MASK)
 /*! @} */
@@ -5932,8 +5932,8 @@ typedef struct {
 /*! AWOR_CH0 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH0(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH0_SHIFT)) & ADC_AWORR2_AWOR_CH0_MASK)
 
@@ -5942,8 +5942,8 @@ typedef struct {
 /*! AWOR_CH1 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH1(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH1_SHIFT)) & ADC_AWORR2_AWOR_CH1_MASK)
 
@@ -5952,8 +5952,8 @@ typedef struct {
 /*! AWOR_CH2 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH2(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH2_SHIFT)) & ADC_AWORR2_AWOR_CH2_MASK)
 
@@ -5962,8 +5962,8 @@ typedef struct {
 /*! AWOR_CH3 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH3(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH3_SHIFT)) & ADC_AWORR2_AWOR_CH3_MASK)
 
@@ -5972,8 +5972,8 @@ typedef struct {
 /*! AWOR_CH4 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH4(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH4_SHIFT)) & ADC_AWORR2_AWOR_CH4_MASK)
 
@@ -5982,8 +5982,8 @@ typedef struct {
 /*! AWOR_CH5 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH5(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH5_SHIFT)) & ADC_AWORR2_AWOR_CH5_MASK)
 
@@ -5992,8 +5992,8 @@ typedef struct {
 /*! AWOR_CH6 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH6(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH6_SHIFT)) & ADC_AWORR2_AWOR_CH6_MASK)
 
@@ -6002,8 +6002,8 @@ typedef struct {
 /*! AWOR_CH7 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH7(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH7_SHIFT)) & ADC_AWORR2_AWOR_CH7_MASK)
 
@@ -6012,8 +6012,8 @@ typedef struct {
 /*! AWOR_CH8 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH8(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH8_SHIFT)) & ADC_AWORR2_AWOR_CH8_MASK)
 
@@ -6022,8 +6022,8 @@ typedef struct {
 /*! AWOR_CH9 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH9(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH9_SHIFT)) & ADC_AWORR2_AWOR_CH9_MASK)
 
@@ -6032,8 +6032,8 @@ typedef struct {
 /*! AWOR_CH10 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH10(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH10_SHIFT)) & ADC_AWORR2_AWOR_CH10_MASK)
 
@@ -6042,8 +6042,8 @@ typedef struct {
 /*! AWOR_CH11 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH11(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH11_SHIFT)) & ADC_AWORR2_AWOR_CH11_MASK)
 
@@ -6052,8 +6052,8 @@ typedef struct {
 /*! AWOR_CH12 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH12(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH12_SHIFT)) & ADC_AWORR2_AWOR_CH12_MASK)
 
@@ -6062,8 +6062,8 @@ typedef struct {
 /*! AWOR_CH13 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH13(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH13_SHIFT)) & ADC_AWORR2_AWOR_CH13_MASK)
 
@@ -6072,8 +6072,8 @@ typedef struct {
 /*! AWOR_CH14 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH14(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH14_SHIFT)) & ADC_AWORR2_AWOR_CH14_MASK)
 
@@ -6082,8 +6082,8 @@ typedef struct {
 /*! AWOR_CH15 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH15(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH15_SHIFT)) & ADC_AWORR2_AWOR_CH15_MASK)
 
@@ -6092,8 +6092,8 @@ typedef struct {
 /*! AWOR_CH16 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH16(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH16_SHIFT)) & ADC_AWORR2_AWOR_CH16_MASK)
 
@@ -6102,8 +6102,8 @@ typedef struct {
 /*! AWOR_CH17 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH17(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH17_SHIFT)) & ADC_AWORR2_AWOR_CH17_MASK)
 
@@ -6112,8 +6112,8 @@ typedef struct {
 /*! AWOR_CH18 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH18(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH18_SHIFT)) & ADC_AWORR2_AWOR_CH18_MASK)
 
@@ -6122,8 +6122,8 @@ typedef struct {
 /*! AWOR_CH19 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH19(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH19_SHIFT)) & ADC_AWORR2_AWOR_CH19_MASK)
 
@@ -6132,8 +6132,8 @@ typedef struct {
 /*! AWOR_CH20 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH20(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH20_SHIFT)) & ADC_AWORR2_AWOR_CH20_MASK)
 
@@ -6142,8 +6142,8 @@ typedef struct {
 /*! AWOR_CH21 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH21(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH21_SHIFT)) & ADC_AWORR2_AWOR_CH21_MASK)
 
@@ -6152,8 +6152,8 @@ typedef struct {
 /*! AWOR_CH22 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH22(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH22_SHIFT)) & ADC_AWORR2_AWOR_CH22_MASK)
 
@@ -6162,8 +6162,8 @@ typedef struct {
 /*! AWOR_CH23 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH23(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH23_SHIFT)) & ADC_AWORR2_AWOR_CH23_MASK)
 
@@ -6172,8 +6172,8 @@ typedef struct {
 /*! AWOR_CH24 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH24(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH24_SHIFT)) & ADC_AWORR2_AWOR_CH24_MASK)
 
@@ -6182,8 +6182,8 @@ typedef struct {
 /*! AWOR_CH25 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH25(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH25_SHIFT)) & ADC_AWORR2_AWOR_CH25_MASK)
 
@@ -6192,8 +6192,8 @@ typedef struct {
 /*! AWOR_CH26 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH26(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH26_SHIFT)) & ADC_AWORR2_AWOR_CH26_MASK)
 
@@ -6202,8 +6202,8 @@ typedef struct {
 /*! AWOR_CH27 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH27(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH27_SHIFT)) & ADC_AWORR2_AWOR_CH27_MASK)
 
@@ -6212,8 +6212,8 @@ typedef struct {
 /*! AWOR_CH28 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH28(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH28_SHIFT)) & ADC_AWORR2_AWOR_CH28_MASK)
 
@@ -6222,8 +6222,8 @@ typedef struct {
 /*! AWOR_CH29 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH29(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH29_SHIFT)) & ADC_AWORR2_AWOR_CH29_MASK)
 
@@ -6232,8 +6232,8 @@ typedef struct {
 /*! AWOR_CH30 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH30(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH30_SHIFT)) & ADC_AWORR2_AWOR_CH30_MASK)
 
@@ -6242,8 +6242,8 @@ typedef struct {
 /*! AWOR_CH31 - Analog Watchdog Out Of Range For External Inputs
  *  0b0..Conversion is within limits
  *  0b0..No effect
- *  0b1..Conversion is not within limits
  *  0b1..Clears flag
+ *  0b1..Conversion is not within limits
  */
 #define ADC_AWORR2_AWOR_CH31(x)                  (((uint32_t)(((uint32_t)(x)) << ADC_AWORR2_AWOR_CH31_SHIFT)) & ADC_AWORR2_AWOR_CH31_MASK)
 /*! @} */
@@ -6439,80 +6439,80 @@ typedef struct {
 #define ADC_STSR1_ERR_S0_MASK                    (0x800U)
 #define ADC_STSR1_ERR_S0_SHIFT                   (11U)
 /*! ERR_S0 - Error Algorithm S Step 0
- *  0b0..No error
  *  0b0..No effect
- *  0b1..Error
+ *  0b0..No error
  *  0b1..Clears flag
+ *  0b1..Error
  */
 #define ADC_STSR1_ERR_S0(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_STSR1_ERR_S0_SHIFT)) & ADC_STSR1_ERR_S0_MASK)
 
 #define ADC_STSR1_ERR_S1_MASK                    (0x1000U)
 #define ADC_STSR1_ERR_S1_SHIFT                   (12U)
 /*! ERR_S1 - Error Algorithm S Step 1
- *  0b0..No error
  *  0b0..No effect
- *  0b1..Error
+ *  0b0..No error
  *  0b1..Clears flag
+ *  0b1..Error
  */
 #define ADC_STSR1_ERR_S1(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_STSR1_ERR_S1_SHIFT)) & ADC_STSR1_ERR_S1_MASK)
 
 #define ADC_STSR1_ERR_S2_MASK                    (0x2000U)
 #define ADC_STSR1_ERR_S2_SHIFT                   (13U)
 /*! ERR_S2 - Error Algorithm S Step 2
- *  0b0..No error
  *  0b0..No effect
- *  0b1..Error
+ *  0b0..No error
  *  0b1..Clears flag
+ *  0b1..Error
  */
 #define ADC_STSR1_ERR_S2(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_STSR1_ERR_S2_SHIFT)) & ADC_STSR1_ERR_S2_MASK)
 
 #define ADC_STSR1_ERR_C_MASK                     (0x8000U)
 #define ADC_STSR1_ERR_C_SHIFT                    (15U)
 /*! ERR_C - Error Algorithm C
- *  0b0..No error
  *  0b0..No effect
- *  0b1..Error
+ *  0b0..No error
  *  0b1..Clears flag
+ *  0b1..Error
  */
 #define ADC_STSR1_ERR_C(x)                       (((uint32_t)(((uint32_t)(x)) << ADC_STSR1_ERR_C_SHIFT)) & ADC_STSR1_ERR_C_MASK)
 
 #define ADC_STSR1_WDG_EOA_S_MASK                 (0x10000U)
 #define ADC_STSR1_WDG_EOA_S_SHIFT                (16U)
 /*! WDG_EOA_S - Self-Test Watchdog End Of Algorithm S
- *  0b0..Not complete
  *  0b0..No effect
- *  0b1..Complete
+ *  0b0..Not complete
  *  0b1..Clears flag
+ *  0b1..Complete
  */
 #define ADC_STSR1_WDG_EOA_S(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_STSR1_WDG_EOA_S_SHIFT)) & ADC_STSR1_WDG_EOA_S_MASK)
 
 #define ADC_STSR1_WDG_EOA_C_MASK                 (0x40000U)
 #define ADC_STSR1_WDG_EOA_C_SHIFT                (18U)
 /*! WDG_EOA_C - Self-Test Watchdog End Of Algorithm C
- *  0b0..Not complete
  *  0b0..No effect
- *  0b1..Complete
+ *  0b0..Not complete
  *  0b1..Clears flag
+ *  0b1..Complete
  */
 #define ADC_STSR1_WDG_EOA_C(x)                   (((uint32_t)(((uint32_t)(x)) << ADC_STSR1_WDG_EOA_C_SHIFT)) & ADC_STSR1_WDG_EOA_C_MASK)
 
 #define ADC_STSR1_ST_EOC_MASK                    (0x800000U)
 #define ADC_STSR1_ST_EOC_SHIFT                   (23U)
 /*! ST_EOC - Self-Test End Of Conversion
- *  0b0..Not complete
  *  0b0..No effect
- *  0b1..Complete
+ *  0b0..Not complete
  *  0b1..Clears flag
+ *  0b1..Complete
  */
 #define ADC_STSR1_ST_EOC(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_STSR1_ST_EOC_SHIFT)) & ADC_STSR1_ST_EOC_MASK)
 
 #define ADC_STSR1_OVERWR_MASK                    (0x1000000U)
 #define ADC_STSR1_OVERWR_SHIFT                   (24U)
 /*! OVERWR - Self-Test Error Status Overwrite
- *  0b0..No self-test error status flag overwritten
  *  0b0..No effect
- *  0b1..Self-test error status flag overwritten
+ *  0b0..No self-test error status flag overwritten
  *  0b1..Clears flag
+ *  0b1..Self-test error status flag overwritten
  */
 #define ADC_STSR1_OVERWR(x)                      (((uint32_t)(((uint32_t)(x)) << ADC_STSR1_OVERWR_SHIFT)) & ADC_STSR1_OVERWR_MASK)
 
@@ -6851,5 +6851,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* ADC_H_ */
+#endif  /* PERI_ADC_H_ */
 

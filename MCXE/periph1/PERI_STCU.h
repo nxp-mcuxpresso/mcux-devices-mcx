@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for STCU
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file STCU.h
+ * @file PERI_STCU.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for STCU
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for STCU
  */
 
-#if !defined(STCU_H_)
-#define STCU_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_STCU_H_)
+#define PERI_STCU_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -1182,5 +1182,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* STCU_H_ */
+#endif  /* PERI_STCU_H_ */
 

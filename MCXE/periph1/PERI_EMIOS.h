@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250319
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for EMIOS
@@ -830,8 +830,8 @@ typedef struct {
 #define EMIOS_S_FLAG_SHIFT                       (0U)
 /*! FLAG - Flag
  *  0b0..No event
- *  0b1..Event has occurred
  *  0b1..Clear the flag (FLAG returns to 0)
+ *  0b1..Event has occurred
  */
 #define EMIOS_S_FLAG(x)                          (((uint32_t)(((uint32_t)(x)) << EMIOS_S_FLAG_SHIFT)) & EMIOS_S_FLAG_MASK)
 

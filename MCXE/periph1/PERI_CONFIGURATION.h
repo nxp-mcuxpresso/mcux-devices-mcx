@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CONFIGURATION
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file CONFIGURATION.h
+ * @file PERI_CONFIGURATION.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for CONFIGURATION
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for CONFIGURATION
  */
 
-#if !defined(CONFIGURATION_H_)
-#define CONFIGURATION_H_                         /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_CONFIGURATION_H_)
+#define PERI_CONFIGURATION_H_                    /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -405,5 +405,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* CONFIGURATION_H_ */
+#endif  /* PERI_CONFIGURATION_H_ */
 

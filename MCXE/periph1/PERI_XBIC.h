@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for XBIC
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file XBIC.h
+ * @file PERI_XBIC.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for XBIC
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for XBIC
  */
 
-#if !defined(XBIC_H_)
-#define XBIC_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_XBIC_H_)
+#define PERI_XBIC_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -451,5 +451,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* XBIC_H_ */
+#endif  /* PERI_XBIC_H_ */
 

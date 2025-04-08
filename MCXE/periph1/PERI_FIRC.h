@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FIRC
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file FIRC.h
+ * @file PERI_FIRC.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for FIRC
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for FIRC
  */
 
-#if !defined(FIRC_H_)
-#define FIRC_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_FIRC_H_)
+#define PERI_FIRC_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -151,5 +151,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* FIRC_H_ */
+#endif  /* PERI_FIRC_H_ */
 

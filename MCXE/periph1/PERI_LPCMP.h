@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPCMP
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file LPCMP.h
+ * @file PERI_LPCMP.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for LPCMP
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for LPCMP
  */
 
-#if !defined(LPCMP_H_)
-#define LPCMP_H_                                 /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_LPCMP_H_)
+#define PERI_LPCMP_H_                            /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -715,5 +715,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* LPCMP_H_ */
+#endif  /* PERI_LPCMP_H_ */
 

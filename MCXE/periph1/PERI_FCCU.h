@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FCCU
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file FCCU.h
+ * @file PERI_FCCU.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for FCCU
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for FCCU
  */
 
-#if !defined(FCCU_H_)
-#define FCCU_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_FCCU_H_)
+#define PERI_FCCU_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -1091,5 +1091,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* FCCU_H_ */
+#endif  /* PERI_FCCU_H_ */
 

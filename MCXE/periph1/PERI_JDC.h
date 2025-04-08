@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for JDC
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file JDC.h
+ * @file PERI_JDC.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for JDC
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for JDC
  */
 
-#if !defined(JDC_H_)
-#define JDC_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_JDC_H_)
+#define PERI_JDC_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -202,5 +202,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* JDC_H_ */
+#endif  /* PERI_JDC_H_ */
 

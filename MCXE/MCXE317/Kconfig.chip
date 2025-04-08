@@ -1,0 +1,297 @@
+# Copyright 2024-2025 NXP
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# device related
+
+config MCUX_HW_DEVICE_ID_MCXE317
+    bool
+
+choice
+    prompt "Device MCXE317 Part"
+    config MCUX_HW_DEVICE_PART_MCXE317MPB
+    bool "Device part MCXE317MPB"
+    select MCUX_HW_DEVICE_ID_MCXE317
+   config MCUX_HW_DEVICE_PART_MCXE317MPAA
+    bool "Device part MCXE317MPA"
+    select MCUX_HW_DEVICE_ID_MCXE317
+endchoice
+
+config MCUX_HW_DEVICE_ID
+    string
+    default "MCXE317" if MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_DEVICE_PART
+    string
+    default "MCXE317MPB" if MCUX_HW_DEVICE_PART_MCXE317MPB
+    default "MCXE317MPA" if MCUX_HW_DEVICE_PART_MCXE317MPA
+# core related
+config MCUX_HW_CORE
+    string
+    default "cm7f"
+
+config MCUX_HW_CORE_CM7F
+    bool
+    default y
+
+config MCUX_HW_CORE_ID
+    string
+    default "cm7"
+
+config MCUX_HW_DEVICE_CORE
+    string
+    default "MCXE317"
+
+config MCUX_HW_FPU
+    string
+    default "SP_FPU"
+
+config MCUX_HW_FPU_TYPE
+    string
+    default "fpv5_sp"
+
+config MCUX_HW_FPV5_SP
+    bool
+    default y
+
+config MCUX_HW_INT_PRIO_BITS
+    int
+    default 4
+
+config MCUX_HW_SOC_SERIES_MCX
+    bool
+    default y
+
+config MCUX_HW_SOC_SINGLECORE_DEVICE
+    bool
+    default y
+
+# For chipmodel generated files
+config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
+    string
+    default "MCXE317" if MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_TOOLCHAIN_MCUX_STARTUP
+    string
+    default "MCXE317"
+
+# Toolchain related
+
+config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
+    string
+    default "MCXE317" if MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
+    string
+    default "MCXE317MPB" if MCUX_HW_DEVICE_PART_MCXE317MPB
+
+config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
+    string
+    default "MCXE317" if MCUX_HW_DEVICE_ID_MCXE317
+
+# ip information
+
+config MCUX_HW_IP_DriverType_AIPS
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_CMU_FC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_CMU_FM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_CRC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_DMAMUX
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_EDMA4
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+#config MCUX_HW_IP_DriverType_EIM
+#    bool
+#    default y
+#    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_EMIOS
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+#config MCUX_HW_IP_DriverType_ERM
+#    bool
+#    default y
+#    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_FLEXCAN
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_FLEXIO
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_INTM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_JDC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_JTAGC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_LCU
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_LPCMP
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_LPI2C
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_LPSPI
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_LPUART
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_MCM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_MDM_AP
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_MSCM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_SIUL2
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_PIT
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_PLLDIG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_RTC_JDP
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_PMC2
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_SAR_ADC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_STM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_SWT
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_TRGMUX
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_WKPU
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_XBIC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_XRDC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_BCTU
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_TEMPSENSE
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_PMC2
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317  
+
+config MCUX_HW_IP_DriverType_MC_RGM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_DCM_GPR
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317
+
+config MCUX_HW_IP_DriverType_FLASH_C40
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE317

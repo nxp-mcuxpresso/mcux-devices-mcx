@@ -8,7 +8,7 @@
 **
 **     Reference manual:    MCXE31 RM Rev1
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250509
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE31B
@@ -1295,7 +1295,6 @@ typedef enum _xbic_slave_port
 #define LPUART_BASE_PTRS                         { LPUART_0, LPUART_1, LPUART_2, LPUART_3, LPUART_4, LPUART_5, LPUART_6, LPUART_7, LPUART_8, LPUART_9, LPUART_10, LPUART_11, LPUART_12, LPUART_13, LPUART_14, LPUART_15 }
 /** Interrupt vectors for the LPUART peripheral type */
 #define LPUART_RX_TX_IRQS                        { LPUART_0_IRQn, LPUART_1_IRQn, LPUART_2_IRQn, LPUART_3_IRQn, LPUART_4_IRQn, LPUART_5_IRQn, LPUART_6_IRQn, LPUART_7_IRQn, LPUART_8_IRQn, LPUART_9_IRQn, LPUART_10_IRQn, LPUART_11_IRQn, LPUART_12_IRQn, LPUART_13_IRQn, LPUART_14_IRQn, LPUART_15_IRQn }
-#define LPUART_ERR_IRQS                          { LPUART_0_IRQn, LPUART_1_IRQn, LPUART_2_IRQn, LPUART_3_IRQn, LPUART_4_IRQn, LPUART_5_IRQn, LPUART_6_IRQn, LPUART_7_IRQn, LPUART_8_IRQn, LPUART_9_IRQn, LPUART_10_IRQn, LPUART_11_IRQn, LPUART_12_IRQn, LPUART_13_IRQn, LPUART_14_IRQn, LPUART_15_IRQn }
 
 /* MCM - Peripheral instance base addresses */
 /** Peripheral MCM_0 base address */
@@ -1701,3 +1700,4 @@ typedef enum _xbic_slave_port
 
 
 #endif  /* MCXE31B_COMMON_H_ */
+

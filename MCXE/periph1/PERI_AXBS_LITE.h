@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for AXBS_LITE
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file AXBS_LITE.h
+ * @file PERI_AXBS_LITE.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for AXBS_LITE
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for AXBS_LITE
  */
 
-#if !defined(AXBS_LITE_H_)
-#define AXBS_LITE_H_                             /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_AXBS_LITE_H_)
+#define PERI_AXBS_LITE_H_                        /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -1187,5 +1187,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* AXBS_LITE_H_ */
+#endif  /* PERI_AXBS_LITE_H_ */
 

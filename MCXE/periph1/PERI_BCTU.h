@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for BCTU
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file BCTU.h
+ * @file PERI_BCTU.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for BCTU
@@ -30,14 +30,112 @@
  * CMSIS Peripheral Access Layer for BCTU
  */
 
-#if !defined(BCTU_H_)
-#define BCTU_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_BCTU_H_)
+#define PERI_BCTU_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
 #else
   #error "No valid CPU defined!"
 #endif
+
+/* ----------------------------------------------------------------------------
+   -- Mapping Information
+   ---------------------------------------------------------------------------- */
+
+/*!
+ * @addtogroup Mapping_Information Mapping Information
+ * @{
+ */
+
+/** Mapping Information */
+#if !defined(BCTU_TRIG_SOURCE_T_)
+#define BCTU_TRIG_SOURCE_T_
+/*!
+ * @brief BCTU hardware trigger source enumeration
+ */
+typedef enum _bctu_trig_source
+{
+    kBCTU_TrigSourceEmios0Ch0       = 0U,          /**< EMIOS0 Channel0 */
+    kBCTU_TrigSourceEmios0Ch1       = 1U,          /**< EMIOS0 Channel1 */
+    kBCTU_TrigSourceEmios0Ch2       = 2U,          /**< EMIOS0 Channel2 */
+    kBCTU_TrigSourceEmios0Ch3       = 3U,          /**< EMIOS0 Channel3 */
+    kBCTU_TrigSourceEmios0Ch4       = 4U,          /**< EMIOS0 Channel4 */
+    kBCTU_TrigSourceEmios0Ch5       = 5U,          /**< EMIOS0 Channel5 */
+    kBCTU_TrigSourceEmios0Ch6       = 6U,          /**< EMIOS0 Channel6 */
+    kBCTU_TrigSourceEmios0Ch7       = 7U,          /**< EMIOS0 Channel7 */
+    kBCTU_TrigSourceEmios0Ch8       = 8U,          /**< EMIOS0 Channel8 */
+    kBCTU_TrigSourceEmios0Ch9       = 9U,          /**< EMIOS0 Channel9 */
+    kBCTU_TrigSourceEmios0Ch10      = 10U,         /**< EMIOS0 Channel10 */
+    kBCTU_TrigSourceEmios0Ch11      = 11U,         /**< EMIOS0 Channel11 */
+    kBCTU_TrigSourceEmios0Ch12      = 12U,         /**< EMIOS0 Channel12 */
+    kBCTU_TrigSourceEmios0Ch13      = 13U,         /**< EMIOS0 Channel13 */
+    kBCTU_TrigSourceEmios0Ch14      = 14U,         /**< EMIOS0 Channel14 */
+    kBCTU_TrigSourceEmios0Ch15      = 15U,         /**< EMIOS0 Channel15 */
+    kBCTU_TrigSourceEmios0Ch16      = 16U,         /**< EMIOS0 Channel16 */
+    kBCTU_TrigSourceEmios0Ch17      = 17U,         /**< EMIOS0 Channel17 */
+    kBCTU_TrigSourceEmios0Ch18      = 18U,         /**< EMIOS0 Channel18 */
+    kBCTU_TrigSourceEmios0Ch19      = 19U,         /**< EMIOS0 Channel19 */
+    kBCTU_TrigSourceEmios0Ch20      = 20U,         /**< EMIOS0 Channel20 */
+    kBCTU_TrigSourceEmios0Ch21      = 21U,         /**< EMIOS0 Channel21 */
+    kBCTU_TrigSourceEmios0Ch22      = 22U,         /**< EMIOS0 Channel22 */
+    kBCTU_TrigSourceTrgmuxTrg1      = 23U,         /**< TRGMUX Trigger1 */
+    kBCTU_TrigSourceEmios1Ch0       = 24U,         /**< EMIOS1 Channel0 */
+    kBCTU_TrigSourceEmios1Ch1       = 25U,         /**< EMIOS1 Channel1 */
+    kBCTU_TrigSourceEmios1Ch2       = 26U,         /**< EMIOS1 Channel2 */
+    kBCTU_TrigSourceEmios1Ch3       = 27U,         /**< EMIOS1 Channel3 */
+    kBCTU_TrigSourceEmios1Ch4       = 28U,         /**< EMIOS1 Channel4 */
+    kBCTU_TrigSourceEmios1Ch5       = 29U,         /**< EMIOS1 Channel5 */
+    kBCTU_TrigSourceEmios1Ch6       = 30U,         /**< EMIOS1 Channel6 */
+    kBCTU_TrigSourceEmios1Ch7       = 31U,         /**< EMIOS1 Channel7 */
+    kBCTU_TrigSourceEmios1Ch8       = 32U,         /**< EMIOS1 Channel8 */
+    kBCTU_TrigSourceEmios1Ch9       = 33U,         /**< EMIOS1 Channel9 */
+    kBCTU_TrigSourceEmios1Ch10      = 34U,         /**< EMIOS1 Channel10 */
+    kBCTU_TrigSourceEmios1Ch11      = 35U,         /**< EMIOS1 Channel11 */
+    kBCTU_TrigSourceEmios1Ch12      = 36U,         /**< EMIOS1 Channel12 */
+    kBCTU_TrigSourceEmios1Ch13      = 37U,         /**< EMIOS1 Channel13 */
+    kBCTU_TrigSourceEmios1Ch14      = 38U,         /**< EMIOS1 Channel14 */
+    kBCTU_TrigSourceEmios1Ch15      = 39U,         /**< EMIOS1 Channel15 */
+    kBCTU_TrigSourceEmios1Ch16      = 40U,         /**< EMIOS1 Channel16 */
+    kBCTU_TrigSourceEmios1Ch17      = 41U,         /**< EMIOS1 Channel17 */
+    kBCTU_TrigSourceEmios1Ch18      = 42U,         /**< EMIOS1 Channel18 */
+    kBCTU_TrigSourceEmios1Ch19      = 43U,         /**< EMIOS1 Channel19 */
+    kBCTU_TrigSourceEmios1Ch20      = 44U,         /**< EMIOS1 Channel20 */
+    kBCTU_TrigSourceEmios1Ch21      = 45U,         /**< EMIOS1 Channel21 */
+    kBCTU_TrigSourceEmios1Ch22      = 46U,         /**< EMIOS1 Channel22 */
+    kBCTU_TrigSourceTrgmuxTrg2      = 47U,         /**< TRGMUX Trigger2 */
+    kBCTU_TrigSourceEmios2Ch0       = 48U,         /**< EMIOS2 Channel0 */
+    kBCTU_TrigSourceEmios2Ch1       = 49U,         /**< EMIOS2 Channel1 */
+    kBCTU_TrigSourceEmios2Ch2       = 50U,         /**< EMIOS2 Channel2 */
+    kBCTU_TrigSourceEmios2Ch3       = 51U,         /**< EMIOS2 Channel3 */
+    kBCTU_TrigSourceEmios2Ch4       = 52U,         /**< EMIOS2 Channel4 */
+    kBCTU_TrigSourceEmios2Ch5       = 53U,         /**< EMIOS2 Channel5 */
+    kBCTU_TrigSourceEmios2Ch6       = 54U,         /**< EMIOS2 Channel6 */
+    kBCTU_TrigSourceEmios2Ch7       = 55U,         /**< EMIOS2 Channel7 */
+    kBCTU_TrigSourceEmios2Ch8       = 56U,         /**< EMIOS2 Channel8 */
+    kBCTU_TrigSourceEmios2Ch9       = 57U,         /**< EMIOS2 Channel9 */
+    kBCTU_TrigSourceEmios2Ch10      = 58U,         /**< EMIOS2 Channel10 */
+    kBCTU_TrigSourceEmios2Ch11      = 59U,         /**< EMIOS2 Channel11 */
+    kBCTU_TrigSourceEmios2Ch12      = 60U,         /**< EMIOS2 Channel12 */
+    kBCTU_TrigSourceEmios2Ch13      = 61U,         /**< EMIOS2 Channel13 */
+    kBCTU_TrigSourceEmios2Ch14      = 62U,         /**< EMIOS2 Channel14 */
+    kBCTU_TrigSourceEmios2Ch15      = 63U,         /**< EMIOS2 Channel15 */
+    kBCTU_TrigSourceEmios2Ch16      = 64U,         /**< EMIOS2 Channel16 */
+    kBCTU_TrigSourceEmios2Ch17      = 65U,         /**< EMIOS2 Channel17 */
+    kBCTU_TrigSourceEmios2Ch18      = 66U,         /**< EMIOS2 Channel18 */
+    kBCTU_TrigSourceEmios2Ch19      = 67U,         /**< EMIOS2 Channel19 */
+    kBCTU_TrigSourceEmios2Ch20      = 68U,         /**< EMIOS2 Channel20 */
+    kBCTU_TrigSourceEmios2Ch21      = 69U,         /**< EMIOS2 Channel21 */
+    kBCTU_TrigSourceEmios2Ch22      = 70U,         /**< EMIOS2 Channel22 */
+    kBCTU_TrigSourceTrgmuxTrg3      = 71U,         /**< TRGMUX Trigger3 */
+} bctu_trig_source_t;
+#endif /* BCTU_TRIG_SOURCE_T_ */
+
+
+/*!
+ * @}
+ */ /* end of group Mapping_Information */
+
 
 /* ----------------------------------------------------------------------------
    -- Device Peripheral Access Layer
@@ -67,7 +165,6 @@
 #else
   #error Not supported compiler type
 #endif
-
 
 /* ----------------------------------------------------------------------------
    -- BCTU Peripheral Access Layer
@@ -1379,132 +1476,6 @@ typedef struct {
  * @}
  */ /* end of group Peripheral_access_layer */
 
-/*******************************************************************************
- * Definitions
- ******************************************************************************/
-/*! @brief BCTU hardware trigger source enumeration. */
-enum _bctu_trig_source
-{
-    kBCTU_TrigSourceEmios0Ch0 = 0,
-    kBCTU_TrigSourceEmios0Ch1,
-    kBCTU_TrigSourceEmios0Ch2,
-    kBCTU_TrigSourceEmios0Ch3,
-    kBCTU_TrigSourceEmios0Ch4,
-    kBCTU_TrigSourceEmios0Ch5,
-    kBCTU_TrigSourceEmios0Ch6,
-    kBCTU_TrigSourceEmios0Ch7,
-    kBCTU_TrigSourceEmios0Ch8,
-    kBCTU_TrigSourceEmios0Ch9,
-    kBCTU_TrigSourceEmios0Ch10,
-    kBCTU_TrigSourceEmios0Ch11,
-    kBCTU_TrigSourceEmios0Ch12,
-    kBCTU_TrigSourceEmios0Ch13,
-    kBCTU_TrigSourceEmios0Ch14,
-    kBCTU_TrigSourceEmios0Ch15,
-    kBCTU_TrigSourceEmios0Ch16,
-    kBCTU_TrigSourceEmios0Ch17,
-    kBCTU_TrigSourceEmios0Ch18,
-    kBCTU_TrigSourceEmios0Ch19,
-    kBCTU_TrigSourceEmios0Ch20,
-    kBCTU_TrigSourceEmios0Ch21,
-    kBCTU_TrigSourceEmios0Ch22,
-    kBCTU_TrigSourceTrgmuxTrg1,
 
-    kBCTU_TrigSourceEmios1Ch0,
-    kBCTU_TrigSourceEmios1Ch1,
-    kBCTU_TrigSourceEmios1Ch2,
-    kBCTU_TrigSourceEmios1Ch3,
-    kBCTU_TrigSourceEmios1Ch4,
-    kBCTU_TrigSourceEmios1Ch5,
-    kBCTU_TrigSourceEmios1Ch6,
-    kBCTU_TrigSourceEmios1Ch7,
-    kBCTU_TrigSourceEmios1Ch8,
-    kBCTU_TrigSourceEmios1Ch9,
-    kBCTU_TrigSourceEmios1Ch10,
-    kBCTU_TrigSourceEmios1Ch11,
-    kBCTU_TrigSourceEmios1Ch12,
-    kBCTU_TrigSourceEmios1Ch13,
-    kBCTU_TrigSourceEmios1Ch14,
-    kBCTU_TrigSourceEmios1Ch15,
-    kBCTU_TrigSourceEmios1Ch16,
-    kBCTU_TrigSourceEmios1Ch17,
-    kBCTU_TrigSourceEmios1Ch18,
-    kBCTU_TrigSourceEmios1Ch19,
-    kBCTU_TrigSourceEmios1Ch20,
-    kBCTU_TrigSourceEmios1Ch21,
-    kBCTU_TrigSourceEmios1Ch22,
-    kBCTU_TrigSourceTrgmuxTrg2,
-    
-    kBCTU_TrigSourceEmios2Ch0,
-    kBCTU_TrigSourceEmios2Ch1,
-    kBCTU_TrigSourceEmios2Ch2,
-    kBCTU_TrigSourceEmios2Ch3,
-    kBCTU_TrigSourceEmios2Ch4,
-    kBCTU_TrigSourceEmios2Ch5,
-    kBCTU_TrigSourceEmios2Ch6,
-    kBCTU_TrigSourceEmios2Ch7,
-    kBCTU_TrigSourceEmios2Ch8,
-    kBCTU_TrigSourceEmios2Ch9,
-    kBCTU_TrigSourceEmios2Ch10,
-    kBCTU_TrigSourceEmios2Ch11,
-    kBCTU_TrigSourceEmios2Ch12,
-    kBCTU_TrigSourceEmios2Ch13,
-    kBCTU_TrigSourceEmios2Ch14,
-    kBCTU_TrigSourceEmios2Ch15,
-    kBCTU_TrigSourceEmios2Ch16,
-    kBCTU_TrigSourceEmios2Ch17,
-    kBCTU_TrigSourceEmios2Ch18,
-    kBCTU_TrigSourceEmios2Ch19,
-    kBCTU_TrigSourceEmios2Ch20,
-    kBCTU_TrigSourceEmios2Ch21,
-    kBCTU_TrigSourceEmios2Ch22,
-    kBCTU_TrigSourceTrgmuxTrg3,
-};
-
-/*! @brief BCTU software trigger group. */
-typedef enum _bctu_trig_group
-{
-    kBCTU_TrigGroup_0 = 0U, /*!< Trigger group 0. */
-    kBCTU_TrigGroup_1 = 1U, /*!< Trigger group 1. */
-    kBCTU_TrigGroup_2 = 2U, /*!< Trigger group 2. */
-} bctu_trig_group_t;
-
-/*! @brief BCTU software trigger mask. */
-enum _bctu_trig_mask
-{
-    kBCTU_TrigMask_0 = BCTU_SFTRGR1_SFTRG0_MASK,        /*!< Trigger mask 0. */
-    kBCTU_TrigMask_1 = kBCTU_TrigMask_0 << 1U,          /*!< Trigger mask 1. */
-    kBCTU_TrigMask_2 = kBCTU_TrigMask_0 << 2U,          /*!< Trigger mask 2. */
-    kBCTU_TrigMask_3 = kBCTU_TrigMask_0 << 3U,          /*!< Trigger mask 3. */
-    kBCTU_TrigMask_4 = kBCTU_TrigMask_0 << 4U,          /*!< Trigger mask 4. */
-    kBCTU_TrigMask_5 = kBCTU_TrigMask_0 << 5U,          /*!< Trigger mask 5. */
-    kBCTU_TrigMask_6 = kBCTU_TrigMask_0 << 6U,          /*!< Trigger mask 6. */
-    kBCTU_TrigMask_7 = kBCTU_TrigMask_0 << 7U,          /*!< Trigger mask 7. */
-    kBCTU_TrigMask_8 = kBCTU_TrigMask_0 << 8U,          /*!< Trigger mask 8. */
-    kBCTU_TrigMask_9 = kBCTU_TrigMask_0 << 9U,          /*!< Trigger mask 9. */
-    kBCTU_TrigMask_10 = kBCTU_TrigMask_0 << 10U,        /*!< Trigger mask 10. */
-    kBCTU_TrigMask_11 = kBCTU_TrigMask_0 << 11U,        /*!< Trigger mask 11. */
-    kBCTU_TrigMask_12 = kBCTU_TrigMask_0 << 12U,        /*!< Trigger mask 12. */
-    kBCTU_TrigMask_13 = kBCTU_TrigMask_0 << 13U,        /*!< Trigger mask 13. */
-    kBCTU_TrigMask_14 = kBCTU_TrigMask_0 << 14U,        /*!< Trigger mask 14. */
-    kBCTU_TrigMask_15 = kBCTU_TrigMask_0 << 15U,        /*!< Trigger mask 15. */
-    kBCTU_TrigMask_16 = kBCTU_TrigMask_0 << 16U,        /*!< Trigger mask 16. */
-    kBCTU_TrigMask_17 = kBCTU_TrigMask_0 << 17U,        /*!< Trigger mask 17. */
-    kBCTU_TrigMask_18 = kBCTU_TrigMask_0 << 18U,        /*!< Trigger mask 18. */
-    kBCTU_TrigMask_19 = kBCTU_TrigMask_0 << 19U,        /*!< Trigger mask 19. */
-    kBCTU_TrigMask_20 = kBCTU_TrigMask_0 << 20U,        /*!< Trigger mask 20. */
-    kBCTU_TrigMask_21 = kBCTU_TrigMask_0 << 21U,        /*!< Trigger mask 21. */
-    kBCTU_TrigMask_22 = kBCTU_TrigMask_0 << 22U,        /*!< Trigger mask 22. */
-    kBCTU_TrigMask_23 = kBCTU_TrigMask_0 << 23U,        /*!< Trigger mask 23. */
-    kBCTU_TrigMask_24 = kBCTU_TrigMask_0 << 24U,        /*!< Trigger mask 24. */
-    kBCTU_TrigMask_25 = kBCTU_TrigMask_0 << 25U,        /*!< Trigger mask 25. */
-    kBCTU_TrigMask_26 = kBCTU_TrigMask_0 << 26U,        /*!< Trigger mask 26. */
-    kBCTU_TrigMask_27 = kBCTU_TrigMask_0 << 27U,        /*!< Trigger mask 27. */
-    kBCTU_TrigMask_28 = kBCTU_TrigMask_0 << 28U,        /*!< Trigger mask 28. */
-    kBCTU_TrigMask_29 = kBCTU_TrigMask_0 << 29U,        /*!< Trigger mask 29. */
-    kBCTU_TrigMask_30 = kBCTU_TrigMask_0 << 30U,        /*!< Trigger mask 30. */
-    kBCTU_TrigMask_31 = kBCTU_TrigMask_0 << 31U,        /*!< Trigger mask 31. */
-};
-
-#endif  /* BCTU_H_ */
+#endif  /* PERI_BCTU_H_ */
 

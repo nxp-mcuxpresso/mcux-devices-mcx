@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250319
+**     Build:               b250512
 **
 **     Abstract:
 **         Chip specific module features.
@@ -39,8 +39,8 @@
 #define FSL_FEATURE_SOC_EDMA_COUNT (1)
 /* @brief EIM availability on the SoC. */
 #define FSL_FEATURE_SOC_EIM_COUNT (1)
-/* @brief FLASH availability on the SoC. */
-#define FSL_FEATURE_SOC_FLASH_COUNT (1)
+/* @brief EMIOS availability on the SoC. */
+#define FSL_FEATURE_SOC_EMIOS_COUNT (3)
 /* @brief FLEXCAN availability on the SoC. */
 #define FSL_FEATURE_SOC_FLEXCAN_COUNT (6)
 /* @brief FLEXIO availability on the SoC. */
@@ -65,10 +65,14 @@
 #define FSL_FEATURE_SOC_PIT_COUNT (3)
 /* @brief PMC availability on the SoC. */
 #define FSL_FEATURE_SOC_PMC_COUNT (1)
+/* @brief QuadSPI availability on the SoC. */
+#define FSL_FEATURE_SOC_QuadSPI_COUNT (1)
 /* @brief RTC availability on the SoC. */
 #define FSL_FEATURE_SOC_RTC_COUNT (1)
 /* @brief SEMA42 availability on the SoC. */
 #define FSL_FEATURE_SOC_SEMA42_COUNT (1)
+/* @brief STM availability on the SoC. */
+#define FSL_FEATURE_SOC_STM_COUNT (2)
 /* @brief TRGMUX availability on the SoC. */
 #define FSL_FEATURE_SOC_TRGMUX_COUNT (1)
 /* @brief WKPU availability on the SoC. */
@@ -240,6 +244,10 @@
 /* @brief Number of DMA channels with asynchronous request capability. */
 #define FSL_FEATURE_EDMA_ASYNCHRO_REQUEST_CHANNEL_COUNT (32)
 
+/* FLASH_C40 module features */
+
+/* No feature definitions */
+
 /* FLEXCAN module features */
 
 /* @brief Message buffer size */
@@ -296,6 +304,14 @@
 #define FSL_FEATURE_FLEXCAN_HAS_PN_MODE (0)
 /* @brief Has Enhanced Rx FIFO. */
 #define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO (1)
+/* @brief Has Enhanced Rx FIFO. */
+#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_ENHANCED_RX_FIFOn(x) \
+    (((x) == FLEXCAN_1) ? (0) : \
+    (((x) == FLEXCAN_2) ? (0) : \
+    (((x) == FLEXCAN_3) ? (0) : \
+    (((x) == FLEXCAN_4) ? (0) : \
+    (((x) == FLEXCAN_5) ? (0) : \
+    (((x) == FLEXCAN_0) ? (1) : (-1)))))))
 /* @brief Does not support Supervisor Mode (bitfield MCR[SUPV]. */
 #define FSL_FEATURE_FLEXCAN_HAS_NO_SUPV_SUPPORT (0)
 /* @brief Enhanced Rx FIFO size (Indicates how many CAN FD messages can be stored). */
@@ -306,20 +322,24 @@
 #define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO_FILTER_MAX_NUMBER (128)
 /* @brief Does not support self wake feature(bitfield MCR[SLFWAK]) */
 #define FSL_FEATURE_FLEXCAN_HAS_NO_SLFWAK_SUPPORT (1)
-/* @brief Has time tick source selection(bitfield CTRL2[TIMER_SRC]) */
+/* @brief Has external time tick source (bitfield CTRL2[TIMER_SRC]). */
 #define FSL_FEATURE_FLEXCAN_HAS_EXTERNAL_TIME_TICK (1)
-/* @brief Has Time Stamp Capture Point(bitfield CTRL2[TSTAMPCAP]) */
+/* @brief Instance has external time tick source (register bit field CTRL2[TIMER_SRC]). */
+#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_EXTERNAL_TIME_TICKn(x) (1)
+/* @brief Has Time Stamp Capture Point(bitfield CTRL2[TSTAMPCAP]). */
 #define FSL_FEATURE_FLEXCAN_HAS_HIGH_RESOLUTION_TIMESTAMP (1)
-/* @brief The max amount of IRQ entry for CAN instances. */
+/* @brief The max amount of Message Buffer IRQ entry for CAN instances. */
 #define FSL_FEATURE_FLEXCAN_MB_IRQ_COUNT (3)
-/* @brief Has Enhanced Rx FIFO. */
-#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_ENHANCED_RX_FIFOn(x) \
-    (((x) == FLEXCAN_1) ? (0) : \
-    (((x) == FLEXCAN_2) ? (0) : \
-    (((x) == FLEXCAN_3) ? (0) : \
-    (((x) == FLEXCAN_4) ? (0) : \
-    (((x) == FLEXCAN_5) ? (0) : \
-    (((x) == FLEXCAN_0) ? (1) : (-1)))))))
+/* @brief Instance has Pretended Networking option (register bit field MCR[PNET_EN]). */
+#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_PN_MODEn(x) (0)
+/* @brief FlexCAN maximum data rate. */
+#define FSL_FEATURE_FLEXCAN_MAX_CANFD_BITRATE (8000000)
+/* @brief Support payload endianness selection (bitfield CTRL2[PES]). */
+#define FSL_FEATURE_FLEXCAN_HAS_ENDIANNESS_SELECTION (0)
+/* @brief Enter Freeze mode before entering Disable and Stop mode. */
+#define FSL_FEATURE_FLEXCAN_ENTER_FREEZE_MODE (0)
+/* @brief Is affected by errata with ID 8341 (FlexCAN: Entering Freeze Mode or Low Power Mode from Normal Mode can cause the FlexCAN module to stop operating). */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_8341 (0)
 
 /* FLEXIO module features */
 
@@ -406,10 +426,12 @@
 #define FSL_FEATURE_LPI2C_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
 /* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
 #define FSL_FEATURE_LPI2C_FIFO_SIZEn(x) (4)
+/* @brief Has dedicated interrupt for master and slave. */
+#define FSL_FEATURE_LPI2C_HAS_ROLE_SPLIT_IRQ (0)
 
 /* LPSPI module features */
 
-/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
+/* @brief Capacity (number of entries) of the transmit/receive FIFO. */
 #define FSL_FEATURE_LPSPI_FIFO_SIZEn(x) (4)
 /* @brief Has separate DMA RX and TX requests. */
 #define FSL_FEATURE_LPSPI_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
@@ -494,6 +516,8 @@
 #define FSL_FEATURE_LPUART_HAS_HDCR (0)
 /* @brief Has register Timeout. */
 #define FSL_FEATURE_LPUART_HAS_TIMEOUT (0)
+/* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
+#define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (0)
 
 /* MCM module features */
 
@@ -516,6 +540,8 @@
 
 /* MC_CGM module features */
 
+/* @brief Has Mux0 Divider 5 */
+#define FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV (1)
 /* @brief Has MUX_1 Registers */
 #define FSL_FEATURE_MC_CGM_HAS_MUX_1 (1)
 /* @brief Has MUX_2 Registers */
@@ -532,6 +558,11 @@
 #define FSL_FEATURE_MC_CGM_HAS_MUX_10 (1)
 /* @brief Has SXOSC module */
 #define FSL_FEATURE_MC_CGM_HAS_SXOSC (1)
+
+/* MC_ME module features */
+
+/* @brief Has Partition 2 process configuration Registers */
+#define FSL_FEATURE_MC_ME_HAS_PRTN2 (1)
 
 /* MC_RGM module features */
 
@@ -558,9 +589,9 @@
 /* @brief MU supports reset de-assert interrupt. CR[RDIE] or BCR[RDIE]. */
 #define FSL_FEATURE_MU_HAS_RESET_DEASSERT_INT (0)
 /* @brief MU does not support core status. Register CSSR0 or CSR0. */
-#define FSL_FEATURE_MU_NO_CORE_STATUS (0)
+#define FSL_FEATURE_MU_NO_CORE_STATUS (1)
 /* @brief MU does not support NMI. Register bit CCR0[NMI]. */
-#define FSL_FEATURE_MU_NO_NMI (0)
+#define FSL_FEATURE_MU_NO_NMI (1)
 /* @brief MU does not support core event pending. Register bit SR[CEP]. */
 #define FSL_FEATURE_MU_NO_CEP (1)
 /* @brief MU supports Power-Down mode entry interrupt. CIER0[PDIE] */
@@ -622,16 +653,28 @@
 
 /* @brief QSPI lookup table depth. */
 #define FSL_FEATURE_QSPI_LUT_DEPTH (20)
+/* @brief QSPI LUT SEQ unit. */
+#define FSL_FEATURE_QSPI_LUT_SEQ_UNIT (5U)
 /* @brief QSPI Tx FIFO depth. */
-#define FSL_FEATURE_QSPI_TXFIFO_DEPTH (16)
+#define FSL_FEATURE_QSPI_TXFIFO_DEPTH (64)
 /* @brief QSPI Rx FIFO depth. */
-#define FSL_FEATURE_QSPI_RXFIFO_DEPTH (16)
+#define FSL_FEATURE_QSPI_RXFIFO_DEPTH (64)
 /* @brief QSPI AHB buffer count. */
 #define FSL_FEATURE_QSPI_AHB_BUFFER_COUNT (4)
+/* @brief QSPI AHB buffer size in byte. */
+#define FSL_FEATURE_QSPI_AHB_BUFFER_SIZE (256U)
+/* @brief QSPI AMBA base address. */
+#define FSL_FEATURE_QSPI_AMBA_BASE (0x68000000U)
+/* @brief QSPI AHB buffer ARDB base address. */
+#define FSL_FEATURE_QSPI_ARDB_BASE (0x67000000U)
 /* @brief QSPI has command usage error flag. */
 #define FSL_FEATURE_QSPI_HAS_IP_COMMAND_USAGE_ERROR (0)
 /* @brief QSPI support parallel mode. */
 #define FSL_FEATURE_QSPI_SUPPORT_PARALLEL_MODE (0)
+/* @brief QSPI support individual mode. */
+#define FSL_FEATURE_QSPI_SUPPORT_INDIVIDUAL_MODE (0)
+/* @brief QSPI supoorts single mode. */
+#define FSL_FEATURE_QSPI_SUPPORT_SINGLE_MODE (1)
 /* @brief QSPI support dual die. */
 #define FSL_FEATURE_QSPI_SUPPORT_DUAL_DIE (1)
 /* @brief there is  no SCLKCFG bit in MCR register. */
@@ -646,14 +689,10 @@
 #define FSL_FEATURE_QSPI_HAS_NO_SFACR (1)
 /* @brief there is no TDH bit in FLSHCR register. */
 #define FSL_FEATURE_QSPI_HAS_NO_TDH (1)
-/* @brief QSPI AHB buffer size in byte. */
-#define FSL_FEATURE_QSPI_AHB_BUFFER_SIZE (256U)
 /* @brief there is no END_CFG bit in MCR register. */
 #define FSL_FEATURE_QSPI_HAS_NO_MCR_END (1)
-/* @brief there is no SOCCR register. */
+/* @brief QSPI has no SOCCR register. */
 #define FSL_FEATURE_QSPI_HAS_NO_SOCCR_REG (0)
-/* @brief there is Soc specific configuration. */
-#define FSL_FEATURE_QSPI_HAS_SOC_SPECIFIC_CONFIG (1)
 /* @brief there is DLLCRA register. */
 #define FSL_FEATURE_QSPI_HAS_DLLCRA (1)
 /* @brief there is data learning feature. */
@@ -664,14 +703,10 @@
 #define FSL_FEATURE_QSPI_HAS_AHB_SEQ_ERR (0)
 /* @brief there is Tx buffer enough data available flag. */
 #define FSL_FEATURE_QSPI_HAS_TX_BUFF_ENOUGH_DATA (0)
-/* @brief QSPI AMBA base address. */
-#define FSL_FEATURE_QSPI_AMBA_BASE (0x68000000U)
-/* @brief QSPI AHB buffer ARDB base address. */
-#define FSL_FEATURE_QSPI_ARDB_BASE (0x67000000U)
-/* @brief QSPI LUT SEQ unit. */
-#define FSL_FEATURE_QSPI_LUT_SEQ_UNIT (5U)
-/* @brief QSPI supoorts single mode. */
-#define FSL_FEATURE_QSPI_SUPPORT_SINGLE_MODE (1)
+/* @brief QSPI has DDR mode. */
+#define FSL_FEATURE_QSPI_HAS_DDR (0)
+/* @brief SOC specific configuration is needed. */
+#define FSL_FEATURE_QSPI_HAS_SOC_SPECIFIC_CONFIG (1)
 
 /* RTC module features */
 
@@ -731,11 +766,22 @@
 
 /* No feature definitions */
 
+/* SysTick module features */
+
+/* @brief Systick has external reference clock. */
+#define FSL_FEATURE_SYSTICK_HAS_EXT_REF (0)
+/* @brief Systick external reference clock is core clock divided by this value. */
+#define FSL_FEATURE_SYSTICK_EXT_REF_CORE_DIV (0)
+
 /* TEMPSENSE module features */
 
 /* No feature definitions */
 
 /* TRGMUX module features */
+
+/* No feature definitions */
+
+/* VIRT_WRAPPER module features */
 
 /* No feature definitions */
 

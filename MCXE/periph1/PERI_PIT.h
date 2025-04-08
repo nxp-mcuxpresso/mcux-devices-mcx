@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PIT
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file PIT.h
+ * @file PERI_PIT.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for PIT
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for PIT
  */
 
-#if !defined(PIT_H_)
-#define PIT_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_PIT_H_)
+#define PERI_PIT_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -326,5 +326,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* PIT_H_ */
+#endif  /* PERI_PIT_H_ */
 

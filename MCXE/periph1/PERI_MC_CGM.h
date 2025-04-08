@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MC_CGM
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file MC_CGM.h
+ * @file PERI_MC_CGM.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for MC_CGM
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for MC_CGM
  */
 
-#if !defined(MC_CGM_H_)
-#define MC_CGM_H_                                /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_MC_CGM_H_)
+#define PERI_MC_CGM_H_                           /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -1616,5 +1616,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* MC_CGM_H_ */
+#endif  /* PERI_MC_CGM_H_ */
 

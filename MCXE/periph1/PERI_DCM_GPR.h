@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DCM_GPR
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file DCM_GPR.h
+ * @file PERI_DCM_GPR.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for DCM_GPR
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for DCM_GPR
  */
 
-#if !defined(DCM_GPR_H_)
-#define DCM_GPR_H_                               /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_DCM_GPR_H_)
+#define PERI_DCM_GPR_H_                          /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -2753,5 +2753,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* DCM_GPR_H_ */
+#endif  /* PERI_DCM_GPR_H_ */
 

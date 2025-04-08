@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SXOSC
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file SXOSC.h
+ * @file PERI_SXOSC.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for SXOSC
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for SXOSC
  */
 
-#if !defined(SXOSC_H_)
-#define SXOSC_H_                                 /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_SXOSC_H_)
+#define PERI_SXOSC_H_                            /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -155,5 +155,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* SXOSC_H_ */
+#endif  /* PERI_SXOSC_H_ */
 

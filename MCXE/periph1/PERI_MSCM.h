@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MSCM
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file MSCM.h
+ * @file PERI_MSCM.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for MSCM
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for MSCM
  */
 
-#if !defined(MSCM_H_)
-#define MSCM_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_MSCM_H_)
+#define PERI_MSCM_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -637,22 +637,6 @@ typedef struct {
  */
 #define MSCM_ENEDC_EN_RD_EMAC(x)                 (((uint32_t)(((uint32_t)(x)) << MSCM_ENEDC_EN_RD_EMAC_SHIFT)) & MSCM_ENEDC_EN_RD_EMAC_MASK)
 
-#define MSCM_ENEDC_EN_RD_CM7_1_AHBM_MASK         (0x40U)
-#define MSCM_ENEDC_EN_RD_CM7_1_AHBM_SHIFT        (6U)
-/*! EN_RD_CM7_1_AHBM - Enable Read Data Check Cortex-M7_1_AHBM
- *  0b0..Disabled
- *  0b1..Enabled
- */
-#define MSCM_ENEDC_EN_RD_CM7_1_AHBM(x)           (((uint32_t)(((uint32_t)(x)) << MSCM_ENEDC_EN_RD_CM7_1_AHBM_SHIFT)) & MSCM_ENEDC_EN_RD_CM7_1_AHBM_MASK)
-
-#define MSCM_ENEDC_EN_RD_CM7_1_AHBP_MASK         (0x80U)
-#define MSCM_ENEDC_EN_RD_CM7_1_AHBP_SHIFT        (7U)
-/*! EN_RD_CM7_1_AHBP - Enable Read Data Check Cortex-M7_1_AHBP
- *  0b0..Disabled
- *  0b1..Enabled
- */
-#define MSCM_ENEDC_EN_RD_CM7_1_AHBP(x)           (((uint32_t)(((uint32_t)(x)) << MSCM_ENEDC_EN_RD_CM7_1_AHBP_SHIFT)) & MSCM_ENEDC_EN_RD_CM7_1_AHBP_MASK)
-
 #define MSCM_ENEDC_EN_RD_TCM_MASK                (0x100U)
 #define MSCM_ENEDC_EN_RD_TCM_SHIFT               (8U)
 /*! EN_RD_TCM - Enable Read Data Check TCM
@@ -804,22 +788,6 @@ typedef struct {
  *  0b1..Enabled
  */
 #define MSCM_ENEDC_EN_ADD_CM7_0_TCM(x)           (((uint32_t)(((uint32_t)(x)) << MSCM_ENEDC_EN_ADD_CM7_0_TCM_SHIFT)) & MSCM_ENEDC_EN_ADD_CM7_0_TCM_MASK)
-
-#define MSCM_ENEDC_EN_WR_CM7_1_TCM_MASK          (0x10000000U)
-#define MSCM_ENEDC_EN_WR_CM7_1_TCM_SHIFT         (28U)
-/*! EN_WR_CM7_1_TCM - Enable Write Data Check Cortex-M7_1_TCM
- *  0b0..Disabled
- *  0b1..Enabled
- */
-#define MSCM_ENEDC_EN_WR_CM7_1_TCM(x)            (((uint32_t)(((uint32_t)(x)) << MSCM_ENEDC_EN_WR_CM7_1_TCM_SHIFT)) & MSCM_ENEDC_EN_WR_CM7_1_TCM_MASK)
-
-#define MSCM_ENEDC_EN_ADD_CM7_1_TCM_MASK         (0x20000000U)
-#define MSCM_ENEDC_EN_ADD_CM7_1_TCM_SHIFT        (29U)
-/*! EN_ADD_CM7_1_TCM - Enable Address Check Cortex-M7_1_TCM
- *  0b0..Disabled
- *  0b1..Enabled
- */
-#define MSCM_ENEDC_EN_ADD_CM7_1_TCM(x)           (((uint32_t)(((uint32_t)(x)) << MSCM_ENEDC_EN_ADD_CM7_1_TCM_SHIFT)) & MSCM_ENEDC_EN_ADD_CM7_1_TCM_MASK)
 /*! @} */
 
 /*! @name IAHBCFGREG - AHB Gasket Configuration */
@@ -944,5 +912,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* MSCM_H_ */
+#endif  /* PERI_MSCM_H_ */
 

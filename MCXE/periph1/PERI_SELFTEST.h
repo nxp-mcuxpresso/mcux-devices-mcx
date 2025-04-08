@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250310
+**     Build:               b250512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SELFTEST
@@ -22,7 +22,7 @@
 */
 
 /*!
- * @file SELFTEST.h
+ * @file PERI_SELFTEST.h
  * @version 0.1
  * @date 2024-11-19
  * @brief CMSIS Peripheral Access Layer for SELFTEST
@@ -30,8 +30,8 @@
  * CMSIS Peripheral Access Layer for SELFTEST
  */
 
-#if !defined(SELFTEST_H_)
-#define SELFTEST_H_                              /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_SELFTEST_H_)
+#define PERI_SELFTEST_H_                         /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE31BMPB))
 #include "MCXE31B_COMMON.h"
@@ -155,5 +155,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* SELFTEST_H_ */
+#endif  /* PERI_SELFTEST_H_ */
 

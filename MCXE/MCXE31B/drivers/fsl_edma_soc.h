@@ -45,7 +45,7 @@
 #define EDMA_CHN_IRQS                                                                                             \
     {                                                                                                             \
         {DMATCD0_IRQn,  DMATCD1_IRQn,  DMATCD2_IRQn,  DMATCD3_IRQn,  DMATCD4_IRQn,  DMATCD5_IRQn,  DMATCD6_IRQn,  \
-         DMATCD7_IRQn,  DMATCD8_IRQn,  DMATCD9_IRQn,  DMATCD10_IRQn, DMATCD11_IRQn                                \
+         DMATCD7_IRQn,  DMATCD8_IRQn,  DMATCD9_IRQn,  DMATCD10_IRQn, DMATCD11_IRQn},                              \
     }
 #endif /* FSL_FEATURE_EDMA_MODULE_CHANNEL == 32U */
 

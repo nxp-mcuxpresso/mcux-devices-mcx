@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250324
+**     Build:               b250408
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA176
@@ -497,6 +497,10 @@ typedef enum IRQn {
 #define LCD_BASE_PTRS                            { LCD0 }
 /** Interrupt vectors for the LCD peripheral type */
 #define LCD_IRQS                                 { LCD_IRQn }
+/* Backward compatibility */
+#define LCD_WFOVERLAY_WFACCESS8BIT_WF8B_COUNT    LCD_WF_ACCESS_WF8BIT_WF8B_COUNT
+#define LCD_WFOVERLAY_WFACCESS32BIT_WF_COUNT     LCD_WF_ACCESS_WF32BIT_WF_COUNT
+
 
 /* LPCMP - Peripheral instance base addresses */
 /** Peripheral CMP0 base address */

@@ -45,7 +45,7 @@ typedef enum _SYSCON_RSTn
     kCTIMER4_RST_SHIFT_RSTn   = ((0U << 8U) | 6U),  /*!< CTIMER4   reset control */
     kFREQME_RST_SHIFT_RSTn    = ((0U << 8U) | 7U),  /*!< FREQME    reset control */
     kUTICK0_RST_SHIFT_RSTn    = ((0U << 8U) | 8U),  /*!< UTICK0    reset control */
-    kSMARTDMA0_RST_SHIFT_RSTn = ((0U << 8U) | 10U), /*!< SMARTDMA0 reset control */
+    kSMART_DMA_RST_SHIFT_RSTn = ((0U << 8U) | 10U), /*!< SMARTDMA0 reset control */
     kDMA0_RST_SHIFT_RSTn      = ((0U << 8U) | 11U), /*!< DMA0      reset control */
     kAOI0_RST_SHIFT_RSTn      = ((0U << 8U) | 12U), /*!< AOI0      reset control */
     kCRC0_RST_SHIFT_RSTn      = ((0U << 8U) | 13U), /*!< CRC0      reset control */

@@ -499,7 +499,7 @@ extern void _start(void);
 // External declaration for the pointer to the stack top from the Linker Script
 //*****************************************************************************
 #if defined(__CC_ARM) || defined(__ARMCC_VERSION)
-extern uint32_t Image$$ARM_LIB_STACK$$ZI$$Base[];
+extern uint32_t Image$$ARM_LIB_STACK$$ZI$$Limit[];
 #elif defined(__MCUXPRESSO)
 extern void _vStackTop(void);
 extern void _vStackBase(void);
@@ -548,7 +548,7 @@ extern uint32_t __bss_end__[];
 extern void (* const __Vectors[])(void);
 __attribute__ ((used, section(".isr_vector")))
 void (* const __Vectors[])(void) = {
-    (void(*)())(uint32_t)Image$$ARM_LIB_STACK$$ZI$$Base,   // The initial stack pointer
+    (void(*)())(uint32_t)Image$$ARM_LIB_STACK$$ZI$$Limit,   // The initial stack pointer
     Reset_Handler,                     // The reset handler
 #elif defined(__MCUXPRESSO)
 extern void (* const g_pfnVectors[])(void);

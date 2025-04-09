@@ -97,6 +97,8 @@
 #define FSL_FEATURE_SOC_TRGMUX_COUNT (1)
 /* @brief WDOG availability on the SoC. */
 #define FSL_FEATURE_SOC_WDOG_COUNT (1)
+/* @brief CMP availability on the SoC. */
+#define FSL_FEATURE_SOC_CMP_COUNT (1)
 
 /* ADC12 module features */
 
@@ -350,11 +352,11 @@
 /* @brief Has flash access control (registers XACCHn, SACCHn, where n is a number, FACSS and FACSN). */
 #define FSL_FEATURE_FLASH_HAS_ACCESS_CONTROL (0)
 /* @brief Has flash cache control in FMC module. */
-#define FSL_FEATURE_FLASH_HAS_FMC_FLASH_CACHE_CONTROLS (1)
+#define FSL_FEATURE_FLASH_HAS_FMC_FLASH_CACHE_CONTROLS (0)
 /* @brief Has flash cache control in MCM module. */
 #define FSL_FEATURE_FLASH_HAS_MCM_FLASH_CACHE_CONTROLS (0)
 /* @brief Has flash cache control in MSCM module. */
-#define FSL_FEATURE_FLASH_HAS_MSCM_FLASH_CACHE_CONTROLS (0)
+#define FSL_FEATURE_FLASH_HAS_MSCM_FLASH_CACHE_CONTROLS (1)
 /* @brief Has prefetch speculation control in flash, such as kv5x. */
 #define FSL_FEATURE_FLASH_PREFETCH_SPECULATION_CONTROL_IN_FLASH (0)
 /* @brief P-Flash flash size coding rule version, value 0 for K1 and K2, value 1 for others. */
@@ -669,6 +671,8 @@
 #define FSL_FEATURE_LMEM_SUPPORT_ICACHE_DEMOTE_REMOVE (0)
 /* @brief Has no NONCACHEABLE section. */
 #define FSL_FEATURE_HAS_NO_NONCACHEABLE_SECTION (0)
+/* @brief Has Enable Write Buffer bit (register bit PCCCR[ENWRBUF]). */
+#define FSL_FEATURE_LMEM_HAS_ENWRBUF_BIT_CONFIG_SUPPORT (0)
 
 /* LPI2C module features */
 
@@ -871,7 +875,7 @@
 /* @brief Defines width of PCR[MUX] field. */
 #define FSL_FEATURE_PORT_PCR_MUX_WIDTH (3)
 /* @brief Has dedicated interrupt vector. */
-#define FSL_FEATURE_PORT_HAS_INTERRUPT_VECTOR (0)
+#define FSL_FEATURE_PORT_HAS_INTERRUPT_VECTOR (1)
 /* @brief Has multiple pin IRQ configuration (register GICLR and GICHR). */
 #define FSL_FEATURE_PORT_HAS_MULTIPLE_IRQ_CONFIG (1)
 /* @brief Defines whether PCR[IRQC] bit-field has flag states. */
@@ -1138,7 +1142,7 @@
 /* @brief Has FTM module(s) configuration. */
 #define FSL_FEATURE_SIM_OPT_HAS_FTM (0)
 /* @brief Number of FTM modules. */
-#define FSL_FEATURE_SIM_OPT_FTM_COUNT (0)
+#define FSL_FEATURE_SIM_OPT_FTM_COUNT (8)
 /* @brief Number of FTM triggers with selectable source. */
 #define FSL_FEATURE_SIM_OPT_FTM_TRIGGER_COUNT (0)
 /* @brief Has FTM0 triggers source selection (register bits SOPT4[FTM0TRGnSRC], where n is a number). */

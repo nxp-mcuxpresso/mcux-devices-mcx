@@ -10,7 +10,6 @@
 #include "fsl_pm_core.h"
 #include "fsl_pm_board.h"
 #include "fsl_power.h"
-#include "fsl_debug_console.h"
 #include "fsl_component_timer_manager.h"
 #ifdef TIMER_PORT_TYPE_CTIMER
 #include "fsl_ctimer.h"
@@ -209,9 +208,6 @@ static void EnterSleep(uint64_t wakeupTime, pm_board_resource_mask_t requiredRes
     EnableGlobalIRQ(primask);
 }
 
-/*! Macro to convert a microsecond period to raw count value */
-#define USEC_TO_COUNT(us, clockFreqInHz) (uint64_t)(((uint64_t)(us) * (clockFreqInHz)) / 1000000U)
-
 /**
  * Puts the system in deep sleep mode. Ensures that the required resources are enabled and the
  * wake up timer is programmed to wake up at wakeup time.
@@ -228,24 +224,6 @@ static void EnterDeepSleep(uint64_t wakeupTime, pm_board_resource_mask_t require
     {
         /* Start the timer to wake up the system */
         (void)StartWakeupTimer(sleepTimeInUs);
-
-#ifdef TIMER_PORT_TYPE_CTIMER
-        ctimer_match_config_t mCtimerMatchConfig;
-
-        mCtimerMatchConfig.enableCounterReset = false;
-        mCtimerMatchConfig.enableCounterStop  = false;
-        mCtimerMatchConfig.outControl         = kCTIMER_Output_NoAction;
-        mCtimerMatchConfig.outPinInitState    = false;
-        mCtimerMatchConfig.enableInterrupt    = true;
-        mCtimerMatchConfig.matchValue = (uint32_t)USEC_TO_COUNT(wakeupTime - exitLatencyInUs, CLOCK_GetCTimerClkFreq(0));
-        if ((mCtimerMatchConfig.matchValue < 1U) || (mCtimerMatchConfig.matchValue > 0xFFFFFFF0U))
-        {
-            assert(true);
-        }
-        CTIMER_SetupMatch(CTIMER0, 0, &mCtimerMatchConfig);
-#else
-        OSTIMER_SetMatchValue(OSTIMER, USEC_TO_COUNT(wakeupTime - exitLatencyInUs, CLOCK_GetOSTimerClkFreq()), NULL);
-#endif /* TIMER_PORT_TYPE_CTIMER */
 
         /* Enter deep sleep mode with OSTIMER wake up source enabled */
         status_t status = POWER_EnterDeepSleep(s_pmcEnabledResources, s_pmcEnabledWakeupSources |

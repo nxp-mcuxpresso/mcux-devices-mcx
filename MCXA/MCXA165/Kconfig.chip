@@ -289,6 +289,11 @@ config MCUX_HW_IP_DriverType_SCG
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA165
 
+config MCUX_HW_IP_DriverType_SMARTDMA
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA165
+
 config MCUX_HW_IP_DriverType_TRDC_1
     bool
     default y

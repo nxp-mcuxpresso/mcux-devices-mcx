@@ -41,7 +41,11 @@
 
 /* Definition for delay API in clock driver, users can redefine it to the real application. */
 #ifndef SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY
+#if __CORTEX_M == 33
 #define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (96000000U)
+#else
+#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (10000000U)
+#endif
 #endif
 
 /*! @brief External XTAL32/EXTAL32 clock frequency.

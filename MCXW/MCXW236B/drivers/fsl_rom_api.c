@@ -228,7 +228,7 @@ static status_t flash_check_region(flash_config_t *config,
     start = GET_PHYSICAL_ADDR(start);
 
     /* Validates the alignment of the given address and length */
-    if (((start & (alignmentBaseline - 1U)) != 0u) || ((lengthInBytes & (alignmentBaseline - 1U)) != 0u))
+    if ((alignmentBaseline > 0U) && (((start & (alignmentBaseline - 1U)) != 0u) || ((lengthInBytes & (alignmentBaseline - 1U)) != 0u)))
     {
         return kStatus_FLASH_AlignmentError;
     }
@@ -236,11 +236,13 @@ static status_t flash_check_region(flash_config_t *config,
     /* Validates the range of the given address for reading or writing. Note that writing will
        still fail if a sector is protected by the firewall or if it is in IFR1. */
     if (((start >= config->flashDesc.blockBase) &&
-         ((start + lengthInBytes) <= (config->flashDesc.blockBase + config->flashDesc.totalSize)) &&
+         ((start <= UINT32_MAX - lengthInBytes) &&
+          ((start + lengthInBytes) <= (config->flashDesc.blockBase + config->flashDesc.totalSize))) &&
          (lengthInBytes <=
           config->flashDesc.totalSize)) // Protect against integer wrap-around caused by huge lengthInBytes
         || ((start >= config->ffrConfig.ffrBlockBase) &&
-            ((start + lengthInBytes) <= (config->ffrConfig.ffrBlockBase + config->ffrConfig.ffrTotalSize)) &&
+            ((start <= UINT32_MAX - lengthInBytes) &&
+             ((start + lengthInBytes) <= (config->ffrConfig.ffrBlockBase + config->ffrConfig.ffrTotalSize))) &&
             (lengthInBytes <=
              config->ffrConfig.ffrTotalSize)) // Protect against integer wrap-around caused by huge lengthInBytes
     )
@@ -331,6 +333,11 @@ status_t FLASH_CheckECC(flash_config_t *config, uint32_t start, uint32_t lengthI
     if (kStatus_FLASH_Success != status)
     {
         return status;
+    }
+
+    if (start > UINT32_MAX - lengthInBytes)
+    {
+        return kStatus_FLASH_AddressError;
     }
 
     /* Disable bus error on unrecoverable ECC error for data fetch. */

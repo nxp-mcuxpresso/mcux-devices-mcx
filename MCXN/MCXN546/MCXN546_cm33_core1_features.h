@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250326
+**     Build:               b250415
 **
 **     Abstract:
 **         Chip specific module features.
@@ -517,6 +517,8 @@
 #define FSL_FEATURE_FLEXSPI_IPED_REGION_COUNT (7)
 /* @brief FlexSPI Array Length */
 #define FSL_FEATURE_FLEXSPI_ARRAY_LEN (1)
+/* @brief FlexSPI Has ERRATA052733 */
+#define FSL_FEATURE_FLEXSPI_HAS_ERRATA_052733 (1)
 
 /* GPIO module features */
 

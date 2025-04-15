@@ -18,11 +18,22 @@
  * Definitions
  ******************************************************************************/
 
-/*! @name Driver version */
+ /*! @name Driver version */
 /*@{*/
 /*! @brief POWER driver version 2.0.0. */
 #define FSL_POWER_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
 /*@}*/
+
+/*!
+ * @brief Power library status.
+ */
+enum _power_status
+{
+    kStatus_Power_Success                    = kStatus_Success,
+    kStatus_Power_ChipVersionNotSupported    = MAKE_STATUS(kStatusGroup_POWER, 1U),
+    kStatus_Power_SupplyModeModeNotSupported = MAKE_STATUS(kStatusGroup_POWER, 2U),
+    kStatus_Power_SupplyModeModeInvalid      = MAKE_STATUS(kStatusGroup_POWER, 3U),
+};
 
 /**
  * @brief List of BOD levels
@@ -128,6 +139,7 @@ typedef enum bod_action_s
 typedef enum dcdc_mode_s
 {
     kDCDC_MODE_HV_SM    = 1U, /*!< HV supplied */
+    kDCDC_MODE_LV_SM    = 2U, /*!< LV supplied */
     kDCDC_MODE_XR_SM_SS = 3U, /*!< HV and LV supplied and equal (Single Supply) */
     kDCDC_MODE_XR_SM_DS = 4U, /*!< HV and LV supplied and not equal (Dual Supply) */
 } dcdc_mode_t;
@@ -149,6 +161,29 @@ typedef enum reset_cause_s
     kRESET_CAUSE_CDOG   = PMC_RESETCAUSE_CDOGRESET_MASK,         /*!< code Watchdog */
     kRESET_CAUSE_BLE    = PMC_RESETCAUSE_BLEWUP_MASK,            /*!< BLE Timer wakeup */
 } reset_cause_t;
+
+/**
+ * @brief List of DC/DC outputs when configured in boost mode
+ */
+typedef enum dcdc_boost_output_level_s
+{
+    kDCDC_BOOST_OUTPUT_1700mv = 0U,
+    kDCDC_BOOST_OUTPUT_1800mv = 1U,
+    kDCDC_BOOST_OUTPUT_1900mv = 2U,
+    kDCDC_BOOST_OUTPUT_2000mv = 3U,
+    kDCDC_BOOST_OUTPUT_2100mv = 4U,
+    kDCDC_BOOST_OUTPUT_2200mv = 5U,
+    kDCDC_BOOST_OUTPUT_2300mv = 6U,
+    kDCDC_BOOST_OUTPUT_2400mv = 7U,
+    kDCDC_BOOST_OUTPUT_2500mv = 8U,
+    kDCDC_BOOST_OUTPUT_2600mv = 9U,
+    kDCDC_BOOST_OUTPUT_2700mv = 10U,
+    kDCDC_BOOST_OUTPUT_2800mv = 11U,
+    kDCDC_BOOST_OUTPUT_2900mv = 12U,
+    kDCDC_BOOST_OUTPUT_3000mv = 13U,
+    kDCDC_BOOST_OUTPUT_3100mv = 14U,
+    kDCDC_BOOST_OUTPUT_3200mv = 15U
+} dcdc_boost_output_level_t;
 
 /**
  * @brief List of DC/DC outputs when configured in buck mode
@@ -251,7 +286,7 @@ typedef enum cpu_retention_config_s
     (kLOWPOWERCFG_DCDC | kLOWPOWERCFG_BOD1 | kLOWPOWERCFG_BOD2 | kLOWPOWERCFG_FRO32K | kLOWPOWERCFG_XTAL32K | \
      kLOWPOWERCFG_DCDC_BYPASS)
 
-#define kEXCLUDE_FROM_PD_LIMITATION_MASK_POWEROFF (kLOWPOWERCFG_DCDC | kLOWPOWERCFG_DCDC_BYPASS)
+#define kEXCLUDE_FROM_PD_LIMITATION_MASK_POWEROFF (0U)
 
 /**
  * @brief List of SRAM control bits.  Each bit represents an SRAM segment.
@@ -549,7 +584,12 @@ dcdc_mode_t POWER_DCDC_GetSupplyMode(void);
 /*!
  * @brief Function that sets the Supply mode
  * @retval kStatus_Success Successfully set the supply mode.
- * @retval kStatus_Fail The supply mode is not valid and is not set.
+ * @retval kStatus_Power_SupplyModeModeInvalid The supply mode is not valid given the startup state of PMC (can be
+ * retrieved using POWER_DCDC_GetSupplyMode).
+ *       @li PMC reports kDCDC_MODE_HV_SM but chosen mode is kDCDC_MODE_LV_SM
+ *       @li PMC reports kDCDC_MODE_LV_SM but chosen mode is kDCDC_MODE_HV_SM
+ * @retval kStatus_Power_SupplyModeModeNotSupported The given supply mode is not supported on this silicon version (See
+ * @ref SYSTEM_GetChipVersion).
  */
 status_t POWER_DCDC_SetSupplyMode(dcdc_mode_t mode);
 
@@ -570,6 +610,13 @@ void POWER_DCDC_Enable(void);
  * @param output_lvl    The output level of the DC/DC convertor.
  */
 void POWER_DCDC_ConfigureBuckOutput(dcdc_buck_output_level_t output_lvl);
+
+/*!
+ * @brief Function to configure output level of DC/DC convertor when configured in boost mode.
+ * @pre Can only be used supply mode kDCDC_MODE_LV_SM is used.
+ * @param output_lvl    The output level of the DC/DC convertor.
+ */
+void POWER_DCDC_ConfigureBoostOutput(dcdc_boost_output_level_t output_lvl);
 
 /*!
  * @brief Function to retrieve the time it took for the DC/DC to have stable output level. Note that the measurement
@@ -646,7 +693,7 @@ status_t POWER_XTAL32M_SetStartupTime(uint8_t startupTime);
  * @param voltage pointer to variable that'll hold the measured voltage in millivolts
  * @return kStatus_Success in case of success.
  */
-status_t POWER_MeasureVoltageWithBod1(uint32_t* voltage);
+status_t POWER_MeasureVoltageWithBod1(uint32_t *voltage);
 
 /**
  * Measure the voltage on Vbat_hv using BOD2.
@@ -658,7 +705,7 @@ status_t POWER_MeasureVoltageWithBod1(uint32_t* voltage);
  * @param voltage pointer to variable that'll hold the measured voltage in millivolts
  * @return kStatus_Success in case of success.
  */
-status_t POWER_MeasureVoltageWithBod2(uint32_t* voltage);
+status_t POWER_MeasureVoltageWithBod2(uint32_t *voltage);
 
 #ifdef __cplusplus
 }

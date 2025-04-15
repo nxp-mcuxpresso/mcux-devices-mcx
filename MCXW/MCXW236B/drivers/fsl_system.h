@@ -16,7 +16,7 @@
  * Definitions
  ******************************************************************************/
 
-/*! @name Driver version */
+ /*! @name Driver version */
 /*@{*/
 /*! @brief SYSTEM driver version 2.0.0. */
 #define FSL_SYSTEM_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
@@ -30,7 +30,7 @@ typedef enum chip_version_s
     kCHIPVERSION_A2      = 0xA2U,
     kCHIPVERSION_A3      = 0xA3U,
     kCHIPVERSION_A4      = 0xA4U,
-    kCHIPVERSION_B0      = 0xB0U,
+    kCHIPVERSION_A5      = 0xA5U
 } chip_version_t;
 
 typedef enum chip_package_s

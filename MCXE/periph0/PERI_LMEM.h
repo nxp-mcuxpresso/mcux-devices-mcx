@@ -4,7 +4,7 @@
 **                          MCXE247VLQ
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250311
+**     Build:               b250415
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LMEM
@@ -24,7 +24,7 @@
 */
 
 /*!
- * @file LMEM.h
+ * @file PERI_LMEM.h
  * @version 1.0
  * @date 2025-02-21
  * @brief CMSIS Peripheral Access Layer for LMEM
@@ -32,8 +32,8 @@
  * CMSIS Peripheral Access Layer for LMEM
  */
 
-#if !defined(LMEM_H_)
-#define LMEM_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_LMEM_H_)
+#define PERI_LMEM_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE247VLL) || defined(CPU_MCXE247VLQ))
 #include "MCXE247_COMMON.h"
@@ -458,5 +458,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* LMEM_H_ */
+#endif  /* PERI_LMEM_H_ */
 

@@ -4,7 +4,7 @@
 **                          MCXE247VLQ
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250311
+**     Build:               b250415
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ERM
@@ -24,7 +24,7 @@
 */
 
 /*!
- * @file ERM.h
+ * @file PERI_ERM.h
  * @version 1.0
  * @date 2025-02-21
  * @brief CMSIS Peripheral Access Layer for ERM
@@ -32,8 +32,8 @@
  * CMSIS Peripheral Access Layer for ERM
  */
 
-#if !defined(ERM_H_)
-#define ERM_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_ERM_H_)
+#define PERI_ERM_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE247VLL) || defined(CPU_MCXE247VLQ))
 #include "MCXE247_COMMON.h"
@@ -265,5 +265,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* ERM_H_ */
+#endif  /* PERI_ERM_H_ */
 

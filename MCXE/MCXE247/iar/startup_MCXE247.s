@@ -4,7 +4,7 @@
 ;            MCXE247
 ;  @version: 1.0
 ;  @date:    2025-2-21
-;  @build:   b250313
+;  @build:   b250415
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -122,8 +122,8 @@ __vector_table_0x1c
         DCD     PDB0_IRQHandler                               ;PDB0 interrupt
         DCD     Reserved69_IRQHandler                         ;xxx Interrupt 69
         DCD     Reserved70_IRQHandler                         ;xxx Interrupt 70
-        DCD     SAI1_TX_SYNC_IRQHandler                       ;Transmit Synchronous interupt (for interrupt controller)
-        DCD     SAI1_RX_SYNC_IRQHandler                       ;Transmit Synchronous interupt (for interrupt controller)
+        DCD     I2S1_Tx_IRQHandler                            ;Transmit Synchronous interupt (for interrupt controller)
+        DCD     I2S1_Rx_IRQHandler                            ;Transmit Synchronous interupt (for interrupt controller)
         DCD     SCG_IRQHandler                                ;SCG bus interrupt request
         DCD     LPTMR0_IRQHandler                             ;LPTIMER interrupt request
         DCD     PORTA_IRQHandler                              ;Port A pin detect interrupt
@@ -137,8 +137,8 @@ __vector_table_0x1c
         DCD     Reserved83_IRQHandler                         ;xxx Interrupt 83
         DCD     PDB1_IRQHandler                               ;PDB1 interrupt
         DCD     FLEXIO_IRQHandler                             ;Software interrupt
-        DCD     SAI0_TX_SYNC_IRQHandler                       ;Transmit Synchronous interupt (for interrupt controller)
-        DCD     SAI0_RX_SYNC_IRQHandler                       ;Transmit Synchronous interupt (for interrupt controller)
+        DCD     I2S0_Tx_IRQHandler                            ;Transmit Synchronous interupt (for interrupt controller)
+        DCD     I2S0_Rx_IRQHandler                            ;Transmit Synchronous interupt (for interrupt controller)
         DCD     ENET_1588_Timer_IRQHandler                    ;Ethernet MAC IEEE 1588 Timer Interrupt
         DCD     ENET_Transmit_IRQHandler                      ;Ethernet MAC Transmit Interrupt
         DCD     ENET_Receive_IRQHandler                       ;Ethernet MAC Receive Interrupt
@@ -604,18 +604,18 @@ LPUART2_IRQHandler
         PUBWEAK PDB0_IRQHandler
         PUBWEAK Reserved69_IRQHandler
         PUBWEAK Reserved70_IRQHandler
-        PUBWEAK SAI1_TX_SYNC_IRQHandler
-        PUBWEAK SAI1_TX_SYNC_DriverIRQHandler
+        PUBWEAK I2S1_Tx_IRQHandler
+        PUBWEAK I2S1_Tx_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SAI1_TX_SYNC_IRQHandler
-        LDR     R0, =SAI1_TX_SYNC_DriverIRQHandler
+I2S1_Tx_IRQHandler
+        LDR     R0, =I2S1_Tx_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SAI1_RX_SYNC_IRQHandler
-        PUBWEAK SAI1_RX_SYNC_DriverIRQHandler
+        PUBWEAK I2S1_Rx_IRQHandler
+        PUBWEAK I2S1_Rx_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SAI1_RX_SYNC_IRQHandler
-        LDR     R0, =SAI1_RX_SYNC_DriverIRQHandler
+I2S1_Rx_IRQHandler
+        LDR     R0, =I2S1_Rx_DriverIRQHandler
         BX      R0
 
         PUBWEAK SCG_IRQHandler
@@ -643,18 +643,18 @@ FLEXIO_IRQHandler
         LDR     R0, =FLEXIO_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SAI0_TX_SYNC_IRQHandler
-        PUBWEAK SAI0_TX_SYNC_DriverIRQHandler
+        PUBWEAK I2S0_Tx_IRQHandler
+        PUBWEAK I2S0_Tx_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SAI0_TX_SYNC_IRQHandler
-        LDR     R0, =SAI0_TX_SYNC_DriverIRQHandler
+I2S0_Tx_IRQHandler
+        LDR     R0, =I2S0_Tx_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SAI0_RX_SYNC_IRQHandler
-        PUBWEAK SAI0_RX_SYNC_DriverIRQHandler
+        PUBWEAK I2S0_Rx_IRQHandler
+        PUBWEAK I2S0_Rx_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SAI0_RX_SYNC_IRQHandler
-        LDR     R0, =SAI0_RX_SYNC_DriverIRQHandler
+I2S0_Rx_IRQHandler
+        LDR     R0, =I2S0_Rx_DriverIRQHandler
         BX      R0
 
         PUBWEAK ENET_1588_Timer_IRQHandler
@@ -903,8 +903,8 @@ LPIT0_Ch3_IRQHandler
 PDB0_IRQHandler
 Reserved69_IRQHandler
 Reserved70_IRQHandler
-SAI1_TX_SYNC_DriverIRQHandler
-SAI1_RX_SYNC_DriverIRQHandler
+I2S1_Tx_DriverIRQHandler
+I2S1_Rx_DriverIRQHandler
 SCG_IRQHandler
 LPTMR0_IRQHandler
 PORTA_IRQHandler
@@ -918,8 +918,8 @@ Reserved82_IRQHandler
 Reserved83_IRQHandler
 PDB1_IRQHandler
 FLEXIO_DriverIRQHandler
-SAI0_TX_SYNC_DriverIRQHandler
-SAI0_RX_SYNC_DriverIRQHandler
+I2S0_Tx_DriverIRQHandler
+I2S0_Rx_DriverIRQHandler
 ENET_1588_Timer_DriverIRQHandler
 ENET_Transmit_DriverIRQHandler
 ENET_Receive_DriverIRQHandler

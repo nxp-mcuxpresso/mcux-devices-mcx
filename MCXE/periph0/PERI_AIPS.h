@@ -4,7 +4,7 @@
 **                          MCXE247VLQ
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250311
+**     Build:               b250415
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for AIPS
@@ -24,7 +24,7 @@
 */
 
 /*!
- * @file AIPS.h
+ * @file PERI_AIPS.h
  * @version 1.0
  * @date 2025-02-21
  * @brief CMSIS Peripheral Access Layer for AIPS
@@ -32,8 +32,8 @@
  * CMSIS Peripheral Access Layer for AIPS
  */
 
-#if !defined(AIPS_H_)
-#define AIPS_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_AIPS_H_)
+#define PERI_AIPS_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE247VLL) || defined(CPU_MCXE247VLQ))
 #include "MCXE247_COMMON.h"
@@ -1673,5 +1673,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* AIPS_H_ */
+#endif  /* PERI_AIPS_H_ */
 

@@ -4,7 +4,7 @@
 **                          MCXE247VLQ
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250311
+**     Build:               b250415
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TRGMUX
@@ -24,7 +24,7 @@
 */
 
 /*!
- * @file TRGMUX.h
+ * @file PERI_TRGMUX.h
  * @version 1.0
  * @date 2025-02-21
  * @brief CMSIS Peripheral Access Layer for TRGMUX
@@ -32,8 +32,8 @@
  * CMSIS Peripheral Access Layer for TRGMUX
  */
 
-#if !defined(TRGMUX_H_)
-#define TRGMUX_H_                                /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_TRGMUX_H_)
+#define PERI_TRGMUX_H_                           /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE247VLL) || defined(CPU_MCXE247VLQ))
 #include "MCXE247_COMMON.h"
@@ -68,6 +68,7 @@
  */
 typedef enum _trgmux_source
 {
+    kTRGMUX_SourceDisabled          = 0U,          /**< Trigger function is disabled */
     kTRGMUX_SourceVdd               = 1U,          /**< VDD is selected */
     kTRGMUX_SourceTriggerMuxInput0  = 2U,          /**< Trigger Mux input 0 is selected */
     kTRGMUX_SourceTriggerMuxInput1  = 3U,          /**< Trigger Mux input 1 is selected */
@@ -330,5 +331,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* TRGMUX_H_ */
+#endif  /* PERI_TRGMUX_H_ */
 

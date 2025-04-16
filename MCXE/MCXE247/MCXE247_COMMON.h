@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXE24x RM Rev.1
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250311
+**     Build:               b250415
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE247
@@ -122,8 +122,8 @@ typedef enum IRQn {
   LPIT0_Ch2_IRQn               = 50,               /**< LPIT0 channel 2 overflow interrupt */
   LPIT0_Ch3_IRQn               = 51,               /**< LPIT0 channel 3 overflow interrupt */
   PDB0_IRQn                    = 52,               /**< PDB0 interrupt */
-  SAI1_TX_SYNC_IRQn            = 55,               /**< Transmit Synchronous interupt (for interrupt controller) */
-  SAI1_RX_SYNC_IRQn            = 56,               /**< Transmit Synchronous interupt (for interrupt controller) */
+  I2S1_Tx_IRQn                 = 55,               /**< Transmit Synchronous interupt (for interrupt controller) */
+  I2S1_Rx_IRQn                 = 56,               /**< Transmit Synchronous interupt (for interrupt controller) */
   SCG_IRQn                     = 57,               /**< SCG bus interrupt request */
   LPTMR0_IRQn                  = 58,               /**< LPTIMER interrupt request */
   PORTA_IRQn                   = 59,               /**< Port A pin detect interrupt */
@@ -135,8 +135,8 @@ typedef enum IRQn {
   QSPI_Ored_IRQn               = 65,               /**< All interrupts ORed output */
   PDB1_IRQn                    = 68,               /**< PDB1 interrupt */
   FLEXIO_IRQn                  = 69,               /**< Software interrupt */
-  SAI0_TX_SYNC_IRQn            = 70,               /**< Transmit Synchronous interupt (for interrupt controller) */
-  SAI0_RX_SYNC_IRQn            = 71,               /**< Transmit Synchronous interupt (for interrupt controller) */
+  I2S0_Tx_IRQn                 = 70,               /**< Transmit Synchronous interupt (for interrupt controller) */
+  I2S0_Rx_IRQn                 = 71,               /**< Transmit Synchronous interupt (for interrupt controller) */
   ENET_1588_Timer_IRQn         = 72,               /**< Ethernet MAC IEEE 1588 Timer Interrupt */
   ENET_Transmit_IRQn           = 73,               /**< Ethernet MAC Transmit Interrupt */
   ENET_Receive_IRQn            = 74,               /**< Ethernet MAC Receive Interrupt */
@@ -281,11 +281,6 @@ typedef enum IRQn {
 /** Array initializer of CAN peripheral base pointers */
 #define CAN_BASE_PTRS                            { CAN0, CAN1, CAN2 }
 /** Interrupt vectors for the CAN peripheral type */
-#define CAN_Rx_Warning_IRQS                      { CAN0_ORed_IRQn, CAN1_ORed_IRQn, CAN2_ORed_IRQn }
-#define CAN_Tx_Warning_IRQS                      { CAN0_ORed_IRQn, CAN1_ORed_IRQn, CAN2_ORed_IRQn }
-#define CAN_Wake_Up_IRQS                         { CAN0_Wake_Up_IRQn, NotAvail_IRQn, NotAvail_IRQn }
-#define CAN_Error_IRQS                           { CAN0_Error_IRQn, CAN1_Error_IRQn, CAN2_Error_IRQn }
-#define CAN_Bus_Off_IRQS                         { CAN0_ORed_IRQn, CAN1_ORed_IRQn, CAN2_ORed_IRQn }
 #define CAN_ORed_Message_buffer_IRQS             { { CAN0_ORed_0_15_MB_IRQn, CAN0_ORed_16_31_MB_IRQn }, { CAN1_ORed_0_15_MB_IRQn, CAN1_ORed_16_31_MB_IRQn }, { CAN2_ORed_0_15_MB_IRQn, CAN2_ORed_16_31_MB_IRQn } }
 
 /* CMP - Peripheral instance base addresses */
@@ -492,8 +487,8 @@ typedef enum IRQn {
 /** Array initializer of I2S peripheral base pointers */
 #define I2S_BASE_PTRS                            { I2S0, I2S1 }
 /** Interrupt vectors for the I2S peripheral type */
-#define I2S_RX_IRQS                              { SAI0_RX_SYNC_IRQn, SAI1_RX_SYNC_IRQn }
-#define I2S_TX_IRQS                              { SAI0_TX_SYNC_IRQn, SAI1_TX_SYNC_IRQn }
+#define I2S_RX_IRQS                              { I2S0_Rx_IRQn, I2S1_Rx_IRQn }
+#define I2S_TX_IRQS                              { I2S0_Tx_IRQn, I2S1_Tx_IRQn }
 
 /* LMEM - Peripheral instance base addresses */
 /** Peripheral LMEM base address */

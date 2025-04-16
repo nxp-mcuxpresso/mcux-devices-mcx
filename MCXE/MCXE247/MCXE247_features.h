@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250408
+**     Build:               b250415
 **
 **     Abstract:
 **         Chip specific module features.
@@ -81,8 +81,8 @@
 #define FSL_FEATURE_SOC_PMC_COUNT (1)
 /* @brief PORT availability on the SoC. */
 #define FSL_FEATURE_SOC_PORT_COUNT (5)
-/* @brief QSPI availability on the SoC. */
-#define FSL_FEATURE_SOC_QSPI_COUNT (1)
+/* @brief QuadSPI availability on the SoC. */
+#define FSL_FEATURE_SOC_QuadSPI_COUNT (1)
 /* @brief RCM availability on the SoC. */
 #define FSL_FEATURE_SOC_RCM_COUNT (1)
 /* @brief RTC availability on the SoC. */
@@ -673,6 +673,10 @@
 #define FSL_FEATURE_HAS_NO_NONCACHEABLE_SECTION (0)
 /* @brief Has Enable Write Buffer bit (register bit PCCCR[ENWRBUF]). */
 #define FSL_FEATURE_LMEM_HAS_ENWRBUF_BIT_CONFIG_SUPPORT (0)
+/* @brief L1 ICACHE line size in byte. */
+#define FSL_FEATURE_L1ICACHE_LINESIZE_BYTE (16)
+/* @brief L1 DCACHE line size in byte. */
+#define FSL_FEATURE_L1DCACHE_LINESIZE_BYTE (16)
 
 /* LPI2C module features */
 
@@ -887,6 +891,8 @@
 
 /* @brief QSPI lookup table depth. */
 #define FSL_FEATURE_QSPI_LUT_DEPTH (64)
+/* @brief QSPI LUT SEQ unit. */
+#define FSL_FEATURE_QSPI_LUT_SEQ_UNIT (4U)
 /* @brief QSPI Tx FIFO depth. */
 #define FSL_FEATURE_QSPI_TXFIFO_DEPTH (32)
 /* @brief QSPI Rx FIFO depth. */
@@ -903,14 +909,42 @@
 #define FSL_FEATURE_QSPI_HAS_IP_COMMAND_USAGE_ERROR (0)
 /* @brief QSPI support parallel mode. */
 #define FSL_FEATURE_QSPI_SUPPORT_PARALLEL_MODE (0)
-/* @brief QSPI has SoC specific configuration. */
-#define FSL_FEATURE_QSPI_HAS_SOC_SPECIFIC_CONFIG (1)
 /* @brief QSPI support individual mode. */
 #define FSL_FEATURE_QSPI_SUPPORT_INDIVIDUAL_MODE (1)
+/* @brief QSPI supoorts single mode. */
+#define FSL_FEATURE_QSPI_SUPPORT_SINGLE_MODE (0)
 /* @brief QSPI support dual die. */
 #define FSL_FEATURE_QSPI_SUPPORT_DUAL_DIE (1)
+/* @brief there is  no SCLKCFG bit in MCR register. */
+#define FSL_FEATURE_QSPI_CLOCK_CONTROL_EXTERNAL (0)
+/* @brief there is no AITEF bit in FR register. */
+#define FSL_FEATURE_QSPI_HAS_NO_AITEF (1)
+/* @brief  there is no AIBSEF bit in FR register. */
+#define FSL_FEATURE_QSPI_HAS_NO_AIBSEF (0)
+/* @brief there is no TXDMA and TXWA bit in SR register. */
+#define FSL_FEATURE_QSPI_HAS_NO_TXDMA (0)
+/* @brief there is no SFACR register. */
+#define FSL_FEATURE_QSPI_HAS_NO_SFACR (0)
+/* @brief there is no TDH bit in FLSHCR register. */
+#define FSL_FEATURE_QSPI_HAS_NO_TDH (0)
+/* @brief there is no END_CFG bit in MCR register. */
+#define FSL_FEATURE_QSPI_HAS_NO_MCR_END (0)
+/* @brief QSPI has no SOCCR register. */
+#define FSL_FEATURE_QSPI_HAS_NO_SOCCR_REG (0)
+/* @brief there is DLLCRA register. */
+#define FSL_FEATURE_QSPI_HAS_DLLCRA (0)
+/* @brief there is data learning feature. */
+#define FSL_FEATURE_QSPI_HAS_DATA_LEARNING (0)
+/* @brief there is AHB Command priority granted. */
+#define FSL_FEATURE_QSPI_HAS_AHB_CMD_PRIORITY (0)
+/* @brief there is AHB sequence error status flag. */
+#define FSL_FEATURE_QSPI_HAS_AHB_SEQ_ERR (1)
+/* @brief there is Tx buffer enough data available flag. */
+#define FSL_FEATURE_QSPI_HAS_TX_BUFF_ENOUGH_DATA (1)
 /* @brief QSPI has DDR mode. */
 #define FSL_FEATURE_QSPI_HAS_DDR (1)
+/* @brief SOC specific configuration is needed. */
+#define FSL_FEATURE_QSPI_HAS_SOC_SPECIFIC_CONFIG (1)
 
 /* RCM module features */
 

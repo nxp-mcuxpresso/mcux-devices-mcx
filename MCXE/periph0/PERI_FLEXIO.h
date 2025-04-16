@@ -4,7 +4,7 @@
 **                          MCXE247VLQ
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250311
+**     Build:               b250415
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FLEXIO
@@ -24,7 +24,7 @@
 */
 
 /*!
- * @file FLEXIO.h
+ * @file PERI_FLEXIO.h
  * @version 1.0
  * @date 2025-02-21
  * @brief CMSIS Peripheral Access Layer for FLEXIO
@@ -32,8 +32,8 @@
  * CMSIS Peripheral Access Layer for FLEXIO
  */
 
-#if !defined(FLEXIO_H_)
-#define FLEXIO_H_                                /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_FLEXIO_H_)
+#define PERI_FLEXIO_H_                           /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXE247VLL) || defined(CPU_MCXE247VLQ))
 #include "MCXE247_COMMON.h"
@@ -603,5 +603,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* FLEXIO_H_ */
+#endif  /* PERI_FLEXIO_H_ */
 

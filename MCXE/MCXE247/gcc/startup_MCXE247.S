@@ -4,7 +4,7 @@
 /*            MCXE247                                                        */
 /*  @version: 1.0                                                            */
 /*  @date:    2025-2-21                                                      */
-/*  @build:   b250313                                                        */
+/*  @build:   b250415                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -93,8 +93,8 @@ __isr_vector:
     .long   PDB0_IRQHandler                                 /* PDB0 interrupt*/
     .long   Reserved69_IRQHandler                           /* xxx Interrupt 69*/
     .long   Reserved70_IRQHandler                           /* xxx Interrupt 70*/
-    .long   SAI1_TX_SYNC_IRQHandler                         /* Transmit Synchronous interupt (for interrupt controller)*/
-    .long   SAI1_RX_SYNC_IRQHandler                         /* Transmit Synchronous interupt (for interrupt controller)*/
+    .long   I2S1_Tx_IRQHandler                              /* Transmit Synchronous interupt (for interrupt controller)*/
+    .long   I2S1_Rx_IRQHandler                              /* Transmit Synchronous interupt (for interrupt controller)*/
     .long   SCG_IRQHandler                                  /* SCG bus interrupt request*/
     .long   LPTMR0_IRQHandler                               /* LPTIMER interrupt request*/
     .long   PORTA_IRQHandler                                /* Port A pin detect interrupt*/
@@ -108,8 +108,8 @@ __isr_vector:
     .long   Reserved83_IRQHandler                           /* xxx Interrupt 83*/
     .long   PDB1_IRQHandler                                 /* PDB1 interrupt*/
     .long   FLEXIO_IRQHandler                               /* Software interrupt*/
-    .long   SAI0_TX_SYNC_IRQHandler                         /* Transmit Synchronous interupt (for interrupt controller)*/
-    .long   SAI0_RX_SYNC_IRQHandler                         /* Transmit Synchronous interupt (for interrupt controller)*/
+    .long   I2S0_Tx_IRQHandler                              /* Transmit Synchronous interupt (for interrupt controller)*/
+    .long   I2S0_Rx_IRQHandler                              /* Transmit Synchronous interupt (for interrupt controller)*/
     .long   ENET_1588_Timer_IRQHandler                      /* Ethernet MAC IEEE 1588 Timer Interrupt*/
     .long   ENET_Transmit_IRQHandler                        /* Ethernet MAC Transmit Interrupt*/
     .long   ENET_Receive_IRQHandler                         /* Ethernet MAC Receive Interrupt*/
@@ -685,21 +685,21 @@ LPUART2_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak SAI1_TX_SYNC_IRQHandler
-    .type SAI1_TX_SYNC_IRQHandler, %function
-SAI1_TX_SYNC_IRQHandler:
-    ldr   r0,=SAI1_TX_SYNC_DriverIRQHandler
+    .weak I2S1_Tx_IRQHandler
+    .type I2S1_Tx_IRQHandler, %function
+I2S1_Tx_IRQHandler:
+    ldr   r0,=I2S1_Tx_DriverIRQHandler
     bx    r0
-    .size SAI1_TX_SYNC_IRQHandler, . - SAI1_TX_SYNC_IRQHandler
+    .size I2S1_Tx_IRQHandler, . - I2S1_Tx_IRQHandler
 
     .align 1
     .thumb_func
-    .weak SAI1_RX_SYNC_IRQHandler
-    .type SAI1_RX_SYNC_IRQHandler, %function
-SAI1_RX_SYNC_IRQHandler:
-    ldr   r0,=SAI1_RX_SYNC_DriverIRQHandler
+    .weak I2S1_Rx_IRQHandler
+    .type I2S1_Rx_IRQHandler, %function
+I2S1_Rx_IRQHandler:
+    ldr   r0,=I2S1_Rx_DriverIRQHandler
     bx    r0
-    .size SAI1_RX_SYNC_IRQHandler, . - SAI1_RX_SYNC_IRQHandler
+    .size I2S1_Rx_IRQHandler, . - I2S1_Rx_IRQHandler
 
     .align 1
     .thumb_func
@@ -721,21 +721,21 @@ FLEXIO_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak SAI0_TX_SYNC_IRQHandler
-    .type SAI0_TX_SYNC_IRQHandler, %function
-SAI0_TX_SYNC_IRQHandler:
-    ldr   r0,=SAI0_TX_SYNC_DriverIRQHandler
+    .weak I2S0_Tx_IRQHandler
+    .type I2S0_Tx_IRQHandler, %function
+I2S0_Tx_IRQHandler:
+    ldr   r0,=I2S0_Tx_DriverIRQHandler
     bx    r0
-    .size SAI0_TX_SYNC_IRQHandler, . - SAI0_TX_SYNC_IRQHandler
+    .size I2S0_Tx_IRQHandler, . - I2S0_Tx_IRQHandler
 
     .align 1
     .thumb_func
-    .weak SAI0_RX_SYNC_IRQHandler
-    .type SAI0_RX_SYNC_IRQHandler, %function
-SAI0_RX_SYNC_IRQHandler:
-    ldr   r0,=SAI0_RX_SYNC_DriverIRQHandler
+    .weak I2S0_Rx_IRQHandler
+    .type I2S0_Rx_IRQHandler, %function
+I2S0_Rx_IRQHandler:
+    ldr   r0,=I2S0_Rx_DriverIRQHandler
     bx    r0
-    .size SAI0_RX_SYNC_IRQHandler, . - SAI0_RX_SYNC_IRQHandler
+    .size I2S0_Rx_IRQHandler, . - I2S0_Rx_IRQHandler
 
     .align 1
     .thumb_func
@@ -976,8 +976,8 @@ CAN2_ORed_16_31_MB_IRQHandler:
     def_irq_handler    PDB0_IRQHandler
     def_irq_handler    Reserved69_IRQHandler
     def_irq_handler    Reserved70_IRQHandler
-    def_irq_handler    SAI1_TX_SYNC_DriverIRQHandler
-    def_irq_handler    SAI1_RX_SYNC_DriverIRQHandler
+    def_irq_handler    I2S1_Tx_DriverIRQHandler
+    def_irq_handler    I2S1_Rx_DriverIRQHandler
     def_irq_handler    SCG_IRQHandler
     def_irq_handler    LPTMR0_IRQHandler
     def_irq_handler    PORTA_IRQHandler
@@ -991,8 +991,8 @@ CAN2_ORed_16_31_MB_IRQHandler:
     def_irq_handler    Reserved83_IRQHandler
     def_irq_handler    PDB1_IRQHandler
     def_irq_handler    FLEXIO_DriverIRQHandler
-    def_irq_handler    SAI0_TX_SYNC_DriverIRQHandler
-    def_irq_handler    SAI0_RX_SYNC_DriverIRQHandler
+    def_irq_handler    I2S0_Tx_DriverIRQHandler
+    def_irq_handler    I2S0_Rx_DriverIRQHandler
     def_irq_handler    ENET_1588_Timer_DriverIRQHandler
     def_irq_handler    ENET_Transmit_DriverIRQHandler
     def_irq_handler    ENET_Receive_DriverIRQHandler

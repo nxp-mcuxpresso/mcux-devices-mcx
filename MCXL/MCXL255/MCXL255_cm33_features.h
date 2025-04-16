@@ -555,6 +555,8 @@
 
 /* @brief Powerlib API is different with other series devices */
 #define FSL_FEATURE_POWERLIB_EXTEND (1)
+/* @brief Starter register discontinuous. */
+#define FSL_FEATURE_SYSCON_STARTER_DISCONTINUOUS (1)
 
 /* UTICK module features */
 

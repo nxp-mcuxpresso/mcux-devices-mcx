@@ -246,7 +246,7 @@ config MCUX_HW_IP_DriverType_TRDC_1
 
 config MCUX_HW_IP_DriverType_UTICK
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_WUU

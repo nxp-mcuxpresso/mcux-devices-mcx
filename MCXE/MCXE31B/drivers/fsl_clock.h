@@ -19,8 +19,8 @@
  *****************************************************************************/
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.0.0 */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+/*! @brief CLOCK driver version 2.0.1 */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
 /*@}*/
 
 /* Definition for delay API in clock driver, users can redefine it to the real
@@ -680,8 +680,8 @@ typedef enum pll_unlock_accuracy
 {
     kPLL_UnlockAccuracy9  = 0U, /*!< Unlock range = Expected value deviates by 9 (recommended when PLLFM[SSCGBYP] = 1). */
     kPLL_UnlockAccuracy17 = 1U, /*!< Unlock range = Expected value deviates by 17 (recommended when PLLFM[SSCGBYP] = 1). */
-    kPLL_UnlockAccuracy33 = 1U, /*!< Unlock range = Expected value deviates by 33. */
-    kPLL_UnlockAccuracy5  = 1U, /*!< Unlock range = Expected value deviates by 5. */
+    kPLL_UnlockAccuracy33 = 2U, /*!< Unlock range = Expected value deviates by 33. */
+    kPLL_UnlockAccuracy5  = 3U, /*!< Unlock range = Expected value deviates by 5. */
 } pll_unlock_accuracy_t;
 
 /*!
@@ -703,7 +703,7 @@ typedef struct _pll_config
     uint16_t stepSize;    /*!< For SSCG mode. Frequency Modulation Step Size. */
     uint16_t stepNum;     /*!< For SSCG mode. Number Of Steps Of Modulation Period Or Frequency Modulation. */
 
-    pll_unlock_accuracy_t accuracy;
+    pll_unlock_accuracy_t accuracy;    /*!< PLL unlock accuracy. */
     uint8_t outDiv[PLL_PLLODIV_COUNT]; /*!< PLL Output Divider. */
 } pll_config_t;
 
@@ -920,6 +920,7 @@ static inline void CLOCK_DinitFxosc(void)
  *     .preDiv = 2U,
  *     .postDiv = 2U,
  *     .multiplier = 120U,
+ *     .accuracy = kPLL_UnlockAccuracy9,
  *     .outDiv[0] = 3U,
  *     .outDiv[1] = 3U,
  *   };

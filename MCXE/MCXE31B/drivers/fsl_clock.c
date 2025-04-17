@@ -343,6 +343,9 @@ void CLOCK_InitPll(const pll_config_t *config)
         PLL->PLLFM = PLL_PLLFM_SSCGBYP_MASK; /* Bypass SSCG. */
     }
 
+    PLL->PLLCAL2 &= ~PLL_PLLCAL2_ULKCTL_MASK;
+    PLL->PLLCAL2 |= PLL_PLLCAL2_ULKCTL(config->accuracy);
+
     for (i = 0U; i < PLL_PLLODIV_COUNT; i++)
     {
         if (config->outDiv[i] != 0U)

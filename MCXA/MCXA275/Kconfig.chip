@@ -324,11 +324,6 @@ config MCUX_HW_IP_DriverType_SLCD40
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA275
 
-config MCUX_HW_IP_DriverType_SMARTDMA
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA275
-
 config MCUX_HW_IP_DriverType_TRDC_1
     bool
     default y

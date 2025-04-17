@@ -2,11 +2,13 @@
 ** ###################################################################
 **     Processors:          MCXW235BIHNAR
 **                          MCXW235BIUKAR
+**                          MCXW236AIHNAR
+**                          MCXW236AIUKAR
 **                          MCXW236BIHNAR
 **                          MCXW236BIUKAR
 **
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250108
+**     Build:               b250417
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA
@@ -26,7 +28,7 @@
 */
 
 /*!
- * @file DMA.h
+ * @file PERI_DMA.h
  * @version 1.0
  * @date 2022-03-08
  * @brief CMSIS Peripheral Access Layer for DMA
@@ -34,13 +36,13 @@
  * CMSIS Peripheral Access Layer for DMA
  */
 
-#if !defined(DMA_H_)
-#define DMA_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_DMA_H_)
+#define PERI_DMA_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW235BIHNAR) || defined(CPU_MCXW235BIUKAR))
-#include "MCXW235B_COMMON.h"
-#elif (defined(CPU_MCXW236BIHNAR) || defined(CPU_MCXW236BIUKAR))
-#include "MCXW236B_COMMON.h"
+#include "MCXW235_COMMON.h"
+#elif (defined(CPU_MCXW236AIHNAR) || defined(CPU_MCXW236AIUKAR) || defined(CPU_MCXW236BIHNAR) || defined(CPU_MCXW236BIUKAR))
+#include "MCXW236_COMMON.h"
 #else
   #error "No valid CPU defined!"
 #endif
@@ -80,9 +82,9 @@ typedef enum _dma_request_source
     kDma0RequestNoDMARequest1       = 1U,          /**< No DMA request 1 */
     kDma1RequestNoDMARequest1       = 1U,          /**< No DMA request 1 */
     kDma0RequestNoDMARequest2       = 2U,          /**< No DMA request 2 */
-    kDma1RequestNoDMARequest2       = 2U,          /**< No DMA request 2 */
+    kDma1RequestSPIFI               = 2U,          /**< SPI Flash Interface */
     kDma0RequestSPIFI               = 3U,          /**< SPI Flash Interface */
-    kDma1RequestSPIFI               = 3U,          /**< SPI Flash Interface */
+    kDma1RequestNoDMARequest3       = 3U,          /**< No DMA request 3 */
     kDma0RequestFlexcomm0Rx         = 4U,          /**< Flexcomm Interface 0 RX/I2C Slave */
     kDma1RequestFlexcomm0Rx         = 4U,          /**< Flexcomm Interface 0 RX/I2C Slave */
     kDma0RequestFlexcomm0Tx         = 5U,          /**< Flexcomm Interface 0 TX/I2C Master */
@@ -695,5 +697,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* DMA_H_ */
+#endif  /* PERI_DMA_H_ */
 

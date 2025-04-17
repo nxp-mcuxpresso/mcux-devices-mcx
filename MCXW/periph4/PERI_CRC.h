@@ -2,17 +2,19 @@
 ** ###################################################################
 **     Processors:          MCXW235BIHNAR
 **                          MCXW235BIUKAR
+**                          MCXW236AIHNAR
+**                          MCXW236AIUKAR
 **                          MCXW236BIHNAR
 **                          MCXW236BIUKAR
 **
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b241115
+**     Build:               b250417
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CRC
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -26,7 +28,7 @@
 */
 
 /*!
- * @file CRC.h
+ * @file PERI_CRC.h
  * @version 1.0
  * @date 2022-03-08
  * @brief CMSIS Peripheral Access Layer for CRC
@@ -34,13 +36,13 @@
  * CMSIS Peripheral Access Layer for CRC
  */
 
-#if !defined(CRC_H_)
-#define CRC_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_CRC_H_)
+#define PERI_CRC_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW235BIHNAR) || defined(CPU_MCXW235BIUKAR))
-#include "MCXW235B_COMMON.h"
-#elif (defined(CPU_MCXW236BIHNAR) || defined(CPU_MCXW236BIUKAR))
-#include "MCXW236B_COMMON.h"
+#include "MCXW235_COMMON.h"
+#elif (defined(CPU_MCXW236AIHNAR) || defined(CPU_MCXW236AIUKAR) || defined(CPU_MCXW236BIHNAR) || defined(CPU_MCXW236BIUKAR))
+#include "MCXW236_COMMON.h"
 #else
   #error "No valid CPU defined!"
 #endif
@@ -198,5 +200,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* CRC_H_ */
+#endif  /* PERI_CRC_H_ */
 

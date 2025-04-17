@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXE24x RM Rev.1
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250415
+**     Build:               b250417
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE247
@@ -307,16 +307,6 @@ typedef enum IRQn {
 /** Array initializer of CRC peripheral base pointers */
 #define CRC_BASE_PTRS                            { CRC }
 
-/* CSE_PRAM - Peripheral instance base addresses */
-/** Peripheral CSE_PRAM base address */
-#define CSE_PRAM_BASE                            (0x14001000u)
-/** Peripheral CSE_PRAM base pointer */
-#define CSE_PRAM                                 ((CSE_PRAM_Type *)CSE_PRAM_BASE)
-/** Array initializer of CSE_PRAM peripheral base addresses */
-#define CSE_PRAM_BASE_ADDRS                      { CSE_PRAM_BASE }
-/** Array initializer of CSE_PRAM peripheral base pointers */
-#define CSE_PRAM_BASE_PTRS                       { CSE_PRAM }
-
 /* DMA - Peripheral instance base addresses */
 /** Peripheral DMA0 base address */
 #define DMA0_BASE                                (0x40008000u)
@@ -349,6 +339,16 @@ typedef enum IRQn {
 #define EIM_BASE_ADDRS                           { EIM_BASE }
 /** Array initializer of EIM peripheral base pointers */
 #define EIM_BASE_PTRS                            { EIM }
+
+/* ELA_CSEC - Peripheral instance base addresses */
+/** Peripheral ELA_CSEC base address */
+#define ELA_CSEC_BASE                            (0x14001000u)
+/** Peripheral ELA_CSEC base pointer */
+#define ELA_CSEC                                 ((ELA_CSEC_Type *)ELA_CSEC_BASE)
+/** Array initializer of ELA_CSEC peripheral base addresses */
+#define ELA_CSEC_BASE_ADDRS                      { ELA_CSEC_BASE }
+/** Array initializer of ELA_CSEC peripheral base pointers */
+#define ELA_CSEC_BASE_PTRS                       { ELA_CSEC }
 
 /* ENET - Peripheral instance base addresses */
 /** Peripheral ENET base address */

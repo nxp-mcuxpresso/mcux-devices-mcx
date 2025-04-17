@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250415
+**     Build:               b250417
 **
 **     Abstract:
 **         Chip specific module features.
@@ -41,6 +41,8 @@
 #define FSL_FEATURE_SOC_EDMA_COUNT (1)
 /* @brief EIM availability on the SoC. */
 #define FSL_FEATURE_SOC_EIM_COUNT (1)
+/* @brief ELA_CSEC availability on the SoC. */
+#define FSL_FEATURE_SOC_ELA_CSEC_COUNT (1)
 /* @brief ENET availability on the SoC. */
 #define FSL_FEATURE_SOC_ENET_COUNT (1)
 /* @brief EWM availability on the SoC. */
@@ -255,6 +257,45 @@
 #define FSL_FEATURE_DMAMUX_CHCFG_REGISTER_WIDTH (8)
 /* @brief Register CHCFGn sorted in order 3, 2 ,1 ,0 ,7 ,6 ,5 ,4 ... */
 #define FSL_FEATURE_DMAMUX_CHANNEL_NEEDS_ENDIAN_CONVERT (0)
+
+/* ELA_CSEC module features */
+
+/* @brief CSE_PRAM offset of the page length parameter used by the following commands: CMD_ENC_ECB, CMD_ENC_CBC, CMD_DEC_ECB, CMD_DEC_CBC, CMD_MP_COMPRESS */
+#define FSL_FEATURE_ELA_CSEC_PAGE_LENGTH_OFFSET (0xEU)
+/* @brief CSE_PRAM offset of the message length parameter used by the following commands: CMD_GENERATE_MAC, CMD_VERIFY_MAC (both copy and pointer methods) */
+#define FSL_FEATURE_ELA_CSEC_MESSAGE_LENGTH_OFFSET (0xCU)
+/* @brief CSE_PRAM offset of the MAC length parameter used by the following commands: CMD_VERIFY_MAC (both copy and pointer methods) */
+#define FSL_FEATURE_ELA_CSEC_MAC_LENGTH_OFFSET (0x8U)
+/* @brief CSE_PRAM offset of the boot size parameter used by the following commands: CMD_BOOT_DEFINE */
+#define FSL_FEATURE_ELA_CSEC_BOOT_SIZE_OFFSET (0x1CU)
+/* @brief CSE_PRAM offset of the boot flavor parameter used by the following commands: CMD_BOOT_DEFINE */
+#define FSL_FEATURE_ELA_CSEC_BOOT_FLAVOR_OFFSET (0x1BU)
+/* @brief CSE_PRAM offset of the Flash start address parameter used by the following commands: CMD_GENERATE_MAC, CMD_VERIFY_MAC (pointer method) */
+#define FSL_FEATURE_ELA_CSEC_FLASH_START_ADDRESS_OFFSET (0x10U)
+/* @brief CSE_PRAM offset of the verification status parameter used by the following commands: CMD_VERIFY_MAC (both copy and pointer methods) */
+#define FSL_FEATURE_ELA_CSEC_VERIFICATION_STATUS_OFFSET (0x14U)
+/* @brief CSE_PRAM offset of the error bits field contained by all commands */
+#define FSL_FEATURE_ELA_CSEC_ERROR_BITS_OFFSET (0x4U)
+/* @brief CSE_PRAM offset of the SREG parameter used by the following commands: CMD_GET_ID */
+#define FSL_FEATURE_ELA_CSEC_SREG_OFFSET (0x2FU)
+/* @brief Macro that enables the use of FTFM flash module on a platform */
+#define FSL_FEATURE_ELA_CSEC_HAS_FTFM_MODULE (0U)
+/* @brief CSE_PRAM offset of page 0 */
+#define FSL_FEATURE_ELA_CSEC_PAGE_0_OFFSET (0x0U)
+/* @brief CSE_PRAM offset of page 1 */
+#define FSL_FEATURE_ELA_CSEC_PAGE_1_OFFSET (0x10U)
+/* @brief CSE_PRAM offset of page 2 */
+#define FSL_FEATURE_ELA_CSEC_PAGE_2_OFFSET (0x20U)
+/* @brief CSE_PRAM offset of page 3 */
+#define FSL_FEATURE_ELA_CSEC_PAGE_3_OFFSET (0x30U)
+/* @brief CSE_PRAM offset of page 4 */
+#define FSL_FEATURE_ELA_CSEC_PAGE_4_OFFSET (0x40U)
+/* @brief CSE_PRAM offset of page 5 */
+#define FSL_FEATURE_ELA_CSEC_PAGE_5_OFFSET (0x50U)
+/* @brief CSE_PRAM offset of page 6 */
+#define FSL_FEATURE_ELA_CSEC_PAGE_6_OFFSET (0x60U)
+/* @brief CSE_PRAM offset of page 7 */
+#define FSL_FEATURE_ELA_CSEC_PAGE_7_OFFSET (0x70U)
 
 /* ENET module features */
 

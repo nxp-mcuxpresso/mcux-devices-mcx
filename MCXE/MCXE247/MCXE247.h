@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXE24x RM Rev.1
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250311
+**     Build:               b250417
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE247
@@ -47,10 +47,10 @@
 #include "PERI_CAN.h"
 #include "PERI_CMP.h"
 #include "PERI_CRC.h"
-#include "PERI_CSE_PRAM.h"
 #include "PERI_DMA.h"
 #include "PERI_DMAMUX.h"
 #include "PERI_EIM.h"
+#include "PERI_ELA_CSEC.h"
 #include "PERI_ENET.h"
 #include "PERI_ERM.h"
 #include "PERI_EWM.h"

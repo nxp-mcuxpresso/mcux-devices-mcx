@@ -380,9 +380,10 @@ void CLOCK_InitPll(const pll_config_t *config)
 
 uint32_t CLOCK_GetPllPhiClkFreq(uint32_t index)
 {
-    uint32_t freq = 0U;
-    uint32_t div  = 0U;
-    uint32_t temp = 0U;
+    uint32_t freq   = 0U;
+    uint32_t div    = 0U;
+    uint32_t temp   = 0U;
+    uint64_t temp64 = 0U;
 
     assert(index < PLL_PLLODIV_COUNT);
 
@@ -393,10 +394,11 @@ uint32_t CLOCK_GetPllPhiClkFreq(uint32_t index)
 
         if ((PLL->PLLFD & PLL_PLLFD_SDMEN_MASK) != 0U) /* Fractional mode. */
         {
-            freq = CLOCK_GetFxoscFreq() / 1000U / div;
-            temp = (PLL->PLLDV & PLL_PLLDV_MFI_MASK) >> PLL_PLLDV_MFI_SHIFT;
-            temp = (temp * 18432 + (PLL->PLLFD & PLL_PLLFD_MFN_MASK)) * 1000U / 18432U;
-            freq = freq * temp;
+            freq   = CLOCK_GetFxoscFreq() / 1000U / div;
+            temp   = (PLL->PLLDV & PLL_PLLDV_MFI_MASK) >> PLL_PLLDV_MFI_SHIFT;
+            temp64 = (uint64_t)temp * 18432U + (PLL->PLLFD & PLL_PLLFD_MFN_MASK);
+            temp64 = temp64 * 1000U / 18432U;
+            freq   = (uint32_t)(freq * temp64);
         }
         else
         {

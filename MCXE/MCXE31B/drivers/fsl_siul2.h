@@ -21,7 +21,7 @@
 /*! @name Driver version */
 /*! @{ */
 /*! @brief SIUL2 driver version. */
-#define FSL_SIUL2_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+#define FSL_SIUL2_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
 
 /*! @brief SIUL2 module maximum number of input signal on a pin */
 #define FEATURE_SIUL2_MAX_NUMBER_OF_INPUT (16U)
@@ -389,6 +389,8 @@ void SIUL2_PortToggle(SIUL2_Type *base, siul2_port_num_t port, uint32_t pins);
  */
 static inline void SIUL2_PortPinWrite(SIUL2_Type *base, siul2_port_num_t port, uint32_t pin, uint8_t output)
 {
+    assert(pin < 32U); /* Check pin number is valid. */
+
     uint32_t pinIndex = (uint32_t)port * 32U + pin;
 
     SIUL2_PORT_WRITE8(SIUL2_GPDO_ADDR(base, pinIndex), output);
@@ -403,6 +405,8 @@ static inline void SIUL2_PortPinWrite(SIUL2_Type *base, siul2_port_num_t port, u
  */
 inline static uint32_t SIUL2_PortPinRead(SIUL2_Type *base, siul2_port_num_t port, uint8_t pin)
 {
+    assert(pin < 32U); /* Check pin number is valid. */
+
     uint32_t pinIndex = (uint32_t)port * 32U + pin;
     return SIUL2_PORT_READ8(SIUL2_GPDI_ADDR(base, pinIndex));
 }
@@ -435,7 +439,7 @@ inline static uint32_t SIUL2_PinRead(SIUL2_Type *base, uint8_t pin)
  * @brief Set the Glitch filter prescaler.
  *
  * @param base SIUL2 peripheral base pointer
- * @param div Glitch filter prescaler 0...15. Prescaled Filter Clock period is internal oscillator period ¡Á (div + 1).
+ * @param div Glitch filter prescaler 0...15. Prescaled Filter Clock period is internal oscillator period ï¿½ï¿½ (div + 1).
  */
 inline static void SIUL2_SetGlitchFilterPrescaler(SIUL2_Type *base, uint8_t div)
 {

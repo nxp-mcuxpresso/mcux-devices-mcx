@@ -172,11 +172,13 @@ void SIUL2_PinInit(const siul2_pin_settings_t *config)
 static uint16_t SIUL2_Reverse_Bit_16(uint16_t value)
 {
     uint8_t i;
-    uint16_t ret = 0U;
+    uint16_t ret  = 0U;
+    uint32_t temp = 0U;
 
     for (i = 0U; i < 8U; i++)
     {
-        ret |= (uint16_t)((((value >> i) & 1U) << (15U - i)) | (((value << i) & 0x8000U) >> (15U - i)));
+        temp = (((value >> i) & 1U) << (15U - i)) | (((value << i) & 0x8000U) >> (15U - i));
+        ret |= (uint16_t)(temp & 0xFFFFU); 
     }
 
     return ret;

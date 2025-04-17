@@ -419,6 +419,7 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_FRO10M_EN_SHIFT;
             break;
         case 4000000U:
+            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_FRO4M_LV_EN_MASK;
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT;
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_FRO10M_EN_SHIFT;
             break;

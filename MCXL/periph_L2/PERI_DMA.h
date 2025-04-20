@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250420
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA

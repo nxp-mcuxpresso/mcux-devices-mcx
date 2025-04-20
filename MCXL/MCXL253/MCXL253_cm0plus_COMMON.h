@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftF
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250327
+**     Build:               b250420
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL253_cm0plus
@@ -252,35 +252,6 @@ typedef enum IRQn {
 /** Interrupt vectors for the KPP peripheral type */
 #define KPP_IRQS                                 { KPP_IRQn }
 
-/* LCD - Peripheral instance base addresses */
-#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral LCD base address */
-  #define LCD_BASE                                 (0xB0094000u)
-  /** Peripheral LCD base address */
-  #define LCD_BASE_NS                              (0xA0094000u)
-  /** Peripheral LCD base pointer */
-  #define LCD                                      ((LCD_Type *)LCD_BASE)
-  /** Peripheral LCD base pointer */
-  #define LCD_NS                                   ((LCD_Type *)LCD_BASE_NS)
-  /** Array initializer of LCD peripheral base addresses */
-  #define LCD_BASE_ADDRS                           { LCD_BASE }
-  /** Array initializer of LCD peripheral base pointers */
-  #define LCD_BASE_PTRS                            { LCD }
-  /** Array initializer of LCD peripheral base addresses */
-  #define LCD_BASE_ADDRS_NS                        { LCD_BASE_NS }
-  /** Array initializer of LCD peripheral base pointers */
-  #define LCD_BASE_PTRS_NS                         { LCD_NS }
-#else
-  /** Peripheral LCD base address */
-  #define LCD_BASE                                 (0xA0094000u)
-  /** Peripheral LCD base pointer */
-  #define LCD                                      ((LCD_Type *)LCD_BASE)
-  /** Array initializer of LCD peripheral base addresses */
-  #define LCD_BASE_ADDRS                           { LCD_BASE }
-  /** Array initializer of LCD peripheral base pointers */
-  #define LCD_BASE_PTRS                            { LCD }
-#endif
-
 /* LPACMP - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
   /** Peripheral AON__LPACMP base address */
@@ -456,6 +427,8 @@ typedef enum IRQn {
   /** Array initializer of LPUART peripheral base pointers */
   #define LPUART_BASE_PTRS                         { (LPUART_Type *)0u, (LPUART_Type *)0u, AON__LPUART0 }
 #endif
+/** Interrupt vectors for the LPUART peripheral type */
+#define LPUART_RX_TX_IRQS                        { NotAvail_IRQn, NotAvail_IRQn, LPUART0_AON_IRQn }
 
 /* MU - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
@@ -486,33 +459,33 @@ typedef enum IRQn {
   #define MU_BASE_PTRS                             { MUB }
 #endif
 
-/* PMIC - Peripheral instance base addresses */
+/* PMU - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral AON__PMIC base address */
-  #define AON__PMIC_BASE                           (0xB0098000u)
-  /** Peripheral AON__PMIC base address */
-  #define AON__PMIC_BASE_NS                        (0xA0098000u)
-  /** Peripheral AON__PMIC base pointer */
-  #define AON__PMIC                                ((PMIC_Type *)AON__PMIC_BASE)
-  /** Peripheral AON__PMIC base pointer */
-  #define AON__PMIC_NS                             ((PMIC_Type *)AON__PMIC_BASE_NS)
-  /** Array initializer of PMIC peripheral base addresses */
-  #define PMIC_BASE_ADDRS                          { AON__PMIC_BASE }
-  /** Array initializer of PMIC peripheral base pointers */
-  #define PMIC_BASE_PTRS                           { AON__PMIC }
-  /** Array initializer of PMIC peripheral base addresses */
-  #define PMIC_BASE_ADDRS_NS                       { AON__PMIC_BASE_NS }
-  /** Array initializer of PMIC peripheral base pointers */
-  #define PMIC_BASE_PTRS_NS                        { AON__PMIC_NS }
+  /** Peripheral AON__PMU base address */
+  #define AON__PMU_BASE                            (0xB0098000u)
+  /** Peripheral AON__PMU base address */
+  #define AON__PMU_BASE_NS                         (0xA0098000u)
+  /** Peripheral AON__PMU base pointer */
+  #define AON__PMU                                 ((PMU_Type *)AON__PMU_BASE)
+  /** Peripheral AON__PMU base pointer */
+  #define AON__PMU_NS                              ((PMU_Type *)AON__PMU_BASE_NS)
+  /** Array initializer of PMU peripheral base addresses */
+  #define PMU_BASE_ADDRS                           { AON__PMU_BASE }
+  /** Array initializer of PMU peripheral base pointers */
+  #define PMU_BASE_PTRS                            { AON__PMU }
+  /** Array initializer of PMU peripheral base addresses */
+  #define PMU_BASE_ADDRS_NS                        { AON__PMU_BASE_NS }
+  /** Array initializer of PMU peripheral base pointers */
+  #define PMU_BASE_PTRS_NS                         { AON__PMU_NS }
 #else
-  /** Peripheral AON__PMIC base address */
-  #define AON__PMIC_BASE                           (0xA0098000u)
-  /** Peripheral AON__PMIC base pointer */
-  #define AON__PMIC                                ((PMIC_Type *)AON__PMIC_BASE)
-  /** Array initializer of PMIC peripheral base addresses */
-  #define PMIC_BASE_ADDRS                          { AON__PMIC_BASE }
-  /** Array initializer of PMIC peripheral base pointers */
-  #define PMIC_BASE_PTRS                           { AON__PMIC }
+  /** Peripheral AON__PMU base address */
+  #define AON__PMU_BASE                            (0xA0098000u)
+  /** Peripheral AON__PMU base pointer */
+  #define AON__PMU                                 ((PMU_Type *)AON__PMU_BASE)
+  /** Array initializer of PMU peripheral base addresses */
+  #define PMU_BASE_ADDRS                           { AON__PMU_BASE }
+  /** Array initializer of PMU peripheral base pointers */
+  #define PMU_BASE_PTRS                            { AON__PMU }
 #endif
 
 /* PORT - Peripheral instance base addresses */
@@ -571,6 +544,35 @@ typedef enum IRQn {
   #define RTC_BASE_ADDRS                           { AON__RTC_AON_BASE }
   /** Array initializer of RTC peripheral base pointers */
   #define RTC_BASE_PTRS                            { AON__RTC_AON }
+#endif
+
+/* SGLCD_AON - Peripheral instance base addresses */
+#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
+  /** Peripheral AON__SGLCD0_AON base address */
+  #define AON__SGLCD0_AON_BASE                     (0xB0094000u)
+  /** Peripheral AON__SGLCD0_AON base address */
+  #define AON__SGLCD0_AON_BASE_NS                  (0xA0094000u)
+  /** Peripheral AON__SGLCD0_AON base pointer */
+  #define AON__SGLCD0_AON                          ((SGLCD_AON_Type *)AON__SGLCD0_AON_BASE)
+  /** Peripheral AON__SGLCD0_AON base pointer */
+  #define AON__SGLCD0_AON_NS                       ((SGLCD_AON_Type *)AON__SGLCD0_AON_BASE_NS)
+  /** Array initializer of SGLCD_AON peripheral base addresses */
+  #define SGLCD_AON_BASE_ADDRS                     { AON__SGLCD0_AON_BASE }
+  /** Array initializer of SGLCD_AON peripheral base pointers */
+  #define SGLCD_AON_BASE_PTRS                      { AON__SGLCD0_AON }
+  /** Array initializer of SGLCD_AON peripheral base addresses */
+  #define SGLCD_AON_BASE_ADDRS_NS                  { AON__SGLCD0_AON_BASE_NS }
+  /** Array initializer of SGLCD_AON peripheral base pointers */
+  #define SGLCD_AON_BASE_PTRS_NS                   { AON__SGLCD0_AON_NS }
+#else
+  /** Peripheral AON__SGLCD0_AON base address */
+  #define AON__SGLCD0_AON_BASE                     (0xA0094000u)
+  /** Peripheral AON__SGLCD0_AON base pointer */
+  #define AON__SGLCD0_AON                          ((SGLCD_AON_Type *)AON__SGLCD0_AON_BASE)
+  /** Array initializer of SGLCD_AON peripheral base addresses */
+  #define SGLCD_AON_BASE_ADDRS                     { AON__SGLCD0_AON_BASE }
+  /** Array initializer of SGLCD_AON peripheral base pointers */
+  #define SGLCD_AON_BASE_PTRS                      { AON__SGLCD0_AON }
 #endif
 
 /* SMM - Peripheral instance base addresses */

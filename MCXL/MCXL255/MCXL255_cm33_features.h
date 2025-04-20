@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250327
+**     Build:               b250420
 **
 **     Abstract:
 **         Chip specific module features.
@@ -49,8 +49,6 @@
 #define FSL_FEATURE_SOC_INPUTMUX_COUNT (1)
 /* @brief KPP availability on the SoC. */
 #define FSL_FEATURE_SOC_KPP_COUNT (1)
-/* @brief LCD availability on the SoC. */
-#define FSL_FEATURE_SOC_LCD_COUNT (1)
 /* @brief LPADC availability on the SoC. */
 #define FSL_FEATURE_SOC_LPADC_COUNT (2)
 /* @brief LPCMP availability on the SoC. */
@@ -69,12 +67,16 @@
 #define FSL_FEATURE_SOC_OSTIMER_COUNT (1)
 /* @brief PKC availability on the SoC. */
 #define FSL_FEATURE_SOC_PKC_COUNT (1)
+/* @brief PMU availability on the SoC. */
+#define FSL_FEATURE_SOC_PMU_COUNT (1)
 /* @brief PORT availability on the SoC. */
 #define FSL_FEATURE_SOC_PORT_COUNT (4)
 /* @brief RTC availability on the SoC. */
 #define FSL_FEATURE_SOC_RTC_COUNT (1)
 /* @brief SCG availability on the SoC. */
 #define FSL_FEATURE_SOC_SCG_COUNT (1)
+/* @brief SLCD availability on the SoC. */
+#define FSL_FEATURE_SOC_SLCD_COUNT (2)
 /* @brief SYSCON availability on the SoC. */
 #define FSL_FEATURE_SOC_SYSCON_COUNT (2)
 /* @brief TMR availability on the SoC. */
@@ -352,6 +354,8 @@
 
 /* @brief Powerlib API is different with other series devices */
 #define FSL_FEATURE_POWERLIB_EXTEND (1)
+/* @brief Starter register discontinuous. */
+#define FSL_FEATURE_SYSCON_AON_STARTER_DISCONTINUOUS (1)
 
 /* CDOG module features */
 

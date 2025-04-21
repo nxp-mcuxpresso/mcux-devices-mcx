@@ -39,6 +39,34 @@
   #error "No valid CPU defined!"
 #endif
 
+/*!
+ * @addtogroup virt_wrapper_soc_integration VIRT_WRAPPER SOC Integration Info
+ * @{
+ */
+
+/*!
+ * @brief VIRT_WRAPPER PAC mapping slot
+ */
+typedef enum _virt_wrapper_slot
+{
+    kVIRT_WRAPPER_PDAC0 = 3u, /*!< Map to PDAC0 address. */
+    kVIRT_WRAPPER_PDAC1 = 0u, /*!< Map to PDAC1 address. */
+} virt_wrapper_slot_t;
+
+/*!
+ * @brief SIUL2 virtual address mapping
+ *
+ * @param siul2_addr SIUL2 peripheral address.
+ * @param slot VIRT_WRAPPER slot.
+ *
+ * @return SIUL2 virtual address
+ */
+#define SIUL2_VIRT_ADDR(siul2_addr, slot) (((uint32_t)(siul2_addr) == 0x40290000U) ? (((slot) == kVIRT_WRAPPER_PDAC1) ? 0x40298000U : (uint32_t)(siul2_addr)) : (uint32_t)(siul2_addr))
+
+/*!
+ * @}
+ */
+
 /* ----------------------------------------------------------------------------
    -- Device Peripheral Access Layer
    ---------------------------------------------------------------------------- */

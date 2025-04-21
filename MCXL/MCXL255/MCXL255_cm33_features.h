@@ -49,6 +49,9 @@
 #define FSL_FEATURE_SOC_INPUTMUX_COUNT (1)
 /* @brief KPP availability on the SoC. */
 #define FSL_FEATURE_SOC_KPP_COUNT (1)
+/* @brief LCD availability on the SoC. */
+#define FSL_FEATURE_SOC_LCD_COUNT (1)
+#define FSL_FEATURE_SLCD_HAS_FAULT_DETECT (1)
 /* @brief LPADC availability on the SoC. */
 #define FSL_FEATURE_SOC_LPADC_COUNT (2)
 /* @brief LPCMP availability on the SoC. */
@@ -354,8 +357,6 @@
 
 /* @brief Powerlib API is different with other series devices */
 #define FSL_FEATURE_POWERLIB_EXTEND (1)
-/* @brief Starter register discontinuous. */
-#define FSL_FEATURE_SYSCON_AON_STARTER_DISCONTINUOUS (1)
 
 /* CDOG module features */
 

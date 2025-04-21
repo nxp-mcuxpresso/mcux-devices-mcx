@@ -269,7 +269,7 @@ config MCUX_HW_IP_DriverType_KPP
     default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
-config MCUX_HW_IP_DriverType_SLCD
+config MCUX_HW_IP_DriverType_SLCD_SPLIT
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx

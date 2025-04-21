@@ -145,6 +145,23 @@ typedef enum _clock_ip_name
     kCLOCK_GateNotAvail      = (0xFFFFFFFFU),                          /**< Clock gate name: None           */
 } clock_ip_name_t;
 
+/*! @brief Clock ip name array for SLCD. */
+#if __CORTEX_M == (33U) /* Building on the main core */
+#define SLCD_FAULT_DETECT_CLOCKS \
+    {                            \
+        kCLOCK_GateSGLCD         \
+    }
+#else
+#define SLCD_FAULT_DETECT_CLOCKS \
+    {                            \
+        kCLOCK_GateNotAvail      \
+    }
+#endif
+#define SLCD_CONTROL_CLOCKS \
+    {                       \
+        kCLOCK_GateAonLCD   \
+    }
+
 /*! @brief Clock ip name array for AOI. */
 #define AOI_CLOCKS      \
     {                   \
@@ -215,7 +232,7 @@ typedef enum _clock_ip_name
         kCLOCK_GateAonCMP0                  \
     }
 #endif
-    
+
 /*! @brief Clock ip name array for LPADC. */
 #if __CORTEX_M == (33U) /* Building on the main core */
 #define LPADC_CLOCKS    \

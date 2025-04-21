@@ -79,7 +79,7 @@ typedef enum _SYSCON_RSTn
     kAonLPTMR_RST_SHIFT_RSTn   = ((2U << 8) | (7U)),  /*!< AON LPTMR   reset control */
     kAonKPP_RST_SHIFT_RSTn     = ((2U << 8) | (8U)),  /*!< AON KPP     reset control */
     kAonLPADC_RST_SHIFT_RSTn   = ((2U << 8) | (9U)),  /*!< AON LPADC   reset control */
-    kAonLCD_RST_SHIFT_RSTn     = ((2U << 8) | (10U)), /*!< AON UART    reset control */
+    kAonLCD_RST_SHIFT_RSTn     = ((2U << 8) | (10U)), /*!< AON LCD     reset control */
     kAonCMP0_RST_SHIFT_RSTn    = ((2U << 8) | (12U)), /*!< AON ACMP    reset control */
     kAonADVC2P0_RST_SHIFT_RSTn = ((2U << 8) | (13U)), /*!< AON ADVC2P0 reset control */
 

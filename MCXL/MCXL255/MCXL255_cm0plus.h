@@ -60,5 +60,6 @@
 #include "PERI_SMM.h"
 #include "PERI_SYSCON_AON.h"
 #include "PERI_TMR.h"
+#include "PERI_SLCD_CONTROL.h"
 
 #endif  /* #if !defined(MCXL255_cm0plus_H_) */

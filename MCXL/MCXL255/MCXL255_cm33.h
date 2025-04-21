@@ -91,5 +91,7 @@
 #include "PERI_UTICK.h"
 #include "PERI_WUU.h"
 #include "PERI_WWDT.h"
+#include "PERI_SLCD_CONTROL.h"
+#include "PERI_SLCD_FAULT_DETECT.h"
 
 #endif  /* #if !defined(MCXL255_cm33_H_) */

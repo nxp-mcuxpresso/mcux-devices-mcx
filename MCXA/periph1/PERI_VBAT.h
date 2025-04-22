@@ -32,13 +32,13 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241209
+**     Build:               b250414
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for VBAT
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -52,7 +52,7 @@
 */
 
 /*!
- * @file VBAT.h
+ * @file PERI_VBAT.h
  * @version 1.0
  * @date 2022-03-29
  * @brief CMSIS Peripheral Access Layer for VBAT
@@ -60,8 +60,8 @@
  * CMSIS Peripheral Access Layer for VBAT
  */
 
-#if !defined(VBAT_H_)
-#define VBAT_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_VBAT_H_)
+#define PERI_VBAT_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
@@ -257,5 +257,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* VBAT_H_ */
+#endif  /* PERI_VBAT_H_ */
 

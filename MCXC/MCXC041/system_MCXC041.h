@@ -11,7 +11,7 @@
 **
 **     Reference manual:    MCXC041RM, Rev.1, Mar 2024
 **     Version:             rev. 1.0, 2024-03-19
-**     Build:               b240403
+**     Build:               b240705
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

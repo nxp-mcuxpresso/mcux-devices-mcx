@@ -24,13 +24,13 @@
 **                          MCXA153VLH
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241017
+**     Build:               b250414
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SYSCON
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -44,7 +44,7 @@
 */
 
 /*!
- * @file SYSCON.h
+ * @file PERI_SYSCON.h
  * @version 1.0
  * @date 2022-03-29
  * @brief CMSIS Peripheral Access Layer for SYSCON
@@ -52,8 +52,8 @@
  * CMSIS Peripheral Access Layer for SYSCON
  */
 
-#if !defined(SYSCON_H_)
-#define SYSCON_H_                                /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_SYSCON_H_)
+#define PERI_SYSCON_H_                           /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXA132VFM) || defined(CPU_MCXA132VFT) || defined(CPU_MCXA132VLF))
 #include "MCXA132_COMMON.h"
@@ -888,5 +888,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* SYSCON_H_ */
+#endif  /* PERI_SYSCON_H_ */
 

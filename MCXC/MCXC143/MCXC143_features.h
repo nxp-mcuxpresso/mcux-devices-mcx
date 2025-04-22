@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-11
-**     Build:               b250321
+**     Build:               b250326
 **
 **     Abstract:
 **         Chip specific module features.

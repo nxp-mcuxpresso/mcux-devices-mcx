@@ -12,13 +12,13 @@
 **
 **     Reference manual:    MCXN23XRM
 **     Version:             rev. 1.0, 2023-10-01
-**     Build:               b241120
+**     Build:               b250331
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN236
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -823,6 +823,8 @@ typedef enum IRQn {
   /** Array initializer of EWM peripheral base pointers */
   #define EWM_BASE_PTRS                            { EWM0 }
 #endif
+/** Interrupt vectors for the EWM peripheral type */
+#define EWM_IRQS                                 { EWM0_IRQn }
 
 /* FLEXIO - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

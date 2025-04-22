@@ -32,13 +32,13 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241209
+**     Build:               b250414
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ERM
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -52,7 +52,7 @@
 */
 
 /*!
- * @file ERM.h
+ * @file PERI_ERM.h
  * @version 1.0
  * @date 2022-03-29
  * @brief CMSIS Peripheral Access Layer for ERM
@@ -60,8 +60,8 @@
  * CMSIS Peripheral Access Layer for ERM
  */
 
-#if !defined(ERM_H_)
-#define ERM_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_ERM_H_)
+#define PERI_ERM_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
@@ -323,5 +323,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* ERM_H_ */
+#endif  /* PERI_ERM_H_ */
 

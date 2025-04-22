@@ -10,13 +10,13 @@
 **                          MCXN236VPB
 **
 **     Version:             rev. 1.0, 2023-10-01
-**     Build:               b241120
+**     Build:               b250331
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPCMP
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -30,7 +30,7 @@
 */
 
 /*!
- * @file LPCMP.h
+ * @file PERI_LPCMP.h
  * @version 1.0
  * @date 2023-10-01
  * @brief CMSIS Peripheral Access Layer for LPCMP
@@ -38,8 +38,8 @@
  * CMSIS Peripheral Access Layer for LPCMP
  */
 
-#if !defined(LPCMP_H_)
-#define LPCMP_H_                                 /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_LPCMP_H_)
+#define PERI_LPCMP_H_                            /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXN235VDF) || defined(CPU_MCXN235VKL) || defined(CPU_MCXN235VNL) || defined(CPU_MCXN235VPB))
 #include "MCXN235_COMMON.h"
@@ -784,5 +784,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* LPCMP_H_ */
+#endif  /* PERI_LPCMP_H_ */
 

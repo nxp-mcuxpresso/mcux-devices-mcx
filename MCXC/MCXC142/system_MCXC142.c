@@ -9,7 +9,7 @@
 **
 **     Reference manual:    MCXC242RM, Rev.1, Mar 2024
 **     Version:             rev. 1.6, 2016-06-24
-**     Build:               b240516
+**     Build:               b240705
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

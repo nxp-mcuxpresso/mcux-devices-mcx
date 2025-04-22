@@ -4,11 +4,11 @@
 ;            MCXN547_cm33_core0
 ;  @version: 2.0
 ;  @date:    2023-2-1
-;  @build:   b241120
+;  @build:   b250331
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
-; Copyright 2016-2024 NXP
+; Copyright 2016-2025 NXP
 ; SPDX-License-Identifier: BSD-3-Clause
 ;
 ; The modules in this file are included in the libraries, and may be replaced
@@ -195,12 +195,12 @@ __vector_table_0x1c
         DCD     QDC0_HOME_IRQHandler                          ;QDC0_Home interrupt
         DCD     QDC0_WDG_SAB_IRQHandler                       ;QDC0_WDG_IRQ/SAB interrupt
         DCD     QDC0_IDX_IRQHandler                           ;QDC0_IDX interrupt
-        DCD     QDC1_COMPARE_IRQHandler                       ;QDC1_Compare interrupt
-        DCD     QDC1_HOME_IRQHandler                          ;QDC1_Home interrupt
-        DCD     QDC1_WDG_SAB_IRQHandler                       ;QDC1_WDG_IRQ/SAB interrupt
-        DCD     QDC1_IDX_IRQHandler                           ;QDC1_IDX interrupt
+        DCD     Reserved144_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved145_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved146_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved147_IRQHandler                        ;Reserved interrupt
         DCD     ITRC0_IRQHandler                              ;Intrusion and Tamper Response Controller interrupt
-        DCD     BSP32_IRQHandler                              ;CoolFlux BSP32 interrupt
+        DCD     Reserved149_IRQHandler                        ;Reserved interrupt
         DCD     ELS_ERR_IRQHandler                            ;ELS error interrupt
         DCD     PKC_ERR_IRQHandler                            ;PKC error interrupt
         DCD     ERM_SINGLE_BIT_ERROR_IRQHandler               ;ERM Single Bit error interrupt
@@ -1198,32 +1198,32 @@ QDC0_IDX_IRQHandler
         LDR     R0, =QDC0_IDX_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC1_COMPARE_IRQHandler
-        PUBWEAK QDC1_COMPARE_DriverIRQHandler
+        PUBWEAK Reserved144_IRQHandler
+        PUBWEAK Reserved144_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC1_COMPARE_IRQHandler
-        LDR     R0, =QDC1_COMPARE_DriverIRQHandler
+Reserved144_IRQHandler
+        LDR     R0, =Reserved144_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC1_HOME_IRQHandler
-        PUBWEAK QDC1_HOME_DriverIRQHandler
+        PUBWEAK Reserved145_IRQHandler
+        PUBWEAK Reserved145_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC1_HOME_IRQHandler
-        LDR     R0, =QDC1_HOME_DriverIRQHandler
+Reserved145_IRQHandler
+        LDR     R0, =Reserved145_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC1_WDG_SAB_IRQHandler
-        PUBWEAK QDC1_WDG_SAB_DriverIRQHandler
+        PUBWEAK Reserved146_IRQHandler
+        PUBWEAK Reserved146_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC1_WDG_SAB_IRQHandler
-        LDR     R0, =QDC1_WDG_SAB_DriverIRQHandler
+Reserved146_IRQHandler
+        LDR     R0, =Reserved146_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC1_IDX_IRQHandler
-        PUBWEAK QDC1_IDX_DriverIRQHandler
+        PUBWEAK Reserved147_IRQHandler
+        PUBWEAK Reserved147_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC1_IDX_IRQHandler
-        LDR     R0, =QDC1_IDX_DriverIRQHandler
+Reserved147_IRQHandler
+        LDR     R0, =Reserved147_DriverIRQHandler
         BX      R0
 
         PUBWEAK ITRC0_IRQHandler
@@ -1233,11 +1233,11 @@ ITRC0_IRQHandler
         LDR     R0, =ITRC0_DriverIRQHandler
         BX      R0
 
-        PUBWEAK BSP32_IRQHandler
-        PUBWEAK BSP32_DriverIRQHandler
+        PUBWEAK Reserved149_IRQHandler
+        PUBWEAK Reserved149_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-BSP32_IRQHandler
-        LDR     R0, =BSP32_DriverIRQHandler
+Reserved149_IRQHandler
+        LDR     R0, =Reserved149_DriverIRQHandler
         BX      R0
 
         PUBWEAK ELS_ERR_IRQHandler
@@ -1522,12 +1522,12 @@ QDC0_COMPARE_DriverIRQHandler
 QDC0_HOME_DriverIRQHandler
 QDC0_WDG_SAB_DriverIRQHandler
 QDC0_IDX_DriverIRQHandler
-QDC1_COMPARE_DriverIRQHandler
-QDC1_HOME_DriverIRQHandler
-QDC1_WDG_SAB_DriverIRQHandler
-QDC1_IDX_DriverIRQHandler
+Reserved144_DriverIRQHandler
+Reserved145_DriverIRQHandler
+Reserved146_DriverIRQHandler
+Reserved147_DriverIRQHandler
 ITRC0_DriverIRQHandler
-BSP32_DriverIRQHandler
+Reserved149_DriverIRQHandler
 ELS_ERR_DriverIRQHandler
 PKC_ERR_DriverIRQHandler
 ERM_SINGLE_BIT_ERROR_DriverIRQHandler

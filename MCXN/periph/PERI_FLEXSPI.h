@@ -34,7 +34,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 2.0, 2023-02-01
-**     Build:               b250109
+**     Build:               b250331
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FLEXSPI
@@ -56,7 +56,7 @@
 */
 
 /*!
- * @file FLEXSPI.h
+ * @file PERI_FLEXSPI.h
  * @version 2.0
  * @date 2023-02-01
  * @brief CMSIS Peripheral Access Layer for FLEXSPI
@@ -64,8 +64,8 @@
  * CMSIS Peripheral Access Layer for FLEXSPI
  */
 
-#if !defined(FLEXSPI_H_)
-#define FLEXSPI_H_                               /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_FLEXSPI_H_)
+#define PERI_FLEXSPI_H_                          /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXN546VDF_cm33_core0) || defined(CPU_MCXN546VKL_cm33_core0) || defined(CPU_MCXN546VNL_cm33_core0) || defined(CPU_MCXN546VPB_cm33_core0))
 #include "MCXN546_cm33_core0_COMMON.h"
@@ -2246,5 +2246,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* FLEXSPI_H_ */
+#endif  /* PERI_FLEXSPI_H_ */
 

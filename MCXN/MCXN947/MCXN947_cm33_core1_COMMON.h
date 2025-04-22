@@ -12,13 +12,13 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 2.0, 2023-02-01
-**     Build:               b241120
+**     Build:               b250331
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN947_cm33_core1
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -148,7 +148,7 @@ typedef enum IRQn {
   Reserved80_IRQn              = 64,               /**< Reserved interrupt */
   Reserved81_IRQn              = 65,               /**< Reserved interrupt */
   USB1_HS_PHY_IRQn             = 66,               /**< USBHS DCD or USBHS Phy interrupt */
-  USB1_HS_IRQn                 = 67,               /**< USB High Speed OTG Controller interrupt  */
+  USB1_HS_IRQn                 = 67,               /**< USB High Speed OTG Controller interrupt */
   SEC_HYPERVISOR_CALL_IRQn     = 68,               /**< AHB Secure Controller hypervisor call interrupt */
   Reserved85_IRQn              = 69,               /**< Reserved interrupt */
   PLU_IRQn                     = 70,               /**< Programmable Logic Unit interrupt */
@@ -1010,6 +1010,8 @@ typedef enum IRQn {
   /** Array initializer of EWM peripheral base pointers */
   #define EWM_BASE_PTRS                            { EWM0 }
 #endif
+/** Interrupt vectors for the EWM peripheral type */
+#define EWM_IRQS                                 { EWM0_IRQn }
 
 /* FLEXIO - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))

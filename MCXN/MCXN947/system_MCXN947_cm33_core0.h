@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 2.0, 2023-02-01
-**     Build:               b250206
+**     Build:               b250331
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

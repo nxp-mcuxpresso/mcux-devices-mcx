@@ -9,7 +9,7 @@
 **
 **     Reference manual:    MCXC444RM, Rev.1, Mar 2024
 **     Version:             rev. 1.0, 2024-03-11
-**     Build:               b240401
+**     Build:               b240705
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

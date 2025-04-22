@@ -12,13 +12,13 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 2.0, 2023-02-01
-**     Build:               b241120
+**     Build:               b250331
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN946_cm33_core1
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -129,7 +129,7 @@ typedef enum IRQn {
   ADC0_IRQn                    = 45,               /**< Analog-to-Digital Converter 0 - General Purpose interrupt */
   ADC1_IRQn                    = 46,               /**< Analog-to-Digital Converter 1 - General Purpose interrupt */
   PINT0_IRQn                   = 47,               /**< Pin Interrupt Pattern Match Interrupt */
-  PDM_EVENT_IRQn               = 48,               /**< Microphone Interface interrupt */
+  Reserved64_IRQn              = 48,               /**< Reserved interrupt */
   Reserved65_IRQn              = 49,               /**< Reserved interrupt */
   USB0_FS_IRQn                 = 50,               /**< Universal Serial Bus - Full Speed interrupt */
   USB0_DCD_IRQn                = 51,               /**< Universal Serial Bus - Device Charge Detect interrupt */
@@ -142,13 +142,13 @@ typedef enum IRQn {
   FLEXSPI0_IRQn                = 58,               /**< Flexible Serial Peripheral Interface interrupt */
   SAI0_IRQn                    = 59,               /**< Serial Audio Interface 0 interrupt */
   SAI1_IRQn                    = 60,               /**< Serial Audio Interface 1 interrupt */
-  USDHC0_IRQn                  = 61,               /**< Ultra Secured Digital Host Controller interrupt */
+  Reserved77_IRQn              = 61,               /**< Reserved interrupt */
   CAN0_IRQn                    = 62,               /**< Controller Area Network 0 interrupt */
   CAN1_IRQn                    = 63,               /**< Controller Area Network 1 interrupt */
   Reserved80_IRQn              = 64,               /**< Reserved interrupt */
   Reserved81_IRQn              = 65,               /**< Reserved interrupt */
   USB1_HS_PHY_IRQn             = 66,               /**< USBHS DCD or USBHS Phy interrupt */
-  USB1_HS_IRQn                 = 67,               /**< USB High Speed OTG Controller interrupt  */
+  USB1_HS_IRQn                 = 67,               /**< USB High Speed OTG Controller interrupt */
   SEC_HYPERVISOR_CALL_IRQn     = 68,               /**< AHB Secure Controller hypervisor call interrupt */
   Reserved85_IRQn              = 69,               /**< Reserved interrupt */
   PLU_IRQn                     = 70,               /**< Programmable Logic Unit interrupt */
@@ -182,10 +182,10 @@ typedef enum IRQn {
   GDET_IRQn                    = 98,               /**< Digital Glitch Detect 0 interrupt  or Digital Glitch Detect 1 interrupt */
   VBAT0_IRQn                   = 99,               /**< VBAT interrupt( VBAT interrupt or digital tamper interrupt) */
   EWM0_IRQn                    = 100,              /**< External Watchdog Monitor interrupt */
-  TSI_END_OF_SCAN_IRQn         = 101,              /**< TSI End of Scan interrupt */
-  TSI_OUT_OF_SCAN_IRQn         = 102,              /**< TSI Out of Scan interrupt */
-  EMVSIM0_IRQn                 = 103,              /**< EMVSIM0 interrupt */
-  EMVSIM1_IRQn                 = 104,              /**< EMVSIM1 interrupt */
+  Reserved117_IRQn             = 101,              /**< Reserved interrupt */
+  Reserved118_IRQn             = 102,              /**< Reserved interrupt */
+  Reserved119_IRQn             = 103,              /**< Reserved interrupt */
+  Reserved120_IRQn             = 104,              /**< Reserved interrupt */
   FLEXIO_IRQn                  = 105,              /**< Flexible Input/Output interrupt */
   DAC0_IRQn                    = 106,              /**< Digital-to-Analog Converter 0 - General Purpose interrupt */
   DAC1_IRQn                    = 107,              /**< Digital-to-Analog Converter 1 - General Purpose interrupt */
@@ -967,6 +967,8 @@ typedef enum IRQn {
   /** Array initializer of EWM peripheral base pointers */
   #define EWM_BASE_PTRS                            { EWM0 }
 #endif
+/** Interrupt vectors for the EWM peripheral type */
+#define EWM_IRQS                                 { EWM0_IRQn }
 
 /* FLEXIO - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))

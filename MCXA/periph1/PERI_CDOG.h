@@ -32,13 +32,13 @@
 **                          MCXA156VPJ
 **
 **     Version:             rev. 1.0, 2022-03-29
-**     Build:               b241209
+**     Build:               b250414
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CDOG
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -52,7 +52,7 @@
 */
 
 /*!
- * @file CDOG.h
+ * @file PERI_CDOG.h
  * @version 1.0
  * @date 2022-03-29
  * @brief CMSIS Peripheral Access Layer for CDOG
@@ -60,8 +60,8 @@
  * CMSIS Peripheral Access Layer for CDOG
  */
 
-#if !defined(CDOG_H_)
-#define CDOG_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_CDOG_H_)
+#define PERI_CDOG_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXA144VFT) || defined(CPU_MCXA144VLH) || defined(CPU_MCXA144VLL) || defined(CPU_MCXA144VMP) || defined(CPU_MCXA144VPJ))
 #include "MCXA144_COMMON.h"
@@ -495,5 +495,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* CDOG_H_ */
+#endif  /* PERI_CDOG_H_ */
 

@@ -4,11 +4,11 @@
 /*            MCXN946_cm33_core0                                             */
 /*  @version: 2.0                                                            */
 /*  @date:    2023-2-1                                                       */
-/*  @build:   b241120                                                        */
+/*  @build:   b250331                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
-/* Copyright 2016-2024 NXP                                                   */
+/* Copyright 2016-2025 NXP                                                   */
 /* SPDX-License-Identifier: BSD-3-Clause                                     */
 /*****************************************************************************/
 /* Version: GCC for ARM Embedded Processors                                  */
@@ -87,7 +87,7 @@ __Vectors:
     .long   ADC0_IRQHandler                                 /* Analog-to-Digital Converter 0 - General Purpose interrupt*/
     .long   ADC1_IRQHandler                                 /* Analog-to-Digital Converter 1 - General Purpose interrupt*/
     .long   PINT0_IRQHandler                                /* Pin Interrupt Pattern Match Interrupt*/
-    .long   PDM_EVENT_IRQHandler                            /* Microphone Interface interrupt*/
+    .long   Reserved64_IRQHandler                           /* Reserved interrupt*/
     .long   Reserved65_IRQHandler                           /* Reserved interrupt*/
     .long   USB0_FS_IRQHandler                              /* Universal Serial Bus - Full Speed interrupt*/
     .long   USB0_DCD_IRQHandler                             /* Universal Serial Bus - Device Charge Detect interrupt*/
@@ -100,13 +100,13 @@ __Vectors:
     .long   FLEXSPI0_IRQHandler                             /* Flexible Serial Peripheral Interface interrupt*/
     .long   SAI0_IRQHandler                                 /* Serial Audio Interface 0 interrupt*/
     .long   SAI1_IRQHandler                                 /* Serial Audio Interface 1 interrupt*/
-    .long   USDHC0_IRQHandler                               /* Ultra Secured Digital Host Controller interrupt*/
+    .long   Reserved77_IRQHandler                           /* Reserved interrupt*/
     .long   CAN0_IRQHandler                                 /* Controller Area Network 0 interrupt*/
     .long   CAN1_IRQHandler                                 /* Controller Area Network 1 interrupt*/
     .long   Reserved80_IRQHandler                           /* Reserved interrupt*/
     .long   Reserved81_IRQHandler                           /* Reserved interrupt*/
     .long   USB1_HS_PHY_IRQHandler                          /* USBHS DCD or USBHS Phy interrupt*/
-    .long   USB1_HS_IRQHandler                              /* USB High Speed OTG Controller interrupt */
+    .long   USB1_HS_IRQHandler                              /* USB High Speed OTG Controller interrupt*/
     .long   SEC_HYPERVISOR_CALL_IRQHandler                  /* AHB Secure Controller hypervisor call interrupt*/
     .long   Reserved85_IRQHandler                           /* Reserved interrupt*/
     .long   PLU_IRQHandler                                  /* Programmable Logic Unit interrupt*/
@@ -140,10 +140,10 @@ __Vectors:
     .long   GDET_IRQHandler                                 /* Digital Glitch Detect 0 interrupt  or Digital Glitch Detect 1 interrupt*/
     .long   VBAT0_IRQHandler                                /* VBAT interrupt( VBAT interrupt or digital tamper interrupt)*/
     .long   EWM0_IRQHandler                                 /* External Watchdog Monitor interrupt*/
-    .long   TSI_END_OF_SCAN_IRQHandler                      /* TSI End of Scan interrupt*/
-    .long   TSI_OUT_OF_SCAN_IRQHandler                      /* TSI Out of Scan interrupt*/
-    .long   EMVSIM0_IRQHandler                              /* EMVSIM0 interrupt*/
-    .long   EMVSIM1_IRQHandler                              /* EMVSIM1 interrupt*/
+    .long   Reserved117_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved118_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved119_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved120_IRQHandler                          /* Reserved interrupt*/
     .long   FLEXIO_IRQHandler                               /* Flexible Input/Output interrupt*/
     .long   DAC0_IRQHandler                                 /* Digital-to-Analog Converter 0 - General Purpose interrupt*/
     .long   DAC1_IRQHandler                                 /* Digital-to-Analog Converter 1 - General Purpose interrupt*/
@@ -713,12 +713,12 @@ PINT0_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak PDM_EVENT_IRQHandler
-    .type PDM_EVENT_IRQHandler, %function
-PDM_EVENT_IRQHandler:
-    ldr   r0,=PDM_EVENT_DriverIRQHandler
+    .weak Reserved64_IRQHandler
+    .type Reserved64_IRQHandler, %function
+Reserved64_IRQHandler:
+    ldr   r0,=Reserved64_DriverIRQHandler
     bx    r0
-    .size PDM_EVENT_IRQHandler, . - PDM_EVENT_IRQHandler
+    .size Reserved64_IRQHandler, . - Reserved64_IRQHandler
 
     .align 1
     .thumb_func
@@ -830,12 +830,12 @@ SAI1_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak USDHC0_IRQHandler
-    .type USDHC0_IRQHandler, %function
-USDHC0_IRQHandler:
-    ldr   r0,=USDHC0_DriverIRQHandler
+    .weak Reserved77_IRQHandler
+    .type Reserved77_IRQHandler, %function
+Reserved77_IRQHandler:
+    ldr   r0,=Reserved77_DriverIRQHandler
     bx    r0
-    .size USDHC0_IRQHandler, . - USDHC0_IRQHandler
+    .size Reserved77_IRQHandler, . - Reserved77_IRQHandler
 
     .align 1
     .thumb_func
@@ -1190,39 +1190,39 @@ EWM0_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak TSI_END_OF_SCAN_IRQHandler
-    .type TSI_END_OF_SCAN_IRQHandler, %function
-TSI_END_OF_SCAN_IRQHandler:
-    ldr   r0,=TSI_END_OF_SCAN_DriverIRQHandler
+    .weak Reserved117_IRQHandler
+    .type Reserved117_IRQHandler, %function
+Reserved117_IRQHandler:
+    ldr   r0,=Reserved117_DriverIRQHandler
     bx    r0
-    .size TSI_END_OF_SCAN_IRQHandler, . - TSI_END_OF_SCAN_IRQHandler
+    .size Reserved117_IRQHandler, . - Reserved117_IRQHandler
 
     .align 1
     .thumb_func
-    .weak TSI_OUT_OF_SCAN_IRQHandler
-    .type TSI_OUT_OF_SCAN_IRQHandler, %function
-TSI_OUT_OF_SCAN_IRQHandler:
-    ldr   r0,=TSI_OUT_OF_SCAN_DriverIRQHandler
+    .weak Reserved118_IRQHandler
+    .type Reserved118_IRQHandler, %function
+Reserved118_IRQHandler:
+    ldr   r0,=Reserved118_DriverIRQHandler
     bx    r0
-    .size TSI_OUT_OF_SCAN_IRQHandler, . - TSI_OUT_OF_SCAN_IRQHandler
+    .size Reserved118_IRQHandler, . - Reserved118_IRQHandler
 
     .align 1
     .thumb_func
-    .weak EMVSIM0_IRQHandler
-    .type EMVSIM0_IRQHandler, %function
-EMVSIM0_IRQHandler:
-    ldr   r0,=EMVSIM0_DriverIRQHandler
+    .weak Reserved119_IRQHandler
+    .type Reserved119_IRQHandler, %function
+Reserved119_IRQHandler:
+    ldr   r0,=Reserved119_DriverIRQHandler
     bx    r0
-    .size EMVSIM0_IRQHandler, . - EMVSIM0_IRQHandler
+    .size Reserved119_IRQHandler, . - Reserved119_IRQHandler
 
     .align 1
     .thumb_func
-    .weak EMVSIM1_IRQHandler
-    .type EMVSIM1_IRQHandler, %function
-EMVSIM1_IRQHandler:
-    ldr   r0,=EMVSIM1_DriverIRQHandler
+    .weak Reserved120_IRQHandler
+    .type Reserved120_IRQHandler, %function
+Reserved120_IRQHandler:
+    ldr   r0,=Reserved120_DriverIRQHandler
     bx    r0
-    .size EMVSIM1_IRQHandler, . - EMVSIM1_IRQHandler
+    .size Reserved120_IRQHandler, . - Reserved120_IRQHandler
 
     .align 1
     .thumb_func
@@ -1746,7 +1746,7 @@ CTI0_IRQHandler:
     def_irq_handler    ADC0_DriverIRQHandler
     def_irq_handler    ADC1_DriverIRQHandler
     def_irq_handler    PINT0_DriverIRQHandler
-    def_irq_handler    PDM_EVENT_DriverIRQHandler
+    def_irq_handler    Reserved64_DriverIRQHandler
     def_irq_handler    Reserved65_DriverIRQHandler
     def_irq_handler    USB0_FS_DriverIRQHandler
     def_irq_handler    USB0_DCD_DriverIRQHandler
@@ -1759,7 +1759,7 @@ CTI0_IRQHandler:
     def_irq_handler    FLEXSPI0_DriverIRQHandler
     def_irq_handler    SAI0_DriverIRQHandler
     def_irq_handler    SAI1_DriverIRQHandler
-    def_irq_handler    USDHC0_DriverIRQHandler
+    def_irq_handler    Reserved77_DriverIRQHandler
     def_irq_handler    CAN0_DriverIRQHandler
     def_irq_handler    CAN1_DriverIRQHandler
     def_irq_handler    Reserved80_DriverIRQHandler
@@ -1799,10 +1799,10 @@ CTI0_IRQHandler:
     def_irq_handler    GDET_DriverIRQHandler
     def_irq_handler    VBAT0_DriverIRQHandler
     def_irq_handler    EWM0_DriverIRQHandler
-    def_irq_handler    TSI_END_OF_SCAN_DriverIRQHandler
-    def_irq_handler    TSI_OUT_OF_SCAN_DriverIRQHandler
-    def_irq_handler    EMVSIM0_DriverIRQHandler
-    def_irq_handler    EMVSIM1_DriverIRQHandler
+    def_irq_handler    Reserved117_DriverIRQHandler
+    def_irq_handler    Reserved118_DriverIRQHandler
+    def_irq_handler    Reserved119_DriverIRQHandler
+    def_irq_handler    Reserved120_DriverIRQHandler
     def_irq_handler    FLEXIO_DriverIRQHandler
     def_irq_handler    DAC0_DriverIRQHandler
     def_irq_handler    DAC1_DriverIRQHandler

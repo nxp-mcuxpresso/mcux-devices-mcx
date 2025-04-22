@@ -4,11 +4,11 @@
 /*            MCXN947_cm33_core0                                             */
 /*  @version: 2.0                                                            */
 /*  @date:    2023-2-1                                                       */
-/*  @build:   b241120                                                        */
+/*  @build:   b250331                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
-/* Copyright 2016-2024 NXP                                                   */
+/* Copyright 2016-2025 NXP                                                   */
 /* SPDX-License-Identifier: BSD-3-Clause                                     */
 /*****************************************************************************/
 /* Version: GCC for ARM Embedded Processors                                  */
@@ -105,7 +105,7 @@ __Vectors:
     .long   Reserved80_IRQHandler                           /* Reserved interrupt*/
     .long   Reserved81_IRQHandler                           /* Reserved interrupt*/
     .long   USB1_HS_PHY_IRQHandler                          /* USBHS DCD or USBHS Phy interrupt*/
-    .long   USB1_HS_IRQHandler                              /* USB High Speed OTG Controller interrupt */
+    .long   USB1_HS_IRQHandler                              /* USB High Speed OTG Controller interrupt*/
     .long   SEC_HYPERVISOR_CALL_IRQHandler                  /* AHB Secure Controller hypervisor call interrupt*/
     .long   Reserved85_IRQHandler                           /* Reserved interrupt*/
     .long   PLU_IRQHandler                                  /* Programmable Logic Unit interrupt*/

@@ -4,11 +4,11 @@
 /*            MCXN547_cm33_core1                                             */
 /*  @version: 2.0                                                            */
 /*  @date:    2023-2-1                                                       */
-/*  @build:   b241120                                                        */
+/*  @build:   b250331                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
-/* Copyright 2016-2024 NXP                                                   */
+/* Copyright 2016-2025 NXP                                                   */
 /* SPDX-License-Identifier: BSD-3-Clause                                     */
 /*****************************************************************************/
 /* Version: GCC for ARM Embedded Processors                                  */
@@ -105,7 +105,7 @@ __Vectors:
     .long   Reserved80_IRQHandler                           /* Reserved interrupt*/
     .long   Reserved81_IRQHandler                           /* Reserved interrupt*/
     .long   USB1_HS_PHY_IRQHandler                          /* USBHS DCD or USBHS Phy interrupt*/
-    .long   USB1_HS_IRQHandler                              /* USB High Speed OTG Controller interrupt */
+    .long   USB1_HS_IRQHandler                              /* USB High Speed OTG Controller interrupt*/
     .long   SEC_HYPERVISOR_CALL_IRQHandler                  /* AHB Secure Controller hypervisor call interrupt*/
     .long   Reserved85_IRQHandler                           /* Reserved interrupt*/
     .long   PLU_IRQHandler                                  /* Programmable Logic Unit interrupt*/
@@ -166,12 +166,12 @@ __Vectors:
     .long   QDC0_HOME_IRQHandler                            /* QDC0_Home interrupt*/
     .long   QDC0_WDG_SAB_IRQHandler                         /* QDC0_WDG_IRQ/SAB interrupt*/
     .long   QDC0_IDX_IRQHandler                             /* QDC0_IDX interrupt*/
-    .long   QDC1_COMPARE_IRQHandler                         /* QDC1_Compare interrupt*/
-    .long   QDC1_HOME_IRQHandler                            /* QDC1_Home interrupt*/
-    .long   QDC1_WDG_SAB_IRQHandler                         /* QDC1_WDG_IRQ/SAB interrupt*/
-    .long   QDC1_IDX_IRQHandler                             /* QDC1_IDX interrupt*/
+    .long   Reserved144_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved145_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved146_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved147_IRQHandler                          /* Reserved interrupt*/
     .long   ITRC0_IRQHandler                                /* Intrusion and Tamper Response Controller interrupt*/
-    .long   BSP32_IRQHandler                                /* CoolFlux BSP32 interrupt*/
+    .long   Reserved149_IRQHandler                          /* Reserved interrupt*/
     .long   ELS_ERR_IRQHandler                              /* ELS error interrupt*/
     .long   PKC_ERR_IRQHandler                              /* PKC error interrupt*/
     .long   ERM_SINGLE_BIT_ERROR_IRQHandler                 /* ERM Single Bit error interrupt*/
@@ -1515,39 +1515,39 @@ QDC0_IDX_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak QDC1_COMPARE_IRQHandler
-    .type QDC1_COMPARE_IRQHandler, %function
-QDC1_COMPARE_IRQHandler:
-    ldr   r0,=QDC1_COMPARE_DriverIRQHandler
+    .weak Reserved144_IRQHandler
+    .type Reserved144_IRQHandler, %function
+Reserved144_IRQHandler:
+    ldr   r0,=Reserved144_DriverIRQHandler
     bx    r0
-    .size QDC1_COMPARE_IRQHandler, . - QDC1_COMPARE_IRQHandler
+    .size Reserved144_IRQHandler, . - Reserved144_IRQHandler
 
     .align 1
     .thumb_func
-    .weak QDC1_HOME_IRQHandler
-    .type QDC1_HOME_IRQHandler, %function
-QDC1_HOME_IRQHandler:
-    ldr   r0,=QDC1_HOME_DriverIRQHandler
+    .weak Reserved145_IRQHandler
+    .type Reserved145_IRQHandler, %function
+Reserved145_IRQHandler:
+    ldr   r0,=Reserved145_DriverIRQHandler
     bx    r0
-    .size QDC1_HOME_IRQHandler, . - QDC1_HOME_IRQHandler
+    .size Reserved145_IRQHandler, . - Reserved145_IRQHandler
 
     .align 1
     .thumb_func
-    .weak QDC1_WDG_SAB_IRQHandler
-    .type QDC1_WDG_SAB_IRQHandler, %function
-QDC1_WDG_SAB_IRQHandler:
-    ldr   r0,=QDC1_WDG_SAB_DriverIRQHandler
+    .weak Reserved146_IRQHandler
+    .type Reserved146_IRQHandler, %function
+Reserved146_IRQHandler:
+    ldr   r0,=Reserved146_DriverIRQHandler
     bx    r0
-    .size QDC1_WDG_SAB_IRQHandler, . - QDC1_WDG_SAB_IRQHandler
+    .size Reserved146_IRQHandler, . - Reserved146_IRQHandler
 
     .align 1
     .thumb_func
-    .weak QDC1_IDX_IRQHandler
-    .type QDC1_IDX_IRQHandler, %function
-QDC1_IDX_IRQHandler:
-    ldr   r0,=QDC1_IDX_DriverIRQHandler
+    .weak Reserved147_IRQHandler
+    .type Reserved147_IRQHandler, %function
+Reserved147_IRQHandler:
+    ldr   r0,=Reserved147_DriverIRQHandler
     bx    r0
-    .size QDC1_IDX_IRQHandler, . - QDC1_IDX_IRQHandler
+    .size Reserved147_IRQHandler, . - Reserved147_IRQHandler
 
     .align 1
     .thumb_func
@@ -1560,12 +1560,12 @@ ITRC0_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak BSP32_IRQHandler
-    .type BSP32_IRQHandler, %function
-BSP32_IRQHandler:
-    ldr   r0,=BSP32_DriverIRQHandler
+    .weak Reserved149_IRQHandler
+    .type Reserved149_IRQHandler, %function
+Reserved149_IRQHandler:
+    ldr   r0,=Reserved149_DriverIRQHandler
     bx    r0
-    .size BSP32_IRQHandler, . - BSP32_IRQHandler
+    .size Reserved149_IRQHandler, . - Reserved149_IRQHandler
 
     .align 1
     .thumb_func
@@ -1907,12 +1907,12 @@ CTI0_IRQHandler:
     def_irq_handler    QDC0_HOME_DriverIRQHandler
     def_irq_handler    QDC0_WDG_SAB_DriverIRQHandler
     def_irq_handler    QDC0_IDX_DriverIRQHandler
-    def_irq_handler    QDC1_COMPARE_DriverIRQHandler
-    def_irq_handler    QDC1_HOME_DriverIRQHandler
-    def_irq_handler    QDC1_WDG_SAB_DriverIRQHandler
-    def_irq_handler    QDC1_IDX_DriverIRQHandler
+    def_irq_handler    Reserved144_DriverIRQHandler
+    def_irq_handler    Reserved145_DriverIRQHandler
+    def_irq_handler    Reserved146_DriverIRQHandler
+    def_irq_handler    Reserved147_DriverIRQHandler
     def_irq_handler    ITRC0_DriverIRQHandler
-    def_irq_handler    BSP32_DriverIRQHandler
+    def_irq_handler    Reserved149_DriverIRQHandler
     def_irq_handler    ELS_ERR_DriverIRQHandler
     def_irq_handler    PKC_ERR_DriverIRQHandler
     def_irq_handler    ERM_SINGLE_BIT_ERROR_DriverIRQHandler

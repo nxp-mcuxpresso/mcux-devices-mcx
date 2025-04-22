@@ -119,7 +119,7 @@ typedef enum _SYSCON_RSTn
     } /* Reset bits for GPIO peripheral */
 #define INPUTMUX_RSTS             \
     {                             \
-        kINPUTMUX0_RST_SHIFT_RSTn \
+        kINPUTMUX0_RST_SHIFT_RSTn, NotAvail_RSTn \
     } /* Reset bits for INPUTMUX peripheral */
 #define LPUART_RSTS                                      \
     {                                                    \

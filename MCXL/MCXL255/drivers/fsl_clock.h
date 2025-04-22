@@ -121,7 +121,9 @@ typedef enum _clock_ip_name
     kCLOCK_GateTCU           = ((0x4U << 16U) | (0x10U << 8U) | (7U)), /*!< Clock gate name: TCU            */
     kCLOCK_GateTRNG0         = ((0x4U << 16U) | (0x10U << 8U) | (8U)), /*!< Clock gate name: TRNG0          */
     kCLOCK_GateUDF0          = ((0x4U << 16U) | (0x10U << 8U) | (9U)), /*!< Clock gate name: UDF0           */
-
+#else
+    kCLOCK_InputMux          = (0xFFFFFFFFU),                         /*!< Clock gate name: AON__INPUTMUX1 - not available */
+    kCLOCK_GateINPUTMUX0     = (0xFFFFFFFFU),                         /*!< Clock gate name: AON__INPUTMUX1 - not available */
 #endif /* Building on the main core */
 
     /* Check AON CGU PER_CLK_EN in RM */

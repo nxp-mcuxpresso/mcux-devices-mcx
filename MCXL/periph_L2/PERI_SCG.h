@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250422
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SCG
@@ -107,30 +107,26 @@ typedef struct {
        uint8_t RESERVED_0[4];
   __I  uint32_t CSR;                               /**< Clock Status Register, offset: 0x10 */
   __IO uint32_t RCCR;                              /**< Run Clock Control Register, offset: 0x14 */
-       uint8_t RESERVED_1[232];
-  __IO uint32_t SOSCCSR;                           /**< SOSC Control Status Register, offset: 0x100 */
-       uint8_t RESERVED_2[4];
-  __IO uint32_t SOSCCFG;                           /**< SOSC Configuration Register, offset: 0x108 */
-       uint8_t RESERVED_3[244];
+       uint8_t RESERVED_1[488];
   __IO uint32_t SIRCCSR;                           /**< SIRC Control Status Register, offset: 0x200 */
-       uint8_t RESERVED_4[8];
+       uint8_t RESERVED_2[8];
   __IO uint32_t SIRCTCFG;                          /**< SIRC Trim Configuration Register, offset: 0x20C */
   __IO uint32_t SIRCTRIM;                          /**< SIRC Trim Register, offset: 0x210 */
-       uint8_t RESERVED_5[4];
+       uint8_t RESERVED_3[4];
   __IO uint32_t SIRCSTAT;                          /**< SIRC Auto-trimming Status Register, offset: 0x218 */
-       uint8_t RESERVED_6[228];
+       uint8_t RESERVED_4[228];
   __IO uint32_t FIRCCSR;                           /**< FIRC Control Status Register, offset: 0x300 */
-       uint8_t RESERVED_7[4];
+       uint8_t RESERVED_5[4];
   __IO uint32_t FIRCCFG;                           /**< FIRC Configuration Register, offset: 0x308 */
   __IO uint32_t FIRCTCFG;                          /**< FIRC Trim Configuration Register, offset: 0x30C */
   __IO uint32_t FIRCTRIM;                          /**< FIRC Trim Register, offset: 0x310 */
-       uint8_t RESERVED_8[4];
+       uint8_t RESERVED_6[4];
   __IO uint32_t FIRCSTAT;                          /**< FIRC Auto-trimming Status Register, offset: 0x318 */
-       uint8_t RESERVED_9[228];
+       uint8_t RESERVED_7[228];
   __IO uint32_t ROSCCSR;                           /**< ROSC Control Status Register, offset: 0x400 */
-       uint8_t RESERVED_10[60];
+       uint8_t RESERVED_8[60];
   __IO uint32_t PMUIRCCSR;                         /**< PMUIRCCSR Control Status Register, offset: 0x440 */
-       uint8_t RESERVED_11[60];
+       uint8_t RESERVED_9[60];
   __IO uint32_t LPIRCCSR;                          /**< LPIRCCSR Control Status Register, offset: 0x480 */
 } SCG_Type;
 
@@ -154,14 +150,6 @@ typedef struct {
 
 /*! @name PARAM - Parameter Register */
 /*! @{ */
-
-#define SCG_PARAM_SOSCCLKPRES_MASK               (0x2U)
-#define SCG_PARAM_SOSCCLKPRES_SHIFT              (1U)
-/*! SOSCCLKPRES - SOSC Clock Present
- *  0b0..SOSC clock source is not present
- *  0b1..SOSC clock source is present
- */
-#define SCG_PARAM_SOSCCLKPRES(x)                 (((uint32_t)(((uint32_t)(x)) << SCG_PARAM_SOSCCLKPRES_SHIFT)) & SCG_PARAM_SOSCCLKPRES_MASK)
 
 #define SCG_PARAM_SIRCCLKPRES_MASK               (0x4U)
 #define SCG_PARAM_SIRCCLKPRES_SHIFT              (2U)
@@ -235,7 +223,6 @@ typedef struct {
 #define SCG_CSR_SCS_MASK                         (0xF000000U)
 #define SCG_CSR_SCS_SHIFT                        (24U)
 /*! SCS - System Clock Source
- *  0b0001..SOSC
  *  0b0010..SIRC
  *  0b0011..FIRC
  *  0b0100..ROSC
@@ -251,7 +238,6 @@ typedef struct {
 #define SCG_RCCR_SCS_MASK                        (0xF000000U)
 #define SCG_RCCR_SCS_SHIFT                       (24U)
 /*! SCS - System Clock Source
- *  0b0001..SOSC
  *  0b0010..SIRC
  *  0b0011..FIRC
  *  0b0100..ROSC
@@ -259,104 +245,6 @@ typedef struct {
  *  0b1010..LPIRC
  */
 #define SCG_RCCR_SCS(x)                          (((uint32_t)(((uint32_t)(x)) << SCG_RCCR_SCS_SHIFT)) & SCG_RCCR_SCS_MASK)
-/*! @} */
-
-/*! @name SOSCCSR - SOSC Control Status Register */
-/*! @{ */
-
-#define SCG_SOSCCSR_SOSCEN_MASK                  (0x1U)
-#define SCG_SOSCCSR_SOSCEN_SHIFT                 (0U)
-/*! SOSCEN - SOSC Enable
- *  0b0..SOSC is disabled
- *  0b1..SOSC is enabled
- */
-#define SCG_SOSCCSR_SOSCEN(x)                    (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCSR_SOSCEN_SHIFT)) & SCG_SOSCCSR_SOSCEN_MASK)
-
-#define SCG_SOSCCSR_SOSCSTEN_MASK                (0x2U)
-#define SCG_SOSCCSR_SOSCSTEN_SHIFT               (1U)
-/*! SOSCSTEN - SOSC Stop Enable
- *  0b0..SOSC is disabled in Deep Sleep mode
- *  0b1..SOSC is enabled in Deep Sleep mode only if SOSCEN is set
- */
-#define SCG_SOSCCSR_SOSCSTEN(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCSR_SOSCSTEN_SHIFT)) & SCG_SOSCCSR_SOSCSTEN_MASK)
-
-#define SCG_SOSCCSR_SOSCCM_MASK                  (0x10000U)
-#define SCG_SOSCCSR_SOSCCM_SHIFT                 (16U)
-/*! SOSCCM - SOSC Clock Monitor Enable
- *  0b0..SOSC Clock Monitor is disabled
- *  0b1..SOSC Clock Monitor is enabled
- */
-#define SCG_SOSCCSR_SOSCCM(x)                    (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCSR_SOSCCM_SHIFT)) & SCG_SOSCCSR_SOSCCM_MASK)
-
-#define SCG_SOSCCSR_SOSCCMRE_MASK                (0x20000U)
-#define SCG_SOSCCSR_SOSCCMRE_SHIFT               (17U)
-/*! SOSCCMRE - SOSC Clock Monitor Reset Enable
- *  0b0..Clock monitor generates an interrupt when an error is detected
- *  0b1..Clock monitor generates a reset when an error is detected
- */
-#define SCG_SOSCCSR_SOSCCMRE(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCSR_SOSCCMRE_SHIFT)) & SCG_SOSCCSR_SOSCCMRE_MASK)
-
-#define SCG_SOSCCSR_LK_MASK                      (0x800000U)
-#define SCG_SOSCCSR_LK_SHIFT                     (23U)
-/*! LK - Lock Register
- *  0b0..This Control Status Register can be written
- *  0b1..This Control Status Register cannot be written
- */
-#define SCG_SOSCCSR_LK(x)                        (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCSR_LK_SHIFT)) & SCG_SOSCCSR_LK_MASK)
-
-#define SCG_SOSCCSR_SOSCVLD_MASK                 (0x1000000U)
-#define SCG_SOSCCSR_SOSCVLD_SHIFT                (24U)
-/*! SOSCVLD - SOSC Valid
- *  0b0..SOSC is not enabled or clock is not valid
- *  0b1..SOSC is enabled and output clock is valid
- */
-#define SCG_SOSCCSR_SOSCVLD(x)                   (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCSR_SOSCVLD_SHIFT)) & SCG_SOSCCSR_SOSCVLD_MASK)
-
-#define SCG_SOSCCSR_SOSCSEL_MASK                 (0x2000000U)
-#define SCG_SOSCCSR_SOSCSEL_SHIFT                (25U)
-/*! SOSCSEL - SOSC Selected
- *  0b0..SOSC is not the system clock source
- *  0b1..SOSC is the system clock source
- */
-#define SCG_SOSCCSR_SOSCSEL(x)                   (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCSR_SOSCSEL_SHIFT)) & SCG_SOSCCSR_SOSCSEL_MASK)
-
-#define SCG_SOSCCSR_SOSCERR_MASK                 (0x4000000U)
-#define SCG_SOSCCSR_SOSCERR_SHIFT                (26U)
-/*! SOSCERR - SOSC Clock Error
- *  0b0..SOSC Clock Monitor is disabled or has not detected an error
- *  0b1..SOSC Clock Monitor is enabled and detected an error
- */
-#define SCG_SOSCCSR_SOSCERR(x)                   (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCSR_SOSCERR_SHIFT)) & SCG_SOSCCSR_SOSCERR_MASK)
-
-#define SCG_SOSCCSR_SOSCVLD_IE_MASK              (0x40000000U)
-#define SCG_SOSCCSR_SOSCVLD_IE_SHIFT             (30U)
-/*! SOSCVLD_IE - SOSC Valid Interrupt Enable
- *  0b0..SOSCVLD interrupt is not enabled
- *  0b1..SOSCVLD interrupt is enabled
- */
-#define SCG_SOSCCSR_SOSCVLD_IE(x)                (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCSR_SOSCVLD_IE_SHIFT)) & SCG_SOSCCSR_SOSCVLD_IE_MASK)
-/*! @} */
-
-/*! @name SOSCCFG - SOSC Configuration Register */
-/*! @{ */
-
-#define SCG_SOSCCFG_EREFS_MASK                   (0x4U)
-#define SCG_SOSCCFG_EREFS_SHIFT                  (2U)
-/*! EREFS - External Reference Select
- *  0b0..External reference clock selected.
- *  0b1..Internal crystal oscillator of OSC selected.
- */
-#define SCG_SOSCCFG_EREFS(x)                     (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCFG_EREFS_SHIFT)) & SCG_SOSCCFG_EREFS_MASK)
-
-#define SCG_SOSCCFG_RANGE_MASK                   (0x30U)
-#define SCG_SOSCCFG_RANGE_SHIFT                  (4U)
-/*! RANGE - SOSC Range Select
- *  0b00..Frequency range select of 8-16 MHz.
- *  0b01..Frequency range select of 16-25 MHz.
- *  0b10..Frequency range select of 25-40 MHz.
- *  0b11..Frequency range select of 40-50 MHz.
- */
-#define SCG_SOSCCFG_RANGE(x)                     (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCFG_RANGE_SHIFT)) & SCG_SOSCCFG_RANGE_MASK)
 /*! @} */
 
 /*! @name SIRCCSR - SIRC Control Status Register */
@@ -471,11 +359,6 @@ typedef struct {
  *  0b11..ROSC (32.768 KHz)
  */
 #define SCG_SIRCTCFG_TRIMSRC(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_SIRCTCFG_TRIMSRC_SHIFT)) & SCG_SIRCTCFG_TRIMSRC_MASK)
-
-#define SCG_SIRCTCFG_TRIMDIV_MASK                (0x7F0000U)
-#define SCG_SIRCTCFG_TRIMDIV_SHIFT               (16U)
-/*! TRIMDIV - SIRC Trim Pre-divider */
-#define SCG_SIRCTCFG_TRIMDIV(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_SIRCTCFG_TRIMDIV_SHIFT)) & SCG_SIRCTCFG_TRIMDIV_MASK)
 /*! @} */
 
 /*! @name SIRCTRIM - SIRC Trim Register */
@@ -677,11 +560,6 @@ typedef struct {
  *  0b11..ROSC (32.768 KHz)
  */
 #define SCG_FIRCTCFG_TRIMSRC(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_FIRCTCFG_TRIMSRC_SHIFT)) & SCG_FIRCTCFG_TRIMSRC_MASK)
-
-#define SCG_FIRCTCFG_TRIMDIV_MASK                (0x7F0000U)
-#define SCG_FIRCTCFG_TRIMDIV_SHIFT               (16U)
-/*! TRIMDIV - FIRC Trim Pre-divider */
-#define SCG_FIRCTCFG_TRIMDIV(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_FIRCTCFG_TRIMDIV_SHIFT)) & SCG_FIRCTCFG_TRIMDIV_MASK)
 /*! @} */
 
 /*! @name FIRCTRIM - FIRC Trim Register */

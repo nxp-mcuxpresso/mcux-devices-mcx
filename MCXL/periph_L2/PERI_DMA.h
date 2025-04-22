@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250420
+**     Build:               b250422
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA
@@ -277,9 +277,9 @@ typedef struct {
 
 #define DMA_MP_CSR_GMRC_MASK                     (0x80U)
 #define DMA_MP_CSR_GMRC_SHIFT                    (7U)
-/*! GMRC - Global Master ID Replication Control
- *  0b0..Master ID replication disabled for all channels
- *  0b1..Master ID replication available and controlled by each channel's CHn_SBR[EMI] setting
+/*! GMRC - Global Initiator ID Replication Control
+ *  0b0..Initiator ID replication disabled for all channels
+ *  0b1..Initiator ID replication available and controlled by each channel's CHn_SBR[EMI] setting
  */
 #define DMA_MP_CSR_GMRC(x)                       (((uint32_t)(((uint32_t)(x)) << DMA_MP_CSR_GMRC_SHIFT)) & DMA_MP_CSR_GMRC_MASK)
 
@@ -580,7 +580,7 @@ typedef struct {
 
 #define DMA_CH_SBR_MID_MASK                      (0xFU)
 #define DMA_CH_SBR_MID_SHIFT                     (0U)
-/*! MID - Master ID */
+/*! MID - Initiator ID */
 #define DMA_CH_SBR_MID(x)                        (((uint32_t)(((uint32_t)(x)) << DMA_CH_SBR_MID_SHIFT)) & DMA_CH_SBR_MID_MASK)
 
 #define DMA_CH_SBR_SEC_MASK                      (0x4000U)
@@ -601,9 +601,9 @@ typedef struct {
 
 #define DMA_CH_SBR_EMI_MASK                      (0x10000U)
 #define DMA_CH_SBR_EMI_SHIFT                     (16U)
-/*! EMI - Enable Master ID Replication
- *  0b0..Master ID replication is disabled
- *  0b1..Master ID replication is enabled
+/*! EMI - Enable Initiator ID Replication
+ *  0b0..Initiator ID replication is disabled
+ *  0b1..Initiator ID replication is enabled
  */
 #define DMA_CH_SBR_EMI(x)                        (((uint32_t)(((uint32_t)(x)) << DMA_CH_SBR_EMI_SHIFT)) & DMA_CH_SBR_EMI_MASK)
 /*! @} */

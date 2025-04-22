@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250422
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for RTC
@@ -330,15 +330,15 @@ typedef struct {
 /*! WDT_IF - Watch Dog Interrupt Flag */
 #define RTC_INT_WDT_IF(x)                        (((uint32_t)(((uint32_t)(x)) << RTC_INT_WDT_IF_SHIFT)) & RTC_INT_WDT_IF_MASK)
 
-#define RTC_INT_TEMP_DET_PIN0_MASK               (0x20U)
-#define RTC_INT_TEMP_DET_PIN0_SHIFT              (5U)
-/*! TEMP_DET_PIN0 - Tamper Detect Pin 0 */
-#define RTC_INT_TEMP_DET_PIN0(x)                 (((uint32_t)(((uint32_t)(x)) << RTC_INT_TEMP_DET_PIN0_SHIFT)) & RTC_INT_TEMP_DET_PIN0_MASK)
+#define RTC_INT_TAMP_DET_PIN0_MASK               (0x20U)
+#define RTC_INT_TAMP_DET_PIN0_SHIFT              (5U)
+/*! TAMP_DET_PIN0 - Tamper Detect Pin 0 */
+#define RTC_INT_TAMP_DET_PIN0(x)                 (((uint32_t)(((uint32_t)(x)) << RTC_INT_TAMP_DET_PIN0_SHIFT)) & RTC_INT_TAMP_DET_PIN0_MASK)
 
-#define RTC_INT_TEMP_DET_PIN1_MASK               (0x40U)
-#define RTC_INT_TEMP_DET_PIN1_SHIFT              (6U)
-/*! TEMP_DET_PIN1 - Tamper Detect Pin 1 */
-#define RTC_INT_TEMP_DET_PIN1(x)                 (((uint32_t)(((uint32_t)(x)) << RTC_INT_TEMP_DET_PIN1_SHIFT)) & RTC_INT_TEMP_DET_PIN1_MASK)
+#define RTC_INT_TAMP_DET_PIN1_MASK               (0x40U)
+#define RTC_INT_TAMP_DET_PIN1_SHIFT              (6U)
+/*! TAMP_DET_PIN1 - Tamper Detect Pin 1 */
+#define RTC_INT_TAMP_DET_PIN1(x)                 (((uint32_t)(((uint32_t)(x)) << RTC_INT_TAMP_DET_PIN1_SHIFT)) & RTC_INT_TAMP_DET_PIN1_MASK)
 
 #define RTC_INT_ALARM0_IE_MASK                   (0x100U)
 #define RTC_INT_ALARM0_IE_SHIFT                  (8U)
@@ -538,13 +538,13 @@ typedef struct {
  */
 #define RTC_TAMP_CTRL_TAMP_POL(x)                (((uint32_t)(((uint32_t)(x)) << RTC_TAMP_CTRL_TAMP_POL_SHIFT)) & RTC_TAMP_CTRL_TAMP_POL_MASK)
 
-#define RTC_TAMP_CTRL_TAMP_CTRL_MASK             (0x60U)
-#define RTC_TAMP_CTRL_TAMP_CTRL_SHIFT            (5U)
-/*! TAMP_CTRL - Tamper Pull Control
+#define RTC_TAMP_CTRL_TAMP_PULL_CTRL_MASK        (0x60U)
+#define RTC_TAMP_CTRL_TAMP_PULL_CTRL_SHIFT       (5U)
+/*! TAMP_PULL_CTRL - Tamper Pull Control
  *  0b00..Pull up is enabled
  *  0b01..Pull up is disabled
  */
-#define RTC_TAMP_CTRL_TAMP_CTRL(x)               (((uint32_t)(((uint32_t)(x)) << RTC_TAMP_CTRL_TAMP_CTRL_SHIFT)) & RTC_TAMP_CTRL_TAMP_CTRL_MASK)
+#define RTC_TAMP_CTRL_TAMP_PULL_CTRL(x)          (((uint32_t)(((uint32_t)(x)) << RTC_TAMP_CTRL_TAMP_PULL_CTRL_SHIFT)) & RTC_TAMP_CTRL_TAMP_PULL_CTRL_MASK)
 
 #define RTC_TAMP_CTRL_READ_CNTR_STRT_MASK        (0x80U)
 #define RTC_TAMP_CTRL_READ_CNTR_STRT_SHIFT       (7U)
@@ -571,18 +571,18 @@ typedef struct {
 /*! WRITE_LCK - Write Lock */
 #define RTC_TAMP_CTRL_WRITE_LCK(x)               (((uint32_t)(((uint32_t)(x)) << RTC_TAMP_CTRL_WRITE_LCK_SHIFT)) & RTC_TAMP_CTRL_WRITE_LCK_MASK)
 
-#define RTC_TAMP_CTRL_TEMP_DET_MASK              (0x3000U)
-#define RTC_TAMP_CTRL_TEMP_DET_SHIFT             (12U)
-/*! TEMP_DET - Tamper Detected */
-#define RTC_TAMP_CTRL_TEMP_DET(x)                (((uint32_t)(((uint32_t)(x)) << RTC_TAMP_CTRL_TEMP_DET_SHIFT)) & RTC_TAMP_CTRL_TEMP_DET_MASK)
+#define RTC_TAMP_CTRL_TAMP_DET_MASK              (0x3000U)
+#define RTC_TAMP_CTRL_TAMP_DET_SHIFT             (12U)
+/*! TAMP_DET - Tamper Detected */
+#define RTC_TAMP_CTRL_TAMP_DET(x)                (((uint32_t)(((uint32_t)(x)) << RTC_TAMP_CTRL_TAMP_DET_SHIFT)) & RTC_TAMP_CTRL_TAMP_DET_MASK)
 
-#define RTC_TAMP_CTRL_TEM_CTRL_MASK              (0xC000U)
-#define RTC_TAMP_CTRL_TEM_CTRL_SHIFT             (14U)
-/*! TEM_CTRL - Tamper Control
+#define RTC_TAMP_CTRL_TAMP_CTRL_MASK             (0xC000U)
+#define RTC_TAMP_CTRL_TAMP_CTRL_SHIFT            (14U)
+/*! TAMP_CTRL - Tamper Control
  *  0b00..Filter is disabled
  *  0b01..Filter is disabled
  */
-#define RTC_TAMP_CTRL_TEM_CTRL(x)                (((uint32_t)(((uint32_t)(x)) << RTC_TAMP_CTRL_TEM_CTRL_SHIFT)) & RTC_TAMP_CTRL_TEM_CTRL_MASK)
+#define RTC_TAMP_CTRL_TAMP_CTRL(x)               (((uint32_t)(((uint32_t)(x)) << RTC_TAMP_CTRL_TAMP_CTRL_SHIFT)) & RTC_TAMP_CTRL_TAMP_CTRL_MASK)
 /*! @} */
 
 /*! @name RTC_COUNT - Latched RTC Counter */

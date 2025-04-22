@@ -24,8 +24,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief reset driver version 2.4.0 */
-#define FSL_RESET_DRIVER_VERSION (MAKE_VERSION(2, 4, 0))
+/*! @brief reset driver version 2.5.0 */
+#define FSL_RESET_DRIVER_VERSION (MAKE_VERSION(2, 5, 0))
 /*@}*/
 
 /*!

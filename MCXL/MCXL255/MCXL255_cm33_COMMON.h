@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftF
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250420
+**     Build:               b250422
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL255_cm33
@@ -797,62 +797,62 @@ typedef enum IRQn {
 /** Interrupt vectors for the GPIO peripheral type */
 #define GPIO_IRQS                                { NotAvail_IRQn, GPIO10_IRQn, GPIO20_IRQn, GPIO30_IRQn }
 
-/* INPUTMUX - Peripheral instance base addresses */
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  /** Peripheral INPUTMUX0 base address */
-  #define INPUTMUX0_BASE                           (0x50001000u)
-  /** Peripheral INPUTMUX0 base address */
-  #define INPUTMUX0_BASE_NS                        (0x40001000u)
-  /** Peripheral INPUTMUX0 base pointer */
-  #define INPUTMUX0                                ((INPUTMUX_Type *)INPUTMUX0_BASE)
-  /** Peripheral INPUTMUX0 base pointer */
-  #define INPUTMUX0_NS                             ((INPUTMUX_Type *)INPUTMUX0_BASE_NS)
-  /** Array initializer of INPUTMUX peripheral base addresses */
-  #define INPUTMUX_BASE_ADDRS                      { INPUTMUX0_BASE }
-  /** Array initializer of INPUTMUX peripheral base pointers */
-  #define INPUTMUX_BASE_PTRS                       { INPUTMUX0 }
-  /** Array initializer of INPUTMUX peripheral base addresses */
-  #define INPUTMUX_BASE_ADDRS_NS                   { INPUTMUX0_BASE_NS }
-  /** Array initializer of INPUTMUX peripheral base pointers */
-  #define INPUTMUX_BASE_PTRS_NS                    { INPUTMUX0_NS }
-#else
-  /** Peripheral INPUTMUX0 base address */
-  #define INPUTMUX0_BASE                           (0x40001000u)
-  /** Peripheral INPUTMUX0 base pointer */
-  #define INPUTMUX0                                ((INPUTMUX_Type *)INPUTMUX0_BASE)
-  /** Array initializer of INPUTMUX peripheral base addresses */
-  #define INPUTMUX_BASE_ADDRS                      { INPUTMUX0_BASE }
-  /** Array initializer of INPUTMUX peripheral base pointers */
-  #define INPUTMUX_BASE_PTRS                       { INPUTMUX0 }
-#endif
-
-/* INPUTMUX1 - Peripheral instance base addresses */
+/* INPUTMUX_AON - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
   /** Peripheral AON__INPUTMUX1 base address */
   #define AON__INPUTMUX1_BASE                      (0xB0091000u)
   /** Peripheral AON__INPUTMUX1 base address */
   #define AON__INPUTMUX1_BASE_NS                   (0xA0091000u)
   /** Peripheral AON__INPUTMUX1 base pointer */
-  #define AON__INPUTMUX1                           ((INPUTMUX1_Type *)AON__INPUTMUX1_BASE)
+  #define AON__INPUTMUX1                           ((INPUTMUX_AON_Type *)AON__INPUTMUX1_BASE)
   /** Peripheral AON__INPUTMUX1 base pointer */
-  #define AON__INPUTMUX1_NS                        ((INPUTMUX1_Type *)AON__INPUTMUX1_BASE_NS)
-  /** Array initializer of INPUTMUX1 peripheral base addresses */
-  #define INPUTMUX1_BASE_ADDRS                     { AON__INPUTMUX1_BASE }
-  /** Array initializer of INPUTMUX1 peripheral base pointers */
-  #define INPUTMUX1_BASE_PTRS                      { AON__INPUTMUX1 }
-  /** Array initializer of INPUTMUX1 peripheral base addresses */
-  #define INPUTMUX1_BASE_ADDRS_NS                  { AON__INPUTMUX1_BASE_NS }
-  /** Array initializer of INPUTMUX1 peripheral base pointers */
-  #define INPUTMUX1_BASE_PTRS_NS                   { AON__INPUTMUX1_NS }
+  #define AON__INPUTMUX1_NS                        ((INPUTMUX_AON_Type *)AON__INPUTMUX1_BASE_NS)
+  /** Array initializer of INPUTMUX_AON peripheral base addresses */
+  #define INPUTMUX_AON_BASE_ADDRS                  { AON__INPUTMUX1_BASE }
+  /** Array initializer of INPUTMUX_AON peripheral base pointers */
+  #define INPUTMUX_AON_BASE_PTRS                   { AON__INPUTMUX1 }
+  /** Array initializer of INPUTMUX_AON peripheral base addresses */
+  #define INPUTMUX_AON_BASE_ADDRS_NS               { AON__INPUTMUX1_BASE_NS }
+  /** Array initializer of INPUTMUX_AON peripheral base pointers */
+  #define INPUTMUX_AON_BASE_PTRS_NS                { AON__INPUTMUX1_NS }
 #else
   /** Peripheral AON__INPUTMUX1 base address */
   #define AON__INPUTMUX1_BASE                      (0xA0091000u)
   /** Peripheral AON__INPUTMUX1 base pointer */
-  #define AON__INPUTMUX1                           ((INPUTMUX1_Type *)AON__INPUTMUX1_BASE)
-  /** Array initializer of INPUTMUX1 peripheral base addresses */
-  #define INPUTMUX1_BASE_ADDRS                     { AON__INPUTMUX1_BASE }
-  /** Array initializer of INPUTMUX1 peripheral base pointers */
-  #define INPUTMUX1_BASE_PTRS                      { AON__INPUTMUX1 }
+  #define AON__INPUTMUX1                           ((INPUTMUX_AON_Type *)AON__INPUTMUX1_BASE)
+  /** Array initializer of INPUTMUX_AON peripheral base addresses */
+  #define INPUTMUX_AON_BASE_ADDRS                  { AON__INPUTMUX1_BASE }
+  /** Array initializer of INPUTMUX_AON peripheral base pointers */
+  #define INPUTMUX_AON_BASE_PTRS                   { AON__INPUTMUX1 }
+#endif
+
+/* INPUTMUX_MAIN - Peripheral instance base addresses */
+#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
+  /** Peripheral INPUTMUX0 base address */
+  #define INPUTMUX0_BASE                           (0x50001000u)
+  /** Peripheral INPUTMUX0 base address */
+  #define INPUTMUX0_BASE_NS                        (0x40001000u)
+  /** Peripheral INPUTMUX0 base pointer */
+  #define INPUTMUX0                                ((INPUTMUX_MAIN_Type *)INPUTMUX0_BASE)
+  /** Peripheral INPUTMUX0 base pointer */
+  #define INPUTMUX0_NS                             ((INPUTMUX_MAIN_Type *)INPUTMUX0_BASE_NS)
+  /** Array initializer of INPUTMUX_MAIN peripheral base addresses */
+  #define INPUTMUX_MAIN_BASE_ADDRS                 { INPUTMUX0_BASE }
+  /** Array initializer of INPUTMUX_MAIN peripheral base pointers */
+  #define INPUTMUX_MAIN_BASE_PTRS                  { INPUTMUX0 }
+  /** Array initializer of INPUTMUX_MAIN peripheral base addresses */
+  #define INPUTMUX_MAIN_BASE_ADDRS_NS              { INPUTMUX0_BASE_NS }
+  /** Array initializer of INPUTMUX_MAIN peripheral base pointers */
+  #define INPUTMUX_MAIN_BASE_PTRS_NS               { INPUTMUX0_NS }
+#else
+  /** Peripheral INPUTMUX0 base address */
+  #define INPUTMUX0_BASE                           (0x40001000u)
+  /** Peripheral INPUTMUX0 base pointer */
+  #define INPUTMUX0                                ((INPUTMUX_MAIN_Type *)INPUTMUX0_BASE)
+  /** Array initializer of INPUTMUX_MAIN peripheral base addresses */
+  #define INPUTMUX_MAIN_BASE_ADDRS                 { INPUTMUX0_BASE }
+  /** Array initializer of INPUTMUX_MAIN peripheral base pointers */
+  #define INPUTMUX_MAIN_BASE_PTRS                  { INPUTMUX0 }
 #endif
 
 /* KPP - Peripheral instance base addresses */
@@ -885,68 +885,6 @@ typedef enum IRQn {
 #endif
 /** Interrupt vectors for the KPP peripheral type */
 #define KPP_IRQS                                 { KPP_IRQn }
-
-/* LCD - Peripheral instance base addresses */
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  #define LCD_CONTROL_BASE                                 (0xB0094000u)
-  /** Peripheral LCD base address */
-  #define LCD_CONTROL_BASE_NS                              (0xA0094000u)
-  /** Peripheral LCD base pointer */
-  #define LCD_CONTROL                                      ((SLCD_CONTROL_Type *)LCD_BASE)
-  /** Peripheral LCD base pointer */
-  #define LCD_CONTROL_NS                                   ((SLCD_CONTROL_Type *)LCD_CONTROL_BASE_NS)
-  /** Array initializer of LCD peripheral base addresses */
-  #define LCD_CONTROL_BASE_ADDRS                           { LCD_CONTROL_BASE }
-  /** Array initializer of LCD peripheral base pointers */
-  #define LCD_CONTROL_BASE_PTRS                            { LCD_CONTROL }
-  /** Array initializer of LCD peripheral base addresses */
-  #define LCD_CONTROL_BASE_ADDRS_NS                        { LCD_CONTROL_BASE_NS }
-  /** Array initializer of LCD peripheral base pointers */
-  #define LCD_CONTROL_BASE_PTRS_NS                         { LCD_CONTROL_NS }
-#else
-  /** Peripheral LCD base address */
-  #define LCD_CONTROL_BASE                                 (0xA0094000u)
-  /** Peripheral LCD base pointer */
-  #define LCD_CONTROL                                      ((SLCD_CONTROL_Type *)LCD_CONTROL_BASE)
-  /** Array initializer of LCD peripheral base addresses */
-  #define LCD_CONTROL_BASE_ADDRS                           { LCD_CONTROL_BASE }
-  /** Array initializer of LCD peripheral base pointers */
-  #define LCD_CONTROL_BASE_PTRS                            { LCD_CONTROL }
-#endif
-
-/** Interrupt vectors for the LCD_CONTROL peripheral type */
-#define LCD_CONTROL_IRQS { SGLCD_FRAME_AON_IRQn }
-
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  /** Peripheral LCD base address */
-  #define LCD_FAULT_DETECT_BASE                                 (0x500C7000u)
-  /** Peripheral LCD base address */
-  #define LCD_FAULT_DETECT_BASE_NS                              (0x400C7000u)
-  /** Peripheral LCD base pointer */
-  #define LCD_FAULT_DETECT                                      ((SLCD_FAULT_DETECT_Type *)LCD_BASE)
-  /** Peripheral LCD base pointer */
-  #define LCD_FAULT_DETECT_NS                                   ((SLCD_FAULT_DETECT_Type *)LCD_FAULT_DETECT_BASE_NS)
-  /** Array initializer of LCD peripheral base addresses */
-  #define LCD_FAULT_DETECT_BASE_ADDRS                           { LCD_FAULT_DETECT_BASE }
-  /** Array initializer of LCD peripheral base pointers */
-  #define LCD_FAULT_DETECT_BASE_PTRS                            { LCD_FAULT_DETECT }
-  /** Array initializer of LCD peripheral base addresses */
-  #define LCD_FAULT_DETECT_BASE_ADDRS_NS                        { LCD_FAULT_DETECT_BASE_NS }
-  /** Array initializer of LCD peripheral base pointers */
-  #define LCD_FAULT_DETECT_BASE_PTRS_NS                         { LCD_FAULT_DETECT_NS }
-#else
-  /** Peripheral LCD base address */
-  #define LCD_FAULT_DETECT_BASE                                 (0x400C7000u)
-  /** Peripheral LCD base pointer */
-  #define LCD_FAULT_DETECT                                      ((SLCD_FAULT_DETECT_Type *)LCD_FAULT_DETECT_BASE)
-  /** Array initializer of LCD peripheral base addresses */
-  #define LCD_FAULT_DETECT_BASE_ADDRS                           { LCD_FAULT_DETECT_BASE }
-  /** Array initializer of LCD peripheral base pointers */
-  #define LCD_FAULT_DETECT_BASE_PTRS                            { LCD_FAULT_DETECT }
-#endif
-
-/** Interrupt vectors for the LCD_FAULT_DETECT peripheral type */
-#define LCD_FAULT_DETECT_IRQS { SGLCD_FFAULT_AON_IRQn }
 
 /* LPACMP - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
@@ -1299,35 +1237,23 @@ typedef enum IRQn {
   #define MUA                                      ((MU_Type *)MUA_BASE)
   /** Peripheral MUA base pointer */
   #define MUA_NS                                   ((MU_Type *)MUA_BASE_NS)
-  /** Peripheral MUB base address */
-  #define MUB_BASE                                 (0xB0084000u)
-  /** Peripheral MUB base address */
-  #define MUB_BASE_NS                              (0xA0084000u)
-  /** Peripheral MUB base pointer */
-  #define MUB                                      ((MU_Type *)MUB_BASE)
-  /** Peripheral MUB base pointer */
-  #define MUB_NS                                   ((MU_Type *)MUB_BASE_NS)
   /** Array initializer of MU peripheral base addresses */
-  #define MU_BASE_ADDRS                            { MUA_BASE, MUB_BASE }
+  #define MU_BASE_ADDRS                            { MUA_BASE }
   /** Array initializer of MU peripheral base pointers */
-  #define MU_BASE_PTRS                             { MUA, MUB }
+  #define MU_BASE_PTRS                             { MUA }
   /** Array initializer of MU peripheral base addresses */
-  #define MU_BASE_ADDRS_NS                         { MUA_BASE_NS, MUB_BASE_NS }
+  #define MU_BASE_ADDRS_NS                         { MUA_BASE_NS }
   /** Array initializer of MU peripheral base pointers */
-  #define MU_BASE_PTRS_NS                          { MUA_NS, MUB_NS }
+  #define MU_BASE_PTRS_NS                          { MUA_NS }
 #else
   /** Peripheral MUA base address */
   #define MUA_BASE                                 (0x400C4000u)
   /** Peripheral MUA base pointer */
   #define MUA                                      ((MU_Type *)MUA_BASE)
-  /** Peripheral MUB base address */
-  #define MUB_BASE                                 (0xA0084000u)
-  /** Peripheral MUB base pointer */
-  #define MUB                                      ((MU_Type *)MUB_BASE)
   /** Array initializer of MU peripheral base addresses */
-  #define MU_BASE_ADDRS                            { MUA_BASE, MUB_BASE }
+  #define MU_BASE_ADDRS                            { MUA_BASE }
   /** Array initializer of MU peripheral base pointers */
-  #define MU_BASE_PTRS                             { MUA, MUB }
+  #define MU_BASE_PTRS                             { MUA }
 #endif
 
 /* OSTIMER - Peripheral instance base addresses */
@@ -1569,6 +1495,64 @@ typedef enum IRQn {
   #define SGI_BASE_ADDRS                           { SGI0_BASE }
   /** Array initializer of SGI peripheral base pointers */
   #define SGI_BASE_PTRS                            { SGI0 }
+#endif
+
+/* SGLCD_CONTROL - Peripheral instance base addresses */
+#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
+  /** Peripheral AON__SGLCD0_AON base address */
+  #define AON__SGLCD0_AON_BASE                     (0xB0094000u)
+  /** Peripheral AON__SGLCD0_AON base address */
+  #define AON__SGLCD0_AON_BASE_NS                  (0xA0094000u)
+  /** Peripheral AON__SGLCD0_AON base pointer */
+  #define AON__SGLCD0_AON                          ((SGLCD_CONTROL_Type *)AON__SGLCD0_AON_BASE)
+  /** Peripheral AON__SGLCD0_AON base pointer */
+  #define AON__SGLCD0_AON_NS                       ((SGLCD_CONTROL_Type *)AON__SGLCD0_AON_BASE_NS)
+  /** Array initializer of SGLCD_CONTROL peripheral base addresses */
+  #define SGLCD_CONTROL_BASE_ADDRS                 { AON__SGLCD0_AON_BASE }
+  /** Array initializer of SGLCD_CONTROL peripheral base pointers */
+  #define SGLCD_CONTROL_BASE_PTRS                  { AON__SGLCD0_AON }
+  /** Array initializer of SGLCD_CONTROL peripheral base addresses */
+  #define SGLCD_CONTROL_BASE_ADDRS_NS              { AON__SGLCD0_AON_BASE_NS }
+  /** Array initializer of SGLCD_CONTROL peripheral base pointers */
+  #define SGLCD_CONTROL_BASE_PTRS_NS               { AON__SGLCD0_AON_NS }
+#else
+  /** Peripheral AON__SGLCD0_AON base address */
+  #define AON__SGLCD0_AON_BASE                     (0xA0094000u)
+  /** Peripheral AON__SGLCD0_AON base pointer */
+  #define AON__SGLCD0_AON                          ((SGLCD_CONTROL_Type *)AON__SGLCD0_AON_BASE)
+  /** Array initializer of SGLCD_CONTROL peripheral base addresses */
+  #define SGLCD_CONTROL_BASE_ADDRS                 { AON__SGLCD0_AON_BASE }
+  /** Array initializer of SGLCD_CONTROL peripheral base pointers */
+  #define SGLCD_CONTROL_BASE_PTRS                  { AON__SGLCD0_AON }
+#endif
+
+/* SGLCD_FAULT_DETECT - Peripheral instance base addresses */
+#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
+  /** Peripheral SGLCD0_MAIN base address */
+  #define SGLCD0_MAIN_BASE                         (0x500C7000u)
+  /** Peripheral SGLCD0_MAIN base address */
+  #define SGLCD0_MAIN_BASE_NS                      (0x400C7000u)
+  /** Peripheral SGLCD0_MAIN base pointer */
+  #define SGLCD0_MAIN                              ((SGLCD_FAULT_DETECT_Type *)SGLCD0_MAIN_BASE)
+  /** Peripheral SGLCD0_MAIN base pointer */
+  #define SGLCD0_MAIN_NS                           ((SGLCD_FAULT_DETECT_Type *)SGLCD0_MAIN_BASE_NS)
+  /** Array initializer of SGLCD_FAULT_DETECT peripheral base addresses */
+  #define SGLCD_FAULT_DETECT_BASE_ADDRS            { SGLCD0_MAIN_BASE }
+  /** Array initializer of SGLCD_FAULT_DETECT peripheral base pointers */
+  #define SGLCD_FAULT_DETECT_BASE_PTRS             { SGLCD0_MAIN }
+  /** Array initializer of SGLCD_FAULT_DETECT peripheral base addresses */
+  #define SGLCD_FAULT_DETECT_BASE_ADDRS_NS         { SGLCD0_MAIN_BASE_NS }
+  /** Array initializer of SGLCD_FAULT_DETECT peripheral base pointers */
+  #define SGLCD_FAULT_DETECT_BASE_PTRS_NS          { SGLCD0_MAIN_NS }
+#else
+  /** Peripheral SGLCD0_MAIN base address */
+  #define SGLCD0_MAIN_BASE                         (0x400C7000u)
+  /** Peripheral SGLCD0_MAIN base pointer */
+  #define SGLCD0_MAIN                              ((SGLCD_FAULT_DETECT_Type *)SGLCD0_MAIN_BASE)
+  /** Array initializer of SGLCD_FAULT_DETECT peripheral base addresses */
+  #define SGLCD_FAULT_DETECT_BASE_ADDRS            { SGLCD0_MAIN_BASE }
+  /** Array initializer of SGLCD_FAULT_DETECT peripheral base pointers */
+  #define SGLCD_FAULT_DETECT_BASE_PTRS             { SGLCD0_MAIN }
 #endif
 
 /* SMM - Peripheral instance base addresses */

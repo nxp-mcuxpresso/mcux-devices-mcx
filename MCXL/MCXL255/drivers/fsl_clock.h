@@ -21,8 +21,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 1.0.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(1, 0, 0))
+/*! @brief CLOCK driver version 1.1.0. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(1, 1, 0))
 /*@}*/
 
 /*! @brief Configure whether driver controls clock
@@ -80,7 +80,7 @@ typedef enum _clock_ip_name
 #if __CORTEX_M == (33U) /* Building on the main core */
 
     /* Check syscon mrcc reg, in RM */
-    kCLOCK_InputMux          = (0x00U | (0U)),                         /*!< Clock gate name: INPUTMUX0      */
+    kCLOCK_InputMux          = (0xFFFFFFF0U),                          /*!< Clock gate name: INPUTMUX0 + AON_INPUTMUX1 */
     kCLOCK_GateINPUTMUX0     = (0x00U | (0U)),                         /*!< Clock gate name: INPUTMUX0      */
     kCLOCK_GateCTIMER0       = (0x00U | (1U)),                         /*!< Clock gate name: CTIMER0        */
     kCLOCK_GateCTIMER1       = (0x00U | (2U)),                         /*!< Clock gate name: CTIMER1        */
@@ -122,8 +122,7 @@ typedef enum _clock_ip_name
     kCLOCK_GateTRNG0         = ((0x4U << 16U) | (0x10U << 8U) | (8U)), /*!< Clock gate name: TRNG0          */
     kCLOCK_GateUDF0          = ((0x4U << 16U) | (0x10U << 8U) | (9U)), /*!< Clock gate name: UDF0           */
 #else
-    kCLOCK_InputMux          = (0xFFFFFFFFU),                         /*!< Clock gate name: AON__INPUTMUX1 - not available */
-    kCLOCK_GateINPUTMUX0     = (0xFFFFFFFFU),                         /*!< Clock gate name: AON__INPUTMUX1 - not available */
+    kCLOCK_InputMux          = ((1U<<24U) | (16U)),                    /*!< Clock gate name: AON INPUTMUX  (only)*/
 #endif /* Building on the main core */
 
     /* Check AON CGU PER_CLK_EN in RM */
@@ -141,6 +140,7 @@ typedef enum _clock_ip_name
     kCLOCK_GateAonCMP0       = ((1U<<24U) | (13U)),                    /*!< Clock gate name: AON comparator */
     kCLOCK_GateAonLCD        = ((1U<<24U) | (14U)),                    /*!< Clock gate name: AON LCD        */
     kCLOCK_GateAonAVDC2P0    = ((1U<<24U) | (15U)),                    /*!< Clock gate name: AON AVDC2P0    */
+    kCLOCK_GateAonINPUTMUX1   = ((1U<<24U) | (16U)),                    /*!< Clock gate name: AON INPUTMUX   */
 
     kCLOCK_GateNotAvail      = (0xFFFFFFFFU),                          /**< Clock gate name: None           */
 } clock_ip_name_t;
@@ -214,11 +214,18 @@ typedef enum _clock_ip_name
         kCLOCK_GateAonGPIO \
     }
 #endif
-/*! @brief Clock ip name array for INPUTMUX. */
+/*! @brief Clock ip name array for INPUTMUX. */ 
+#if __CORTEX_M == (33U) /* Building on the main core */
 #define INPUTMUX_CLOCKS      \
     {                        \
-        kCLOCK_GateNotAvail \
+        kCLOCK_GateINPUTMUX0, kCLOCK_GateAonINPUTMUX1 \
     }
+#else
+#define INPUTMUX_CLOCKS      \
+    {                        \
+        kCLOCK_GateNotAvail, kCLOCK_GateAonINPUTMUX1 \
+    }
+#endif
 
 /*! @brief Clock ip name array for LPCMP. */
 #if __CORTEX_M == (33U) /* Building on the main core */
@@ -720,10 +727,26 @@ static inline void CLOCK_EnableClock(clock_ip_name_t clk)
     {
         return;
     }
+ 
+#if __CORTEX_M == (33U) /* Building on the main core */
+    if (clk == kCLOCK_InputMux) /* Workaround for inputmux driver */
+    {
+        CLOCK_EnableClock(kCLOCK_GateAonINPUTMUX1);
+        CLOCK_EnableClock(kCLOCK_GateINPUTMUX0);
+        return;
+    }
+#endif    
 
     if (CLK_OF_AON(clk))
     {
-        AON__CGU->PER_CLK_EN |= (1UL << bit_shift);
+        if(clk == kCLOCK_GateAonINPUTMUX1) 
+        {
+            AON__SYSCON_AON->PINMUXCLKCTRL = SYSCON_AON_PINMUXCLKCTRL_PINMUX_CLK_CTRL(0);
+        }
+        else
+        {
+            AON__CGU->PER_CLK_EN |= (1UL << bit_shift);
+        }
     }
 #if __CORTEX_M == (33U) /* Building on the main core */
     else
@@ -871,7 +894,7 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name);
 
 /**
  * @brief   Initialize the AON FRO to given frequency..
- * @param   iFreq   : Desired frequency (10M,4M,0=off).
+ * @param   iFreq   : Desired frequency (10M,2M,0=off).
  * @return  returns success or fail status.
  */
 status_t CLOCK_SetupFROAonClocking(uint32_t iFreq);
@@ -1040,18 +1063,18 @@ status_t CLOCK_FRO12MTrimConfig(sirc_trim_config_t config);
 #endif /* Building on the main core */
 
 /**
- * @brief   Sets AON FRO 10M or 4M trim.
- * @param   is_fro4m : 0 for FRO10M, 1 for FRO4M
+ * @brief   Sets AON FRO 10M or 2M trim.
+ * @param   is_fro2m : 0 for FRO10M, 1 for FRO2M
  * @param   config   : trim value
  */
-void CLOCK_AON_FRO_Trim_Set(uint8_t is_fro4m, aon_fro_trim_config_t config);
+void CLOCK_AON_FRO_Trim_Set(uint8_t is_fro2m, aon_fro_trim_config_t config);
 
 /**
- * @brief   Reads AON FRO 10M or 4M trim values.
- * @param   is_fro4m : 0 for FRO10M, 1 for FRO4M
+ * @brief   Reads AON FRO 10M or 2M trim values.
+ * @param   is_fro2m : 0 for FRO10M, 1 for FRO2M
  * @param   config   : ptr to aon_fro_trim_config_t struct.
  */
-void CLOCK_AON_FRO_Trim_Get(uint8_t is_fro4m, aon_fro_trim_config_t * config);
+void CLOCK_AON_FRO_Trim_Get(uint8_t is_fro2m, aon_fro_trim_config_t * config);
 
 #if __CORTEX_M == (33U) /* Building on the main core */
 

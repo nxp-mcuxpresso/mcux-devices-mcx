@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250327
+**     Build:               b250422
 **
 **     Abstract:
 **         Chip specific module features.
@@ -46,11 +46,11 @@
 /* @brief GPIO availability on the SoC. */
 #define FSL_FEATURE_SOC_GPIO_COUNT (4)
 /* @brief INPUTMUX availability on the SoC. */
-#define FSL_FEATURE_SOC_INPUTMUX_COUNT (1)
+#define FSL_FEATURE_SOC_INPUTMUX_COUNT (2)
 /* @brief KPP availability on the SoC. */
 #define FSL_FEATURE_SOC_KPP_COUNT (1)
 /* @brief LCD availability on the SoC. */
-#define FSL_FEATURE_SOC_LCD_COUNT (1)
+#define FSL_FEATURE_SOC_LCD_COUNT (2)
 /* @brief LPADC availability on the SoC. */
 #define FSL_FEATURE_SOC_LPADC_COUNT (2)
 /* @brief LPCMP availability on the SoC. */
@@ -64,11 +64,13 @@
 /* @brief LPUART availability on the SoC. */
 #define FSL_FEATURE_SOC_LPUART_COUNT (3)
 /* @brief MU availability on the SoC. */
-#define FSL_FEATURE_SOC_MU_COUNT (2)
+#define FSL_FEATURE_SOC_MU_COUNT (1)
 /* @brief OSTIMER availability on the SoC. */
 #define FSL_FEATURE_SOC_OSTIMER_COUNT (1)
 /* @brief PKC availability on the SoC. */
 #define FSL_FEATURE_SOC_PKC_COUNT (1)
+/* @brief PMU availability on the SoC. */
+#define FSL_FEATURE_SOC_PMU_COUNT (1)
 /* @brief PORT availability on the SoC. */
 #define FSL_FEATURE_SOC_PORT_COUNT (4)
 /* @brief RTC availability on the SoC. */
@@ -348,10 +350,17 @@
 /* @brief Defines whether PCR[IRQC] bit-field has trigger states. */
 #define FSL_FEATURE_PORT_HAS_IRQC_TRIGGER (0)
 
+/* LCD module features */
+
+/* @brief LCD registers are split into control and fault detect parts. */
+#define FSL_FEATURE_SGLCD_HAS_FAULT_DETECT (1)
+
 /* SYSCON_AON module features */
 
 /* @brief Powerlib API is different with other series devices */
 #define FSL_FEATURE_POWERLIB_EXTEND (1)
+/* @brief Starter register discontinuous. */
+#define FSL_FEATURE_SYSCON_AON_STARTER_DISCONTINUOUS (1)
 
 /* CDOG module features */
 
@@ -506,8 +515,6 @@
 
 /* @brief MU side for current core */
 #define FSL_FEATURE_MU_SIDE_A (1)
-/* @brief MU side for current core */
-#define FSL_FEATURE_MU_SIDE_B (1)
 /* @brief MU supports reset assert interrupt. CIER0[RAIE] or CR[RAIE] or BCR[RAIE] . */
 #define FSL_FEATURE_MU_HAS_RESET_ASSERT_INT (0)
 /* @brief MU supports reset de-assert interrupt. CR[RDIE] or BCR[RDIE]. */
@@ -555,6 +562,8 @@
 
 /* @brief Powerlib API is different with other series devices */
 #define FSL_FEATURE_POWERLIB_EXTEND (1)
+/* @brief Starter register discontinuous. */
+#define FSL_FEATURE_SYSCON_STARTER_DISCONTINUOUS (1)
 
 /* UTICK module features */
 

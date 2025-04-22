@@ -14,10 +14,10 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250422
 **
 **     Abstract:
-**         CMSIS Peripheral Access Layer for INPUTMUX
+**         CMSIS Peripheral Access Layer for INPUTMUX_MAIN
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
 **     Copyright 2016-2025 NXP
@@ -34,16 +34,16 @@
 */
 
 /*!
- * @file INPUTMUX.h
+ * @file INPUTMUX_MAIN.h
  * @version 1.0
  * @date 2023-01-09
- * @brief CMSIS Peripheral Access Layer for INPUTMUX
+ * @brief CMSIS Peripheral Access Layer for INPUTMUX_MAIN
  *
- * CMSIS Peripheral Access Layer for INPUTMUX
+ * CMSIS Peripheral Access Layer for INPUTMUX_MAIN
  */
 
-#if !defined(INPUTMUX_H_)
-#define INPUTMUX_H_                              /**< Symbol preventing repeated inclusion */
+#if !defined(INPUTMUX_MAIN_H_)
+#define INPUTMUX_MAIN_H_                         /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -91,41 +91,41 @@
 #endif
 
 /* ----------------------------------------------------------------------------
-   -- INPUTMUX Peripheral Access Layer
+   -- INPUTMUX_MAIN Peripheral Access Layer
    ---------------------------------------------------------------------------- */
 
 /*!
- * @addtogroup INPUTMUX_Peripheral_Access_Layer INPUTMUX Peripheral Access Layer
+ * @addtogroup INPUTMUX_MAIN_Peripheral_Access_Layer INPUTMUX_MAIN Peripheral Access Layer
  * @{
  */
 
-/** INPUTMUX - Size of Registers Arrays */
-#define INPUTMUX_CTIMERA_COUNT                    4u
-#define INPUTMUX_CTIMERB_COUNT                    4u
-#define INPUTMUX_CTIMERC_COUNT                    4u
-#define INPUTMUX_ADC0_TRIGM_COUNT                 4u
-#define INPUTMUX_AOI0_MUXK_COUNT                  16u
-#define INPUTMUX_EXT_TRIGN_COUNT                  8u
+/** INPUTMUX_MAIN - Size of Registers Arrays */
+#define INPUTMUX_MAIN_CTIMERA_COUNT               4u
+#define INPUTMUX_MAIN_CTIMERB_COUNT               4u
+#define INPUTMUX_MAIN_CTIMERC_COUNT               4u
+#define INPUTMUX_MAIN_ADC0_TRIGM_COUNT            4u
+#define INPUTMUX_MAIN_AOI0_MUXK_COUNT             16u
+#define INPUTMUX_MAIN_EXT_TRIGN_COUNT             8u
 
-/** INPUTMUX - Register Layout Typedef */
+/** INPUTMUX_MAIN - Register Layout Typedef */
 typedef struct {
        uint8_t RESERVED_0[32];
-  __IO uint32_t CTIMER0CAP[INPUTMUX_CTIMERA_COUNT]; /**< Capture select register for CTIMER0 inputs, array offset: 0x20, array step: 0x4 */
+  __IO uint32_t CTIMER0CAP[INPUTMUX_MAIN_CTIMERA_COUNT]; /**< Capture select register for CTIMER0 inputs, array offset: 0x20, array step: 0x4 */
   __IO uint32_t CTIMER0TRIG;                       /**< Trigger register for CTIMER0, offset: 0x30 */
        uint8_t RESERVED_1[12];
-  __IO uint32_t CTIMER1CAP[INPUTMUX_CTIMERB_COUNT]; /**< Capture select register for CTIMER1 inputs, array offset: 0x40, array step: 0x4 */
+  __IO uint32_t CTIMER1CAP[INPUTMUX_MAIN_CTIMERB_COUNT]; /**< Capture select register for CTIMER1 inputs, array offset: 0x40, array step: 0x4 */
   __IO uint32_t CTIMER1TRIG;                       /**< Trigger register for CTIMER1, offset: 0x50 */
        uint8_t RESERVED_2[12];
-  __IO uint32_t CTIMER2CAP[INPUTMUX_CTIMERC_COUNT]; /**< Capture select register for CTIMER2 inputs, array offset: 0x60, array step: 0x4 */
+  __IO uint32_t CTIMER2CAP[INPUTMUX_MAIN_CTIMERC_COUNT]; /**< Capture select register for CTIMER2 inputs, array offset: 0x60, array step: 0x4 */
   __IO uint32_t TIMER2TRIG;                        /**< Trigger register for CTIMER2 inputs, offset: 0x70 */
        uint8_t RESERVED_3[492];
   __IO uint32_t CMP0_TRIG;                         /**< CMP0 Input Connections, offset: 0x260 */
        uint8_t RESERVED_4[28];
-  __IO uint32_t ADC0_TRIG[INPUTMUX_ADC0_TRIGM_COUNT]; /**< ADC Trigger Input Connections, array offset: 0x280, array step: 0x4 */
+  __IO uint32_t ADC0_TRIG[INPUTMUX_MAIN_ADC0_TRIGM_COUNT]; /**< ADC Trigger Input Connections, array offset: 0x280, array step: 0x4 */
        uint8_t RESERVED_5[432];
-  __IO uint32_t AOI0_MUX[INPUTMUX_AOI0_MUXK_COUNT]; /**< AOI0 Trigger Input Connections, array offset: 0x440, array step: 0x4 */
+  __IO uint32_t AOI0_MUX[INPUTMUX_MAIN_AOI0_MUXK_COUNT]; /**< AOI0 Trigger Input Connections, array offset: 0x440, array step: 0x4 */
        uint8_t RESERVED_6[64];
-  __IO uint32_t EXT_TRIG[INPUTMUX_EXT_TRIGN_COUNT]; /**< EXT Trigger Connections, array offset: 0x4C0, array step: 0x4 */
+  __IO uint32_t EXT_TRIG[INPUTMUX_MAIN_EXT_TRIGN_COUNT]; /**< EXT Trigger Connections, array offset: 0x4C0, array step: 0x4 */
        uint8_t RESERVED_7[192];
   __IO uint32_t LPI2C0_TRIG;                       /**< LPI2C0 Trigger Input Connections, offset: 0x5A0 */
        uint8_t RESERVED_8[28];
@@ -138,22 +138,22 @@ typedef struct {
   __IO uint32_t LPUART0r;                          /**< LPUART0 Trigger Input Connections, offset: 0x620, 'r' suffix has been added to avoid a clash with peripheral base pointer macro 'LPUART0' */
        uint8_t RESERVED_12[28];
   __IO uint32_t LPUART1r;                          /**< LPUART1 Trigger Input Connections, offset: 0x640, 'r' suffix has been added to avoid a clash with peripheral base pointer macro 'LPUART1' */
-} INPUTMUX_Type;
+} INPUTMUX_MAIN_Type;
 
 /* ----------------------------------------------------------------------------
-   -- INPUTMUX Register Masks
+   -- INPUTMUX_MAIN Register Masks
    ---------------------------------------------------------------------------- */
 
 /*!
- * @addtogroup INPUTMUX_Register_Masks INPUTMUX Register Masks
+ * @addtogroup INPUTMUX_MAIN_Register_Masks INPUTMUX_MAIN Register Masks
  * @{
  */
 
 /*! @name CTIMER0CAP - Capture select register for CTIMER0 inputs */
 /*! @{ */
 
-#define INPUTMUX_CTIMER0CAP_INP_MASK             (0x7FU)
-#define INPUTMUX_CTIMER0CAP_INP_SHIFT            (0U)
+#define INPUTMUX_MAIN_CTIMER0CAP_INP_MASK        (0x7FU)
+#define INPUTMUX_MAIN_CTIMER0CAP_INP_SHIFT       (0U)
 /*! INP - Input number for CTIMER0
  *  0b0000000..Reserved
  *  0b0000001..CT_INP0 input is selected
@@ -221,17 +221,17 @@ typedef struct {
  *  0b0111111..Reserved
  *  0b1000000..Reserved
  */
-#define INPUTMUX_CTIMER0CAP_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CTIMER0CAP_INP_SHIFT)) & INPUTMUX_CTIMER0CAP_INP_MASK)
+#define INPUTMUX_MAIN_CTIMER0CAP_INP(x)          (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_CTIMER0CAP_INP_SHIFT)) & INPUTMUX_MAIN_CTIMER0CAP_INP_MASK)
 /*! @} */
 
-/* The count of INPUTMUX_CTIMER0CAP */
-#define INPUTMUX_CTIMER0CAP_COUNT                (4U)
+/* The count of INPUTMUX_MAIN_CTIMER0CAP */
+#define INPUTMUX_MAIN_CTIMER0CAP_COUNT           (4U)
 
 /*! @name CTIMER0TRIG - Trigger register for CTIMER0 */
 /*! @{ */
 
-#define INPUTMUX_CTIMER0TRIG_INP_MASK            (0x7FU)
-#define INPUTMUX_CTIMER0TRIG_INP_SHIFT           (0U)
+#define INPUTMUX_MAIN_CTIMER0TRIG_INP_MASK       (0x7FU)
+#define INPUTMUX_MAIN_CTIMER0TRIG_INP_SHIFT      (0U)
 /*! INP - Input number for CTIMER0
  *  0b0000000..Reserved
  *  0b0000001..CT_INP0 input is selected
@@ -299,14 +299,14 @@ typedef struct {
  *  0b0111111..Reserved
  *  0b1000000..Reserved
  */
-#define INPUTMUX_CTIMER0TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CTIMER0TRIG_INP_SHIFT)) & INPUTMUX_CTIMER0TRIG_INP_MASK)
+#define INPUTMUX_MAIN_CTIMER0TRIG_INP(x)         (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_CTIMER0TRIG_INP_SHIFT)) & INPUTMUX_MAIN_CTIMER0TRIG_INP_MASK)
 /*! @} */
 
 /*! @name CTIMER1CAP - Capture select register for CTIMER1 inputs */
 /*! @{ */
 
-#define INPUTMUX_CTIMER1CAP_INP_MASK             (0x7FU)
-#define INPUTMUX_CTIMER1CAP_INP_SHIFT            (0U)
+#define INPUTMUX_MAIN_CTIMER1CAP_INP_MASK        (0x7FU)
+#define INPUTMUX_MAIN_CTIMER1CAP_INP_SHIFT       (0U)
 /*! INP - Input number for CTIMER1
  *  0b0000000..Reserved
  *  0b0000001..CT_INP0 input is selected
@@ -374,17 +374,17 @@ typedef struct {
  *  0b0111111..Reserved
  *  0b1000000..Reserved
  */
-#define INPUTMUX_CTIMER1CAP_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CTIMER1CAP_INP_SHIFT)) & INPUTMUX_CTIMER1CAP_INP_MASK)
+#define INPUTMUX_MAIN_CTIMER1CAP_INP(x)          (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_CTIMER1CAP_INP_SHIFT)) & INPUTMUX_MAIN_CTIMER1CAP_INP_MASK)
 /*! @} */
 
-/* The count of INPUTMUX_CTIMER1CAP */
-#define INPUTMUX_CTIMER1CAP_COUNT                (4U)
+/* The count of INPUTMUX_MAIN_CTIMER1CAP */
+#define INPUTMUX_MAIN_CTIMER1CAP_COUNT           (4U)
 
 /*! @name CTIMER1TRIG - Trigger register for CTIMER1 */
 /*! @{ */
 
-#define INPUTMUX_CTIMER1TRIG_INP_MASK            (0x7FU)
-#define INPUTMUX_CTIMER1TRIG_INP_SHIFT           (0U)
+#define INPUTMUX_MAIN_CTIMER1TRIG_INP_MASK       (0x7FU)
+#define INPUTMUX_MAIN_CTIMER1TRIG_INP_SHIFT      (0U)
 /*! INP - Input number for CTIMER1
  *  0b0000000..Reserved
  *  0b0000001..CT_INP0 input is selected
@@ -452,14 +452,14 @@ typedef struct {
  *  0b0111111..Reserved
  *  0b1000000..Reserved
  */
-#define INPUTMUX_CTIMER1TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CTIMER1TRIG_INP_SHIFT)) & INPUTMUX_CTIMER1TRIG_INP_MASK)
+#define INPUTMUX_MAIN_CTIMER1TRIG_INP(x)         (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_CTIMER1TRIG_INP_SHIFT)) & INPUTMUX_MAIN_CTIMER1TRIG_INP_MASK)
 /*! @} */
 
 /*! @name CTIMER2CAP - Capture select register for CTIMER2 inputs */
 /*! @{ */
 
-#define INPUTMUX_CTIMER2CAP_INP_MASK             (0x7FU)
-#define INPUTMUX_CTIMER2CAP_INP_SHIFT            (0U)
+#define INPUTMUX_MAIN_CTIMER2CAP_INP_MASK        (0x7FU)
+#define INPUTMUX_MAIN_CTIMER2CAP_INP_SHIFT       (0U)
 /*! INP - Input number for CTIMER2
  *  0b0000000..Reserved
  *  0b0000001..CT_INP0 input is selected
@@ -527,17 +527,17 @@ typedef struct {
  *  0b0111111..Reserved
  *  0b1000000..Reserved
  */
-#define INPUTMUX_CTIMER2CAP_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CTIMER2CAP_INP_SHIFT)) & INPUTMUX_CTIMER2CAP_INP_MASK)
+#define INPUTMUX_MAIN_CTIMER2CAP_INP(x)          (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_CTIMER2CAP_INP_SHIFT)) & INPUTMUX_MAIN_CTIMER2CAP_INP_MASK)
 /*! @} */
 
-/* The count of INPUTMUX_CTIMER2CAP */
-#define INPUTMUX_CTIMER2CAP_COUNT                (4U)
+/* The count of INPUTMUX_MAIN_CTIMER2CAP */
+#define INPUTMUX_MAIN_CTIMER2CAP_COUNT           (4U)
 
 /*! @name TIMER2TRIG - Trigger register for CTIMER2 inputs */
 /*! @{ */
 
-#define INPUTMUX_TIMER2TRIG_INP_MASK             (0x7FU)
-#define INPUTMUX_TIMER2TRIG_INP_SHIFT            (0U)
+#define INPUTMUX_MAIN_TIMER2TRIG_INP_MASK        (0x7FU)
+#define INPUTMUX_MAIN_TIMER2TRIG_INP_SHIFT       (0U)
 /*! INP - Input number for CTIMER2
  *  0b0000000..Reserved
  *  0b0000001..CT_INP0 input is selected
@@ -605,14 +605,14 @@ typedef struct {
  *  0b0111111..Reserved
  *  0b1000000..Reserved
  */
-#define INPUTMUX_TIMER2TRIG_INP(x)               (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TIMER2TRIG_INP_SHIFT)) & INPUTMUX_TIMER2TRIG_INP_MASK)
+#define INPUTMUX_MAIN_TIMER2TRIG_INP(x)          (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_TIMER2TRIG_INP_SHIFT)) & INPUTMUX_MAIN_TIMER2TRIG_INP_MASK)
 /*! @} */
 
 /*! @name CMP0_TRIG - CMP0 Input Connections */
 /*! @{ */
 
-#define INPUTMUX_CMP0_TRIG_TRIGIN_MASK           (0x3FU)
-#define INPUTMUX_CMP0_TRIG_TRIGIN_SHIFT          (0U)
+#define INPUTMUX_MAIN_CMP0_TRIG_TRIGIN_MASK      (0x3FU)
+#define INPUTMUX_MAIN_CMP0_TRIG_TRIGIN_SHIFT     (0U)
 /*! TRIGIN - CMP0 input trigger
  *  0b000000..Reserved
  *  0b000001..ARM_TXEV input is selected
@@ -646,14 +646,14 @@ typedef struct {
  *  0b011101..Reserved
  *  0b011110..WUU input is selected
  */
-#define INPUTMUX_CMP0_TRIG_TRIGIN(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_CMP0_TRIG_TRIGIN_SHIFT)) & INPUTMUX_CMP0_TRIG_TRIGIN_MASK)
+#define INPUTMUX_MAIN_CMP0_TRIG_TRIGIN(x)        (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_CMP0_TRIG_TRIGIN_SHIFT)) & INPUTMUX_MAIN_CMP0_TRIG_TRIGIN_MASK)
 /*! @} */
 
 /*! @name ADC0_TRIG - ADC Trigger Input Connections */
 /*! @{ */
 
-#define INPUTMUX_ADC0_TRIG_TRIGIN_MASK           (0x3FU)
-#define INPUTMUX_ADC0_TRIG_TRIGIN_SHIFT          (0U)
+#define INPUTMUX_MAIN_ADC0_TRIG_TRIGIN_MASK      (0x3FU)
+#define INPUTMUX_MAIN_ADC0_TRIG_TRIGIN_SHIFT     (0U)
 /*! TRIGIN - ADC0 trigger inputs
  *  0b000000..Reserved
  *  0b000001..ARM_TXEV input is selected
@@ -688,17 +688,17 @@ typedef struct {
  *  0b011110..Reserved
  *  0b011111..WUU
  */
-#define INPUTMUX_ADC0_TRIG_TRIGIN(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_ADC0_TRIG_TRIGIN_SHIFT)) & INPUTMUX_ADC0_TRIG_TRIGIN_MASK)
+#define INPUTMUX_MAIN_ADC0_TRIG_TRIGIN(x)        (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_ADC0_TRIG_TRIGIN_SHIFT)) & INPUTMUX_MAIN_ADC0_TRIG_TRIGIN_MASK)
 /*! @} */
 
-/* The count of INPUTMUX_ADC0_TRIG */
-#define INPUTMUX_ADC0_TRIG_COUNT                 (4U)
+/* The count of INPUTMUX_MAIN_ADC0_TRIG */
+#define INPUTMUX_MAIN_ADC0_TRIG_COUNT            (4U)
 
 /*! @name AOI0_MUX - AOI0 Trigger Input Connections */
 /*! @{ */
 
-#define INPUTMUX_AOI0_MUX_INP_MASK               (0x3FU)
-#define INPUTMUX_AOI0_MUX_INP_SHIFT              (0U)
+#define INPUTMUX_MAIN_AOI0_MUX_INP_MASK          (0x3FU)
+#define INPUTMUX_MAIN_AOI0_MUX_INP_SHIFT         (0U)
 /*! INP - AOI0 trigger input connections
  *  0b000000..Reserved
  *  0b000001..ADC0_tcomp[0] input is selected
@@ -752,17 +752,17 @@ typedef struct {
  *  0b110001..GPIO2 Pin Event Trig 0 input is selected
  *  0b110010..GPIO3 Pin Event Trig 0 input is selected
  */
-#define INPUTMUX_AOI0_MUX_INP(x)                 (((uint32_t)(((uint32_t)(x)) << INPUTMUX_AOI0_MUX_INP_SHIFT)) & INPUTMUX_AOI0_MUX_INP_MASK)
+#define INPUTMUX_MAIN_AOI0_MUX_INP(x)            (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_AOI0_MUX_INP_SHIFT)) & INPUTMUX_MAIN_AOI0_MUX_INP_MASK)
 /*! @} */
 
-/* The count of INPUTMUX_AOI0_MUX */
-#define INPUTMUX_AOI0_MUX_COUNT                  (16U)
+/* The count of INPUTMUX_MAIN_AOI0_MUX */
+#define INPUTMUX_MAIN_AOI0_MUX_COUNT             (16U)
 
 /*! @name EXT_TRIG - EXT Trigger Connections */
 /*! @{ */
 
-#define INPUTMUX_EXT_TRIG_INP_MASK               (0x1FU)
-#define INPUTMUX_EXT_TRIG_INP_SHIFT              (0U)
+#define INPUTMUX_MAIN_EXT_TRIG_INP_MASK          (0x1FU)
+#define INPUTMUX_MAIN_EXT_TRIG_INP_SHIFT         (0U)
 /*! INP - EXT trigger input connections
  *  0b00000..Reserved
  *  0b00001..ARM_TXEV input is selected
@@ -777,17 +777,17 @@ typedef struct {
  *  0b01010..LPUART1 input is selected
  *  0b01011..Reserved
  */
-#define INPUTMUX_EXT_TRIG_INP(x)                 (((uint32_t)(((uint32_t)(x)) << INPUTMUX_EXT_TRIG_INP_SHIFT)) & INPUTMUX_EXT_TRIG_INP_MASK)
+#define INPUTMUX_MAIN_EXT_TRIG_INP(x)            (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_EXT_TRIG_INP_SHIFT)) & INPUTMUX_MAIN_EXT_TRIG_INP_MASK)
 /*! @} */
 
-/* The count of INPUTMUX_EXT_TRIG */
-#define INPUTMUX_EXT_TRIG_COUNT                  (8U)
+/* The count of INPUTMUX_MAIN_EXT_TRIG */
+#define INPUTMUX_MAIN_EXT_TRIG_COUNT             (8U)
 
 /*! @name LPI2C0_TRIG - LPI2C0 Trigger Input Connections */
 /*! @{ */
 
-#define INPUTMUX_LPI2C0_TRIG_INP_MASK            (0x3FU)
-#define INPUTMUX_LPI2C0_TRIG_INP_SHIFT           (0U)
+#define INPUTMUX_MAIN_LPI2C0_TRIG_INP_MASK       (0x3FU)
+#define INPUTMUX_MAIN_LPI2C0_TRIG_INP_SHIFT      (0U)
 /*! INP - LPI2C0 trigger input connections
  *  0b000000..Reserved
  *  0b000001..ARM_TXEV
@@ -821,14 +821,14 @@ typedef struct {
  *  0b011101..Reserved
  *  0b011110..WUU input is selected
  */
-#define INPUTMUX_LPI2C0_TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPI2C0_TRIG_INP_SHIFT)) & INPUTMUX_LPI2C0_TRIG_INP_MASK)
+#define INPUTMUX_MAIN_LPI2C0_TRIG_INP(x)         (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_LPI2C0_TRIG_INP_SHIFT)) & INPUTMUX_MAIN_LPI2C0_TRIG_INP_MASK)
 /*! @} */
 
 /*! @name LPI2C1_TRIG - LPI2C1 Trigger Input Connections */
 /*! @{ */
 
-#define INPUTMUX_LPI2C1_TRIG_INP_MASK            (0x3FU)
-#define INPUTMUX_LPI2C1_TRIG_INP_SHIFT           (0U)
+#define INPUTMUX_MAIN_LPI2C1_TRIG_INP_MASK       (0x3FU)
+#define INPUTMUX_MAIN_LPI2C1_TRIG_INP_SHIFT      (0U)
 /*! INP - LPI2C1 trigger input connections
  *  0b000000..Reserved
  *  0b000001..ARM_TXEV
@@ -862,14 +862,14 @@ typedef struct {
  *  0b011101..Reserved
  *  0b011110..WUU input is selected
  */
-#define INPUTMUX_LPI2C1_TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPI2C1_TRIG_INP_SHIFT)) & INPUTMUX_LPI2C1_TRIG_INP_MASK)
+#define INPUTMUX_MAIN_LPI2C1_TRIG_INP(x)         (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_LPI2C1_TRIG_INP_SHIFT)) & INPUTMUX_MAIN_LPI2C1_TRIG_INP_MASK)
 /*! @} */
 
 /*! @name LPSPI0_TRIG - LPSPI0 Trigger Input Connections */
 /*! @{ */
 
-#define INPUTMUX_LPSPI0_TRIG_INP_MASK            (0x3FU)
-#define INPUTMUX_LPSPI0_TRIG_INP_SHIFT           (0U)
+#define INPUTMUX_MAIN_LPSPI0_TRIG_INP_MASK       (0x3FU)
+#define INPUTMUX_MAIN_LPSPI0_TRIG_INP_SHIFT      (0U)
 /*! INP - LPSPI0 trigger input connections
  *  0b000000..Reserved
  *  0b000001..ARM_TXEV
@@ -903,14 +903,14 @@ typedef struct {
  *  0b011101..Reserved
  *  0b011110..WUU input is selected
  */
-#define INPUTMUX_LPSPI0_TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPSPI0_TRIG_INP_SHIFT)) & INPUTMUX_LPSPI0_TRIG_INP_MASK)
+#define INPUTMUX_MAIN_LPSPI0_TRIG_INP(x)         (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_LPSPI0_TRIG_INP_SHIFT)) & INPUTMUX_MAIN_LPSPI0_TRIG_INP_MASK)
 /*! @} */
 
 /*! @name LPSPI1_TRIG - LPSPI1 Trigger Input Connections */
 /*! @{ */
 
-#define INPUTMUX_LPSPI1_TRIG_INP_MASK            (0x3FU)
-#define INPUTMUX_LPSPI1_TRIG_INP_SHIFT           (0U)
+#define INPUTMUX_MAIN_LPSPI1_TRIG_INP_MASK       (0x3FU)
+#define INPUTMUX_MAIN_LPSPI1_TRIG_INP_SHIFT      (0U)
 /*! INP - LPSPI1 trigger input connections
  *  0b000000..Reserved
  *  0b000001..ARM_TXEV
@@ -944,14 +944,14 @@ typedef struct {
  *  0b011101..Reserved
  *  0b011110..WUU input is selected
  */
-#define INPUTMUX_LPSPI1_TRIG_INP(x)              (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPSPI1_TRIG_INP_SHIFT)) & INPUTMUX_LPSPI1_TRIG_INP_MASK)
+#define INPUTMUX_MAIN_LPSPI1_TRIG_INP(x)         (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_LPSPI1_TRIG_INP_SHIFT)) & INPUTMUX_MAIN_LPSPI1_TRIG_INP_MASK)
 /*! @} */
 
 /*! @name LPUART0 - LPUART0 Trigger Input Connections */
 /*! @{ */
 
-#define INPUTMUX_LPUART0_INP_MASK                (0x3FU)
-#define INPUTMUX_LPUART0_INP_SHIFT               (0U)
+#define INPUTMUX_MAIN_LPUART0_INP_MASK           (0x3FU)
+#define INPUTMUX_MAIN_LPUART0_INP_SHIFT          (0U)
 /*! INP - LPUART0 trigger input connections
  *  0b000000..Reserved
  *  0b000001..ARM_TXEV
@@ -989,14 +989,14 @@ typedef struct {
  *  0b100001..Reserved
  *  0b100010..WUU selected
  */
-#define INPUTMUX_LPUART0_INP(x)                  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPUART0_INP_SHIFT)) & INPUTMUX_LPUART0_INP_MASK)
+#define INPUTMUX_MAIN_LPUART0_INP(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_LPUART0_INP_SHIFT)) & INPUTMUX_MAIN_LPUART0_INP_MASK)
 /*! @} */
 
 /*! @name LPUART1 - LPUART1 Trigger Input Connections */
 /*! @{ */
 
-#define INPUTMUX_LPUART1_INP_MASK                (0x3FU)
-#define INPUTMUX_LPUART1_INP_SHIFT               (0U)
+#define INPUTMUX_MAIN_LPUART1_INP_MASK           (0x3FU)
+#define INPUTMUX_MAIN_LPUART1_INP_SHIFT          (0U)
 /*! INP - LPUART1 trigger input connections
  *  0b000000..Reserved
  *  0b000001..ARM_TXEV
@@ -1034,18 +1034,18 @@ typedef struct {
  *  0b100001..Reserved
  *  0b100010..WUU selected
  */
-#define INPUTMUX_LPUART1_INP(x)                  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_LPUART1_INP_SHIFT)) & INPUTMUX_LPUART1_INP_MASK)
+#define INPUTMUX_MAIN_LPUART1_INP(x)             (((uint32_t)(((uint32_t)(x)) << INPUTMUX_MAIN_LPUART1_INP_SHIFT)) & INPUTMUX_MAIN_LPUART1_INP_MASK)
 /*! @} */
 
 
 /*!
  * @}
- */ /* end of group INPUTMUX_Register_Masks */
+ */ /* end of group INPUTMUX_MAIN_Register_Masks */
 
 
 /*!
  * @}
- */ /* end of group INPUTMUX_Peripheral_Access_Layer */
+ */ /* end of group INPUTMUX_MAIN_Peripheral_Access_Layer */
 
 
 /*
@@ -1071,5 +1071,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* INPUTMUX_H_ */
+#endif  /* INPUTMUX_MAIN_H_ */
 

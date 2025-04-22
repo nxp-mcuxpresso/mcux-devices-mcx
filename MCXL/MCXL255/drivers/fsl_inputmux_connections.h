@@ -8,6 +8,9 @@
 #ifndef _FSL_INPUTMUX_CONNECTIONS_
 #define _FSL_INPUTMUX_CONNECTIONS_
 
+#include "PERI_INPUTMUX_MAIN.h"
+#include "PERI_INPUTMUX_AON.h"
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -23,6 +26,17 @@
 /*@}*/
 
 #define INPUTMUX_GpioPortPinToPintsel(port, pin) ((pin) + (PINTSEL_PMUX_ID << PMUX_SHIFT))
+
+typedef void INPUTMUX_Type;
+
+/* Driver compatibility definitions. */
+#define AON__INPUTMUX      ((INPUTMUX_Type *)AON__INPUTMUX1_BASE)
+#if __CORTEX_M == (33U) /* Building on the main core */
+#define INPUTMUX           ((INPUTMUX_Type *)INPUTMUX0_BASE)
+#define INPUTMUX_BASE_PTRS { INPUTMUX0, AON__INPUTMUX1 }
+#else
+#define INPUTMUX_BASE_PTRS { (INPUTMUX_Type *)0u, AON__INPUTMUX1 }
+#endif
 
 /*!
  * @addtogroup inputmux_driver

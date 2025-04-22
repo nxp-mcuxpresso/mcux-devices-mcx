@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftF
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250420
+**     Build:               b250422
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL253_cm33
@@ -60,8 +60,8 @@
 #include "PERI_FREQME.h"
 #include "PERI_GLIKEY.h"
 #include "PERI_GPIO.h"
-#include "PERI_INPUTMUX.h"
-#include "PERI_INPUTMUX1.h"
+#include "PERI_INPUTMUX_AON.h"
+#include "PERI_INPUTMUX_MAIN.h"
 #include "PERI_KPP.h"
 #include "PERI_LPACMP.h"
 #include "PERI_LPADC.h"
@@ -80,8 +80,8 @@
 #include "PERI_RTC.h"
 #include "PERI_SCG.h"
 #include "PERI_SGI.h"
-#include "PERI_SGLCD_AON.h"
-#include "PERI_SGLCD_MAIN.h"
+#include "PERI_SGLCD_CONTROL.h"
+#include "PERI_SGLCD_FAULT_DETECT.h"
 #include "PERI_SMM.h"
 #include "PERI_SYSCON.h"
 #include "PERI_SYSCON_AON.h"

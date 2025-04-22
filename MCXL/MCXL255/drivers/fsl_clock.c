@@ -33,7 +33,7 @@ volatile uint32_t g_xtal32Freq;
  * Prototypes
  ******************************************************************************/
 
-/* Get get AON FRO10/4M Clk */
+/* Get get AON FRO10/2M Clk */
 static uint32_t CLOCK_GetFroAonFreq(void);
 /* Get RTC OSC Clk */
 static uint32_t CLOCK_GetRtcOscFreq(void);
@@ -409,7 +409,7 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
 #endif
 }
 
-/* Initialize the FROHF to given frequency (10M, 4M) */
+/* Initialize the FROHF to given frequency (10M, 2M) */
 status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
 {
     switch(iFreq)
@@ -418,8 +418,8 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
             AON__CGU->CLK_CONFIG &= ~(1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT);
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_FRO10M_EN_SHIFT;
             break;
-        case 4000000U:
-            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_FRO4M_LV_EN_MASK;
+        case 2000000U:
+            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_FRO2M_EN_MASK;
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT;
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_FRO10M_EN_SHIFT;
             break;
@@ -565,22 +565,22 @@ status_t CLOCK_InitRosc(const scg_rosc_config_t *config)
  */
 status_t CLOCK_DeinitRosc(void)
 {
-    uint32_t reg = SCG0->SOSCCSR;
+    uint32_t reg = SCG0->ROSCCSR;
 
     /* If clock is used by system, return error. */
-    if ((reg & SCG_ROSCCSR_ROSCSEL_MASK) == SCG_SOSCCSR_SOSCSEL_MASK)
+    if ((reg & SCG_ROSCCSR_ROSCSEL_MASK) == SCG_ROSCCSR_ROSCSEL_MASK)
     {
         return (status_t)kStatus_Busy;
     }
 
     /* If configure register is locked, return error. */
-    if ((reg & SCG_SOSCCSR_LK_MASK) == SCG_SOSCCSR_LK_MASK)
+    if ((reg & SCG_ROSCCSR_LK_MASK) == SCG_ROSCCSR_LK_MASK)
     {
         return (status_t)kStatus_ReadOnly;
     }
 
     /* De-initializes the SCG ROSC */
-    SCG0->SOSCCSR = SCG_SOSCCSR_SOSCERR_MASK;
+    
 
     return (status_t)kStatus_Success;
 }
@@ -674,7 +674,7 @@ static uint32_t CLOCK_GetAonFroFreq(void)
     {
         if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_SEL_MODE_MASK)
         {
-            freq = 4000000U;
+            freq = 2000000U;
         }
         else
         {
@@ -812,7 +812,7 @@ uint32_t CLOCK_GetRtcOscFreq(void)
  */
 static uint32_t CLOCK_GetSysOscFreq(void)
 {
-    if ((SCG0->SOSCCSR & SCG_SOSCCSR_SOSCVLD_MASK) == SCG_SOSCCSR_SOSCVLD_MASK) /* SOSC clock is valid. */
+    if ((SCG0->ROSCCSR & SCG_ROSCCSR_ROSCVLD_MASK) == SCG_ROSCCSR_ROSCVLD_MASK) /* SOSC clock is valid. */
     {
         /* Please call CLOCK_SetXtal32Freq base on board setting before using RTC OSC clock. */
         assert(g_xtal32Freq);
@@ -1346,7 +1346,7 @@ uint32_t CLOCK_GetSystickClkFreq(void)
 
 /**
  * @brief  Return Frequency of Systick Clock
- * @return Frequency of AON FRO (10M/4M or 0 when not eneabled).
+ * @return Frequency of AON FRO (10M/2M or 0 when not eneabled).
  */
 uint32_t CLOCK_GetFroAonFreq(void)
 {
@@ -1360,7 +1360,7 @@ uint32_t CLOCK_GetFroAonFreq(void)
     }
     else
     {
-        return 4000000U;
+        return 2000000U;
     }
 }
 
@@ -1418,18 +1418,18 @@ status_t CLOCK_FRO12MTrimConfig(sirc_trim_config_t config)
 #endif /* Building on the main core */
 
 /**
- * @brief   Sets AON FRO 10M or 4M trim.
- * @param   is_fro4m : 0 for FRO10M, 1 for FRO4M
+ * @brief   Sets AON FRO 10M or 2M trim.
+ * @param   is_fro2m : 0 for FRO10M, 1 for FRO2M
  * @param   config   : trim value
  */
-void CLOCK_AON_FRO_Trim_Set(uint8_t is_fro4m, aon_fro_trim_config_t config)
+void CLOCK_AON_FRO_Trim_Set(uint8_t is_fro2m, aon_fro_trim_config_t config)
 {
-    volatile uint32_t *reg_config = (is_fro4m) ?
-                                    &AON__CGU->FRO4M_CONFIG :
+    volatile uint32_t *reg_config = (is_fro2m) ?
+                                    &AON__CGU->FRO2M_CONFIG :
                                     &AON__CGU->FRO10M_CONFIG;
 
-    volatile uint32_t *reg_trim = (is_fro4m) ?
-                                  &AON__CGU->FRO4M_TRIM :
+    volatile uint32_t *reg_trim = (is_fro2m) ?
+                                  &AON__CGU->FRO2M_TRIM :
                                   &AON__CGU->FRO10M_TRIM;
     uint32_t val;
     assert(config.fs_bp   <= 7U);
@@ -1455,18 +1455,18 @@ void CLOCK_AON_FRO_Trim_Set(uint8_t is_fro4m, aon_fro_trim_config_t config)
 }
 
 /**
- * @brief   Reads AON FRO 10M or 4M trim values.
- * @param   is_fro4m : 0 for FRO10M, 1 for FRO4M
+ * @brief   Reads AON FRO 10M or 2M trim values.
+ * @param   is_fro2m : 0 for FRO10M, 1 for FRO2M
  * @param   config   : ptr to aon_fro_trim_config_t struct.
  */
-void CLOCK_AON_FRO_Trim_Get(uint8_t is_fro4m, aon_fro_trim_config_t * config)
+void CLOCK_AON_FRO_Trim_Get(uint8_t is_fro2m, aon_fro_trim_config_t * config)
 {
-    volatile uint32_t *reg_config = (is_fro4m) ?
-                                    &AON__CGU->FRO4M_CONFIG :
+    volatile uint32_t *reg_config = (is_fro2m) ?
+                                    &AON__CGU->FRO2M_CONFIG :
                                     &AON__CGU->FRO10M_CONFIG;
 
-    volatile uint32_t *reg_trim = (is_fro4m) ?
-                                  &AON__CGU->FRO4M_TRIM :
+    volatile uint32_t *reg_trim = (is_fro2m) ?
+                                  &AON__CGU->FRO2M_TRIM :
                                   &AON__CGU->FRO10M_TRIM;
     uint32_t val;
     assert(config);

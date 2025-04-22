@@ -91,6 +91,7 @@ typedef enum _clock_ip_name
     kCLOCK_GateDMA0          = (0x00U | (7U)),                         /*!< Clock gate name: DMA0           */
     kCLOCK_GateAOI0          = (0x00U | (8U)),                         /*!< Clock gate name: AOI0           */
     kCLOCK_GateCrc           = (0x00U | (9U)),                         /*!< Clock gate name: CRC            */
+    kCLOCK_Crc0              = (0x00U | (9U)),                         /*!< Clock gate name: CRC (Alias)    */
     kCLOCK_GateERM0          = (0x00U | (10U)),                        /*!< Clock gate name: ERM0           */
     kCLOCK_GateLPI2C0        = (0x00U | (14U)),                        /*!< Clock gate name: LPI2C0         */
     kCLOCK_GateLPI2C1        = (0x00U | (15U)),                        /*!< Clock gate name: LPI2C0         */

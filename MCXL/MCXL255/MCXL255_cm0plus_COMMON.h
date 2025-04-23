@@ -575,6 +575,9 @@ typedef enum IRQn {
   #define SGLCD_CONTROL_BASE_PTRS                  { AON__SGLCD0_AON }
 #endif
 
+/** Interrupt vectors for the LCD_CONTROL peripheral type */
+#define SGLCD_CONTROL_IRQS { SGLCD_AON_IRQn }
+
 /* SMM - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
   /** Peripheral AON__SMM base address */

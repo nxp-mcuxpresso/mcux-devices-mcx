@@ -50,7 +50,8 @@
 /* @brief KPP availability on the SoC. */
 #define FSL_FEATURE_SOC_KPP_COUNT (1)
 /* @brief LCD availability on the SoC. */
-#define FSL_FEATURE_SOC_LCD_COUNT (2)
+#define FSL_FEATURE_SOC_LCD_COUNT (1)
+#define FSL_FEATURE_LCD_HAS_FAULT_DETECT (1)
 /* @brief LPADC availability on the SoC. */
 #define FSL_FEATURE_SOC_LPADC_COUNT (2)
 /* @brief LPCMP availability on the SoC. */

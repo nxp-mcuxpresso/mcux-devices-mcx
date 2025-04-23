@@ -4,7 +4,7 @@
 ;            MCXE247
 ;  @version: 1.0
 ;  @date:    2025-2-21
-;  @build:   b250415
+;  @build:   b250422
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -314,7 +314,7 @@ __FlashConfig
         DCD 0xFFFFFFFF
         DCD 0xFFFFFFFF
         DCD 0xFFFFFFFF
-        DCD 0xFFFF7DFE
+        DCD 0xFFFFFFFE
 __FlashConfig_End
 
 __Vectors       EQU   __vector_table

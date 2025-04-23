@@ -4,7 +4,7 @@
 /*            MCXE247                                                        */
 /*  @version: 1.0                                                            */
 /*  @date:    2025-2-21                                                      */
-/*  @build:   b250415                                                        */
+/*  @build:   b250422                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -286,7 +286,7 @@ __isr_vector:
     .long 0xFFFFFFFF
     .long 0xFFFFFFFF
     .long 0xFFFFFFFF
-    .long 0xFFFF7DFE
+    .long 0xFFFFFFFE
 
     .text
     .thumb

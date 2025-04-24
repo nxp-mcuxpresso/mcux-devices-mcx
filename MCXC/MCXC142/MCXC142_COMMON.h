@@ -157,7 +157,9 @@ typedef enum IRQn {
 #include "core_cm0plus.h"              /* Core Peripheral Access Layer */
 #include "system_MCXC142.h"            /* Device specific configuration file */
 
+#ifndef MCXC142_SERIES
 #define MCXC142_SERIES
+#endif
 /* CPU specific feature definitions */
 #include "MCXC142_features.h"
 
@@ -643,4 +645,3 @@ typedef enum IRQn {
 
 
 #endif  /* MCXC142_COMMON_H_ */
-

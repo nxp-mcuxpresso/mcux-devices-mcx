@@ -184,7 +184,9 @@ typedef enum IRQn {
  */ /* end of group Cortex_Core_Configuration */
 
 
+#ifndef MCXW727C_cm33_core0_SERIES
 #define MCXW727C_cm33_core0_SERIES
+#endif
 /* CPU specific feature definitions */
 #include "MCXW727C_cm33_core0_features.h"
 
@@ -2397,7 +2399,9 @@ typedef enum IRQn {
 #define NXP_RADIO_GEN (470)
 #define IS_APP_CORE (1)
 #define IS_RADIO_CORE (0)
+#ifndef MCXW72_core0_SERIES
 #define MCXW72_core0_SERIES
+#endif
 
 /*! @brief define LTC0 from LTC. */
 #define LTC0 LTC
@@ -2437,7 +2441,9 @@ static inline uint8_t Chip_GetVersion(void)
 #define NXP_RADIO_GEN (470)
 #define IS_APP_CORE (0)
 #define IS_RADIO_CORE (1)
+#ifndef MCXW72_core1_SERIES
 #define MCXW72_core1_SERIES
+#endif
 
 /*! @brief define LTC0 from LTC. */
 #define LTC0 LTC
@@ -2450,4 +2456,3 @@ static inline uint8_t Chip_GetVersion(void)
 
 
 #endif  /* MCXW727C_CM33_CORE0_COMMON_H_ */
-

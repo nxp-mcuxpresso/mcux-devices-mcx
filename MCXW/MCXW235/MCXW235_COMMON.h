@@ -172,7 +172,9 @@ typedef enum IRQn {
  */ /* end of group Cortex_Core_Configuration */
 
 
+#ifndef MCXW235_SERIES
 #define MCXW235_SERIES
+#endif
 /* CPU specific feature definitions */
 #include "MCXW235_features.h"
 
@@ -1702,4 +1704,3 @@ typedef enum IRQn {
 
 
 #endif  /* MCXW235_COMMON_H_ */
-

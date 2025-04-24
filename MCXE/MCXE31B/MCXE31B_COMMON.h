@@ -256,7 +256,9 @@ typedef enum IRQn {
  */ /* end of group Cortex_Core_Configuration */
 
 
+#ifndef MCXE31B_SERIES
 #define MCXE31B_SERIES
+#endif
 /* CPU specific feature definitions */
 #include "MCXE31B_features.h"
 
@@ -1645,4 +1647,3 @@ typedef enum _xbic_slave_port
 
 
 #endif  /* MCXE31B_COMMON_H_ */
-

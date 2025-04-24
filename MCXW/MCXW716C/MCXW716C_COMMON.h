@@ -179,7 +179,9 @@ typedef enum IRQn {
 #include "core_cm33.h"                 /* Core Peripheral Access Layer */
 #include "system_MCXW716C.h"           /* Device specific configuration file */
 
+#ifndef MCXW716C_SERIES
 #define MCXW716C_SERIES
+#endif
 /* CPU specific feature definitions */
 #include "MCXW716C_features.h"
 
@@ -2282,4 +2284,3 @@ typedef enum IRQn {
 
 
 #endif  /* MCXW716C_COMMON_H_ */
-

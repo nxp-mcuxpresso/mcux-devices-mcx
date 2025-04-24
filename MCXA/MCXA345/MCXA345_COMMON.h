@@ -201,7 +201,9 @@ typedef enum IRQn {
  */ /* end of group Cortex_Core_Configuration */
 
 
+#ifndef MCXA345_SERIES
 #define MCXA345_SERIES
+#endif
 /* CPU specific feature definitions */
 #include "MCXA345_features.h"
 
@@ -864,4 +866,3 @@ typedef enum IRQn {
 
 
 #endif  /* MCXA345_COMMON_H_ */
-

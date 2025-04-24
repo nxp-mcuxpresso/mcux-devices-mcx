@@ -268,7 +268,9 @@ typedef enum IRQn {
  */ /* end of group Cortex_Core_Configuration */
 
 
+#ifndef MCXN546_cm33_core1_SERIES
 #define MCXN546_cm33_core1_SERIES
+#endif
 /* CPU specific feature definitions */
 #include "MCXN546_cm33_core1_features.h"
 
@@ -3550,4 +3552,3 @@ typedef enum IRQn {
 
 
 #endif  /* MCXN546_CM33_CORE1_COMMON_H_ */
-

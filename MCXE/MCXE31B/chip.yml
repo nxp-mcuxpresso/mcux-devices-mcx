@@ -8,7 +8,7 @@ device.hardware_data:
       - id: "MCXE31B"
         full_name: "MCXE31B"
         name: "MCXE31B"
-        platform: "MCXE31"
+        platform: "MCX"
         series: "MCXE"
         family: "MCXE31x"
         subfamily: ""

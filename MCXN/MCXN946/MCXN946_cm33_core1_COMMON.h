@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 2.0, 2023-02-01
-**     Build:               b250331
+**     Build:               b250424
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN946_cm33_core1
@@ -448,11 +448,15 @@ typedef enum IRQn {
  #define CACHE64_CTRL_PHYMEM_BASES_NS             { {0x08000000u, 0x80000000u, 0xA0000000u} }
 /** CACHE64_CTRL physical memory size */
  #define CACHE64_CTRL_PHYMEM_SIZES_NS             { {0x08000000u, 0x10000000u, 0x10000000u} }
+/** CACHE64_CTRL remap base address */
+ #define CACHE64_CTRL_ALIAS_REMAPPED_BASE_ADDR    {0x80000000u, 0x80000000u, 0x90000000u}
 #else
 /** CACHE64_CTRL physical memory base address */
  #define CACHE64_CTRL_PHYMEM_BASES                { {0x08000000u, 0x80000000u, 0xA0000000u} }
 /** CACHE64_CTRL physical memory size */
  #define CACHE64_CTRL_PHYMEM_SIZES                { {0x08000000u, 0x10000000u, 0x10000000u} }
+/** CACHE64_CTRL remap base address */
+ #define CACHE64_CTRL_ALIAS_REMAPPED_BASE_ADDR    {0x80000000u, 0x80000000u, 0x90000000u}
 #endif
 /* Backward compatibility */
 

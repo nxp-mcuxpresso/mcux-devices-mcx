@@ -151,7 +151,7 @@ void CLOCK_ProgressiveClockFrequencySwitch(clock_attach_id_t connection, clock_p
     uint32_t sdur;
     uint32_t divcInit;
     uint32_t divcRate;
-    uint32_t divStartValue;
+    uint64_t divStartValue;
     uint32_t divEndValue;
 
     Finput = config->clkSrcFreq / 1000000U;
@@ -210,14 +210,14 @@ void CLOCK_ProgressiveClockFrequencySwitch(clock_attach_id_t connection, clock_p
     sdur          = config->stepDuration * Fsafe;
     divcInit      = Rate * k;
     divcRate      = Rate;
-    divStartValue = 999U + ((Rate * k * (k + 1U)) >> 1U);
+    divStartValue = 999U + (((uint64_t)Rate * k * (k + 1U)) >> 1U);
     divEndValue   = (Finput * 1000U / Fsafe) - 1U;
 
     /* Configure pcfs registers */
     MC_CGM->PCFS_SDUR  = MC_CGM_PCFS_SDUR_SDUR(sdur);
     MC_CGM->PCFS_DIVC8 = MC_CGM_PCFS_DIVC8_RATE(divcRate) | MC_CGM_PCFS_DIVC8_INIT(divcInit);
     MC_CGM->PCFS_DIVE8 = MC_CGM_PCFS_DIVE8_DIVE(divEndValue);
-    MC_CGM->PCFS_DIVS8 = MC_CGM_PCFS_DIVS8_DIVS(divStartValue);
+    MC_CGM->PCFS_DIVS8 = MC_CGM_PCFS_DIVS8_DIVS((uint32_t)divStartValue);
 
     while ((CLOCK_TUPLE_MUX_CSS_REG(connection) & MC_CGM_MUX_0_CSS_SWIP_MASK) != 0)
     {
@@ -311,6 +311,9 @@ void CLOCK_InitPll(const pll_config_t *config)
 {
     uint32_t i;
 
+    assert(config->stepSize <= 1023U);
+    assert(config->stepNum <= 2047U);
+
     CLOCK_EnableClock(kCLOCK_Pll);
 
     if ((PLL->PLLCR & PLL_PLLCR_PLLPD_MASK) == 0U)
@@ -396,9 +399,9 @@ uint32_t CLOCK_GetPllPhiClkFreq(uint32_t index)
         {
             freq   = CLOCK_GetFxoscFreq() / 1000U / div;
             temp   = (PLL->PLLDV & PLL_PLLDV_MFI_MASK) >> PLL_PLLDV_MFI_SHIFT;
-            temp64 = (uint64_t)temp * 18432U + (PLL->PLLFD & PLL_PLLFD_MFN_MASK);
+            temp64 = (uint64_t)temp * 18432U + (uint64_t)(PLL->PLLFD & PLL_PLLFD_MFN_MASK);
             temp64 = temp64 * 1000U / 18432U;
-            freq   = (uint32_t)(freq * temp64);
+            freq   = (uint32_t)((uint64_t)freq * temp64);
         }
         else
         {

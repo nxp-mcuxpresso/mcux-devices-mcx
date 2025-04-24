@@ -439,7 +439,7 @@ inline static uint32_t SIUL2_PinRead(SIUL2_Type *base, uint8_t pin)
  * @brief Set the Glitch filter prescaler.
  *
  * @param base SIUL2 peripheral base pointer
- * @param div Glitch filter prescaler 0...15. Prescaled Filter Clock period is internal oscillator period �� (div + 1).
+ * @param div Glitch filter prescaler 0...15. Prescaled Filter Clock period is internal oscillator period x (div + 1).
  */
 inline static void SIUL2_SetGlitchFilterPrescaler(SIUL2_Type *base, uint8_t div)
 {

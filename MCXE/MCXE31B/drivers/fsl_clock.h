@@ -393,7 +393,8 @@ typedef enum _clock_ip_name
     kCLOCK_Qspi     = MC_ME_COFB_TUPLE(0x534U, 19), /*!< QuadSPI (PRTN2_COFB1) */
     kCLOCK_Sai1     = MC_ME_COFB_TUPLE(0x534U, 23), /*!< Synchronous Audio Interface 1 (PRTN2_COFB1) */
     kCLOCK_Lpcmp2   = MC_ME_COFB_TUPLE(0x534U, 26), /*!< Low Power CMP 2 (PRTN2_COFB1) */
-    kCLOCK_TcmCore0 = MC_ME_COFB_TUPLE(0x534U, 30), /*!< Core0 TCM (PRTN2_COFB1) */
+    kCLOCK_Tcm0     = MC_ME_COFB_TUPLE(0x534U, 30), /*!< Core0 TCM (PRTN2_COFB1) */
+    kCLOCK_Tcm1     = MC_ME_COFB_TUPLE(0x534U, 31), /*!< Core1 TCM (PRTN2_COFB1) */
 } clock_ip_name_t;
 
 #define CLOCK_DIV_TUPLE(mux, dc) ((mux << 8U) | dc)

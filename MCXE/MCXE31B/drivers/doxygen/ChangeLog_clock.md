@@ -4,6 +4,7 @@
 
 - Bug fix
   - Fixed bugs in pll_unlock_accuracy_t and CLOCK_InitPll.
+  - Fixed some potentioal operation wrap issue.
 
 ## [2.0.0]
 

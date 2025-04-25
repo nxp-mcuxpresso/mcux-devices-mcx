@@ -1,0 +1,111 @@
+---
+
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXE246
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXE246"
+        full_name: "MCXE246"
+        name: "MCXE246"
+        platform: "MCX"
+        series: "MCXE"
+        family: "MCXE24x"
+        subfamily: "MCXE246"
+        frequency_mhz: 0
+        core:
+          - name: "Cortex-M4F"
+            type: "cm4f"
+            id: "core0"
+            description: "M4 core"
+            fpu: "SP_FPU"
+            mpu: false
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH"
+              name: "PROGRAM_FLASH"
+              addr: 0x0
+              size: 0x100000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+            - id: "SRAM_LOWER"
+              name: "SRAM_LOWER"
+              addr: 0x1fff0000
+              size: 0x10000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "SRAM_UPPER"
+              name: "SRAM_UPPER"
+              addr: 0x20000000
+              size: 0xf000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "FLEX_RAM"
+              name: "FLEX_RAM"
+              addr: 0x14000000
+              size: 0x1000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "FLEX_NVM"
+              name: "FLEX_NVM"
+              addr: 0x10000000
+              size: 0x10000
+              type: "DFlash"
+              access: "RO"
+              default: true
+        total_memory:
+          ram_size_kb: 124
+          flash_size_kb: 1024
+        part:
+          - name: "MCXE246VLH"
+          - name: "MCXE246VLL"
+          - name: "MCXE246VLQ"
+        ips:
+          - "DriverFeature_FLEXCAN_DMA"
+          - "DriverFeature_RTC_RTC"
+          - "DriverFeature_WDOG_WDOG32"
+          - "DriverType_ACMP"
+          - "DriverType_ADC12"
+          - "DriverType_AIPS"
+          - "DriverType_AXBS"
+          - "DriverType_CRC"
+          - "DriverType_DMAMUX"
+          - "DriverType_EDMA"
+          - "DriverType_EIM"
+          - "DriverType_ELA_CSEC"
+          - "DriverType_ERM"
+          - "DriverType_EWM"
+          - "DriverType_FLASH"
+          - "DriverType_FLEXCAN"
+          - "DriverType_FLEXIO"
+          - "DriverType_FTM"
+          - "DriverType_JTAG2IPS"
+          - "DriverType_JTAGC"
+          - "DriverType_LMEM"
+          - "DriverType_LPI2C"
+          - "DriverType_LPIT"
+          - "DriverType_LPSPI"
+          - "DriverType_LPTMR"
+          - "DriverType_LPUART"
+          - "DriverType_MCM"
+          - "DriverType_NV"
+          - "DriverType_PCC"
+          - "DriverType_PDB"
+          - "DriverType_PMC"
+          - "DriverType_PORT"
+          - "DriverType_RCM"
+          - "DriverType_SCG"
+          - "DriverType_SIM"
+          - "DriverType_SMC"
+          - "DriverType_SRTC"
+          - "DriverType_SYSMPU"
+          - "DriverType_TRGMUX"
+          - "DriverType_WDOG32"
+        modules:
+...

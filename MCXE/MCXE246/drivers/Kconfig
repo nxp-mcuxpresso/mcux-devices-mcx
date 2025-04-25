@@ -1,0 +1,16 @@
+# Copyright 2025 NXP
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+menu "Device specific drivers configuration"
+
+    config MCUX_COMPONENT_driver.clock
+         bool "clock"
+         default y
+
+    config MCUX_COMPONENT_driver.flexcan_soc
+         bool "flexcan_soc"
+         default n
+
+endmenu

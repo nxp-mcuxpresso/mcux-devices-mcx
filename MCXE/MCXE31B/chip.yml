@@ -58,8 +58,22 @@ device.hardware_data:
               type: "RAM"
               access: "RW"
               default: true
+            - id: "DTCM1"
+              name: "DTCM1"
+              addr: 0x21400000
+              size: 0x10000
+              type: "RAM"
+              access: "RW"
+              default: true
+            - id: "ITCM1"
+              name: "ITCM1"
+              addr: 0x11400000
+              size: 0x8000
+              type: "RAM"
+              access: "RW"
+              default: true
         total_memory:
-          ram_size_kb: 416
+          ram_size_kb: 512
           flash_size_kb: 4224
         part:
           - name: "MCXE31BMPB"

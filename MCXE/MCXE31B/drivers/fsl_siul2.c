@@ -192,15 +192,24 @@ void SIUL2_SetPinInputBuffer(SIUL2_Type *base, uint32_t pin, bool enable, uint32
     base->MSCR[pin] &= ~SIUL2_MSCR_IBE_MASK;
     base->MSCR[pin] |= SIUL2_MSCR_IBE(enable ? 1UL : 0UL);
 
+    imcrVal  = base->IMCR[imcrRegIdx % SIUL2_IMCR_COUNT];
+    imcrVal &= ~SIUL2_IMCR_SSS_MASK;
+
     /* Check input mux to configure input signal */
     if (inputMux != kPORT_INPUT_MUX_NO_INIT)
     {
         if (imcrRegIdx < SIUL2_IMCR_COUNT)
         {
             /* Configure input mux */
-            imcrVal  = base->IMCR[imcrRegIdx % SIUL2_IMCR_COUNT];
-            imcrVal &= ~SIUL2_IMCR_SSS_MASK;
             imcrVal |= SIUL2_IMCR_SSS(inputMux);
+            base->IMCR[imcrRegIdx % SIUL2_IMCR_COUNT] = imcrVal;
+        }
+    }
+    else
+    {
+        if (imcrRegIdx < SIUL2_IMCR_COUNT)
+        {
+            /* Configure input mux */
             base->IMCR[imcrRegIdx % SIUL2_IMCR_COUNT] = imcrVal;
         }
     }

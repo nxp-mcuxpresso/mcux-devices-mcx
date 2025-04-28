@@ -21,7 +21,7 @@
 /*! @name Driver version */
 /*! @{ */
 /*! @brief SIUL2 driver version. */
-#define FSL_SIUL2_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
+#define FSL_SIUL2_DRIVER_VERSION (MAKE_VERSION(2, 0, 2))
 
 /*! @brief SIUL2 module maximum number of input signal on a pin */
 #define FEATURE_SIUL2_MAX_NUMBER_OF_INPUT (16U)

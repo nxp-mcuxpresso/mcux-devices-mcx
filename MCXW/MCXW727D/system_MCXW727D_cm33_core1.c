@@ -8,7 +8,7 @@
 **
 **     Reference manual:    Rev. 1, 2024-10-13
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250408
+**     Build:               b250429
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -57,33 +57,6 @@ uint32_t SystemCoreClock = DEFAULT_SYSTEM_CLOCK;
    ---------------------------------------------------------------------------- */
 
 __attribute__ ((weak)) void SystemInit (void) {
-
-#if (DISABLE_WDOG)
-  while ((WDOG0->CS & WDOG_CS_RCS_MASK) != WDOG_CS_RCS_MASK)
-  {
-  }
-
-  if ((WDOG0->CS & WDOG_CS_CMD32EN_MASK) != 0U)
-  {
-      WDOG0->CNT = 0xD928C520U;
-  }
-  else
-  {
-      WDOG0->CNT = 0xC520U;
-      WDOG0->CNT = 0xD928U;
-  }
-
-  while ((WDOG0->CS & WDOG_CS_ULK_MASK) != WDOG_CS_ULK_MASK)
-  {
-  }
-
-  WDOG0->TOVAL = 0xFFFF;
-  WDOG0->CS = (uint32_t) ((WDOG0->CS) & ~WDOG_CS_EN_MASK) | WDOG_CS_UPDATE_MASK;
-
-  while ((WDOG0->CS & WDOG_CS_RCS_MASK) != WDOG_CS_RCS_MASK)
-  {
-  }
-#endif /* (DISABLE_WDOG) */
 
 #if defined(__MCUXPRESSO)
     extern void(*const g_pfnVectors[]) (void);

@@ -66,7 +66,7 @@ config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
 # ip information
 config MCUX_HW_IP_DriverType_AOI
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_ARM
@@ -76,12 +76,12 @@ config MCUX_HW_IP_DriverType_ARM
 
 config MCUX_HW_IP_DriverType_ATX
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_CDOG
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_CORE
@@ -116,22 +116,22 @@ config MCUX_HW_IP_DriverType_DMAMUX
 
 config MCUX_HW_IP_DriverType_EQDC
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_FMC
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_FMU
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_FREQME
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_GLIKEY
@@ -201,7 +201,7 @@ config MCUX_HW_IP_DriverType_MCX_CMC
 
 config MCUX_HW_IP_DriverType_MRCC
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_MU_1
@@ -221,12 +221,12 @@ config MCUX_HW_IP_DriverType_PORT
 
 config MCUX_HW_IP_DriverType_PWM
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_SCG
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_SMM
@@ -256,7 +256,7 @@ config MCUX_HW_IP_DriverType_WUU
 
 config MCUX_HW_IP_DriverType_WWDT
     bool
-    default n #FIXME turn on
+    default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_HW_IP_DriverType_TMR_1

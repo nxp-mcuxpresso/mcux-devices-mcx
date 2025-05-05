@@ -149,7 +149,7 @@ uint32_t CLOCK_GetFlashClkFreq(void)
  */
 uint32_t CLOCK_GetBusClkFreq(void)
 {
-    return CLOCK_GetSysClkFreq(kSCG_SysClkSlow);
+    return CLOCK_GetSysClkFreq(kSCG_SysClkBus);
 }
 
 /*!

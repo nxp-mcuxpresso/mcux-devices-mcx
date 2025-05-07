@@ -6,10 +6,7 @@
 #ifndef _FSL_CLOCK_H_
 #define _FSL_CLOCK_H_
 
-#include "fsl_device_registers.h"
-#include <stdint.h>
-#include <stdbool.h>
-#include <assert.h>
+#include "fsl_common.h"
 
 /*! @addtogroup clock */
 /*! @{ */
@@ -22,8 +19,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.1.1. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 1, 1))
+/*! @brief CLOCK driver version 2.1.2. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 1, 2))
 /*@}*/
 
 /* Definition for delay API in clock driver, users can redefine it to the real application. */

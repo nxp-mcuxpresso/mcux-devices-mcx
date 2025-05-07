@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.1.2]
+
+- Improvements
+  - Include the fsl_common.h in clock driver to fix the compiling issue in Zephyr build.
+
 ## [2.1.1]
 
 - Improvements

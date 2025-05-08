@@ -304,6 +304,11 @@ config MCUX_HW_IP_DriverType_SCG
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA155
 
+config MCUX_HW_IP_DriverType_SYSCON_LPCAC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA155
+
 config MCUX_HW_IP_DriverType_TRDC_1
     bool
     default y

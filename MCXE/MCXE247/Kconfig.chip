@@ -203,6 +203,11 @@ config MCUX_HW_IP_DriverType_LPUART
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE247
 
+config MCUX_HW_IP_DriverType_MCM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE247
+
 config MCUX_HW_IP_DriverType_PCC
     bool
     default y

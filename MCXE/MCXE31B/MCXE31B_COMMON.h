@@ -8,7 +8,7 @@
 **
 **     Reference manual:    MCXE31 RM Rev1
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250319
+**     Build:               b250509
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE31B
@@ -56,7 +56,7 @@
  */
 
 /** Interrupt Number Definitions */
-#define NUMBER_OF_INT_VECTORS 224                /**< Number of interrupts in the Vector table */
+#define NUMBER_OF_INT_VECTORS 240                /**< Number of interrupts in the Vector table */
 
 typedef enum IRQn {
   /* Auxiliary constants */
@@ -115,8 +115,13 @@ typedef enum IRQn {
   MCM_IRQn                     = 38,               /**< Multi bit ECC error */
   STM0_IRQn                    = 39,               /**< Single interrupt vector for all four channels */
   STM1_IRQn                    = 40,               /**< Single interrupt vector for all four channels */
+  Reserved57_IRQn              = 41,               /**< Reserved interrupt */
   SWT0_IRQn                    = 42,               /**< Platform watchdog initial time-out */
-  SWT1_IRQn                    = 43,               /**< Platform watchdog initial time-out */
+  Reserved59_IRQn              = 43,               /**< Reserved interrupt */
+  Reserved60_IRQn              = 44,               /**< Reserved interrupt */
+  Reserved61_IRQn              = 45,               /**< Reserved interrupt */
+  Reserved62_IRQn              = 46,               /**< Reserved interrupt */
+  Reserved63_IRQn              = 47,               /**< Reserved interrupt */
   FLASH_0_IRQn                 = 48,               /**< Program or erase operation is completed */
   FLASH_1_IRQn                 = 49,               /**< Main watchdog timeout interrupt */
   FLASH_2_IRQn                 = 50,               /**< Alternate watchdog timeout interrupt */
@@ -132,12 +137,16 @@ typedef enum IRQn {
   EMIOS0_5_IRQn                = 64,               /**< Interrupt request 11,10,9,8 */
   EMIOS0_6_IRQn                = 65,               /**< Interrupt request 7,6,5,4 */
   EMIOS0_7_IRQn                = 66,               /**< Interrupt request 3,2,1,0 */
+  Reserved83_IRQn              = 67,               /**< Reserved interrupt */
+  Reserved84_IRQn              = 68,               /**< Reserved interrupt */
   EMIOS1_2_IRQn                = 69,               /**< Interrupt request 23,22,21,20 */
   EMIOS1_3_IRQn                = 70,               /**< Interrupt request 19,18,17,16 */
   EMIOS1_4_IRQn                = 71,               /**< Interrupt request 15,14,13,12 */
   EMIOS1_5_IRQn                = 72,               /**< Interrupt request 11,10,9,8 */
   EMIOS1_6_IRQn                = 73,               /**< Interrupt request 7,6,5,4 */
   EMIOS1_7_IRQn                = 74,               /**< Interrupt request 3,2,1,0 */
+  Reserved91_IRQn              = 75,               /**< Reserved interrupt */
+  Reserved92_IRQn              = 76,               /**< Reserved interrupt */
   EMIOS2_2_IRQn                = 77,               /**< Interrupt request 23,22,21,20 */
   EMIOS2_3_IRQn                = 78,               /**< Interrupt request 19,18,17,16 */
   EMIOS2_4_IRQn                = 79,               /**< Interrupt request 15,14,13,12 */
@@ -149,16 +158,27 @@ typedef enum IRQn {
   CMU1_IRQn                    = 85,               /**< CMU1 interrupt */
   CMU2_IRQn                    = 86,               /**< CMU2 interrupt */
   BCTU_IRQn                    = 87,               /**< An interrupt is requested when a conversion is issued to the ADC, An interrupt is requested when new data is available from ADC0 conversion, An interrupt is requested when new data is available from ADC1 conversion, An interrupt is requested when new data is available from ADC2 conversion, An interrupt is requested when the last command of a list is issued to the ADC,An Interrupt output for FIFO1,An Interrupt output for FIFO2 */
+  Reserved104_IRQn             = 88,               /**< Reserved interrupt */
+  Reserved105_IRQn             = 89,               /**< Reserved interrupt */
+  Reserved106_IRQn             = 90,               /**< Reserved interrupt */
+  Reserved107_IRQn             = 91,               /**< Reserved interrupt */
   LCU0_IRQn                    = 92,               /**< Interrupt 0, Interrupt 1 Interrupt 2 */
   LCU1_IRQn                    = 93,               /**< Interrupt 0, Interrupt 1 Interrupt 2 */
+  Reserved110_IRQn             = 94,               /**< Reserved interrupt */
+  Reserved111_IRQn             = 95,               /**< Reserved interrupt */
   PIT0_IRQn                    = 96,               /**< Interrupt for Channel0,Interrupt for Channel1,Interrupt for Channel2,Interrupt for Channel3,Interrupt for Channel4 */
   PIT1_IRQn                    = 97,               /**< Interrupt for Channel0,Interrupt for Channel1,Interrupt for Channel2,Interrupt for Channel3 */
   PIT2_IRQn                    = 98,               /**< Interrupt for Channel0,Interrupt for Channel1,Interrupt for Channel2,Interrupt for Channel3 */
+  Reserved115_IRQn             = 99,               /**< Reserved interrupt */
+  Reserved116_IRQn             = 100,              /**< Reserved interrupt */
+  Reserved117_IRQn             = 101,              /**< Reserved interrupt */
   RTC_IRQn                     = 102,              /**< RTCF or ROVRF interrupt to be serviced by the system controller, APIF interrupt to be serviced by the system controller */
-  ENET_0_IRQn                  = 105,              /**< Common interrupt */
-  ENET_1_IRQn                  = 106,              /**< Tx interrupt 0, Tx interrupt 1 */
-  ENET_2_IRQn                  = 107,              /**< Rx interrupt 0, Rx interrupt 1 */
-  ENET_3_IRQn                  = 108,              /**< Safety interrupt correctable, Safety interrupt un-correctable */
+  Reserved119_IRQn             = 103,              /**< Reserved interrupt */
+  Reserved120_IRQn             = 104,              /**< Reserved interrupt */
+  EMAC_0_IRQn                  = 105,              /**< Common interrupt */
+  EMAC_1_IRQn                  = 106,              /**< Tx interrupt 0 and 1 */
+  EMAC_2_IRQn                  = 107,              /**< rx interrupt 0 */
+  EMAC_3_IRQn                  = 108,              /**< safety interrupt correctable */
   FlexCAN0_0_IRQn              = 109,              /**< Ored status and error */
   FlexCAN0_1_IRQn              = 110,              /**< Message Buffer Interrupt line 0-31 */
   FlexCAN0_2_IRQn              = 111,              /**< Message Buffer Interrupt line 32-63 */
@@ -192,18 +212,29 @@ typedef enum IRQn {
   LPUART_13_IRQn               = 154,              /**< TX and RX interrupt */
   LPUART_14_IRQn               = 155,              /**< TX and RX interrupt */
   LPUART_15_IRQn               = 156,              /**< TX and RX interrupt */
+  Reserved173_IRQn             = 157,              /**< Reserved interrupt */
+  Reserved174_IRQn             = 158,              /**< Reserved interrupt */
+  Reserved175_IRQn             = 159,              /**< Reserved interrupt */
+  Reserved176_IRQn             = 160,              /**< Reserved interrupt */
   LPI2C0_IRQn                  = 161,              /**< LPI2C Master Interrupt */
   LPI2C1_IRQn                  = 162,              /**< LPI2C Master Interrupt */
+  Reserved179_IRQn             = 163,              /**< Reserved interrupt */
+  Reserved180_IRQn             = 164,              /**< Reserved interrupt */
   LPSPI0_IRQn                  = 165,              /**< LPSPI Interrupt */
   LPSPI1_IRQn                  = 166,              /**< LPSPI Interrupt */
   LPSPI2_IRQn                  = 167,              /**< LPSPI Interrupt */
   LPSPI3_IRQn                  = 168,              /**< LPSPI Interrupt */
   LPSPI4_IRQn                  = 169,              /**< LPSPI Interrupt */
   LPSPI5_IRQn                  = 170,              /**< LPSPI Interrupt */
+  Reserved187_IRQn             = 171,              /**< Reserved interrupt */
+  Reserved188_IRQn             = 172,              /**< Reserved interrupt */
   QSPI_IRQn                    = 173,              /**< TX Buffer Fill interrupt, Transfer Complete / Transaction Finished, RX Buffer Drain interrupt, Buffer Overflow / Underrun interrupt, Serial Flash Communication Error interrupt, All interrupts ORed output */
   SAI0_IRQn                    = 174,              /**< RX and TX interrupt */
   SAI1_IRQn                    = 175,              /**< RX and TX interrupt */
+  Reserved192_IRQn             = 176,              /**< Reserved interrupt */
+  Reserved193_IRQn             = 177,              /**< Reserved interrupt */
   JDC_IRQn                     = 178,              /**< Indicates new data to be read from JIN_IPS register or can be written to JOUT_IPS register */
+  Reserved195_IRQn             = 179,              /**< Reserved interrupt */
   ADC0_IRQn                    = 180,              /**< End of conversion, Error interrupt, Watchdog interrupt */
   ADC1_IRQn                    = 181,              /**< End of conversion, Error interrupt, Watchdog interrupt */
   ADC2_IRQn                    = 182,              /**< End of conversion, Error interrupt, Watchdog interrupt */
@@ -212,18 +243,39 @@ typedef enum IRQn {
   CMP2_IRQn                    = 185,              /**< Async interrupt */
   FCCU_0_IRQn                  = 189,              /**< Interrupt request(ALARM state) */
   FCCU_1_IRQn                  = 190,              /**< Interrupt request(miscellaneous conditions) */
-  HSE_B_0_IRQn                 = 194,              /**< ORed TX interrupt to MU-0 */
-  HSE_B_1_IRQn                 = 195,              /**< ORed RX interrupt to MU-0 */
-  HSE_B_2_IRQn                 = 196,              /**< ORed general purpose interrupt request to MU-0 */
-  HSE_B_3_IRQn                 = 197,              /**< ORed TX interrupt to MU-1 */
-  HSE_B_4_IRQn                 = 198,              /**< ORed RX interrupt to MU-1 */
-  HSE_B_5_IRQn                 = 199,              /**< ORed general purpose interrupt request to MU-1 */
-  MU_A_0_IRQn                  = 202,              /**< ORed TX interrupt to MUA */
-  MU_A_1_IRQn                  = 203,              /**< ORed RX interrupt to MUA */
-  MU_A_2_IRQn                  = 204,              /**< ORed general purpose interrupt request to MUA */
-  MU_B_0_IRQn                  = 205,              /**< ORed TX interrupt to MUB */
-  MU_B_1_IRQn                  = 206,              /**< ORed RX interrupt to MUB */
-  MU_B_2_IRQn                  = 207               /**< ORed general purpose interrupt request to MUB */
+  Reserved207_IRQn             = 191,              /**< Reserved interrupt */
+  MU0_B_TX_IRQn                = 192,              /**< ORed TX interrupt to MU-0 */
+  MU0_B_RX_IRQn                = 193,              /**< ORed RX interrupt to MU-0 */
+  MU0_B_IRQn                   = 194,              /**< ORed general purpose interrupt request to MU-0 */
+  MU1_B_TX_IRQn                = 195,              /**< ORed TX interrupt to MU-1 */
+  MU1_B_RX_IRQn                = 196,              /**< ORed RX interrupt to MU-1 */
+  MU1_B_IRQn                   = 197,              /**< ORed general purpose interrupt request to MU-1 */
+  Reserved214_IRQn             = 198,              /**< Reserved interrupt */
+  Reserved215_IRQn             = 199,              /**< Reserved interrupt */
+  Reserved216_IRQn             = 200,              /**< Reserved interrupt */
+  Reserved217_IRQn             = 201,              /**< Reserved interrupt */
+  Reserved218_IRQn             = 202,              /**< Reserved interrupt */
+  Reserved219_IRQn             = 203,              /**< Reserved interrupt */
+  Reserved220_IRQn             = 204,              /**< Reserved interrupt */
+  Reserved221_IRQn             = 205,              /**< Reserved interrupt */
+  Reserved222_IRQn             = 206,              /**< Reserved interrupt */
+  Reserved223_IRQn             = 207,              /**< Reserved interrupt */
+  Reserved224_IRQn             = 208,              /**< Reserved interrupt */
+  Reserved225_IRQn             = 209,              /**< Reserved interrupt */
+  Reserved226_IRQn             = 210,              /**< Reserved interrupt */
+  Reserved227_IRQn             = 211,              /**< Reserved interrupt */
+  PLL_LOL_IRQn                 = 212,              /**< PLL LOL interrupt */
+  CORE_CLK_FAIL_IRQn           = 213,              /**< CORE_CLK_FAIL CMU reset reaction interrupt */
+  Reserved230_IRQn             = 214,              /**< PLL2 LOL interrupt */
+  AIPS_PLAT_CLK_FAIL_IRQn      = 215,              /**< AIPS_PLAT_CLK_FAIL CMU reset reaction interrupt */
+  Reserved232_IRQn             = 216,              /**< XRDC Error Interrupt */
+  HSE_B_CLK_FAIL_IRQn          = 217,              /**< HSE_B_CLK_FAIL CMU reset reaction interrupt */
+  Reserved234_IRQn             = 218,              /**< Reserved interrupt */
+  Reserved235_IRQn             = 219,              /**< CM7_CORE_CLK_FAIL CMU reset reaction interrupt */
+  Reserved236_IRQn             = 220,              /**< Reserved interrupt */
+  Reserved237_IRQn             = 221,              /**< Reserved interrupt */
+  Reserved238_IRQn             = 222,              /**< Reserved interrupt */
+  Reserved239_IRQn             = 223               /**< Reserved interrupt */
 } IRQn_Type;
 
 /*!
@@ -516,30 +568,30 @@ typedef enum _trgmux_source
     kTRGMUX0_SourceLpuart2TxData    = 90U,         /**< LPUART2 TX Data input is selected */
     kTRGMUX0_SourceLpuart2RxData    = 91U,         /**< LPUART2 RX Data input is selected */
     kTRGMUX0_SourceLpuart2RxIdle    = 92U,         /**< LPUART2 RX Idle input is selected */
-    kTRGMUX_SourceLcu0Lc1Out1       = 93U,         /**< LCU_0 LC1 Out_i1 is selected */
-    kTRGMUX_SourceLcu0Lc1Out2       = 94U,         /**< LCU_0 LC1 Out_i2 is selected */
-    kTRGMUX_SourceLcu0Lc1Out3       = 95U,         /**< LCU_0 LC1 Out_i3 is selected */
-    kTRGMUX_SourceLcu0Lc1Out4       = 96U,         /**< LCU_0 LC1 Out_i4 is selected */
-    kTRGMUX_SourceLcu0Lc2Out1       = 97U,         /**< LCU_0 LC2 Out_i1 is selected */
-    kTRGMUX_SourceLcu0Lc2Out2       = 98U,         /**< LCU_0 LC2 Out_i2 is selected */
-    kTRGMUX_SourceLcu0Lc2Out3       = 99U,         /**< LCU_0 LC2 Out_i3 is selected */
-    kTRGMUX_SourceLcu0Lc2Out4       = 100U,        /**< LCU_0 LC2 Out_i4 is selected */
-    kTRGMUX_SourceLcu0Lc3Out1       = 101U,        /**< LCU_0 LC3 Out_i1 is selected */
-    kTRGMUX_SourceLcu0Lc3Out2       = 102U,        /**< LCU_0 LC3 Out_i2 is selected */
-    kTRGMUX_SourceLcu0Lc3Out3       = 103U,        /**< LCU_0 LC3 Out_i3 is selected */
-    kTRGMUX_SourceLcu0Lc3Out4       = 104U,        /**< LCU_0 LC3 Out_i4 is selected */
-    kTRGMUX_SourceLcu1Lc1Out1       = 105U,        /**< LCU_1 LC1 Out_i1 is selected */
-    kTRGMUX_SourceLcu1Lc1Out2       = 106U,        /**< LCU_1 LC1 Out_i2 is selected */
-    kTRGMUX_SourceLcu1Lc1Out3       = 107U,        /**< LCU_1 LC1 Out_i3 is selected */
-    kTRGMUX_SourceLcu1Lc1Out4       = 108U,        /**< LCU_1 LC1 Out_i4 is selected */
-    kTRGMUX_SourceLcu1Lc2Out1       = 109U,        /**< LCU_1 LC2 Out_i1 is selected */
-    kTRGMUX_SourceLcu1Lc2Out2       = 110U,        /**< LCU_1 LC2 Out_i2 is selected */
-    kTRGMUX_SourceLcu1Lc2Out3       = 111U,        /**< LCU_1 LC2 Out_i3 is selected */
-    kTRGMUX_SourceLcu1Lc2Out4       = 112U,        /**< LCU_1 LC2 Out_i4 is selected */
-    kTRGMUX_SourceLcu1Lc3Out1       = 113U,        /**< LCU_1 LC3 Out_i1 is selected */
-    kTRGMUX_SourceLcu1Lc3Out2       = 114U,        /**< LCU_1 LC3 Out_i2 is selected */
-    kTRGMUX_SourceLcu1Lc3Out3       = 115U,        /**< LCU_1 LC3 Out_i3 is selected */
-    kTRGMUX_SourceLcu1Lc3Out4       = 116U,        /**< LCU_1 LC3 Out_i4 is selected */
+    kTRGMUX_SourceLcu0Lc0Out0       = 93U,         /**< LCU_0 LC0 Out_i0 is selected */
+    kTRGMUX_SourceLcu0Lc0Out1       = 94U,         /**< LCU_0 LC0 Out_i1 is selected */
+    kTRGMUX_SourceLcu0Lc0Out2       = 95U,         /**< LCU_0 LC0 Out_i2 is selected */
+    kTRGMUX_SourceLcu0Lc0Out3       = 96U,         /**< LCU_0 LC0 Out_i3 is selected */
+    kTRGMUX_SourceLcu0Lc1Out0       = 97U,         /**< LCU_0 LC1 Out_i0 is selected */
+    kTRGMUX_SourceLcu0Lc1Out1       = 98U,         /**< LCU_0 LC1 Out_i1 is selected */
+    kTRGMUX_SourceLcu0Lc1Out2       = 99U,         /**< LCU_0 LC1 Out_i2 is selected */
+    kTRGMUX_SourceLcu0Lc1Out3       = 100U,        /**< LCU_0 LC1 Out_i3 is selected */
+    kTRGMUX_SourceLcu0Lc2Out0       = 101U,        /**< LCU_0 LC2 Out_i0 is selected */
+    kTRGMUX_SourceLcu0Lc2Out1       = 102U,        /**< LCU_0 LC2 Out_i1 is selected */
+    kTRGMUX_SourceLcu0Lc2Out2       = 103U,        /**< LCU_0 LC2 Out_i2 is selected */
+    kTRGMUX_SourceLcu0Lc2Out3       = 104U,        /**< LCU_0 LC2 Out_i3 is selected */
+    kTRGMUX_SourceLcu1Lc0Out0       = 105U,        /**< LCU_1 LC0 Out_i0 is selected */
+    kTRGMUX_SourceLcu1Lc0Out1       = 106U,        /**< LCU_1 LC0 Out_i1 is selected */
+    kTRGMUX_SourceLcu1Lc0Out2       = 107U,        /**< LCU_1 LC0 Out_i2 is selected */
+    kTRGMUX_SourceLcu1Lc0Out3       = 108U,        /**< LCU_1 LC0 Out_i3 is selected */
+    kTRGMUX_SourceLcu1Lc1Out0       = 109U,        /**< LCU_1 LC1 Out_i0 is selected */
+    kTRGMUX_SourceLcu1Lc1Out1       = 110U,        /**< LCU_1 LC1 Out_i1 is selected */
+    kTRGMUX_SourceLcu1Lc1Out2       = 111U,        /**< LCU_1 LC1 Out_i2 is selected */
+    kTRGMUX_SourceLcu1Lc1Out3       = 112U,        /**< LCU_1 LC1 Out_i3 is selected */
+    kTRGMUX_SourceLcu1Lc2Out0       = 113U,        /**< LCU_1 LC2 Out_i0 is selected */
+    kTRGMUX_SourceLcu1Lc2Out1       = 114U,        /**< LCU_1 LC2 Out_i1 is selected */
+    kTRGMUX_SourceLcu1Lc2Out2       = 115U,        /**< LCU_1 LC2 Out_i2 is selected */
+    kTRGMUX_SourceLcu1Lc2Out3       = 116U,        /**< LCU_1 LC2 Out_i3 is selected */
     kTRGMUX_SourcePit0Ch0           = 117U,        /**< PIT0 Channel0 is selected */
     kTRGMUX_SourcePit0Ch1           = 118U,        /**< PIT0 Channel1 is selected */
     kTRGMUX_SourcePit0Ch2           = 119U,        /**< PIT0 Channel2 is selected */
@@ -1392,6 +1444,8 @@ typedef enum _xbic_slave_port
 #define QuadSPI_BASE_ADDRS                       { QUADSPI_BASE }
 /** Array initializer of QuadSPI peripheral base pointers */
 #define QuadSPI_BASE_PTRS                        { QUADSPI }
+/** Interrupt vectors for the QuadSPI peripheral type */
+#define QuadSPI_IRQS                             { QSPI_IRQn }
 
 /* QuadSPI_ARDB - Peripheral instance base addresses */
 /** Peripheral QUADSPI_ARDB base address */

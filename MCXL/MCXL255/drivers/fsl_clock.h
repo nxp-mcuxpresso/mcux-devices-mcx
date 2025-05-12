@@ -188,6 +188,10 @@ typedef enum _clock_ip_name
     {                  \
         kCLOCK_GateDMA0, kCLOCK_GateDMA1 \
     }
+#define ERM_CLOCKS     \
+    {                  \
+        kCLOCK_GateERM0 \
+    }
 /*! @brief Clock gate name array for EDMA. */
 #define EDMA_CLOCKS    \
     {                  \

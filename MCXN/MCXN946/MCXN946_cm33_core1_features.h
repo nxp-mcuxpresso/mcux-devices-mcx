@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250427
+**     Build:               b250512
 **
 **     Abstract:
 **         Chip specific module features.
@@ -641,6 +641,25 @@
 #define FSL_FEATURE_FLEXSPI_ARRAY_LEN (1)
 /* @brief FlexSPI Has ERRATA052733 */
 #define FSL_FEATURE_FLEXSPI_HAS_ERRATA_052733 (1)
+
+/* FMU module features */
+
+/* @brief P-Flash block0 start address. */
+#define FSL_FEATURE_FLASH_PFLASH_START_ADDRESS (0x00000000U)
+/* @brief P-Flash block count. */
+#define FSL_FEATURE_FLASH_PFLASH_BLOCK_COUNT (2)
+/* @brief P-Flash block0 size. */
+#define FSL_FEATURE_FLASH_PFLASH_BLOCK_SIZE (0x100000U)
+/* @brief flash BLOCK0 IFR0 start address. */
+#define FSL_FEATURE_FLASH_IFR0_START_ADDRESS (0x01000000u)
+/* @brief flash block IFR0 size. */
+#define FSL_FEATURE_FLASH_IFR0_SIZE (0x8000U)
+/* @brief P-Flash sector size. */
+#define FSL_FEATURE_FLASH_PFLASH_SECTOR_SIZE (0x2000U)
+/* @brief P-Flash phrase size. */
+#define FSL_FEATURE_FLASH_PFLASH_PHRASE_SIZE (16)
+/* @brief P-Flash page size. */
+#define FSL_FEATURE_FLASH_PFLASH_PAGE_SIZE (128)
 
 /* GPIO module features */
 

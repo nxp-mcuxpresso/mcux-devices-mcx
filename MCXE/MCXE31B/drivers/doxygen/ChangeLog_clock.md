@@ -1,5 +1,9 @@
 # CLOCK
 
+## [2.1.0]
+- New features
+  - Added support for more devices. 
+
 ## [2.0.1]
 
 - Bug fix

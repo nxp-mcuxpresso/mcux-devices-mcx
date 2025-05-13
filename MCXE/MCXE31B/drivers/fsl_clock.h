@@ -19,8 +19,8 @@
  *****************************************************************************/
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.0.1 */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
+/*! @brief CLOCK driver version 2.1.0 */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 1, 0))
 /*@}*/
 
 /* Definition for delay API in clock driver, users can redefine it to the real
@@ -36,8 +36,18 @@
 #ifndef CLOCK_SIRC_CLK_FREQ
 #define CLOCK_SIRC_CLK_FREQ (32000U)
 #endif
+#if defined(FSL_FEATURE_MC_CGM_HAS_SXOSC) && (FSL_FEATURE_MC_CGM_HAS_SXOSC != 0U)
 #ifndef CLOCK_SXOSC_CLK_FREQ
 #define CLOCK_SXOSC_CLK_FREQ (32768U)
+#endif /* CLOCK_SXOSC_CLK_FREQ */
+#endif /* FSL_FEATURE_MC_CGM_HAS_SXOSC */
+
+/*! @brief driver feature definition */
+#if defined(QUADSPI)
+#define FSL_FEATURE_CLOCK_HAS_QSPI (1U)
+#endif
+#if defined(EMAC)
+#define FSL_FEATURE_CLOCK_HAS_EMAC (1U)
 #endif
 
 /*! @brief External XTAL0 (FXOSC) clock frequency.
@@ -68,22 +78,22 @@ extern volatile uint32_t g_xtal0Freq;
 #define CLOCK_HSE_CLK       19U    /*!< HSE clock*/
 #define CLOCK_AIPS_PLAT_CLK 22U    /*!< SRAM/AXBS clock*/
 #define CLOCK_AIPS_SLOW_CLK 23U    /*!< peripheral clock*/
-#if defined(FSL_FEATURE_MC_CGM_HAS_MUX_7) && (FSL_FEATURE_MC_CGM_HAS_MUX_7 != 0U)
+#if defined(FSL_FEATURE_CLOCK_HAS_EMAC) && (FSL_FEATURE_CLOCK_HAS_EMAC != 0U)
 #define CLOCK_EMAC_RMII_TX_CLK 24U /*!< Ethernet MAC RMII transmit clock*/
 #define CLOCK_EMAC_RX_CLK      25U /*!< Ethernet MAC Receive clock*/
-#endif
+#endif                             /* FSL_FEATURE_CLOCK_HAS_EMAC */
 #define CLOCK_CLKOUT_RUN_CLK 50U   /*!< Clock output in RUN mode*/
 
 /*! @brief Clock ip name array for TEMPSENSE. */
-#define TEMPSENSOR_CLOCKS       \
-    {                           \
-        kCLOCK_TempSensor       \
+#define TEMPSENSOR_CLOCKS \
+    {                     \
+        kCLOCK_TempSensor \
     }
 
 /*! @brief Clock ip name array for BCTU. */
-#define BCTU_CLOCKS       \
-    {                           \
-        kCLOCK_Bctu          \
+#define BCTU_CLOCKS \
+    {               \
+        kCLOCK_Bctu \
     }
 
 /*! @brief Clock ip name array for ADC. */
@@ -97,7 +107,7 @@ extern volatile uint32_t g_xtal0Freq;
     {                            \
         kCLOCK_Adc0, kCLOCK_Adc1 \
     }
-#endif
+#endif /* FSL_FEATURE_SOC_ADC_COUNT */
 
 /*! @brief Clock ip name array for DMAMUX. */
 #define DMAMUX_CLOCKS                  \
@@ -106,30 +116,37 @@ extern volatile uint32_t g_xtal0Freq;
     }
 
 /*! @brief Clock ip name array for EDMA. */
-#define EDMA_CLOCKS  \
-    {                \
-        kCLOCK_Edma  \
+#define EDMA_CLOCKS \
+    {               \
+        kCLOCK_Edma \
     }
 
 /*! @brief Clock ip name array for EIM. */
-#define EIM_CLOCKS   \
-    {                \
-        kCLOCK_Eim   \
+#define EIM_CLOCKS \
+    {              \
+        kCLOCK_Eim \
     }
 
 /*! @brief Clock ip name array for EMIOS. */
+#if defined(FSL_FEATURE_SOC_EMIOS_COUNT) && (FSL_FEATURE_SOC_EMIOS_COUNT > 2U)
 #define EMIOS_CLOCKS                                \
     {                                               \
         kCLOCK_Emios0, kCLOCK_Emios1, kCLOCK_Emios2 \
     }
+#else
+#define EMIOS_CLOCKS                 \
+    {                                \
+        kCLOCK_Emios0, kCLOCK_Emios1 \
+    }
+#endif
 
 /*! @brief Clock ip name array for ERM. */
-#define ERM_CLOCKS   \
-    {                \
-        kCLOCK_Erm   \
+#define ERM_CLOCKS \
+    {              \
+        kCLOCK_Erm \
     }
 
-#if defined(FSL_FEATURE_MC_CGM_HAS_MUX_4) && (FSL_FEATURE_MC_CGM_HAS_MUX_4 != 0U)
+#if defined(FSL_FEATURE_SOC_FLEXCAN_COUNT) && (FSL_FEATURE_SOC_FLEXCAN_COUNT == 6U)
 /*! @brief Clock ip name array for FLEXCAN. */
 #define FLEXCAN_CLOCKS                                                                                        \
     {                                                                                                         \
@@ -141,7 +158,7 @@ extern volatile uint32_t g_xtal0Freq;
     {                                                     \
         kCLOCK_Flexcan0, kCLOCK_Flexcan1, kCLOCK_Flexcan2 \
     }
-#endif
+#endif /* FSL_FEATURE_SOC_FLEXCAN_COUNT */
 
 /*! @brief Clock ip name array for FLEXIO. */
 #define FLEXIO_CLOCKS \
@@ -149,11 +166,13 @@ extern volatile uint32_t g_xtal0Freq;
         kCLOCK_Flexio \
     }
 
+#if defined(FSL_FEATURE_SOC_QuadSPI_COUNT) && (FSL_FEATURE_SOC_QuadSPI_COUNT != 0U)
 /*! @brief Clock ip name array for QSPI. */
 #define QSPI_CLOCKS \
     {               \
         kCLOCK_Qspi \
     }
+#endif /* FSL_FEATURE_SOC_QuadSPI_COUNT */
 
 /*! @brief Clock ip name array for LCU. */
 #define LCU_CLOCKS               \
@@ -162,10 +181,22 @@ extern volatile uint32_t g_xtal0Freq;
     }
 
 /*! @brief Clock ip name array for LPCMP. */
+#if defined(FSL_FEATURE_SOC_LPCMP_COUNT) && (FSL_FEATURE_SOC_LPCMP_COUNT == 3U)
 #define LPCMP_CLOCKS                                 \
     {                                                \
         kCLOCK_Lpcmp0, kCLOCK_Lpcmp1, kCLOCK_Lpcmp2, \
     }
+#elif defined(FSL_FEATURE_SOC_LPCMP_COUNT) && (FSL_FEATURE_SOC_LPCMP_COUNT == 2U)
+#define LPCMP_CLOCKS                 \
+    {                                \
+        kCLOCK_Lpcmp0, kCLOCK_Lpcmp1 \
+    }
+#else
+#define LPCMP_CLOCKS  \
+    {                 \
+        kCLOCK_Lpcmp0 \
+    }
+#endif /* FSL_FEATURE_SOC_LPCMP_COUNT */
 
 /*! @brief Clock ip name array for LPI2C. */
 #define LPI2C_CLOCKS                 \
@@ -223,23 +254,34 @@ extern volatile uint32_t g_xtal0Freq;
     }
 #endif
 
+#if defined(FSL_FEATURE_SOC_I2S_COUNT) && (FSL_FEATURE_SOC_I2S_COUNT == 2U)
 /*! @brief Clock ip name array for SAI. */
 #define SAI_CLOCKS               \
     {                            \
         kCLOCK_Sai0, kCLOCK_Sai1 \
     }
+#endif /* FSL_FEATURE_SOC_I2S_COUNT */
 
+#if defined(FSL_FEATURE_SOC_SEMA42_COUNT) && (FSL_FEATURE_SOC_SEMA42_COUNT != 0U)
 /*! @brief Clock ip name array for SEMA42. */
 #define SEMA42_CLOCKS \
     {                 \
         kCLOCK_Sema42 \
     }
+#endif /* FSL_FEATURE_SOC_SEMA42_COUNT */
 
 /*! @brief Clock ip name array for STM. */
+#if defined(FSL_FEATURE_SOC_STM_COUNT) && (FSL_FEATURE_SOC_STM_COUNT == 2U)
 #define STM_CLOCKS               \
     {                            \
         kCLOCK_Stm0, kCLOCK_Stm1 \
     }
+#else
+#define STM_CLOCKS  \
+    {               \
+        kCLOCK_Stm0 \
+    }
+#endif /* FSL_FEATURE_SOC_STM_COUNT */
 
 /*! @brief Clock ip name array for SWT. */
 #define SWT_CLOCKS   \
@@ -275,18 +317,22 @@ typedef enum _clock_ip_name
     kCLOCK_IpInvalid = 0U, /*!< Invalid Ip Name. */
 
     /* PRTN0_COFB1_CLKEN Bit Fields */
-    kCLOCK_Trgmux = MC_ME_COFB_TUPLE(0x134U, 0),  /*!< Trigger Multiplexing Control (PRTN0_COFB1) */
-    kCLOCK_Bctu   = MC_ME_COFB_TUPLE(0x134U, 1),  /*!< Body Cross Triggering Unit (PRTN0_COFB1) */
-    kCLOCK_Emios0 = MC_ME_COFB_TUPLE(0x134U, 2),  /*!< EMIOS 0 (PRTN0_COFB1) */
-    kCLOCK_Emios1 = MC_ME_COFB_TUPLE(0x134U, 3),  /*!< EMIOS 1 (PRTN0_COFB1) */
-    kCLOCK_Emios2 = MC_ME_COFB_TUPLE(0x134U, 4),  /*!< EMIOS 2 (PRTN0_COFB1) */
-    kCLOCK_Lcu0   = MC_ME_COFB_TUPLE(0x134U, 6),  /*!< Logic Control Unit 0 (PRTN0_COFB1) */
-    kCLOCK_Lcu1   = MC_ME_COFB_TUPLE(0x134U, 7),  /*!< Logic Control Unit 1 (PRTN0_COFB1) */
-    kCLOCK_Adc0   = MC_ME_COFB_TUPLE(0x134U, 8),  /*!< Analog-to-digital converter 0 (PRTN0_COFB1) */
-    kCLOCK_Adc1   = MC_ME_COFB_TUPLE(0x134U, 9),  /*!< Analog-to-digital converter 1 (PRTN0_COFB1) */
-    kCLOCK_Adc2   = MC_ME_COFB_TUPLE(0x134U, 10), /*!< Analog-to-digital converter 2 (PRTN0_COFB1) */
-    kCLOCK_Pit0   = MC_ME_COFB_TUPLE(0x134U, 12), /*!< Programmable Interrupt Timer 0 (PRTN0_COFB1) */
-    kCLOCK_Pit1   = MC_ME_COFB_TUPLE(0x134U, 13), /*!< Programmable Interrupt Timer 1 (PRTN0_COFB1) */
+    kCLOCK_Trgmux = MC_ME_COFB_TUPLE(0x134U, 0), /*!< Trigger Multiplexing Control (PRTN0_COFB1) */
+    kCLOCK_Bctu   = MC_ME_COFB_TUPLE(0x134U, 1), /*!< Body Cross Triggering Unit (PRTN0_COFB1) */
+    kCLOCK_Emios0 = MC_ME_COFB_TUPLE(0x134U, 2), /*!< EMIOS 0 (PRTN0_COFB1) */
+    kCLOCK_Emios1 = MC_ME_COFB_TUPLE(0x134U, 3), /*!< EMIOS 1 (PRTN0_COFB1) */
+#if defined(FSL_FEATURE_SOC_EMIOS_COUNT) && (FSL_FEATURE_SOC_EMIOS_COUNT > 2U)
+    kCLOCK_Emios2 = MC_ME_COFB_TUPLE(0x134U, 4), /*!< EMIOS 2 (PRTN0_COFB1) */
+#endif                                           /* FSL_FEATURE_SOC_EMIOS_COUNT */
+    kCLOCK_Lcu0 = MC_ME_COFB_TUPLE(0x134U, 6),   /*!< Logic Control Unit 0 (PRTN0_COFB1) */
+    kCLOCK_Lcu1 = MC_ME_COFB_TUPLE(0x134U, 7),   /*!< Logic Control Unit 1 (PRTN0_COFB1) */
+    kCLOCK_Adc0 = MC_ME_COFB_TUPLE(0x134U, 8),   /*!< Analog-to-digital converter 0 (PRTN0_COFB1) */
+    kCLOCK_Adc1 = MC_ME_COFB_TUPLE(0x134U, 9),   /*!< Analog-to-digital converter 1 (PRTN0_COFB1) */
+#if defined(FSL_FEATURE_SOC_ADC_COUNT) && (FSL_FEATURE_SOC_ADC_COUNT > 2U)
+    kCLOCK_Adc2 = MC_ME_COFB_TUPLE(0x134U, 10),  /*!< Analog-to-digital converter 2 (PRTN0_COFB1) */
+#endif                                           /* FSL_FEATURE_SOC_ADC_COUNT */
+    kCLOCK_Pit0 = MC_ME_COFB_TUPLE(0x134U, 12),  /*!< Programmable Interrupt Timer 0 (PRTN0_COFB1) */
+    kCLOCK_Pit1 = MC_ME_COFB_TUPLE(0x134U, 13),  /*!< Programmable Interrupt Timer 1 (PRTN0_COFB1) */
     /* PRTN1_COFB0_CLKEN Bit Fields */
     kCLOCK_Edma  = MC_ME_COFB_TUPLE(0x330U, 3),  /*!< EDMA control & status (MP_CSR; MP_ES; MP_HRS) (PRTN1_COFB0) */
     kCLOCK_Tcd0  = MC_ME_COFB_TUPLE(0x330U, 4),  /*!< EDMA transfer control descriptor 0 (PRTN1_COFB0) */
@@ -309,47 +355,58 @@ typedef enum _clock_ip_name
     kCLOCK_Stm0  = MC_ME_COFB_TUPLE(0x330U, 29), /*!< System Timer Module 0 (PRTN1_COFB0) */
     kCLOCK_Intm  = MC_ME_COFB_TUPLE(0x330U, 31), /*!< Interrupt Monitor (PRTN1_COFB0) */
     /* PRTN1_COFB1_CLKEN Bit Fields */
-    kCLOCK_Dmamux0 = MC_ME_COFB_TUPLE(0x334U, 0),   /*!< DMA Channel Multiplexer 0 (PRTN1_COFB1) */
-    kCLOCK_Dmamux1 = MC_ME_COFB_TUPLE(0x334U, 1),   /*!< DMA Channel Multiplexer 1 (PRTN1_COFB1) */
-    kCLOCK_Rtc     = MC_ME_COFB_TUPLE(0x334U, 2),   /*!< Real-time clock (PRTN1_COFB1) */
-    kCLOCK_Vwrap   = MC_ME_COFB_TUPLE(0x334U, 10),  /*!< SIUL2_VIRTWRAPPER (PRTN1_COFB1) */
-    kCLOCK_Wkup    = MC_ME_COFB_TUPLE(0x334U, 13),  /*!< Wakeup Unit (PRTN1_COFB1) */
-    kCLOCK_Cmu05   = MC_ME_COFB_TUPLE(0x334U, 15),  /*!< CMU 0-5 (PRTN1_COFB1) */
-    kCLOCK_Tspc    = MC_ME_COFB_TUPLE(0x334U, 17),  /*!< Touch Sensing Coupling Controller (PRTN1_COFB1) */
-    kCLOCK_Sxosc   = MC_ME_COFB_TUPLE(0x334U, 19U), /*!< 32 kHz Slow External Crystal Oscillator (PRTN1_COFB1) */
-    kCLOCK_Fxosc   = MC_ME_COFB_TUPLE(0x334U, 21U), /*!< 8-40 MHz Fast External Crystal Oscillator (PRTN1_COFB1) */
-    kCLOCK_Pll     = MC_ME_COFB_TUPLE(0x334U, 24U), /*!< Frequency Modulated Phase-Locked Loop (PRTN1_COFB1) */
-    kCLOCK_Pit2    = MC_ME_COFB_TUPLE(0x334U, 31U), /*!< Programmable Interrupt Timer 2 (PRTN1_COFB1) */
+    kCLOCK_Dmamux0 = MC_ME_COFB_TUPLE(0x334U, 0),  /*!< DMA Channel Multiplexer 0 (PRTN1_COFB1) */
+    kCLOCK_Dmamux1 = MC_ME_COFB_TUPLE(0x334U, 1),  /*!< DMA Channel Multiplexer 1 (PRTN1_COFB1) */
+    kCLOCK_Rtc     = MC_ME_COFB_TUPLE(0x334U, 2),  /*!< Real-time clock (PRTN1_COFB1) */
+    kCLOCK_Vwrap   = MC_ME_COFB_TUPLE(0x334U, 10), /*!< SIUL2_VIRTWRAPPER (PRTN1_COFB1) */
+    kCLOCK_Wkup    = MC_ME_COFB_TUPLE(0x334U, 13), /*!< Wakeup Unit (PRTN1_COFB1) */
+    kCLOCK_Cmu05   = MC_ME_COFB_TUPLE(0x334U, 15), /*!< CMU 0-5 (PRTN1_COFB1) */
+    kCLOCK_Tspc    = MC_ME_COFB_TUPLE(0x334U, 17), /*!< Touch Sensing Coupling Controller (PRTN1_COFB1) */
+#if defined(FSL_FEATURE_MC_CGM_HAS_SXOSC) && (FSL_FEATURE_MC_CGM_HAS_SXOSC != 0U)
+    kCLOCK_Sxosc = MC_ME_COFB_TUPLE(0x334U, 19U),  /*!< 32 kHz Slow External Crystal Oscillator (PRTN1_COFB1) */
+#endif                                             /* FSL_FEATURE_MC_CGM_HAS_SXOSC */
+    kCLOCK_Fxosc = MC_ME_COFB_TUPLE(0x334U, 21U),  /*!< 8-40 MHz Fast External Crystal Oscillator (PRTN1_COFB1) */
+    kCLOCK_Pll   = MC_ME_COFB_TUPLE(0x334U, 24U),  /*!< Frequency Modulated Phase-Locked Loop (PRTN1_COFB1) */
+#if defined(FSL_FEATURE_SOC_PIT_COUNT) && (FSL_FEATURE_SOC_PIT_COUNT > 2U)
+    kCLOCK_Pit2 = MC_ME_COFB_TUPLE(0x334U, 31U),   /*!< Programmable Interrupt Timer 2 (PRTN1_COFB1) */
+#endif                                             /* FSL_FEATURE_SOC_PIT_COUNT */
     /* PRTN1_COFB2_CLKEN Bit Fields */
-    kCLOCK_Flexcan0 = MC_ME_COFB_TUPLE(0x338U, 1),     /*!< FlexCAN 0 (PRTN1_COFB2) */
-    kCLOCK_Flexcan1 = MC_ME_COFB_TUPLE(0x338U, 2),     /*!< FlexCAN 1 (PRTN1_COFB2) */
-    kCLOCK_Flexcan2 = MC_ME_COFB_TUPLE(0x338U, 3),     /*!< FlexCAN 2 (PRTN1_COFB2) */
-    kCLOCK_Flexcan3 = MC_ME_COFB_TUPLE(0x338U, 4),     /*!< FlexCAN 3 (PRTN1_COFB2) */
-    kCLOCK_Flexcan4 = MC_ME_COFB_TUPLE(0x338U, 5),     /*!< FlexCAN 4 (PRTN1_COFB2) */
-    kCLOCK_Flexcan5 = MC_ME_COFB_TUPLE(0x338U, 6),     /*!< FlexCAN 5 (PRTN1_COFB2) */
-    kCLOCK_Flexio   = MC_ME_COFB_TUPLE(0x338U, 9),     /*!< Flexible IO (PRTN1_COFB2) */
-    kCLOCK_Lpuart0  = MC_ME_COFB_TUPLE(0x338U, 10U),   /*!< Low Power UART 0 (PRTN1_COFB2) */
-    kCLOCK_Lpuart1  = MC_ME_COFB_TUPLE(0x338U, 11U),   /*!< Low Power UART 1 (PRTN1_COFB2) */
-    kCLOCK_Lpuart2  = MC_ME_COFB_TUPLE(0x338U, 12U),   /*!< Low Power UART 2 (PRTN1_COFB2) */
-    kCLOCK_Lpuart3  = MC_ME_COFB_TUPLE(0x338U, 13U),   /*!< Low Power UART 3 (PRTN1_COFB2) */
+    kCLOCK_Flexcan0 = MC_ME_COFB_TUPLE(0x338U, 1),    /*!< FlexCAN 0 (PRTN1_COFB2) */
+    kCLOCK_Flexcan1 = MC_ME_COFB_TUPLE(0x338U, 2),    /*!< FlexCAN 1 (PRTN1_COFB2) */
+    kCLOCK_Flexcan2 = MC_ME_COFB_TUPLE(0x338U, 3),    /*!< FlexCAN 2 (PRTN1_COFB2) */
+#if defined(FSL_FEATURE_MC_CGM_HAS_MUX_4) && (FSL_FEATURE_MC_CGM_HAS_MUX_4 != 0U)
+    kCLOCK_Flexcan3 = MC_ME_COFB_TUPLE(0x338U, 4),    /*!< FlexCAN 3 (PRTN1_COFB2) */
+    kCLOCK_Flexcan4 = MC_ME_COFB_TUPLE(0x338U, 5),    /*!< FlexCAN 4 (PRTN1_COFB2) */
+    kCLOCK_Flexcan5 = MC_ME_COFB_TUPLE(0x338U, 6),    /*!< FlexCAN 5 (PRTN1_COFB2) */
+#endif                                                /* FSL_FEATURE_MC_CGM_HAS_MUX_4 */
+    kCLOCK_Flexio  = MC_ME_COFB_TUPLE(0x338U, 9),     /*!< Flexible IO (PRTN1_COFB2) */
+    kCLOCK_Lpuart0 = MC_ME_COFB_TUPLE(0x338U, 10U),   /*!< Low Power UART 0 (PRTN1_COFB2) */
+    kCLOCK_Lpuart1 = MC_ME_COFB_TUPLE(0x338U, 11U),   /*!< Low Power UART 1 (PRTN1_COFB2) */
+    kCLOCK_Lpuart2 = MC_ME_COFB_TUPLE(0x338U, 12U),   /*!< Low Power UART 2 (PRTN1_COFB2) */
+    kCLOCK_Lpuart3 = MC_ME_COFB_TUPLE(0x338U, 13U),   /*!< Low Power UART 3 (PRTN1_COFB2) */
 #if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 4U)
-    kCLOCK_Lpuart4 = MC_ME_COFB_TUPLE(0x338U, 14U),    /*!< Low Power UART 4 (PRTN1_COFB2) */
-    kCLOCK_Lpuart5 = MC_ME_COFB_TUPLE(0x338U, 15U),    /*!< Low Power UART 5 (PRTN1_COFB2) */
-    kCLOCK_Lpuart6 = MC_ME_COFB_TUPLE(0x338U, 16U),    /*!< Low Power UART 6 (PRTN1_COFB2) */
-    kCLOCK_Lpuart7 = MC_ME_COFB_TUPLE(0x338U, 17U),    /*!< Low Power UART 7 (PRTN1_COFB2) */
+    kCLOCK_Lpuart4 = MC_ME_COFB_TUPLE(0x338U, 14U),   /*!< Low Power UART 4 (PRTN1_COFB2) */
+    kCLOCK_Lpuart5 = MC_ME_COFB_TUPLE(0x338U, 15U),   /*!< Low Power UART 5 (PRTN1_COFB2) */
+    kCLOCK_Lpuart6 = MC_ME_COFB_TUPLE(0x338U, 16U),   /*!< Low Power UART 6 (PRTN1_COFB2) */
+    kCLOCK_Lpuart7 = MC_ME_COFB_TUPLE(0x338U, 17U),   /*!< Low Power UART 7 (PRTN1_COFB2) */
 #endif
-    kCLOCK_Lpi2c0     = MC_ME_COFB_TUPLE(0x338U, 20U), /*!< Low Power I2C 0 (PRTN1_COFB2) */
-    kCLOCK_Lpi2c1     = MC_ME_COFB_TUPLE(0x338U, 21U), /*!< Low Power I2C 1 (PRTN1_COFB2) */
-    kCLOCK_Lpspi0     = MC_ME_COFB_TUPLE(0x338U, 22U), /*!< Low Power SPI 0 (PRTN1_COFB2) */
-    kCLOCK_Lpspi1     = MC_ME_COFB_TUPLE(0x338U, 23U), /*!< Low Power SPI 1 (PRTN1_COFB2) */
-    kCLOCK_Lpspi2     = MC_ME_COFB_TUPLE(0x338U, 24U), /*!< Low Power SPI 2 (PRTN1_COFB2) */
-    kCLOCK_Lpspi3     = MC_ME_COFB_TUPLE(0x338U, 25U), /*!< Low Power SPI 3 (PRTN1_COFB2) */
-    kCLOCK_Sai0       = MC_ME_COFB_TUPLE(0x338U, 27),  /*!< Synchronous Audio Interface 0 (PRTN1_COFB2) */
-    kCLOCK_Lpcmp0     = MC_ME_COFB_TUPLE(0x338U, 28),  /*!< Low Power CMP 0 (PRTN1_COFB2) */
-    kCLOCK_Lpcmp1     = MC_ME_COFB_TUPLE(0x338U, 29),  /*!< Low Power CMP 1 (PRTN1_COFB2) */
-    kCLOCK_TempSensor = MC_ME_COFB_TUPLE(0x338U, 31),  /*!< TMU Temperature Sensor Unit (PRTN1_COFB2) */
+    kCLOCK_Lpi2c0 = MC_ME_COFB_TUPLE(0x338U, 20U),    /*!< Low Power I2C 0 (PRTN1_COFB2) */
+    kCLOCK_Lpi2c1 = MC_ME_COFB_TUPLE(0x338U, 21U),    /*!< Low Power I2C 1 (PRTN1_COFB2) */
+    kCLOCK_Lpspi0 = MC_ME_COFB_TUPLE(0x338U, 22U),    /*!< Low Power SPI 0 (PRTN1_COFB2) */
+    kCLOCK_Lpspi1 = MC_ME_COFB_TUPLE(0x338U, 23U),    /*!< Low Power SPI 1 (PRTN1_COFB2) */
+    kCLOCK_Lpspi2 = MC_ME_COFB_TUPLE(0x338U, 24U),    /*!< Low Power SPI 2 (PRTN1_COFB2) */
+    kCLOCK_Lpspi3 = MC_ME_COFB_TUPLE(0x338U, 25U),    /*!< Low Power SPI 3 (PRTN1_COFB2) */
+#if defined(FSL_FEATURE_SOC_I2S_COUNT)
+    kCLOCK_Sai0 = MC_ME_COFB_TUPLE(0x338U, 27),       /*!< Synchronous Audio Interface 0 (PRTN1_COFB2) */
+#endif
+    kCLOCK_Lpcmp0 = MC_ME_COFB_TUPLE(0x338U, 28),     /*!< Low Power CMP 0 (PRTN1_COFB2) */
+#if defined(FSL_FEATURE_SOC_LPCMP_COUNT) && (FSL_FEATURE_SOC_LPCMP_COUNT > 1U)
+    kCLOCK_Lpcmp1 = MC_ME_COFB_TUPLE(0x338U, 29),     /*!< Low Power CMP 1 (PRTN1_COFB2) */
+#endif                                                /* FSL_FEATURE_SOC_LPCMP_COUNT */
+    kCLOCK_TempSensor = MC_ME_COFB_TUPLE(0x338U, 31), /*!< TMU Temperature Sensor Unit (PRTN1_COFB2) */
     /* PRTN1_COFB3_CLKEN Bit Fields */
     kCLOCK_Crc0 = MC_ME_COFB_TUPLE(0x33CU, 0), /*!< CRC (PRTN1_COFB3) */
+#if defined(FSL_FEATURE_MC_ME_HAS_PRTN2) && (FSL_FEATURE_MC_ME_HAS_PRTN2 != 0U)
     /* PRTN2_COFB0_CLKEN Bit Fields */
     kCLOCK_Tcd12  = MC_ME_COFB_TUPLE(0x530U, 4),  /*!< EDMA transfer control descriptor 12 (PRTN2_COFB0) */
     kCLOCK_Tcd13  = MC_ME_COFB_TUPLE(0x530U, 5),  /*!< EDMA transfer control descriptor 13 (PRTN2_COFB0) */
@@ -373,10 +430,8 @@ typedef enum _clock_ip_name
     kCLOCK_Tcd31  = MC_ME_COFB_TUPLE(0x530U, 23), /*!< EDMA transfer control descriptor 31 (PRTN2_COFB0) */
     kCLOCK_Sema42 = MC_ME_COFB_TUPLE(0x530U, 24), /*!< Semaphores2 (PRTN2_COFB0) */
     kCLOCK_Stm1   = MC_ME_COFB_TUPLE(0x530U, 29), /*!< System Timer Module 1 (PRTN2_COFB0) */
-
     /* PRTN2_COFB1_CLKEN Bit Fields */
-    kCLOCK_Enet = MC_ME_COFB_TUPLE(0x534U, 0),       /*!< ENET (PRTN2_COFB1) */
-#if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 8U)
+    kCLOCK_Enet     = MC_ME_COFB_TUPLE(0x534U, 0),   /*!< ENET (PRTN2_COFB1) */
     kCLOCK_Lpuart8  = MC_ME_COFB_TUPLE(0x534U, 3U),  /*!< Low Power UART 8 (PRTN2_COFB1). */
     kCLOCK_Lpuart9  = MC_ME_COFB_TUPLE(0x534U, 4U),  /*!< Low Power UART 9 (PRTN2_COFB1). */
     kCLOCK_Lpuart10 = MC_ME_COFB_TUPLE(0x534U, 5U),  /*!< Low Power UART 10 (PRTN2_COFB1). */
@@ -385,16 +440,14 @@ typedef enum _clock_ip_name
     kCLOCK_Lpuart13 = MC_ME_COFB_TUPLE(0x534U, 8U),  /*!< Low Power UART 13 (PRTN2_COFB1). */
     kCLOCK_Lpuart14 = MC_ME_COFB_TUPLE(0x534U, 9U),  /*!< Low Power UART 14 (PRTN2_COFB1). */
     kCLOCK_Lpuart15 = MC_ME_COFB_TUPLE(0x534U, 10U), /*!< Low Power UART 15 (PRTN2_COFB1). */
-#endif
-#if defined(FSL_FEATURE_SOC_LPSPI_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT == 6U)
-    kCLOCK_Lpspi4 = MC_ME_COFB_TUPLE(0x534U, 15U),  /*!< Low Power SPI 4 (PRTN2_COFB1). */
-    kCLOCK_Lpspi5 = MC_ME_COFB_TUPLE(0x534U, 16U),  /*!< Low Power SPI 5 (PRTN2_COFB1). */
-#endif
-    kCLOCK_Qspi     = MC_ME_COFB_TUPLE(0x534U, 19), /*!< QuadSPI (PRTN2_COFB1) */
-    kCLOCK_Sai1     = MC_ME_COFB_TUPLE(0x534U, 23), /*!< Synchronous Audio Interface 1 (PRTN2_COFB1) */
-    kCLOCK_Lpcmp2   = MC_ME_COFB_TUPLE(0x534U, 26), /*!< Low Power CMP 2 (PRTN2_COFB1) */
-    kCLOCK_Tcm0     = MC_ME_COFB_TUPLE(0x534U, 30), /*!< Core0 TCM (PRTN2_COFB1) */
-    kCLOCK_Tcm1     = MC_ME_COFB_TUPLE(0x534U, 31), /*!< Core1 TCM (PRTN2_COFB1) */
+    kCLOCK_Lpspi4   = MC_ME_COFB_TUPLE(0x534U, 15U), /*!< Low Power SPI 4 (PRTN2_COFB1). */
+    kCLOCK_Lpspi5   = MC_ME_COFB_TUPLE(0x534U, 16U), /*!< Low Power SPI 5 (PRTN2_COFB1). */
+    kCLOCK_Qspi     = MC_ME_COFB_TUPLE(0x534U, 19),  /*!< QuadSPI (PRTN2_COFB1) */
+    kCLOCK_Sai1     = MC_ME_COFB_TUPLE(0x534U, 23),  /*!< Synchronous Audio Interface 1 (PRTN2_COFB1) */
+    kCLOCK_Lpcmp2   = MC_ME_COFB_TUPLE(0x534U, 26),  /*!< Low Power CMP 2 (PRTN2_COFB1) */
+    kCLOCK_Tcm0     = MC_ME_COFB_TUPLE(0x534U, 30),  /*!< Core0 TCM (PRTN2_COFB1) */
+    kCLOCK_Tcm1     = MC_ME_COFB_TUPLE(0x534U, 31),  /*!< Core1 TCM (PRTN2_COFB1) */
+#endif                                               /* FSL_FEATURE_MC_ME_HAS_PRTN2 */
 } clock_ip_name_t;
 
 #define CLOCK_DIV_TUPLE(mux, dc) ((mux << 8U) | dc)
@@ -413,29 +466,31 @@ typedef enum _clock_div_name
     kCLOCK_DivAipsSlowClk = CLOCK_DIV_TUPLE(0U, 2U),      /*!< CLOCK MUX0, divider control 2. */
     kCLOCK_DivHseClk      = CLOCK_DIV_TUPLE(0U, 3U),      /*!< CLOCK MUX0, divider control 3. */
     kCLOCK_DivDcmClk      = CLOCK_DIV_TUPLE(0U, 4U),      /*!< CLOCK MUX0, divider control 4. */
-    kCLOCK_DivLbistClk    = CLOCK_DIV_TUPLE(0U, 5U),      /*!< CLOCK MUX0, divider control 5. */
-#if defined(QUADSPI)
+#if defined(FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV) && (FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV != 0U)
+    kCLOCK_DivLbistClk = CLOCK_DIV_TUPLE(0U, 5U),         /*!< CLOCK MUX0, divider control 5. */
+#endif                                                    /* FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV */
+#if defined(FSL_FEATURE_CLOCK_HAS_QSPI) && (FSL_FEATURE_CLOCK_HAS_QSPI != 0U)
     kCLOCK_DivQspiClk = CLOCK_DIV_TUPLE(0U, 6U),          /*!< CLOCK MUX0, divider control 6. */
-#endif
+#endif                                                    /* FSL_FEATURE_CLOCK_HAS_QSPI */
     kCLOCK_DivStm0Clk = CLOCK_DIV_TUPLE(1U, 0U),          /*!< CLOCK MUX1, divider control 0. */
-#if defined(STM_1)
+#if defined(FSL_FEATURE_MC_CGM_HAS_MUX_2) && (FSL_FEATURE_MC_CGM_HAS_MUX_2 != 0U)
     kCLOCK_DivStm1Clk = CLOCK_DIV_TUPLE(2U, 0U),          /*!< CLOCK MUX2, divider control 0. */
-#endif
+#endif                                                    /* FSL_FEATURE_MC_CGM_HAS_MUX_2 */
     kCLOCK_DivFlexcan012PeClk = CLOCK_DIV_TUPLE(3U, 0U),  /*!< CLOCK MUX3, divider control 0. */
-#if defined(FLEXCAN_5)
+#if defined(FSL_FEATURE_MC_CGM_HAS_MUX_4) && (FSL_FEATURE_MC_CGM_HAS_MUX_4 != 0U)
     kCLOCK_DivFlexcan345PeClk = CLOCK_DIV_TUPLE(4U, 0U),  /*!< CLOCK MUX4, divider control 0. */
-#endif
+#endif                                                    /* FSL_FEATURE_MC_CGM_HAS_MUX_4 */
     kCLOCK_DivClkoutStandbyClk = CLOCK_DIV_TUPLE(5U, 0U), /*!< CLOCK MUX5, divider control 0. */
     kCLOCK_DivClkoutRunClk     = CLOCK_DIV_TUPLE(6U, 0U), /*!< CLOCK MUX6, divider control 0. */
-#if defined(EMAC)
+#if defined(FSL_FEATURE_CLOCK_HAS_EMAC) && (FSL_FEATURE_CLOCK_HAS_EMAC != 0U)
     kCLOCK_DivEmacRxClk = CLOCK_DIV_TUPLE(7U, 0U),        /*!< CLOCK MUX7, divider control 0. */
     kCLOCK_DivEmacTxClk = CLOCK_DIV_TUPLE(8U, 0U),        /*!< CLOCK MUX8, divider control 0. */
     kCLOCK_DivEmacTsClk = CLOCK_DIV_TUPLE(9U, 0U),        /*!< CLOCK MUX9, divider control 0. */
-#endif
-#if defined(QUADSPI)
-    kCLOCK_DivQspiSfckClk = CLOCK_DIV_TUPLE(10U, 0U), /*!< CLOCK MUX10, divider control 0. */
-#endif
-    kCLOCK_DivTraceClk = CLOCK_DIV_TUPLE(11U, 0U),    /*!< CLOCK MUX11, divider control 0. */
+#endif                                                    /* FSL_FEATURE_CLOCK_HAS_EMAC */
+#if defined(FSL_FEATURE_CLOCK_HAS_QSPI) && (FSL_FEATURE_CLOCK_HAS_QSPI != 0U)
+    kCLOCK_DivQspiSfckClk = CLOCK_DIV_TUPLE(10U, 0U),     /*!< CLOCK MUX10, divider control 0. */
+#endif                                                    /* FSL_FEATURE_CLOCK_HAS_QSPI */
+    kCLOCK_DivTraceClk = CLOCK_DIV_TUPLE(11U, 0U),        /*!< CLOCK MUX11, divider control 0. */
 } clock_div_name_t;
 
 #define CLOCK_TUPLE_MUX_CSC_REG(tuple) \
@@ -457,10 +512,12 @@ typedef enum _clock_attach_id
     kAIPS_PLAT_CLK_to_STM0 =
         CLOCK_DIV_TUPLE(1U, CLOCK_AIPS_PLAT_CLK),              /*!< Select AIPS_PLAT_CLK as STM0 clock source. */
 
-    kFIRC_CLK_to_STM1  = CLOCK_DIV_TUPLE(2U, CLOCK_FIRC_CLK),  /*!< Select FIRC as STM1 clock source. */
-    kFXOSC_CLK_to_STM1 = CLOCK_DIV_TUPLE(2U, CLOCK_FXOSC_CLK), /*!< Select FXOSC as STM1 clock source. */
+#if defined(FSL_FEATURE_MC_CGM_HAS_MUX_2) && (FSL_FEATURE_MC_CGM_HAS_MUX_2 != 0U)
+    kFIRC_CLK_to_STM1  = CLOCK_DIV_TUPLE(2U, CLOCK_FIRC_CLK),     /*!< Select FIRC as STM1 clock source. */
+    kFXOSC_CLK_to_STM1 = CLOCK_DIV_TUPLE(2U, CLOCK_FXOSC_CLK),    /*!< Select FXOSC as STM1 clock source. */
     kAIPS_PLAT_CLK_to_STM1 =
-        CLOCK_DIV_TUPLE(2U, CLOCK_AIPS_PLAT_CLK),              /*!< Select AIPS_PLAT_CLK as STM1 clock source. */
+        CLOCK_DIV_TUPLE(2U, CLOCK_AIPS_PLAT_CLK),                 /*!< Select AIPS_PLAT_CLK as STM1 clock source. */
+#endif                                                            /* FSL_FEATURE_MC_CGM_HAS_MUX_2 */
 
     kFIRC_to_FLEXCAN012_PE = CLOCK_DIV_TUPLE(3U, CLOCK_FIRC_CLK), /*!< Select FIRC as FLEXCAN0,1,2_PE clock source. */
     kFXOSC_CLK_to_FLEXCAN012_PE =
@@ -468,20 +525,24 @@ typedef enum _clock_attach_id
     kAIPS_PLAT_CLK_to_FLEXCAN012_PE =
         CLOCK_DIV_TUPLE(3U, CLOCK_AIPS_PLAT_CLK), /*!< Select AIPS_PLAT_CLK as FLEXCAN0,1,2_PE clock source. */
 
+#if defined(FSL_FEATURE_MC_CGM_HAS_MUX_4) && (FSL_FEATURE_MC_CGM_HAS_MUX_4 != 0U)
     kFIRC_to_FLEXCAN345_PE = CLOCK_DIV_TUPLE(4U, CLOCK_FIRC_CLK), /*!< Select FIRC as FLEXCAN3,4,5_PE clock source. */
     kFXOSC_CLK_to_FLEXCAN345_PE =
         CLOCK_DIV_TUPLE(4U, CLOCK_FXOSC_CLK),                     /*!< Select FXOSC as FLEXCAN3,4,5_PE clock source. */
     kAIPS_PLAT_CLK_to_FLEXCAN345_PE =
         CLOCK_DIV_TUPLE(4U, CLOCK_AIPS_PLAT_CLK), /*!< Select AIPS_PLAT_CLK as FLEXCAN3,4,5_PE clock source. */
+#endif                                            /* FSL_FEATURE_MC_CGM_HAS_MUX_4 */
 
     kFIRC_CLK_to_CLKOUT_STANDBY =
-        CLOCK_DIV_TUPLE(5U, CLOCK_FIRC_CLK),      /*!< Select FIRC as CLKOUT_STANDBY mode clock source. */
+        CLOCK_DIV_TUPLE(5U, CLOCK_FIRC_CLK),  /*!< Select FIRC as CLKOUT_STANDBY mode clock source. */
     kSIRC_CLK_to_CLKOUT_STANDBY =
-        CLOCK_DIV_TUPLE(5U, CLOCK_SIRC_CLK),      /*!< Select SIRC as CLKOUT_STANDBY mode clock source. */
+        CLOCK_DIV_TUPLE(5U, CLOCK_SIRC_CLK),  /*!< Select SIRC as CLKOUT_STANDBY mode clock source. */
     kFXOSC_CLK_to_CLKOUT_STANDBY =
-        CLOCK_DIV_TUPLE(5U, CLOCK_FXOSC_CLK),     /*!< Select FXOSC as CLKOUT_STANDBY mode clock source. */
+        CLOCK_DIV_TUPLE(5U, CLOCK_FXOSC_CLK), /*!< Select FXOSC as CLKOUT_STANDBY mode clock source. */
+#if defined(FSL_FEATURE_MC_CGM_HAS_SXOSC) && (FSL_FEATURE_MC_CGM_HAS_SXOSC != 0U)
     kSXOSC_CLK_to_CLKOUT_STANDBY =
         CLOCK_DIV_TUPLE(5U, CLOCK_SXOSC_CLK),     /*!< Select SXOSC as CLKOUT_STANDBY mode clock source. */
+#endif                                            /* FSL_FEATURE_MC_CGM_HAS_SXOSC */
     kAIPS_SLOW_CLK_to_CLKOUT_STANDBY =
         CLOCK_DIV_TUPLE(5U, CLOCK_AIPS_SLOW_CLK), /*!< Select AIPS_SLOW_CLK as CLKOUT_STANDBY mode clock source. */
 
@@ -489,8 +550,10 @@ typedef enum _clock_attach_id
     kSIRC_CLK_to_CLKOUT_RUN = CLOCK_DIV_TUPLE(6U, CLOCK_SIRC_CLK), /*!< Select SIRC as CLKOUT_RUN mode clock source. */
     kFXOSC_CLK_to_CLKOUT_RUN =
         CLOCK_DIV_TUPLE(6U, CLOCK_FXOSC_CLK),                      /*!< Select FXOSC as CLKOUT_RUN mode clock source. */
+#if defined(FSL_FEATURE_MC_CGM_HAS_SXOSC) && (FSL_FEATURE_MC_CGM_HAS_SXOSC != 0U)
     kSXOSC_CLK_to_CLKOUT_RUN =
-        CLOCK_DIV_TUPLE(6U, CLOCK_SXOSC_CLK),                      /*!< Select SXOSC as CLKOUT_RUN mode clock source. */
+        CLOCK_DIV_TUPLE(6U, CLOCK_SXOSC_CLK),    /*!< Select SXOSC as CLKOUT_RUN mode clock source. */
+#endif                                           /* FSL_FEATURE_MC_CGM_HAS_SXOSC */
     kPLL_PHI0_CLK_to_CLKOUT_RUN =
         CLOCK_DIV_TUPLE(6U, CLOCK_PLL_PHI0_CLK), /*!< Select PLL_PHI0_CLK as CLKOUT_RUN mode clock source. */
     kPLL_PHI1_CLK_to_CLKOUT_RUN =
@@ -502,10 +565,11 @@ typedef enum _clock_attach_id
         CLOCK_DIV_TUPLE(6U, CLOCK_AIPS_PLAT_CLK), /*!< Select AIPS_PLAT as CLKOUT_RUN mode clock source. */
     kAIPS_SLOW_CLK_to_CLKOUT_RUN =
         CLOCK_DIV_TUPLE(6U, CLOCK_AIPS_SLOW_CLK), /*!< Select AIPS_SLOW as CLKOUT_RUN mode clock source. */
+#if defined(FSL_FEATURE_CLOCK_HAS_EMAC) && (FSL_FEATURE_CLOCK_HAS_EMAC != 0U)
     kEMAC_RMII_TX_CLK_to_CLKOUT_RUN = CLOCK_DIV_TUPLE(
-        6U, CLOCK_EMAC_RMII_TX_CLK),              /*!< Select EMAC_RMII_TX_CLK(pin) as CLKOUT_RUN mode clock source. */
+        6U, CLOCK_EMAC_RMII_TX_CLK),            /*!< Select EMAC_RMII_TX_CLK(pin) as CLKOUT_RUN mode clock source. */
     kEMAC_RX_CLK_to_CLKOUT_RUN =
-        CLOCK_DIV_TUPLE(6U, CLOCK_EMAC_RX_CLK),   /*!< Select EMAC_RX_CLK(pin) as CLKOUT_RUN mode clock source. */
+        CLOCK_DIV_TUPLE(6U, CLOCK_EMAC_RX_CLK), /*!< Select EMAC_RX_CLK(pin) as CLKOUT_RUN mode clock source. */
 
     kFIRC_CLK_to_EMAC_RX = CLOCK_DIV_TUPLE(7U, CLOCK_FIRC_CLK), /*!< Select FIRC as EMAC_RX_CLK clock source. */
     kEMAC_RMII_TX_CLK_to_EMAC_RX =
@@ -522,7 +586,9 @@ typedef enum _clock_attach_id
         CLOCK_DIV_TUPLE(9U, CLOCK_EMAC_RMII_TX_CLK), /*!< Select EMAC_RMII_TX_CLK(pin) as EMAC_TS_CLK  clock source. */
     kEMAC_RX_CLK_to_EMAC_TS =
         CLOCK_DIV_TUPLE(9U, CLOCK_EMAC_RX_CLK),      /*!< Select EMAC_RX_CLK(pin) as EMAC_TS_CLK clock source. */
+#endif                                               /* FSL_FEATURE_CLOCK_HAS_EMAC */
 
+#if defined(FSL_FEATURE_CLOCK_HAS_QSPI) && (FSL_FEATURE_CLOCK_HAS_QSPI != 0U)
     kFIRC_CLK_to_QSPI_SFCK  = CLOCK_DIV_TUPLE(10U, CLOCK_FIRC_CLK),  /*!< Select FIRC as QSPI_SFCK clock source. */
     kFXOSC_CLK_to_QSPI_SFCK = CLOCK_DIV_TUPLE(10U, CLOCK_FXOSC_CLK), /*!< Select FXOSC as QSPI_SFCK clock source. */
     kPLL_PHI0_CLK_to_QSPI_SFCK =
@@ -533,6 +599,7 @@ typedef enum _clock_attach_id
         CLOCK_DIV_TUPLE(10U, CLOCK_EMAC_RMII_TX_CLK), /*!< Select EMAC_RMII_TX_CLK(pin) as QSPI_SFCKe clock source. */
     kEMAC_RX_CLK_to_QSPI_SFCK =
         CLOCK_DIV_TUPLE(10U, CLOCK_EMAC_RX_CLK),      /*!< Select EMAC_RX_CLK(pin) as QSPI_SFCK clock source. */
+#endif                                                /* FSL_FEATURE_CLOCK_HAS_QSPI */
 
     kFIRC_CLK_to_TRACE  = CLOCK_DIV_TUPLE(11U, CLOCK_FIRC_CLK),  /*!< Select FIRC as TRACE clock source. */
     kFXOSC_CLK_to_TRACE = CLOCK_DIV_TUPLE(11U, CLOCK_FXOSC_CLK), /*!< Select FXOSC as TRACE clock source. */
@@ -554,32 +621,46 @@ typedef enum _clock_name
     kCLOCK_AipsSlowClk, /*!< AIPS_SLOW clock. */
     kCLOCK_HseClk,      /*!< HSE clock. */
     kCLOCK_DcmClk,      /*!< DCM clock. */
+#if defined(FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV) && (FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV != 0U)
     kCLOCK_LbistClk,    /*!< LBIST clock. */
+#endif                  /* FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV */
+#if defined(FSL_FEATURE_CLOCK_HAS_QSPI) && (FSL_FEATURE_CLOCK_HAS_QSPI != 0U)
     kCLOCK_QspiClk,     /*!< QSPI clock. */
+#endif                  /* FSL_FEATURE_CLOCK_HAS_QSPI */
 
     /* --------------------- MC_CGM clock --------------------- */
     kCLOCK_FircClk,    /*!< Firc clock. */
     kCLOCK_SircClk,    /*!< SIRC clock. */
     kCLOCK_FxoscClk,   /*!< FXOSC clock. */
+#if defined(FSL_FEATURE_MC_CGM_HAS_SXOSC) && (FSL_FEATURE_MC_CGM_HAS_SXOSC != 0U)
     kCLOCK_SxoscClk,   /*!< SXOSC clock. */
+#endif                 /* FSL_FEATURE_MC_CGM_HAS_SXOSC */
     kCLOCK_PllPhi0Clk, /*!< PLL_PHI0_CLK clock. */
     kCLOCK_PllPhi1Clk, /*!< PLL_PHI0_CLK clock. */
 
     /* --------------------- Peripheral clock --------------------- */
     kCLOCK_Adc0Clk,     /*!< ADC0 clock. */
     kCLOCK_Adc1Clk,     /*!< ADC1 clock. */
+#if defined(FSL_FEATURE_SOC_ADC_COUNT) && (FSL_FEATURE_SOC_ADC_COUNT > 2U)
     kCLOCK_Adc2Clk,     /*!< ADC2 clock. */
+#endif                  /* FSL_FEATURE_SOC_ADC_COUNT */
     kCLOCK_BctuClk,     /*!< Bctu clock. */
     kCLOCK_Cmp0Clk,     /*!< CMP0 clock. */
+#if defined(FSL_FEATURE_SOC_LPCMP_COUNT) && (FSL_FEATURE_SOC_LPCMP_COUNT > 1U)
     kCLOCK_Cmp1Clk,     /*!< CMP1 clock. */
+#endif                  /* FSL_FEATURE_SOC_LPCMP_COUNT */
+#if defined(FSL_FEATURE_SOC_LPCMP_COUNT) && (FSL_FEATURE_SOC_LPCMP_COUNT > 2U)
     kCLOCK_Cmp2Clk,     /*!< CMP2 clock. */
+#endif                  /* FSL_FEATURE_SOC_LPCMP_COUNT */
     kCLOCK_EmiosClk,    /*!< EMIOS clock. */
     kCLOCK_Flexcan0Clk, /*!< FLEXCAN0/1/2_PE clock. */
     kCLOCK_Flexcan1Clk, /*!< FLEXCAN0/1/2_PE clock. */
     kCLOCK_Flexcan2Clk, /*!< FLEXCAN0/1/2_PE clock. */
+#if defined(FSL_FEATURE_SOC_FLEXCAN_COUNT) && (FSL_FEATURE_SOC_FLEXCAN_COUNT > 3U)
     kCLOCK_Flexcan3Clk, /*!< FLEXCAN3/4/5_PE clock. */
     kCLOCK_Flexcan4Clk, /*!< FLEXCAN3/4/5_PE clock. */
     kCLOCK_Flexcan5Clk, /*!< FLEXCAN3/4/5_PE clock. */
+#endif                  /* FSL_FEATURE_SOC_FLEXCAN_COUNT */
     kCLOCK_FlexioClk,   /*!< FLEXIO clock. */
 
     kCLOCK_Lpi2c0Clk,   /*!< LPI2C0 clock. */
@@ -589,17 +670,22 @@ typedef enum _clock_name
     kCLOCK_Lpspi1Clk,   /*!< LPSPI1 clock. */
     kCLOCK_Lpspi2Clk,   /*!< LPSPI2 clock. */
     kCLOCK_Lpspi3Clk,   /*!< LPSPI3 clock. */
+#if defined(FSL_FEATURE_SOC_LPSPI_COUNT) && (FSL_FEATURE_SOC_LPSPI_COUNT > 4U)
     kCLOCK_Lpspi4Clk,   /*!< LPSPI4 clock. */
     kCLOCK_Lpspi5Clk,   /*!< LPSPI5 clock. */
+#endif                  /* FSL_FEATURE_SOC_LPSPI_COUNT */
 
     kCLOCK_Lpuart0Clk,  /*!< LPUART0 clock. */
     kCLOCK_Lpuart1Clk,  /*!< LPUART1 clock. */
     kCLOCK_Lpuart2Clk,  /*!< LPUART2 clock. */
     kCLOCK_Lpuart3Clk,  /*!< LPUART3 clock. */
+#if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 4U)
     kCLOCK_Lpuart4Clk,  /*!< LPUART4 clock. */
     kCLOCK_Lpuart5Clk,  /*!< LPUART5 clock. */
     kCLOCK_Lpuart6Clk,  /*!< LPUART6 clock. */
     kCLOCK_Lpuart7Clk,  /*!< LPUART7 clock. */
+#endif                  /* FSL_FEATURE_SOC_LPUART_COUNT */
+#if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 8U)
     kCLOCK_Lpuart8Clk,  /*!< LPUART8 clock. */
     kCLOCK_Lpuart9Clk,  /*!< LPUART9 clock. */
     kCLOCK_Lpuart10Clk, /*!< LPUART10 clock. */
@@ -608,21 +694,30 @@ typedef enum _clock_name
     kCLOCK_Lpuart13Clk, /*!< LPUART13 clock. */
     kCLOCK_Lpuart14Clk, /*!< LPUART14 clock. */
     kCLOCK_Lpuart15Clk, /*!< LPUART15 clock. */
+#endif                  /* FSL_FEATURE_SOC_LPUART_COUNT */
 
     kCLOCK_Pit0Clk,     /*!< PIT0 clock. */
     kCLOCK_Pit1Clk,     /*!< PIT1 clock. */
+#if defined(FSL_FEATURE_SOC_PIT_COUNT) && (FSL_FEATURE_SOC_PIT_COUNT > 2U)
     kCLOCK_Pit2Clk,     /*!< PIT2 clock. */
+#endif                  /* FSL_FEATURE_SOC_PIT_COUNT */
 
-    kCLOCK_Sai0Clk,     /*!< SAI0 clock. */
-    kCLOCK_Sai1Clk,     /*!< SAI0 clock. */
+#if defined(FSL_FEATURE_SOC_I2S_COUNT) && (FSL_FEATURE_SOC_I2S_COUNT != 0U)
+    kCLOCK_Sai0Clk, /*!< SAI0 clock. */
+    kCLOCK_Sai1Clk, /*!< SAI0 clock. */
+#endif
 
-    kCLOCK_Stm0Clk,     /*!< STM0 clock. */
-    kCLOCK_Stm1Clk,     /*!< STM0 clock. */
+    kCLOCK_Stm0Clk, /*!< STM0 clock. */
+#if defined(FSL_FEATURE_SOC_STM_COUNT) && (FSL_FEATURE_SOC_STM_COUNT > 1U)
+    kCLOCK_Stm1Clk, /*!< STM0 clock. */
+#endif              /* FSL_FEATURE_SOC_STM_COUNT */
 
-    kCLOCK_QspiSfClk,   /*!< QSPI_SF clock. */
-    kCLOCK_EmacRxClk,   /*!< EMAC RX clock. */
-    kCLOCK_EmacTxClk,   /*!< EMAC TX clock. */
-    kCLOCK_EmacTsClk,   /*!< EMAC TS clock. */
+#if defined(FSL_FEATURE_MC_ME_HAS_PRTN2) && (FSL_FEATURE_MC_ME_HAS_PRTN2 != 0U)
+    kCLOCK_QspiSfClk, /*!< QSPI_SF clock. */
+    kCLOCK_EmacRxClk, /*!< EMAC RX clock. */
+    kCLOCK_EmacTxClk, /*!< EMAC TX clock. */
+    kCLOCK_EmacTsClk, /*!< EMAC TS clock. */
+#endif                /* FSL_FEATURE_MC_ME_HAS_PRTN2 */
 } clock_name_t;
 
 /** @brief Clock ip trigger divider type. */
@@ -679,8 +774,10 @@ typedef enum pll_mode
 /*! @brief The PLL unlock accuracy. */
 typedef enum pll_unlock_accuracy
 {
-    kPLL_UnlockAccuracy9  = 0U, /*!< Unlock range = Expected value deviates by 9 (recommended when PLLFM[SSCGBYP] = 1). */
-    kPLL_UnlockAccuracy17 = 1U, /*!< Unlock range = Expected value deviates by 17 (recommended when PLLFM[SSCGBYP] = 1). */
+    kPLL_UnlockAccuracy9 =
+        0U, /*!< Unlock range = Expected value deviates by 9 (recommended when PLLFM[SSCGBYP] = 1). */
+    kPLL_UnlockAccuracy17 =
+        1U, /*!< Unlock range = Expected value deviates by 17 (recommended when PLLFM[SSCGBYP] = 1). */
     kPLL_UnlockAccuracy33 = 2U, /*!< Unlock range = Expected value deviates by 33. */
     kPLL_UnlockAccuracy5  = 3U, /*!< Unlock range = Expected value deviates by 5. */
 } pll_unlock_accuracy_t;
@@ -737,6 +834,7 @@ inline static void CLOCK_McmeEnterKey(void)
     MC_ME->CTL_KEY = MC_ME_CTL_KEY_KEY(0xA50FU);
 }
 
+#if defined(FSL_FEATURE_CLOCK_HAS_EMAC)
 /**
  * @brief API used to tell clock driver the clock frequency on the EMAC_RMII_MII_TX_CLK pin.
  * @param freq Frequency in herz.
@@ -750,6 +848,7 @@ void CLOCK_SetEmacRmiiTxClkFreq(uint32_t freq);
  * @return  Nothing
  */
 void CLOCK_SetEmacRxClkFreq(uint32_t freq);
+#endif /* FSL_FEATURE_CLOCK_HAS_EMAC */
 
 /**
  * @brief Enable the clock for specific IP.
@@ -895,6 +994,7 @@ uint32_t CLOCK_GetClkSwitchTriggerCause(clock_attach_id_t connection);
  */
 void CLOCK_InitFxosc(const fxosc_config_t *config);
 
+#if defined(FSL_FEATURE_MC_CGM_HAS_SXOSC) && (FSL_FEATURE_MC_CGM_HAS_SXOSC != 0U)
 /*!
  * @brief Initialize the SXOSC.
  * @param enable Enable or disable the SXOSC.
@@ -902,6 +1002,7 @@ void CLOCK_InitFxosc(const fxosc_config_t *config);
 times the EOCV value (EOCV * 128).
  */
 void CLOCK_InitSxosc(bool enable, uint8_t startupDelay);
+#endif /* FSL_FEATURE_MC_CGM_HAS_SXOSC */
 
 /*!
  * @brief Disable FXOSC.
@@ -1003,17 +1104,27 @@ uint32_t CLOCK_GetHseClkFreq(void);
  */
 uint32_t CLOCK_GetDcmClkFreq(void);
 
+#if defined(FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV) && (FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV != 0U)
 /*!
  * @brief Get the LBIST_CLK clock frequency.
  * @return frequency in HZ.
  */
 uint32_t CLOCK_GetLbistClkFreq(void);
+#endif /* FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV */
 
+#if defined(FSL_FEATURE_CLOCK_HAS_QSPI) && (FSL_FEATURE_CLOCK_HAS_QSPI != 0U)
 /*!
  * @brief Get the QSPI_CLK clock frequency.
  * @return frequency in HZ.
  */
 uint32_t CLOCK_GetQspiClkFreq(void);
+
+/*!
+ * @brief Get the QSPI_SFCK clock frequency.
+ * @return frequency in HZ.
+ */
+uint32_t CLOCK_GetQspiSfckFreq(void);
+#endif /* FSL_FEATURE_CLOCK_HAS_QSPI */
 
 /*!
  * @brief Get the PLL_PHI clock frequency.
@@ -1036,6 +1147,7 @@ uint32_t CLOCK_GetFlexcanPeClkFreq(uint32_t index);
  */
 uint32_t CLOCK_GetStmClkFreq(uint32_t index);
 
+#if defined(FSL_FEATURE_CLOCK_HAS_EMAC) && (FSL_FEATURE_CLOCK_HAS_EMAC != 0U)
 /*!
  * @brief Get the EMAC RX clock frequency.
  * @return frequency in HZ.
@@ -1053,12 +1165,7 @@ uint32_t CLOCK_GetEmacTxClkFreq(void);
  * @return frequency in HZ.
  */
 uint32_t CLOCK_GetEmacTsClkFreq(void);
-
-/*!
- * @brief Get the QSPI_SFCK clock frequency.
- * @return frequency in HZ.
- */
-uint32_t CLOCK_GetQspiSfckFreq(void);
+#endif /* FSL_FEATURE_CLOCK_HAS_EMAC */
 
 #if defined(__cplusplus)
 }

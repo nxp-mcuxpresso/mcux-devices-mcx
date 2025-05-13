@@ -285,6 +285,7 @@ void CLOCK_InitFxosc(const fxosc_config_t *config)
     g_xtal0Freq = config->freqHz;
 }
 
+#if defined(FSL_FEATURE_MC_CGM_HAS_SXOSC) && (FSL_FEATURE_MC_CGM_HAS_SXOSC != 0U)
 void CLOCK_InitSxosc(bool enable, uint8_t startupDelay)
 {
     if (enable)
@@ -306,6 +307,7 @@ void CLOCK_InitSxosc(bool enable, uint8_t startupDelay)
         /* CLOCK_DisableClock(kCLOCK_Sxosc); */
     }
 }
+#endif /* FSL_FEATURE_MC_CGM_HAS_SXOSC */
 
 void CLOCK_InitPll(const pll_config_t *config)
 {
@@ -433,6 +435,7 @@ uint32_t CLOCK_GetFxoscFreq(void)
     return freq;
 }
 
+#if defined(FSL_FEATURE_MC_CGM_HAS_SXOSC) && (FSL_FEATURE_MC_CGM_HAS_SXOSC != 0U)
 uint32_t CLOCK_GetSxoscFreq(void)
 {
     uint32_t freq = 0U;
@@ -446,6 +449,7 @@ uint32_t CLOCK_GetSxoscFreq(void)
     }
     return freq;
 }
+#endif /* FSL_FEATURE_MC_CGM_HAS_SXOSC */
 
 static inline uint32_t CLOCK_GetMux0ClkFreq(void)
 {
@@ -550,6 +554,7 @@ uint32_t CLOCK_GetDcmClkFreq(void)
     return freq;
 }
 
+#if defined(FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV) && (FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV != 0U)
 uint32_t CLOCK_GetLbistClkFreq(void)
 {
     uint32_t freq = 0U;
@@ -566,7 +571,9 @@ uint32_t CLOCK_GetLbistClkFreq(void)
 
     return freq;
 }
+#endif /* FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV */
 
+#if defined(FSL_FEATURE_CLOCK_HAS_QSPI) && (FSL_FEATURE_CLOCK_HAS_QSPI != 0U)
 uint32_t CLOCK_GetQspiClkFreq(void)
 {
     uint32_t freq = 0U;
@@ -583,6 +590,7 @@ uint32_t CLOCK_GetQspiClkFreq(void)
 
     return freq;
 }
+#endif /* FSL_FEATURE_CLOCK_HAS_QSPI */
 
 uint32_t CLOCK_GetStmClkFreq(uint32_t index)
 {
@@ -618,6 +626,7 @@ uint32_t CLOCK_GetStmClkFreq(uint32_t index)
     return freq;
 }
 
+#if defined(FSL_FEATURE_CLOCK_HAS_EMAC) && (FSL_FEATURE_CLOCK_HAS_EMAC != 0U)
 void CLOCK_SetEmacRmiiTxClkFreq(uint32_t freq)
 {
     g_emacRmiiTxClkFreq = freq;
@@ -723,7 +732,9 @@ uint32_t CLOCK_GetEmacTsClkFreq(void)
 
     return freq;
 }
+#endif /* FSL_FEATURE_CLOCK_HAS_EMAC */
 
+#if defined(FSL_FEATURE_CLOCK_HAS_QSPI) && (FSL_FEATURE_CLOCK_HAS_QSPI != 0U)
 uint32_t CLOCK_GetQspiSfckFreq(void)
 {
     uint32_t freq = 0U;
@@ -754,6 +765,7 @@ uint32_t CLOCK_GetQspiSfckFreq(void)
 
     return freq;
 }
+#endif
 
 uint32_t CLOCK_GetFlexcanPeClkFreq(uint32_t index)
 {
@@ -785,6 +797,7 @@ uint32_t CLOCK_GetFlexcanPeClkFreq(uint32_t index)
             freq = 0U;
         }
     }
+#if defined(FSL_FEATURE_MC_CGM_HAS_MUX_4) && (FSL_FEATURE_MC_CGM_HAS_MUX_4 != 0U)
     else
     {
         if ((MC_CGM->MUX_4_DC_0 & MC_CGM_MUX_4_DC_0_DE_MASK) != 0U)
@@ -810,6 +823,7 @@ uint32_t CLOCK_GetFlexcanPeClkFreq(uint32_t index)
             freq = 0U;
         }
     }
+#endif /* FSL_FEATURE_MC_CGM_HAS_MUX_4 */
 
     return freq;
 }
@@ -823,7 +837,9 @@ uint32_t CLOCK_GetFreq(clock_name_t name)
         case kCLOCK_CoreSysClk:
         case kCLOCK_Adc0Clk:
         case kCLOCK_Adc1Clk:
+#if defined(FSL_FEATURE_SOC_ADC_COUNT) && (FSL_FEATURE_SOC_ADC_COUNT > 2U)
         case kCLOCK_Adc2Clk:
+#endif /* FSL_FEATURE_SOC_ADC_COUNT */
         case kCLOCK_BctuClk:
         case kCLOCK_EmiosClk:
         case kCLOCK_FlexioClk:
@@ -832,27 +848,38 @@ uint32_t CLOCK_GetFreq(clock_name_t name)
         case kCLOCK_AipsPlatClk: /* AIPS_PLAT_CLK*/
         case kCLOCK_Lpspi0Clk:
         case kCLOCK_Lpuart0Clk:
+#if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 8U)
         case kCLOCK_Lpuart8Clk:
+#endif /* FSL_FEATURE_SOC_LPUART_COUNT */
             freq = CLOCK_GetAipsPlatClkFreq();
             break;
         case kCLOCK_AipsSlowClk: /* AIPS_SLOW_CLK */
         case kCLOCK_Cmp0Clk:
+#if defined(FSL_FEATURE_SOC_LPCMP_COUNT) && (FSL_FEATURE_SOC_LPCMP_COUNT > 1U)
         case kCLOCK_Cmp1Clk:
+#endif /* FSL_FEATURE_SOC_LPCMP_COUNT */
+#if defined(FSL_FEATURE_SOC_LPCMP_COUNT) && (FSL_FEATURE_SOC_LPCMP_COUNT > 2U)
         case kCLOCK_Cmp2Clk:
+#endif /* FSL_FEATURE_SOC_LPCMP_COUNT */
         case kCLOCK_Lpi2c0Clk:
         case kCLOCK_Lpi2c1Clk:
         case kCLOCK_Lpspi1Clk:
         case kCLOCK_Lpspi2Clk:
         case kCLOCK_Lpspi3Clk:
+#if defined(FSL_FEATURE_SOC_LPSPI_COUNT) && (FSL_FEATURE_SOC_LPSPI_COUNT > 4U)
         case kCLOCK_Lpspi4Clk:
         case kCLOCK_Lpspi5Clk:
+#endif /* FSL_FEATURE_SOC_LPSPI_COUNT */
         case kCLOCK_Lpuart1Clk:
         case kCLOCK_Lpuart2Clk:
         case kCLOCK_Lpuart3Clk:
+#if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 4U)
         case kCLOCK_Lpuart4Clk:
         case kCLOCK_Lpuart5Clk:
         case kCLOCK_Lpuart6Clk:
         case kCLOCK_Lpuart7Clk:
+#endif /* FSL_FEATURE_SOC_LPUART_COUNT */
+#if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 8U)
         case kCLOCK_Lpuart9Clk:
         case kCLOCK_Lpuart10Clk:
         case kCLOCK_Lpuart11Clk:
@@ -860,11 +887,16 @@ uint32_t CLOCK_GetFreq(clock_name_t name)
         case kCLOCK_Lpuart13Clk:
         case kCLOCK_Lpuart14Clk:
         case kCLOCK_Lpuart15Clk:
+#endif /* FSL_FEATURE_SOC_LPUART_COUNT */
         case kCLOCK_Pit0Clk:
         case kCLOCK_Pit1Clk:
+#if defined(FSL_FEATURE_SOC_PIT_COUNT) && (FSL_FEATURE_SOC_PIT_COUNT > 2U)
         case kCLOCK_Pit2Clk:
+#endif /* FSL_FEATURE_SOC_PIT_COUNT */
+#if defined(FSL_FEATURE_SOC_I2S_COUNT) && (FSL_FEATURE_SOC_I2S_COUNT != 0U)
         case kCLOCK_Sai0Clk:
         case kCLOCK_Sai1Clk:
+#endif /* FSL_FEATURE_SOC_I2S_COUNT */
             freq = CLOCK_GetAipsSlowClkFreq();
             break;
         case kCLOCK_HseClk:
@@ -873,12 +905,16 @@ uint32_t CLOCK_GetFreq(clock_name_t name)
         case kCLOCK_DcmClk:
             freq = CLOCK_GetDcmClkFreq();
             break;
+#if defined(FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV) && (FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV != 0U)
         case kCLOCK_LbistClk:
             freq = CLOCK_GetLbistClkFreq();
             break;
+#endif /* FSL_FEATURE_MC_CGM_HAS_LBIST_CLK_DIV */
+#if defined(FSL_FEATURE_CLOCK_HAS_QSPI) && (FSL_FEATURE_CLOCK_HAS_QSPI != 0U)
         case kCLOCK_QspiClk:
             freq = CLOCK_GetQspiClkFreq();
             break;
+#endif /* FSL_FEATURE_CLOCK_HAS_QSPI */
         case kCLOCK_FircClk:
             freq = CLOCK_FIRC_CLK_FREQ;
             break;
@@ -888,9 +924,11 @@ uint32_t CLOCK_GetFreq(clock_name_t name)
         case kCLOCK_FxoscClk:
             freq = CLOCK_GetFxoscFreq();
             break;
+#if defined(FSL_FEATURE_MC_CGM_HAS_SXOSC) && (FSL_FEATURE_MC_CGM_HAS_SXOSC != 0U)
         case kCLOCK_SxoscClk:
             freq = CLOCK_GetSxoscFreq();
             break;
+#endif /* FSL_FEATURE_MC_CGM_HAS_SXOSC */
         case kCLOCK_PllPhi0Clk:
             freq = CLOCK_GetPllPhiClkFreq(0U);
             break;
@@ -906,6 +944,7 @@ uint32_t CLOCK_GetFreq(clock_name_t name)
         case kCLOCK_Flexcan2Clk:
             freq = CLOCK_GetFlexcanPeClkFreq(2);
             break;
+#if defined(FSL_FEATURE_SOC_FLEXCAN_COUNT) && (FSL_FEATURE_SOC_FLEXCAN_COUNT > 3U)
         case kCLOCK_Flexcan3Clk:
             freq = CLOCK_GetFlexcanPeClkFreq(3);
             break;
@@ -915,15 +954,20 @@ uint32_t CLOCK_GetFreq(clock_name_t name)
         case kCLOCK_Flexcan5Clk:
             freq = CLOCK_GetFlexcanPeClkFreq(5);
             break;
+#endif /* FSL_FEATURE_SOC_FLEXCAN_COUNT > 3U */
         case kCLOCK_Stm0Clk:
             freq = CLOCK_GetStmClkFreq(0U);
             break;
+#if defined(FSL_FEATURE_SOC_STM_COUNT) && (FSL_FEATURE_SOC_STM_COUNT == 2U)
         case kCLOCK_Stm1Clk:
             freq = CLOCK_GetStmClkFreq(1U);
             break;
+#endif /* FSL_FEATURE_SOC_STM_COUNT == 2U */
+#if defined(FSL_FEATURE_CLOCK_HAS_QSPI) && (FSL_FEATURE_CLOCK_HAS_QSPI > 0U)
         case kCLOCK_QspiSfClk:
             freq = CLOCK_GetQspiSfckFreq();
             break;
+#endif /* FSL_FEATURE_CLOCK_HAS_QSPI */
         default:
             freq = 0U;
     }

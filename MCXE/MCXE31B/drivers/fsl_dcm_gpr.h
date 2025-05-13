@@ -36,32 +36,54 @@ enum _disable_debug_mode_for_module
     kDCM_GPR_disableLcu1Debug     = DCM_GPR_DCMRWD6_LCU1_DBG_DIS_CM7_0_MASK, /*!< LCU1 remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableEmios0Debug   = DCM_GPR_DCMRWD6_EMIOS0_DBG_DIS_CM7_0_MASK, /*!< eMIOS0 remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableEmios1Debug   = DCM_GPR_DCMRWD6_EMIOS1_DBG_DIS_CM7_0_MASK, /*!< eMIOS1 remains functional and is not impacted when CM7_0 enters debug mode. */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_EMIOS2_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_EMIOS2_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disableEmios2Debug   = DCM_GPR_DCMRWD6_EMIOS2_DBG_DIS_CM7_0_MASK, /*!< eMIOS2 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_EMIOS2_DBG_DIS_CM7_0 */
     kDCM_GPR_disableRtcDebug      = DCM_GPR_DCMRWD6_RTC_DBG_DIS_CM7_0_MASK, /*!< RTC remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableSwt0Debug     = DCM_GPR_DCMRWD6_SWT0_DBG_DIS_CM7_0_MASK, /*!< SWT0 remains functional and is not impacted when CM7_0 enters debug mode. */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SWT1_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SWT1_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disableSwt1Debug     = DCM_GPR_DCMRWD6_SWT1_DBG_DIS_CM7_0_MASK, /*!< SWT1 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SWT1_DBG_DIS_CM7_0 */
     kDCM_GPR_disableStm0Debug     = DCM_GPR_DCMRWD6_STM0_DBG_DIS_CM7_0_MASK, /*!< STM0 remains functional and is not impacted when CM7_0 enters debug mode. */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_STM1_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_STM1_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disableStm1Debug     = DCM_GPR_DCMRWD6_STM1_DBG_DIS_CM7_0_MASK, /*!< STM1 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_STM1_DBG_DIS_CM7_0 */
     kDCM_GPR_disablePit0Debug     = DCM_GPR_DCMRWD6_PIT0_DBG_DIS_CM7_0_MASK, /*!< PIT0 remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disablePit1Debug     = DCM_GPR_DCMRWD6_PIT1_DBG_DIS_CM7_0_MASK, /*!< PIT1 remains functional and is not impacted when CM7_0 enters debug mode. */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_PIT2_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_PIT2_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disablePit2Debug     = DCM_GPR_DCMRWD6_PIT2_DBG_DIS_CM7_0_MASK, /*!< PIT2 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_PIT2_DBG_DIS_CM7_0 */
     kDCM_GPR_disableLpspi0Debug   = DCM_GPR_DCMRWD6_LPSPI0_DBG_DIS_CM7_0_MASK, /*!< LPSPI0 remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableLpspi1Debug   = DCM_GPR_DCMRWD6_LPSPI1_DBG_DIS_CM7_0_MASK, /*!< LPSPI1 remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableLpspi2Debug   = DCM_GPR_DCMRWD6_LPSPI2_DBG_DIS_CM7_0_MASK, /*!< LPSPI2 remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableLpspi3Debug   = DCM_GPR_DCMRWD6_LPSPI3_DBG_DIS_CM7_0_MASK, /*!< LPSPI3 remains functional and is not impacted when CM7_0 enters debug mode. */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_LPSPI4_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_LPSPI4_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disableLpspi4Debug   = DCM_GPR_DCMRWD6_LPSPI4_DBG_DIS_CM7_0_MASK, /*!< LPSPI4 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_LPSPI4_DBG_DIS_CM7_0 */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_LPSPI5_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_LPSPI5_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disableLpspi5Debug   = DCM_GPR_DCMRWD6_LPSPI5_DBG_DIS_CM7_0_MASK, /*!< LPSPI5 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_LPSPI5_DBG_DIS_CM7_0 */
     kDCM_GPR_disableLpi2c0Debug   = DCM_GPR_DCMRWD6_LPI2C0_DBG_DIS_CM7_0_MASK, /*!< LPI2C0 remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableLpi2c1Debug   = DCM_GPR_DCMRWD6_LPI2C1_DBG_DIS_CM7_0_MASK, /*!< LPI2C1 remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableFlexioDebug   = DCM_GPR_DCMRWD6_FLEXIO_DBG_DIS_CM7_0_MASK, /*!< FLEXIO remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableFlexcan0Debug = DCM_GPR_DCMRWD6_FLEXCAN0_DBG_DIS_CM7_0_MASK, /*!< FLEXCAN0 remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableFlexcan1Debug = DCM_GPR_DCMRWD6_FLEXCAN1_DBG_DIS_CM7_0_MASK, /*!< FLEXCAN1 remains functional and is not impacted when CM7_0 enters debug mode. */
     kDCM_GPR_disableFlexcan2Debug = DCM_GPR_DCMRWD6_FLEXCAN2_DBG_DIS_CM7_0_MASK, /*!< FLEXCAN2 remains functional and is not impacted when CM7_0 enters debug mode. */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN3_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN3_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disableFlexcan3Debug = DCM_GPR_DCMRWD6_FLEXCAN3_DBG_DIS_CM7_0_MASK, /*!< FLEXCAN3 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN3_DBG_DIS_CM7_0 */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN4_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN4_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disableFlexcan4Debug = DCM_GPR_DCMRWD6_FLEXCAN4_DBG_DIS_CM7_0_MASK, /*!< FLEXCAN4 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN4_DBG_DIS_CM7_0 */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN5_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN5_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disableFlexcan5Debug = DCM_GPR_DCMRWD6_FLEXCAN5_DBG_DIS_CM7_0_MASK, /*!< FLEXCAN5 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN5_DBG_DIS_CM7_0 */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SAI0_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SAI0_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disableSai0Debug     = DCM_GPR_DCMRWD6_SAI0_DBG_DIS_CM7_0_MASK, /*!< SAI0 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SAI0_DBG_DIS_CM7_0 */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SAI1_DBG_DIS_CM7_0) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SAI1_DBG_DIS_CM7_0 != 0U)
     kDCM_GPR_disableSai1Debug     = DCM_GPR_DCMRWD6_SAI1_DBG_DIS_CM7_0_MASK  /*!< SAI1 remains functional and is not impacted when CM7_0 enters debug mode. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SAI1_DBG_DIS_CM7_0 */
 };
 
 /*!
@@ -84,8 +106,12 @@ typedef enum _internal_supply_monitor_source
  */
 typedef struct _standby_exit_config
 {
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_SIRC_TRIM_BYP_STDBY_EXT) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_SIRC_TRIM_BYP_STDBY_EXT != 0U)
     bool bypassSircTriming;                 /*!< Bypass SIRC trimming. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_SIRC_TRIM_BYP_STDBY_EXT */
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_PMC_TRIM_RGM_DCF__BYP_STDBY_EXT) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_PMC_TRIM_RGM_DCF__BYP_STDBY_EXT != 0U)
     bool bypassPmcTrimingAndRgmDcfLoading;  /*!< Bypass PMC trimming and RGM DCF loading. */
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_PMC_TRIM_RGM_DCF__BYP_STDBY_EXT */
     bool bypassFircTriming;                 /*!< Bypass FIRC trimming. */
     bool enableFastStandbyExit;             /*!< Enable fast standby exit. */
     uint32_t fastStandbyExitBootAddress;    /*!< Cortex-M7_0 base address of vector table to be used after exiting Standby mode. */
@@ -204,6 +230,7 @@ static inline void DCM_GPR_DisableHvADivider(void)
     DCM_GPR->DCMRWF1 &= ~DCM_GPR_DCMRWF1_VDD_HV_A_VLT_DVDR_EN_MASK;
 }
 
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWF1_VDD_HV_B_VLT_DVDR_EN) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWF1_VDD_HV_B_VLT_DVDR_EN != 0U)
 /*!
  * @brief Enable the VSS_HV_B divider.
  */
@@ -219,7 +246,9 @@ static inline void DCM_GPR_DisableHvBDivider(void)
 {
     DCM_GPR->DCMRWF1 &= ~DCM_GPR_DCMRWF1_VDD_HV_B_VLT_DVDR_EN_MASK;
 }
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWF1_VDD_HV_B_VLT_DVDR_EN */
 
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWF1_VDD_1_5_VLT_DVDR_EN) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWF1_VDD_1_5_VLT_DVDR_EN != 0U)
 /*!
  * @brief Enable the VDD_1.5_DIV divider.
  */
@@ -235,6 +264,7 @@ static inline void DCM_GPR_DisableV15Divider(void)
 {
     DCM_GPR->DCMRWF1 &= ~DCM_GPR_DCMRWF1_VDD_1_5_VLT_DVDR_EN_MASK;
 }
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWF1_VDD_1_5_VLT_DVDR_EN */
 /*! @}*/
 
 /*!

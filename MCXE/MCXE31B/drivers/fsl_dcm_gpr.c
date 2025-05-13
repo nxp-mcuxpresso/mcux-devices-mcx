@@ -26,6 +26,7 @@
  */
 void DCM_GPR_StandbyExitConfig(const standby_exit_config_t *config)
 {
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_SIRC_TRIM_BYP_STDBY_EXT) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_SIRC_TRIM_BYP_STDBY_EXT != 0U)
     if (config->bypassSircTriming)
     {
         DCM_GPR->DCMRWF2 |= DCM_GPR_DCMRWF2_SIRC_TRIM_BYP_STDBY_EXT_MASK;
@@ -34,7 +35,9 @@ void DCM_GPR_StandbyExitConfig(const standby_exit_config_t *config)
     {
         DCM_GPR->DCMRWF2 &= ~DCM_GPR_DCMRWF2_SIRC_TRIM_BYP_STDBY_EXT_MASK;
     }
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_SIRC_TRIM_BYP_STDBY_EXT */
 
+#if defined(FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_PMC_TRIM_RGM_DCF__BYP_STDBY_EXT) && (FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_PMC_TRIM_RGM_DCF__BYP_STDBY_EXT != 0U)
     if (config->bypassPmcTrimingAndRgmDcfLoading)
     {
         DCM_GPR->DCMRWF2 |= DCM_GPR_DCMRWF2_PMC_TRIM_RGM_DCF__BYP_STDBY_EXT_MASK;
@@ -43,6 +46,7 @@ void DCM_GPR_StandbyExitConfig(const standby_exit_config_t *config)
     {
         DCM_GPR->DCMRWF2 &= ~DCM_GPR_DCMRWF2_PMC_TRIM_RGM_DCF__BYP_STDBY_EXT_MASK;
     }
+#endif /* FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_PMC_TRIM_RGM_DCF__BYP_STDBY_EXT */
 
     if (config->bypassFircTriming)
     {

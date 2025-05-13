@@ -36,10 +36,12 @@ typedef enum _pmc_event_flag
         PMC_LVSC_LVRALPF_MASK, /*!< Low-power reset event on VDD_HV_A domain in
                                 * both LPM(low performance mode) and FPM.
                                 */
+#if defined(FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY) && (FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY)
     kPMC_FPMVDD_HV_BLowPowerVoltageResetEventFlag = PMC_LVSC_LVRBF_MASK, /*!< Low-voltage reset event on VDD_HV_B domain
                                                                             in FPM. */
     kPMC_LPMFPMVDD_HV_BLowPowerVoltageResetEventFlag = PMC_LVSC_LVRBLPF_MASK, /*!< Low-power reset event on VDD_HV_B
                                                                                  domain in both LPM and FPM. */
+#endif
     kPMC_FPMV25LowPowerVoltageResetEventFlag = PMC_LVSC_LVR25F_MASK, /*!< Low-voltage reset event on V25 domain in FPM.
                                                                       */
     kPMC_LPMFPMV25LowPowerVoltageResetEventFlag = PMC_LVSC_LVR25LPF_MASK, /*!< Low-power reset event on V25 domain in
@@ -53,7 +55,10 @@ typedef enum _pmc_event_flag
     kPMC_FPMOSCV11GoNoGoEventFlag = PMC_LVSC_GNG11OSCF_MASK, /*!<  Go/NoGo sensor has detected a low voltage
                                                                 on the V11 domain in FPM. */
     kPMC_POREventFlag  = PMC_LVSC_PORF_MASK,                 /*!< POR event flag. */
-    kPMC_AllEventFlags = PMC_LVSC_LVRAF_MASK | PMC_LVSC_LVRALPF_MASK | PMC_LVSC_LVRBF_MASK | PMC_LVSC_LVRBLPF_MASK |
+    kPMC_AllEventFlags = PMC_LVSC_LVRAF_MASK | PMC_LVSC_LVRALPF_MASK |
+#if defined(FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY) && (FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY)
+                         PMC_LVSC_LVRBF_MASK | PMC_LVSC_LVRBLPF_MASK |
+#endif
                          PMC_LVSC_LVR25F_MASK | PMC_LVSC_LVR25LPF_MASK | PMC_LVSC_LVR11F_MASK | PMC_LVSC_LVR11LPF_MASK |
                          PMC_LVSC_GNG25OSCF_MASK | PMC_LVSC_GNG11OSCF_MASK | PMC_LVSC_PORF_MASK /*!< All event flags. */
 } pmc_event_flag_t;
@@ -63,22 +68,39 @@ typedef enum _pmc_voltage_detect_flag
 {
     kPMC_FPMVDD_HV_AHighVoltageDetectFlag = PMC_LVSC_HVDAF_MASK, /*!< Voltage on VDD_HV_A is above high-voltage detect
                                                                     threshold and FPM is active. */
+#if defined(FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY) && (FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY)
     kPMC_FPMVDD_HV_BHighVoltageDetectFlag = PMC_LVSC_HVDBF_MASK, /*!< Voltage on VDD_HV_B is above high-voltage detect
                                                                     threshold and FPM is active. */
+#endif
     kPMC_FPMV25HighVoltageDetectFlag = PMC_LVSC_HVD25F_MASK,     /*!< Voltage on V25 is above high-voltage detect
                                                                     threshold and full performance mode is active. */
     kPMC_FPMV11HighVoltageDetectFlag = PMC_LVSC_HVD11F_MASK,     /*!< Voltage on V11 is above high-voltage detect
                                                                     threshold and full performance mode is active. */
-    kPMC_FPMAllHighVoltageDetectFlags = PMC_LVSC_HVDAF_MASK | PMC_LVSC_HVDBF_MASK | PMC_LVSC_HVD25F_MASK |
-                                        PMC_LVSC_HVD11F_MASK,    /*!< All high voltage detect flags. */
-    kPMC_VDD_HV_AV5LowVoltageDetectFlag = PMC_LVSC_LVD5AF_MASK,  /*!< Voltage on VDD_HV_A is below 5V low-voltage
-                                                                    threshold. */
-    kPMC_V15LowVoltageDetectFlag = PMC_LVSC_LVD15F_MASK,         /*!< Voltage on V15 is below low-voltage detect
-                                                                    threshold and full performance mode is active. */
-    kPMC_AllLowVoltageDetectFlags = PMC_LVSC_LVD5AF_MASK | PMC_LVSC_LVD15F_MASK, /*!< All low voltage detect flags. */
-    kPMC_AllVoltageDetectFlags    = PMC_LVSC_HVDAF_MASK | PMC_LVSC_HVDBF_MASK | PMC_LVSC_HVD25F_MASK |
-                                 PMC_LVSC_HVD11F_MASK | PMC_LVSC_LVD5AF_MASK |
-                                 PMC_LVSC_LVD15F_MASK /*!< All voltage detect flags. */
+    kPMC_FPMAllHighVoltageDetectFlags = PMC_LVSC_HVDAF_MASK |
+#if defined(FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY) && (FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY)
+                                        PMC_LVSC_HVDBF_MASK |
+#endif
+                                        PMC_LVSC_HVD25F_MASK |
+                                        PMC_LVSC_HVD11F_MASK,   /*!< All high voltage detect flags. */
+    kPMC_VDD_HV_AV5LowVoltageDetectFlag = PMC_LVSC_LVD5AF_MASK, /*!< Voltage on VDD_HV_A is below 5V low-voltage
+                                                                   threshold. */
+#if defined(FSL_FEATURE_PMC_HAS_15V_SUPPLY) && (FSL_FEATURE_PMC_HAS_15V_SUPPLY)
+    kPMC_V15LowVoltageDetectFlag = PMC_LVSC_LVD15F_MASK,        /*!< Voltage on V15 is below low-voltage detect
+                                                                   threshold and full performance mode is active. */
+#endif
+    kPMC_AllLowVoltageDetectFlags =
+#if defined(FSL_FEATURE_PMC_HAS_15V_SUPPLY) && (FSL_FEATURE_PMC_HAS_15V_SUPPLY)
+        PMC_LVSC_LVD15F_MASK |
+#endif
+        PMC_LVSC_LVD5AF_MASK, /*!< All low voltage detect flags. */
+    kPMC_AllVoltageDetectFlags = PMC_LVSC_HVDAF_MASK |
+#if defined(FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY) && (FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY)
+                                 PMC_LVSC_HVDBF_MASK |
+#endif
+                                 PMC_LVSC_HVD25F_MASK | PMC_LVSC_HVD11F_MASK | PMC_LVSC_LVD5AF_MASK
+#if defined(FSL_FEATURE_PMC_HAS_15V_SUPPLY) && (FSL_FEATURE_PMC_HAS_15V_SUPPLY)
+                                 | PMC_LVSC_LVD15F_MASK /*!< All voltage detect flags. */
+#endif
 } pmc_voltage_detect_flag_t;
 
 /*! @brief List of POWER PMC high and low voltage detect status enumeration */
@@ -86,19 +108,28 @@ typedef enum _pmc_voltage_detect_status
 {
     kPMC_FPMVDD_HV_AHighVoltageStatus = PMC_LVSC_HVDAS_MASK, /*!< Voltage on VDD_HV_A is above high-voltage detect
                                                                 threshold and FPM is active. */
+#if defined(FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY) && (FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY)
     kPMC_FPMVDD_HV_BHighVoltageStatus = PMC_LVSC_HVDBS_MASK, /*!< Voltage on VDD_HV_B is above high-voltage detect
                                                                 threshold and FPM is active. */
+#endif
     kPMC_FPMV25HighVoltageStatus = PMC_LVSC_HVD25S_MASK,     /*!< Voltage on V25 is above high-voltage detect
                                                                 threshold and FPM is active. */
     kPMC_FPMV11HighVoltageStatus = PMC_LVSC_HVD11S_MASK,     /*!< Voltage on V11 is above high-voltage detect
                                                                 threshold and FPM is active. */
     kPMC_VDD_HV_AV5LowVoltageStatus = PMC_LVSC_LVD5AS_MASK,  /*!< Voltage on VDD_HV_A is below low-voltage detect
                                                                 threshold. */
+#if defined(FSL_FEATURE_PMC_HAS_15V_SUPPLY) && (FSL_FEATURE_PMC_HAS_15V_SUPPLY)
     kPMC_V15LowVoltageStatus = PMC_LVSC_LVD15S_MASK,         /*!< Voltage on V15 is below low-voltage detect
                                                                 threshold and FPM is active. */
-    kPMC_AllVoltageDetectStatus = PMC_LVSC_HVDAS_MASK | PMC_LVSC_HVDBS_MASK | PMC_LVSC_HVD25S_MASK |
-                                  PMC_LVSC_HVD11S_MASK | PMC_LVSC_LVD5AS_MASK |
-                                  PMC_LVSC_LVD15S_MASK /*!< All voltage detect status. */
+#endif
+    kPMC_AllVoltageDetectStatus = PMC_LVSC_HVDAS_MASK |
+#if defined(FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY) && (FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY)
+                                  PMC_LVSC_HVDBS_MASK |
+#endif
+                                  PMC_LVSC_HVD25S_MASK | PMC_LVSC_HVD11S_MASK | PMC_LVSC_LVD5AS_MASK
+#if defined(FSL_FEATURE_PMC_HAS_15V_SUPPLY) && (FSL_FEATURE_PMC_HAS_15V_SUPPLY)
+                                  | PMC_LVSC_LVD15S_MASK /*!< All voltage detect status. */
+#endif
 } pmc_voltage_detect_status_t;
 
 /*! @brief List of PMC interrupts */
@@ -158,6 +189,7 @@ extern "C" {
 /*! @name Power Management Controller Control APIs*/
 /*! @{ */
 
+#if defined(FSL_FEATURE_PMC_HAS_LAST_MILE_REGULATOR) && (FSL_FEATURE_PMC_HAS_LAST_MILE_REGULATOR)
 /*!
  * @brief Enable POWER PMC last mile regulator.
  *
@@ -194,6 +226,8 @@ static inline void POWER_DisableLastMileRegulator(void)
     PMC->CONFIG &= ~((uint32_t)(PMC_CONFIG_LMBCTLEN_MASK | PMC_CONFIG_LMEN_MASK));
 }
 
+#endif /* FSL_FEATURE_PMC_HAS_LAST_MILE_REGULATOR */
+
 /*!
  * @brief Enable fast recovery from LPM.
  */
@@ -226,6 +260,7 @@ static inline void POWER_DisableLPMV25Regulator(void)
     PMC->CONFIG &= ~((uint32_t)PMC_CONFIG_LPM25EN_MASK);
 }
 
+#if defined(FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY) && (FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY)
 /*!
  * @brief Enable low voltage reset in VDD_HV_B domain of LPM.
  */
@@ -241,7 +276,9 @@ static inline void POWER_DisableLPMVDD_HV_BLowVoltageReset(void)
 {
     PMC->CONFIG &= ~((uint32_t)PMC_CONFIG_LVRBLPEN_MASK);
 }
+#endif /* FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY */
 
+#if defined(FSL_FEATURE_PMC_HAS_LAST_MILE_REGULATOR) && (FSL_FEATURE_PMC_HAS_LAST_MILE_REGULATOR)
 /*!
  * @brief Enable auto turn over last mile regulator.
  *
@@ -258,6 +295,7 @@ static inline void POWER_DisableAutoTurnOverLastMileRegulator(void)
 {
     PMC->CONFIG &= ~((uint32_t)PMC_CONFIG_LMAUTOEN_MASK);
 }
+#endif /* FSL_FEATURE_PMC_HAS_LAST_MILE_REGULATOR */
 
 /*! @} */
 

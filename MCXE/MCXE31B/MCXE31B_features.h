@@ -679,7 +679,7 @@
 /* @brief Has chain mode (related to existence of register bit field TCTRLn[CHN]). */
 #define FSL_FEATURE_PIT_HAS_CHAIN_MODE (1)
 /* @brief Has shared interrupt handler (has not individual interrupt handler for each channel). */
-#define FSL_FEATURE_PIT_HAS_SHARED_IRQ_HANDLER (1)
+#define FSL_FEATURE_PIT_HAS_SHARED_IRQ_HANDLER (0)
 /* @brief Has timer enable control. */
 #define FSL_FEATURE_PIT_HAS_MDIS (1)
 
@@ -795,6 +795,8 @@
 #define FSL_FEATURE_SAI_HAS_FIFO (1)
 /* @brief Support synchronous with another SAI. */
 #define FSL_FEATURE_SAI_HAS_SYNC_WITH_ANOTHER_SAI (0)
+/* @brief Has Bit Clock Swap option (register bit fields RCR2[BCS]) */
+#define FSL_FEATURE_SAI_HAS_BIT_CLOCK_SWAP (0)
 
 /* SEMA42 module features */
 

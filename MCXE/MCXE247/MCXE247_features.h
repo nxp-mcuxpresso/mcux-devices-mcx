@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250417
+**     Build:               b250506
 **
 **     Abstract:
 **         Chip specific module features.
@@ -703,6 +703,8 @@
 #define FSL_FEATURE_SAI_HAS_CHANNEL_MODE (1)
 /* @brief Support synchronous with another SAI. */
 #define FSL_FEATURE_SAI_HAS_SYNC_WITH_ANOTHER_SAI (0)
+/* @brief Has Bit Clock Swap option (register bit fields RCR2[BCS]) */
+#define FSL_FEATURE_SAI_HAS_BIT_CLOCK_SWAP (0)
 
 /* LMEM module features */
 
@@ -723,10 +725,10 @@
 
 /* @brief Has separate DMA RX and TX requests. */
 #define FSL_FEATURE_LPI2C_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
-/* @brief Has dedicated interrupt for master and slave. */
-#define FSL_FEATURE_LPI2C_HAS_ROLE_SPLIT_IRQ (1)
 /* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
 #define FSL_FEATURE_LPI2C_FIFO_SIZEn(x) (4)
+/* @brief Has dedicated interrupt for master and slave. */
+#define FSL_FEATURE_LPI2C_HAS_ROLE_SPLIT_IRQ (1)
 
 /* LPIT module features */
 
@@ -739,15 +741,15 @@
 
 /* LPSPI module features */
 
-/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
+/* @brief Capacity (number of entries) of the transmit/receive FIFO. */
 #define FSL_FEATURE_LPSPI_FIFO_SIZEn(x) (4)
 /* @brief Has separate DMA RX and TX requests. */
 #define FSL_FEATURE_LPSPI_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
 /* @brief Has CCR1 (related to existence of registers CCR1). */
 #define FSL_FEATURE_LPSPI_HAS_CCR1 (0)
-/* @brief Has no PCSCFG bit in CFGR1 register */
+/* @brief Has no PCSCFG bit in CFGR1 register. */
 #define FSL_FEATURE_LPSPI_HAS_NO_PCSCFG (0)
-/* @brief Has no WIDTH bits in TCR register */
+/* @brief Has no WIDTH bits in TCR register. */
 #define FSL_FEATURE_LPSPI_HAS_NO_MULTI_WIDTH (0)
 
 /* LPTMR module features */
@@ -822,7 +824,7 @@
 /* @brief UART stops in Wait mode available (has bit C1[UARTSWAI]). */
 #define FSL_FEATURE_LPUART_HAS_WAIT_MODE_OPERATION (0)
 /* @brief Has separate DMA RX and TX requests. */
-#define FSL_FEATURE_LPUART_HAS_SEPARATE_DMA_RX_TX_REQn(x) (false)
+#define FSL_FEATURE_LPUART_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
 /* @brief Has separate RX and TX interrupts. */
 #define FSL_FEATURE_LPUART_HAS_SEPARATE_RX_TX_IRQ (0)
 /* @brief Has LPAURT_PARAM. */
@@ -833,6 +835,8 @@
 #define FSL_FEATURE_LPUART_HAS_GLOBAL (1)
 /* @brief Has LPUART_PINCFG. */
 #define FSL_FEATURE_LPUART_HAS_PINCFG (1)
+/* @brief Belong to LPFLEXCOMM */
+#define FSL_FEATURE_LPUART_IS_LPFLEXCOMM (0)
 /* @brief Has register MODEM Control. */
 #define FSL_FEATURE_LPUART_HAS_MCR (0)
 /* @brief Has register Half Duplex Control. */

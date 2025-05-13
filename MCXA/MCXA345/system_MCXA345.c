@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250513
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -78,14 +78,22 @@ __attribute__ ((weak)) void SystemInit (void) {
   SCB->NSACR |= ((3UL << 0) | (3UL << 10));   /* enable CP0, CP1, CP10, CP11 Non-secure Access */
 
 #if !defined(__ZEPHYR__)
-#if defined(__MCUXPRESSO)
-    extern void(*const g_pfnVectors[]) (void);
-    SCB->VTOR = (uint32_t) &g_pfnVectors;
-#else
+#if defined(__CC_ARM) || defined(__ARMCC_VERSION)
     extern void *__Vectors;
     SCB->VTOR = (uint32_t) &__Vectors;
-#endif
-#endif
+#elif defined(__MCUXPRESSO)
+    extern void(*const g_pfnVectors[]) (void);
+    SCB->VTOR = (uint32_t) &g_pfnVectors;
+#elif defined(__ICCARM__)
+    extern void (* const __vector_table[])(void);
+    SCB->VTOR = (uint32_t) __vector_table;
+#elif defined(__GNUC__)
+    extern void (*const __isr_vector[])(void);
+    SCB->VTOR = (uint32_t) __isr_vector;
+#else
+    #error Unsupported toolchain!
+#endif //(__CC_ARM) || (__ARMCC_VERSION)
+#endif //(__ZEPHYR__)
 
     /* Enable the LPCAC */
     SYSCON->LPCAC_CTRL |= SYSCON_LPCAC_CTRL_LPCAC_MEM_REQ_MASK;

@@ -367,6 +367,10 @@
 
 /* @brief CDOG Has No Reset */
 #define FSL_FEATURE_CDOG_HAS_NO_RESET (1)
+/* @brief CDOG Use Restart register */
+#define FLS_FEATURE_CDOG_USE_RESTART (1)
+/* @brief CDOG Load default configurations during init function */
+#define FSL_FEATURE_CDOG_NEED_LOAD_DEFAULT_CONF (1)
 
 /* CMC module features */
 

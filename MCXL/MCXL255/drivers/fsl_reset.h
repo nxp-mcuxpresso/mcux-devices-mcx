@@ -103,7 +103,7 @@ typedef enum _SYSCON_RSTn
     } /* Reset bits for CRC peripheral */
 #define CTIMER_RSTS                                                               \
     {                                                                             \
-        kAonQTMR0_RST_SHIFT_RSTn, kAonLPTMR_RST_SHIFT_RSTn, kCTIMER0_RST_SHIFT_RSTn, kCTIMER1_RST_SHIFT_RSTn, kCTIMER2_RST_SHIFT_RSTn \
+        kCTIMER0_RST_SHIFT_RSTn, kCTIMER1_RST_SHIFT_RSTn, kCTIMER2_RST_SHIFT_RSTn \
     } /* Reset bits for CTIMER peripheral */
 #define DMA_RSTS_N          \
     {                       \

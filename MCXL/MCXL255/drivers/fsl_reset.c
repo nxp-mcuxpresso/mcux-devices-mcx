@@ -51,7 +51,7 @@ void RESET_SetPeripheralReset(reset_ip_name_t peripheral)
     assert(bitPos < 32u);
     assert(regIndex <= 2u);
 
-    /* Unlock clock configuration */
+    
 
 
     /* reset register is in MRCC */
@@ -64,6 +64,7 @@ void RESET_SetPeripheralReset(reset_ip_name_t peripheral)
     {
 #if __CORTEX_M == (33U) /* Building on the main core */
 
+        /* Unlock clock configuration */  
         SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
 
         if (regIndex == 0U)

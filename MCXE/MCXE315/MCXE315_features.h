@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250513
+**     Build:               b250514
 **
 **     Abstract:
 **         Chip specific module features.
@@ -134,6 +134,39 @@
 
 /* @brief Has data register with name CRC */
 #define FSL_FEATURE_CRC_HAS_CRC_REG (0)
+
+/* DCM_GPR module features */
+
+/* @brief Has bit DCMRWF1[VDD_HV_B_VLT_DVDR_EN]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWF1_VDD_HV_B_VLT_DVDR_EN (0)
+/* @brief Has bit DCMRWF1[VDD_1_5_VLT_DVDR_EN]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWF1_VDD_1_5_VLT_DVDR_EN (0)
+/* @brief Has bit DCMRWF2[SIRC_TRIM_BYP_STDBY_EXT]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_SIRC_TRIM_BYP_STDBY_EXT (0)
+/* @brief Has bit DCMRWF2[PMC_TRIM_RGM_DCF__BYP_STDBY_EXT]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWF2_PMC_TRIM_RGM_DCF__BYP_STDBY_EXT (0)
+/* @brief Has bit DCMRWD6[EMIOS2_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_EMIOS2_DBG_DIS_CM7_0 (0)
+/* @brief Has bit DCMRWD6[SWT1_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SWT1_DBG_DIS_CM7_0 (0)
+/* @brief Has bit DCMRWD6[STM1_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_STM1_DBG_DIS_CM7_0 (0)
+/* @brief Has bit DCMRWD6[PIT2_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_PIT2_DBG_DIS_CM7_0 (0)
+/* @brief Has bit DCMRWD6[LPSPI4_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_LPSPI4_DBG_DIS_CM7_0 (0)
+/* @brief Has bit DCMRWD6[LPSPI5_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_LPSPI5_DBG_DIS_CM7_0 (0)
+/* @brief Has bit DCMRWD6[FLEXCAN3_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN3_DBG_DIS_CM7_0 (0)
+/* @brief Has bit DCMRWD6[FLEXCAN4_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN4_DBG_DIS_CM7_0 (0)
+/* @brief Has bit DCMRWD6[FLEXCAN5_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_FLEXCAN5_DBG_DIS_CM7_0 (0)
+/* @brief Has bit DCMRWD6[SAI0_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SAI0_DBG_DIS_CM7_0 (0)
+/* @brief Has bit DCMRWD6[SAI1_DBG_DIS_CM7_0]. */
+#define FSL_FEATURE_DCM_GPR_HAS_DCMRWD6_SAI1_DBG_DIS_CM7_0 (0)
 
 /* DMAMUX module features */
 
@@ -714,6 +747,8 @@
 #define FSL_FEATURE_XRDC_HAS_MRGD_CR (0)
 /* @brief XRDC domain number (reset value of HWCFG0[NDID] plus 1). */
 #define FSL_FEATURE_XRDC_DOMAIN_COUNT (2)
+/* @brief XRDC has ERRATA_050593. */
+#define FSL_FEATURE_XRDC_HAS_ERRATA_050593 (1)
 
 #endif /* _MCXE315_FEATURES_H_ */
 

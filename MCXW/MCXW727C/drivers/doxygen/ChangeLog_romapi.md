@@ -1,5 +1,10 @@
 # ROMAPI
 
+## [1.2.1]
+
+- Improvements
+  - Clear flash cache before every erase to prevent the possibility of returning stale data.
+
 ## [1.2.0]
 
 - Improvements

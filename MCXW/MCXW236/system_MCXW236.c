@@ -314,6 +314,7 @@ __attribute__((used)) void HardFaultHandler(uint32_t *hardfault_args)
     }
 }
 
+#ifndef CONFIG_TFM_BUILDING_SPE
 __attribute__((naked)) void HardFault_Handler(void)
 {
     __asm volatile(
@@ -343,3 +344,4 @@ __attribute__((naked)) void UsageFault_Handler(void)
 {
     __asm volatile(" b HardFault_Handler \n");
 }
+#endif

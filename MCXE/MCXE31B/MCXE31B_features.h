@@ -124,7 +124,8 @@
 
 /* BCTU module features */
 
-/* No feature definitions */
+/* @brief ADC Result Data register count */
+#define FSL_FEATURE_BCTU_ADCDR_COUNT (3)
 
 /* SCB module features */
 
@@ -681,6 +682,15 @@
 #define FSL_FEATURE_PIT_HAS_SHARED_IRQ_HANDLER (1)
 /* @brief Has timer enable control. */
 #define FSL_FEATURE_PIT_HAS_MDIS (1)
+
+/* PMC module features */
+
+/* @brief Has 1.5v supply input (register bit fields LVSC[LVD15S], LVSC[LVD15F]). */
+#define FSL_FEATURE_PMC_HAS_15V_SUPPLY (1)
+/* @brief Has last mile regulator (register bit fields CONFIG[LMSTAT], CONFIG[LMAUTOEN], CONFIG[LMBCTLEN], CONFIG[LMEN]). */
+#define FSL_FEATURE_PMC_HAS_LAST_MILE_REGULATOR (1)
+/* @brief Has VDD_HV_B power supply input (register bit fields LVSC[HVDBF], LVSC[HVDBS], LVSC[LVRBF], LVSC[LVRBLPF], CONFIG[LVRBLPEN]). */
+#define FSL_FEATURE_PMC_HAS_VDD_HV_B_SUPPLY (1)
 
 /* QSPI module features */
 

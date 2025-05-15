@@ -519,14 +519,14 @@ typedef enum _clock_attach_id
         CLOCK_DIV_TUPLE(2U, CLOCK_AIPS_PLAT_CLK),                 /*!< Select AIPS_PLAT_CLK as STM1 clock source. */
 #endif                                                            /* FSL_FEATURE_MC_CGM_HAS_MUX_2 */
 
-    kFIRC_to_FLEXCAN012_PE = CLOCK_DIV_TUPLE(3U, CLOCK_FIRC_CLK), /*!< Select FIRC as FLEXCAN0,1,2_PE clock source. */
+    kFIRC_CLK_to_FLEXCAN012_PE = CLOCK_DIV_TUPLE(3U, CLOCK_FIRC_CLK), /*!< Select FIRC as FLEXCAN0,1,2_PE clock source. */
     kFXOSC_CLK_to_FLEXCAN012_PE =
         CLOCK_DIV_TUPLE(3U, CLOCK_FXOSC_CLK),                     /*!< Select FXOSC as FLEXCAN0,1,2_PE clock source. */
     kAIPS_PLAT_CLK_to_FLEXCAN012_PE =
         CLOCK_DIV_TUPLE(3U, CLOCK_AIPS_PLAT_CLK), /*!< Select AIPS_PLAT_CLK as FLEXCAN0,1,2_PE clock source. */
 
 #if defined(FSL_FEATURE_MC_CGM_HAS_MUX_4) && (FSL_FEATURE_MC_CGM_HAS_MUX_4 != 0U)
-    kFIRC_to_FLEXCAN345_PE = CLOCK_DIV_TUPLE(4U, CLOCK_FIRC_CLK), /*!< Select FIRC as FLEXCAN3,4,5_PE clock source. */
+    kFIRC_CLK_to_FLEXCAN345_PE = CLOCK_DIV_TUPLE(4U, CLOCK_FIRC_CLK), /*!< Select FIRC as FLEXCAN3,4,5_PE clock source. */
     kFXOSC_CLK_to_FLEXCAN345_PE =
         CLOCK_DIV_TUPLE(4U, CLOCK_FXOSC_CLK),                     /*!< Select FXOSC as FLEXCAN3,4,5_PE clock source. */
     kAIPS_PLAT_CLK_to_FLEXCAN345_PE =

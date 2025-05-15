@@ -394,18 +394,18 @@ typedef enum _clock_name
 typedef enum _clock_select_name
 {
 #if __CORTEX_M == (33U) /* Building on the main core */
-    kCLOCK_SelCTIMER0       = (0x0A0U), /*!< CTIMER0   clock selection      */
-    kCLOCK_SelCTIMER1       = (0x0A8U), /*!< CTIMER1   clock selection      */
-    kCLOCK_SelUTICK0        = (0x0B0U), /*!< UTICK0    clock selection      */
-    kCLOCK_SelOSTIMER0      = (0x0E8U), /*!< OSTIMER0  clock selection      */
-    kCLOCK_SelADC0          = (0x0C0U), /*!< ADC0      clock selection      */
-    kCLOCK_SelCMP0_RR       = (0x0D0U), /*!< CMP0_RR   clock selection      */
-    kCLOCK_SelCLKOUT        = (0x0E0U), /*!< CLKOUT    clock selection      */
-    kCLOCK_SelPERIPH_GROUP0 = (0x0F0U), /*!< PERIPH_GROUP_0 clock selection */
-    kCLOCK_SelPERIPH_GROUP1 = (0x0F8U), /*!< PERIPH_GROUP_1 clock selection */
-    kCLOCK_SelSYSTICK       = (0x100U), /*!< SYSTICK   clock selection      */
-    kCLOCK_SelSCGSCS        = (0x200U), /*!< SCG SCS   clock selection      */
-    kCLOCK_SelFIRC          = (0x300U), /*!< FIRC Divider clock selection   */
+    kCLOCK_SelCTIMERg0      = (0x0A0U), /*!< CTIMER0  (grp0) clock selection  */
+    kCLOCK_SelCTIMERg1      = (0x0A8U), /*!< CTIMER1,2 (grp1) clock selection */
+    kCLOCK_SelUTICK0        = (0x0B0U), /*!< UTICK0    clock selection        */
+    kCLOCK_SelOSTIMER0      = (0x0E8U), /*!< OSTIMER0  clock selection        */
+    kCLOCK_SelADC0          = (0x0C0U), /*!< ADC0      clock selection        */
+    kCLOCK_SelCMP0_RR       = (0x0D0U), /*!< CMP0_RR   clock selection        */
+    kCLOCK_SelCLKOUT        = (0x0E0U), /*!< CLKOUT    clock selection        */
+    kCLOCK_SelPERIPH_GROUP0 = (0x0F0U), /*!< PERIPH_GROUP_0 clock selection   */
+    kCLOCK_SelPERIPH_GROUP1 = (0x0F8U), /*!< PERIPH_GROUP_1 clock selection   */
+    kCLOCK_SelSYSTICK       = (0x100U), /*!< SYSTICK   clock selection        */
+    kCLOCK_SelSCGSCS        = (0x200U), /*!< SCG SCS   clock selection        */
+    kCLOCK_SelFIRC          = (0x300U), /*!< FIRC Divider clock selection     */
 #endif
 
     kCLOKC_SelAonROOT_AUX   = CLK_AON_SEL(0U,  4U, 1U), /*!< AON ROOT_AUX clock selection          */
@@ -413,7 +413,7 @@ typedef enum _clock_select_name
     kCLOKC_SelAonACMP0      = CLK_AON_SEL(4U, 13U, 3U), /*!< AON ACMP0 clock selection             */
     kCLOKC_SelAonLCD        = CLK_AON_SEL(4U, 12U, 1U), /*!< AON LCD clock selection               */
     kCLOKC_SelAonLPADC      = CLK_AON_SEL(4U,  9U, 7U), /*!< AON LPADC clock selection             */
-    kCLOKC_SelAonSYSTICK    = CLK_AON_SEL(4U,  7U, 3U), /*!< AON SYS tick clock selection               */
+    kCLOKC_SelAonSYSTICK    = CLK_AON_SEL(4U,  7U, 3U), /*!< AON SYS tick clock selection          */
     kCLOKC_SelAonKPP        = CLK_AON_SEL(4U,  6U, 1U), /*!< AON KPP clock selection               */
     kCLOKC_SelAonLPTMR      = CLK_AON_SEL(4U,  4U, 3U), /*!< AON LPTMR GRP clock selection         */
     kCLOKC_SelAonTMR        = CLK_AON_SEL(4U,  2U, 3U), /*!< AON TMR GRP clock selection           */
@@ -484,15 +484,15 @@ typedef enum _clock_attach_id
     kFIRC_to_FRO_HF     = CLK_ATTACH_MUX(kCLOCK_SelFIRC, 0U),               /*!< Attach FIRC to FRO_HF.      */
     kFIRC_DIV_to_FRO_HF = CLK_ATTACH_MUX(kCLOCK_SelFIRC, 1U),               /*!< Attach FIRC_DIV to FRO_HF.  */
 
-    kFRO12M_to_CTIMER0     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 0U),         /*!< Attach FRO12M to CTIMER0.     */
-    kXTAL32K_to_CTIMER0    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 1U),         /*!< Attach XTAL32K to CTIMER0.    */
-    kCLK_16K_to_CTIMER0    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 2U),         /*!< Attach CLK_16K to CTIMER0.    */
-    kFRO_HF_DIV_to_CTIMER0 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER0, 3U),         /*!< Attach FRO_HF_DIV to CTIMER0. */
+    kFRO12M_to_CTIMERg0     = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg0, 0U),       /*!< Attach FRO12M to CTIMER0.     */
+    kXTAL32K_to_CTIMERg0    = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg0, 1U),       /*!< Attach XTAL32K to CTIMER0.    */
+    kCLK_16K_to_CTIMERg0    = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg0, 2U),       /*!< Attach CLK_16K to CTIMER0.    */
+    kFRO_HF_DIV_to_CTIMERg0 = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg0, 3U),       /*!< Attach FRO_HF_DIV to CTIMER0. */
 
-    kFRO12M_to_CTIMER1     = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 0U),         /*!< Attach FRO12M to CTIMER1.     */
-    kXTAL32K_to_CTIMER1    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 1U),         /*!< Attach XTAL32K to CTIMER1.    */
-    kCLK_16K_to_CTIMER1    = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 2U),         /*!< Attach CLK_16K to CTIMER1.    */
-    kFRO_HF_DIV_to_CTIMER1 = CLK_ATTACH_MUX(kCLOCK_SelCTIMER1, 3U),         /*!< Attach FRO_HF_DIV to CTIMER1. */
+    kFRO12M_to_CTIMERg1     = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg1, 0U),       /*!< Attach FRO12M to CTIMER1,2.     */
+    kXTAL32K_to_CTIMERg1    = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg1, 1U),       /*!< Attach XTAL32K to CTIMER1,2.    */
+    kCLK_16K_to_CTIMERg1    = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg1, 2U),       /*!< Attach CLK_16K to CTIMER1,2.    */
+    kFRO_HF_DIV_to_CTIMERg1 = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg1, 3U),       /*!< Attach FRO_HF_DIV to CTIMER1,2. */
 
     kFRO12M_to_UTICK0  = CLK_ATTACH_MUX(kCLOCK_SelUTICK0, 0U),              /*!< Attach FRO12M to UTICK0.  */
     kCLK_1M_to_UTICK0  = CLK_ATTACH_MUX(kCLOCK_SelUTICK0, 1U),              /*!< Attach CLK_1M to UTICK0.  */

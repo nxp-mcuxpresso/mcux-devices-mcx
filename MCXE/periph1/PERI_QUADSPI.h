@@ -2,7 +2,7 @@
 ** ###################################################################
 **     Processor:           MCXE31BMPB
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250512
+**     Build:               b250515
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for QuadSPI
@@ -78,7 +78,7 @@
  */
 
 /** QuadSPI - Size of Registers Arrays */
-#define QuadSPI_RBDR_COUNT                        64u
+#define QuadSPI_RBDR_COUNT                        32u
 #define QuadSPI_LUT_COUNT                         20u
 
 /** QuadSPI - Register Layout Typedef */
@@ -123,9 +123,10 @@ typedef struct {
   __IO uint32_t SFB2AD;                            /**< Serial Flash Memory B2 Top Address Register, offset: 0x18C */
        uint8_t RESERVED_9[112];
   __I  uint32_t RBDR[QuadSPI_RBDR_COUNT];          /**< RX Buffer Data Register, array offset: 0x200, array step: 0x4 */
+       uint8_t RESERVED_10[128];
   __IO uint32_t LUTKEY;                            /**< LUT Key Register, offset: 0x300 */
   __IO uint32_t LCKCR;                             /**< LUT Lock Configuration Register, offset: 0x304 */
-       uint8_t RESERVED_10[8];
+       uint8_t RESERVED_11[8];
   __IO uint32_t LUT[QuadSPI_LUT_COUNT];            /**< LUT Register, array offset: 0x310, array step: 0x4 */
 } QuadSPI_Type;
 
@@ -397,7 +398,7 @@ typedef struct {
 /*! @name RBSR - RX Buffer Status Register */
 /*! @{ */
 
-#define QuadSPI_RBSR_RDBFL_MASK                  (0xFFU)
+#define QuadSPI_RBSR_RDBFL_MASK                  (0x3FU)
 #define QuadSPI_RBSR_RDBFL_SHIFT                 (0U)
 /*! RDBFL - RX buffer fill level */
 #define QuadSPI_RBSR_RDBFL(x)                    (((uint32_t)(((uint32_t)(x)) << QuadSPI_RBSR_RDBFL_SHIFT)) & QuadSPI_RBSR_RDBFL_MASK)
@@ -411,7 +412,7 @@ typedef struct {
 /*! @name RBCT - RX Buffer Control Register */
 /*! @{ */
 
-#define QuadSPI_RBCT_WMRK_MASK                   (0x7FU)
+#define QuadSPI_RBCT_WMRK_MASK                   (0x1FU)
 #define QuadSPI_RBCT_WMRK_SHIFT                  (0U)
 /*! WMRK - RX buffer watermark */
 #define QuadSPI_RBCT_WMRK(x)                     (((uint32_t)(((uint32_t)(x)) << QuadSPI_RBCT_WMRK_SHIFT)) & QuadSPI_RBCT_WMRK_MASK)

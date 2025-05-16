@@ -55,7 +55,7 @@ device.hardware_data:
             - id: "FLEX_NVM"
               name: "FLEX_NVM"
               addr: 0x10000000
-              size: 0x8000
+              size: 0x80000
               type: "DFlash"
               access: "RO"
               default: true

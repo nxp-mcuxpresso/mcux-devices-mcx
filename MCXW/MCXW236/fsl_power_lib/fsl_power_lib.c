@@ -499,7 +499,7 @@ static void POWER_SavePinRegisters(void)
         to avoid a 120ns pulse during wakeup from power down. (see HCIOT-4852 and artf1215149) */
         if ((pinsDir & (1 << i)) > 0)
         {
-            IOCON->PIO[0][i] = (IOCON->PIO[0][i] & ~0xF) | (IOCON_GPIO_FUNC12 & 0xF);
+            IOCON->PIO[0][i] = (IOCON->PIO[0][i] & ~IOCON_PIO_FUNC_MASK) | (IOCON_GPIO_FUNC12 & IOCON_PIO_FUNC_MASK);
         }
     }
 }

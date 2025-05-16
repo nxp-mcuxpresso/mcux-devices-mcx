@@ -804,7 +804,7 @@ static inline void CLOCK_DisableClock(clock_ip_name_t clk)
 
     if (CLK_OF_AON(clk))
     {
-        AON__CGU->PER_CLK_EN |= (1UL << bit_shift);
+        AON__CGU->PER_CLK_EN &= ~(1UL << bit_shift);
     }
 #if __CORTEX_M == (33U) /* Building on the main core */
     else

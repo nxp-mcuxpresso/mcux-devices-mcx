@@ -229,6 +229,8 @@
 #define FSL_FEATURE_PUF_ACTIVATION_CODE_ADDRESS (1079304)
 /* @brief Puf Activation Code Size. */
 #define FSL_FEATURE_PUF_ACTIVATION_CODE_SIZE (1192)
+/* @brief PUF has key reset. */
+#define FSL_FEATURE_PUF_HAS_KEYRESET (1)
 
 /* RTC module features */
 

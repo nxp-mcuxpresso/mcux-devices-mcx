@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250515
+**     Build:               b250516
 **
 **     Abstract:
 **         Chip specific module features.
@@ -679,7 +679,7 @@
 /* @brief Has chain mode (related to existence of register bit field TCTRLn[CHN]). */
 #define FSL_FEATURE_PIT_HAS_CHAIN_MODE (1)
 /* @brief Has shared interrupt handler (has not individual interrupt handler for each channel). */
-#define FSL_FEATURE_PIT_HAS_SHARED_IRQ_HANDLER (0)
+#define FSL_FEATURE_PIT_HAS_SHARED_IRQ_HANDLER (1)
 /* @brief Has timer enable control. */
 #define FSL_FEATURE_PIT_HAS_MDIS (1)
 
@@ -810,6 +810,11 @@
 /* STM module features */
 
 /* No feature definitions */
+
+/* SWT module features */
+
+/* @brief Has ERRATA_052226. */
+#define FSL_FEATURE_SWT_HAS_ERRATA_052226 (1)
 
 /* SysTick module features */
 

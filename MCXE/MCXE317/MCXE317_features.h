@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250514
+**     Build:               b250516
 **
 **     Abstract:
 **         Chip specific module features.
@@ -692,6 +692,11 @@
 /* STM module features */
 
 /* No feature definitions */
+
+/* SWT module features */
+
+/* @brief Has ERRATA_052226. */
+#define FSL_FEATURE_SWT_HAS_ERRATA_052226 (1)
 
 /* SysTick module features */
 

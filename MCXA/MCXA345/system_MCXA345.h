@@ -5,14 +5,15 @@
 **                          MCXA345VLQ
 **                          MCXA345VPN
 **
-**     Compilers:           GNU C Compiler
+**     Compilers:
+**                          GNU C Compiler
 **                          IAR ANSI C/C++ Compiler for ARM
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250513
+**     Build:               b250516
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

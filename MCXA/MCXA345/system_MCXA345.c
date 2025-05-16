@@ -5,14 +5,15 @@
 **                          MCXA345VLQ
 **                          MCXA345VPN
 **
-**     Compilers:           GNU C Compiler
+**     Compilers:
+**                          GNU C Compiler
 **                          IAR ANSI C/C++ Compiler for ARM
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250513
+**     Build:               b250516
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -70,30 +71,12 @@ __attribute__ ((weak)) void SystemInit (void) {
   #endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 #endif /* ((__FPU_PRESENT == 1) && (__FPU_USED == 1)) */
 
-  SCB->CPACR |= ((3UL << 0*2) | (3UL << 1*2));    /* set CP0, CP1 Full Access in Secure mode (enable PowerQuad) */
+    SCB->CPACR |= ((3UL << 0*2) | (3UL << 1*2));    /* set CP0, CP1 Full Access in Secure mode (enable PowerQuad) */
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-  SCB_NS->CPACR |= ((3UL << 0*2) | (3UL << 1*2));    /* set CP0, CP1 Full Access in Normal mode (enable PowerQuad) */
+    SCB_NS->CPACR |= ((3UL << 0*2) | (3UL << 1*2));    /* set CP0, CP1 Full Access in Normal mode (enable PowerQuad) */
 #endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
-  SCB->NSACR |= ((3UL << 0) | (3UL << 10));   /* enable CP0, CP1, CP10, CP11 Non-secure Access */
-
-#if !defined(__ZEPHYR__)
-#if defined(__CC_ARM) || defined(__ARMCC_VERSION)
-    extern void *__Vectors;
-    SCB->VTOR = (uint32_t) &__Vectors;
-#elif defined(__MCUXPRESSO)
-    extern void(*const g_pfnVectors[]) (void);
-    SCB->VTOR = (uint32_t) &g_pfnVectors;
-#elif defined(__ICCARM__)
-    extern void (* const __vector_table[])(void);
-    SCB->VTOR = (uint32_t) __vector_table;
-#elif defined(__GNUC__)
-    extern void (*const __isr_vector[])(void);
-    SCB->VTOR = (uint32_t) __isr_vector;
-#else
-    #error Unsupported toolchain!
-#endif //(__CC_ARM) || (__ARMCC_VERSION)
-#endif //(__ZEPHYR__)
+    SCB->NSACR |= ((3UL << 0) | (3UL << 10));   /* enable CP0, CP1, CP10, CP11 Non-secure Access */
 
     /* Enable the LPCAC */
     SYSCON->LPCAC_CTRL |= SYSCON_LPCAC_CTRL_LPCAC_MEM_REQ_MASK;
@@ -105,6 +88,7 @@ __attribute__ ((weak)) void SystemInit (void) {
     /* Enables flash speculation */
     SYSCON->NVM_CTRL &= ~(SYSCON_NVM_CTRL_DIS_MBECC_ERR_DATA_MASK | SYSCON_NVM_CTRL_DIS_MBECC_ERR_INST_MASK);
     SYSCON->NVM_CTRL &= ~SYSCON_NVM_CTRL_DIS_FLASH_SPEC_MASK;
+
   SystemInitHook();
 }
 

@@ -10,7 +10,7 @@
 **                          MCXA346VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250519
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for OPAMP
@@ -90,7 +90,7 @@
 /** OPAMP - Register Layout Typedef */
 typedef struct {
   __I  uint32_t VERID;                             /**< Version ID, offset: 0x0 */
-       uint32_t PARAM;                             /**< Parameter, offset: 0x4 */
+  __I  uint32_t PARAM;                             /**< Parameter, offset: 0x4 */
   __IO uint32_t OPAMP_CTRL;                        /**< OPAMP Control, offset: 0x8 */
 } OPAMP_Type;
 
@@ -120,6 +120,15 @@ typedef struct {
 #define OPAMP_VERID_MAJOR_SHIFT                  (24U)
 /*! MAJOR - Major Version Number */
 #define OPAMP_VERID_MAJOR(x)                     (((uint32_t)(((uint32_t)(x)) << OPAMP_VERID_MAJOR_SHIFT)) & OPAMP_VERID_MAJOR_MASK)
+/*! @} */
+
+/*! @name PARAM - Parameter */
+/*! @{ */
+
+#define OPAMP_PARAM_PARAM_MASK                   (0xFFFFFFFFU)
+#define OPAMP_PARAM_PARAM_SHIFT                  (0U)
+/*! PARAM - Parameters */
+#define OPAMP_PARAM_PARAM(x)                     (((uint32_t)(((uint32_t)(x)) << OPAMP_PARAM_PARAM_SHIFT)) & OPAMP_PARAM_PARAM_MASK)
 /*! @} */
 
 /*! @name OPAMP_CTRL - OPAMP Control */

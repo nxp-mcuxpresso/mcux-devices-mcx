@@ -10,7 +10,7 @@
 **                          MCXA346VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250519
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SPC
@@ -95,7 +95,8 @@ typedef struct {
   __I  uint32_t VERID;                             /**< Version ID, offset: 0x0 */
        uint8_t RESERVED_0[12];
   __IO uint32_t SC;                                /**< Status Control, offset: 0x10 */
-       uint8_t RESERVED_1[8];
+  __IO uint32_t CNTRL;                             /**< SPC Regulator Control, offset: 0x14 */
+       uint8_t RESERVED_1[4];
   __IO uint32_t LPREQ_CFG;                         /**< Low-Power Request Configuration, offset: 0x1C */
        uint8_t RESERVED_2[16];
   __IO uint32_t PD_STATUS[SPC_PD_STATUS_COUNT];    /**< SPC Power Domain Mode Status, array offset: 0x30, array step: 0x4 */
@@ -119,7 +120,7 @@ typedef struct {
        uint8_t RESERVED_8[4];
   __IO uint32_t EVD_CFG;                           /**< External Voltage Domain Configuration, offset: 0x140 */
        uint8_t RESERVED_9[444];
-  __IO uint32_t CORELDO_CFG;                       /**< LDO_CORE Configuration, offset: 0x300 */
+       uint32_t CORELDO_CFG;                       /**< LDO_CORE Configuration, offset: 0x300 */
 } SPC_Type;
 
 /* ----------------------------------------------------------------------------
@@ -176,7 +177,7 @@ typedef struct {
 #define SPC_SC_SPC_LP_MODE_MASK                  (0xF0U)
 #define SPC_SC_SPC_LP_MODE_SHIFT                 (4U)
 /*! SPC_LP_MODE - Power Domain Low-Power Mode Request
- *  0b0000..Sleep mode with system clock running
+ *  0b0000..
  *  0b0001..DSLEEP with system clock off
  *  0b0010..PDOWN with system clock off
  *  0b0100..
@@ -188,6 +189,18 @@ typedef struct {
 #define SPC_SC_ISO_CLR_SHIFT                     (16U)
 /*! ISO_CLR - Isolation Clear Flags */
 #define SPC_SC_ISO_CLR(x)                        (((uint32_t)(((uint32_t)(x)) << SPC_SC_ISO_CLR_SHIFT)) & SPC_SC_ISO_CLR_MASK)
+/*! @} */
+
+/*! @name CNTRL - SPC Regulator Control */
+/*! @{ */
+
+#define SPC_CNTRL_CORELDO_EN_MASK                (0x1U)
+#define SPC_CNTRL_CORELDO_EN_SHIFT               (0U)
+/*! CORELDO_EN - LDO_CORE Regulator Enable
+ *  0b0..Disable
+ *  0b1..Enable
+ */
+#define SPC_CNTRL_CORELDO_EN(x)                  (((uint32_t)(((uint32_t)(x)) << SPC_CNTRL_CORELDO_EN_SHIFT)) & SPC_CNTRL_CORELDO_EN_MASK)
 /*! @} */
 
 /*! @name LPREQ_CFG - Low-Power Request Configuration */
@@ -223,14 +236,6 @@ typedef struct {
 /*! @name PD_STATUS - SPC Power Domain Mode Status */
 /*! @{ */
 
-#define SPC_PD_STATUS_PWR_REQ_STATUS_MASK        (0x1U)
-#define SPC_PD_STATUS_PWR_REQ_STATUS_SHIFT       (0U)
-/*! PWR_REQ_STATUS - Power Request Status Flag
- *  0b0..Did not request
- *  0b1..Requested
- */
-#define SPC_PD_STATUS_PWR_REQ_STATUS(x)          (((uint32_t)(((uint32_t)(x)) << SPC_PD_STATUS_PWR_REQ_STATUS_SHIFT)) & SPC_PD_STATUS_PWR_REQ_STATUS_MASK)
-
 #define SPC_PD_STATUS_PD_LP_REQ_MASK             (0x10U)
 #define SPC_PD_STATUS_PD_LP_REQ_SHIFT            (4U)
 /*! PD_LP_REQ - Power Domain Low Power Request Flag
@@ -242,7 +247,7 @@ typedef struct {
 #define SPC_PD_STATUS_LP_MODE_MASK               (0xF00U)
 #define SPC_PD_STATUS_LP_MODE_SHIFT              (8U)
 /*! LP_MODE - Power Domain Low Power Mode Request
- *  0b0000..SLEEP with system clock running
+ *  0b0000..
  *  0b0001..DSLEEP with system clock off
  *  0b0010..PDOWN with system clock off
  *  0b0100..
@@ -337,14 +342,6 @@ typedef struct {
  *  0b11..
  */
 #define SPC_ACTIVE_CFG_BGMODE(x)                 (((uint32_t)(((uint32_t)(x)) << SPC_ACTIVE_CFG_BGMODE_SHIFT)) & SPC_ACTIVE_CFG_BGMODE_MASK)
-
-#define SPC_ACTIVE_CFG_VDD_VD_DISABLE_MASK       (0x800000U)
-#define SPC_ACTIVE_CFG_VDD_VD_DISABLE_SHIFT      (23U)
-/*! VDD_VD_DISABLE - VDD Voltage Detect Disable
- *  0b0..Enable
- *  0b1..Disable
- */
-#define SPC_ACTIVE_CFG_VDD_VD_DISABLE(x)         (((uint32_t)(((uint32_t)(x)) << SPC_ACTIVE_CFG_VDD_VD_DISABLE_SHIFT)) & SPC_ACTIVE_CFG_VDD_VD_DISABLE_MASK)
 
 #define SPC_ACTIVE_CFG_CORE_LVDE_MASK            (0x1000000U)
 #define SPC_ACTIVE_CFG_CORE_LVDE_SHIFT           (24U)
@@ -576,6 +573,14 @@ typedef struct {
  */
 #define SPC_VD_SYS_CFG_HVDIE(x)                  (((uint32_t)(((uint32_t)(x)) << SPC_VD_SYS_CFG_HVDIE_SHIFT)) & SPC_VD_SYS_CFG_HVDIE_MASK)
 
+#define SPC_VD_SYS_CFG_LVSEL_MASK                (0x100U)
+#define SPC_VD_SYS_CFG_LVSEL_SHIFT               (8U)
+/*! LVSEL - System Low-Voltage Level Select
+ *  0b0..Normal
+ *  0b1..Safe
+ */
+#define SPC_VD_SYS_CFG_LVSEL(x)                  (((uint32_t)(((uint32_t)(x)) << SPC_VD_SYS_CFG_LVSEL_SHIFT)) & SPC_VD_SYS_CFG_LVSEL_MASK)
+
 #define SPC_VD_SYS_CFG_LOCK_MASK                 (0x10000U)
 #define SPC_VD_SYS_CFG_LOCK_SHIFT                (16U)
 /*! LOCK - System Voltage Detect Reset Enable Lock
@@ -602,15 +607,6 @@ typedef struct {
 #define SPC_EVD_CFG_EVDSTAT_SHIFT                (16U)
 /*! EVDSTAT - External Voltage Domain Status */
 #define SPC_EVD_CFG_EVDSTAT(x)                   (((uint32_t)(((uint32_t)(x)) << SPC_EVD_CFG_EVDSTAT_SHIFT)) & SPC_EVD_CFG_EVDSTAT_MASK)
-/*! @} */
-
-/*! @name CORELDO_CFG - LDO_CORE Configuration */
-/*! @{ */
-
-#define SPC_CORELDO_CFG_CORELDO_SPARE0_MASK      (0x10000U)
-#define SPC_CORELDO_CFG_CORELDO_SPARE0_SHIFT     (16U)
-/*! CORELDO_SPARE0 - CORELDO SPARE0 */
-#define SPC_CORELDO_CFG_CORELDO_SPARE0(x)        (((uint32_t)(((uint32_t)(x)) << SPC_CORELDO_CFG_CORELDO_SPARE0_SHIFT)) & SPC_CORELDO_CFG_CORELDO_SPARE0_MASK)
 /*! @} */
 
 

@@ -10,7 +10,7 @@
 **                          MCXA346VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250519
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for USB
@@ -149,27 +149,23 @@ typedef struct {
   __IO uint8_t USBTRC0;                            /**< USB Transceiver Control 0, offset: 0x10C */
        uint8_t RESERVED_25[7];
   __IO uint8_t USBFRMADJUST;                       /**< Frame Adjust, offset: 0x114 */
-       uint8_t RESERVED_26[15];
-       uint8_t KEEP_ALIVE_CTRL_RSVD;               /**< Reserved, offset: 0x124 */
-       uint8_t RESERVED_27[3];
-       uint8_t KEEP_ALIVE_WKCTRL_RSVD;             /**< Reserved, offset: 0x128 */
-       uint8_t RESERVED_28[3];
+       uint8_t RESERVED_26[23];
   __IO uint8_t MISCCTRL;                           /**< Miscellaneous Control, offset: 0x12C */
-       uint8_t RESERVED_29[3];
+       uint8_t RESERVED_27[3];
   __IO uint8_t STALL_IL_DIS;                       /**< Peripheral Mode Stall Disable for Endpoints 7 to 0 in IN Direction, offset: 0x130 */
-       uint8_t RESERVED_30[3];
+       uint8_t RESERVED_28[3];
   __IO uint8_t STALL_IH_DIS;                       /**< Peripheral Mode Stall Disable for Endpoints 15 to 8 in IN Direction, offset: 0x134 */
-       uint8_t RESERVED_31[3];
+       uint8_t RESERVED_29[3];
   __IO uint8_t STALL_OL_DIS;                       /**< Peripheral Mode Stall Disable for Endpoints 7 to 0 in OUT Direction, offset: 0x138 */
-       uint8_t RESERVED_32[3];
+       uint8_t RESERVED_30[3];
   __IO uint8_t STALL_OH_DIS;                       /**< Peripheral Mode Stall Disable for Endpoints 15 to 8 in OUT Direction, offset: 0x13C */
-       uint8_t RESERVED_33[3];
+       uint8_t RESERVED_31[3];
   __IO uint8_t CLK_RECOVER_CTRL;                   /**< USB Clock Recovery Control, offset: 0x140 */
-       uint8_t RESERVED_34[3];
+       uint8_t RESERVED_32[3];
   __IO uint8_t CLK_RECOVER_IRC_EN;                 /**< FIRC Oscillator Enable, offset: 0x144 */
-       uint8_t RESERVED_35[15];
+       uint8_t RESERVED_33[15];
   __IO uint8_t CLK_RECOVER_INT_EN;                 /**< Clock Recovery Combined Interrupt Enable, offset: 0x154 */
-       uint8_t RESERVED_36[7];
+       uint8_t RESERVED_34[7];
   __IO uint8_t CLK_RECOVER_INT_STATUS;             /**< Clock Recovery Separated Interrupt Status, offset: 0x15C */
 } USB_Type;
 

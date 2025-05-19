@@ -10,7 +10,7 @@
 **                          MCXA346VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250519
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DIGTMP
@@ -835,8 +835,8 @@ typedef struct {
 #define DIGTMP_PGFR_GFP_MASK                     (0x40U)
 #define DIGTMP_PGFR_GFP_SHIFT                    (6U)
 /*! GFP - Glitch Filter Prescaler
- *  0b0..512 Hz prescaler clock
- *  0b1..32.768 kHz clock
+ *  0b0..256 Hz prescaler clock
+ *  0b1..16.384 kHz clock
  */
 #define DIGTMP_PGFR_GFP(x)                       (((uint32_t)(((uint32_t)(x)) << DIGTMP_PGFR_GFP_SHIFT)) & DIGTMP_PGFR_GFP_MASK)
 
@@ -883,30 +883,6 @@ typedef struct {
  *  0b1..Negates
  */
 #define DIGTMP_PGFR_TPS(x)                       (((uint32_t)(((uint32_t)(x)) << DIGTMP_PGFR_TPS_SHIFT)) & DIGTMP_PGFR_TPS_MASK)
-
-#define DIGTMP_PGFR_TPV_MASK                     (0x4000000U)
-#define DIGTMP_PGFR_TPV_SHIFT                    (26U)
-/*! TPV - Tamper Pull Value
- *  0b0..Low
- *  0b1..High
- */
-#define DIGTMP_PGFR_TPV(x)                       (((uint32_t)(((uint32_t)(x)) << DIGTMP_PGFR_TPV_SHIFT)) & DIGTMP_PGFR_TPV_MASK)
-
-#define DIGTMP_PGFR_TPF_MASK                     (0x8000000U)
-#define DIGTMP_PGFR_TPF_SHIFT                    (27U)
-/*! TPF - Tamper Passive Filter
- *  0b0..Disables
- *  0b1..Enables
- */
-#define DIGTMP_PGFR_TPF(x)                       (((uint32_t)(((uint32_t)(x)) << DIGTMP_PGFR_TPF_SHIFT)) & DIGTMP_PGFR_TPF_MASK)
-
-#define DIGTMP_PGFR_IBE_MASK                     (0x80000000U)
-#define DIGTMP_PGFR_IBE_SHIFT                    (31U)
-/*! IBE - Input Buffer Enable
- *  0b0..Disables
- *  0b1..Enables
- */
-#define DIGTMP_PGFR_IBE(x)                       (((uint32_t)(((uint32_t)(x)) << DIGTMP_PGFR_IBE_SHIFT)) & DIGTMP_PGFR_IBE_MASK)
 /*! @} */
 
 

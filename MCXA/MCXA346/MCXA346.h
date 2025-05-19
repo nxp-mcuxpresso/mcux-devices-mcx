@@ -5,14 +5,15 @@
 **                          MCXA346VLQ
 **                          MCXA346VPN
 **
-**     Compilers:           GNU C Compiler
+**     Compilers:
+**                          GNU C Compiler
 **                          IAR ANSI C/C++ Compiler for ARM
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA346

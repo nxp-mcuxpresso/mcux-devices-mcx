@@ -10,7 +10,7 @@
 **                          MCXA346VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250519
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA
@@ -129,7 +129,6 @@ typedef enum _dma_request_source
     kDma0RequestMuxAdc1FifoRequest  = 52U,         /**< ADC1 FIFO request */
     kDma0RequestMuxHsCmp0DmaRequest = 53U,         /**< CMP0 DMA_request */
     kDma0RequestMuxHsCmp1DmaRequest = 54U,         /**< CMP1 DMA_request */
-    kDma0RequestMuxHsCmp2DmaRequest = 55U,         /**< CMP2 DMA_request */
     kDma0RequestMuxDac0FifoRequest  = 56U,         /**< DAC0 FIFO request */
     kDma0RequestMuxGpio0PinEventRequest0 = 60U,    /**< GPIO0 Pin event request 0 */
     kDma0RequestMuxGpio1PinEventRequest0 = 61U,    /**< GPIO1 Pin event request 0 */
@@ -153,9 +152,10 @@ typedef enum _dma_request_source
     kDma0RequestMuxFlexCan1DmaRequest = 87U,       /**< CAN1 DMA request */
     kDma0RequestLPUART5Rx           = 102U,        /**< LPUART5 Receive request */
     kDma0RequestLPUART5Tx           = 103U,        /**< LPUART5 Transmit request */
-    kDma0RequestMuxMau0             = 115U,        /**< MAU0 DMA request */
     kDma0RequestSGI0Datain          = 119U,        /**< SGI0 DATAIN request */
     kDma0RequestSGI0Dataout         = 120U,        /**< SGI0 DATOUT request */
+    kDma0RequestMuxHsCmp2DmaRequest = 55U,         /**< CMP2 DMA_request */
+    kDma0RequestMuxMau0             = 115U,        /**< MAU0 DMA request */
 } dma_request_source_t;
 
 /* @} */
@@ -304,9 +304,9 @@ typedef struct {
 
 #define DMA_MP_CSR_GMRC_MASK                     (0x80U)
 #define DMA_MP_CSR_GMRC_SHIFT                    (7U)
-/*! GMRC - Global Master ID Replication Control
- *  0b0..Master ID replication disabled for all channels
- *  0b1..Master ID replication available and controlled by each channel's CHn_SBR[EMI] setting
+/*! GMRC - Global Initiator ID Replication Control
+ *  0b0..Initiator ID replication disabled for all channels
+ *  0b1..Initiator ID replication available and controlled by each channel's CHn_SBR[EMI] setting
  */
 #define DMA_MP_CSR_GMRC(x)                       (((uint32_t)(((uint32_t)(x)) << DMA_MP_CSR_GMRC_SHIFT)) & DMA_MP_CSR_GMRC_MASK)
 
@@ -607,7 +607,7 @@ typedef struct {
 
 #define DMA_CH_SBR_MID_MASK                      (0xFU)
 #define DMA_CH_SBR_MID_SHIFT                     (0U)
-/*! MID - Master ID */
+/*! MID - Initiator ID */
 #define DMA_CH_SBR_MID(x)                        (((uint32_t)(((uint32_t)(x)) << DMA_CH_SBR_MID_SHIFT)) & DMA_CH_SBR_MID_MASK)
 
 #define DMA_CH_SBR_PAL_MASK                      (0x8000U)
@@ -620,9 +620,9 @@ typedef struct {
 
 #define DMA_CH_SBR_EMI_MASK                      (0x10000U)
 #define DMA_CH_SBR_EMI_SHIFT                     (16U)
-/*! EMI - Enable Master ID Replication
- *  0b0..Master ID replication is disabled
- *  0b1..Master ID replication is enabled
+/*! EMI - Enable Initiator ID Replication
+ *  0b0..Initiator ID replication is disabled
+ *  0b1..Initiator ID replication is enabled
  */
 #define DMA_CH_SBR_EMI(x)                        (((uint32_t)(((uint32_t)(x)) << DMA_CH_SBR_EMI_SHIFT)) & DMA_CH_SBR_EMI_MASK)
 /*! @} */

@@ -10,7 +10,7 @@
 **                          MCXA346VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250519
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PWM
@@ -213,8 +213,8 @@ typedef struct {
  *  0b100..The local sync signal from this submodule is used to force updates.
  *  0b101..The master sync signal from submodule0 is used to force updates. This setting should not be used in
  *         submodule0 as it holds the FORCE OUTPUT signal to logic 0.
- *  0b110..The external force signal, EXT_FORCE, from outside the PWM module causes updates.
- *  0b111..The external sync signal, EXT_SYNC, from outside the PWM module causes updates.
+ *  0b110..The external force signal, EXT_FORCE, from outside the eFlexPWM module causes updates.
+ *  0b111..The external sync signal, EXT_SYNC, from outside the eFlexPWM module causes updates.
  */
 #define PWM_CTRL2_FORCE_SEL(x)                   (((uint16_t)(((uint16_t)(x)) << PWM_CTRL2_FORCE_SEL_SHIFT)) & PWM_CTRL2_FORCE_SEL_MASK)
 
@@ -644,9 +644,8 @@ typedef struct {
 #define PWM_DMAEN_CAPTDE_SHIFT                   (6U)
 /*! CAPTDE - Capture DMA Enable Source Select
  *  0b00..Read DMA requests disabled.
- *  0b01..Exceeding a FIFO watermark sets the DMA read request. This requires at least one of DMAEN[CA1DE],
- *        DMAEN[CA0DE], DMAEN[CB1DE], DMAEN[CB0DE], DMAEN[CX1DE], or DMAEN[CX0DE] to be set to determine which
- *        watermark(s) the DMA request is sensitive.
+ *  0b01..Exceeding a FIFO watermark sets the DMA read request. This requires at least one of DMAEN[CX1DE], or
+ *        DMAEN[CX0DE] to be set to determine which watermark(s) the DMA request is sensitive.
  *  0b10..A local synchronization (VAL1 matches counter) sets the read DMA request.
  *  0b11..A local reload (STS[RF] being set) sets the read DMA request.
  */

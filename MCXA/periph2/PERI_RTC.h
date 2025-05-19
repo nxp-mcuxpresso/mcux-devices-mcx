@@ -10,7 +10,7 @@
 **                          MCXA346VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250519
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for RTC
@@ -190,7 +190,7 @@ typedef struct {
 #define RTC_CR_LPOS_SHIFT                        (7U)
 /*! LPOS - LPO Select
  *  0b0..RTC prescaler increments using 32.768 kHz clock.
- *  0b1..RTC prescaler increments using 1 kHz LPO, bits [4:0] of the prescaler are ignored.
+ *  0b1..RTC prescaler increments using 16.384 kHz LPO. Bit [0] of the prescaler is ignored.
  */
 #define RTC_CR_LPOS(x)                           (((uint32_t)(((uint32_t)(x)) << RTC_CR_LPOS_SHIFT)) & RTC_CR_LPOS_MASK)
 /*! @} */

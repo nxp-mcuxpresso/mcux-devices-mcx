@@ -10,7 +10,7 @@
 **                          MCXA346VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250519
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for I3C
@@ -192,7 +192,7 @@ typedef struct {
 #define I3C_MCONFIG_DISTO_SHIFT                  (3U)
 /*! DISTO - Disable Timeout
  *  0b0..Enabled
- *  0b1..Disabled, if configured
+ *  0b1..Disabled
  */
 #define I3C_MCONFIG_DISTO(x)                     (((uint32_t)(((uint32_t)(x)) << I3C_MCONFIG_DISTO_SHIFT)) & I3C_MCONFIG_DISTO_MASK)
 

@@ -10,7 +10,7 @@
 **                          MCXA346VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250519
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for EIM
@@ -209,7 +209,7 @@ typedef struct {
 
 #define EIM_EICHD0_WORD1_B0_3DATA_MASK_MASK      (0xFFFFFFFFU)
 #define EIM_EICHD0_WORD1_B0_3DATA_MASK_SHIFT     (0U)
-/*! B0_3DATA_MASK - Data Mask Bytes 0-3 */
+/*! B0_3DATA_MASK - Data Mask Field */
 #define EIM_EICHD0_WORD1_B0_3DATA_MASK(x)        (((uint32_t)(((uint32_t)(x)) << EIM_EICHD0_WORD1_B0_3DATA_MASK_SHIFT)) & EIM_EICHD0_WORD1_B0_3DATA_MASK_MASK)
 /*! @} */
 

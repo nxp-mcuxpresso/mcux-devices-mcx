@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PKC
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file PKC.h
+ * @file PERI_PKC.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for PKC
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for PKC
  */
 
-#if !defined(PKC_H_)
-#define PKC_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_PKC_H_)
+#define PERI_PKC_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -629,5 +629,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* PKC_H_ */
+#endif  /* PERI_PKC_H_ */
 

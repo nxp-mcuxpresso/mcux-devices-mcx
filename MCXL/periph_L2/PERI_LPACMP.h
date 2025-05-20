@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPACMP
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file LPACMP.h
+ * @file PERI_LPACMP.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for LPACMP
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for LPACMP
  */
 
-#if !defined(LPACMP_H_)
-#define LPACMP_H_                                /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_LPACMP_H_)
+#define PERI_LPACMP_H_                           /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -163,8 +163,8 @@ typedef struct {
 /*! MATCH_IF - Comparator Value Comparison
  *  0b00000000..Comparison did not occur
  *  0b00000000..No effect
- *  0b00000001..Comparison occurred
  *  0b00000001..Clear the flag
+ *  0b00000001..Comparison occurred
  */
 #define LPACMP_COMP_IF_MATCH_IF(x)               (((uint32_t)(((uint32_t)(x)) << LPACMP_COMP_IF_MATCH_IF_SHIFT)) & LPACMP_COMP_IF_MATCH_IF_MASK)
 /*! @} */
@@ -310,5 +310,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* LPACMP_H_ */
+#endif  /* PERI_LPACMP_H_ */
 

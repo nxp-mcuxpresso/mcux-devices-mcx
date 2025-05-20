@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPCMP
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file LPCMP.h
+ * @file PERI_LPCMP.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for LPCMP
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for LPCMP
  */
 
-#if !defined(LPCMP_H_)
-#define LPCMP_H_                                 /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_LPCMP_H_)
+#define PERI_LPCMP_H_                            /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -804,5 +804,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* LPCMP_H_ */
+#endif  /* PERI_LPCMP_H_ */
 

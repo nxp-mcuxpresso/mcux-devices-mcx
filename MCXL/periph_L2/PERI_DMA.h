@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250422
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file DMA.h
+ * @file PERI_DMA.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for DMA
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for DMA
  */
 
-#if !defined(DMA_H_)
-#define DMA_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_DMA_H_)
+#define PERI_DMA_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -1032,5 +1032,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* DMA_H_ */
+#endif  /* PERI_DMA_H_ */
 

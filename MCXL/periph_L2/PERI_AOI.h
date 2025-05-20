@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for AOI
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file AOI.h
+ * @file PERI_AOI.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for AOI
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for AOI
  */
 
-#if !defined(AOI_H_)
-#define AOI_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_AOI_H_)
+#define PERI_AOI_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -327,5 +327,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* AOI_H_ */
+#endif  /* PERI_AOI_H_ */
 

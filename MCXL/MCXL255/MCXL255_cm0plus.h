@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftF
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250422
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL255_cm0plus

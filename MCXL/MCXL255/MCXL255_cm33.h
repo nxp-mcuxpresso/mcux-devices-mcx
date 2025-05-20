@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftF
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250422
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL255_cm33
@@ -70,7 +70,6 @@
 #include "PERI_LPSPI.h"
 #include "PERI_LPTMR.h"
 #include "PERI_LPUART.h"
-#include "PERI_MBC.h"
 #include "PERI_MRCC.h"
 #include "PERI_MU.h"
 #include "PERI_OSTIMER.h"
@@ -86,6 +85,7 @@
 #include "PERI_SYSCON.h"
 #include "PERI_SYSCON_AON.h"
 #include "PERI_TMR.h"
+#include "PERI_TRDC.h"
 #include "PERI_TRNG.h"
 #include "PERI_UDF.h"
 #include "PERI_UTICK.h"

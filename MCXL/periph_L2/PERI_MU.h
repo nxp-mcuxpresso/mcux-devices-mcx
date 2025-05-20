@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MU
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file MU.h
+ * @file PERI_MU.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for MU
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for MU
  */
 
-#if !defined(MU_H_)
-#define MU_H_                                    /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_MU_H_)
+#define PERI_MU_H_                               /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -635,200 +635,200 @@ typedef struct {
 #define MU_GSR_GIP0_MASK                         (0x1U)
 #define MU_GSR_GIP0_SHIFT                        (0U)
 /*! GIP0 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP0(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP0_SHIFT)) & MU_GSR_GIP0_MASK)
 
 #define MU_GSR_GIP1_MASK                         (0x2U)
 #define MU_GSR_GIP1_SHIFT                        (1U)
 /*! GIP1 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP1(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP1_SHIFT)) & MU_GSR_GIP1_MASK)
 
 #define MU_GSR_GIP2_MASK                         (0x4U)
 #define MU_GSR_GIP2_SHIFT                        (2U)
 /*! GIP2 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP2(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP2_SHIFT)) & MU_GSR_GIP2_MASK)
 
 #define MU_GSR_GIP3_MASK                         (0x8U)
 #define MU_GSR_GIP3_SHIFT                        (3U)
 /*! GIP3 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP3(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP3_SHIFT)) & MU_GSR_GIP3_MASK)
 
 #define MU_GSR_GIP4_MASK                         (0x10U)
 #define MU_GSR_GIP4_SHIFT                        (4U)
 /*! GIP4 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP4(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP4_SHIFT)) & MU_GSR_GIP4_MASK)
 
 #define MU_GSR_GIP5_MASK                         (0x20U)
 #define MU_GSR_GIP5_SHIFT                        (5U)
 /*! GIP5 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP5(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP5_SHIFT)) & MU_GSR_GIP5_MASK)
 
 #define MU_GSR_GIP6_MASK                         (0x40U)
 #define MU_GSR_GIP6_SHIFT                        (6U)
 /*! GIP6 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP6(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP6_SHIFT)) & MU_GSR_GIP6_MASK)
 
 #define MU_GSR_GIP7_MASK                         (0x80U)
 #define MU_GSR_GIP7_SHIFT                        (7U)
 /*! GIP7 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP7(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP7_SHIFT)) & MU_GSR_GIP7_MASK)
 
 #define MU_GSR_GIP8_MASK                         (0x100U)
 #define MU_GSR_GIP8_SHIFT                        (8U)
 /*! GIP8 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP8(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP8_SHIFT)) & MU_GSR_GIP8_MASK)
 
 #define MU_GSR_GIP9_MASK                         (0x200U)
 #define MU_GSR_GIP9_SHIFT                        (9U)
 /*! GIP9 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP9(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP9_SHIFT)) & MU_GSR_GIP9_MASK)
 
 #define MU_GSR_GIP10_MASK                        (0x400U)
 #define MU_GSR_GIP10_SHIFT                       (10U)
 /*! GIP10 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP10(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP10_SHIFT)) & MU_GSR_GIP10_MASK)
 
 #define MU_GSR_GIP11_MASK                        (0x800U)
 #define MU_GSR_GIP11_SHIFT                       (11U)
 /*! GIP11 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP11(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP11_SHIFT)) & MU_GSR_GIP11_MASK)
 
 #define MU_GSR_GIP12_MASK                        (0x1000U)
 #define MU_GSR_GIP12_SHIFT                       (12U)
 /*! GIP12 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP12(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP12_SHIFT)) & MU_GSR_GIP12_MASK)
 
 #define MU_GSR_GIP13_MASK                        (0x2000U)
 #define MU_GSR_GIP13_SHIFT                       (13U)
 /*! GIP13 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP13(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP13_SHIFT)) & MU_GSR_GIP13_MASK)
 
 #define MU_GSR_GIP14_MASK                        (0x4000U)
 #define MU_GSR_GIP14_SHIFT                       (14U)
 /*! GIP14 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP14(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP14_SHIFT)) & MU_GSR_GIP14_MASK)
 
 #define MU_GSR_GIP15_MASK                        (0x8000U)
 #define MU_GSR_GIP15_SHIFT                       (15U)
 /*! GIP15 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP15(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP15_SHIFT)) & MU_GSR_GIP15_MASK)
 
 #define MU_GSR_GIP16_MASK                        (0x10000U)
 #define MU_GSR_GIP16_SHIFT                       (16U)
 /*! GIP16 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP16(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP16_SHIFT)) & MU_GSR_GIP16_MASK)
 
 #define MU_GSR_GIP17_MASK                        (0x20000U)
 #define MU_GSR_GIP17_SHIFT                       (17U)
 /*! GIP17 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP17(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP17_SHIFT)) & MU_GSR_GIP17_MASK)
 
 #define MU_GSR_GIP18_MASK                        (0x40000U)
 #define MU_GSR_GIP18_SHIFT                       (18U)
 /*! GIP18 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP18(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP18_SHIFT)) & MU_GSR_GIP18_MASK)
 
 #define MU_GSR_GIP19_MASK                        (0x80000U)
 #define MU_GSR_GIP19_SHIFT                       (19U)
 /*! GIP19 - pd_vsys.cm0p_mix.mub General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP19(x)                          (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP19_SHIFT)) & MU_GSR_GIP19_MASK)
 /*! @} */
@@ -1029,5 +1029,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* MU_H_ */
+#endif  /* PERI_MU_H_ */
 

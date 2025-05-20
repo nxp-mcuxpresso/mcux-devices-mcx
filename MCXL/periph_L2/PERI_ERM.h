@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ERM
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file ERM.h
+ * @file PERI_ERM.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for ERM
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for ERM
  */
 
-#if !defined(ERM_H_)
-#define ERM_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_ERM_H_)
+#define PERI_ERM_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -62,13 +62,14 @@
 #endif
 
 /* ----------------------------------------------------------------------------
-   -- Device Peripheral Access Layer
+   -- Mapping Information
    ---------------------------------------------------------------------------- */
 
 /*!
- * @addtogroup Peripheral_access_layer Device Peripheral Access Layer
+ * @addtogroup Mapping_Information Mapping Information
  * @{
  */
+
 /** Mapping Information */
 #if !defined(ERM_MEMORY_CHANNEL_T_)
 #define ERM_MEMORY_CHANNEL_T_
@@ -95,6 +96,21 @@ typedef enum _erm_memory_channel
 
 /* @} */
 #endif /* ERM_MEMORY_CHANNEL_T_ */
+
+
+/*!
+ * @}
+ */ /* end of group Mapping_Information */
+
+
+/* ----------------------------------------------------------------------------
+   -- Device Peripheral Access Layer
+   ---------------------------------------------------------------------------- */
+
+/*!
+ * @addtogroup Peripheral_access_layer Device Peripheral Access Layer
+ * @{
+ */
 
 
 /*
@@ -289,5 +305,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* ERM_H_ */
+#endif  /* PERI_ERM_H_ */
 

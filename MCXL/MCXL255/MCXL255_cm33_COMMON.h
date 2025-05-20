@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftF
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250422
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL255_cm33
@@ -174,10 +174,9 @@ typedef enum IRQn {
  * @}
  */ /* end of group Cortex_Core_Configuration */
 
-
 #ifndef MCXL255_cm33_SERIES
 #define MCXL255_cm33_SERIES
-#endif
+#endif 
 /* CPU specific feature definitions */
 #include "MCXL255_cm33_features.h"
 
@@ -1171,35 +1170,6 @@ typedef enum IRQn {
 /** Interrupt vectors for the LPUART peripheral type */
 #define LPUART_RX_TX_IRQS                        { LPUART0_IRQn, LPUART1_IRQn, LPUART0_AON_IRQn }
 
-/* MBC - Peripheral instance base addresses */
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  /** Peripheral MBC0 base address */
-  #define MBC0_BASE                                (0x5008E000u)
-  /** Peripheral MBC0 base address */
-  #define MBC0_BASE_NS                             (0x4008E000u)
-  /** Peripheral MBC0 base pointer */
-  #define MBC0                                     ((MBC_Type *)MBC0_BASE)
-  /** Peripheral MBC0 base pointer */
-  #define MBC0_NS                                  ((MBC_Type *)MBC0_BASE_NS)
-  /** Array initializer of MBC peripheral base addresses */
-  #define MBC_BASE_ADDRS                           { MBC0_BASE }
-  /** Array initializer of MBC peripheral base pointers */
-  #define MBC_BASE_PTRS                            { MBC0 }
-  /** Array initializer of MBC peripheral base addresses */
-  #define MBC_BASE_ADDRS_NS                        { MBC0_BASE_NS }
-  /** Array initializer of MBC peripheral base pointers */
-  #define MBC_BASE_PTRS_NS                         { MBC0_NS }
-#else
-  /** Peripheral MBC0 base address */
-  #define MBC0_BASE                                (0x4008E000u)
-  /** Peripheral MBC0 base pointer */
-  #define MBC0                                     ((MBC_Type *)MBC0_BASE)
-  /** Array initializer of MBC peripheral base addresses */
-  #define MBC_BASE_ADDRS                           { MBC0_BASE }
-  /** Array initializer of MBC peripheral base pointers */
-  #define MBC_BASE_PTRS                            { MBC0 }
-#endif
-
 /* MRCC - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
   /** Peripheral MRCC base address */
@@ -1691,6 +1661,46 @@ typedef enum IRQn {
   #define TMR_BASE_PTRS                            { AON__TMR0, AON__TMR1 }
 #endif
 
+/* TRDC - Peripheral instance base addresses */
+#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
+  /** Peripheral MBC0 base address */
+  #define MBC0_BASE                                (0x5008E000u)
+  /** Peripheral MBC0 base address */
+  #define MBC0_BASE_NS                             (0x4008E000u)
+  /** Peripheral MBC0 base pointer */
+  #define MBC0                                     ((TRDC_Type *)MBC0_BASE)
+  /** Peripheral MBC0 base pointer */
+  #define MBC0_NS                                  ((TRDC_Type *)MBC0_BASE_NS)
+  /** Array initializer of TRDC peripheral base addresses */
+  #define TRDC_BASE_ADDRS                          { MBC0_BASE }
+  /** Array initializer of TRDC peripheral base pointers */
+  #define TRDC_BASE_PTRS                           { MBC0 }
+  /** Array initializer of TRDC peripheral base addresses */
+  #define TRDC_BASE_ADDRS_NS                       { MBC0_BASE_NS }
+  /** Array initializer of TRDC peripheral base pointers */
+  #define TRDC_BASE_PTRS_NS                        { MBC0_NS }
+#else
+  /** Peripheral MBC0 base address */
+  #define MBC0_BASE                                (0x4008E000u)
+  /** Peripheral MBC0 base pointer */
+  #define MBC0                                     ((TRDC_Type *)MBC0_BASE)
+  /** Array initializer of TRDC peripheral base addresses */
+  #define TRDC_BASE_ADDRS                          { MBC0_BASE }
+  /** Array initializer of TRDC peripheral base pointers */
+  #define TRDC_BASE_PTRS                           { MBC0 }
+#endif
+#define MBC0_MEMORY_CFG_WORD_COUNT {1,2,4,1}
+#define MBC1_MEMORY_CFG_WORD_COUNT {1,1,1,1}
+#define MBC2_MEMORY_CFG_WORD_COUNT {9,6,1,1}
+#define MBC3_MEMORY_CFG_WORD_COUNT {3,0,0,0}
+#define MBC_MEMORY_CFG_WORD_COUNT {MBC0_MEMORY_CFG_WORD_COUNT , MBC1_MEMORY_CFG_WORD_COUNT, MBC2_MEMORY_CFG_WORD_COUNT, MBC3_MEMORY_CFG_WORD_COUNT}
+#define MBC0_MEMORY_NSE_WORD_COUNT {1,1,1,1}
+#define MBC1_MEMORY_NSE_WORD_COUNT {1,1,1,1}
+#define MBC2_MEMORY_NSE_WORD_COUNT {3,2,1,1}
+#define MBC3_MEMORY_NSE_WORD_COUNT {1,0,0,0}
+#define MBC_MEMORY_NSE_WORD_COUNT {MBC0_MEMORY_NSE_WORD_COUNT , MBC1_MEMORY_NSE_WORD_COUNT, MBC2_MEMORY_NSE_WORD_COUNT, MBC3_MEMORY_NSE_WORD_COUNT}
+
+
 /* TRNG - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
   /** Peripheral TRNG0 base address */
@@ -1894,3 +1904,4 @@ typedef enum IRQn {
 
 
 #endif  /* MCXL255_CM33_COMMON_H_ */
+

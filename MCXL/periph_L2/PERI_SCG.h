@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250422
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SCG
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file SCG.h
+ * @file PERI_SCG.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for SCG
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for SCG
  */
 
-#if !defined(SCG_H_)
-#define SCG_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_SCG_H_)
+#define PERI_SCG_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -758,5 +758,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* SCG_H_ */
+#endif  /* PERI_SCG_H_ */
 

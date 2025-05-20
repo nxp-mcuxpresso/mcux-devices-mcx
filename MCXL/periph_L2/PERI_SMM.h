@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SMM
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file SMM.h
+ * @file PERI_SMM.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for SMM
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for SMM
  */
 
-#if !defined(SMM_H_)
-#define SMM_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_SMM_H_)
+#define PERI_SMM_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -220,12 +220,12 @@ typedef struct {
 
 #define SMM_STAT_DPD_END_MASK                    (0x1U)
 #define SMM_STAT_DPD_END_SHIFT                   (0U)
-/*! DPD_END - Deep Sleep and Deep Power Down end */
+/*! DPD_END - Deep Sleep, Power Down, and Deep Power Down end */
 #define SMM_STAT_DPD_END(x)                      (((uint32_t)(((uint32_t)(x)) << SMM_STAT_DPD_END_SHIFT)) & SMM_STAT_DPD_END_MASK)
 
 #define SMM_STAT_DPD_STATE_MASK                  (0xEU)
 #define SMM_STAT_DPD_STATE_SHIFT                 (1U)
-/*! DPD_STATE - Deep Sleep and Deep Power Down state
+/*! DPD_STATE - Deep Sleep, Power Down, and Deep Power Down state
  *  0b000..All on
  *  0b001..Deep Sleep
  *  0b010..DPD1
@@ -253,7 +253,7 @@ typedef struct {
 
 #define SMM_STAT_DPD_SEQ_END_MASK                (0x80U)
 #define SMM_STAT_DPD_SEQ_END_SHIFT               (7U)
-/*! DPD_SEQ_END - Deep Sleep and Deep Power Down sequence end */
+/*! DPD_SEQ_END - Deep Sleep, Powe Down, and Deep Power Down sequence end */
 #define SMM_STAT_DPD_SEQ_END(x)                  (((uint32_t)(((uint32_t)(x)) << SMM_STAT_DPD_SEQ_END_SHIFT)) & SMM_STAT_DPD_SEQ_END_MASK)
 
 #define SMM_STAT_COMP_MATCH_IE_EN_MASK           (0x100U)
@@ -532,17 +532,7 @@ typedef struct {
 
 #define SMM_MEMORY_RTN_MAIN_CPU_SRAM_RET_MASK    (0x3FEU)
 #define SMM_MEMORY_RTN_MAIN_CPU_SRAM_RET_SHIFT   (1U)
-/*! MAIN_CPU_SRAM_RET - SRAM retain
- *  0b000000001..Bit 1 - X0 array
- *  0b000000010..Bit 2 - X1 array
- *  0b000000011..Bit 3 - A0 array
- *  0b000000100..Bit 4 - A1 array
- *  0b000000101..Bit 5 - A2 array
- *  0b000000110..Bit 6 - A3 array
- *  0b000000111..Bit 7 - B0 array
- *  0b000001000..Bit 8 - B1 array
- *  0b000001001..Bit 9 - B2-B4 array
- */
+/*! MAIN_CPU_SRAM_RET - SRAM retain */
 #define SMM_MEMORY_RTN_MAIN_CPU_SRAM_RET(x)      (((uint32_t)(((uint32_t)(x)) << SMM_MEMORY_RTN_MAIN_CPU_SRAM_RET_SHIFT)) & SMM_MEMORY_RTN_MAIN_CPU_SRAM_RET_MASK)
 
 #define SMM_MEMORY_RTN_CPU_RAM_PWD_MASK          (0x1C00U)
@@ -674,5 +664,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* SMM_H_ */
+#endif  /* PERI_SMM_H_ */
 

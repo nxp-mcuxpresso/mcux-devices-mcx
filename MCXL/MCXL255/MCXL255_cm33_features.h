@@ -516,6 +516,25 @@
 /* @brief Has no WIDTH bits in TCR register */
 #define FSL_FEATURE_LPSPI_HAS_NO_MULTI_WIDTH (0)
 
+/* TRDC module features */
+
+/* @brief Process master count. */
+#define FSL_FEATURE_TRDC_PROCESSOR_MASTER_COUNT (2)
+/* @brief TRDC instance has PID configuration or not. */
+#define FSL_FEATURE_TRDC_INSTANCE_HAS_PID_CONFIGURATIONn(x) (0)
+/* @brief TRDC instance has MBC. */
+#define FSL_FEATURE_TRDC_HAS_MBC (1)
+/* @brief TRDC instance has MRC. */
+#define FSL_FEATURE_TRDC_HAS_MRC (0)
+/* @brief TRDC instance has TRDC_CR. */
+#define FSL_FEATURE_TRDC_HAS_GENERAL_CONFIG (0)
+/* @brief TRDC instance has MDA_Wx_y_DFMT. */
+#define FSL_FEATURE_TRDC_HAS_DOMAIN_ASSIGNMENT (0)
+/* @brief TRDC instance has TRDC_FDID. */
+#define FSL_FEATURE_TRDC_HAS_DOMAIN_ERROR (0)
+/* @brief TRDC instance has TRDC_FLW_CTL. */
+#define FSL_FEATURE_TRDC_HAS_FLW (0)
+
 /* MU module features */
 
 /* @brief MU side for current core */

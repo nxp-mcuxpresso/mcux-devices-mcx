@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CDOG
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file CDOG.h
+ * @file PERI_CDOG.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for CDOG
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for CDOG
  */
 
-#if !defined(CDOG_H_)
-#define CDOG_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_CDOG_H_)
+#define PERI_CDOG_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -477,5 +477,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* CDOG_H_ */
+#endif  /* PERI_CDOG_H_ */
 

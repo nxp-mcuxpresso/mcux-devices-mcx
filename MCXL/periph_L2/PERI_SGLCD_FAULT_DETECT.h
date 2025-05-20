@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250422
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SGLCD_FAULT_DETECT
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file SGLCD_FAULT_DETECT.h
+ * @file PERI_SGLCD_FAULT_DETECT.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for SGLCD_FAULT_DETECT
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for SGLCD_FAULT_DETECT
  */
 
-#if !defined(SGLCD_FAULT_DETECT_H_)
-#define SGLCD_FAULT_DETECT_H_                    /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_SGLCD_FAULT_DETECT_H_)
+#define PERI_SGLCD_FAULT_DETECT_H_               /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -1137,5 +1137,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* SGLCD_FAULT_DETECT_H_ */
+#endif  /* PERI_SGLCD_FAULT_DETECT_H_ */
 

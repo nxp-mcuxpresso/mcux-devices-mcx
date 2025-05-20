@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250320
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPSPI
@@ -34,7 +34,7 @@
 */
 
 /*!
- * @file LPSPI.h
+ * @file PERI_LPSPI.h
  * @version 1.0
  * @date 2023-01-09
  * @brief CMSIS Peripheral Access Layer for LPSPI
@@ -42,8 +42,8 @@
  * CMSIS Peripheral Access Layer for LPSPI
  */
 
-#if !defined(LPSPI_H_)
-#define LPSPI_H_                                 /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_LPSPI_H_)
+#define PERI_LPSPI_H_                            /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXL253VDF_cm0plus) || defined(CPU_MCXL253VLL_cm0plus))
 #include "MCXL253_cm0plus_COMMON.h"
@@ -250,60 +250,60 @@ typedef struct {
 #define LPSPI_SR_WCF_MASK                        (0x100U)
 #define LPSPI_SR_WCF_SHIFT                       (8U)
 /*! WCF - Word Complete Flag
- *  0b0..Not complete
  *  0b0..No effect
- *  0b1..Complete
+ *  0b0..Not complete
  *  0b1..Clear the flag
+ *  0b1..Complete
  */
 #define LPSPI_SR_WCF(x)                          (((uint32_t)(((uint32_t)(x)) << LPSPI_SR_WCF_SHIFT)) & LPSPI_SR_WCF_MASK)
 
 #define LPSPI_SR_FCF_MASK                        (0x200U)
 #define LPSPI_SR_FCF_SHIFT                       (9U)
 /*! FCF - Frame Complete Flag
- *  0b0..Not complete
  *  0b0..No effect
- *  0b1..Complete
+ *  0b0..Not complete
  *  0b1..Clear the flag
+ *  0b1..Complete
  */
 #define LPSPI_SR_FCF(x)                          (((uint32_t)(((uint32_t)(x)) << LPSPI_SR_FCF_SHIFT)) & LPSPI_SR_FCF_MASK)
 
 #define LPSPI_SR_TCF_MASK                        (0x400U)
 #define LPSPI_SR_TCF_SHIFT                       (10U)
 /*! TCF - Transfer Complete Flag
- *  0b0..Not complete
  *  0b0..No effect
- *  0b1..Complete
+ *  0b0..Not complete
  *  0b1..Clear the flag
+ *  0b1..Complete
  */
 #define LPSPI_SR_TCF(x)                          (((uint32_t)(((uint32_t)(x)) << LPSPI_SR_TCF_SHIFT)) & LPSPI_SR_TCF_MASK)
 
 #define LPSPI_SR_TEF_MASK                        (0x800U)
 #define LPSPI_SR_TEF_SHIFT                       (11U)
 /*! TEF - Transmit Error Flag
- *  0b0..No underrun
  *  0b0..No effect
- *  0b1..Underrun
+ *  0b0..No underrun
  *  0b1..Clear the flag
+ *  0b1..Underrun
  */
 #define LPSPI_SR_TEF(x)                          (((uint32_t)(((uint32_t)(x)) << LPSPI_SR_TEF_SHIFT)) & LPSPI_SR_TEF_MASK)
 
 #define LPSPI_SR_REF_MASK                        (0x1000U)
 #define LPSPI_SR_REF_SHIFT                       (12U)
 /*! REF - Receive Error Flag
- *  0b0..No overflow
  *  0b0..No effect
- *  0b1..Overflow
+ *  0b0..No overflow
  *  0b1..Clear the flag
+ *  0b1..Overflow
  */
 #define LPSPI_SR_REF(x)                          (((uint32_t)(((uint32_t)(x)) << LPSPI_SR_REF_SHIFT)) & LPSPI_SR_REF_MASK)
 
 #define LPSPI_SR_DMF_MASK                        (0x2000U)
 #define LPSPI_SR_DMF_SHIFT                       (13U)
 /*! DMF - Data Match Flag
- *  0b0..No match
  *  0b0..No effect
- *  0b1..Match
+ *  0b0..No match
  *  0b1..Clear the flag
+ *  0b1..Match
  */
 #define LPSPI_SR_DMF(x)                          (((uint32_t)(((uint32_t)(x)) << LPSPI_SR_DMF_SHIFT)) & LPSPI_SR_DMF_MASK)
 
@@ -865,5 +865,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* LPSPI_H_ */
+#endif  /* PERI_LPSPI_H_ */
 

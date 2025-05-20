@@ -245,6 +245,11 @@ typedef enum IRQn {
 /** Array initializer of CAN peripheral base pointers */
 #define CAN_BASE_PTRS                            { CAN0, CAN1, CAN2 }
 /** Interrupt vectors for the CAN peripheral type */
+#define CAN_Rx_Warning_IRQS                      { CAN0_ORed_IRQn, CAN1_ORed_IRQn, CAN2_ORed_IRQn }
+#define CAN_Tx_Warning_IRQS                      { CAN0_ORed_IRQn, CAN1_ORed_IRQn, CAN2_ORed_IRQn }
+#define CAN_Wake_Up_IRQS                         { CAN0_Wake_Up_IRQn, NotAvail_IRQn, NotAvail_IRQn }
+#define CAN_Error_IRQS                           { CAN0_Error_IRQn, CAN1_Error_IRQn, CAN2_Error_IRQn }
+#define CAN_Bus_Off_IRQS                         { CAN0_ORed_IRQn, CAN1_ORed_IRQn, CAN2_ORed_IRQn }
 #define CAN_ORed_Message_buffer_IRQS             { { CAN0_ORed_0_15_MB_IRQn, CAN0_ORed_16_31_MB_IRQn }, { CAN1_ORed_0_15_MB_IRQn, NotAvail_IRQn }, { CAN2_ORed_0_15_MB_IRQn, NotAvail_IRQn } }
 
 /* CMP - Peripheral instance base addresses */

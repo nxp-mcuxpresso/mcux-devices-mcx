@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250516
+**     Build:               b250520
 **
 **     Abstract:
 **         Chip specific module features.
@@ -269,7 +269,12 @@
 
 /* FLASH_C40 module features */
 
-/* No feature definitions */
+/* @brief Code flash block size. */
+#define FSL_FEATURE_FLASH_C40_BLOCK_SIZE_CODE (0x00100000)
+/* @brief Data flash block size. */
+#define FSL_FEATURE_FLASH_C40_BLOCK_SIZE_DATA (0x00020000)
+/* @brief Code flash block count. */
+#define FSL_FEATURE_FLASH_C40_BLOCK_COUNT_CODE (2)
 
 /* FLEXCAN module features */
 

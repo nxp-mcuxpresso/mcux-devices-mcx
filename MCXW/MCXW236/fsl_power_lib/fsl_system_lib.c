@@ -36,12 +36,6 @@
 #define PMC_RTCOSC32K_CLK1KHZDIV_OFFSET (28)
 #define PMC_RTCOSC32K_CLK1HZDIV_OFFSET  (31744)
 
-typedef enum netlist_nr_s
-{
-    kNETLIST_A_NR = 4U,
-    kNETLIST_B_NR = 14U,
-} netlist_nr_t;
-
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -714,11 +708,7 @@ chip_version_t SYSTEM_GetChipVersion(void)
     uint32_t metalFixNr        = ((uint32_t)FLASH_NMPA->GPO1.GPO1_0 & FLASH_NMPA_GPO1_0_METAL_REVISION_ID_MASK) >>
                           FLASH_NMPA_GPO1_0_METAL_REVISION_ID_SHIFT;
     uint32_t netListNr = (SYSCON->DEVICE_ID0 & SYSCON_DEVICE_ID0_PARTCONFIG_MASK) >> SYSCON_DEVICE_ID0_PARTCONFIG_SHIFT;
-
-    if (netListNr == kNETLIST_A_NR)
-    {
-        chipVersion = metalFixNr | 0xA0;
-    }
+    chipVersion = metalFixNr | 0xA0;
     return chipVersion;
 }
 

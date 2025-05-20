@@ -21,7 +21,7 @@
 /*! @name Driver version */
 /*! @{ */
 /*! @brief SIUL2 driver version. */
-#define FSL_SIUL2_DRIVER_VERSION (MAKE_VERSION(2, 0, 2))
+#define FSL_SIUL2_DRIVER_VERSION (MAKE_VERSION(2, 0, 3))
 
 /*! @brief SIUL2 module maximum number of input signal on a pin */
 #define FEATURE_SIUL2_MAX_NUMBER_OF_INPUT (16U)
@@ -30,7 +30,7 @@
 #define FEATURE_ADC_INTERLEAVE_MAX_MUX_MODE \
     (2U) /*!< Some pins have two ADC interleave config, such as GPIO45 can be muxed as ADC0_S8 & ADC2_S8. */
 #endif
-#define DCM_DCMRWF4_ADC_INTERLEAVE_MASK (uint32_t)0x0000067EUL /* Mask all adc interleave bits */
+#define DCM_DCMRWF4_ADC_INTERLEAVE_MASK (uint32_t)0x00001FFFUL /*!< Mask all adc interleave bits, some bit may not exist on some parts. */
 
 #define SIUL2_PORT_WRITE8(address, value)  ((*(volatile uint8_t *)(address)) = (value))
 #define SIUL2_PORT_WRITE32(address, value) ((*(volatile uint32_t *)(address)) = (value))
@@ -202,34 +202,52 @@ typedef enum siul2_port_direction
 
 /*!
  * @brief Configures adc interleave mux mode.
+ * Note! Not all are supported for a given part, please refer to IOMUX table for supported interleaves. 
  */
 typedef enum siul2_adc_interleaves
 {
     kMUX_MODE_NOT_AVAILABLE = (uint32_t)0x00000000UL, /*!< Adc Interleave not available. */
+    kMUX_MODE_EN_ADC1_S18_1 = (uint32_t)0x00000001UL, /*!< Set bit ADC1_S18 to 1 */
+    kMUX_MODE_EN_ADC0_S8_1  = (uint32_t)0x00000002UL, /*!< Set bit ADC0_S8 to 1 */
+    kMUX_MODE_EN_ADC0_S9_1  = (uint32_t)0x00000004UL, /*!< Set bit ADC0_S9 to 1 */
     kMUX_MODE_EN_ADC1_S14_1 = (uint32_t)0x00000008UL, /*!< Set bit ADC1_S14 to 1 */
     kMUX_MODE_EN_ADC1_S15_1 = (uint32_t)0x00000010UL, /*!< Set bit ADC1_S15 to 1 */
-    kMUX_MODE_EN_ADC0_S8_1  = (uint32_t)0x00000002UL, /*!< Set bit ADC0_S8 to 1 */
-    kMUX_MODE_EN_ADC2_S8_1  = (uint32_t)0x00000200UL, /*!< Set bit ADC2_S8 to 1 */
-    kMUX_MODE_EN_ADC0_S9_1  = (uint32_t)0x00000004UL, /*!< Set bit ADC0_S9 to 1 */
-    kMUX_MODE_EN_ADC2_S9_1  = (uint32_t)0x00000400UL, /*!< Set bit ADC2_S9 to 1 */
     kMUX_MODE_EN_ADC1_S22_1 = (uint32_t)0x00000020UL, /*!< Set bit ADC1_S22 to 1 */
     kMUX_MODE_EN_ADC1_S23_1 = (uint32_t)0x00000040UL, /*!< Set bit ADC1_S23 to 1 */
+    kMUX_MODE_EN_ADC0_S12_1 = (uint32_t)0x00000080UL, /*!< Set bit ADC0_S12 to 1 */
+    kMUX_MODE_EN_ADC0_S13_1 = (uint32_t)0x00000100UL, /*!< Set bit ADC0_S13 to 1 */
+    kMUX_MODE_EN_ADC2_S8_1  = (uint32_t)0x00000200UL, /*!< Set bit ADC2_S8 to 1 */
+    kMUX_MODE_EN_ADC2_S9_1  = (uint32_t)0x00000400UL, /*!< Set bit ADC2_S9 to 1 */
+    kMUX_MODE_EN_ADC0_S14_1 = (uint32_t)0x00000800UL, /*!< Set bit ADC0_S14 to 1 */
+    kMUX_MODE_EN_ADC0_S17_1 = (uint32_t)0x00001000UL, /*!< Set bit ADC0_S17 to 1 */
+
+    kMUX_MODE_EN_ADC1_S18_0 =
+        (uint32_t)0x0000FFFEUL, /*!< With bits 15-0, only clear ADC1_S18 bit, the other bits set to 1  */
+    kMUX_MODE_EN_ADC0_S8_0 =
+        (uint32_t)0x0000FFFDUL, /*!< With bits 15-0, only clear ADC0_S8 bit, the other bits set to 1  */
+    kMUX_MODE_EN_ADC0_S9_0 =
+        (uint32_t)0x0000FFFBUL, /*!< With bits 15-0, only clear ADC0_S9 bit, the other bits set to 1  */
     kMUX_MODE_EN_ADC1_S14_0 =
         (uint32_t)0x0000FFF7UL, /*!< With bits 15-0, only clear ADC1_S14 bit, the other bits set to 1 */
     kMUX_MODE_EN_ADC1_S15_0 =
         (uint32_t)0x0000FFEFUL, /*!< With bits 15-0, only clear ADC1_S15 bit, the other bits set to 1 */
-    kMUX_MODE_EN_ADC0_S8_0 =
-        (uint32_t)0x0000FFFDUL, /*!< With bits 15-0, only clear ADC0_S8 bit, the other bits set to 1  */
-    kMUX_MODE_EN_ADC2_S8_0 =
-        (uint32_t)0x0000FDFFUL, /*!< With bits 15-0, only clear ADC2_S8 bit, the other bits set to 1  */
-    kMUX_MODE_EN_ADC0_S9_0 =
-        (uint32_t)0x0000FFFBUL, /*!< With bits 15-0, only clear ADC0_S9 bit, the other bits set to 1  */
-    kMUX_MODE_EN_ADC2_S9_0 =
-        (uint32_t)0x0000FBFFUL, /*!< With bits 15-0, only clear ADC2_S9 bit, the other bits set to 1  */
     kMUX_MODE_EN_ADC1_S22_0 =
         (uint32_t)0x0000FFDFUL, /*!< With bits 15-0, only clear ADC1_S22 bit, the other bits set to 1 */
     kMUX_MODE_EN_ADC1_S23_0 =
         (uint32_t)0x0000FFBFUL, /*!< With bits 15-0, only clear ADC1_S23 bit, the other bits set to 1 */
+    kMUX_MODE_EN_ADC0_S12_0 =
+        (uint32_t)0x0000FF7FUL, /*!< With bits 15-0, only clear ADC0_S12 bit, the other bits set to 1 */
+    kMUX_MODE_EN_ADC0_S13_0 =
+        (uint32_t)0x0000FEFFUL, /*!< With bits 15-0, only clear ADC0_S13 bit, the other bits set to 1 */  
+    kMUX_MODE_EN_ADC2_S8_0 =
+        (uint32_t)0x0000FDFFUL, /*!< With bits 15-0, only clear ADC2_S8 bit, the other bits set to 1  */
+    kMUX_MODE_EN_ADC2_S9_0 =
+        (uint32_t)0x0000FBFFUL, /*!< With bits 15-0, only clear ADC2_S9 bit, the other bits set to 1  */
+    kMUX_MODE_EN_ADC0_S14_0 =
+        (uint32_t)0x0000F7FFUL, /*!< With bits 15-0, only clear ADC0_S14 bit, the other bits set to 1 */
+    kMUX_MODE_EN_ADC0_S17_0 =
+        (uint32_t)0x0000EFFFUL, /*!< With bits 15-0, only clear ADC0_S17 bit, the other bits set to 1 */
+
 } siul2_adc_interleaves_t;
 
 /*!

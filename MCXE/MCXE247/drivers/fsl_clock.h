@@ -817,14 +817,27 @@ static inline void CLOCK_SetHsrunModeSysClkConfig(const scg_sys_clk_config_t *co
 static inline void CLOCK_GetCurSysClkConfig(scg_sys_clk_config_t *config)
 {
     assert(config);
+
+    uint32_t tempCsr;
+
     union
     {
         uint32_t *configInt;
         scg_sys_clk_config_t *configPtr;
     } Config;
 
-    Config.configPtr    = config;
-    *(Config.configInt) = SCG->CSR;
+    Config.configPtr = config;
+    
+    /*
+       Errata: ERR010777
+       Workaround: Read SCG->CSR twice in a loop to ensure system clock
+       switch has completed.
+     */
+    do
+    {
+        tempCsr = SCG->CSR;
+        *(Config.configInt) = SCG->CSR;
+    } while (tempCsr != *(Config.configInt));
 }
 
 /*!

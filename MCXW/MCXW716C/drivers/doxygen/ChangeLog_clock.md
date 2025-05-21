@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.2.2]
+
+- New Features:
+  - Provide the new API CLOCK_IsFIRCAutoTrimLocked to check whether FIRC auto trim locked to target frequency range.
+
 ## [2.2.1]
 
 - Bug fix:

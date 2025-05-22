@@ -70,6 +70,7 @@ extern "C" {
 #define DEFAULT_SYSTEM_CLOCK           48000000U           /* Default System clock value */
 #define CPU_INT_SLOW_CLK_HZ            8000000U            /* Value of the slow internal oscillator clock frequency in Hz */
 
+#define FPSCR_FZ_MASK                  (0x1000000U)        /* FPU Flush-to-zero mode bit */
 
 
 /**
@@ -112,6 +113,17 @@ void SystemCoreClockUpdate (void);
  * initialization of these variables happens after this function.
  */
 void SystemInitHook (void);
+
+/**
+ * @brief Custom low level initialization for IAR.
+ *
+ * Function for adaptation of system initialization in IAR toolchain.
+ * The function is called from IAR's cmain.s if the function is implemented.
+ *
+ * @retval 0 to omit seg_init
+ * @retval 1 to run seg_init
+ */
+int __low_level_init(void);
 
 #ifdef __cplusplus
 }

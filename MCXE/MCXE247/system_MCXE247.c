@@ -45,8 +45,6 @@
 #include <stdint.h>
 #include "fsl_device_registers.h"
 
-
-
 /* ----------------------------------------------------------------------------
    -- Core clock
    ---------------------------------------------------------------------------- */
@@ -87,6 +85,9 @@ void SystemInit (void) {
     /* Enable cache */
   LMEM->PCCCR |= LMEM_PCCCR_ENCACHE_MASK;
     __ISB();
+
+  /* Errata ERR050877 workaround. Enable FZ mode in the FPSCR. */
+  __set_FPSCR(__get_FPSCR() | FPSCR_FZ_MASK);
 
   SystemInitHook();
 }
@@ -134,4 +135,16 @@ void SystemCoreClockUpdate (void) {
 
 __attribute__ ((weak)) void SystemInitHook (void) {
   /* Void implementation of the weak function. */
+}
+
+/* ----------------------------------------------------------------------------
+   -- __low_level_init()
+   ---------------------------------------------------------------------------- */
+
+int __low_level_init(void)
+{  
+  /* Errata ERR050877 workaround. Enable FZ mode in the FPSCR. */
+  __set_FPSCR(__get_FPSCR() | FPSCR_FZ_MASK);
+  
+  return 1;
 }

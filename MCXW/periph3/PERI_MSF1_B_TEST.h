@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MSF1_B_test
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file MSF1_B_test.h
+ * @file PERI_MSF1_B_test.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for MSF1_B_test
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for MSF1_B_test
  */
 
-#if !defined(MSF1_B_test_H_)
-#define MSF1_B_test_H_                           /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_MSF1_B_TEST_H_)
+#define PERI_MSF1_B_TEST_H_                      /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -3064,5 +3064,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* MSF1_B_test_H_ */
+#endif  /* PERI_MSF1_B_TEST_H_ */
 

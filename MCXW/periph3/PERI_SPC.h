@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SPC
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file SPC.h
+ * @file PERI_SPC.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for SPC
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for SPC
  */
 
-#if !defined(SPC_H_)
-#define SPC_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_SPC_H_)
+#define PERI_SPC_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -182,8 +182,8 @@ typedef struct {
 #define SPC_SC_SPC_LP_REQ_MASK                   (0x2U)
 #define SPC_SC_SPC_LP_REQ_SHIFT                  (1U)
 /*! SPC_LP_REQ - SPC Power Mode Configuration Status Flag
- *  0b0..SPC is in Active mode; the ACTIVE_CFG register has control
  *  0b0..No effect
+ *  0b0..SPC is in Active mode; the ACTIVE_CFG register has control
  *  0b1..All power domains requested low-power mode; SPC entered a low-power state; power-mode configuration based on the LP_CFG register
  *  0b1..Clear the flag
  */
@@ -849,8 +849,8 @@ typedef struct {
 /*! COREVDD_LVDF - Core Low-Voltage Detect Flag
  *  0b0..Event not detected
  *  0b0..No effect
- *  0b1..Event detected
  *  0b1..Clear the flag
+ *  0b1..Event detected
  */
 #define SPC_VD_STAT_COREVDD_LVDF(x)              (((uint32_t)(((uint32_t)(x)) << SPC_VD_STAT_COREVDD_LVDF_SHIFT)) & SPC_VD_STAT_COREVDD_LVDF_MASK)
 
@@ -859,8 +859,8 @@ typedef struct {
 /*! SYSVDD_LVDF - System Low-Voltage Detect Flag
  *  0b0..Event not detected
  *  0b0..No effect
- *  0b1..Event detected
  *  0b1..Clear the flag
+ *  0b1..Event detected
  */
 #define SPC_VD_STAT_SYSVDD_LVDF(x)               (((uint32_t)(((uint32_t)(x)) << SPC_VD_STAT_SYSVDD_LVDF_SHIFT)) & SPC_VD_STAT_SYSVDD_LVDF_MASK)
 
@@ -869,8 +869,8 @@ typedef struct {
 /*! IOVDD_LVDF - IO VDD LVD Flag
  *  0b0..Event not detected
  *  0b0..No effect
- *  0b1..Event detected
  *  0b1..Clear the flag
+ *  0b1..Event detected
  */
 #define SPC_VD_STAT_IOVDD_LVDF(x)                (((uint32_t)(((uint32_t)(x)) << SPC_VD_STAT_IOVDD_LVDF_SHIFT)) & SPC_VD_STAT_IOVDD_LVDF_MASK)
 
@@ -879,8 +879,8 @@ typedef struct {
 /*! COREVDD_HVDF - Core VDD HVD Flag
  *  0b0..Event not detected
  *  0b0..No effect
- *  0b1..Event detected
  *  0b1..Clear the flag
+ *  0b1..Event detected
  */
 #define SPC_VD_STAT_COREVDD_HVDF(x)              (((uint32_t)(((uint32_t)(x)) << SPC_VD_STAT_COREVDD_HVDF_SHIFT)) & SPC_VD_STAT_COREVDD_HVDF_MASK)
 
@@ -889,8 +889,8 @@ typedef struct {
 /*! SYSVDD_HVDF - System HVD Flag
  *  0b0..Event not detected
  *  0b0..No effect
- *  0b1..Event detected
  *  0b1..Clear the flag
+ *  0b1..Event detected
  */
 #define SPC_VD_STAT_SYSVDD_HVDF(x)               (((uint32_t)(((uint32_t)(x)) << SPC_VD_STAT_SYSVDD_HVDF_SHIFT)) & SPC_VD_STAT_SYSVDD_HVDF_MASK)
 
@@ -899,8 +899,8 @@ typedef struct {
 /*! IOVDD_HVDF - IO VDD HVD Flag
  *  0b0..Event not detected
  *  0b0..No effect
- *  0b1..Event detected
  *  0b1..Clear the flag
+ *  0b1..Event detected
  */
 #define SPC_VD_STAT_IOVDD_HVDF(x)                (((uint32_t)(((uint32_t)(x)) << SPC_VD_STAT_IOVDD_HVDF_SHIFT)) & SPC_VD_STAT_IOVDD_HVDF_MASK)
 /*! @} */
@@ -1208,8 +1208,8 @@ typedef struct {
 /*! BURST_ACK - Burst Acknowledge Flag
  *  0b0..Did not complete
  *  0b0..No effect
- *  0b1..Completed
  *  0b1..Clear the flag
+ *  0b1..Completed
  */
 #define SPC_DCDC_BURST_CFG_BURST_ACK(x)          (((uint32_t)(((uint32_t)(x)) << SPC_DCDC_BURST_CFG_BURST_ACK_SHIFT)) & SPC_DCDC_BURST_CFG_BURST_ACK_MASK)
 
@@ -1253,5 +1253,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* SPC_H_ */
+#endif  /* PERI_SPC_H_ */
 

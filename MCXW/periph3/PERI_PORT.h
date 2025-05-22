@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PORT
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file PORT.h
+ * @file PERI_PORT.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for PORT
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for PORT
  */
 
-#if !defined(PORT_H_)
-#define PORT_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_PORT_H_)
+#define PERI_PORT_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -1071,5 +1071,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* PORT_H_ */
+#endif  /* PERI_PORT_H_ */
 

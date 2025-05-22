@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCM
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file MCM.h
+ * @file PERI_MCM.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for MCM
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for MCM
  */
 
-#if !defined(MCM_H_)
-#define MCM_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_MCM_H_)
+#define PERI_MCM_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -644,5 +644,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* MCM_H_ */
+#endif  /* PERI_MCM_H_ */
 

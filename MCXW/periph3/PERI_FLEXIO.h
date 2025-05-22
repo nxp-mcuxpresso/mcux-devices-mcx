@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FLEXIO
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file FLEXIO.h
+ * @file PERI_FLEXIO.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for FLEXIO
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for FLEXIO
  */
 
-#if !defined(FLEXIO_H_)
-#define FLEXIO_H_                                /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_FLEXIO_H_)
+#define PERI_FLEXIO_H_                           /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -292,8 +292,8 @@ typedef struct {
 /*! SSF - Shifter Status Flag
  *  0b00000000..Clear
  *  0b00000000..No effect
- *  0b00000001..Set
  *  0b00000001..Clear the flag
+ *  0b00000001..Set
  */
 #define FLEXIO_SHIFTSTAT_SSF(x)                  (((uint32_t)(((uint32_t)(x)) << FLEXIO_SHIFTSTAT_SSF_SHIFT)) & FLEXIO_SHIFTSTAT_SSF_MASK)
 /*! @} */
@@ -306,8 +306,8 @@ typedef struct {
 /*! SEF - Shifter Error Flag
  *  0b00000000..Clear
  *  0b00000000..No effect
- *  0b00000001..Set
  *  0b00000001..Clear the flag
+ *  0b00000001..Set
  */
 #define FLEXIO_SHIFTERR_SEF(x)                   (((uint32_t)(((uint32_t)(x)) << FLEXIO_SHIFTERR_SEF_SHIFT)) & FLEXIO_SHIFTERR_SEF_MASK)
 /*! @} */
@@ -320,8 +320,8 @@ typedef struct {
 /*! TSF - Timer Status Flag
  *  0b00000000..Clear
  *  0b00000000..No effect
- *  0b00000001..Set
  *  0b00000001..Clear the flag
+ *  0b00000001..Set
  */
 #define FLEXIO_TIMSTAT_TSF(x)                    (((uint32_t)(((uint32_t)(x)) << FLEXIO_TIMSTAT_TSF_SHIFT)) & FLEXIO_TIMSTAT_TSF_MASK)
 /*! @} */
@@ -388,8 +388,8 @@ typedef struct {
 /*! ETSF - External Trigger Status Flag
  *  0b0000..Clear
  *  0b0000..No effect
- *  0b0001..Set
  *  0b0001..Clear the flag
+ *  0b0001..Set
  */
 #define FLEXIO_TRGSTAT_ETSF(x)                   (((uint32_t)(((uint32_t)(x)) << FLEXIO_TRGSTAT_ETSF_SHIFT)) & FLEXIO_TRGSTAT_ETSF_MASK)
 /*! @} */
@@ -411,8 +411,8 @@ typedef struct {
 /*! PSF - Pin Status Flag
  *  0b00000000000000000000000000000000..Clear
  *  0b00000000000000000000000000000000..No effect
- *  0b00000000000000000000000000000001..Set
  *  0b00000000000000000000000000000001..Clear the flag
+ *  0b00000000000000000000000000000001..Set
  */
 #define FLEXIO_PINSTAT_PSF(x)                    (((uint32_t)(((uint32_t)(x)) << FLEXIO_PINSTAT_PSF_SHIFT)) & FLEXIO_PINSTAT_PSF_MASK)
 /*! @} */
@@ -911,5 +911,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* FLEXIO_H_ */
+#endif  /* PERI_FLEXIO_H_ */
 

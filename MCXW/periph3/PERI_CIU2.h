@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CIU2
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file CIU2.h
+ * @file PERI_CIU2.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for CIU2
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for CIU2
  */
 
-#if !defined(CIU2_H_)
-#define CIU2_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_CIU2_H_)
+#define PERI_CIU2_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -2048,5 +2048,5 @@ typedef enum
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* CIU2_H_ */
+#endif  /* PERI_CIU2_H_ */
 

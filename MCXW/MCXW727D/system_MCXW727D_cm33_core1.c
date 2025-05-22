@@ -8,7 +8,7 @@
 **
 **     Reference manual:    Rev. 1, 2024-10-13
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250429
+**     Build:               b250521
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

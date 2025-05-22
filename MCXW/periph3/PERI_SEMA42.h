@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SEMA42
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file SEMA42.h
+ * @file PERI_SEMA42.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for SEMA42
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for SEMA42
  */
 
-#if !defined(SEMA42_H_)
-#define SEMA42_H_                                /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_SEMA42_H_)
+#define PERI_SEMA42_H_                           /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -616,5 +616,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* SEMA42_H_ */
+#endif  /* PERI_SEMA42_H_ */
 

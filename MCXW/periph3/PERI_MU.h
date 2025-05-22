@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MU
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file MU.h
+ * @file PERI_MU.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for MU
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for MU
  */
 
-#if !defined(MU_H_)
-#define MU_H_                                    /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_MU_H_)
+#define PERI_MU_H_                               /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -579,40 +579,40 @@ typedef struct {
 #define MU_GSR_GIP0_MASK                         (0x1U)
 #define MU_GSR_GIP0_SHIFT                        (0U)
 /*! GIP0 - MUB General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP0(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP0_SHIFT)) & MU_GSR_GIP0_MASK)
 
 #define MU_GSR_GIP1_MASK                         (0x2U)
 #define MU_GSR_GIP1_SHIFT                        (1U)
 /*! GIP1 - MUB General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP1(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP1_SHIFT)) & MU_GSR_GIP1_MASK)
 
 #define MU_GSR_GIP2_MASK                         (0x4U)
 #define MU_GSR_GIP2_SHIFT                        (2U)
 /*! GIP2 - MUB General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP2(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP2_SHIFT)) & MU_GSR_GIP2_MASK)
 
 #define MU_GSR_GIP3_MASK                         (0x8U)
 #define MU_GSR_GIP3_SHIFT                        (3U)
 /*! GIP3 - MUB General-Purpose Interrupt Request Pending
- *  0b0..Not pending
  *  0b0..No effect
- *  0b1..Pending
+ *  0b0..Not pending
  *  0b1..Clear the flag
+ *  0b1..Pending
  */
 #define MU_GSR_GIP3(x)                           (((uint32_t)(((uint32_t)(x)) << MU_GSR_GIP3_SHIFT)) & MU_GSR_GIP3_MASK)
 /*! @} */
@@ -813,5 +813,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* MU_H_ */
+#endif  /* PERI_MU_H_ */
 

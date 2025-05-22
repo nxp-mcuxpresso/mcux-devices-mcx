@@ -8,7 +8,7 @@
 **
 **     Reference manual:    Rev. 1, 2024-10-13
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW727D_cm33_core0

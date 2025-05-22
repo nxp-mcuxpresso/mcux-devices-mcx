@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FRO192M
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file FRO192M.h
+ * @file PERI_FRO192M.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for FRO192M
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for FRO192M
  */
 
-#if !defined(FRO192M_H_)
-#define FRO192M_H_                               /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_FRO192M_H_)
+#define PERI_FRO192M_H_                          /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -237,5 +237,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* FRO192M_H_ */
+#endif  /* PERI_FRO192M_H_ */
 

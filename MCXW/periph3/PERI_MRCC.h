@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MRCC
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file MRCC.h
+ * @file PERI_MRCC.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for MRCC
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for MRCC
  */
 
-#if !defined(MRCC_H_)
-#define MRCC_H_                                  /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_MRCC_H_)
+#define PERI_MRCC_H_                             /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -362,6 +362,7 @@ typedef struct {
 #define MRCC_MRCC_LPIT0_MUX_MASK                 (0x70U)
 #define MRCC_MRCC_LPIT0_MUX_SHIFT                (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -424,6 +425,7 @@ typedef struct {
 #define MRCC_MRCC_TPM0_MUX_MASK                  (0x70U)
 #define MRCC_MRCC_TPM0_MUX_SHIFT                 (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -471,6 +473,7 @@ typedef struct {
 #define MRCC_MRCC_TPM1_MUX_MASK                  (0x70U)
 #define MRCC_MRCC_TPM1_MUX_SHIFT                 (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -518,6 +521,7 @@ typedef struct {
 #define MRCC_MRCC_LPI2C0_MUX_MASK                (0x70U)
 #define MRCC_MRCC_LPI2C0_MUX_SHIFT               (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -564,6 +568,7 @@ typedef struct {
 #define MRCC_MRCC_LPI2C1_MUX_MASK                (0x70U)
 #define MRCC_MRCC_LPI2C1_MUX_SHIFT               (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -610,6 +615,7 @@ typedef struct {
 #define MRCC_MRCC_I3C0_MUX_MASK                  (0x70U)
 #define MRCC_MRCC_I3C0_MUX_SHIFT                 (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -656,6 +662,7 @@ typedef struct {
 #define MRCC_MRCC_LPSPI0_MUX_MASK                (0x70U)
 #define MRCC_MRCC_LPSPI0_MUX_SHIFT               (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -702,6 +709,7 @@ typedef struct {
 #define MRCC_MRCC_LPSPI1_MUX_MASK                (0x70U)
 #define MRCC_MRCC_LPSPI1_MUX_SHIFT               (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -748,6 +756,7 @@ typedef struct {
 #define MRCC_MRCC_LPUART0_MUX_MASK               (0x70U)
 #define MRCC_MRCC_LPUART0_MUX_SHIFT              (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -795,6 +804,7 @@ typedef struct {
 #define MRCC_MRCC_LPUART1_MUX_MASK               (0x70U)
 #define MRCC_MRCC_LPUART1_MUX_SHIFT              (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -842,6 +852,7 @@ typedef struct {
 #define MRCC_MRCC_FLEXIO0_MUX_MASK               (0x70U)
 #define MRCC_MRCC_FLEXIO0_MUX_SHIFT              (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -888,6 +899,7 @@ typedef struct {
 #define MRCC_MRCC_CAN0_MUX_MASK                  (0x70U)
 #define MRCC_MRCC_CAN0_MUX_SHIFT                 (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
  */
@@ -1093,6 +1105,7 @@ typedef struct {
 #define MRCC_MRCC_LPADC0_MUX_MASK                (0x70U)
 #define MRCC_MRCC_LPADC0_MUX_SHIFT               (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b010..FRO-6M
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
@@ -1251,6 +1264,7 @@ typedef struct {
 #define MRCC_MRCC_CAN1_MUX_MASK                  (0x70U)
 #define MRCC_MRCC_CAN1_MUX_SHIFT                 (4U)
 /*! MUX - Functional Clock Mux Select
+ *  0b000..The clock is off
  *  0b011..FRO-192M
  *  0b100..SOSC-CLK
  */
@@ -1711,5 +1725,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* MRCC_H_ */
+#endif  /* PERI_MRCC_H_ */
 

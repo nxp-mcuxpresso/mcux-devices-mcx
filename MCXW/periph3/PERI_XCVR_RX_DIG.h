@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for XCVR_RX_DIG
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file XCVR_RX_DIG.h
+ * @file PERI_XCVR_RX_DIG.h
  * @version 1.0
  * @date 2024-10-13
  * @brief CMSIS Peripheral Access Layer for XCVR_RX_DIG
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for XCVR_RX_DIG
  */
 
-#if !defined(XCVR_RX_DIG_H_)
-#define XCVR_RX_DIG_H_                           /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_XCVR_RX_DIG_H_)
+#define PERI_XCVR_RX_DIG_H_                      /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -3424,5 +3424,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* XCVR_RX_DIG_H_ */
+#endif  /* PERI_XCVR_RX_DIG_H_ */
 

@@ -8,13 +8,13 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 1.0, 2023-05-20
-**     Build:               b240821
+**     Build:               b250331
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DBG
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -28,7 +28,7 @@
 */
 
 /*!
- * @file DBG.h
+ * @file PERI_DBG.h
  * @version 1.0
  * @date 2023-05-20
  * @brief CMSIS Peripheral Access Layer for DBG
@@ -36,8 +36,8 @@
  * CMSIS Peripheral Access Layer for DBG
  */
 
-#if !defined(DBG_H_)
-#define DBG_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_DBG_H_)
+#define PERI_DBG_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW727AMFTA_cm33_core0))
 #include "MCXW727A_cm33_core0_COMMON.h"
@@ -224,5 +224,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* DBG_H_ */
+#endif  /* PERI_DBG_H_ */
 

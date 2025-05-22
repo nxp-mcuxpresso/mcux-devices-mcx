@@ -100,6 +100,23 @@ void CLOCK_SetClkDiv(clock_div_name_t div_name, uint32_t divider)
     }
 }
 
+status_t CLOCK_SetFircDiv(clock_firc_div_t divider)
+{
+    status_t ret = kStatus_Success;
+    if ((CONFIGURATION->CONFIG_REG_GPR & CONFIGURATION_CONFIG_REG_GPR_APP_CORE_ACC_MASK) ==
+        CONFIGURATION_CONFIG_REG_GPR_APP_CORE_ACC(0x5U))
+    {
+        CONFIGURATION->CONFIG_REG_GPR =
+            (CONFIGURATION->CONFIG_REG_GPR & ~CONFIGURATION_CONFIG_REG_GPR_FIRC_DIV_SEL_MASK) |
+            CONFIGURATION_CONFIG_REG_GPR_FIRC_DIV_SEL((uint32_t)divider);
+    }
+    else
+    {
+        ret = kStatus_Fail;
+    }
+    return ret;
+}
+
 void CLOCK_AttachClk(clock_attach_id_t connection)
 {
     uint32_t mux = (connection & 0xFF00U) >> 8U;
@@ -155,7 +172,7 @@ void CLOCK_ProgressiveClockFrequencySwitch(clock_attach_id_t connection, clock_p
     uint32_t divEndValue;
 
     Finput = config->clkSrcFreq / 1000000U;
-    Fsafe  = CLOCK_FIRC_CLK_FREQ / 1000000U;
+    Fsafe  = CLOCK_GetFircClkFreq() / 1000000U;
 
     Amax = (config->maxAllowableIDDchange * 1000000U / (Finput * CLOCK_IP_DYNAMIC_IDD_CHANGE));
     Rate = Amax;
@@ -421,6 +438,27 @@ uint32_t CLOCK_GetPllPhiClkFreq(uint32_t index)
     return freq;
 }
 
+uint32_t CLOCK_GetFircClkFreq(void)
+{
+    uint32_t fircDivSel = CONFIGURATION->CONFIG_REG_GPR & CONFIGURATION_CONFIG_REG_GPR_FIRC_DIV_SEL_MASK;
+    uint32_t freq       = 0U;
+
+    switch (fircDivSel)
+    {
+        case CONFIGURATION_CONFIG_REG_GPR_FIRC_DIV_SEL(3U):
+            freq = CLOCK_FIRC_CLK_FREQ;
+            break;
+        case CONFIGURATION_CONFIG_REG_GPR_FIRC_DIV_SEL(2U):
+            freq = CLOCK_FIRC_CLK_FREQ / 16U;
+            break;
+        default:
+            freq = CLOCK_FIRC_CLK_FREQ / 2U;
+            break;
+    }
+
+    return freq;
+}
+
 uint32_t CLOCK_GetFxoscFreq(void)
 {
     uint32_t freq = 0U;
@@ -457,7 +495,7 @@ static inline uint32_t CLOCK_GetMux0ClkFreq(void)
     switch (MC_CGM->MUX_0_CSS & MC_CGM_MUX_0_CSS_SELSTAT_MASK)
     {
         case MC_CGM_MUX_0_CSS_SELSTAT(CLOCK_FIRC_CLK):
-            freq = CLOCK_FIRC_CLK_FREQ;
+            freq = CLOCK_GetFircClkFreq();
             break;
         case MC_CGM_MUX_0_CSS_SELSTAT(CLOCK_PLL_PHI0_CLK):
             freq = CLOCK_GetPllPhiClkFreq(0U);
@@ -604,7 +642,7 @@ uint32_t CLOCK_GetStmClkFreq(uint32_t index)
         switch (CLOCK_MUX_CSS_REG(mux) & MC_CGM_MUX_1_CSS_SELSTAT_MASK)
         {
             case MC_CGM_MUX_1_CSS_SELSTAT(CLOCK_FIRC_CLK):
-                freq = CLOCK_FIRC_CLK_FREQ;
+                freq = CLOCK_GetFircClkFreq();
                 break;
             case MC_CGM_MUX_1_CSS_SELSTAT(CLOCK_FXOSC_CLK):
                 freq = CLOCK_GetFxoscFreq();
@@ -646,7 +684,7 @@ uint32_t CLOCK_GetEmacRxClkFreq(void)
         switch (CLOCK_MUX_CSS_REG(7U) & MC_CGM_MUX_7_CSS_SELSTAT_MASK)
         {
             case MC_CGM_MUX_7_CSS_SELSTAT(CLOCK_FIRC_CLK):
-                freq = CLOCK_FIRC_CLK_FREQ;
+                freq = CLOCK_GetFircClkFreq();
                 break;
             case MC_CGM_MUX_7_CSS_SELSTAT(CLOCK_EMAC_RMII_TX_CLK):
                 freq = g_emacRmiiTxClkFreq;
@@ -677,7 +715,7 @@ uint32_t CLOCK_GetEmacTxClkFreq(void)
         switch (CLOCK_MUX_CSS_REG(8U) & MC_CGM_MUX_8_CSS_SELSTAT_MASK)
         {
             case MC_CGM_MUX_8_CSS_SELSTAT(CLOCK_FIRC_CLK):
-                freq = CLOCK_FIRC_CLK_FREQ;
+                freq = CLOCK_GetFircClkFreq();
                 break;
             case MC_CGM_MUX_8_CSS_SELSTAT(CLOCK_EMAC_RMII_TX_CLK):
                 freq = g_emacRmiiTxClkFreq;
@@ -705,7 +743,7 @@ uint32_t CLOCK_GetEmacTsClkFreq(void)
         switch (CLOCK_MUX_CSS_REG(9U) & MC_CGM_MUX_9_CSS_SELSTAT_MASK)
         {
             case MC_CGM_MUX_9_CSS_SELSTAT(CLOCK_FIRC_CLK):
-                freq = CLOCK_FIRC_CLK_FREQ;
+                freq = CLOCK_GetFircClkFreq();
                 break;
             case MC_CGM_MUX_9_CSS_SELSTAT(CLOCK_FXOSC_CLK):
                 freq = CLOCK_GetFxoscFreq();
@@ -744,7 +782,7 @@ uint32_t CLOCK_GetQspiSfckFreq(void)
         switch (CLOCK_MUX_CSS_REG(10U) & MC_CGM_MUX_10_CSS_SELSTAT_MASK)
         {
             case MC_CGM_MUX_10_CSS_SELSTAT(CLOCK_FIRC_CLK):
-                freq = CLOCK_FIRC_CLK_FREQ;
+                freq = CLOCK_GetFircClkFreq();
                 break;
             case MC_CGM_MUX_10_CSS_SELSTAT(CLOCK_FXOSC_CLK):
                 freq = CLOCK_GetFxoscFreq();
@@ -778,7 +816,7 @@ uint32_t CLOCK_GetFlexcanPeClkFreq(uint32_t index)
             switch (MC_CGM->MUX_3_CSS & MC_CGM_MUX_3_CSS_SELSTAT_MASK)
             {
                 case MC_CGM_MUX_3_CSS_SELSTAT(CLOCK_FIRC_CLK):
-                    freq = CLOCK_FIRC_CLK_FREQ;
+                    freq = CLOCK_GetFircClkFreq();
                     break;
                 case MC_CGM_MUX_3_CSS_SELSTAT(CLOCK_FXOSC_CLK):
                     freq = CLOCK_GetFxoscFreq();
@@ -805,7 +843,7 @@ uint32_t CLOCK_GetFlexcanPeClkFreq(uint32_t index)
             switch (MC_CGM->MUX_4_CSS & MC_CGM_MUX_4_CSS_SELSTAT_MASK)
             {
                 case MC_CGM_MUX_4_CSS_SELSTAT(CLOCK_FIRC_CLK):
-                    freq = CLOCK_FIRC_CLK_FREQ;
+                    freq = CLOCK_GetFircClkFreq();
                     break;
                 case MC_CGM_MUX_4_CSS_SELSTAT(CLOCK_FXOSC_CLK):
                     freq = CLOCK_GetFxoscFreq();
@@ -916,7 +954,7 @@ uint32_t CLOCK_GetFreq(clock_name_t name)
             break;
 #endif /* FSL_FEATURE_CLOCK_HAS_QSPI */
         case kCLOCK_FircClk:
-            freq = CLOCK_FIRC_CLK_FREQ;
+            freq = CLOCK_GetFircClkFreq();
             break;
         case kCLOCK_SircClk:
             freq = CLOCK_SIRC_CLK_FREQ;

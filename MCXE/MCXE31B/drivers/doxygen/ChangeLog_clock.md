@@ -2,7 +2,8 @@
 
 ## [2.1.0]
 - New features
-  - Added support for more devices. 
+  - Added support for more devices.
+  - Added FIRC divider support and API CLOCK_SetFircDiv.
 
 ## [2.0.1]
 

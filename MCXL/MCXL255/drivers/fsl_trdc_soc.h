@@ -23,9 +23,12 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief Driver version 1.0.0. */
-#define FSL_TRDC_SOC_DRIVER_VERSION (MAKE_VERSION(1, 0, 0))
+/*! @brief Driver version 1.1.0. */
+#define FSL_TRDC_SOC_DRIVER_VERSION (MAKE_VERSION(1, 1, 0))
 /*@}*/
+
+#define TRDC_MBC_NSE_BLK_CLR_ALL_MEMSEL(x)  (((uint32_t)(x) & 0xFUL) << 8U)
+#define TRDC_MBC_NSE_BLK_CLR_ALL_DID_SEL(x) (((uint32_t)(x) & 0x1UL) << 16U)
 
 /*!@brief TRDC feature */
 #define FSL_FEATURE_TRDC_DOMAIN_COUNT 1

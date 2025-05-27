@@ -2,9 +2,9 @@
 /*  @file:    startup_MCXA155.s                                              */
 /*  @purpose: CMSIS Cortex-M33 Core Device Startup File                      */
 /*            MCXA155                                                        */
-/*  @version: 1.0                                                            */
-/*  @date:    2022-3-29                                                      */
-/*  @build:   b250403                                                        */
+/*  @version: 2.0                                                            */
+/*  @date:    2024-10-29                                                     */
+/*  @build:   b250521                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */

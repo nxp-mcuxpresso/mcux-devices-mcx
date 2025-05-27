@@ -2,9 +2,9 @@
 /*  @file:    startup_MCXN235.s                                              */
 /*  @purpose: CMSIS Cortex-M33 Core Device Startup File                      */
 /*            MCXN235                                                        */
-/*  @version: 1.0                                                            */
-/*  @date:    2023-10-1                                                      */
-/*  @build:   b250331                                                        */
+/*  @version: 2.0                                                            */
+/*  @date:    2024-10-29                                                     */
+/*  @build:   b250521                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */

@@ -2,9 +2,9 @@
 /*  @file:    startup_MCXN547_cm33_core0.s                                   */
 /*  @purpose: CMSIS Cortex-M33 Core Device Startup File                      */
 /*            MCXN547_cm33_core0                                             */
-/*  @version: 2.0                                                            */
-/*  @date:    2023-2-1                                                       */
-/*  @build:   b250331                                                        */
+/*  @version: 3.0                                                            */
+/*  @date:    2024-10-29                                                     */
+/*  @build:   b250521                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */

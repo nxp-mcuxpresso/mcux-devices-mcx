@@ -2,9 +2,9 @@
 /*  @file:    startup_MCXW727A_cm33_core0.s                                  */
 /*  @purpose: CMSIS Cortex-M33 Core Device Startup File                      */
 /*            MCXW727A_cm33_core0                                            */
-/*  @version: 1.0                                                            */
-/*  @date:    2024-10-13                                                     */
-/*  @build:   b250521                                                        */
+/*  @version: 2.0                                                            */
+/*  @date:    2024-10-29                                                     */
+/*  @build:   b250522                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */

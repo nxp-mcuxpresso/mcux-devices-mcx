@@ -7,8 +7,8 @@
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    Rev. 1, 2024-10-13
-**     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250106
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250522
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW727C_cm33_core0
@@ -23,14 +23,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-10-13)
 **         Rev. 1, 2024-10-13
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file MCXW727C_cm33_core0_COMMON.h
- * @version 1.0
- * @date 2024-10-13
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for MCXW727C_cm33_core0
  *
  * CMSIS Peripheral Access Layer for MCXW727C_cm33_core0
@@ -41,7 +44,7 @@
 
 /** Memory map major version (memory maps with equal major version number are
  * compatible) */
-#define MCU_MEM_MAP_VERSION 0x0100U
+#define MCU_MEM_MAP_VERSION 0x0200U
 /** Memory map minor version */
 #define MCU_MEM_MAP_VERSION_MINOR 0x0000U
 
@@ -2456,3 +2459,4 @@ static inline uint8_t Chip_GetVersion(void)
 
 
 #endif  /* MCXW727C_CM33_CORE0_COMMON_H_ */
+

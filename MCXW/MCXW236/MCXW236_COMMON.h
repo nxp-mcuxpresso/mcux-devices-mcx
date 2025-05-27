@@ -5,14 +5,15 @@
 **                          MCXW236BIHNAR
 **                          MCXW236BIUKAR
 **
-**     Compilers:           GNU C Compiler
+**     Compilers:
+**                          GNU C Compiler
 **                          IAR ANSI C/C++ Compiler for ARM
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
-**     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250417
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250520
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW236
@@ -27,14 +28,17 @@
 **     Revisions:
 **     - rev. 1.0 (2022-03-08)
 **         Initial version based on v0.1UM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file MCXW236_COMMON.h
- * @version 1.0
- * @date 2022-03-08
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for MCXW236
  *
  * CMSIS Peripheral Access Layer for MCXW236
@@ -45,7 +49,7 @@
 
 /** Memory map major version (memory maps with equal major version number are
  * compatible) */
-#define MCU_MEM_MAP_VERSION 0x0100U
+#define MCU_MEM_MAP_VERSION 0x0200U
 /** Memory map minor version */
 #define MCU_MEM_MAP_VERSION_MINOR 0x0000U
 
@@ -1706,3 +1710,4 @@ typedef enum IRQn {
 
 
 #endif  /* MCXW236_COMMON_H_ */
+

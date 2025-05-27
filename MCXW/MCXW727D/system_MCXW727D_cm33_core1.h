@@ -7,8 +7,8 @@
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    Rev. 1, 2024-10-13
-**     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250521
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250522
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -25,14 +25,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-10-13)
 **         Rev. 1, 2024-10-13
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file MCXW727D_cm33_core1
- * @version 1.0
- * @date 2024-10-13
+ * @version 2.0
+ * @date 2024-10-29
  * @brief Device specific configuration file for MCXW727D_cm33_core1 (header
  *        file)
  *

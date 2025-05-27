@@ -33,8 +33,8 @@
 **                          MCXN947VPB_cm33_core0
 **                          MCXN947VPB_cm33_core1
 **
-**     Version:             rev. 2.0, 2023-02-01
-**     Build:               b250331
+**     Version:             rev. 3.0, 2024-10-29
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for I2S
@@ -51,14 +51,17 @@
 **         Initial version
 **     - rev. 2.0 (2023-02-01)
 **         Initial version based on Rev. 2 Draft B
+**     - rev. 3.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file PERI_I2S.h
- * @version 2.0
- * @date 2023-02-01
+ * @version 3.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for I2S
  *
  * CMSIS Peripheral Access Layer for I2S
@@ -289,30 +292,30 @@ typedef struct {
 #define I2S_TCSR_FEF_MASK                        (0x40000U)
 #define I2S_TCSR_FEF_SHIFT                       (18U)
 /*! FEF - FIFO Error Flag
- *  0b0..Not detected
  *  0b0..No effect
- *  0b1..Detected
+ *  0b0..Not detected
  *  0b1..Clear the flag
+ *  0b1..Detected
  */
 #define I2S_TCSR_FEF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_FEF_SHIFT)) & I2S_TCSR_FEF_MASK)
 
 #define I2S_TCSR_SEF_MASK                        (0x80000U)
 #define I2S_TCSR_SEF_SHIFT                       (19U)
 /*! SEF - Sync Error Flag
- *  0b0..Not detected
  *  0b0..No effect
- *  0b1..Detected
+ *  0b0..Not detected
  *  0b1..Clear the flag
+ *  0b1..Detected
  */
 #define I2S_TCSR_SEF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_SEF_SHIFT)) & I2S_TCSR_SEF_MASK)
 
 #define I2S_TCSR_WSF_MASK                        (0x100000U)
 #define I2S_TCSR_WSF_SHIFT                       (20U)
 /*! WSF - Word Start Flag
- *  0b0..Not detected
  *  0b0..No effect
- *  0b1..Detected
+ *  0b0..Not detected
  *  0b1..Clear the flag
+ *  0b1..Detected
  */
 #define I2S_TCSR_WSF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_WSF_SHIFT)) & I2S_TCSR_WSF_MASK)
 
@@ -711,30 +714,30 @@ typedef struct {
 #define I2S_RCSR_FEF_MASK                        (0x40000U)
 #define I2S_RCSR_FEF_SHIFT                       (18U)
 /*! FEF - FIFO Error Flag
- *  0b0..No error
  *  0b0..No effect
- *  0b1..Receive overflow detected
+ *  0b0..No error
  *  0b1..Clear the flag
+ *  0b1..Receive overflow detected
  */
 #define I2S_RCSR_FEF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_FEF_SHIFT)) & I2S_RCSR_FEF_MASK)
 
 #define I2S_RCSR_SEF_MASK                        (0x80000U)
 #define I2S_RCSR_SEF_SHIFT                       (19U)
 /*! SEF - Sync Error Flag
- *  0b0..Not detected
  *  0b0..No effect
- *  0b1..Detected
+ *  0b0..Not detected
  *  0b1..Clear the flag
+ *  0b1..Detected
  */
 #define I2S_RCSR_SEF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_SEF_SHIFT)) & I2S_RCSR_SEF_MASK)
 
 #define I2S_RCSR_WSF_MASK                        (0x100000U)
 #define I2S_RCSR_WSF_SHIFT                       (20U)
 /*! WSF - Word Start Flag
- *  0b0..Not detected
  *  0b0..No effect
- *  0b1..Detected
+ *  0b0..Not detected
  *  0b1..Clear the flag
+ *  0b1..Detected
  */
 #define I2S_RCSR_WSF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_WSF_SHIFT)) & I2S_RCSR_WSF_MASK)
 

@@ -12,8 +12,8 @@
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    MCXA18 User manual
-**     Version:             rev. 1.0, 2022-03-29
-**     Build:               b250403
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250521
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -30,14 +30,17 @@
 **     Revisions:
 **     - rev. 1.0 (2022-03-29)
 **         Initial version based on v0.1UM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file MCXA144
- * @version 1.0
- * @date 2022-03-29
+ * @version 2.0
+ * @date 2024-10-29
  * @brief Device specific configuration file for MCXA144 (header file)
  *
  * Provides a system configuration function and a global variable that contains

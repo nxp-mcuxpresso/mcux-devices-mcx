@@ -11,8 +11,8 @@
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    MCXNx4x Reference Manual
-**     Version:             rev. 2.0, 2023-02-01
-**     Build:               b250424
+**     Version:             rev. 3.0, 2024-10-29
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN546_cm33_core1
@@ -29,14 +29,17 @@
 **         Initial version
 **     - rev. 2.0 (2023-02-01)
 **         Initial version based on Rev. 2 Draft B
+**     - rev. 3.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file MCXN546_cm33_core1_COMMON.h
- * @version 2.0
- * @date 2023-02-01
+ * @version 3.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for MCXN546_cm33_core1
  *
  * CMSIS Peripheral Access Layer for MCXN546_cm33_core1
@@ -47,7 +50,7 @@
 
 /** Memory map major version (memory maps with equal major version number are
  * compatible) */
-#define MCU_MEM_MAP_VERSION 0x0200U
+#define MCU_MEM_MAP_VERSION 0x0300U
 /** Memory map minor version */
 #define MCU_MEM_MAP_VERSION_MINOR 0x0000U
 
@@ -3552,3 +3555,4 @@ typedef enum IRQn {
 
 
 #endif  /* MCXN546_CM33_CORE1_COMMON_H_ */
+

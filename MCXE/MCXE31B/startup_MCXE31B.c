@@ -447,8 +447,7 @@ void LPSPI_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void Reserved187_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved188_DriverIRQHandler(void) ALIAS(DefaultISR);
 void QSPI_DriverIRQHandler(void) ALIAS(DefaultISR);
-void SAI0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void SAI1_DriverIRQHandler(void) ALIAS(DefaultISR);
+void SAI_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void Reserved192_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved193_DriverIRQHandler(void) ALIAS(DefaultISR);
 void JDC_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -2152,12 +2151,12 @@ WEAK void QSPI_IRQHandler(void)
 
 WEAK void SAI0_IRQHandler(void)
 {
-    SAI0_DriverIRQHandler();
+    SAI_DriverIRQHandler(0U);
 }
 
 WEAK void SAI1_IRQHandler(void)
 {
-    SAI1_DriverIRQHandler();
+    SAI_DriverIRQHandler(1U);
 }
 
 WEAK void Reserved192_IRQHandler(void)

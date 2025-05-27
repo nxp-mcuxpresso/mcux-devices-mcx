@@ -232,10 +232,10 @@ config MCUX_HW_IP_DriverType_PMC2
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE31B
 
-#config MCUX_HW_IP_DriverType_SAI
-#    bool
-#    default y
-#    depends on MCUX_HW_DEVICE_ID_MCXE31B
+config MCUX_HW_IP_DriverType_SAI
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXE31B
 
 config MCUX_HW_IP_DriverType_SAR_ADC
     bool

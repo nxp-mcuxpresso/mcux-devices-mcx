@@ -818,8 +818,6 @@ static inline void CLOCK_GetCurSysClkConfig(scg_sys_clk_config_t *config)
 {
     assert(config);
 
-    uint32_t tempCsr;
-
     union
     {
         uint32_t *configInt;
@@ -827,17 +825,7 @@ static inline void CLOCK_GetCurSysClkConfig(scg_sys_clk_config_t *config)
     } Config;
 
     Config.configPtr = config;
-    
-    /*
-       Errata: ERR010777
-       Workaround: Read SCG->CSR twice in a loop to ensure system clock
-       switch has completed.
-     */
-    do
-    {
-        tempCsr = SCG->CSR;
-        *(Config.configInt) = SCG->CSR;
-    } while (tempCsr != *(Config.configInt));
+    *(Config.configInt) = SCG->CSR;
 }
 
 /*!

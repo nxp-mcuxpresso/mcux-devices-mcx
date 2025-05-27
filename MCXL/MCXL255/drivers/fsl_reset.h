@@ -95,7 +95,7 @@ typedef enum _SYSCON_RSTn
     } /* Reset bits for ADC peripheral */
 #define ADC_RSTS             \
     {                        \
-        kAonLPADC_RST_SHIFT_RSTn, kADC0_RST_SHIFT_RSTn \
+        kADC0_RST_SHIFT_RSTn \
     } /* Reset bits for ADC peripheral */
 #define CRC_RSTS            \
     {                       \
@@ -156,10 +156,6 @@ typedef enum _SYSCON_RSTn
 
 #elif __CORTEX_M == (0U) /* Building on the AON core */
 
-#define ADC_RSTS                 \
-    {                            \
-        kAonLPADC_RST_SHIFT_RSTn \
-    } /* Reset bits for ADC peripheral */
 #define LPUART_RSTS                                      \
     {                                                    \
         NotAvail_RSTn, NotAvail_RSTn, kAonUART_RST_SHIFT_RSTn \

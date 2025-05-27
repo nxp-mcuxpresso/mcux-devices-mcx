@@ -249,12 +249,7 @@ typedef enum _clock_ip_name
 #if __CORTEX_M == (33U) /* Building on the main core */
 #define LPADC_CLOCKS    \
     {                   \
-         kCLOCK_GateAonLPADC, kCLOCK_GateADC0 \
-    }
-#else
-#define LPADC_CLOCKS    \
-    {                   \
-        kCLOCK_GateAonLPADC \
+         kCLOCK_GateADC0 \
     }
 #endif
 

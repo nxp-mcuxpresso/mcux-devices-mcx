@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250424
+**     Build:               b250526
 **
 **     Abstract:
 **         Chip specific module features.
@@ -608,6 +608,8 @@
     (((x) == FTM2) ? (4) : \
     (((x) == FTM4) ? (2) : \
     (((x) == FTM5) ? (2) : (-1)))))))
+/* @brief Is affected by errata with ID 010856 (FTM: Safe state is not removed from channel outputs after fault condition ends if SWOCTRL is being used to control the pin). */
+#define FSL_FEATURE_FTM_HAS_ERRATA_010856 (1)
 
 /* GPIO module features */
 
@@ -657,16 +659,18 @@
 
 /* LPSPI module features */
 
-/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
+/* @brief Capacity (number of entries) of the transmit/receive FIFO. */
 #define FSL_FEATURE_LPSPI_FIFO_SIZEn(x) (4)
 /* @brief Has separate DMA RX and TX requests. */
 #define FSL_FEATURE_LPSPI_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
 /* @brief Has CCR1 (related to existence of registers CCR1). */
 #define FSL_FEATURE_LPSPI_HAS_CCR1 (0)
-/* @brief Has no PCSCFG bit in CFGR1 register */
+/* @brief Has no PCSCFG bit in CFGR1 register. */
 #define FSL_FEATURE_LPSPI_HAS_NO_PCSCFG (0)
-/* @brief Has no WIDTH bits in TCR register */
+/* @brief Has no WIDTH bits in TCR register. */
 #define FSL_FEATURE_LPSPI_HAS_NO_MULTI_WIDTH (0)
+/* @brief Has ERRATA051472. */
+#define FSL_FEATURE_LPSPI_HAS_ERRATA_051472 (1)
 
 /* LPTMR module features */
 
@@ -740,7 +744,7 @@
 /* @brief UART stops in Wait mode available (has bit C1[UARTSWAI]). */
 #define FSL_FEATURE_LPUART_HAS_WAIT_MODE_OPERATION (0)
 /* @brief Has separate DMA RX and TX requests. */
-#define FSL_FEATURE_LPUART_HAS_SEPARATE_DMA_RX_TX_REQn(x) (false)
+#define FSL_FEATURE_LPUART_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
 /* @brief Has separate RX and TX interrupts. */
 #define FSL_FEATURE_LPUART_HAS_SEPARATE_RX_TX_IRQ (0)
 /* @brief Has LPAURT_PARAM. */
@@ -751,6 +755,8 @@
 #define FSL_FEATURE_LPUART_HAS_GLOBAL (1)
 /* @brief Has LPUART_PINCFG. */
 #define FSL_FEATURE_LPUART_HAS_PINCFG (1)
+/* @brief Belong to LPFLEXCOMM */
+#define FSL_FEATURE_LPUART_IS_LPFLEXCOMM (0)
 /* @brief Has register MODEM Control. */
 #define FSL_FEATURE_LPUART_HAS_MCR (0)
 /* @brief Has register Half Duplex Control. */
@@ -923,6 +929,8 @@
 #define FSL_FEATURE_RTC_HAS_PCR (0)
 /* @brief Has Oscillator Enable(bitfield CR[OSCE]). */
 #define FSL_FEATURE_RTC_HAS_NO_CR_OSCE (1)
+/* @brief Is affected by errata with ID 010716 (RTC: Timer Alarm Flag can assert erroneously). */
+#define FSL_FEATURE_RTC_HAS_ERRATA_010716 (1)
 
 /* SCG module features */
 
@@ -1344,6 +1352,8 @@
 #define FSL_FEATURE_SMC_HAS_SRS_SECVIO (0)
 /* @brief Width of SMC registers. */
 #define FSL_FEATURE_SMC_REG_WIDTH (32)
+/* @brief Is affected by errata with ID 011063 (SMC: An asynchronous wakeup event during VLPS mode entry may result in possible system hang scenario). */
+#define FSL_FEATURE_SMC_HAS_ERRATA_011063 (1)
 
 /* SYSMPU module features */
 
@@ -1355,6 +1365,13 @@
 #define FSL_FEATURE_SYSMPU_SLAVE_COUNT (5)
 /* @brief Total number of MPU master. */
 #define FSL_FEATURE_SYSMPU_MASTER_COUNT (4)
+
+/* SysTick module features */
+
+/* @brief Systick has external reference clock. */
+#define FSL_FEATURE_SYSTICK_HAS_EXT_REF (0)
+/* @brief Systick external reference clock is core clock divided by this value. */
+#define FSL_FEATURE_SYSTICK_EXT_REF_CORE_DIV (0)
 
 /* TRGMUX module features */
 

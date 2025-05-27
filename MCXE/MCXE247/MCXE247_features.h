@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250506
+**     Build:               b250526
 **
 **     Abstract:
 **         Chip specific module features.
@@ -649,6 +649,8 @@
     (((x) == FTM5) ? (2) : \
     (((x) == FTM6) ? (2) : \
     (((x) == FTM7) ? (2) : (-1)))))))))
+/* @brief Is affected by errata with ID 010856 (FTM: Safe state is not removed from channel outputs after fault condition ends if SWOCTRL is being used to control the pin). */
+#define FSL_FEATURE_FTM_HAS_ERRATA_010856 (1)
 
 /* GPIO module features */
 
@@ -751,6 +753,8 @@
 #define FSL_FEATURE_LPSPI_HAS_NO_PCSCFG (0)
 /* @brief Has no WIDTH bits in TCR register. */
 #define FSL_FEATURE_LPSPI_HAS_NO_MULTI_WIDTH (0)
+/* @brief Has ERRATA051472. */
+#define FSL_FEATURE_LPSPI_HAS_ERRATA_051472 (1)
 
 /* LPTMR module features */
 
@@ -1068,6 +1072,8 @@
 #define FSL_FEATURE_RTC_HAS_PCR (0)
 /* @brief Has Oscillator Enable(bitfield CR[OSCE]). */
 #define FSL_FEATURE_RTC_HAS_NO_CR_OSCE (1)
+/* @brief Is affected by errata with ID 010716 (RTC: Timer Alarm Flag can assert erroneously). */
+#define FSL_FEATURE_RTC_HAS_ERRATA_010716 (1)
 
 /* SCG module features */
 
@@ -1489,6 +1495,8 @@
 #define FSL_FEATURE_SMC_HAS_SRS_SECVIO (0)
 /* @brief Width of SMC registers. */
 #define FSL_FEATURE_SMC_REG_WIDTH (32)
+/* @brief Is affected by errata with ID 011063 (SMC: An asynchronous wakeup event during VLPS mode entry may result in possible system hang scenario). */
+#define FSL_FEATURE_SMC_HAS_ERRATA_011063 (1)
 
 /* SYSMPU module features */
 
@@ -1500,6 +1508,13 @@
 #define FSL_FEATURE_SYSMPU_SLAVE_COUNT (5)
 /* @brief Total number of MPU master. */
 #define FSL_FEATURE_SYSMPU_MASTER_COUNT (4)
+
+/* SysTick module features */
+
+/* @brief Systick has external reference clock. */
+#define FSL_FEATURE_SYSTICK_HAS_EXT_REF (0)
+/* @brief Systick external reference clock is core clock divided by this value. */
+#define FSL_FEATURE_SYSTICK_EXT_REF_CORE_DIV (0)
 
 /* TRGMUX module features */
 

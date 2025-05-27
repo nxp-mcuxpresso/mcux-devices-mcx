@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXE31 RM Rev1
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250512
+**     Build:               b250527
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE316
@@ -339,100 +339,93 @@ typedef enum IRQn {
  * @brief Structure for the DMA hardware request
  *
  * Defines the structure for the DMA hardware request collections.
+ * Refer to Reference Manual DMAMUX chapter for avaiable TCDs.
  */
 typedef enum _dma_request_source
 {
-    kDmaRequestMux0Disabled         = 0U,          /**< Disabled, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1Disabled         = 0U,          /**< Disabled, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0SIUL2Req0        = 1U,          /**< SIUL2 DMA request 0, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1SIUL2Req8        = 1U,          /**< SIUL2 DMA request 8, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0SIUL2Req1        = 2U,          /**< SIUL2 DMA request 1, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1SIUL2Req9        = 2U,          /**< SIUL2 DMA request 9, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0SIUL2Req2        = 3U,          /**< SIUL2 DMA request 2, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1SIUL2Req10       = 3U,          /**< SIUL2 DMA request 10, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0SIUL2Req3        = 4U,          /**< SIUL2 DMA request 3, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1SIUL2Req11       = 4U,          /**< SIUL2 DMA request 11, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0SIUL2Req4        = 5U,          /**< SIUL2 DMA request 4, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1SIUL2Req12       = 5U,          /**< SIUL2 DMA request 12, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0SIUL2Req5        = 6U,          /**< SIUL2 DMA request 5, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1SIUL2Req13       = 6U,          /**< SIUL2 DMA request 13, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0SIUL2Req6        = 7U,          /**< SIUL2 DMA request 6, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1SIUL2Req14       = 7U,          /**< SIUL2 DMA request 14, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0SIUL2Req7        = 8U,          /**< SIUL2 DMA request 7, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1SIUL2Req15       = 8U,          /**< SIUL2 DMA request 15, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0BCTUFifo1        = 9U,          /**< BCTU BCTU DMA FIFO1 request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1BCTUFifo2        = 9U,          /**< BCTU BCTU DMA FIFO2 request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0BCTUReq0         = 10U,         /**< BCTU BCTU DMA request 0, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1BCTUReq2         = 10U,         /**< BCTU BCTU DMA request 2, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0BCTUReq1         = 11U,         /**< BCTU BCTU DMA request 1, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1EMIOS0Req16      = 11U,         /**< EMIOS_0 DMA request 16, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0EMIOS0Req0       = 12U,         /**< EMIOS_0 DMA request 0, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1EMIOS0Req17      = 12U,         /**< EMIOS_0 DMA request 17, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0EMIOS0Req1       = 13U,         /**< EMIOS_0 DMA request 1, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1EMIOS0Req18      = 13U,         /**< EMIOS_0 DMA request 18, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0EMIOS0Req9       = 14U,         /**< EMIOS_0 DMA request 9, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1EMIOS0Req19      = 14U,         /**< EMIOS_0 DMA request 19, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0EMIOS0Req10      = 15U,         /**< EMIOS_0 DMA request 10, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1EMIOS1Req16      = 15U,         /**< EMIOS_1 DMA request 16, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0EMIOS1Req0       = 16U,         /**< EMIOS_1 DMA request 0, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1EMIOS1Req17      = 16U,         /**< EMIOS_1 DMA request 17, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0EMIOS1Req1       = 17U,         /**< EMIOS_1 DMA request 1, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1EMIOS1Req18      = 17U,         /**< EMIOS_1 DMA request 18, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0EMIOS1Req9       = 18U,         /**< EMIOS_1 DMA request 9, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1EMIOS1Req19      = 18U,         /**< EMIOS_1 DMA request 19, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0EMIOS1Req10      = 19U,         /**< EMIOS_1 DMA request 10, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LCU0Req0         = 24U,         /**< LCU_0 DMA request 0, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LCU0Req2         = 24U,         /**< LCU_0 DMA request 2, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LCU1Req0         = 25U,         /**< LCU_1 DMA request 0, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LCU1Req1         = 25U,         /**< LCU_1 DMA request 1, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0CAN0             = 29U,         /**< FLEXCAN_0 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0CAN1             = 30U,         /**< FLEXCAN_1 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0CAN2             = 31U,         /**< FLEXCAN_2 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0FLEXIOChannel0   = 33U,         /**< FLEXIO FlexIO Timer0 or Shifter0 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0FLEXIOChannel1   = 34U,         /**< FLEXIO FlexIO Timer 1 or Shifter1 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1FLEXIOChannel4   = 34U,         /**< FLEXIO FlexIO Timer4 or Shifter4 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0FLEXIOChannel2   = 35U,         /**< FLEXIO FlexIO Timer 2 or Shifter2 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1FLEXIOChannel5   = 35U,         /**< FLEXIO FlexIO Timer5 or Shifter5 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0FLEXIOChannel3   = 36U,         /**< FLEXIO FlexIO Timer 3 or Shifter3 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1FLEXIOChannel6   = 36U,         /**< FLEXIO FlexIO Timer6 or Shifter6 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPUART0Tx        = 37U,         /**< LPUART_0 Transmit DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1FLEXIOChannel7   = 37U,         /**< FLEXIO FlexIO Timer7 or Shifter7 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPUART0Rx        = 38U,         /**< LPUART_0 Receive DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART2Tx        = 38U,         /**< LPUART_2 Transmit DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPUART1Tx        = 39U,         /**< LPUART_1 Transmit DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART2Rx        = 39U,         /**< LPUART_2 Receive DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPUART1Rx        = 40U,         /**< LPUART_1 Receive DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART3Tx        = 40U,         /**< LPUART_3 Transmit DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPI2C0Rx         = 41U,         /**< LPI2C0 DMA RX or RX Slave request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART3Rx        = 41U,         /**< LPUART_3 Receive DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPI2C0Tx         = 42U,         /**< LPI2C0 DMA TX or Tx Slave request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART4Tx        = 42U,         /**< LPUART_4 Transmit DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPSPI0Tx         = 43U,         /**< LPSPI_0 DMA TX request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART4Rx        = 43U,         /**< LPUART_4 Receive DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPSPI0Rx         = 44U,         /**< LPSPI_0 DMA RX request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART5Tx        = 44U,         /**< LPUART_5 Transmit DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPSPI1Tx         = 45U,         /**< LPSPI_1 DMA TX request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART5Rx        = 45U,         /**< LPUART_5 Receive DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPSPI1Rx         = 46U,         /**< LPSPI_1 DMA RX request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART6Tx        = 46U,         /**< LPUART_6 Transmit DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPSPI2Tx         = 47U,         /**< LPSPI_2 DMA TX request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART6Rx        = 47U,         /**< LPUART_6 Receive DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPSPI2Rx         = 48U,         /**< LPSPI_2 DMA RX request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART7Tx        = 48U,         /**< LPUART_7 Transmit DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPSPI3Tx         = 49U,         /**< LPSPI_3 DMA TX request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPUART7Rx        = 49U,         /**< LPUART_7 Receive DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPSPI3Rx         = 50U,         /**< LPSPI_3 DMA RX request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPI2C1Rx         = 50U,         /**< LPI2C1 DMA RX or Slave RX request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0ADC0             = 58U,         /**< ADC_0 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0ADC1             = 59U,         /**< ADC_1 DMA request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0LPCMP0           = 61U,         /**< LPCMP_0 DMA COUT request, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0AlwaysOn62       = 62U,         /**<  Always On, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1AwaysOn62        = 62U,         /**<  Always On, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux0AlwaysOn63       = 63U,         /**<  Always On, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1AwaysOn63        = 63U,         /**<  Always On, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LCU0Req1         = 23U,         /**< LCU_0 DMA request 1, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LCU1Req2         = 26U,         /**< LCU_1 DMA request 2, refer to RM DMAMUX chapter for avaiable TCDs */
-    kDmaRequestMux1LPI2C1Tx         = 51U,         /**< LPI2C1 DMA TX or Slave Tx request, refer to RM DMAMUX chapter for avaiable TCDs */
+    kDmaRequestMux0Disabled         = 0U,          /**< Disabled */
+    kDmaRequestMux1Disabled         = 0U,          /**< Disabled */
+    kDmaRequestMux0SIUL2Req0        = 1U,          /**< SIUL2 DMA request 0 */
+    kDmaRequestMux1SIUL2Req8        = 1U,          /**< SIUL2 DMA request 8 */
+    kDmaRequestMux0SIUL2Req1        = 2U,          /**< SIUL2 DMA request 1 */
+    kDmaRequestMux1SIUL2Req9        = 2U,          /**< SIUL2 DMA request 9 */
+    kDmaRequestMux0SIUL2Req2        = 3U,          /**< SIUL2 DMA request 2 */
+    kDmaRequestMux1SIUL2Req10       = 3U,          /**< SIUL2 DMA request 10 */
+    kDmaRequestMux0SIUL2Req3        = 4U,          /**< SIUL2 DMA request 3 */
+    kDmaRequestMux1SIUL2Req11       = 4U,          /**< SIUL2 DMA request 11 */
+    kDmaRequestMux0SIUL2Req4        = 5U,          /**< SIUL2 DMA request 4 */
+    kDmaRequestMux1SIUL2Req12       = 5U,          /**< SIUL2 DMA request 12 */
+    kDmaRequestMux0SIUL2Req5        = 6U,          /**< SIUL2 DMA request 5 */
+    kDmaRequestMux1SIUL2Req13       = 6U,          /**< SIUL2 DMA request 13 */
+    kDmaRequestMux0SIUL2Req6        = 7U,          /**< SIUL2 DMA request 6 */
+    kDmaRequestMux1SIUL2Req14       = 7U,          /**< SIUL2 DMA request 14 */
+    kDmaRequestMux0SIUL2Req7        = 8U,          /**< SIUL2 DMA request 7 */
+    kDmaRequestMux1SIUL2Req15       = 8U,          /**< SIUL2 DMA request 15 */
+    kDmaRequestMux0BCTUFifo1        = 9U,          /**< BCTU DMA FIFO1 request */
+    kDmaRequestMux1BCTUFifo2        = 9U,          /**< BCTU DMA FIFO2 request */
+    kDmaRequestMux0BCTUReq0         = 10U,         /**< BCTU DMA request 0 */
+    kDmaRequestMux1BCTUReq2         = 10U,         /**< BCTU DMA request 2 */
+    kDmaRequestMux0BCTUReq1         = 11U,         /**< BCTU DMA request 1 */
+    kDmaRequestMux1EMIOS0Req16      = 11U,         /**< EMIOS_0 DMA request 16 */
+    kDmaRequestMux0EMIOS0Req0       = 12U,         /**< EMIOS_0 DMA request 0 */
+    kDmaRequestMux1EMIOS0Req17      = 12U,         /**< EMIOS_0 DMA request 17 */
+    kDmaRequestMux0EMIOS0Req1       = 13U,         /**< EMIOS_0 DMA request 1 */
+    kDmaRequestMux1EMIOS0Req18      = 13U,         /**< EMIOS_0 DMA request 18 */
+    kDmaRequestMux0EMIOS0Req9       = 14U,         /**< EMIOS_0 DMA request 9 */
+    kDmaRequestMux1EMIOS0Req19      = 14U,         /**< EMIOS_0 DMA request 19 */
+    kDmaRequestMux0EMIOS0Req10      = 15U,         /**< EMIOS_0 DMA request 10 */
+    kDmaRequestMux1EMIOS1Req16      = 15U,         /**< EMIOS_1 DMA request 16 */
+    kDmaRequestMux0EMIOS1Req0       = 16U,         /**< EMIOS_1 DMA request 0 */
+    kDmaRequestMux1EMIOS1Req17      = 16U,         /**< EMIOS_1 DMA request 17 */
+    kDmaRequestMux0EMIOS1Req1       = 17U,         /**< EMIOS_1 DMA request 1 */
+    kDmaRequestMux1EMIOS1Req18      = 17U,         /**< EMIOS_1 DMA request 18 */
+    kDmaRequestMux0EMIOS1Req9       = 18U,         /**< EMIOS_1 DMA request 9 */
+    kDmaRequestMux1EMIOS1Req19      = 18U,         /**< EMIOS_1 DMA request 19 */
+    kDmaRequestMux0EMIOS1Req10      = 19U,         /**< EMIOS_1 DMA request 10 */
+    kDmaRequestMux0LCU0Req0         = 24U,         /**< LCU_0 DMA request 0 */
+    kDmaRequestMux1LCU0Req2         = 24U,         /**< LCU_0 DMA request 2 */
+    kDmaRequestMux0LCU1Req0         = 25U,         /**< LCU_1 DMA request 0 */
+    kDmaRequestMux1LCU1Req1         = 25U,         /**< LCU_1 DMA request 1 */
+    kDmaRequestMux0CAN0             = 29U,         /**< FLEXCAN_0 DMA request */
+    kDmaRequestMux0CAN1             = 30U,         /**< FLEXCAN_1 DMA request */
+    kDmaRequestMux0CAN2             = 31U,         /**< FLEXCAN_2 DMA request */
+    kDmaRequestMux0FLEXIOChannel0   = 33U,         /**< FlexIO Timer0 or Shifter0 DMA request */
+    kDmaRequestMux0FLEXIOChannel1   = 34U,         /**< FlexIO Timer 1 or Shifter1 DMA request */
+    kDmaRequestMux1FLEXIOChannel4   = 34U,         /**< FlexIO Timer4 or Shifter4 DMA request */
+    kDmaRequestMux0FLEXIOChannel2   = 35U,         /**< FlexIO Timer 2 or Shifter2 DMA request */
+    kDmaRequestMux1FLEXIOChannel5   = 35U,         /**< FlexIO Timer5 or Shifter5 DMA request */
+    kDmaRequestMux0FLEXIOChannel3   = 36U,         /**< FlexIO Timer 3 or Shifter3 DMA request */
+    kDmaRequestMux1FLEXIOChannel6   = 36U,         /**< FlexIO Timer6 or Shifter6 DMA request */
+    kDmaRequestMux0LPUART0Tx        = 37U,         /**< LPUART_0 Transmit DMA request */
+    kDmaRequestMux1FLEXIOChannel7   = 37U,         /**< FlexIO Timer7 or Shifter7 DMA request */
+    kDmaRequestMux0LPUART0Rx        = 38U,         /**< LPUART_0 Receive DMA request */
+    kDmaRequestMux1LPUART2Tx        = 38U,         /**< LPUART_2 Transmit DMA request */
+    kDmaRequestMux0LPUART1Tx        = 39U,         /**< LPUART_1 Transmit DMA request */
+    kDmaRequestMux1LPUART2Rx        = 39U,         /**< LPUART_2 Receive DMA request */
+    kDmaRequestMux0LPUART1Rx        = 40U,         /**< LPUART_1 Receive DMA request */
+    kDmaRequestMux1LPUART3Tx        = 40U,         /**< LPUART_3 Transmit DMA request */
+    kDmaRequestMux0LPI2C0Rx         = 41U,         /**< LPI2C0 DMA RX or RX Slave request */
+    kDmaRequestMux1LPUART3Rx        = 41U,         /**< LPUART_3 Receive DMA request */
+    kDmaRequestMux0LPI2C0Tx         = 42U,         /**< LPI2C0 DMA TX or Tx Slave request */
+    kDmaRequestMux0LPSPI0Tx         = 43U,         /**< LPSPI_0 DMA TX request */
+    kDmaRequestMux0LPSPI0Rx         = 44U,         /**< LPSPI_0 DMA RX request */
+    kDmaRequestMux0LPSPI1Tx         = 45U,         /**< LPSPI_1 DMA TX request */
+    kDmaRequestMux0LPSPI1Rx         = 46U,         /**< LPSPI_1 DMA RX request */
+    kDmaRequestMux0LPSPI2Tx         = 47U,         /**< LPSPI_2 DMA TX request */
+    kDmaRequestMux0LPSPI2Rx         = 48U,         /**< LPSPI_2 DMA RX request */
+    kDmaRequestMux0LPSPI3Tx         = 49U,         /**< LPSPI_3 DMA TX request */
+    kDmaRequestMux0LPSPI3Rx         = 50U,         /**< LPSPI_3 DMA RX request */
+    kDmaRequestMux1LPI2C1Rx         = 50U,         /**< LPI2C1 DMA RX or Slave RX request */
+    kDmaRequestMux0ADC0             = 58U,         /**< ADC_0 DMA request */
+    kDmaRequestMux0ADC1             = 59U,         /**< ADC_1 DMA request */
+    kDmaRequestMux0LPCMP0           = 61U,         /**< LPCMP_0 DMA COUT request */
+    kDmaRequestMux0AlwaysOn62       = 62U,         /**<  Always On */
+    kDmaRequestMux1AwaysOn62        = 62U,         /**<  Always On */
+    kDmaRequestMux0AlwaysOn63       = 63U,         /**<  Always On */
+    kDmaRequestMux1AwaysOn63        = 63U,         /**<  Always On */
+    kDmaRequestMux1LCU0Req1         = 23U,         /**< LCU_0 DMA request 1 */
+    kDmaRequestMux1LCU1Req2         = 26U,         /**< LCU_1 DMA request 2 */
+    kDmaRequestMux1LPI2C1Tx         = 51U,         /**< LPI2C1 DMA TX or Slave Tx request */
 } dma_request_source_t;
 
 /* @} */
@@ -1352,6 +1345,8 @@ typedef enum _xbic_slave_port
 #define SWT_BASE_ADDRS                           { SWT_0_BASE }
 /** Array initializer of SWT peripheral base pointers */
 #define SWT_BASE_PTRS                            { SWT_0 }
+/** Interrupt vectors for the SWT peripheral type */
+#define SWT_IRQS                                 { SWT0_IRQn }
 
 /* TEMPSENSE - Peripheral instance base addresses */
 /** Peripheral TEMPSENSE base address */

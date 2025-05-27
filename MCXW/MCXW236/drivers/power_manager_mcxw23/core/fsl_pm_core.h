@@ -162,8 +162,6 @@ typedef struct _pm_notify_element
  */
 typedef struct _pm_state
 {
-    /** The time it takes to exit this low power mode, from interrupt till first instruction executed */
-    uint32_t exitLatencyInUs;
     /** A smaller sleep time is not considered worthwhile entering this mode */
     uint32_t minimumResidencyInUs;
     /** The mode this state represents */

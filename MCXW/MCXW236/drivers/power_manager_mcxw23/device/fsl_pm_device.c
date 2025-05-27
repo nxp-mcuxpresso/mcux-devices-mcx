@@ -82,7 +82,6 @@ static uint64_t s_pmcEnabledWakeupSources = 0;
 /** Sleep power state including its properties */
 static const pm_state_t s_StateSleep = {
     /* Instant wakeup in sleep mode */
-    .exitLatencyInUs      = 0,
     .minimumResidencyInUs = 0,
     .mode                 = kPM_Mode_Sleep,
     /* In sleep mode, all resources are available */
@@ -91,7 +90,6 @@ static const pm_state_t s_StateSleep = {
 
 /** Deep sleep power state including its properties */
 static const pm_state_t s_StateDeepSleep = {
-    .exitLatencyInUs        = DEEP_SLEEP_EXIT_LATENCY_IN_US + WAKEUP_TIMER_RESOLUTION_IN_US,
     .minimumResidencyInUs   = DEEP_SLEEP_EXIT_LATENCY_IN_US + WAKEUP_TIMER_RESOLUTION_IN_US + MIN_LOW_POWER_TIME_IN_US,
     .mode                   = kPM_Mode_DeepSleep,
     .availableResourcesMask = ((pm_board_resource_mask_t){
@@ -119,7 +117,6 @@ static const pm_state_t s_StateDeepSleep = {
 #ifndef DISABLE_POWER_DOWN_CPU
 /** Power down with CPU retention power state including its properties */
 static const pm_state_t s_StatePowerDownWithCpuRetention = {
-    .exitLatencyInUs = POWER_DOWN_WITH_CPU_RETENTION_EXIT_LATENCY_IN_US + WAKEUP_TIMER_RESOLUTION_IN_US,
     .minimumResidencyInUs =
         POWER_DOWN_WITH_CPU_RETENTION_EXIT_LATENCY_IN_US + WAKEUP_TIMER_RESOLUTION_IN_US + MIN_LOW_POWER_TIME_IN_US,
     .mode                   = kPM_Mode_PowerDownWithCpuRetention,
@@ -134,13 +131,14 @@ static const pm_state_t s_StatePowerDownWithCpuRetention = {
 #endif /* DISABLE_POWER_DOWN_CPU */
 
 /** Power off power state including its properties */
-static const pm_state_t s_StatePowerOff = {.exitLatencyInUs      = 0,
-                                           .minimumResidencyInUs = 0,
-                                           .mode                 = kPM_Mode_PowerOff,
-                                           /* The only available resource is the wakeup pad */
-                                           .availableResourcesMask = ((pm_board_resource_mask_t){
-                                               BITMASK_0(kResource_DcdcBypass), BITMASK_1(kResource_WakeupWakePad)}),
-                                           .enterFunc              = EnterPowerOff};
+static const pm_state_t s_StatePowerOff = {
+    .minimumResidencyInUs = 0,
+    .mode                 = kPM_Mode_PowerOff,
+    /* The only available resource is the wakeup pad */
+    .availableResourcesMask = ((pm_board_resource_mask_t){
+            BITMASK_0(kResource_DcdcBypass), BITMASK_1(kResource_WakeupWakePad)}),
+    .enterFunc              = EnterPowerOff
+};
 
 /** All supported power states */
 static const pm_state_t *s_lowPowerStates[] = {&s_StateSleep, &s_StateDeepSleep,

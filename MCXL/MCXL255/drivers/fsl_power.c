@@ -11,6 +11,7 @@
 #endif /* __CORTEX_M */
 #include "fsl_mu.h"
 #include "fsl_smm.h"
+#include "fsl_pmu.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -49,8 +50,6 @@ static void Power_RecordWUURegisterValue(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-power_user_callback_t g_powerUserCallback = NULL;
-void *g_powerUserCallbackData = NULL;
 volatile power_mu_message_t g_powerRequestMuMsg;
 
 uint32_t g_Handle_Offset = 0xFFFFFFFFUL;
@@ -165,7 +164,7 @@ status_t Power_CreateHandle(power_handle_t *handle,
     (void)memset(handle, 0UL, sizeof(power_handle_t));
 
     handle->muChannelId = muChannelId;
-    handle->curPowerMode = kPower_Active;
+    handle->targetPowerMode = kPower_Active;
 
     handle->dualCoreSynced = false;
     handle->requestCM33Start = false;
@@ -175,9 +174,8 @@ status_t Power_CreateHandle(power_handle_t *handle,
     /* Inform another that attemp to create handle. */
     uint32_t tmp32 = Power_PopulateMuMessage(kPower_MsgTypeRequest, kPower_MsgDirMainToAon, kPower_Active, true, g_Handle_Offset);
 
-    g_powerMuTransferState = kPower_MuTransferIdle;
-    MU_SendMsg(POWER_USED_MU, muChannelId, tmp32);
     g_powerMuTransferState = kPower_MuTransferStart;
+    MU_SendMsg(POWER_USED_MU, muChannelId, tmp32);
 
     /* Waiting for response from CM0P. */
     while(g_powerMuTransferState == kPower_MuTransferStart)
@@ -191,9 +189,27 @@ status_t Power_CreateHandle(power_handle_t *handle,
     {
         return kStatus_Power_HandleDuplicated;
     }
+    g_powerMuTransferState = kPower_MuTransferIdle;
 
     handle->dualCoreSynced = true;
     return kStatus_Success;
+}
+
+void Power_DumpHandleValue(power_handle_t *ptrDumpBuffer)
+{
+  power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+  
+  memcpy(ptrDumpBuffer, sharedHandle, sizeof(power_handle_t));
+}
+
+uint32_t Power_GetHandleOffset(void)
+{
+    return g_Handle_Offset;
+}
+
+void Power_RestoreHandleOffset(uint32_t offset)
+{
+    g_Handle_Offset = offset;
 }
 
 /*!
@@ -237,7 +253,6 @@ void Power_EnableWakeupSource(power_wakeup_source_t ws)
 #endif
     }
     else
-  
     {
         g_powerWakeupSourceInfo.aonWakeupSourceMask |= 1UL << aonIndex;
         if (wakeupDomain == 0)
@@ -269,6 +284,7 @@ void Power_EnableWakeupSource(power_wakeup_source_t ws)
                 extIntConfig.extIntPolarity = kSMM_ExtIntRisingEdge;
             }
             SMM_SetExtInterruptConfig(AON__SMM, &extIntConfig);
+            SMM_ClearExternalIntFlag(AON__SMM);
         }
     }
 
@@ -374,8 +390,14 @@ void Power_GetWakeupSource(uint32_t *ptrWakeupSourceMask)
  */
 void Power_RegisterUserCallback(power_user_callback_t callback, void *userData)
 {
-    g_powerUserCallback = callback;
-    g_powerUserCallbackData = userData;
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+#if __CORTEX_M == 33U
+    sharedHandle->cm33Callback = callback;
+    sharedHandle->cm33UserData = userData;
+#else
+    sharedHandle->cm0pCallback = callback;
+    sharedHandle->cm0pUserData = userData;
+#endif
 }
 
 /*!
@@ -383,8 +405,104 @@ void Power_RegisterUserCallback(power_user_callback_t callback, void *userData)
  */
 void Power_UnRegisterUserCallback(void)
 {
-    g_powerUserCallback = NULL;
-    g_powerUserCallbackData = NULL;
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+#if __CORTEX_M == 33U
+    sharedHandle->cm33Callback = NULL;
+    sharedHandle->cm33UserData = NULL;
+#else
+    sharedHandle->cm0pCallback = NULL;
+    sharedHandle->cm0pUserData = NULL;
+#endif
+}
+
+status_t Power_GetCurrentPowerMode(power_low_power_mode_t *ptrCurLpMode)
+{
+    status_t status = kStatus_Success;
+    uint8_t tmp8 = SMM_GetPowerState(AON__SMM);
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    power_low_power_mode_t targetLpMode = sharedHandle->targetPowerMode;
+    power_low_power_mode_t curLpMode = kPower_Active;
+
+    switch(tmp8)
+    {
+        case 0U:
+        {
+            if (targetLpMode == kPower_Sleep)
+            {
+                curLpMode = kPower_Sleep;
+            }
+            break;
+        }
+        case 1U:
+        {
+            curLpMode = kPower_DeepSleep;
+            break;
+        }
+        case 2U:
+        {
+            curLpMode = kPower_DeepPowerDown1;
+            break;
+        }
+        case 3U:
+        {
+            curLpMode = kPower_PowerDown1;
+            break;
+        }
+        case 4U:
+        {
+            curLpMode = kPower_DeepPowerDown2;
+            break;
+        }
+        case 5U:
+        {
+            curLpMode = kPower_DeepPowerDown3;
+            break;
+        }
+        case 6U:
+        {
+            curLpMode = kPower_ShutDown;
+            break;
+        }
+        default:    
+        {
+            /* Avoid violation of MISRA rule. */
+            break;
+        }
+    }
+
+    *ptrCurLpMode = curLpMode;
+//    if (curLpMode != targetLpMode)
+//    {
+//        status = kStatus_Power_NotInTargetMode;
+//    }
+    return status;
+}
+
+power_low_power_mode_t Power_GetTargetPowerMode(void)
+{
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    power_low_power_mode_t targetPowerMode = sharedHandle->targetPowerMode;
+
+    return targetPowerMode;
+}
+
+void Power_ClearTargatePowerMode(void)
+{
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    sharedHandle->targetPowerMode = kPower_Active;
+}
+
+void Power_ClearLpPowerSettings(void)
+{
+#if __CORTEX_M == 33U
+    SMM_DisableMainCpuIso(AON__SMM);
+    SMM_ClearAllLowPowerSequence(AON__SMM);
+    SMM_ClearMainCpuWakeupSources(AON__SMM);
+#elif __CORTEX_M == 0U
+    SMM_DisableAonCpuIso(AON__SMM);
+    SMM_ClearAllLowPowerSequence(AON__SMM);
+    SMM_ClearAonCpuWakeupSources(AON__SMM);
+#endif /* __CORTEX_M */
 }
 
 /*!
@@ -414,12 +532,12 @@ status_t Power_EnterLowPowerMode(power_low_power_mode_t lowpowerMode, void *conf
         }
         case kPower_PowerDown1:
         {
-            status = Power_EnterPowerDown1((power_pd_config_t *)config);
+            status = Power_EnterPowerDown1((power_pd1_config_t *)config);
             break;
         }
         case kPower_PowerDown2:
         {
-            status = Power_EnterPowerDown2((power_pd_config_t *)config);
+            status = Power_EnterPowerDown2((power_pd2_config_t *)config);
             break;
         }
         case kPower_DeepPowerDown1:
@@ -465,10 +583,10 @@ status_t Power_EnterSleep(void)
 {
 #if __CORTEX_M == 33U
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
-    sharedHandle->curPowerMode = kPower_Sleep;
+    sharedHandle->targetPowerMode = kPower_Sleep;
     __DSB();
-    __WFI();
     __ISB();
+    __WFI();
 
     return kStatus_Success;
 #elif __CORTEX_M == 0U
@@ -499,7 +617,7 @@ status_t Power_EnterDeepSleep(power_ds_config_t *config)
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
     CMC_SetGlobalPowerMode(CMC, kCMC_DeepSleepMode);
     sharedHandle->requestCM33Start = false;
-    sharedHandle->curPowerMode = kPower_DeepSleep;
+    sharedHandle->targetPowerMode = kPower_DeepSleep;
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     __DSB();
     __WFI();
@@ -523,24 +641,25 @@ status_t Power_EnterDeepSleep(power_ds_config_t *config)
  * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
  * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  */
-status_t Power_EnterPowerDown1(power_pd_config_t *config)
+status_t Power_EnterPowerDown1(power_pd1_config_t *config)
 {
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
-    memcpy(sharedHandle->lpConfig, config, sizeof(power_pd_config_t));
+    memcpy(sharedHandle->lpConfig, config, sizeof(power_pd1_config_t));
 #if __CORTEX_M == 33U
 
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
+    SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
     SMM_StartPowerDownSequence(AON__SMM);
 
     /* TODO: WUU settings? */
 
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
-    CMC_SetGlobalPowerMode(CMC, kCMC_PowerDownMode);
+    CMC->GPMCTRL = CMC_GPMCTRL_LPMODE((uint8_t)0x7);
 
     sharedHandle->requestCM33Start = false;
-    sharedHandle->curPowerMode = kPower_PowerDown1;
+    sharedHandle->targetPowerMode = kPower_PowerDown1;
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     __DSB();
     __ISB();
@@ -564,16 +683,22 @@ status_t Power_EnterPowerDown1(power_pd_config_t *config)
  * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
  * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  */
-status_t Power_EnterPowerDown2(power_pd_config_t *config)
+status_t Power_EnterPowerDown2(power_pd2_config_t *config)
 {
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
-    memcpy(sharedHandle->lpConfig, config, sizeof(power_pd_config_t));
+    memcpy(sharedHandle->lpConfig, config, sizeof(power_pd2_config_t));
 #if __CORTEX_M == 33U
     /* 1. Configuration for SMM. */
+    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
-    SMM_EnableIvsModeForSramRetention(AON__SMM, true);
-    SMM_StartPowerDownSequence(AON__SMM);
+    SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
+    SMM_SwitchToXTAL32(AON__SMM, config->switchToX32K);
+    if (config->switchToX32K)
+    {
+        AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
+    }  
+    SMM_StartAonDPD2Sequence(AON__SMM);
 
     /* 2. Software configuration for CM0P. */
     if (sharedHandle->requestCM33Start != true)
@@ -591,9 +716,8 @@ status_t Power_EnterPowerDown2(power_pd_config_t *config)
         g_powerMuTransferState = kPower_MuTransferStart;
         g_powerRequestMuMsg = msg;
         MU_SendMsg(MUA, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
-
         /* Waiting for response from CM0P. */
-        while(g_powerMuTransferState != kPower_MuTransferStart)
+        while(g_powerMuTransferState == kPower_MuTransferStart)
         {
         }
         if (g_powerMuTransferState == kPower_MuTransferWrong)
@@ -604,6 +728,7 @@ status_t Power_EnterPowerDown2(power_pd_config_t *config)
         {
             return kStatus_POWER_RequestNotAllowed;
         }
+        g_powerMuTransferState = kPower_MuTransferIdle;
     }
 
     /* 3. TODO: Configuration for WUU? */
@@ -611,9 +736,16 @@ status_t Power_EnterPowerDown2(power_pd_config_t *config)
     /* 4. Configuration for CMC. */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
-    CMC_SetGlobalPowerMode(CMC, kCMC_PowerDownMode);
+    CMC->GPMCTRL = CMC_GPMCTRL_LPMODE((uint8_t)0x7);
     sharedHandle->requestCM33Start = false;
-    sharedHandle->curPowerMode = kPower_PowerDown2;
+    sharedHandle->targetPowerMode = kPower_PowerDown2;
+
+    if (config->disableFRO10M)
+    {
+        AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
+        AON__CGU->CLK_CONFIG = (AON__CGU->CLK_CONFIG & ~CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) | CGU_CLK_CONFIG_ROOT_CLK_SEL(3U);
+        AON__CGU->CLK_CONFIG &= ~(CGU_CLK_CONFIG_FRO10M_EN_MASK | CGU_CLK_CONFIG_FRO2M_EN_MASK);
+    }  
     /* 5. Software configuration for CM33. */
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     __DSB();
@@ -656,20 +788,23 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
 
     memcpy(sharedHandle->lpConfig, config, sizeof(power_dpd1_config_t));
 #if __CORTEX_M == 33U
-    /* 1. Configuration for SMM. */
+    /* 1. Configuration for PMU. */
+//    PMU_UpdateVDDCoreInLpMode(AON__PMU, (uint8_t)config->VDDCoreOutputVoltage);
+
+    /* 2. Configuration for SMM. */
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
-    SMM_EnableIvsModeForSramRetention(AON__SMM, true);
+    SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
     SMM_StartPowerDownSequence(AON__SMM);
 
-    /* 2. Configuration for CMC. */
+    /* 3. Configuration for CMC. */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
     CMC_SetGlobalPowerMode(CMC, kCMC_DeepPowerDown);
     sharedHandle->requestCM33Start = false;
-    sharedHandle->curPowerMode = kPower_DeepPowerDown1;
+    sharedHandle->targetPowerMode = kPower_DeepPowerDown1;
 
-    /* 3. Software configuration for CM33. */
+    /* 4. Software configuration for CM33. */
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     __DSB();
     __ISB();
@@ -682,6 +817,14 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
 #endif /* __CORTEX_M == 33U */
 }
 
+power_dpd1_transition_t Power_GetDeepPowerDown1NextTransition(void)
+{
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    power_dpd1_config_t config;
+    memcpy(&config, sharedHandle->lpConfig, sizeof(power_dpd1_config_t));
+    
+    return config.nextTrans;
+}
 
 /*!
  * brief Enter Deep Power Down 2 mode.
@@ -697,17 +840,25 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
 status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
 {
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
-#if __CORTEX_M == 33U
     memcpy(sharedHandle->lpConfig, config, sizeof(power_dpd2_config_t));
 
+#if __CORTEX_M == 33U    
+    //patch
+    uint32_t *ptr = (uint32_t *)0xA0098038;
+    *ptr |= (1 << 11); // Set the 8th bit (bit 7, as bits are 0-indexed)
+    
     /*1. Configuration for SMM. */
-    SMM_PowerOffAonSramAutomatically(AON__SMM, config->aonRamArraysToRetain);
+    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
-    SMM_EnableIvsModeForSramRetention(AON__SMM, true);
+    SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
     SMM_SwitchToXTAL32(AON__SMM, config->switchToX32K);
+    if (config->switchToX32K)
+    {
+        AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
+    }  
     SMM_StartAonDPD2Sequence(AON__SMM);
-    
+
     /*2. Software configuration for CM0P. */
     if (sharedHandle->requestCM33Start != true)
     {
@@ -726,7 +877,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
         MU_SendMsg(MUA, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
 
         /* Waiting for response from CM0P. */
-        while(g_powerMuTransferState != kPower_MuTransferStart)
+        while(g_powerMuTransferState == kPower_MuTransferStart)
         {
         }
         if (g_powerMuTransferState == kPower_MuTransferWrong)
@@ -737,14 +888,21 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
         {
             return kStatus_POWER_RequestNotAllowed;
         }
+        g_powerMuTransferState = kPower_MuTransferIdle;
     }
-
     /* 3. Configuration for CMC */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
     CMC_SetGlobalPowerMode(CMC, kCMC_DeepPowerDown);
     sharedHandle->requestCM33Start = false;
-    sharedHandle->curPowerMode = kPower_DeepPowerDown2;
+    sharedHandle->targetPowerMode = kPower_DeepPowerDown2;
+    
+    if (config->disableFRO10M)
+    {
+        AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
+        AON__CGU->CLK_CONFIG = (AON__CGU->CLK_CONFIG & ~CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) | CGU_CLK_CONFIG_ROOT_CLK_SEL(3U);
+        AON__CGU->CLK_CONFIG &= ~(CGU_CLK_CONFIG_FRO10M_EN_MASK | CGU_CLK_CONFIG_FRO2M_EN_MASK);
+    }    
     /* 4. Software configuration for CM33. */
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     __DSB();
@@ -754,20 +912,48 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
     return kStatus_Success;
 #else
     status_t status = kStatus_Success;
-
-    if (sharedHandle->curPowerMode != kPower_DeepPowerDown1)
-    {
-        sharedHandle->requestCM33Start = true;
-
-        status = Power_ReqestCM33StartLpSeq(kPower_PowerDown2);
-    }
-
+    power_low_power_mode_t curLpMode;
+    status = Power_GetCurrentPowerMode(&curLpMode);
+    
     if (status == kStatus_Success)
     {
-        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-        __DSB();
-        __ISB();
-        __WFI();
+        if (curLpMode != kPower_DeepPowerDown1)
+        {
+            /* If current system is not in DPD1 mode, request CM33 to start DPD2 entry sequence. */
+            sharedHandle->requestCM33Start = true;
+
+            status = Power_ReqestCM33StartLpSeq(kPower_DeepPowerDown2);
+        }
+        else
+        {
+            /* If current system is in DPD1 mode, enter DPD2 from DPD1.  */
+            sharedHandle->targetPowerMode = kPower_DeepPowerDown2;
+            //patch
+            uint32_t *ptr = (uint32_t *)0xA0098038;
+            *ptr |= (1 << 11); // Set the 8th bit (bit 7, as bits are 0-indexed)
+            /*1. Configuration for SMM. */
+            SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
+            SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
+            SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
+            SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
+            SMM_SwitchToXTAL32(AON__SMM, config->switchToX32K);
+            if (config->switchToX32K)
+            {
+                AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
+            }  
+            SMM_StartAonDPD2Sequence(AON__SMM);
+            (void)AON__SMM->PWDN_CONFIG;
+            if (config->disableFRO10M)
+            {
+                AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
+                AON__CGU->CLK_CONFIG = (AON__CGU->CLK_CONFIG & ~CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) | CGU_CLK_CONFIG_ROOT_CLK_SEL(3U);
+                AON__CGU->CLK_CONFIG &= ~(CGU_CLK_CONFIG_FRO10M_EN_MASK | CGU_CLK_CONFIG_FRO2M_EN_MASK);
+            }    
+            SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+            __DSB();
+            __ISB();
+            __WFI();
+        }
     }
 
     return status;
@@ -812,7 +998,7 @@ status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config)
         MU_SendMsg(MUA, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
 
         /* Waiting for response from CM0P. */
-        while(g_powerMuTransferState != kPower_MuTransferStart)
+        while(g_powerMuTransferState == kPower_MuTransferStart)
         {
         }
         if (g_powerMuTransferState == kPower_MuTransferWrong)
@@ -823,6 +1009,7 @@ status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config)
         {
             return kStatus_POWER_RequestNotAllowed;
         }
+        g_powerMuTransferState = kPower_MuTransferIdle;
     }
 
     /*3. Configuration of CMC */
@@ -830,7 +1017,7 @@ status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config)
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
     CMC_SetGlobalPowerMode(CMC, kCMC_DeepPowerDown);
     sharedHandle->requestCM33Start = false;
-    sharedHandle->curPowerMode = kPower_DeepPowerDown3;
+    sharedHandle->targetPowerMode = kPower_DeepPowerDown3;
     /* 4. Software configuration for CM33. */
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     __DSB();
@@ -894,7 +1081,7 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
         MU_SendMsg(MUA, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
 
         /* Waiting for response from CM0P. */
-        while(g_powerMuTransferState != kPower_MuTransferStart)
+        while(g_powerMuTransferState == kPower_MuTransferStart)
         {
         }
         if (g_powerMuTransferState == kPower_MuTransferWrong)
@@ -905,14 +1092,19 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
         {
             return kStatus_POWER_RequestNotAllowed;
         }
+        g_powerMuTransferState = kPower_MuTransferIdle;
     }
 
+    AON__SMM->RTC_DCDC_CNTRL &= ~(SMM_RTC_DCDC_CNTRL_LDO_EN_MASK);
+    AON__SMM->RTC_XTAL_CONFG1 &= ~SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
+    AON__SMM->RTC_XTAL_CONFG2 &= ~(SMM_RTC_XTAL_CONFG2_CAP_BNK_EN_MASK | SMM_RTC_XTAL_CONFG2_SOX_EN_MASK);
+    AON__SMM->RTC_DCDC_CNTRL |= SMM_RTC_DCDC_CNTRL_LDO_PULDWN_EN_MASK;
     /*3. Configuration of CMC */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
     CMC_SetGlobalPowerMode(CMC, kCMC_DeepPowerDown);
     sharedHandle->requestCM33Start = false;
-    sharedHandle->curPowerMode = kPower_ShutDown;
+    sharedHandle->targetPowerMode = kPower_ShutDown;
     /* 4. Software configuration for CM33. */
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     __DSB();
@@ -958,7 +1150,9 @@ void Power_MuMessageCallback(uint32_t message, uint32_t channelId)
     msg.wordFormat = message;
     power_low_power_mode_t targetLowPowerMode = msg.strcutFormat.reqestLowPowerMode;
     uint32_t lpConfigAddr = POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset + offsetof(power_handle_t, lpConfig[0]);
-
+    power_user_callback_t curCallback = NULL;
+    void *curCallbackData = NULL;
+   
     if (msg.strcutFormat.type == kPower_MsgTypeRequest)
     {
         if (Power_VerifyMuMessage(message, true) != kStatus_Success)
@@ -974,9 +1168,17 @@ void Power_MuMessageCallback(uint32_t message, uint32_t channelId)
             }
             else
             {
-                if (g_powerUserCallback != NULL)
+                power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+#if __CORTEX_M == 33U
+                curCallback = sharedHandle->cm33Callback;
+                curCallbackData = sharedHandle->cm33UserData;
+#else
+                curCallback = sharedHandle->cm0pCallback;
+                curCallbackData = sharedHandle->cm0pUserData;
+#endif
+                if (curCallback != NULL)
                 {
-                    userAllowed = g_powerUserCallback(targetLowPowerMode, (void *)lpConfigAddr, g_powerUserCallbackData);
+                    userAllowed = curCallback(targetLowPowerMode, (void *)lpConfigAddr, curCallbackData);
                 }
 
                 resType = ((userAllowed == false) ? kPower_MsgTypeNACK : kPower_MsgTypeACK);
@@ -991,7 +1193,7 @@ void Power_MuMessageCallback(uint32_t message, uint32_t channelId)
 #if __CORTEX_M == 33U
             (void)Power_EnterLowPowerMode(targetLowPowerMode, (void *)lpConfigAddr);
 #elif __CORTEX_M == 0U
-            if ((targetLowPowerMode == kPower_PowerDown2) || (targetLowPowerMode == kPower_DeepPowerDown2))
+            if ((targetLowPowerMode == kPower_PowerDown2) || ((targetLowPowerMode >= kPower_DeepPowerDown2) && (targetLowPowerMode < kPower_Active)))
             {
               /* If CM0P approve to enter target low power mode, execute WFI. */
               SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;

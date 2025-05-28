@@ -28,6 +28,7 @@ menu "Device specific drivers configuration"
          select MCUX_COMPONENT_driver.mcx_cmc if MCUX_HW_CORE_ID_CM33
          select MCUX_COMPONENT_driver.mu1
          select MCUX_COMPONENT_driver.smm
+         select MCUX_COMPONENT_driver.pls_pmu
          
     config MCUX_COMPONENT_driver.reset
          bool "reset"

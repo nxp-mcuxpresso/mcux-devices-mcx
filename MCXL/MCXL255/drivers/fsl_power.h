@@ -32,9 +32,10 @@
 
 enum
 {
-    kStatus_POWER_MuTransferError = MAKE_STATUS(kStatusGroup_UART, 0),      /*!< Fail due to Mu transfer error. */
-    kStatus_POWER_RequestNotAllowed = MAKE_STATUS(kStatusGroup_UART, 1),    /*!< Request not allowed by another core. */
-    kStatus_Power_HandleDuplicated = MAKE_STATUS(kStatusGroup_UART, 2),     /*!< Handle already be created. */
+    kStatus_POWER_MuTransferError = MAKE_STATUS(kStatusGroup_POWER, 0),      /*!< Fail due to Mu transfer error. */
+    kStatus_POWER_RequestNotAllowed = MAKE_STATUS(kStatusGroup_POWER, 1),    /*!< Request not allowed by another core. */
+    kStatus_Power_HandleDuplicated = MAKE_STATUS(kStatusGroup_POWER, 2),     /*!< Handle already be created. */
+    kStatus_Power_NotInTargetMode = MAKE_STATUS(kStatusGroup_POWER, 3),      /*!< Not in target low power mode. */
 };
 
 /*!
@@ -453,15 +454,15 @@ typedef enum _power_wakeup_source
     kPower_WS_Main_P1_5AnyEdgeDma   = POWER_ENCODE_WS(1U, 1U, 0U, 3U, 1U, 23U, 0U),   /*!< P1_5 pin any edge DMA as wakeup source, wakeup Main Domain */
     kPower_WS_Main_P1_5AnyEdgeTrig  = POWER_ENCODE_WS(1U, 1U, 0U, 3U, 2U, 23U, 0U),   /*!< P1_5 pin any edge trigger as wakeup source, wakeup Main Domain */
 
-    kPower_WS_Main_P1_14RiseEdgeInt  = POWER_ENCODE_WS(1U, 1U, 0U, 1U, 0U, 24U, 0U),  /*!< P1_14 pin rising edge interrupt as wakeup source, wakeup Main Domain */
-    kPower_WS_Main_P1_14RiseEdgeDma  = POWER_ENCODE_WS(1U, 1U, 0U, 1U, 1U, 24U, 0U),  /*!< P1_14 pin rising edge DMA as wakeup source, wakeup Main Domain */
-    kPower_WS_Main_P1_14RiseEdgeTrig = POWER_ENCODE_WS(1U, 1U, 0U, 1U, 2U, 24U, 0U),  /*!< P1_14 pin rising edge trigger as wakeup source, wakeup Main Domain */
-    kPower_WS_Main_P1_14FallEdgeInt  = POWER_ENCODE_WS(1U, 1U, 0U, 2U, 0U, 24U, 0U),  /*!< P1_14 pin falling edge interrupt as wakeup source, wakeup Main Domain */
-    kPower_WS_Main_P1_14FallEdgeDma  = POWER_ENCODE_WS(1U, 1U, 0U, 2U, 1U, 24U, 0U),  /*!< P1_14 pin falling edge DMA as wakeup source, wakeup Main Domain */
-    kPower_WS_Main_P1_14FallEdgeTrig = POWER_ENCODE_WS(1U, 1U, 0U, 2U, 2U, 24U, 0U),  /*!< P1_14 pin falling edge trigger as wakeup source, wakeup Main Domain */
-    kPower_WS_Main_P1_14AnyEdgeInt   = POWER_ENCODE_WS(1U, 1U, 0U, 3U, 0U, 24U, 0U),  /*!< P1_14 pin any edge interrupt as wakeup source, wakeup Main Domain */
-    kPower_WS_Main_P1_14AnyEdgeDma   = POWER_ENCODE_WS(1U, 1U, 0U, 3U, 1U, 24U, 0U),  /*!< P1_14 pin any edge DMA as wakeup source, wakeup Main Domain */
-    kPower_WS_Main_P1_14AnyEdgeTrig  = POWER_ENCODE_WS(1U, 1U, 0U, 3U, 2U, 24U, 0U),  /*!< P1_14 pin any edge trigger as wakeup source, wakeup Main Domain */
+    kPower_WS_Main_P1_14RiseEdgeInt  = POWER_ENCODE_WS(1U, 1U, 0U, 1U, 0U, 5U, 0U),  /*!< P1_14 pin rising edge interrupt as wakeup source, wakeup Main Domain */
+    kPower_WS_Main_P1_14RiseEdgeDma  = POWER_ENCODE_WS(1U, 1U, 0U, 1U, 1U, 5U, 0U),  /*!< P1_14 pin rising edge DMA as wakeup source, wakeup Main Domain */
+    kPower_WS_Main_P1_14RiseEdgeTrig = POWER_ENCODE_WS(1U, 1U, 0U, 1U, 2U, 5U, 0U),  /*!< P1_14 pin rising edge trigger as wakeup source, wakeup Main Domain */
+    kPower_WS_Main_P1_14FallEdgeInt  = POWER_ENCODE_WS(1U, 1U, 0U, 2U, 0U, 5U, 0U),  /*!< P1_14 pin falling edge interrupt as wakeup source, wakeup Main Domain */
+    kPower_WS_Main_P1_14FallEdgeDma  = POWER_ENCODE_WS(1U, 1U, 0U, 2U, 1U, 5U, 0U),  /*!< P1_14 pin falling edge DMA as wakeup source, wakeup Main Domain */
+    kPower_WS_Main_P1_14FallEdgeTrig = POWER_ENCODE_WS(1U, 1U, 0U, 2U, 2U, 5U, 0U),  /*!< P1_14 pin falling edge trigger as wakeup source, wakeup Main Domain */
+    kPower_WS_Main_P1_14AnyEdgeInt   = POWER_ENCODE_WS(1U, 1U, 0U, 3U, 0U, 5U, 0U),  /*!< P1_14 pin any edge interrupt as wakeup source, wakeup Main Domain */
+    kPower_WS_Main_P1_14AnyEdgeDma   = POWER_ENCODE_WS(1U, 1U, 0U, 3U, 1U, 5U, 0U),  /*!< P1_14 pin any edge DMA as wakeup source, wakeup Main Domain */
+    kPower_WS_Main_P1_14AnyEdgeTrig  = POWER_ENCODE_WS(1U, 1U, 0U, 3U, 2U, 5U, 0U),  /*!< P1_14 pin any edge trigger as wakeup source, wakeup Main Domain */
 
     kPower_WS_Main_P1_19RiseEdgeInt  = POWER_ENCODE_WS(1U, 1U, 0U, 1U, 0U, 25U, 0U),  /*!< P1_19 pin rising edge interrupt as wakeup source, wakeup Main Domain */
     kPower_WS_Main_P1_19RiseEdgeDma  = POWER_ENCODE_WS(1U, 1U, 0U, 1U, 1U, 25U, 0U),  /*!< P1_19 pin rising edge DMA as wakeup source, wakeup Main Domain */
@@ -518,6 +519,7 @@ typedef struct _power_wakeup_source_info
  */
 enum _power_main_domain_sram_array
 {
+    kPower_MainDomainNoneRams = 0UL,
     kPower_MainDomainRamX0 = 1UL << 0UL,  /*!< Main Domain RAM X0, bitmask representation for power control */
     kPower_MainDomainRamX1 = 1UL << 1UL,  /*!< Main Domain RAM X1, bitmask representation for power control */
     kPower_MainDomainRamA0 = 1UL << 2UL,  /*!< Main Domain RAM A0, bitmask representation for power control */
@@ -536,6 +538,7 @@ enum _power_main_domain_sram_array
  */
 enum _power_aon_domain_sram_array
 {
+    kPower_AonDomainNoneRams = 0UL,               /*!< No AON Domain RAMs. */
     kPower_AonDomainRam1stHalf16kB = 1UL << 0UL,  /*!< First half (16kB) of AON Domain RAM, bitmask for power control */
     kPower_AonDomainRam2nd8kB = 1UL << 1UL,       /*!< Second 8kB of AON Domain RAM, bitmask for power control */
     kPower_AonDomainRamLower8kB = 1UL << 2UL,     /*!< Lower 8kB of AON Domain RAM, bitmask for power control */
@@ -577,6 +580,14 @@ typedef union _power_mu_message
     uint32_t wordFormat;  /*!< Message in word format */
 } power_mu_message_t;
 
+/*!
+ * @brief Output voltage options for VDDCore in low power modes.
+ * 
+ */
+typedef enum _power_vdd_core_output_voltage
+{
+    kPower_VddCoreOutput1P0V,
+} power_vdd_core_output_voltage_t;
 
 typedef struct _power_ds_config
 {
@@ -586,31 +597,74 @@ typedef struct _power_ds_config
 /*!
  * @brief Configuration structure for power down mode.
  */
-typedef struct _power_pd_config
+typedef struct _power_pd1_config
 {
-    uint32_t mainRamArraysToRetain;  /*!< Bitmask representing the main domain RAM arrays to retain during power down */
-    bool disableBandgap;             /*!< Flag to indicate whether to disable the bandgap during power down */
-} power_pd_config_t;
+    uint32_t mainRamArraysToRetain : 16U;  /*!< Bitmask representing the main domain RAM arrays to retain during power down */
+    power_vdd_core_output_voltage_t VDDCoreOutputVoltage : 8U;
+    bool disableBandgap : 1U;             /*!< Flag to indicate whether to disable the bandgap during power down */
+    bool enableIVSMode : 1U;              /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
+} power_pd1_config_t;
 
+typedef struct _power_pd2_config
+{
+    uint32_t mainRamArraysToRetain : 16U;  /*!< Bitmask representing the main domain RAM arrays to retain during DPD2 mode */
+    uint32_t  aonRamArraysToRetain : 16U;   /*!< Bitmask representing the AON domain RAM arrays to retain during DPD2 mode */
+    power_vdd_core_output_voltage_t VDDCoreOutputVoltage : 8U; 
+    bool enableIVSMode : 1U;              /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
+    bool disableBandgap : 1U;             /*!< Flag to indicate whether to disable the bandgap during DPD2 mode */
+    bool switchToX32K : 1U;               /*!< Flag to indicate whether to switch to X32K clock source during DPD2 mode */
+    bool disableFRO10M : 1U;        /*!< Flag to indicate whether to disable the FRO10M clock during DPD2 mode */
+} power_pd2_config_t;
 
-typedef power_pd_config_t power_dpd1_config_t;
+/*!
+ * @brief Enumeration of follow power transition.
+ */
+typedef enum _power_dpd1_transition
+{
+    kPower_Dpd1ToActive = 0U,   /*!< Transition from DPD1 to Active mode */
+    kPower_Dpd1ToDpd2WakeToDpd1, /*!< Transition from DPD1 to DPD2 wakeup to DPD1 mode */
+    kPower_Dpd1ToDpd2WakeToActive, /*!< Transition from DPD1 to DPD2 wakeup to Active mode */
+} power_dpd1_transition_t;
+
+/*!
+ * @brief Configuration structure for deep power down mode 1.
+ * 
+ */
+typedef struct _power_dpd1_config
+{
+    uint32_t mainRamArraysToRetain : 16U;  /*!< Bitmask representing the main domain RAM arrays to retain during power down */
+    power_vdd_core_output_voltage_t VDDCoreOutputVoltage : 8U;
+    bool disableBandgap : 1U;             /*!< Flag to indicate whether to disable the bandgap during power down */
+    bool enableIVSMode : 1U;              /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
+    power_dpd1_transition_t nextTrans: 2U;  /*!< Next transition after DPD1 mode, refer to @ref power_dpd1_transition_t */
+} power_dpd1_config_t;
 
 /*!
  * @brief Configuration structure for deep power down mode 2.
  */
 typedef struct _power_dpd2_config
 {
-    uint32_t mainRamArraysToRetain;  /*!< Bitmask representing the main domain RAM arrays to retain during DPD2 mode */
-    uint8_t  aonRamArraysToRetain;   /*!< Bitmask representing the AON domain RAM arrays to retain during DPD2 mode */
-    bool disableBandgap;             /*!< Flag to indicate whether to disable the bandgap during DPD2 mode */
-    bool switchToX32K;               /*!< Flag to indicate whether to switch to X32K clock source during DPD2 mode */
+    uint32_t mainRamArraysToRetain : 16U;  /*!< Bitmask representing the main domain RAM arrays to retain during DPD2 mode */
+    uint32_t  aonRamArraysToRetain : 16U;   /*!< Bitmask representing the AON domain RAM arrays to retain during DPD2 mode */
+    power_vdd_core_output_voltage_t VDDCoreOutputVoltage : 8U; 
+    bool enableIVSMode : 1U;              /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
+    bool disableBandgap : 1U;             /*!< Flag to indicate whether to disable the bandgap during DPD2 mode */
+    bool switchToX32K : 1U;               /*!< Flag to indicate whether to switch to X32K clock source during DPD2 mode */
+    bool disableFRO10M : 1U;        /*!< Flag to indicate whether to disable the FRO10M clock during DPD2 mode */
+    bool wakeToDpd1 : 1U;           /*!< Flag to indicate whether to wake up to DPD1 mode after DPD2 mode */
 } power_dpd2_config_t;
 
-
+/*!
+ * @brief Configuration structure for deep power down mode 3.
+ */
 typedef struct _power_dpd3_config
 {
+    power_vdd_core_output_voltage_t VDDCoreOutputVoltage : 8U;
 } power_dpd3_config_t;
 
+/*!
+ * @brief Configuration structure for shut down.
+ */
 typedef struct _power_sd_config
 {
 } power_sd_config_t;
@@ -622,10 +676,14 @@ typedef struct _power_sd_config
 typedef struct _power_handle
 {
     uint32_t muChannelId;  /*!< ID of the Message Unit (MU) channel used for power communication */
-    power_low_power_mode_t curPowerMode;  /*!< Current low power mode of the system */
+    power_low_power_mode_t targetPowerMode;  /*!< Current low power mode of the system */
     uint32_t lpConfig[2U];  /*!< Array of two 32-bit values for low power configuration */
     bool dualCoreSynced;  /*!< Flag indicating whether dual cores are synchronized */
     bool requestCM33Start;  /*!< Flag indicating whether a request to start CM33 core is made */
+    power_user_callback_t cm33Callback; /*!< Callback function for CM33 core operations, in type of @ref power_user_callback_t */
+    void *cm33UserData; /*!< User data pointer for CM33 core operations */
+    power_user_callback_t cm0pCallback; /*!< Callback function for CM0+ core operations, in type of @ref power_user_callback_t */
+    void *cm0pUserData;     /*!< User data pointer for CM0+ core operations */
 } power_handle_t;
 
 /*******************************************************************************
@@ -647,6 +705,22 @@ extern "C" {
  */
 status_t Power_CreateHandle(power_handle_t *handle,
                             uint32_t muChannelId);
+
+void Power_DumpHandleValue(power_handle_t *ptrDumpBuffer);
+
+/*!
+ * @brief Get the offset of shared handle in shared RAM.
+ * 
+ * @return Offset of shared handle in shared RAM, in bytes.
+ */
+uint32_t Power_GetHandleOffset(void);
+
+/*!
+ * @brief Restore the shared handle from offset in shared RAM.
+ * 
+ * @param[in] offset Offset of shared handle in shared RAM, in bytes.
+ */
+void Power_RestoreHandleOffset(uint32_t offset);
 
 /*!
  * @name Wakeup Source Control Interfaces
@@ -711,6 +785,32 @@ void Power_UnRegisterUserCallback(void);
  */
 
 /*!
+ * @brief 
+ * 
+ * @param[out] ptrCurLpMode Pointer to store current low power mode
+ *
+ * @retval kStatus_Success Successfully retrieved current low power mode.
+ */
+status_t Power_GetCurrentPowerMode(power_low_power_mode_t *ptrCurLpMode);
+
+/*!
+ * @brief Get the target low power mode.
+ * 
+ * @return Requested low power mode, in type of @ref power_low_power_mode_t. 
+ */
+power_low_power_mode_t Power_GetTargetPowerMode(void);
+
+/*!
+ * @brief Clear the target low power mode.
+ */
+void Power_ClearTargatePowerMode(void);
+
+/*!
+ * @brief Clear all low power settings.
+ */
+void Power_ClearLpPowerSettings(void);
+
+/*!
 * @brief Enter selected low power mode.
 * 
 * @param[in] lowpowerMode Indicate specific low power mode.
@@ -759,7 +859,7 @@ status_t Power_EnterDeepSleep(power_ds_config_t *config);
  * @retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
  * @retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  */
-status_t Power_EnterPowerDown1(power_pd_config_t *config);
+status_t Power_EnterPowerDown1(power_pd1_config_t *config);
 
 /*!
  * @brief Enter Power Down 2 mode.
@@ -772,7 +872,7 @@ status_t Power_EnterPowerDown1(power_pd_config_t *config);
  * @retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
  * @retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  */
-status_t Power_EnterPowerDown2(power_pd_config_t *config);
+status_t Power_EnterPowerDown2(power_pd2_config_t *config);
 
 /*!
  * @brief Enter Deep Power Down 1 mode.
@@ -786,6 +886,13 @@ status_t Power_EnterPowerDown2(power_pd_config_t *config);
  * @retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  */
 status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config);
+
+/*!
+ * @brief Get the next transition after Deep Power Down 1 mode.
+ * 
+ * @return Next transition after Deep Power Down 1 mode, in type of @ref power_dpd1_transition_t. 
+ */
+power_dpd1_transition_t Power_GetDeepPowerDown1NextTransition(void);
 
 /*!
  * @brief Enter Deep Power Down 2 mode.

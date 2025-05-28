@@ -11,7 +11,7 @@
 **
 **     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b250520
+**     Build:               b250526
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW235
@@ -1445,6 +1445,8 @@ typedef enum IRQn {
   /** Array initializer of SPIFI peripheral base pointers */
   #define SPIFI_BASE_PTRS                          { SPIFI0 }
 #endif
+/** Interrupt vectors for the SPIFI peripheral type */
+#define SPIFI_IRQS                               { SPIFI_IRQn }
 
 /* SYSCON - Peripheral instance base addresses */
 #if (__ARM_FEATURE_CMSE & 0x2)

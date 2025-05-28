@@ -252,12 +252,6 @@ typedef enum _clock_ip_name
          kCLOCK_GateADC0 \
     }
 #endif
-    
-/*! @brief Clock ip name array for LPADC. */
-#define AON_LPADC_CLOCKS    \
-    {                   \
-         kCLOCK_GateAonLPADC \
-    }
 
 /*! @brief Clock ip name array for LPUART. */
 #if __CORTEX_M == (33U) /* Building on the main core */

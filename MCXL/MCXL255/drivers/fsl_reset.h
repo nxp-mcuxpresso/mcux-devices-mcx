@@ -92,15 +92,11 @@ typedef enum _SYSCON_RSTn
 #define AOI_RSTS             \
     {                        \
         kAOI0_RST_SHIFT_RSTn \
-    } /* Reset bits for AOI peripheral */
+    } /* Reset bits for ADC peripheral */
 #define ADC_RSTS             \
     {                        \
         kADC0_RST_SHIFT_RSTn \
     } /* Reset bits for ADC peripheral */
-#define AON_LPADC_RSTS             \
-    {                        \
-        kAonLPADC_RST_SHIFT_RSTn \
-    } /* Reset bits for AON_LPADC peripheral */
 #define CRC_RSTS            \
     {                       \
         kCRC_RST_SHIFT_RSTn \
@@ -196,10 +192,6 @@ typedef enum _SYSCON_RSTn
     {                                                \
         NotAvail_RSTn                                \
     } /* Reset bits for GPIO peripheral */
-#define AON_LPADC_RSTS             \
-    {                        \
-        kAonLPADC_RST_SHIFT_RSTn \
-    } /* Reset bits for AON_LPADC peripheral */
 #endif /* Building on the AON core */
 
 typedef SYSCON_RSTn_t reset_ip_name_t;

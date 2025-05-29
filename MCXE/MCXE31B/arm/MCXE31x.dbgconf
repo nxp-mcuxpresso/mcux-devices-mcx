@@ -1,0 +1,16 @@
+// File: MCXE31x.dbgconf
+// Version: 1.0.0
+// Note: refer to ? manual
+//       refer to ? datasheet
+
+// <<< Use Configuration Wizard in Context Menu >>>
+
+
+// <h> RAM Initialize Options
+//   <o.0> RAM Initialize       <i> perform RAM initialization on debug start
+// </h>
+DoRAMInitialize = 0x00000001;
+RAMInitializeSRAMSize = 0x00050000;             // 320KB
+RAMInitializeDTCMSize = 0x00010000;             // 64KB
+
+// <<< end of configuration section >>>

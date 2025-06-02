@@ -12,7 +12,7 @@
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -27,14 +27,14 @@
 ENTRY(Reset_Handler)
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
-STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
+STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
 
 /* Specify the memory areas */
 MEMORY
 {
-  m_interrupts          (RX)  : ORIGIN = 0x28000000, LENGTH = 0x000002C8
-  m_text                (RX)  : ORIGIN = 0x280002C8, LENGTH = 0x0001DD38
-  m_data                (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00002000
+  m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x000000BF
+  m_text                (RX)  : ORIGIN = 0x000000BF, LENGTH = 0x00005000
+  m_data                (RW)  : ORIGIN = 0x00005000, LENGTH = 0x00008000
 }
 
 /* Define output sections */

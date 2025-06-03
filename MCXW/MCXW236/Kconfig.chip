@@ -10,9 +10,9 @@ config MCUX_HW_CORE_CM33
 
 config MCUX_HW_CORE_ID
     string
-    default "cm33"
+    default "cm33_core0"
 
-config MCUX_HW_CORE_ID_CM33
+config MCUX_HW_CORE_ID_CM33_CORE0
     bool
     default y
 

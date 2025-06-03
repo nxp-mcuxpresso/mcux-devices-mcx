@@ -251,8 +251,9 @@ Reserved18_IRQHandler:
     .weak LPUART0_AON_IRQHandler
     .type LPUART0_AON_IRQHandler, %function
 LPUART0_AON_IRQHandler:
-    ldr   r0,=LPUART0_AON_DriverIRQHandler
-    bx    r0
+    ldr     R1, =LPUART_DriverIRQHandler
+    ldr     R0, =2 /*instance number from MCXL255_cm0plus_COMMON.h*/
+    bx      R1
     .size LPUART0_AON_IRQHandler, . - LPUART0_AON_IRQHandler
 
     .align 1

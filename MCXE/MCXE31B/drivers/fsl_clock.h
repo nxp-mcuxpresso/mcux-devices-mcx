@@ -121,6 +121,24 @@ extern volatile uint32_t g_xtal0Freq;
         kCLOCK_Edma \
     }
 
+/*! @brief Clock ip name array for EDMA TCD. */
+#if defined(FSL_FEATURE_MC_ME_HAS_PRTN2) && (FSL_FEATURE_MC_ME_HAS_PRTN2 != 0U)
+#define EDMA_TCD_CLOCKS                                                                                         \
+    {                                                                                                           \
+        kCLOCK_Tcd0, kCLOCK_Tcd1, kCLOCK_Tcd2, kCLOCK_Tcd3, kCLOCK_Tcd4, kCLOCK_Tcd5, kCLOCK_Tcd6, kCLOCK_Tcd7, \
+            kCLOCK_Tcd8, kCLOCK_Tcd9, kCLOCK_Tcd10, kCLOCK_Tcd11, kCLOCK_Tcd12, kCLOCK_Tcd13, kCLOCK_Tcd14,     \
+            kCLOCK_Tcd15, kCLOCK_Tcd16, kCLOCK_Tcd17, kCLOCK_Tcd18, kCLOCK_Tcd19, kCLOCK_Tcd20, kCLOCK_Tcd21,   \
+            kCLOCK_Tcd22, kCLOCK_Tcd23, kCLOCK_Tcd24, kCLOCK_Tcd25, kCLOCK_Tcd26, kCLOCK_Tcd27, kCLOCK_Tcd28,   \
+            kCLOCK_Tcd29, kCLOCK_Tcd30, kCLOCK_Tcd31                                                            \
+    }
+#else
+#define EDMA_TCD_CLOCKS                                                                                         \
+    {                                                                                                           \
+        kCLOCK_Tcd0, kCLOCK_Tcd1, kCLOCK_Tcd2, kCLOCK_Tcd3, kCLOCK_Tcd4, kCLOCK_Tcd5, kCLOCK_Tcd6, kCLOCK_Tcd7, \
+            kCLOCK_Tcd8, kCLOCK_Tcd9, kCLOCK_Tcd10, kCLOCK_Tcd11,                                               \
+    }
+#endif /* FSL_FEATURE_MC_ME_HAS_PRTN2 */
+
 /*! @brief Clock ip name array for EIM. */
 #define EIM_CLOCKS \
     {              \

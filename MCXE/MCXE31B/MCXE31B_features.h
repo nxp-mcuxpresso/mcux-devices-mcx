@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250520
+**     Build:               b250604
 **
 **     Abstract:
 **         Chip specific module features.
@@ -257,6 +257,8 @@
 #define FSL_FEATURE_EDMA_HAS_SOC_REQUEST_ENABLE (0)
 /* @brief Has register bit fields CH_MATTR[WCACHE], CH_MATTR[RCACHE]. */
 #define FSL_FEATURE_EDMA_HAS_CHANNEL_MEMORY_ATTRIBUTE (0)
+/* @brief TCD has clock control. */
+#define FSL_FEATURE_EDMA_HAS_EDMA_TCD_CLOCK_ENABLE (1)
 /* @brief Instance has register CH_MATTR. */
 #define FSL_FEATURE_EDMA_INSTANCE_HAS_CHANNEL_MEMORY_ATTRIBUTEn(x) (0)
 /* @brief Has register bit field CH_CSR[SIGNEXT]. */

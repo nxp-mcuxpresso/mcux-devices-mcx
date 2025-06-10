@@ -8,7 +8,7 @@
 **                          MCXW236BIUKAR
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b250520
+**     Build:               b250609
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for GPIO
@@ -175,7 +175,7 @@ typedef struct {
 /*! @name DIR - Direction registers for all port GPIO pins */
 /*! @{ */
 
-#define GPIO_DIR_DIRP_MASK                       (0xFFFFFFFFU)
+#define GPIO_DIR_DIRP_MASK                       (0x7FFFFFU)
 #define GPIO_DIR_DIRP_SHIFT                      (0U)
 /*! DIRP - Selects pin direction for pin PIOm_n (bit 0 = PIOn_0, bit 1 = PIOn_1, etc.). Supported
  *    pins depends on the specific device and package. 0 = input. 1 = output.

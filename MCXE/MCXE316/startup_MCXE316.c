@@ -601,6 +601,8 @@ void (* const g_pfnVectors[])(void) = {
     ResetISR,                          // The reset handler
 #elif defined (__ICCARM__)
 extern void (* const __vector_table[])(void);
+/* The vector table is not needed for initialization. */
+extern void (*const __iar_init$$done[])(void) __attribute__((alias("__vector_table")));
 __attribute__ ((used, section(".intvec")))
 void (* const __vector_table[])(void) = {
     (void(*)())(uint32_t)__StackTop,   // The initial stack pointer

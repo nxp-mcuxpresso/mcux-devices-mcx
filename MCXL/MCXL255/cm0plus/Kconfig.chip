@@ -54,4 +54,4 @@ config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
 
 config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
-    default "MCXL255xxx_CM0plus"
+    default "MCXL255xxx_M0+"

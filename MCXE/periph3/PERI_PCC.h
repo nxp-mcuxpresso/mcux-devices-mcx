@@ -5,7 +5,7 @@
 **                          MCXE245VLL
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250429
+**     Build:               b250610
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PCC
@@ -81,11 +81,11 @@
  */
 
 /** PCC - Size of Registers Arrays */
-#define PCC_CLKCFG_COUNT                          122u
+#define PCC_CLKCFG_COUNT                          116u
 
 /** PCC - Register Layout Typedef */
 typedef struct {
-  __IO uint32_t CLKCFG[PCC_CLKCFG_COUNT];          /**< PCC FTFC Register..PCC ENET Register, array offset: 0x0, array step: 0x4, valid indices: [32-33, 36-39, 43-46, 49-50, 54-59, 61, 64, 73-77, 84-85, 90, 97, 102-103, 106-108, 110-113, 115, 118, 121] */
+  __IO uint32_t CLKCFG[PCC_CLKCFG_COUNT];          /**< PCC FTFC Register..PCC CMP0 Register, array offset: 0x0, array step: 0x4, valid indices: [32-33, 36-39, 43-46, 49-50, 54-59, 61, 64, 73-77, 90, 97, 102, 106-108, 115] */
 } PCC_Type;
 
 /* ----------------------------------------------------------------------------
@@ -97,7 +97,7 @@ typedef struct {
  * @{
  */
 
-/*! @name CLKCFG - PCC FTFC Register..PCC ENET Register */
+/*! @name CLKCFG - PCC FTFC Register..PCC CMP0 Register */
 /*! @{ */
 
 #define PCC_CLKCFG_PCD_MASK                      (0x7U)

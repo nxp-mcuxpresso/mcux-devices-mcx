@@ -5,7 +5,7 @@
 **                          MCXE246VLQ
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250424
+**     Build:               b250610
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SIM
@@ -287,26 +287,6 @@ typedef struct {
  */
 #define SIM_FTMOPT0_FTM5CLKSEL(x)                (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT0_FTM5CLKSEL_SHIFT)) & SIM_FTMOPT0_FTM5CLKSEL_MASK)
 
-#define SIM_FTMOPT0_FTM6CLKSEL_MASK              (0x300000U)
-#define SIM_FTMOPT0_FTM6CLKSEL_SHIFT             (20U)
-/*! FTM6CLKSEL - FTM6 External Clock Pin Select
- *  0b00..FTM6 external clock driven by TCLK0 pin.
- *  0b01..FTM6 external clock driven by TCLK1 pin.
- *  0b10..FTM6 external clock driven by TCLK2 pin.
- *  0b11..No clock input
- */
-#define SIM_FTMOPT0_FTM6CLKSEL(x)                (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT0_FTM6CLKSEL_SHIFT)) & SIM_FTMOPT0_FTM6CLKSEL_MASK)
-
-#define SIM_FTMOPT0_FTM7CLKSEL_MASK              (0xC00000U)
-#define SIM_FTMOPT0_FTM7CLKSEL_SHIFT             (22U)
-/*! FTM7CLKSEL - FTM7 External Clock Pin Select
- *  0b00..FTM7 external clock driven by TCLK0 pin.
- *  0b01..FTM7 external clock driven by TCLK1 pin.
- *  0b10..FTM7 external clock driven by TCLK2 pin.
- *  0b11..No clock input
- */
-#define SIM_FTMOPT0_FTM7CLKSEL(x)                (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT0_FTM7CLKSEL_SHIFT)) & SIM_FTMOPT0_FTM7CLKSEL_MASK)
-
 #define SIM_FTMOPT0_FTM0CLKSEL_MASK              (0x3000000U)
 #define SIM_FTMOPT0_FTM0CLKSEL_SHIFT             (24U)
 /*! FTM0CLKSEL - FTM0 External Clock Pin Select
@@ -517,16 +497,6 @@ typedef struct {
 /*! FTM5SYNCBIT - FTM5 Sync Bit */
 #define SIM_FTMOPT1_FTM5SYNCBIT(x)               (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT1_FTM5SYNCBIT_SHIFT)) & SIM_FTMOPT1_FTM5SYNCBIT_MASK)
 
-#define SIM_FTMOPT1_FTM6SYNCBIT_MASK             (0x2000U)
-#define SIM_FTMOPT1_FTM6SYNCBIT_SHIFT            (13U)
-/*! FTM6SYNCBIT - FTM6 Sync Bit */
-#define SIM_FTMOPT1_FTM6SYNCBIT(x)               (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT1_FTM6SYNCBIT_SHIFT)) & SIM_FTMOPT1_FTM6SYNCBIT_MASK)
-
-#define SIM_FTMOPT1_FTM7SYNCBIT_MASK             (0x4000U)
-#define SIM_FTMOPT1_FTM7SYNCBIT_SHIFT            (14U)
-/*! FTM7SYNCBIT - FTM7 Sync Bit */
-#define SIM_FTMOPT1_FTM7SYNCBIT(x)               (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT1_FTM7SYNCBIT_SHIFT)) & SIM_FTMOPT1_FTM7SYNCBIT_MASK)
-
 #define SIM_FTMOPT1_FTMGLDOK_MASK                (0x8000U)
 #define SIM_FTMOPT1_FTMGLDOK_SHIFT               (15U)
 /*! FTMGLDOK - FTM global load enable
@@ -675,24 +645,6 @@ typedef struct {
  *       capture mode [DECAPEN=1'b1].
  */
 #define SIM_MISCTRL0_FTM7_OBE_CTRL(x)            (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_FTM7_OBE_CTRL_SHIFT)) & SIM_MISCTRL0_FTM7_OBE_CTRL_MASK)
-
-#define SIM_MISCTRL0_RMII_CLK_OBE_MASK           (0x1000000U)
-#define SIM_MISCTRL0_RMII_CLK_OBE_SHIFT          (24U)
-/*! RMII_CLK_OBE - RMII CLK OBE bit */
-#define SIM_MISCTRL0_RMII_CLK_OBE(x)             (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_RMII_CLK_OBE_SHIFT)) & SIM_MISCTRL0_RMII_CLK_OBE_MASK)
-
-#define SIM_MISCTRL0_RMII_CLK_SEL_MASK           (0x2000000U)
-#define SIM_MISCTRL0_RMII_CLK_SEL_SHIFT          (25U)
-/*! RMII_CLK_SEL - RMII CLK Select bit */
-#define SIM_MISCTRL0_RMII_CLK_SEL(x)             (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_RMII_CLK_SEL_SHIFT)) & SIM_MISCTRL0_RMII_CLK_SEL_MASK)
-
-#define SIM_MISCTRL0_QSPI_CLK_SEL_MASK           (0x4000000U)
-#define SIM_MISCTRL0_QSPI_CLK_SEL_SHIFT          (26U)
-/*! QSPI_CLK_SEL - QSPI CLK Select bit
- *  0b0..QuadSPI internal reference clock is gated.
- *  0b1..QuadSPI internal reference clock is enabled.
- */
-#define SIM_MISCTRL0_QSPI_CLK_SEL(x)             (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_QSPI_CLK_SEL_SHIFT)) & SIM_MISCTRL0_QSPI_CLK_SEL_MASK)
 /*! @} */
 
 /*! @name SDID - System Device Identification Register */

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250526
+**     Build:               b250610
 **
 **     Abstract:
 **         Chip specific module features.
@@ -1344,11 +1344,11 @@
 /* SYSMPU module features */
 
 /* @brief Specifies number of descriptors available. */
-#define FSL_FEATURE_SYSMPU_DESCRIPTOR_COUNT (16)
+#define FSL_FEATURE_SYSMPU_DESCRIPTOR_COUNT (8)
 /* @brief Has process identifier support. */
 #define FSL_FEATURE_SYSMPU_HAS_PROCESS_IDENTIFIER (1)
 /* @brief Total number of MPU slave. */
-#define FSL_FEATURE_SYSMPU_SLAVE_COUNT (5)
+#define FSL_FEATURE_SYSMPU_SLAVE_COUNT (4)
 /* @brief Total number of MPU master. */
 #define FSL_FEATURE_SYSMPU_MASTER_COUNT (4)
 

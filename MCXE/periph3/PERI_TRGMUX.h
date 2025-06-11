@@ -5,7 +5,7 @@
 **                          MCXE245VLL
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250429
+**     Build:               b250610
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TRGMUX
@@ -206,11 +206,11 @@ typedef enum _trgmux_device
  */
 
 /** TRGMUX - Size of Registers Arrays */
-#define TRGMUX_TRGCFG_COUNT                       32u
+#define TRGMUX_TRGCFG_COUNT                       26u
 
 /** TRGMUX - Register Layout Typedef */
 typedef struct {
-  __IO uint32_t TRGCFG[TRGMUX_TRGCFG_COUNT];       /**< TRGMUX DMAMUX0 Register..TRGMUX FTM7 Register, array offset: 0x0, array step: 0x4, valid indices: [0-4, 7, 10-15, 17-21, 23-25, 27-31] */
+  __IO uint32_t TRGCFG[TRGMUX_TRGCFG_COUNT];       /**< TRGMUX DMAMUX0 Register..TRGMUX LPTMR0 Register, array offset: 0x0, array step: 0x4, valid indices: [0-4, 7, 10-15, 17-21, 23-25] */
 } TRGMUX_Type;
 
 /* ----------------------------------------------------------------------------
@@ -222,25 +222,25 @@ typedef struct {
  * @{
  */
 
-/*! @name TRGCFG - TRGMUX DMAMUX0 Register..TRGMUX FTM7 Register */
+/*! @name TRGCFG - TRGMUX DMAMUX0 Register..TRGMUX LPTMR0 Register */
 /*! @{ */
 
-#define TRGMUX_TRGCFG_SEL0_MASK                  (0x7FU)
+#define TRGMUX_TRGCFG_SEL0_MASK                  (0x3FU)
 #define TRGMUX_TRGCFG_SEL0_SHIFT                 (0U)
 /*! SEL0 - Trigger MUX Input 0 Source Select */
 #define TRGMUX_TRGCFG_SEL0(x)                    (((uint32_t)(((uint32_t)(x)) << TRGMUX_TRGCFG_SEL0_SHIFT)) & TRGMUX_TRGCFG_SEL0_MASK)
 
-#define TRGMUX_TRGCFG_SEL1_MASK                  (0x7F00U)
+#define TRGMUX_TRGCFG_SEL1_MASK                  (0x3F00U)
 #define TRGMUX_TRGCFG_SEL1_SHIFT                 (8U)
 /*! SEL1 - Trigger MUX Input 1 Source Select */
 #define TRGMUX_TRGCFG_SEL1(x)                    (((uint32_t)(((uint32_t)(x)) << TRGMUX_TRGCFG_SEL1_SHIFT)) & TRGMUX_TRGCFG_SEL1_MASK)
 
-#define TRGMUX_TRGCFG_SEL2_MASK                  (0x7F0000U)
+#define TRGMUX_TRGCFG_SEL2_MASK                  (0x3F0000U)
 #define TRGMUX_TRGCFG_SEL2_SHIFT                 (16U)
 /*! SEL2 - Trigger MUX Input 2 Source Select */
 #define TRGMUX_TRGCFG_SEL2(x)                    (((uint32_t)(((uint32_t)(x)) << TRGMUX_TRGCFG_SEL2_SHIFT)) & TRGMUX_TRGCFG_SEL2_MASK)
 
-#define TRGMUX_TRGCFG_SEL3_MASK                  (0x7F000000U)
+#define TRGMUX_TRGCFG_SEL3_MASK                  (0x3F000000U)
 #define TRGMUX_TRGCFG_SEL3_SHIFT                 (24U)
 /*! SEL3 - Trigger MUX Input 3 Source Select */
 #define TRGMUX_TRGCFG_SEL3(x)                    (((uint32_t)(((uint32_t)(x)) << TRGMUX_TRGCFG_SEL3_SHIFT)) & TRGMUX_TRGCFG_SEL3_MASK)

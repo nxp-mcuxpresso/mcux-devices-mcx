@@ -5,7 +5,7 @@
 **                          MCXE246VLQ
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250424
+**     Build:               b250610
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TRGMUX
@@ -212,11 +212,11 @@ typedef enum _trgmux_device
  */
 
 /** TRGMUX - Size of Registers Arrays */
-#define TRGMUX_TRGCFG_COUNT                       32u
+#define TRGMUX_TRGCFG_COUNT                       30u
 
 /** TRGMUX - Register Layout Typedef */
 typedef struct {
-  __IO uint32_t TRGCFG[TRGMUX_TRGCFG_COUNT];       /**< TRGMUX DMAMUX0 Register..TRGMUX FTM7 Register, array offset: 0x0, array step: 0x4, valid indices: [0-4, 7, 10-15, 17-21, 23-25, 27-31] */
+  __IO uint32_t TRGCFG[TRGMUX_TRGCFG_COUNT];       /**< TRGMUX DMAMUX0 Register..TRGMUX FTM5 Register, array offset: 0x0, array step: 0x4, valid indices: [0-4, 7, 10-15, 17-21, 23-25, 28-29] */
 } TRGMUX_Type;
 
 /* ----------------------------------------------------------------------------
@@ -228,7 +228,7 @@ typedef struct {
  * @{
  */
 
-/*! @name TRGCFG - TRGMUX DMAMUX0 Register..TRGMUX FTM7 Register */
+/*! @name TRGCFG - TRGMUX DMAMUX0 Register..TRGMUX FTM5 Register */
 /*! @{ */
 
 #define TRGMUX_TRGCFG_SEL0_MASK                  (0x7FU)

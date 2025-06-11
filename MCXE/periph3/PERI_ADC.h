@@ -5,7 +5,7 @@
 **                          MCXE245VLL
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250429
+**     Build:               b250610
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ADC
@@ -129,73 +129,41 @@ typedef struct {
 /*! @name SC1 - ADC Status and Control Register 1 */
 /*! @{ */
 
-#define ADC_SC1_ADCH_MASK                        (0x3FU)
+#define ADC_SC1_ADCH_MASK                        (0x1FU)
 #define ADC_SC1_ADCH_SHIFT                       (0U)
 /*! ADCH - Input channel select
- *  0b000000..External channel 0 is selected as input.
- *  0b000001..External channel 1 is selected as input.
- *  0b000010..External channel 2 is selected as input.
- *  0b000011..External channel 3 is selected as input.
- *  0b000100..External channel 4 is selected as input.
- *  0b000101..External channel 5 is selected as input.
- *  0b000110..External channel 6 is selected as input.
- *  0b000111..External channel 7 is selected as input.
- *  0b001000..External channel 8 is selected as input.
- *  0b001001..External channel 9 is selected as input.
- *  0b001010..External channel 10 is selected as input.
- *  0b001011..External channel 11 is selected as input.
- *  0b001100..External channel 12 is selected as input.
- *  0b001101..External channel 13 is selected as input.
- *  0b001110..External channel 14 is selected as input.
- *  0b001111..External channel 15 is selected as input.
- *  0b010000..Reserved
- *  0b010001..Reserved
- *  0b010010..Reserved
- *  0b010011..Reserved
- *  0b010100..Reserved
- *  0b010101..Internal channel 0 is selected as input.
- *  0b010110..Internal channel 1 is selected as input.
- *  0b010111..Internal channel 2 is selected as input.
- *  0b011000..Reserved
- *  0b011001..Reserved
- *  0b011010..Reserved
- *  0b011011..Band Gap
- *  0b011100..Internal channel 3 is selected as input.
- *  0b011101..VREFSH is selected as input. Voltage reference selected is determined by SC2[REFSEL].
- *  0b011110..VREFSL is selected as input. Voltage reference selected is determined by SC2[REFSEL].
- *  0b011111..Reserved
- *  0b100000..External channel 16 is selected as input.
- *  0b100001..External channel 17 is selected as input.
- *  0b100010..External channel 18 is selected as input.
- *  0b100011..External channel 19 is selected as input.
- *  0b100100..External channel 20 is selected as input.
- *  0b100101..External channel 21 is selected as input.
- *  0b100110..External channel 22 is selected as input.
- *  0b100111..External channel 23 is selected as input.
- *  0b101000..External channel 24 is selected as input.
- *  0b101001..External channel 25 is selected as input.
- *  0b101010..External channel 26 is selected as input.
- *  0b101011..External channel 27 is selected as input.
- *  0b101100..External channel 28 is selected as input.
- *  0b101101..External channel 29 is selected as input.
- *  0b101110..External channel 30 is selected as input.
- *  0b101111..External channel 31 is selected as input.
- *  0b110000..Reserved
- *  0b110001..Reserved
- *  0b110010..Reserved
- *  0b110011..Reserved
- *  0b110100..Reserved
- *  0b110101..Reserved
- *  0b110110..Reserved
- *  0b110111..Reserved
- *  0b111000..Reserved
- *  0b111001..Reserved
- *  0b111010..Reserved
- *  0b111011..Reserved
- *  0b111100..Reserved
- *  0b111101..Reserved
- *  0b111110..Reserved
- *  0b111111..Reserved
+ *  0b00000..External channel 0 is selected as input.
+ *  0b00001..External channel 1 is selected as input.
+ *  0b00010..External channel 2 is selected as input.
+ *  0b00011..External channel 3 is selected as input.
+ *  0b00100..External channel 4 is selected as input.
+ *  0b00101..External channel 5 is selected as input.
+ *  0b00110..External channel 6 is selected as input.
+ *  0b00111..External channel 7 is selected as input.
+ *  0b01000..External channel 8 is selected as input.
+ *  0b01001..External channel 9 is selected as input.
+ *  0b01010..External channel 10 is selected as input.
+ *  0b01011..External channel 11 is selected as input.
+ *  0b01100..External channel 12 is selected as input.
+ *  0b01101..External channel 13 is selected as input.
+ *  0b01110..External channel 14 is selected as input.
+ *  0b01111..External channel 15 is selected as input.
+ *  0b10000..Reserved
+ *  0b10001..Reserved
+ *  0b10010..External channel 18 is selected as input.
+ *  0b10011..External channel 19 is selected as input.
+ *  0b10100..Reserved.
+ *  0b10101..Internal channel 0 is selected as input.
+ *  0b10110..Internal channel 1 is selected as input.
+ *  0b10111..Internal channel 2 is selected as input.
+ *  0b11000..Reserved
+ *  0b11001..Reserved
+ *  0b11010..Reserved
+ *  0b11011..Band Gap
+ *  0b11100..Internal channel 3 is selected as input.
+ *  0b11101..VREFSH is selected as input. Voltage reference selected is determined by SC2[REFSEL].
+ *  0b11110..VREFSL is selected as input. Voltage reference selected is determined by SC2[REFSEL].
+ *  0b11111..Reserved
  */
 #define ADC_SC1_ADCH(x)                          (((uint32_t)(((uint32_t)(x)) << ADC_SC1_ADCH_SHIFT)) & ADC_SC1_ADCH_MASK)
 

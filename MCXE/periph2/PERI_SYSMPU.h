@@ -5,7 +5,7 @@
 **                          MCXE246VLQ
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250424
+**     Build:               b250610
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SYSMPU
@@ -81,23 +81,23 @@
  */
 
 /** SYSMPU - Size of Registers Arrays */
-#define SYSMPU_SP_COUNT                           5u
-#define SYSMPU_RGD_COUNT                          16u
+#define SYSMPU_SP_COUNT                           4u
+#define SYSMPU_RGD_COUNT                          8u
 #define SYSMPU_RGD_WORD_COUNT                     4u
-#define SYSMPU_RGDAAC_COUNT                       16u
+#define SYSMPU_RGDAAC_COUNT                       8u
 
 /** SYSMPU - Register Layout Typedef */
 typedef struct {
   __IO uint32_t CESR;                              /**< Control/Error Status Register, offset: 0x0 */
        uint8_t RESERVED_0[12];
   struct {                                         /* offset: 0x10, array step: 0x8 */
-    __I  uint32_t EAR;                               /**< Error Address Register, slave port 0..Error Address Register, slave port 4, array offset: 0x10, array step: 0x8 */
-    __I  uint32_t EDR;                               /**< Error Detail Register, slave port 0..Error Detail Register, slave port 4, array offset: 0x14, array step: 0x8 */
+    __I  uint32_t EAR;                               /**< Error Address Register, slave port 0..Error Address Register, slave port 3, array offset: 0x10, array step: 0x8 */
+    __I  uint32_t EDR;                               /**< Error Detail Register, slave port 0..Error Detail Register, slave port 3, array offset: 0x14, array step: 0x8 */
   } SP[SYSMPU_SP_COUNT];
-       uint8_t RESERVED_1[968];
-  __IO uint32_t WORD[SYSMPU_RGD_COUNT][SYSMPU_RGD_WORD_COUNT]; /**< Region Descriptor 0, Word 0..Region Descriptor 15, Word 3, array offset: 0x400, array step: index*0x10, index2*0x4 */
-       uint8_t RESERVED_2[768];
-  __IO uint32_t RGDAAC[SYSMPU_RGDAAC_COUNT];       /**< Region Descriptor Alternate Access Control 0..Region Descriptor Alternate Access Control 15, array offset: 0x800, array step: 0x4 */
+       uint8_t RESERVED_1[976];
+  __IO uint32_t WORD[SYSMPU_RGD_COUNT][SYSMPU_RGD_WORD_COUNT]; /**< Region Descriptor 0, Word 0..Region Descriptor 7, Word 3, array offset: 0x400, array step: index*0x10, index2*0x4 */
+       uint8_t RESERVED_2[896];
+  __IO uint32_t RGDAAC[SYSMPU_RGDAAC_COUNT];       /**< Region Descriptor Alternate Access Control 0..Region Descriptor Alternate Access Control 7, array offset: 0x800, array step: 0x4 */
 } SYSMPU_Type;
 
 /* ----------------------------------------------------------------------------
@@ -139,14 +139,6 @@ typedef struct {
 /*! HRL - Hardware Revision Level */
 #define SYSMPU_CESR_HRL(x)                       (((uint32_t)(((uint32_t)(x)) << SYSMPU_CESR_HRL_SHIFT)) & SYSMPU_CESR_HRL_MASK)
 
-#define SYSMPU_CESR_SPERR4_MASK                  (0x8000000U)
-#define SYSMPU_CESR_SPERR4_SHIFT                 (27U)
-/*! SPERR4 - Slave Port 4 Error
- *  0b0..No error has occurred for slave port 4.
- *  0b1..An error has occurred for slave port 4.
- */
-#define SYSMPU_CESR_SPERR4(x)                    (((uint32_t)(((uint32_t)(x)) << SYSMPU_CESR_SPERR4_SHIFT)) & SYSMPU_CESR_SPERR4_MASK)
-
 #define SYSMPU_CESR_SPERR3_MASK                  (0x10000000U)
 #define SYSMPU_CESR_SPERR3_SHIFT                 (28U)
 /*! SPERR3 - Slave Port 3 Error
@@ -180,7 +172,7 @@ typedef struct {
 #define SYSMPU_CESR_SPERR0(x)                    (((uint32_t)(((uint32_t)(x)) << SYSMPU_CESR_SPERR0_SHIFT)) & SYSMPU_CESR_SPERR0_MASK)
 /*! @} */
 
-/*! @name EAR - Error Address Register, slave port 0..Error Address Register, slave port 4 */
+/*! @name EAR - Error Address Register, slave port 0..Error Address Register, slave port 3 */
 /*! @{ */
 
 #define SYSMPU_EAR_EADDR_MASK                    (0xFFFFFFFFU)
@@ -190,9 +182,9 @@ typedef struct {
 /*! @} */
 
 /* The count of SYSMPU_EAR */
-#define SYSMPU_EAR_COUNT                         (5U)
+#define SYSMPU_EAR_COUNT                         (4U)
 
-/*! @name EDR - Error Detail Register, slave port 0..Error Detail Register, slave port 4 */
+/*! @name EDR - Error Detail Register, slave port 0..Error Detail Register, slave port 3 */
 /*! @{ */
 
 #define SYSMPU_EDR_ERW_MASK                      (0x1U)
@@ -230,9 +222,9 @@ typedef struct {
 /*! @} */
 
 /* The count of SYSMPU_EDR */
-#define SYSMPU_EDR_COUNT                         (5U)
+#define SYSMPU_EDR_COUNT                         (4U)
 
-/*! @name WORD - Region Descriptor 0, Word 0..Region Descriptor 15, Word 3 */
+/*! @name WORD - Region Descriptor 0, Word 0..Region Descriptor 7, Word 3 */
 /*! @{ */
 
 #define SYSMPU_WORD_M0UM_MASK                    (0x7U)
@@ -405,12 +397,12 @@ typedef struct {
 /*! @} */
 
 /* The count of SYSMPU_WORD */
-#define SYSMPU_WORD_COUNT                        (16U)
+#define SYSMPU_WORD_COUNT                        (8U)
 
 /* The count of SYSMPU_WORD */
 #define SYSMPU_WORD_COUNT2                       (4U)
 
-/*! @name RGDAAC - Region Descriptor Alternate Access Control 0..Region Descriptor Alternate Access Control 15 */
+/*! @name RGDAAC - Region Descriptor Alternate Access Control 0..Region Descriptor Alternate Access Control 7 */
 /*! @{ */
 
 #define SYSMPU_RGDAAC_M0UM_MASK                  (0x7U)
@@ -560,8 +552,8 @@ typedef struct {
  */ /* end of group SYSMPU_Register_Masks */
 
 /* Backward compatibility for SYSMPU */
-#define SYSMPU_CESR_SPERR_MASK                   (0xF8000000U)
-#define SYSMPU_CESR_SPERR_SHIFT                  SYSMPU_CESR_SPERR4_SHIFT
+#define SYSMPU_CESR_SPERR_MASK                   (0xF0000000U)
+#define SYSMPU_CESR_SPERR_SHIFT                  SYSMPU_CESR_SPERR3_SHIFT
 /*! SPERR - Slave Port n Error
  *  0b0000..No error has occurred for slave port n.
  *  0b0001..An error has occurred for slave port n.

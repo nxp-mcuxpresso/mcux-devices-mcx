@@ -5,7 +5,7 @@
 **                          MCXE245VLL
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250429
+**     Build:               b250610
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SIM
@@ -267,46 +267,6 @@ typedef struct {
  */
 #define SIM_FTMOPT0_FTM3FLTXSEL(x)               (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT0_FTM3FLTXSEL_SHIFT)) & SIM_FTMOPT0_FTM3FLTXSEL_MASK)
 
-#define SIM_FTMOPT0_FTM4CLKSEL_MASK              (0x30000U)
-#define SIM_FTMOPT0_FTM4CLKSEL_SHIFT             (16U)
-/*! FTM4CLKSEL - FTM4 External Clock Pin Select
- *  0b00..FTM4 external clock driven by TCLK0 pin.
- *  0b01..FTM4 external clock driven by TCLK1 pin.
- *  0b10..FTM4 external clock driven by TCLK2 pin.
- *  0b11..No clock input
- */
-#define SIM_FTMOPT0_FTM4CLKSEL(x)                (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT0_FTM4CLKSEL_SHIFT)) & SIM_FTMOPT0_FTM4CLKSEL_MASK)
-
-#define SIM_FTMOPT0_FTM5CLKSEL_MASK              (0xC0000U)
-#define SIM_FTMOPT0_FTM5CLKSEL_SHIFT             (18U)
-/*! FTM5CLKSEL - FTM5 External Clock Pin Select
- *  0b00..FTM5 external clock driven by TCLK0 pin.
- *  0b01..FTM5 external clock driven by TCLK1 pin.
- *  0b10..FTM5 external clock driven by TCLK2 pin.
- *  0b11..No clock input
- */
-#define SIM_FTMOPT0_FTM5CLKSEL(x)                (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT0_FTM5CLKSEL_SHIFT)) & SIM_FTMOPT0_FTM5CLKSEL_MASK)
-
-#define SIM_FTMOPT0_FTM6CLKSEL_MASK              (0x300000U)
-#define SIM_FTMOPT0_FTM6CLKSEL_SHIFT             (20U)
-/*! FTM6CLKSEL - FTM6 External Clock Pin Select
- *  0b00..FTM6 external clock driven by TCLK0 pin.
- *  0b01..FTM6 external clock driven by TCLK1 pin.
- *  0b10..FTM6 external clock driven by TCLK2 pin.
- *  0b11..No clock input
- */
-#define SIM_FTMOPT0_FTM6CLKSEL(x)                (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT0_FTM6CLKSEL_SHIFT)) & SIM_FTMOPT0_FTM6CLKSEL_MASK)
-
-#define SIM_FTMOPT0_FTM7CLKSEL_MASK              (0xC00000U)
-#define SIM_FTMOPT0_FTM7CLKSEL_SHIFT             (22U)
-/*! FTM7CLKSEL - FTM7 External Clock Pin Select
- *  0b00..FTM7 external clock driven by TCLK0 pin.
- *  0b01..FTM7 external clock driven by TCLK1 pin.
- *  0b10..FTM7 external clock driven by TCLK2 pin.
- *  0b11..No clock input
- */
-#define SIM_FTMOPT0_FTM7CLKSEL(x)                (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT0_FTM7CLKSEL_SHIFT)) & SIM_FTMOPT0_FTM7CLKSEL_MASK)
-
 #define SIM_FTMOPT0_FTM0CLKSEL_MASK              (0x3000000U)
 #define SIM_FTMOPT0_FTM0CLKSEL_SHIFT             (24U)
 /*! FTM0CLKSEL - FTM0 External Clock Pin Select
@@ -507,26 +467,6 @@ typedef struct {
  */
 #define SIM_FTMOPT1_FTM2CH1SEL(x)                (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT1_FTM2CH1SEL_SHIFT)) & SIM_FTMOPT1_FTM2CH1SEL_MASK)
 
-#define SIM_FTMOPT1_FTM4SYNCBIT_MASK             (0x800U)
-#define SIM_FTMOPT1_FTM4SYNCBIT_SHIFT            (11U)
-/*! FTM4SYNCBIT - FTM4 Sync Bit */
-#define SIM_FTMOPT1_FTM4SYNCBIT(x)               (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT1_FTM4SYNCBIT_SHIFT)) & SIM_FTMOPT1_FTM4SYNCBIT_MASK)
-
-#define SIM_FTMOPT1_FTM5SYNCBIT_MASK             (0x1000U)
-#define SIM_FTMOPT1_FTM5SYNCBIT_SHIFT            (12U)
-/*! FTM5SYNCBIT - FTM5 Sync Bit */
-#define SIM_FTMOPT1_FTM5SYNCBIT(x)               (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT1_FTM5SYNCBIT_SHIFT)) & SIM_FTMOPT1_FTM5SYNCBIT_MASK)
-
-#define SIM_FTMOPT1_FTM6SYNCBIT_MASK             (0x2000U)
-#define SIM_FTMOPT1_FTM6SYNCBIT_SHIFT            (13U)
-/*! FTM6SYNCBIT - FTM6 Sync Bit */
-#define SIM_FTMOPT1_FTM6SYNCBIT(x)               (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT1_FTM6SYNCBIT_SHIFT)) & SIM_FTMOPT1_FTM6SYNCBIT_MASK)
-
-#define SIM_FTMOPT1_FTM7SYNCBIT_MASK             (0x4000U)
-#define SIM_FTMOPT1_FTM7SYNCBIT_SHIFT            (14U)
-/*! FTM7SYNCBIT - FTM7 Sync Bit */
-#define SIM_FTMOPT1_FTM7SYNCBIT(x)               (((uint32_t)(((uint32_t)(x)) << SIM_FTMOPT1_FTM7SYNCBIT_SHIFT)) & SIM_FTMOPT1_FTM7SYNCBIT_MASK)
-
 #define SIM_FTMOPT1_FTMGLDOK_MASK                (0x8000U)
 #define SIM_FTMOPT1_FTMGLDOK_SHIFT               (15U)
 /*! FTMGLDOK - FTM global load enable
@@ -570,15 +510,6 @@ typedef struct {
  *  0b1..STOP2 entry successful
  */
 #define SIM_MISCTRL0_STOP2_MONITOR(x)            (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_STOP2_MONITOR_SHIFT)) & SIM_MISCTRL0_STOP2_MONITOR_MASK)
-
-#define SIM_MISCTRL0_FTM_GTB_SPLIT_EN_MASK       (0x4000U)
-#define SIM_MISCTRL0_FTM_GTB_SPLIT_EN_SHIFT      (14U)
-/*! FTM_GTB_SPLIT_EN - FTM GTB split enable/disable bit
- *  0b0..All the FTMs have a single global time-base
- *  0b1..FTM0-3 have a common time-base and others have a different common time-base. Please refer 'FTM global
- *       time base' in FTM chapter for implementation details.
- */
-#define SIM_MISCTRL0_FTM_GTB_SPLIT_EN(x)         (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_FTM_GTB_SPLIT_EN_SHIFT)) & SIM_MISCTRL0_FTM_GTB_SPLIT_EN_MASK)
 
 #define SIM_MISCTRL0_FTM0_OBE_CTRL_MASK          (0x10000U)
 #define SIM_MISCTRL0_FTM0_OBE_CTRL_SHIFT         (16U)
@@ -627,72 +558,6 @@ typedef struct {
  *       capture mode [DECAPEN=1'b1].
  */
 #define SIM_MISCTRL0_FTM3_OBE_CTRL(x)            (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_FTM3_OBE_CTRL_SHIFT)) & SIM_MISCTRL0_FTM3_OBE_CTRL_MASK)
-
-#define SIM_MISCTRL0_FTM4_OBE_CTRL_MASK          (0x100000U)
-#define SIM_MISCTRL0_FTM4_OBE_CTRL_SHIFT         (20U)
-/*! FTM4_OBE_CTRL - FTM4 OBE CTRL bit
- *  0b0..The FTM channel output is put to safe state when the FTM counter is enabled and the FTM channel output is
- *       enabled by Fault Control (FTM_MODE[FAULTM]!=2'b00 and FTM_FLTCTRL[FSTATE]=1'b0) and PWM is enabled
- *       (FTM_SC[PWMENn] = 1'b1). Otherwise the channel output is tristated.
- *  0b1..The FTM channel output state is retained when the channel is in output mode. The output channel is
- *       tristated when the channel is in input capture [DECAPEN=1'b0, COMBINE=1'b0, MSnB:MSnA=2'b00] or dual edge
- *       capture mode [DECAPEN=1'b1].
- */
-#define SIM_MISCTRL0_FTM4_OBE_CTRL(x)            (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_FTM4_OBE_CTRL_SHIFT)) & SIM_MISCTRL0_FTM4_OBE_CTRL_MASK)
-
-#define SIM_MISCTRL0_FTM5_OBE_CTRL_MASK          (0x200000U)
-#define SIM_MISCTRL0_FTM5_OBE_CTRL_SHIFT         (21U)
-/*! FTM5_OBE_CTRL - FTM5 OBE CTRL bit
- *  0b0..The FTM channel output is put to safe state when the FTM counter is enabled and the FTM channel output is
- *       enabled by Fault Control (FTM_MODE[FAULTM]!=2'b00 and FTM_FLTCTRL[FSTATE]=1'b0) and PWM is enabled
- *       (FTM_SC[PWMENn] = 1'b1). Otherwise the channel output is tristated.
- *  0b1..The FTM channel output state is retained when the channel is in output mode. The output channel is
- *       tristated when the channel is in input capture [DECAPEN=1'b0, COMBINE=1'b0, MSnB:MSnA=2'b00] or dual edge
- *       capture mode [DECAPEN=1'b1].
- */
-#define SIM_MISCTRL0_FTM5_OBE_CTRL(x)            (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_FTM5_OBE_CTRL_SHIFT)) & SIM_MISCTRL0_FTM5_OBE_CTRL_MASK)
-
-#define SIM_MISCTRL0_FTM6_OBE_CTRL_MASK          (0x400000U)
-#define SIM_MISCTRL0_FTM6_OBE_CTRL_SHIFT         (22U)
-/*! FTM6_OBE_CTRL - FTM6 OBE CTRL bit
- *  0b0..The FTM channel output is put to safe state when the FTM counter is enabled and the FTM channel output is
- *       enabled by Fault Control (FTM_MODE[FAULTM]!=2'b00 and FTM_FLTCTRL[FSTATE]=1'b0) and PWM is enabled
- *       (FTM_SC[PWMENn] = 1'b1). Otherwise the channel output is tristated.
- *  0b1..The FTM channel output state is retained when the channel is in output mode. The output channel is
- *       tristated when the channel is in input capture [DECAPEN=1'b0, COMBINE=1'b0, MSnB:MSnA=2'b00] or dual edge
- *       capture mode [DECAPEN=1'b1].
- */
-#define SIM_MISCTRL0_FTM6_OBE_CTRL(x)            (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_FTM6_OBE_CTRL_SHIFT)) & SIM_MISCTRL0_FTM6_OBE_CTRL_MASK)
-
-#define SIM_MISCTRL0_FTM7_OBE_CTRL_MASK          (0x800000U)
-#define SIM_MISCTRL0_FTM7_OBE_CTRL_SHIFT         (23U)
-/*! FTM7_OBE_CTRL - FTM7 OBE CTRL bit
- *  0b0..The FTM channel output is put to safe state when the FTM counter is enabled and the FTM channel output is
- *       enabled by Fault Control (FTM_MODE[FAULTM]!=2'b00 and FTM_FLTCTRL[FSTATE]=1'b0) and PWM is enabled
- *       (FTM_SC[PWMENn] = 1'b1). Otherwise the channel output is tristated.
- *  0b1..The FTM channel output state is retained when the channel is in output mode. The output channel is
- *       tristated when the channel is in input capture [DECAPEN=1'b0, COMBINE=1'b0, MSnB:MSnA=2'b00] or dual edge
- *       capture mode [DECAPEN=1'b1].
- */
-#define SIM_MISCTRL0_FTM7_OBE_CTRL(x)            (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_FTM7_OBE_CTRL_SHIFT)) & SIM_MISCTRL0_FTM7_OBE_CTRL_MASK)
-
-#define SIM_MISCTRL0_RMII_CLK_OBE_MASK           (0x1000000U)
-#define SIM_MISCTRL0_RMII_CLK_OBE_SHIFT          (24U)
-/*! RMII_CLK_OBE - RMII CLK OBE bit */
-#define SIM_MISCTRL0_RMII_CLK_OBE(x)             (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_RMII_CLK_OBE_SHIFT)) & SIM_MISCTRL0_RMII_CLK_OBE_MASK)
-
-#define SIM_MISCTRL0_RMII_CLK_SEL_MASK           (0x2000000U)
-#define SIM_MISCTRL0_RMII_CLK_SEL_SHIFT          (25U)
-/*! RMII_CLK_SEL - RMII CLK Select bit */
-#define SIM_MISCTRL0_RMII_CLK_SEL(x)             (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_RMII_CLK_SEL_SHIFT)) & SIM_MISCTRL0_RMII_CLK_SEL_MASK)
-
-#define SIM_MISCTRL0_QSPI_CLK_SEL_MASK           (0x4000000U)
-#define SIM_MISCTRL0_QSPI_CLK_SEL_SHIFT          (26U)
-/*! QSPI_CLK_SEL - QSPI CLK Select bit
- *  0b0..QuadSPI internal reference clock is gated.
- *  0b1..QuadSPI internal reference clock is enabled.
- */
-#define SIM_MISCTRL0_QSPI_CLK_SEL(x)             (((uint32_t)(((uint32_t)(x)) << SIM_MISCTRL0_QSPI_CLK_SEL_SHIFT)) & SIM_MISCTRL0_QSPI_CLK_SEL_MASK)
 /*! @} */
 
 /*! @name SDID - System Device Identification Register */

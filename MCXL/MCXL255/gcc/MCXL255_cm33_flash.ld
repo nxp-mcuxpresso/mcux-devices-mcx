@@ -62,8 +62,19 @@ SECTIONS
     *(.eh_frame)
     KEEP (*(.init))
     KEEP (*(.fini))
+    
     . = ALIGN(4);
+    core1_image_start = .;
+    KEEP (*(.core1_code))
+    *(.core1_code*)
+    core1_image_end = .;
+    core1_image_size = core1_image_end - core1_image_start;
+    . = ALIGN(4) ;
   } > m_text
+
+  /* ASSERT((core1_image_end - core1_image_start) <= m_core1_image_maximum_size, "Core1 image size exceeds the limit") */
+
+
 
   .ARM.extab :
   {

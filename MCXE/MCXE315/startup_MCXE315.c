@@ -2,7 +2,7 @@
 //*****************************************************************************
 // MCXE315 startup code
 //
-// Version : 120525
+// Version : 120625
 //*****************************************************************************
 //
 // Copyright 2016-2025 NXP
@@ -418,7 +418,7 @@ void Reserved121_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved122_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved123_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved124_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FLEXCAN_DriverDataIRQHandler(uint32_t instance, uint32_t start, uint32_t end, uint32_t type) ALIAS(DefaultISR4);
+void FLEXCAN_DriverDataIRQHandler(uint32_t instance, uint32_t start, uint32_t end) ALIAS(DefaultISR3);
 void FLEXCAN_DriverEventIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void Reserved135_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved136_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -1284,7 +1284,7 @@ WEAK_AV void DefaultISR1(uint32_t instance)
     }
 }
 
-WEAK_AV void DefaultISR4(uint32_t instance, uint32_t start, uint32_t end, uint32_t type)
+WEAK_AV void DefaultISR3(uint32_t instance, uint32_t start, uint32_t end)
 {
     while(1)
     {
@@ -1849,17 +1849,17 @@ WEAK void FlexCAN0_0_IRQHandler(void)
 
 WEAK void FlexCAN0_1_IRQHandler(void)
 {
-    FLEXCAN_DriverDataIRQHandler(0U, 0U, 31U, 1U);
+    FLEXCAN_DriverDataIRQHandler(0U, 0U, 31U);
 }
 
 WEAK void FlexCAN0_2_IRQHandler(void)
 {
-    FLEXCAN_DriverDataIRQHandler(0U, 32U, 63U, 0U);
+    FLEXCAN_DriverDataIRQHandler(0U, 32U, 63U);
 }
 
 WEAK void FlexCAN0_3_IRQHandler(void)
 {
-    FLEXCAN_DriverDataIRQHandler(0U, 64U, 95U, 0U);
+    FLEXCAN_DriverDataIRQHandler(0U, 64U, 95U);
 }
 
 WEAK void FlexCAN1_0_IRQHandler(void)
@@ -1869,12 +1869,12 @@ WEAK void FlexCAN1_0_IRQHandler(void)
 
 WEAK void FlexCAN1_1_IRQHandler(void)
 {
-    FLEXCAN_DriverDataIRQHandler(1U, 0U, 31U, 0U);
+    FLEXCAN_DriverDataIRQHandler(1U, 0U, 31U);
 }
 
 WEAK void FlexCAN1_2_IRQHandler(void)
 {
-    FLEXCAN_DriverDataIRQHandler(1U, 32U, 63U, 0U);
+    FLEXCAN_DriverDataIRQHandler(1U, 32U, 63U);
 }
 
 WEAK void FlexCAN2_0_IRQHandler(void)
@@ -1884,12 +1884,12 @@ WEAK void FlexCAN2_0_IRQHandler(void)
 
 WEAK void FlexCAN2_1_IRQHandler(void)
 {
-    FLEXCAN_DriverDataIRQHandler(2U, 0U, 31U, 0U);
+    FLEXCAN_DriverDataIRQHandler(2U, 0U, 31U);
 }
 
 WEAK void FlexCAN2_2_IRQHandler(void)
 {
-    FLEXCAN_DriverDataIRQHandler(2U, 32U, 63U, 0U);
+    FLEXCAN_DriverDataIRQHandler(2U, 32U, 63U);
 }
 
 WEAK void Reserved135_IRQHandler(void)

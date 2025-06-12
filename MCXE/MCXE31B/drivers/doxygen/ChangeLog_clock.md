@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.1.1]
+- Bug fix
+  - Added missed mux source for MUX_9
+  - Delete some redundant mux source for MUX_10
+
 ## [2.1.0]
 - New features
   - Added support for more devices.

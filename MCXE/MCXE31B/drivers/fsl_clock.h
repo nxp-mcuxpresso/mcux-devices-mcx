@@ -20,7 +20,7 @@
 /*! @name Driver version */
 /*@{*/
 /*! @brief CLOCK driver version 2.1.0 */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 1, 0))
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 1, 1))
 /*@}*/
 
 /* Definition for delay API in clock driver, users can redefine it to the real
@@ -602,6 +602,9 @@ typedef enum _clock_attach_id
         CLOCK_DIV_TUPLE(8U, CLOCK_EMAC_RMII_TX_CLK), /*!< Select EMAC_RMII_TX_CLK(pin) as EMAC_TX_CLK  clock source. */
 
     kFIRC_CLK_to_EMAC_TS = CLOCK_DIV_TUPLE(9U, CLOCK_FIRC_CLK), /*!< Select FIRC as EMAC_TS_CLK clock source. */
+    kFXOSC_CLK_to_EMAC_TS = CLOCK_DIV_TUPLE(9U, CLOCK_FXOSC_CLK), /*!< Select FXOSC as EMAC_TS_CLK clock source. */
+    kPLL_PHI0_CLK_to_EMAC_TS =
+        CLOCK_DIV_TUPLE(9U, CLOCK_PLL_PHI0_CLK), /*!< Select PLL_PHI0_CLK as EMAC_TS_CLK clock source. */
     kEMAC_RMII_TX_CLK_to_EMAC_TS =
         CLOCK_DIV_TUPLE(9U, CLOCK_EMAC_RMII_TX_CLK), /*!< Select EMAC_RMII_TX_CLK(pin) as EMAC_TS_CLK  clock source. */
     kEMAC_RX_CLK_to_EMAC_TS =
@@ -611,14 +614,8 @@ typedef enum _clock_attach_id
 #if defined(FSL_FEATURE_CLOCK_HAS_QSPI) && (FSL_FEATURE_CLOCK_HAS_QSPI != 0U)
     kFIRC_CLK_to_QSPI_SFCK  = CLOCK_DIV_TUPLE(10U, CLOCK_FIRC_CLK),  /*!< Select FIRC as QSPI_SFCK clock source. */
     kFXOSC_CLK_to_QSPI_SFCK = CLOCK_DIV_TUPLE(10U, CLOCK_FXOSC_CLK), /*!< Select FXOSC as QSPI_SFCK clock source. */
-    kPLL_PHI0_CLK_to_QSPI_SFCK =
-        CLOCK_DIV_TUPLE(10U, CLOCK_PLL_PHI0_CLK),     /*!< Select PLL_PHI0_CLK as QSPI_SFCK clock source. */
     kPLL_PHI1_CLK_to_QSPI_SFCK =
         CLOCK_DIV_TUPLE(10U, CLOCK_PLL_PHI1_CLK),     /*!< Select PLL_PHI1_CLK as QSPI_SFCK clock source. */
-    kEMAC_RMII_TX_CLK_to_QSPI_SFCK =
-        CLOCK_DIV_TUPLE(10U, CLOCK_EMAC_RMII_TX_CLK), /*!< Select EMAC_RMII_TX_CLK(pin) as QSPI_SFCKe clock source. */
-    kEMAC_RX_CLK_to_QSPI_SFCK =
-        CLOCK_DIV_TUPLE(10U, CLOCK_EMAC_RX_CLK),      /*!< Select EMAC_RX_CLK(pin) as QSPI_SFCK clock source. */
 #endif                                                /* FSL_FEATURE_CLOCK_HAS_QSPI */
 
     kFIRC_CLK_to_TRACE  = CLOCK_DIV_TUPLE(11U, CLOCK_FIRC_CLK),  /*!< Select FIRC as TRACE clock source. */

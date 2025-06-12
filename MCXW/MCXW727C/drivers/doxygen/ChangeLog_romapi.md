@@ -1,5 +1,12 @@
 # ROMAPI
 
+## [1.2.2]
+
+- Improvements
+  - Removed unsupported properties from the flash_get_property API.
+  - The flash_get_property API now always returns kStatus_FLASH_Success.
+  - Enabled the FLASH_VerifyEraseBlock API.
+
 ## [1.2.1]
 
 - Improvements

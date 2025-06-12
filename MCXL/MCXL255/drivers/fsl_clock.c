@@ -636,7 +636,7 @@ uint32_t CLOCK_GetFreq(clock_name_t clockName)
             break;
 #endif /* Building on the main core */
         case kCLOCK_Fro16k: /* AON PAC and SMM clock. */
-            freq = 16000U;
+            freq = 16384U;
             break;
         case kCLOKC_FroAON: /* AON functional clock. this is wrong add kCLOKC_FroAON */
             freq = CLOCK_GetFroAonFreq();

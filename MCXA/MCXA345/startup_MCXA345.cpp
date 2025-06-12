@@ -1,7 +1,7 @@
 //*****************************************************************************
 // MCXA345 startup code
 //
-// Version : 130525
+// Version : 100625
 //*****************************************************************************
 //
 // Copyright 2016-2025 NXP
@@ -413,6 +413,8 @@ extern void *__Vectors __attribute__((alias("g_pfnVectors")));
 __attribute__((used, section(".isr_vector"))) void (*const g_pfnVectors[])(void) = {
 #elif defined(__ICCARM__)
 extern void (*const __vector_table[])(void);
+/* The vector table is not needed for initialization. */
+extern void (*const __iar_init$$done[])(void) __attribute__((alias("__vector_table")));
 __attribute__((used, section(".intvec"))) void (*const __vector_table[])(void) = {
 #elif defined(__GNUC__)
 extern void (*const __isr_vector[])(void);

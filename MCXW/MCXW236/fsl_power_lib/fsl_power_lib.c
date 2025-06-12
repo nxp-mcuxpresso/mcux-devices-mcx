@@ -1371,6 +1371,11 @@ void POWER_Init(void)
         POWER_DCDC_SetSupplyMode(kDCDC_MODE_XR_SM_DS);
     }
 
+    /* In case system woke up from os timer event in deep power down, PMC register 
+     * needs to be cleared to avoid undesired future wakeup from ostimer.
+     * (because PMC registers are not cleared automatically after reset or wakeup.) */
+    PMC->OSTIMERr &= ~PMC_OSTIMER_DPDWAKEUPENABLE_MASK;
+
     /* Clean-up boot-loader leftovers that consume power */
     /* Disable all unused clocks that are on by default after boot */
     CLOCK_DisableClock(kCLOCK_Rng);

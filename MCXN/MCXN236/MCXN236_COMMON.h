@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXN23XRM
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b250521
+**     Build:               b250613
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN236
@@ -2655,9 +2655,9 @@ typedef enum IRQn {
 /* USBHSDCD - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
   /** Peripheral USBHS1_PHY_DCD base address */
-  #define USBHS1_PHY_DCD_BASE                      (0x5010A000u)
+  #define USBHS1_PHY_DCD_BASE                      (0x5010A800u)
   /** Peripheral USBHS1_PHY_DCD base address */
-  #define USBHS1_PHY_DCD_BASE_NS                   (0x4010A000u)
+  #define USBHS1_PHY_DCD_BASE_NS                   (0x4010A800u)
   /** Peripheral USBHS1_PHY_DCD base pointer */
   #define USBHS1_PHY_DCD                           ((USBHSDCD_Type *)USBHS1_PHY_DCD_BASE)
   /** Peripheral USBHS1_PHY_DCD base pointer */
@@ -2672,7 +2672,7 @@ typedef enum IRQn {
   #define USBHSDCD_BASE_PTRS_NS                    { USBHS1_PHY_DCD_NS }
 #else
   /** Peripheral USBHS1_PHY_DCD base address */
-  #define USBHS1_PHY_DCD_BASE                      (0x4010A000u)
+  #define USBHS1_PHY_DCD_BASE                      (0x4010A800u)
   /** Peripheral USBHS1_PHY_DCD base pointer */
   #define USBHS1_PHY_DCD                           ((USBHSDCD_Type *)USBHS1_PHY_DCD_BASE)
   /** Array initializer of USBHSDCD peripheral base addresses */

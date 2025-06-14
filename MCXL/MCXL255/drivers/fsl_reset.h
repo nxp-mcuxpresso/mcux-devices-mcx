@@ -72,18 +72,19 @@ typedef enum _SYSCON_RSTn
 #endif /* Building on the main core */
 
     /* Check AON CGU RST_SUB_BLK in RM */
-    kAonUART_RST_SHIFT_RSTn    = ((2U << 8) | (0U)),  /*!< AON UART    reset control */
-    kAonI2C_RST_SHIFT_RSTn     = ((2U << 8) | (1U)),  /*!< AON I2C     reset control */
-    kAonCAL_RST_SHIFT_RSTn     = ((2U << 8) | (2U)),  /*!< AON CAL     reset control */
-    kAonQTMR0_RST_SHIFT_RSTn   = ((2U << 8) | (5U)),  /*!< AON QTMR0   reset control */
-    kAonLPTMR_RST_SHIFT_RSTn   = ((2U << 8) | (7U)),  /*!< AON LPTMR   reset control */
-    kAonKPP_RST_SHIFT_RSTn     = ((2U << 8) | (8U)),  /*!< AON KPP     reset control */
-    kAonLPADC_RST_SHIFT_RSTn   = ((2U << 8) | (9U)),  /*!< AON LPADC   reset control */
-    kAonLCD_RST_SHIFT_RSTn     = ((2U << 8) | (10U)), /*!< AON LCD     reset control */
-    kAonCMP0_RST_SHIFT_RSTn    = ((2U << 8) | (12U)), /*!< AON ACMP    reset control */
-    kAonADVC2P0_RST_SHIFT_RSTn = ((2U << 8) | (13U)), /*!< AON ADVC2P0 reset control */
+    kAonUART_RST_SHIFT_RSTn     = ((2U << 8) | (0U)),  /*!< AON UART    reset control */
+    kAonI2C_RST_SHIFT_RSTn      = ((2U << 8) | (1U)),  /*!< AON I2C     reset control */
+    kAonCAL_RST_SHIFT_RSTn      = ((2U << 8) | (2U)),  /*!< AON CAL     reset control */
+    kAonQTMR0_RST_SHIFT_RSTn    = ((2U << 8) | (5U)),  /*!< AON QTMR0   reset control */
+    kAonLPTMR_RST_SHIFT_RSTn    = ((2U << 8) | (7U)),  /*!< AON LPTMR   reset control */
+    kAonKPP_RST_SHIFT_RSTn      = ((2U << 8) | (8U)),  /*!< AON KPP     reset control */
+    kAonLPADC_RST_SHIFT_RSTn    = ((2U << 8) | (9U)),  /*!< AON LPADC   reset control */
+    kAonLCD_RST_SHIFT_RSTn      = ((2U << 8) | (10U)), /*!< AON LCD     reset control */
+    kAonSecurity_RST_SHIFT_RSTn = ((2U << 8) | (11U)), /*!< AON Security reset control */
+    kAonCMP0_RST_SHIFT_RSTn     = ((2U << 8) | (12U)), /*!< AON ACMP    reset control */
+    kAonADVC2P0_RST_SHIFT_RSTn  = ((2U << 8) | (13U)), /*!< AON ADVC2P0 reset control */
 
-    NotAvail_RSTn              = (0xFFFFU),            /*!< No          reset control */
+    NotAvail_RSTn = (0xFFFFU),                         /*!< No          reset control */
 } SYSCON_RSTn_t;
 
 #if __CORTEX_M == (33U) /* Building on the main core */

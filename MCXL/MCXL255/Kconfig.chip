@@ -288,3 +288,8 @@ config MCUX_HW_IP_DriverType_ERM
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+
+config MCUX_HW_IP_DriverType_RTC_ANALOG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXL255xxx

@@ -5,6 +5,7 @@
 menu "Device specific drivers configuration"
     rsource "./Kconfig_clock"
     rsource "./Kconfig_dcm_gpr"
+    rsource "./Kconfig_dcm"
     rsource "./Kconfig_edma_soc"
     rsource "./Kconfig_memory"
     rsource "./Kconfig_siul2"

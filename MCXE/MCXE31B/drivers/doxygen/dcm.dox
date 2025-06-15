@@ -1,0 +1,9 @@
+/*!
+@defgroup dcm DCM: Device Configuration Module
+@details The MCUXpresso SDK provides a driver for the Device Configuration Module.
+
+The DCM driver supports:
+- DCF scan status
+- Life cycle control and status
+
+*/

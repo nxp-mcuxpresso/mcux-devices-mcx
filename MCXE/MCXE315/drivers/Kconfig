@@ -5,6 +5,7 @@
 menu "Device specific drivers configuration"
     rsource "../../MCXE31B/drivers/Kconfig_clock"
     rsource "../../MCXE31B/drivers/Kconfig_dcm_gpr"
+    rsource "../../MCXE31B/drivers/Kconfig_dcm"
     rsource "../../MCXE31B/drivers/Kconfig_edma_soc"
     rsource "../../MCXE31B/drivers/Kconfig_memory"
     rsource "../../MCXE31B/drivers/Kconfig_siul2"

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250604
+**     Build:               b250616
 **
 **     Abstract:
 **         Chip specific module features.
@@ -246,8 +246,6 @@
 #define FSL_FEATURE_EDMA_HAS_SOC_REQUEST_ENABLE (0)
 /* @brief Has register bit fields CH_MATTR[WCACHE], CH_MATTR[RCACHE]. */
 #define FSL_FEATURE_EDMA_HAS_CHANNEL_MEMORY_ATTRIBUTE (0)
-/* @brief TCD has clock control. */
-#define FSL_FEATURE_EDMA_HAS_EDMA_TCD_CLOCK_ENABLE (1)
 /* @brief Instance has register CH_MATTR. */
 #define FSL_FEATURE_EDMA_INSTANCE_HAS_CHANNEL_MEMORY_ATTRIBUTEn(x) (0)
 /* @brief Has register bit field CH_CSR[SIGNEXT]. */
@@ -268,6 +266,8 @@
 #define FSL_FEATURE_EDMA_TCD_TYPEn(x) (0)
 /* @brief Number of DMA channels with asynchronous request capability. */
 #define FSL_FEATURE_EDMA_ASYNCHRO_REQUEST_CHANNEL_COUNT (12)
+/* @brief TCD has clock control. */
+#define FSL_FEATURE_EDMA_HAS_EDMA_TCD_CLOCK_ENABLE (1)
 
 /* FLASH_C40 module features */
 
@@ -308,6 +308,8 @@
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_6032 (0)
 /* @brief Is affected by errata with ID 9595 (FlexCAN: Corrupt frame possible if the Freeze Mode or the Low-Power Mode are entered during a Bus-Off state). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_9595 (0)
+/* @brief Is affected by errata with ID 052403. */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_052403 (1)
 /* @brief Has CAN with Flexible Data rate (CAN FD) protocol. */
 #define FSL_FEATURE_FLEXCAN_HAS_FLEXIBLE_DATA_RATE (1)
 /* @brief CAN instance support Flexible Data rate (CAN FD) protocol. */

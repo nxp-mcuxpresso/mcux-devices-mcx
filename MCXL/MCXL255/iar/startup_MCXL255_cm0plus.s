@@ -3,8 +3,8 @@
 ;  @purpose: CMSIS Cortex-M0P Core Device Startup File
 ;            MCXL255_cm0plus
 ;  @version: 1.0
-;  @date:    2023-1-9
-;  @build:   b250422
+;  @date:    2025-6-13
+;  @build:   b250616
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.

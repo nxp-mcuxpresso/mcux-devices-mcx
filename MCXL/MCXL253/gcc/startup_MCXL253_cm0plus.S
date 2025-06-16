@@ -3,8 +3,8 @@
 /*  @purpose: CMSIS Cortex-M0P Core Device Startup File                      */
 /*            MCXL253_cm0plus                                                */
 /*  @version: 1.0                                                            */
-/*  @date:    2023-1-9                                                       */
-/*  @build:   b250422                                                        */
+/*  @date:    2025-6-13                                                      */
+/*  @build:   b250616                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -251,8 +251,9 @@ Reserved18_IRQHandler:
     .weak LPUART0_AON_IRQHandler
     .type LPUART0_AON_IRQHandler, %function
 LPUART0_AON_IRQHandler:
-    ldr   r0,=LPUART0_AON_DriverIRQHandler
-    bx    r0
+    ldr     R1, =LPUART_DriverIRQHandler
+    ldr     R0, =2 /*instance number from MCXL255_cm0plus_COMMON.h*/
+    bx      R1
     .size LPUART0_AON_IRQHandler, . - LPUART0_AON_IRQHandler
 
     .align 1

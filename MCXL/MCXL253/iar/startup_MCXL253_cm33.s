@@ -3,8 +3,8 @@
 ;  @purpose: CMSIS Cortex-M33 Core Device Startup File
 ;            MCXL253_cm33
 ;  @version: 1.0
-;  @date:    2023-1-9
-;  @build:   b250422
+;  @date:    2025-6-13
+;  @build:   b250616
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -526,18 +526,19 @@ Reserved46_IRQHandler
         BX      R0
 
         PUBWEAK LPUART0_IRQHandler
-        PUBWEAK LPUART0_DriverIRQHandler
+        PUBWEAK LPUART_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 LPUART0_IRQHandler
-        LDR     R0, =LPUART0_DriverIRQHandler
-        BX      R0
+        LDR     R1, =LPUART_DriverIRQHandler
+        LDR     R0, =0 ;instance number
+        BX      R1
 
         PUBWEAK LPUART1_IRQHandler
-        PUBWEAK LPUART1_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 LPUART1_IRQHandler
-        LDR     R0, =LPUART1_DriverIRQHandler
-        BX      R0
+        LDR     R1, =LPUART_DriverIRQHandler
+        LDR     R0, =1 ;instance number  
+        BX      R1
 
         PUBWEAK Reserved49_IRQHandler
         PUBWEAK Reserved49_DriverIRQHandler
@@ -1219,11 +1220,11 @@ Reserved145_IRQHandler
         BX      R0
 
         PUBWEAK LPUART0_AON_IRQHandler
-        PUBWEAK LPUART0_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 LPUART0_AON_IRQHandler
-        LDR     R0, =LPUART0_AON_DriverIRQHandler
-        BX      R0
+        LDR     R1, =LPUART_DriverIRQHandler
+        LDR     R0, =2 ;instance number
+        BX      R1
 
         PUBWEAK Reserved147_IRQHandler
         PUBWEAK Reserved147_DriverIRQHandler
@@ -1473,8 +1474,8 @@ LPI2C1_DriverIRQHandler
 LPSPI0_DriverIRQHandler
 LPSPI1_DriverIRQHandler
 Reserved46_DriverIRQHandler
-LPUART0_DriverIRQHandler
-LPUART1_DriverIRQHandler
+LPUART_DriverIRQHandler
+LPUART_DriverIRQHandler
 Reserved49_DriverIRQHandler
 Reserved50_DriverIRQHandler
 Reserved51_DriverIRQHandler
@@ -1572,7 +1573,7 @@ Reserved142_DriverIRQHandler
 Reserved143_DriverIRQHandler
 LPI2C0_AON_DriverIRQHandler
 Reserved145_DriverIRQHandler
-LPUART0_AON_DriverIRQHandler
+LPUART_DriverIRQHandler
 Reserved147_DriverIRQHandler
 GPIO00_AON_DriverIRQHandler
 GPIO01_AON_DriverIRQHandler

@@ -1,11 +1,11 @@
 /*
 ** ###################################################################
-**     Processors:          MCXL255VDF_cm0plus
-**                          MCXL255VLL_cm0plus
+**     Processors:          MCXL253VDF_cm33
+**                          MCXL253VLL_cm33
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXL25xRM DraftH
-**     Version:             rev. 0.9, 2025-06-13
+**     Version:             rev. 1.0, 2025-06-13
 **     Build:               b250616
 **
 **     Abstract:
@@ -27,14 +27,14 @@
 ENTRY(Reset_Handler)
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
-STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
+STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
 
 /* Specify the memory areas */
 MEMORY
 {
-  m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x000000C0
-  m_text                (RX)  : ORIGIN = 0x000000C0, LENGTH = 0x00005000
-  m_data                (RW)  : ORIGIN = 0x00005000, LENGTH = 0x00008000
+  m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x000002C8
+  m_text                (RX)  : ORIGIN = 0x000002C8, LENGTH = 0x0001DD38
+  m_data                (RW)  : ORIGIN = 0x28000000, LENGTH = 0x00008000
 }
 
 /* Define output sections */
@@ -61,7 +61,14 @@ SECTIONS
     *(.eh_frame)
     KEEP (*(.init))
     KEEP (*(.fini))
+
     . = ALIGN(4);
+    core1_image_start = .;
+    KEEP (*(.core1_code))
+    *(.core1_code*)
+    core1_image_end = .;
+    core1_image_size = core1_image_end - core1_image_start;
+    . = ALIGN(4) ;
   } > m_text
 
   .ARM.extab :
@@ -196,4 +203,3 @@ SECTIONS
 
   ASSERT(__StackLimit >= __HeapLimit, "region m_data overflowed with stack and heap")
 }
-

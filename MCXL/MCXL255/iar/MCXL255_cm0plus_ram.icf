@@ -4,9 +4,9 @@
 **                          MCXL255VLL_cm0plus
 **
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
-**     Reference manual:    MCXL25xRM DraftF
-**     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250129
+**     Reference manual:    MCXL25xRM DraftH
+**     Version:             rev. 1.0, 2025-06-13
+**     Build:               b250616
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -79,6 +79,7 @@ if (isdefinedsymbol(__use_shmem__)) {
   do not initialize  { section rpmsg_sh_mem_section };
 }
 
+
 place at address mem: m_interrupts_start    { readonly section .intvec };
 place in TEXT_region                        { readonly };
 place in DATA_region                        { block RW };
@@ -89,4 +90,3 @@ place in CSTACK_region                      { block CSTACK };
 if (isdefinedsymbol(__use_shmem__)) {
   place in rpmsg_sh_mem_region                { section rpmsg_sh_mem_section };
 }
-

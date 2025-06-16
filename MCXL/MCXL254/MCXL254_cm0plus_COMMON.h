@@ -8,9 +8,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    MCXL25xRM DraftF
-**     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250422
+**     Reference manual:    MCXL25xRM DraftH
+**     Version:             rev. 1.0, 2025-06-13
+**     Build:               b250616
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL254_cm0plus
@@ -23,8 +23,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-01-09)
-**         Generated based on Rev1 DraftI.
+**     - rev. 1.0 (2025-06-13)
+**         Generated based on Rev1 DraftH.
 **
 ** ###################################################################
 */
@@ -32,7 +32,7 @@
 /*!
  * @file MCXL254_cm0plus_COMMON.h
  * @version 1.0
- * @date 2023-01-09
+ * @date 2025-06-13
  * @brief CMSIS Peripheral Access Layer for MCXL254_cm0plus
  *
  * CMSIS Peripheral Access Layer for MCXL254_cm0plus
@@ -96,7 +96,7 @@ typedef enum IRQn {
   TMR1_AON_IRQn                = 25,               /**< ORed QTMR Interrupts */
   LCSENSE_IRQn                 = 27,               /**< LCSense Fault/Tamper Interrupt */
   LPTMR_AON_IRQn               = 28,               /**< Low Power Timer 0 interrupt */
-  CMP0_AON_IRQn                = 30,               /**< Comparator interrupt */
+  ACMP0_AON_IRQn               = 30,               /**< Comparator interrupt */
   ADVC_IRQn                    = 31                /**< ADVC_2.0 Controller Interrupt */
 } IRQn_Type;
 
@@ -121,18 +121,17 @@ typedef enum IRQn {
 #define __Vendor_SysTickConfig         0         /**< Vendor specific implementation of SysTickConfig is defined */
 
 #include "core_cm0plus.h"              /* Core Peripheral Access Layer */
-#include "system_MCXL254_cm0plus.h"    /* Device specific configuration file */
+#include "system_MCXL255_cm0plus.h"    /* Device specific configuration file */
 
 /*!
  * @}
  */ /* end of group Cortex_Core_Configuration */
 
-
-#ifndef MCXL254_cm0plus_SERIES
-#define MCXL254_cm0plus_SERIES
+#ifndef MCXL255_cm0plus_SERIES
+#define MCXL255_cm0plus_SERIES
 #endif
 /* CPU specific feature definitions */
-#include "MCXL254_cm0plus_features.h"
+#include "MCXL255_cm0plus_features.h"
 
 /* CGU - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
@@ -314,32 +313,34 @@ typedef enum IRQn {
 
 /* LPCMP - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral AON__CMP0 base address */
-  #define AON__CMP0_BASE                           (0xB0086000u)
-  /** Peripheral AON__CMP0 base address */
-  #define AON__CMP0_BASE_NS                        (0xA0086000u)
-  /** Peripheral AON__CMP0 base pointer */
-  #define AON__CMP0                                ((LPCMP_Type *)AON__CMP0_BASE)
-  /** Peripheral AON__CMP0 base pointer */
-  #define AON__CMP0_NS                             ((LPCMP_Type *)AON__CMP0_BASE_NS)
+  /** Peripheral AON__ACMP0 base address */
+  #define AON__ACMP0_BASE                          (0xB0086000u)
+  /** Peripheral AON__ACMP0 base address */
+  #define AON__ACMP0_BASE_NS                       (0xA0086000u)
+  /** Peripheral AON__ACMP0 base pointer */
+  #define AON__ACMP0                               ((LPCMP_Type *)AON__ACMP0_BASE)
+  /** Peripheral AON__ACMP0 base pointer */
+  #define AON__ACMP0_NS                            ((LPCMP_Type *)AON__ACMP0_BASE_NS)
   /** Array initializer of LPCMP peripheral base addresses */
-  #define LPCMP_BASE_ADDRS                         { AON__CMP0_BASE }
+  #define LPCMP_BASE_ADDRS                         { AON__ACMP0_BASE }
   /** Array initializer of LPCMP peripheral base pointers */
-  #define LPCMP_BASE_PTRS                          { AON__CMP0 }
+  #define LPCMP_BASE_PTRS                          { AON__ACMP0 }
   /** Array initializer of LPCMP peripheral base addresses */
-  #define LPCMP_BASE_ADDRS_NS                      { AON__CMP0_BASE_NS }
+  #define LPCMP_BASE_ADDRS_NS                      { AON__ACMP0_BASE_NS }
   /** Array initializer of LPCMP peripheral base pointers */
-  #define LPCMP_BASE_PTRS_NS                       { AON__CMP0_NS }
+  #define LPCMP_BASE_PTRS_NS                       { AON__ACMP0_NS }
 #else
-  /** Peripheral AON__CMP0 base address */
-  #define AON__CMP0_BASE                           (0xA0086000u)
-  /** Peripheral AON__CMP0 base pointer */
-  #define AON__CMP0                                ((LPCMP_Type *)AON__CMP0_BASE)
+  /** Peripheral AON__ACMP0 base address */
+  #define AON__ACMP0_BASE                          (0xA0086000u)
+  /** Peripheral AON__ACMP0 base pointer */
+  #define AON__ACMP0                               ((LPCMP_Type *)AON__ACMP0_BASE)
   /** Array initializer of LPCMP peripheral base addresses */
-  #define LPCMP_BASE_ADDRS                         { AON__CMP0_BASE }
+  #define LPCMP_BASE_ADDRS                         { AON__ACMP0_BASE }
   /** Array initializer of LPCMP peripheral base pointers */
-  #define LPCMP_BASE_PTRS                          { AON__CMP0 }
+  #define LPCMP_BASE_PTRS                          { AON__ACMP0 }
 #endif
+/** Interrupt vectors for the LPCMP peripheral type */
+#define LPCMP_IRQS                               { ACMP0_AON_IRQn }
 
 /* LPI2C - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
@@ -576,6 +577,9 @@ typedef enum IRQn {
   /** Array initializer of SGLCD_CONTROL peripheral base pointers */
   #define SGLCD_CONTROL_BASE_PTRS                  { AON__SGLCD0_AON }
 #endif
+
+/** Interrupt vectors for the LCD_CONTROL peripheral type */
+#define SGLCD_CONTROL_IRQS { SGLCD_AON_IRQn }
 
 /* SMM - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))

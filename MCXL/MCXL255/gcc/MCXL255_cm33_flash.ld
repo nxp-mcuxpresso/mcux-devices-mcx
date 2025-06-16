@@ -4,15 +4,15 @@
 **                          MCXL255VLL_cm33
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXL25xRM DraftF
-**     Version:             rev. 1.0, 2023-01-09
-**     Build:               b241211
+**     Reference manual:    MCXL25xRM DraftH
+**     Version:             rev. 1.0, 2025-06-13
+**     Build:               b250616
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -33,7 +33,7 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x000002C8
-  m_text                (RX)  : ORIGIN = 0x000002C8, LENGTH = 0x0007FD38
+  m_text                (RX)  : ORIGIN = 0x000002C8, LENGTH = 0x0007DD38
   m_data                (RW)  : ORIGIN = 0x28000000, LENGTH = 0x0001E000
   m_sramx0              (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00002000
 }
@@ -62,7 +62,7 @@ SECTIONS
     *(.eh_frame)
     KEEP (*(.init))
     KEEP (*(.fini))
-    
+
     . = ALIGN(4);
     core1_image_start = .;
     KEEP (*(.core1_code))
@@ -71,10 +71,6 @@ SECTIONS
     core1_image_size = core1_image_end - core1_image_start;
     . = ALIGN(4) ;
   } > m_text
-
-  /* ASSERT((core1_image_end - core1_image_start) <= m_core1_image_maximum_size, "Core1 image size exceeds the limit") */
-
-
 
   .ARM.extab :
   {
@@ -208,4 +204,3 @@ SECTIONS
 
   ASSERT(__StackLimit >= __HeapLimit, "region m_data overflowed with stack and heap")
 }
-

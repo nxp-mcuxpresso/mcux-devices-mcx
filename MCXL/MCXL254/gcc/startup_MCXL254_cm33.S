@@ -3,8 +3,8 @@
 /*  @purpose: CMSIS Cortex-M33 Core Device Startup File                      */
 /*            MCXL254_cm33                                                   */
 /*  @version: 1.0                                                            */
-/*  @date:    2023-1-9                                                       */
-/*  @build:   b250422                                                        */
+/*  @date:    2025-6-13                                                      */
+/*  @build:   b250616                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -660,8 +660,9 @@ Reserved46_IRQHandler:
     .weak LPUART0_IRQHandler
     .type LPUART0_IRQHandler, %function
 LPUART0_IRQHandler:
-    ldr   r0,=LPUART0_DriverIRQHandler
-    bx    r0
+    ldr   r1, =LPUART0_DriverIRQHandler
+    ldr   r0, =0 /*instance number*/
+    bx    r1
     .size LPUART0_IRQHandler, . - LPUART0_IRQHandler
 
     .align 1
@@ -669,8 +670,9 @@ LPUART0_IRQHandler:
     .weak LPUART1_IRQHandler
     .type LPUART1_IRQHandler, %function
 LPUART1_IRQHandler:
-    ldr   r0,=LPUART1_DriverIRQHandler
-    bx    r0
+    ldr   r1, =LPUART1_DriverIRQHandler
+    ldr   r0, =1 /*instance number*/
+    bx    r1
     .size LPUART1_IRQHandler, . - LPUART1_IRQHandler
 
     .align 1
@@ -1551,8 +1553,9 @@ Reserved145_IRQHandler:
     .weak LPUART0_AON_IRQHandler
     .type LPUART0_AON_IRQHandler, %function
 LPUART0_AON_IRQHandler:
-    ldr   r0,=LPUART0_AON_DriverIRQHandler
-    bx    r0
+    ldr   r1, =LPUART0_AON_DriverIRQHandler
+    ldr   r0, =1 /*instance number*/
+    bx    r1
     .size LPUART0_AON_IRQHandler, . - LPUART0_AON_IRQHandler
 
     .align 1

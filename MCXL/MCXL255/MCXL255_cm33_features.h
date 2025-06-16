@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
-**     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250422
+**     Version:             rev. 1.0, 2025-06-13
+**     Build:               b250616
 **
 **     Abstract:
 **         Chip specific module features.
@@ -14,8 +14,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-01-09)
-**         Generated based on Rev1 DraftI.
+**     - rev. 1.0 (2025-06-13)
+**         Generated based on Rev1 DraftH.
 **
 ** ###################################################################
 */
@@ -49,9 +49,6 @@
 #define FSL_FEATURE_SOC_INPUTMUX_COUNT (2)
 /* @brief KPP availability on the SoC. */
 #define FSL_FEATURE_SOC_KPP_COUNT (1)
-/* @brief LCD availability on the SoC. */
-#define FSL_FEATURE_SOC_LCD_COUNT (1)
-#define FSL_FEATURE_LCD_HAS_FAULT_DETECT (1)
 /* @brief LPADC availability on the SoC. */
 #define FSL_FEATURE_SOC_LPADC_COUNT (2)
 /* @brief LPCMP availability on the SoC. */
@@ -78,6 +75,10 @@
 #define FSL_FEATURE_SOC_RTC_COUNT (1)
 /* @brief SCG availability on the SoC. */
 #define FSL_FEATURE_SOC_SCG_COUNT (1)
+/* @brief LCD availability on the SoC. */
+#define FSL_FEATURE_SOC_SLCD_COUNT (1)
+#define FSL_FEATURE_SOC_LCD_COUNT (1)
+#define FSL_FEATURE_LCD_HAS_FAULT_DETECT (1)
 /* @brief SYSCON availability on the SoC. */
 #define FSL_FEATURE_SOC_SYSCON_COUNT (2)
 /* @brief TMR availability on the SoC. */
@@ -88,6 +89,45 @@
 #define FSL_FEATURE_SOC_WWDT_COUNT (1)
 /* @brief WUU availability on the SoC. */
 #define FSL_FEATURE_SOC_WUU_COUNT (1)
+
+/* LPCMP module features */
+
+/* @brief Has CCR1 FUNC_CLK_SEL bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_CCR1_FUNC_CLK_SEL (1)
+/* @brief Has IER RRF_IE bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_IER_RRF_IE (1)
+/* @brief Has CSR RRF bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_CSR_RRF (1)
+/* @brief Has Round Robin mode (related to existence of registers RRCR0). */
+#define FSL_FEATURE_LPCMP_HAS_ROUNDROBIN_MODE (1)
+/* @brief Has window mode (related to existence of CCR1.WINDOW_CLS). */
+#define FSL_FEATURE_LPCMP_HAS_WINDOW_CONTROL (1)
+/* @brief Has no CCR0 CMP_STOP_EN bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_NO_CCR0_CMP_STOP_EN (0)
+/* @brief Has RRCR0 RR_CLK_SEL bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_CLK_SEL (1)
+/* @brief Has RRCR0 RR_TRG_SEL bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_TRG_SEL (1)
+/* @brief Has RRCR0 RR_SAMPLE_CNT bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_SAMPLE_CNT (1)
+/* @brief Has RRCR0 RR_SAMPLE_THRESHOLD bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_SAMPLE_THRESHOLD (1)
+/* @brief Has CCR2 INPSEL bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_CCR2_INPSEL (0)
+/* @brief Has CCR2 INMSEL bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_CCR2_INMSEL (0)
+/* @brief Has CCR2 CMP_NPMD bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_CCR2_CMP_NPMD (1)
+/* @brief Has DCR DAC_HPMD bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_DCR_DAC_HPMD (1)
+/* @brief Has CCR0 LINKEN bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_CCR0_LINKEN (0)
+/* @brief Has RRCR2 register. */
+#define FSL_FEATURE_LPCMP_HAS_RRCR2 (1)
+/* @brief Has CCR0 CMP_STOP_EN bitfield. */
+#define FSL_FEATURE_LPCMP_HAS_CCR0_CMP_STOP_EN (1)
+/* @brief CMP instance support CCR0 CMP_STOP_EN bitfield. */
+#define FSL_FEATURE_LPCMP_INSTANCE_SUPPORT_CCR0_CMP_STOP_ENn(x) (1)
 
 /* LPADC module features */
 
@@ -169,23 +209,6 @@
 /* @brief Number of events related to number of registers AOIx_BFCRT01n/AOIx_BFCRT23n. */
 #define FSL_FEATURE_AOI_EVENT_COUNT (4)
 
-/* LPCMP module features */
-
-/* @brief Has CCR1 FUNC_CLK_SEL bitfield. */
-#define FSL_FEATURE_LPCMP_HAS_CCR1_FUNC_CLK_SEL (1)
-/* @brief Has IER RRF_IE bitfield. */
-#define FSL_FEATURE_LPCMP_HAS_IER_RRF_IE (1)
-/* @brief Has CSR RRF bitfield. */
-#define FSL_FEATURE_LPCMP_HAS_CSR_RRF (1)
-/* @brief Has Round Robin mode (related to existence of registers RRCR0). */
-#define FSL_FEATURE_LPCMP_HAS_ROUNDROBIN_MODE (1)
-/* @brief Has window mode (related to existence of CCR1.WINDOW_CLS). */
-#define FSL_FEATURE_LPCMP_HAS_WINDOW_CONTROL (1)
-/* @brief Has CCR0 CMP_STOP_EN bitfield. */
-#define FSL_FEATURE_LPCMP_HAS_CCR0_CMP_STOP_EN (1)
-/* @brief CMP instance support CCR0 CMP_STOP_EN bitfield. */
-#define FSL_FEATURE_LPCMP_INSTANCE_SUPPORT_CCR0_CMP_STOP_ENn(x) (1)
-
 /* GPIO module features */
 
 /* @brief Has GPIO attribute checker register (GACR). */
@@ -208,6 +231,8 @@
     (((x) == LPI2C0) ? (4) : \
     (((x) == LPI2C1) ? (4) : \
     (((x) == AON__LPI2C0) ? (16) : (-1))))
+/* @brief Has dedicated interrupt for master and slave. */
+#define FSL_FEATURE_LPI2C_HAS_ROLE_SPLIT_IRQ (0)
 
 /* LPTMR module features */
 
@@ -218,11 +243,11 @@
 /* @brief Has timer DMA request enable (register bit CSR[TDRE]). */
 #define FSL_FEATURE_LPTMR_HAS_CSR_TDRE (1)
 /* @brief Do not has prescaler clock source 0. */
-#define FSL_FEATURE_LPTMR_HAS_NO_PRESCALER_CLOCK_SOURCE_0_SUPPORT (1)
+#define FSL_FEATURE_LPTMR_HAS_NO_PRESCALER_CLOCK_SOURCE_0_SUPPORT (0)
 /* @brief Do not has prescaler clock source 1. */
 #define FSL_FEATURE_LPTMR_HAS_NO_PRESCALER_CLOCK_SOURCE_1_SUPPORT (0)
 /* @brief Do not has prescaler clock source 2. */
-#define FSL_FEATURE_LPTMR_HAS_NO_PRESCALER_CLOCK_SOURCE_2_SUPPORT (1)
+#define FSL_FEATURE_LPTMR_HAS_NO_PRESCALER_CLOCK_SOURCE_2_SUPPORT (0)
 /* @brief Do not has prescaler clock source 3. */
 #define FSL_FEATURE_LPTMR_HAS_NO_PRESCALER_CLOCK_SOURCE_3_SUPPORT (0)
 
@@ -284,9 +309,9 @@
 /* @brief UART stops in Wait mode available (has bit C1[UARTSWAI]). */
 #define FSL_FEATURE_LPUART_HAS_WAIT_MODE_OPERATION (0)
 /* @brief Has separate DMA RX and TX requests. */
-#define FSL_FEATURE_LPUART_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
+#define FSL_FEATURE_LPUART_HAS_SEPARATE_DMA_RX_TX_REQn(x) (0)
 /* @brief Has separate RX and TX interrupts. */
-#define FSL_FEATURE_LPUART_HAS_SEPARATE_RX_TX_IRQ (0)
+#define FSL_FEATURE_LPUART_HAS_SEPARATE_RX_TX_IRQ (1)
 /* @brief Has LPAURT_PARAM. */
 #define FSL_FEATURE_LPUART_HAS_PARAM (1)
 /* @brief Has LPUART_VERID. */
@@ -295,12 +320,16 @@
 #define FSL_FEATURE_LPUART_HAS_GLOBAL (1)
 /* @brief Has LPUART_PINCFG. */
 #define FSL_FEATURE_LPUART_HAS_PINCFG (1)
+/* @brief Belong to LPFLEXCOMM */
+#define FSL_FEATURE_LPUART_IS_LPFLEXCOMM (0)
 /* @brief Has register MODEM Control. */
 #define FSL_FEATURE_LPUART_HAS_MCR (0)
 /* @brief Has register Half Duplex Control. */
 #define FSL_FEATURE_LPUART_HAS_HDCR (0)
 /* @brief Has register Timeout. */
 #define FSL_FEATURE_LPUART_HAS_TIMEOUT (0)
+/* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
+#define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (1)
 
 /* PORT module features */
 
@@ -351,9 +380,23 @@
 /* @brief Defines whether PCR[IRQC] bit-field has trigger states. */
 #define FSL_FEATURE_PORT_HAS_IRQC_TRIGGER (0)
 
-/* LCD module features */
+/* SLCD module features */
 
-/* @brief LCD registers are split into control and fault detect parts. */
+/* @brief The SLCD module is designed for low-voltage and low-power operation */
+#define FSL_FEATURE_SLCD_LP_CONTROL (1)
+/* @brief Has Multi Alternate Clock Source (register bit GCR[ATLSOURCE]).  */
+#define FSL_FEATURE_SLCD_HAS_MULTI_ALTERNATE_CLOCK_SOURCE (0)
+/* @brief Has fast frame rate (register bit GCR[FFR]). */
+#define FSL_FEATURE_SLCD_HAS_FAST_FRAME_RATE (0)
+/* @brief Has frame frequency interrupt (register bit GCR[LCDIEN]). */
+#define FSL_FEATURE_SLCD_HAS_FRAME_FREQUENCY_INTERRUPT (1)
+/* @brief Has pad safe (register bit GCR[PADSAFE]). */
+#define FSL_FEATURE_SLCD_HAS_PAD_SAFE (0)
+/* @brief Has lcd wait (register bit GCR[LCDWAIT]). */
+#define FSL_FEATURE_SLCD_HAS_LCD_WAIT (0)
+/* @brief Has lcd doze enable (register bit GCR[LCDDOZE]). */
+#define FSL_FEATURE_SLCD_HAS_LCD_DOZE_ENABLE (1)
+
 #define FSL_FEATURE_SGLCD_HAS_FAULT_DETECT (1)
 
 /* SYSCON_AON module features */
@@ -368,6 +411,7 @@
 /* @brief CDOG Has No Reset */
 #define FSL_FEATURE_CDOG_HAS_NO_RESET (1)
 /* @brief CDOG Use Restart register */
+#define FSL_FEATURE_CDOG_USE_RESTART (1)
 #define FLS_FEATURE_CDOG_USE_RESTART (1)
 /* @brief CDOG Load default configurations during init function */
 #define FSL_FEATURE_CDOG_NEED_LOAD_DEFAULT_CONF (1)
@@ -505,15 +549,15 @@
 
 /* LPSPI module features */
 
-/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
+/* @brief Capacity (number of entries) of the transmit/receive FIFO. */
 #define FSL_FEATURE_LPSPI_FIFO_SIZEn(x) (4)
 /* @brief Has separate DMA RX and TX requests. */
 #define FSL_FEATURE_LPSPI_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
 /* @brief Has CCR1 (related to existence of registers CCR1). */
 #define FSL_FEATURE_LPSPI_HAS_CCR1 (1)
-/* @brief Has no PCSCFG bit in CFGR1 register */
+/* @brief Has no PCSCFG bit in CFGR1 register. */
 #define FSL_FEATURE_LPSPI_HAS_NO_PCSCFG (0)
-/* @brief Has no WIDTH bits in TCR register */
+/* @brief Has no WIDTH bits in TCR register. */
 #define FSL_FEATURE_LPSPI_HAS_NO_MULTI_WIDTH (0)
 
 /* TRDC module features */

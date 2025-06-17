@@ -309,9 +309,9 @@
 /* @brief UART stops in Wait mode available (has bit C1[UARTSWAI]). */
 #define FSL_FEATURE_LPUART_HAS_WAIT_MODE_OPERATION (0)
 /* @brief Has separate DMA RX and TX requests. */
-#define FSL_FEATURE_LPUART_HAS_SEPARATE_DMA_RX_TX_REQn(x) (0)
+#define FSL_FEATURE_LPUART_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
 /* @brief Has separate RX and TX interrupts. */
-#define FSL_FEATURE_LPUART_HAS_SEPARATE_RX_TX_IRQ (1)
+#define FSL_FEATURE_LPUART_HAS_SEPARATE_RX_TX_IRQ (0)
 /* @brief Has LPAURT_PARAM. */
 #define FSL_FEATURE_LPUART_HAS_PARAM (1)
 /* @brief Has LPUART_VERID. */

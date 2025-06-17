@@ -133,11 +133,6 @@ config MCUX_HW_IP_DriverType_TRDC_1
     default y
     depends on MCUX_HW_DEVICE_ID_MCXL254xxx
 
-config MCUX_HW_IP_DriverType_LPCMP
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXL254xxx
-
 config MCUX_HW_IP_DriverType_LPSPI
     bool
     default y

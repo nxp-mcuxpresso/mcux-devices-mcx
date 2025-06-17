@@ -103,7 +103,8 @@
 /* @brief Has window mode (related to existence of CCR1.WINDOW_CLS). */
 #define FSL_FEATURE_LPCMP_HAS_WINDOW_CONTROL (1)
 /* @brief Has no CCR0 CMP_STOP_EN bitfield. */
-#define FSL_FEATURE_LPCMP_HAS_NO_CCR0_CMP_STOP_EN (0)
+#define FSL_FEATURE_LPCMP_HAS_NO_CCR0_CMP_STOP_EN (0) 
+#if 1
 /* @brief Has RRCR0 RR_CLK_SEL bitfield. */
 #define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_CLK_SEL (1)
 /* @brief Has RRCR0 RR_TRG_SEL bitfield. */
@@ -126,6 +127,7 @@
 #define FSL_FEATURE_LPCMP_HAS_RRCR2 (1)
 /* @brief Has CCR0 CMP_STOP_EN bitfield. */
 #define FSL_FEATURE_LPCMP_HAS_CCR0_CMP_STOP_EN (1)
+#endif
 /* @brief CMP instance support CCR0 CMP_STOP_EN bitfield. */
 #define FSL_FEATURE_LPCMP_INSTANCE_SUPPORT_CCR0_CMP_STOP_ENn(x) (1)
 
@@ -309,9 +311,9 @@
 /* @brief UART stops in Wait mode available (has bit C1[UARTSWAI]). */
 #define FSL_FEATURE_LPUART_HAS_WAIT_MODE_OPERATION (0)
 /* @brief Has separate DMA RX and TX requests. */
-#define FSL_FEATURE_LPUART_HAS_SEPARATE_DMA_RX_TX_REQn(x) (0)
+#define FSL_FEATURE_LPUART_HAS_SEPARATE_DMA_RX_TX_REQn(x) (1)
 /* @brief Has separate RX and TX interrupts. */
-#define FSL_FEATURE_LPUART_HAS_SEPARATE_RX_TX_IRQ (1)
+#define FSL_FEATURE_LPUART_HAS_SEPARATE_RX_TX_IRQ (0)
 /* @brief Has LPAURT_PARAM. */
 #define FSL_FEATURE_LPUART_HAS_PARAM (1)
 /* @brief Has LPUART_VERID. */

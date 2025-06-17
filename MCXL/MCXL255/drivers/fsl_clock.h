@@ -100,7 +100,7 @@ typedef enum _clock_ip_name
     kCLOCK_GateLPUART0       = (0x00U | (18U)),                        /*!< Clock gate name: LPUART0        */
     kCLOCK_GateADC0          = (0x00U | (19U)),                        /*!< Clock gate name: ADC0           */
     kCLOCK_GateATX0          = (0x00U | (20U)),                        /*!< Clock gate name: ATX0           */
-    kCLOCK_GateCMP0          = (0x00U | (21U)),                        /*!< Clock gate name: CMP0           */
+    kCLOCK_GateACMP0         = (0x00U | (21U)),                        /*!< Clock gate name: ACMP0           */
     kCLOCK_GateDMA1          = (0x00U | (22U)),                        /*!< Clock gate name: DMA1           */
     kCLOCK_GateSRAMA0A1      = (0x00U | (23U)),                        /*!< Clock gate name: SRAMA0A1       */
     kCLOCK_GateGPIO1         = (0x00U | (24U)),                        /*!< Clock gate name: GPIO1          */
@@ -138,7 +138,7 @@ typedef enum _clock_ip_name
     kCLOCK_GateAonKPP        = ((1U<<24U) | (10U)),                    /*!< Clock gate name: AON KPP        */
     kCLOCK_GateAonLPADC      = ((1U<<24U) | (11U)),                    /*!< Clock gate name: AON LPADC      */
     kCLOCK_GateAonSYS        = ((1U<<24U) | (12U)),                    /*!< Clock gate name: AON SYS (tick) */
-    kCLOCK_GateAonCMP0       = ((1U<<24U) | (13U)),                    /*!< Clock gate name: AON comparator */
+    kCLOCK_GateAonACMP0      = ((1U<<24U) | (13U)),                    /*!< Clock gate name: AON comparator */
     kCLOCK_GateAonLCD        = ((1U<<24U) | (14U)),                    /*!< Clock gate name: AON LCD        */
     kCLOCK_GateAonAVDC2P0    = ((1U<<24U) | (15U)),                    /*!< Clock gate name: AON AVDC2P0    */
     kCLOCK_GateAonINPUTMUX1   = ((1U<<24U) | (16U)),                    /*!< Clock gate name: AON INPUTMUX   */
@@ -240,14 +240,14 @@ typedef enum _clock_ip_name
 
 /*! @brief Clock ip name array for LPCMP. */
 #if __CORTEX_M == (33U) /* Building on the main core */
-#define LPCMP_CLOCKS                        \
-    {                                       \
-        kCLOCK_GateAonCMP0, kCLOCK_GateCMP0 \
+#define LPCMP_CLOCKS                          \
+    {                                         \
+        kCLOCK_GateACMP0, kCLOCK_GateAonACMP0 \
     }
 #else
     #define LPCMP_CLOCKS                    \
     {                                       \
-        kCLOCK_GateAonCMP0                  \
+        kCLOCK_GateAonACMP0                 \
     }
 #endif
 
@@ -605,8 +605,8 @@ typedef enum _clock_div_name
     kCLOCK_DIVAonCPU       = (0x400U), /*!< Aon CPU    clock divider */
     kCLOCK_DIVAonCMP       = (0x401U), /*!< Aon Comp grp clock divider */
     kCLOCK_DIVAonSYS       = (0x402U), /*!< Aon SYSTICK clock divider */
-    kCLOCK_DIVAonCMP0CLK0  = (0x410U), /*!< Aon CMP0 CLK0 clock divider */
-    kCLOCK_DIVAonCMP0CLK1  = (0x411U), /*!< Aon CMP0 CLK1 clock divider */
+    kCLOCK_DIVAonACMP0CLK0  = (0x410U), /*!< Aon CMP0 CLK0 clock divider */
+    kCLOCK_DIVAonACMP0CLK1  = (0x411U), /*!< Aon CMP0 CLK1 clock divider */
     kCLOCK_DivMax          = (0x411U), /*!< MAX        clock divider */
 } clock_div_name_t;
 

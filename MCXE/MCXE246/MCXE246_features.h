@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250610
+**     Build:               b250613
 **
 **     Abstract:
 **         Chip specific module features.
@@ -181,6 +181,8 @@
 #define FSL_FEATURE_FLEXCAN_ENTER_FREEZE_MODE (1)
 /* @brief Is affected by errata with ID 8341 (FlexCAN: Entering Freeze Mode or Low Power Mode from Normal Mode can cause the FlexCAN module to stop operating). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_8341 (1)
+/* @brief Is affected by errata with ID 050443 (FlexCAN: : Receive Message Buffers may have its CODE Field corrupted if the Receive FIFO function is used in Classical CAN mode). */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_050443 (0)
 
 /* ACMP module features */
 
@@ -217,10 +219,8 @@
 
 /* CRC module features */
 
-/* @brief If CRC has CRC register */
-#define FSL_FEATURE_CRC_HAS_CRC_REGISTER (0)
-/* @brief CRC16 type of the peripheral. */
-#define FSL_FEATURE_CRC_CRC16_TYPE (0)
+/* @brief Has data register with name CRC */
+#define FSL_FEATURE_CRC_HAS_CRC_REG (0)
 
 /* EDMA module features */
 

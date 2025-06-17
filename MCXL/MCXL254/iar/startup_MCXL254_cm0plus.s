@@ -185,7 +185,7 @@ Reserved18_IRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 LPUART0_AON_IRQHandler
         LDR     R1, =LPUART_DriverIRQHandler
-        LDR     R0, =2 ;instance number from MCXL255_cm0plus_COMMON.h
+        LDR     R0, =2 ;instance number from MCXL254_cm0plus_COMMON.h
         BX      R1
 
         PUBWEAK Reserved20_IRQHandler

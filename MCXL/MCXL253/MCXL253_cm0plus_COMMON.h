@@ -121,17 +121,17 @@ typedef enum IRQn {
 #define __Vendor_SysTickConfig         0         /**< Vendor specific implementation of SysTickConfig is defined */
 
 #include "core_cm0plus.h"              /* Core Peripheral Access Layer */
-#include "system_MCXL255_cm0plus.h"    /* Device specific configuration file */
+#include "system_MCXL253_cm0plus.h"    /* Device specific configuration file */
 
 /*!
  * @}
  */ /* end of group Cortex_Core_Configuration */
 
-#ifndef MCXL255_cm0plus_SERIES
-#define MCXL255_cm0plus_SERIES
+#ifndef MCXL253_cm0plus_SERIES
+#define MCXL253_cm0plus_SERIES
 #endif
 /* CPU specific feature definitions */
-#include "MCXL255_cm0plus_features.h"
+#include "MCXL253_cm0plus_features.h"
 
 /* CGU - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))

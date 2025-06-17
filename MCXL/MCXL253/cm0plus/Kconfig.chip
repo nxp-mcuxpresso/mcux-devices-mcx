@@ -2,7 +2,6 @@
 # All rights reserved.
 #
 # SPDX-License-Identifier: BSD-3-Clause
-
 # core related
 config MCUX_HW_CORE
     string
@@ -22,7 +21,7 @@ config MCUX_HW_CORE_ID_CM0PLUS
 
 config MCUX_HW_DEVICE_CORE
     string
-    default "MCXL255_cm0plus"
+    default "MCXL253_cm0plus"
 
 config MCUX_HW_FPU
     string
@@ -38,21 +37,21 @@ config MCUX_HW_INT_PRIO_BITS
 
 config MCUX_TOOLCHAIN_MCUX_STARTUP
     string
-    default "mcxl255_cm0plus"
+    default "mcxl253_cm0plus"
 
 config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
     string
-    default "MCXL255_cm0plus"
+    default "MCXL253_cm0plus"
 
 config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
     string
-    default "MCXL255xxx_M0+"
+    default "MCXL253xxx_M0+"
 
 config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
     string
-    default "MCXL255VDF:cm0plus" if MCUX_HW_DEVICE_PART_MCXL255VDF
-    default "MCXL255VLL:cm0plus" if MCUX_HW_DEVICE_PART_MCXL255VLL
+    default "MCXL253VDF:cm0plus" if MCUX_HW_DEVICE_PART_MCXL253VDF
+    default "MCXL253VLL:cm0plus" if MCUX_HW_DEVICE_PART_MCXL253VLL
 
 config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
-    default "MCXL255xxx_M0+"
+    default "MCXL253xxx_M0+"

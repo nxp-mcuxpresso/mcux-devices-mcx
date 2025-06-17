@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-config MCUX_HW_DEVICE_MCXL255_CORE_ID_CM33
+config MCUX_HW_DEVICE_MCXL253_CORE_ID_CM33
     bool
     default y
 

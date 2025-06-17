@@ -252,7 +252,7 @@ Reserved18_IRQHandler:
     .type LPUART0_AON_IRQHandler, %function
 LPUART0_AON_IRQHandler:
     ldr     R1, =LPUART_DriverIRQHandler
-    ldr     R0, =2 /*instance number from MCXL255_cm0plus_COMMON.h*/
+    ldr     R0, =2 /*instance number from MCXL253_cm0plus_COMMON.h*/
     bx      R1
     .size LPUART0_AON_IRQHandler, . - LPUART0_AON_IRQHandler
 

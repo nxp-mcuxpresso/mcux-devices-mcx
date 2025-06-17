@@ -168,17 +168,17 @@ typedef enum IRQn {
 #define __SAUREGION_PRESENT            1         /**< Defines if an SAU is present or not */
 
 #include "core_cm33.h"                 /* Core Peripheral Access Layer */
-#include "system_MCXL255_cm33.h"       /* Device specific configuration file */
+#include "system_MCXL253_cm33.h"       /* Device specific configuration file */
 
 /*!
  * @}
  */ /* end of group Cortex_Core_Configuration */
 
-#ifndef MCXL255_cm33_SERIES
-#define MCXL255_cm33_SERIES
+#ifndef MCXL253_cm33_SERIES
+#define MCXL253_cm33_SERIES
 #endif 
 /* CPU specific feature definitions */
-#include "MCXL255_cm33_features.h"
+#include "MCXL253_cm33_features.h"
 
 /* ADC - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

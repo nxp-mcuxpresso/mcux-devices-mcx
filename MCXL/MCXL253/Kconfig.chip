@@ -9,7 +9,7 @@ config MCUX_HW_SOC_MULTICORE_DEVICE
 
 config MCUX_HW_DEVICE_CORE
     string
-    default "MCXL255"
+    default "MCXL253"
 
 config MCUX_HW_SOC_SERIES_MCX
     bool
@@ -17,179 +17,179 @@ config MCUX_HW_SOC_SERIES_MCX
 
 # device related
 
-config MCUX_HW_DEVICE_ID_MCXL255xxx
+config MCUX_HW_DEVICE_ID_MCXL253xxx
     bool
 
 choice
-    prompt "Device MCXL255 Part"
-    config MCUX_HW_DEVICE_PART_MCXL255VDF
-    bool "Device part MCXL255VDF"
-    select MCUX_HW_DEVICE_ID_MCXL255xxx
-    config MCUX_HW_DEVICE_PART_MCXL255VLL
-    bool "Device part MCXL255VLL"
-    select MCUX_HW_DEVICE_ID_MCXL255xxx
+    prompt "Device MCXL253 Part"
+    config MCUX_HW_DEVICE_PART_MCXL253VDF
+    bool "Device part MCXL253VDF"
+    select MCUX_HW_DEVICE_ID_MCXL253xxx
+    config MCUX_HW_DEVICE_PART_MCXL253VLL
+    bool "Device part MCXL253VLL"
+    select MCUX_HW_DEVICE_ID_MCXL253xxx
 endchoice
 
 config MCUX_HW_DEVICE_ID
     string
-    default "MCXL255xxx" if MCUX_HW_DEVICE_ID_MCXL255xxx
+    default "MCXL253xxx" if MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_DEVICE_PART
     string
-    default "MCXL255VDF" if MCUX_HW_DEVICE_PART_MCXL255VDF
-    default "MCXL255VLL" if MCUX_HW_DEVICE_PART_MCXL255VLL
+    default "MCXL253VDF" if MCUX_HW_DEVICE_PART_MCXL253VDF
+    default "MCXL253VLL" if MCUX_HW_DEVICE_PART_MCXL253VLL
 
 # For chipmodel generated files
 config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
     string
-    default "MCXL255" if MCUX_HW_DEVICE_ID_MCXL255xxx
+    default "MCXL253" if MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_TOOLCHAIN_MCUX_STARTUP
     string
-    default "mcxl255"
+    default "mcxl253"
 
 # Toolchain related
 
 config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
     string
-    default "MCXL255xxx" if MCUX_HW_DEVICE_ID_MCXL255xxx
+    default "MCXL253xxx" if MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
     string
-    default "MCXL255VDF" if MCUX_HW_DEVICE_PART_MCXL255VDF
-    default "MCXL255VLL" if MCUX_HW_DEVICE_PART_MCXL255VLL
+    default "MCXL253VDF" if MCUX_HW_DEVICE_PART_MCXL253VDF
+    default "MCXL253VLL" if MCUX_HW_DEVICE_PART_MCXL253VLL
 
 config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
-    default "MCXL255xxx" if MCUX_HW_DEVICE_ID_MCXL255xxx
+    default "MCXL253xxx" if MCUX_HW_DEVICE_ID_MCXL253xxx
 
 # ip information
 config MCUX_HW_IP_DriverType_ARM
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_ATX
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_CORE
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_DBGMB
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_FMC
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_FMU
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_GPIO
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_INPUTMUX
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_JTAG
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_AON_LPADC
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_LPACMP
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_LPC_SYSCON
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_LPI2C
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_LPTMR
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_LPUART
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_MRCC
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_MU_1
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_PORT
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_SCG
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_SMM
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_SWD
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_TMR_1
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_KPP
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_SLCD_SPLIT
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_PMIC
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_HW_IP_DriverType_RTC_ANALOG
     bool
     default y
-    depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+    depends on MCUX_HW_DEVICE_ID_MCXL253xxx

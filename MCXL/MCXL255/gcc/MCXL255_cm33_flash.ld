@@ -28,19 +28,40 @@ ENTRY(Reset_Handler)
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
+RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
 
 /* Specify the memory areas */
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x000002C8
-  m_text                (RX)  : ORIGIN = 0x000002C8, LENGTH = 0x0007DD38
+  m_text                (RX)  : ORIGIN = 0x000002C8, LENGTH = 0x0005FD38
   m_data                (RW)  : ORIGIN = 0x28000000, LENGTH = 0x0001E000
+  rpmsg_sh_mem          (RW)  : ORIGIN = 0xA1006000, LENGTH = RPMSG_SHMEM_SIZE
   m_sramx0              (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00002000
+  m_core1_image         (RX)  : ORIGIN = 0x00060000, LENGTH = 0x0001E000
 }
 
 /* Define output sections */
 SECTIONS
 {
+  /* section for storing the secondary core image */
+  .core1_code :
+  {
+     . = ALIGN(4) ;
+    KEEP (*(.core1_code))
+     *(.core1_code*)
+     . = ALIGN(4) ;
+  } > m_core1_image
+
+  /* NOINIT section for rpmsg_sh_mem */
+  .noinit_rpmsg_sh_mem (NOLOAD) : ALIGN(4)
+  {
+     __RPMSG_SH_MEM_START__ = .;
+     *(.noinit.$rpmsg_sh_mem*)
+     . = ALIGN(4) ;
+     __RPMSG_SH_MEM_END__ = .;
+  } > rpmsg_sh_mem
+
   /* The startup code goes first into internal flash */
   .interrupts :
   {
@@ -62,14 +83,7 @@ SECTIONS
     *(.eh_frame)
     KEEP (*(.init))
     KEEP (*(.fini))
-
     . = ALIGN(4);
-    core1_image_start = .;
-    KEEP (*(.core1_code))
-    *(.core1_code*)
-    core1_image_end = .;
-    core1_image_size = core1_image_end - core1_image_start;
-    . = ALIGN(4) ;
   } > m_text
 
   .ARM.extab :

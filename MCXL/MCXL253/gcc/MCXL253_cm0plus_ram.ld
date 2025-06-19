@@ -27,19 +27,30 @@
 ENTRY(Reset_Handler)
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
-STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
+STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
+RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
 
 /* Specify the memory areas */
 MEMORY
 {
-  m_interrupts          (RX)  : ORIGIN = 0x28000000, LENGTH = 0x000002C8
-  m_text                (RX)  : ORIGIN = 0x280002C8, LENGTH = 0x00006D38
-  m_data                (RW)  : ORIGIN = 0x28007000, LENGTH = 0x00001000
+  m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x000000C0
+  m_text                (RX)  : ORIGIN = 0x000000C0, LENGTH = 0x00004F40
+  m_data                (RW)  : ORIGIN = 0x00005000, LENGTH = 0x00003000 - RPMSG_SHMEM_SIZE
+  rpmsg_sh_mem          (RW)  : ORIGIN = 0x00008000 - RPMSG_SHMEM_SIZE, LENGTH = RPMSG_SHMEM_SIZE
 }
 
 /* Define output sections */
 SECTIONS
 {
+  /* NOINIT section for rpmsg_sh_mem */
+  .noinit_rpmsg_sh_mem (NOLOAD) : ALIGN(4)
+  {
+     __RPMSG_SH_MEM_START__ = .;
+     *(.noinit.$rpmsg_sh_mem*)
+     . = ALIGN(4) ;
+     __RPMSG_SH_MEM_END__ = .;
+  } > rpmsg_sh_mem
+
   /* The startup code goes first into internal flash */
   .interrupts :
   {

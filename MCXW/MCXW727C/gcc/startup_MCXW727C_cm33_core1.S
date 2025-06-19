@@ -357,7 +357,24 @@ Reset_Handler:
     strlt   r0, [r1], #4
     blt    .LC2
 #endif /* __STARTUP_CLEAR_BSS */
-
+#ifdef INIT_BLE_RL_DAT
+/*     This part of work usually is done in C library startup code. Otherwise,
+ *     define this macro to enable it in this startup.
+ *
+ *     Loop to zero out rldat section, which uses following symbols
+ *     in linker script:
+ *      __rldat_start__: start of rldat section. Must align to 4
+ *      __rldat_end__: end of rldat section. Must align to 4
+ */
+    ldr     r1, =__rldat_start__
+    ldr     r2, =__rldat_end__
+    movs    r0, 0
+.LC3:
+    cmp     r1, r2
+    itt     lt
+    strlt   r0, [r1], #4
+    blt     .LC3
+#endif /* INIT_BLE_RL_DAT */
     cpsie   i               /* Unmask interrupts */
 #ifndef __START
 #define __START _start

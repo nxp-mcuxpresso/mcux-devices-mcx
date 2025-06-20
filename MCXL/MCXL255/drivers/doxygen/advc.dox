@@ -1,0 +1,9 @@
+/*!
+@defgroup advc ADVC Driver
+@details The MCUXpresso SDK provides APIs for MCUXpresso SDK devices' advc operation.
+
+The ADVC driver is the wrapper of ADVC static library which provide 5 APIs to control Adaptive Dynamic voltage
+control module. The ADVC driver operate within the AON domain to determine the optimal voltage level
+for varying CM0P clock frequency and environmental conditions after dynamically adjusting the output of 
+VDD_CORE_AON voltage.
+*/

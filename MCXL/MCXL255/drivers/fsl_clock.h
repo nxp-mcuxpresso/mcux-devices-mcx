@@ -511,7 +511,7 @@ typedef enum _clock_attach_id
 
     kCLK_16K_to_OSTIMER0 = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 0U),          /*!< Attach CLK_16K to OSTIMER0. */
     kFRO_16k_to_OSTIMER0 = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 1U),          /*!< Attach FRO_16K to OSTIMER0. */
-    kCLK_1M_to_OSTIMER0  = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 2U),          /*!< Attach CLK_1M to OSTIMER0.  */
+    kCLK_1M_to_OSTIMER0  = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 3U),          /*!< Attach CLK_1M to OSTIMER0.  */
 
     kFRO12M_to_ADC0     = CLK_ATTACH_MUX(kCLOCK_SelADC0, 0U),               /*!< Attach FRO12M to ADC0.     */
     kXTAL32K_to_ADC0    = CLK_ATTACH_MUX(kCLOCK_SelADC0, 1U),               /*!< Attach XTAL32K to ADC0.    */

@@ -803,6 +803,43 @@ uint32_t CLOCK_GetRtcOscFreq(void)
     }
 }
 
+/*! brief  Return Frequency of the AON core
+ *  return Frequency of the core
+ */
+uint32_t CLOCK_GetAonCoreSysClkFreq(void)
+{
+    uint32_t freq = 0U;
+
+    if(AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_CLK_DIV_EN_MASK)
+    {
+        const uint32_t sel = (AON__CGU->CLK_CONFIG &
+                        CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) >>
+                        CGU_CLK_CONFIG_ROOT_CLK_SEL_SHIFT;
+        const uint32_t div = (AON__CGU->CLOCK_DIV &
+                        CGU_CLOCK_DIV_AONCPU_CLK_DIV_MASK) >>
+                        CGU_CLOCK_DIV_AONCPU_CLK_DIV_SHIFT;
+
+        switch(sel)
+        {
+            case 0U:
+              freq = CLOCK_GetAonFroFreq();
+              break;
+            case 1U:
+              freq = CLOCK_GetAonFroFreq() / 2U;
+              break;
+            case 2U:
+              freq = CLOCK_GetAonFroFreq() / 4U;
+              break;
+            case 3U:
+              freq = CLOCK_GetAonRootAuxFreq();
+              break;
+        }
+
+        freq /= div + 1U;
+    }
+    return freq; 
+}
+
 #if __CORTEX_M == (33U) /* Building on the main core */
 
 /*!
@@ -910,7 +947,7 @@ uint32_t CLOCK_GetMainClk(void)
     return freq;
 }
 
-/*! brief  Return Frequency of core
+/*! brief  Return Frequency of the main core
  *  return Frequency of the core
  */
 uint32_t CLOCK_GetCoreSysClkFreq(void)

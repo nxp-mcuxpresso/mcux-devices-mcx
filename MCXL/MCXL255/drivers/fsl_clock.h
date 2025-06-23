@@ -911,6 +911,11 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name);
  */
 status_t CLOCK_SetupFROAonClocking(uint32_t iFreq);
 
+/*! @brief  Return Frequency of the AON core
+ *  @return Frequency of the core
+ */
+uint32_t CLOCK_GetAonCoreSysClkFreq(void);
+
 #if __CORTEX_M == (33U) /* Building on the main core */
 /**
  * @brief   Initialize the FROHF to given frequency.
@@ -968,7 +973,7 @@ status_t CLOCK_DeinitRosc(void);
 uint32_t CLOCK_GetFreq(clock_name_t clockName);
 
 #if __CORTEX_M == (33U) /* Building on the main core */
-/*! @brief  Return Frequency of core
+/*! @brief  Return Frequency of the main core
  *  @return Frequency of the core
  */
 uint32_t CLOCK_GetCoreSysClkFreq(void);

@@ -23,6 +23,15 @@
 #define FSL_COMPONENT_ID "platform.drivers.clock"
 #endif
 
+typedef enum _clock_aon_chg
+{
+    kClockAonChg_auxClk,     /* RTC/AUX clk was changed or disabled, pass frequency or 0 for disable */
+    kClockAonChg_Fro,        /* FRO10M_2M changed, pass 10M/2M/0 */
+    kClockAonChg_clkSel,     /* ROOT_CLK_SEL_MUX changed, pass mux value */
+    kClockAonChg_cpuClkDiv,  /* AON_CPU_CLK_DIV changed, pass divisor(>1) or 0 when AON_CPU_CLK is disabled */
+    
+}clock_aon_chg_t;
+
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -37,6 +46,10 @@ volatile uint32_t g_xtal32Freq;
 static uint32_t CLOCK_GetFroAonFreq(void);
 /* Get RTC OSC Clk */
 static uint32_t CLOCK_GetRtcOscFreq(void);
+/* Get AON_AUX_CLK freq*/
+static uint32_t CLOCK_GetAonAuxFreq(void);
+/* Get AON ROOT AUX freq */
+static uint32_t CLOCK_GetAonRootAuxFreq(void);
 
 #if __CORTEX_M == (33U) /* Building on the main core */
 /* Get Main_Clk */
@@ -70,6 +83,94 @@ static inline bool CLOCK_IsDivHalt(uint32_t div_value)
  * Code
  ******************************************************************************/
 
+static void ADVC_PreChg(const clock_aon_chg_t change, uint32_t newValue)
+{
+    if(ADVC_IsEnabled())
+    {
+        uint32_t freq = 0U;       
+        uint32_t root_clk_sel;
+        
+        if(change == kClockAonChg_clkSel)
+        {
+            root_clk_sel = newValue;
+        }
+        else
+        {
+            root_clk_sel = (AON__CGU->CLK_CONFIG &
+                            CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) >>
+                            CGU_CLK_CONFIG_ROOT_CLK_SEL_SHIFT;
+        }
+        
+        if(root_clk_sel == 3U)
+        {   /* Using ROOT_AUX_CLK */
+         
+            if(change == kClockAonChg_auxClk)
+            {
+               freq = newValue;
+            }
+            else
+            {
+               freq = CLOCK_GetAonRootAuxFreq();
+            }      
+        }
+        else
+        {   /* Using FRO */
+         
+            const uint32_t div = 1U << root_clk_sel;
+           
+            if(change == kClockAonChg_Fro)
+            {
+                freq = newValue;
+            }
+            else
+            {
+                freq = CLOCK_GetFroAonFreq();
+            }
+           
+            freq /= div;
+        }
+
+        if(change == kClockAonChg_cpuClkDiv)
+        {
+            if(0U == newValue)
+            {
+                freq = 0U; /* disable */
+            }
+            else
+            {
+                freq /= newValue;
+            }
+        }
+        else
+        {
+            if(AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_CLK_DIV_EN_MASK)
+            {
+                 const uint32_t aon_cpu_clk_div = (AON__CGU->CLOCK_DIV &
+                                          CGU_CLOCK_DIV_AONCPU_CLK_DIV_MASK) >>
+                                          CGU_CLOCK_DIV_AONCPU_CLK_DIV_SHIFT;
+              
+                 freq /= aon_cpu_clk_div + 1U;
+            }
+            else
+            {
+                 freq = 0U; /* AON_CPU_CLK is Disabled*/
+            }
+        }
+        
+        ADVC_PreVoltageChangeRequest(freq);
+        
+    } /* ADVC is enabled */
+    
+ 
+}
+
+static void ADVC_PostChg(void)
+{
+    if(ADVC_IsEnabled())
+    {
+        ADVC_PostVoltageChangeRequest();
+    }
+}
 /* Clock Selection for IP */
 /**
  * brief   Configure the clock selection muxes.
@@ -83,7 +184,39 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
 
     if (kNONE_to_NONE != connection)
     {
+        uint8_t run_advc_postchg = 1U;
+        
+        switch(connection)
+        {
+        case kFROdiv1_to_AON_CPU:
+          ADVC_PreChg(kClockAonChg_clkSel, 0U);
+          break;
+        case kFROdiv2_to_AON_CPU:
+          ADVC_PreChg(kClockAonChg_clkSel, 1U);
+          break;
+        case kFROdiv4_to_AON_CPU:
+          ADVC_PreChg(kClockAonChg_clkSel, 2U);
+          break;
+        case kROOT_AUX_to_AON_CPU:
+          ADVC_PreChg(kClockAonChg_clkSel, 3U);
+          break;
+        case kXTAL32K_to_AON_ROOT_AUX:
+          ADVC_PreChg(kClockAonChg_auxClk, CLOCK_GetRtcOscFreq());
+          break;
+        case kAUX_to_AON_ROOT_AUX:
+          ADVC_PreChg(kClockAonChg_auxClk, CLOCK_GetAonAuxFreq());  
+          break;
+        default: 
+          run_advc_postchg = 0U;
+          break;
+        }
+        
         CLOCK_SetClockSelect((clock_select_name_t)reg_offset, clk_sel);
+        
+        if(run_advc_postchg)
+        {
+            ADVC_PostChg();
+        }
     }
 }
 
@@ -248,17 +381,29 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
             const uint32_t div_shift = 3U*(en_shift+1U);
             uint32_t reg_val = AON__CGU->CLOCK_DIV;
 
-            assert((value <= 8U) && (value > 0U));
+            assert(value <= 8U);
 
             reg_val &= ~((7U << div_shift) | (1U << en_shift));
-            reg_val |= (value - 1U) << div_shift;
+            
             if(value >= 1U )
             {
+                reg_val |= (value - 1U) << div_shift;  
+                
                 /* enable divider */
                 reg_val |= 1U << en_shift;
             }
-
-            AON__CGU->CLOCK_DIV = reg_val;
+            
+            if(div_name == kCLOCK_DIVAonCPU)
+            {   /* Changing AON CPU clock - inform ADVC: */
+              
+                ADVC_PreChg(kClockAonChg_cpuClkDiv, value);
+                AON__CGU->CLOCK_DIV = reg_val;
+                ADVC_PostChg();
+            }
+            else
+            {
+                AON__CGU->CLOCK_DIV = reg_val;
+            }
         }
     }
 #if __CORTEX_M == (33U) /* Building on the main core */
@@ -412,6 +557,8 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
 /* Initialize the FROHF to given frequency (10M, 2M) */
 status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
 {
+    ADVC_PreChg(kClockAonChg_Fro, iFreq);
+    
     switch(iFreq)
     {
         case 10000000U:
@@ -428,9 +575,11 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
             AON__CGU->CLK_CONFIG &= ~(1U << CGU_CLK_CONFIG_FRO10M_EN_SHIFT);
             break;
         default:
+            ADVC_PostChg();
             return kStatus_Fail;
     }
-
+    
+    ADVC_PostChg();
     return (status_t)kStatus_Success;
 }
 
@@ -656,7 +805,7 @@ static uint32_t CLOCK_GetAonRootAuxFreq(void)
     {
         if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_ROOT_AUX_CLK_SEL_MASK)
         {
-            freq = 1U; /* FIXME how to get aon_aux_clk freq?*/
+            freq = 32768U; /* FIXME how to get aon_aux_clk freq?*/
         }
         else
         {
@@ -783,7 +932,7 @@ static uint32_t CLOCK_GetFroHfFreq(void)
 #endif /* Building on the main core */
 
 /*!
- * @brief Gets the SCG RTC OSC clock frequency.
+ * @brief Gets the RTC OSC clock frequency.
  *
  * @return  Clock frequency; If the clock is invalid, returns 0.
  */
@@ -802,6 +951,17 @@ uint32_t CLOCK_GetRtcOscFreq(void)
         return g_xtal32Freq;
     }
 }
+
+/*!
+ * @brief Gets the AON_AUX_CLK frequency.
+ *
+ * @return  Clock frequency;
+ */
+uint32_t CLOCK_GetAonAuxFreq(void)
+{
+    return 32768U; /* FIXME */
+}
+
 
 /*! brief  Return Frequency of the AON core
  *  return Frequency of the core
@@ -1387,7 +1547,7 @@ uint32_t CLOCK_GetSystickClkFreq(void)
  */
 uint32_t CLOCK_GetFroAonFreq(void)
 {
-    if(CGU_CLK_CONFIG_FRO10M_EN(AON__CGU->CLK_CONFIG) == 0U)
+    if((AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO10M_EN_MASK) == 0U)
     {
         return 0U;
     }

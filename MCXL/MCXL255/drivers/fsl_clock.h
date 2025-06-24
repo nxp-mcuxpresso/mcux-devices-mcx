@@ -9,6 +9,7 @@
 #define _FSL_CLOCK_H_
 
 #include "fsl_common.h"
+#include "fsl_advc.h"
 
 /*! @addtogroup clock */
 /*! @{ */
@@ -141,7 +142,7 @@ typedef enum _clock_ip_name
     kCLOCK_GateAonACMP0      = ((1U<<24U) | (13U)),                    /*!< Clock gate name: AON comparator */
     kCLOCK_GateAonLCD        = ((1U<<24U) | (14U)),                    /*!< Clock gate name: AON LCD        */
     kCLOCK_GateAonAVDC2P0    = ((1U<<24U) | (15U)),                    /*!< Clock gate name: AON AVDC2P0    */
-    kCLOCK_GateAonINPUTMUX1   = ((1U<<24U) | (16U)),                    /*!< Clock gate name: AON INPUTMUX   */
+    kCLOCK_GateAonINPUTMUX1  = ((1U<<24U) | (16U)),                    /*!< Clock gate name: AON INPUTMUX   */
 
     kCLOCK_GateNotAvail      = (0xFFFFFFFFU),                          /**< Clock gate name: None           */
 } clock_ip_name_t;
@@ -437,7 +438,7 @@ typedef enum _clock_select_name
 
 typedef enum _clock_attach_id
 {
-    kXTAL32K_to_AON_ROOT_AUX     = CLK_ATTACH_MUX(kCLOKC_SelAonROOT_AUX, 0U),         /*!< Attach XTAL32K to AON AUX.   */
+    kXTAL32K_to_AON_ROOT_AUX  = CLK_ATTACH_MUX(kCLOKC_SelAonROOT_AUX, 0U),         /*!< Attach XTAL32K to AON AUX.   */
     kAUX_to_AON_ROOT_AUX      = CLK_ATTACH_MUX(kCLOKC_SelAonROOT_AUX, 1U),         /*!< Attach AUX to AON AUX.    */
 
     kFROdiv1_to_AON_CPU     = CLK_ATTACH_MUX(kCLOKC_SelAonROOT, 0U),         /*!< Attach FRO div 1 to AON_CPU.   */

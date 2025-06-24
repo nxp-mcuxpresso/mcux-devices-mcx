@@ -8,6 +8,7 @@ menu "Device specific drivers configuration"
 
     config MCUX_COMPONENT_driver.clock
          bool "clock"
+         select MCUX_COMPONENT_driver.advc
          default n
 
     config MCUX_COMPONENT_driver.edma_soc

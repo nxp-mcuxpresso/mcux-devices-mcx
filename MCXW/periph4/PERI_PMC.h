@@ -2,11 +2,13 @@
 ** ###################################################################
 **     Processors:          MCXW235BIHNAR
 **                          MCXW235BIUKAR
+**                          MCXW236AIHNAR
+**                          MCXW236AIUKAR
 **                          MCXW236BIHNAR
 **                          MCXW236BIUKAR
 **
-**     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250107
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250624
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PMC
@@ -21,25 +23,28 @@
 **     Revisions:
 **     - rev. 1.0 (2022-03-08)
 **         Initial version based on v0.1UM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
- * @file PMC.h
- * @version 1.0
- * @date 2022-03-08
+ * @file PERI_PMC.h
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for PMC
  *
  * CMSIS Peripheral Access Layer for PMC
  */
 
-#if !defined(PMC_H_)
-#define PMC_H_                                   /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_PMC_H_)
+#define PERI_PMC_H_                              /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW235BIHNAR) || defined(CPU_MCXW235BIUKAR))
 #include "MCXW235_COMMON.h"
-#elif (defined(CPU_MCXW236BIHNAR) || defined(CPU_MCXW236BIUKAR))
+#elif (defined(CPU_MCXW236AIHNAR) || defined(CPU_MCXW236AIUKAR) || defined(CPU_MCXW236BIHNAR) || defined(CPU_MCXW236BIUKAR))
 #include "MCXW236_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -2127,4 +2132,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* PMC_H_ */
+#endif  /* PERI_PMC_H_ */
+

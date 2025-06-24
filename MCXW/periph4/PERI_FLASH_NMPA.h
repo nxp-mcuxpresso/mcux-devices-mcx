@@ -2,11 +2,13 @@
 ** ###################################################################
 **     Processors:          MCXW235BIHNAR
 **                          MCXW235BIUKAR
+**                          MCXW236AIHNAR
+**                          MCXW236AIUKAR
 **                          MCXW236BIHNAR
 **                          MCXW236BIUKAR
 **
-**     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250107
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250624
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for FLASH_NMPA
@@ -21,25 +23,28 @@
 **     Revisions:
 **     - rev. 1.0 (2022-03-08)
 **         Initial version based on v0.1UM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
- * @file FLASH_NMPA.h
- * @version 1.0
- * @date 2022-03-08
+ * @file PERI_FLASH_NMPA.h
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for FLASH_NMPA
  *
  * CMSIS Peripheral Access Layer for FLASH_NMPA
  */
 
-#if !defined(FLASH_NMPA_H_)
-#define FLASH_NMPA_H_                            /**< Symbol preventing repeated inclusion */
+#if !defined(PERI_FLASH_NMPA_H_)
+#define PERI_FLASH_NMPA_H_                       /**< Symbol preventing repeated inclusion */
 
 #if (defined(CPU_MCXW235BIHNAR) || defined(CPU_MCXW235BIUKAR))
 #include "MCXW235_COMMON.h"
-#elif (defined(CPU_MCXW236BIHNAR) || defined(CPU_MCXW236BIUKAR))
+#elif (defined(CPU_MCXW236AIHNAR) || defined(CPU_MCXW236AIUKAR) || defined(CPU_MCXW236BIHNAR) || defined(CPU_MCXW236BIUKAR))
 #include "MCXW236_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -819,25 +824,65 @@ typedef struct {
 /*! @name BLE_TEST - BLE_TEST */
 /*! @{ */
 
-#define FLASH_NMPA_BLE_TEST_CHAN15_PWR_LIMIT_SPUR_MASK (0x10U)
-#define FLASH_NMPA_BLE_TEST_CHAN15_PWR_LIMIT_SPUR_SHIFT (4U)
-/*! CHAN15_PWR_LIMIT_SPUR - Indicates if power on channel 15 must be limited to 2dBm (based on SPUR production test result) */
-#define FLASH_NMPA_BLE_TEST_CHAN15_PWR_LIMIT_SPUR(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN15_PWR_LIMIT_SPUR_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN15_PWR_LIMIT_SPUR_MASK)
+#define FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_SPUR_MASK (0x10U)
+#define FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_SPUR_SHIFT (4U)
+/*! CHAN15_LRS8_PWR_LIMIT_SPUR - Indicates if power on channel 15 and PHY LRS8 must be limited to 2dBm (based on SPUR production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_SPUR(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_SPUR_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_SPUR_MASK)
 
-#define FLASH_NMPA_BLE_TEST_CHAN31_PWR_LIMIT_SPUR_MASK (0x20U)
-#define FLASH_NMPA_BLE_TEST_CHAN31_PWR_LIMIT_SPUR_SHIFT (5U)
-/*! CHAN31_PWR_LIMIT_SPUR - Indicates if power on channel 31 must be limited to 2dBm (based on SPUR production test result) */
-#define FLASH_NMPA_BLE_TEST_CHAN31_PWR_LIMIT_SPUR(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN31_PWR_LIMIT_SPUR_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN31_PWR_LIMIT_SPUR_MASK)
+#define FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_SPUR_MASK (0x20U)
+#define FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_SPUR_SHIFT (5U)
+/*! CHAN31_LRS8_PWR_LIMIT_SPUR - Indicates if power on channel 31 and PHY LRS8 must be limited to 2dBm (based on SPUR production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_SPUR(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_SPUR_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_SPUR_MASK)
 
-#define FLASH_NMPA_BLE_TEST_CHAN15_PWR_LIMIT_MOD_MASK (0x100000U)
-#define FLASH_NMPA_BLE_TEST_CHAN15_PWR_LIMIT_MOD_SHIFT (20U)
-/*! CHAN15_PWR_LIMIT_MOD - Indicates if power on channel 15 must be limited to 2dBm (based on modulation production test result) */
-#define FLASH_NMPA_BLE_TEST_CHAN15_PWR_LIMIT_MOD(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN15_PWR_LIMIT_MOD_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN15_PWR_LIMIT_MOD_MASK)
+#define FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_SPUR_MASK (0x40U)
+#define FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_SPUR_SHIFT (6U)
+/*! CHAN15_BLE1_PWR_LIMIT_SPUR - Indicates if power on channel 15 and PHY BLE1 must be limited to 2dBm (based on SPUR production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_SPUR(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_SPUR_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_SPUR_MASK)
 
-#define FLASH_NMPA_BLE_TEST_CHAN31_PWR_LIMIT_MOD_MASK (0x200000U)
-#define FLASH_NMPA_BLE_TEST_CHAN31_PWR_LIMIT_MOD_SHIFT (21U)
-/*! CHAN31_PWR_LIMIT_MOD - Indicates if power on channel 31 must be limited to 2dBm (based on modulation production test result) */
-#define FLASH_NMPA_BLE_TEST_CHAN31_PWR_LIMIT_MOD(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN31_PWR_LIMIT_MOD_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN31_PWR_LIMIT_MOD_MASK)
+#define FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_SPUR_MASK (0x80U)
+#define FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_SPUR_SHIFT (7U)
+/*! CHAN31_BLE1_PWR_LIMIT_SPUR - Indicates if power on channel 31 and PHY BLE1 must be limited to 2dBm (based on SPUR production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_SPUR(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_SPUR_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_SPUR_MASK)
+
+#define FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_NO_TEST_MASK (0x100U)
+#define FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_NO_TEST_SHIFT (8U)
+/*! CHAN15_LRS8_PWR_LIMIT_NO_TEST - Indicates if power on channel 15 and PHY LRS8 must be limited to 2dBm (based on modulation production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_NO_TEST(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_NO_TEST_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_NO_TEST_MASK)
+
+#define FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_NO_TEST_MASK (0x200U)
+#define FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_NO_TEST_SHIFT (9U)
+/*! CHAN31_LRS8_PWR_LIMIT_NO_TEST - Indicates if power on channel 31 and PHY LRS8 must be limited to 2dBm (based on modulation production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_NO_TEST(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_NO_TEST_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_NO_TEST_MASK)
+
+#define FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_NO_TEST_MASK (0x400U)
+#define FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_NO_TEST_SHIFT (10U)
+/*! CHAN15_BLE1_PWR_LIMIT_NO_TEST - Indicates if power on channel 15 and PHY BLE1 must be limited to 2dBm (based on modulation production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_NO_TEST(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_NO_TEST_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_NO_TEST_MASK)
+
+#define FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_NO_TEST_MASK (0x800U)
+#define FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_NO_TEST_SHIFT (11U)
+/*! CHAN31_BLE1_PWR_LIMIT_NO_TEST - Indicates if power on channel 31 and PHY BLE1 must be limited to 2dBm (based on modulation production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_NO_TEST(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_NO_TEST_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_NO_TEST_MASK)
+
+#define FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_MOD_MASK (0x100000U)
+#define FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_MOD_SHIFT (20U)
+/*! CHAN15_LRS8_PWR_LIMIT_MOD - Indicates if power on channel 15 and PHY LRS8 must be limited to 2dBm (based on modulation production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_MOD(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_MOD_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN15_LRS8_PWR_LIMIT_MOD_MASK)
+
+#define FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_MOD_MASK (0x200000U)
+#define FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_MOD_SHIFT (21U)
+/*! CHAN31_LRS8_PWR_LIMIT_MOD - Indicates if power on channel 31 and PHY LRS8 must be limited to 2dBm (based on modulation production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_MOD(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_MOD_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN31_LRS8_PWR_LIMIT_MOD_MASK)
+
+#define FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_MOD_MASK (0x400000U)
+#define FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_MOD_SHIFT (22U)
+/*! CHAN15_BLE1_PWR_LIMIT_MOD - Indicates if power on channel 15 and PHY BLE1 must be limited to 2dBm (based on modulation production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_MOD(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_MOD_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN15_BLE1_PWR_LIMIT_MOD_MASK)
+
+#define FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_MOD_MASK (0x800000U)
+#define FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_MOD_SHIFT (23U)
+/*! CHAN31_BLE1_PWR_LIMIT_MOD - Indicates if power on channel 31 and PHY BLE1 must be limited to 2dBm (based on modulation production test result) */
+#define FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_MOD(x) (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_MOD_SHIFT)) & FLASH_NMPA_BLE_TEST_CHAN31_BLE1_PWR_LIMIT_MOD_MASK)
 
 #define FLASH_NMPA_BLE_TEST_BLE_SPUR_TEST_MASK   (0x1000000U)
 #define FLASH_NMPA_BLE_TEST_BLE_SPUR_TEST_SHIFT  (24U)
@@ -848,6 +893,11 @@ typedef struct {
 #define FLASH_NMPA_BLE_TEST_BLE_MOD_TEST_SHIFT   (25U)
 /*! BLE_MOD_TEST - If 0x1, BLE SPUR production test is run and passing */
 #define FLASH_NMPA_BLE_TEST_BLE_MOD_TEST(x)      (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_BLE_MOD_TEST_SHIFT)) & FLASH_NMPA_BLE_TEST_BLE_MOD_TEST_MASK)
+
+#define FLASH_NMPA_BLE_TEST_BLE_NO_TEST_MASK     (0x4000000U)
+#define FLASH_NMPA_BLE_TEST_BLE_NO_TEST_SHIFT    (26U)
+/*! BLE_NO_TEST - If 0x1, BLE NO production test is run but tx power limit is forced */
+#define FLASH_NMPA_BLE_TEST_BLE_NO_TEST(x)       (((uint32_t)(((uint32_t)(x)) << FLASH_NMPA_BLE_TEST_BLE_NO_TEST_SHIFT)) & FLASH_NMPA_BLE_TEST_BLE_NO_TEST_MASK)
 /*! @} */
 
 /*! @name DCDC_POWER_PROFILE_LOW -  */
@@ -1802,4 +1852,5 @@ typedef struct {
  */ /* end of group Peripheral_access_layer */
 
 
-#endif  /* FLASH_NMPA_H_ */
+#endif  /* PERI_FLASH_NMPA_H_ */
+

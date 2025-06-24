@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-11
-**     Build:               b250506
+**     Build:               b250623
 **
 **     Abstract:
 **         Chip specific module features.
@@ -466,18 +466,26 @@
 #define FSL_FEATURE_SAI_HAS_CLOCKING_MODE (0)
 /* @brief Has register for configuration of the MCLK divide ratio (register bit fields MDR[FRACT], MDR[DIVIDE]). */
 #define FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER (0)
-/* @brief Ihe interrupt source number */
+/* @brief Interrupt source number */
 #define FSL_FEATURE_SAI_INT_SOURCE_NUM (1)
 /* @brief Has register of MCR. */
 #define FSL_FEATURE_SAI_HAS_MCR (1)
+/* @brief Has bit field MICS of the MCR register. */
+#define FSL_FEATURE_SAI_HAS_NO_MCR_MICS (0)
 /* @brief Has register of MDR */
 #define FSL_FEATURE_SAI_HAS_MDR (0)
-/* @brief Has DIV bit fields of MCR register (register bit fields MCR[DIV]. */
+/* @brief Has support the BCLK bypass mode when BCLK = MCLK. */
+#define FSL_FEATURE_SAI_HAS_BCLK_BYPASS (0)
+/* @brief Has DIV bit fields of MCR register (register bit fields MCR[DIV]). */
 #define FSL_FEATURE_SAI_HAS_MCR_MCLK_POST_DIV (0)
 /* @brief Support Channel Mode (register bit fields TCR4[CHMOD]). */
 #define FSL_FEATURE_SAI_HAS_CHANNEL_MODE (0)
+/* @brief Support synchronous with another SAI. */
+#define FSL_FEATURE_SAI_HAS_SYNC_WITH_ANOTHER_SAI (0)
 /* @brief Has Bit Clock Swap option (register bit fields RCR2[BCS]) */
 #define FSL_FEATURE_SAI_HAS_BIT_CLOCK_SWAP (1)
+/* @brief SAI5 and SAI6 share one irq number. */
+#define FSL_FEATURE_SAI_SAI5_SAI6_SHARE_IRQ (0)
 
 /* LLWU module features */
 
@@ -799,6 +807,8 @@
 #define FSL_FEATURE_LPUART_HAS_TIMEOUT (0)
 /* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
 #define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (0)
+/* @brief UART support receive rts configuration (has bit MODIR[RTSWATER]). */
+#define FSL_FEATURE_LPUART_HAS_MODIR_RTSWATER (0)
 /* @brief LPUART0 and LPUART1 has shared interrupt vector. */
 #define FSL_FEATURE_LPUART_HAS_SHARED_IRQ0_IRQ1 (0)
 

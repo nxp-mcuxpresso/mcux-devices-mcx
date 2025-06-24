@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250522
+**     Build:               b250623
 **
 **     Abstract:
 **         Chip specific module features.
@@ -325,6 +325,8 @@
 #define FSL_FEATURE_FLEXCAN_ENTER_FREEZE_MODE (0)
 /* @brief Is affected by errata with ID 8341 (FlexCAN: Entering Freeze Mode or Low Power Mode from Normal Mode can cause the FlexCAN module to stop operating). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_8341 (0)
+/* @brief Is affected by errata with ID 050443 (FlexCAN: : Receive Message Buffers may have its CODE Field corrupted if the Receive FIFO function is used in Classical CAN mode). */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_050443 (0)
 
 /* CDOG module features */
 
@@ -668,6 +670,12 @@
 #define FSL_FEATURE_LPUART_HAS_TIMEOUT (0)
 /* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
 #define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (1)
+/* @brief UART support receive rts configuration (has bit MODIR[RTSWATER]). */
+#define FSL_FEATURE_LPUART_HAS_MODIR_RTSWATER (1)
+
+/* MAU module features */
+
+/* No feature definitions */
 
 /* TRDC module features */
 

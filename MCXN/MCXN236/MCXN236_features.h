@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250512
+**     Build:               b250623
 **
 **     Abstract:
 **         Chip specific module features.
@@ -275,6 +275,8 @@
 #define FSL_FEATURE_FLEXCAN_ENTER_FREEZE_MODE (0)
 /* @brief Is affected by errata with ID 8341 (FlexCAN: Entering Freeze Mode or Low Power Mode from Normal Mode can cause the FlexCAN module to stop operating). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_8341 (0)
+/* @brief Is affected by errata with ID 050443 (FlexCAN: : Receive Message Buffers may have its CODE Field corrupted if the Receive FIFO function is used in Classical CAN mode). */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_050443 (0)
 
 /* CDOG module features */
 
@@ -630,6 +632,8 @@
 #define FSL_FEATURE_LPUART_HAS_TIMEOUT (1)
 /* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
 #define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (0)
+/* @brief UART support receive rts configuration (has bit MODIR[RTSWATER]). */
+#define FSL_FEATURE_LPUART_HAS_MODIR_RTSWATER (1)
 
 /* LP_FLEXCOMM module features */
 
@@ -841,7 +845,7 @@
 #define FSL_FEATURE_SAI_HAS_MDR (0)
 /* @brief Has support the BCLK bypass mode when BCLK = MCLK. */
 #define FSL_FEATURE_SAI_HAS_BCLK_BYPASS (1)
-/* @brief Has DIV bit fields of MCR register (register bit fields MCR[DIV]. */
+/* @brief Has DIV bit fields of MCR register (register bit fields MCR[DIV]). */
 #define FSL_FEATURE_SAI_HAS_MCR_MCLK_POST_DIV (1)
 /* @brief Support Channel Mode (register bit fields TCR4[CHMOD]). */
 #define FSL_FEATURE_SAI_HAS_CHANNEL_MODE (1)
@@ -849,6 +853,8 @@
 #define FSL_FEATURE_SAI_HAS_SYNC_WITH_ANOTHER_SAI (1)
 /* @brief Has Bit Clock Swap option (register bit fields RCR2[BCS]) */
 #define FSL_FEATURE_SAI_HAS_BIT_CLOCK_SWAP (1)
+/* @brief SAI5 and SAI6 share one irq number. */
+#define FSL_FEATURE_SAI_SAI5_SAI6_SHARE_IRQ (0)
 
 /* SPC module features */
 

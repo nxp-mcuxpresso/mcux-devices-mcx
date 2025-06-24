@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-21
-**     Build:               b250512
+**     Build:               b250623
 **
 **     Abstract:
 **         Chip specific module features.
@@ -202,6 +202,11 @@
 #define FSL_FEATURE_CMC_HAS_RSTCNT_REGISTER (1)
 /* @brief Does not have SRAMCTL register */
 #define FSL_FEATURE_CMC_HAS_NO_SRAMCTL_REGISTER (1)
+
+/* CRC module features */
+
+/* @brief Has data register with name CRC */
+#define FSL_FEATURE_CRC_HAS_CRC_REG (0)
 
 /* EDMA module features */
 
@@ -453,6 +458,8 @@
 #define FSL_FEATURE_LPUART_HAS_TIMEOUT (0)
 /* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
 #define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (0)
+/* @brief UART support receive rts configuration (has bit MODIR[RTSWATER]). */
+#define FSL_FEATURE_LPUART_HAS_MODIR_RTSWATER (1)
 
 /* LTC module features */
 

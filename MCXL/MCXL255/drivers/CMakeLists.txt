@@ -27,13 +27,13 @@ if (CONFIG_MCUX_COMPONENT_driver.advc)
         BASE_PATH ${SdkRootDirPath}/${device_root}
         CORES cm33
         LIBS "MCX/MCXL/MCXL255/drivers/advc_cm33.lib"
-        TOOLCHAINS iar
+        TOOLCHAINS iar armgcc
     )
     mcux_add_library(
         BASE_PATH ${SdkRootDirPath}/${device_root}
         CORES cm0p
         LIBS "MCX/MCXL/MCXL255/drivers/advc_cm0p.lib"
-        TOOLCHAINS iar
+        TOOLCHAINS iar armgcc
     )
 endif()
 

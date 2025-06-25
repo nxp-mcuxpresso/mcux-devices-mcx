@@ -158,6 +158,8 @@ static void ADVC_PreChg(const clock_aon_chg_t change, uint32_t newValue)
         }
         
         ADVC_PreVoltageChangeRequest(freq);
+        /* ADVC functions always diables APB clk, so enable it again. */
+        CLOCK_EnableClock(kCLOCK_GateAonAPB);
         
     } /* ADVC is enabled */
     
@@ -169,8 +171,11 @@ static void ADVC_PostChg(void)
     if(ADVC_IsEnabled())
     {
         ADVC_PostVoltageChangeRequest();
+        /* ADVC functions always diables APB clk, so enable it again. */
+        CLOCK_EnableClock(kCLOCK_GateAonAPB);
     }
 }
+
 /* Clock Selection for IP */
 /**
  * brief   Configure the clock selection muxes.

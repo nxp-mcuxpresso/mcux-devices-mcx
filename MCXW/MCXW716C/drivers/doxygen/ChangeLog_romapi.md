@@ -1,5 +1,10 @@
 # ROMAPI
 
+## [1.2.2]
+
+- Improvements
+  - Fixed the issue that unsigned integer operation may wrap.
+
 ## [1.2.1]
 
 - Improvements

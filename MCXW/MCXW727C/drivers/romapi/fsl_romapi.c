@@ -433,12 +433,12 @@ static status_t flash_check_param(
         status = kStatus_FLASH_Success;
     }
 #if defined(RF_FMU)
-    else if ((config == NULL) || (base == NULL) || ((base != FMU0) && (base != RF_FMU)))
+    else if ((config == NULL) || (base == NULL) || ((base != FMU0) && (base != RF_FMU)) || (0u == alignmentBaseline))
     {
         status = kStatus_FLASH_InvalidArgument;
     }
 #else
-    else if ((config == NULL) || (base == NULL) || (base != FMU0))
+    else if ((config == NULL) || (base == NULL) || (base != FMU0) || (0u == alignmentBaseline))
     {
         status = kStatus_FLASH_InvalidArgument;
     }

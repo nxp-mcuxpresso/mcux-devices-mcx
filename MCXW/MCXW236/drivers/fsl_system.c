@@ -343,6 +343,7 @@ uint32_t SYSTEM_MeasureFrequency(freq_meas_target_clock_t targetClock,
     uint32_t pmcRTCOsc32k         = PMC->RTCOSC32K;
     uint32_t fro192MCtrl         = ANACTRL->FRO192M_CTRL;
     uint32_t savedSystemCoreClock = SystemCoreClock;
+    uint32_t val;
 
     /* Enable BLE clock / CLKIN clock / 32MHz XTAL clock already here to gain time */
     PMC->PDRUNCFGCLR0 = PMC_PDRUNCFG0_PDEN_BLE_MASK;
@@ -376,7 +377,7 @@ uint32_t SYSTEM_MeasureFrequency(freq_meas_target_clock_t targetClock,
         goto func_exit;
     }
 
-    uint32_t val = CountClockCycles(targetClock, refClockPowerOf2Cycles);
+    val = CountClockCycles(targetClock, refClockPowerOf2Cycles);
 
     /* Calculate frequency in Hz */
     freq = (uint32_t)(((uint64_t)val * FREQ_32MHZ) / ((1 << refClockPowerOf2Cycles) - 1));

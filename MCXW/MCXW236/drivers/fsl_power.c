@@ -694,7 +694,7 @@ static status_t MeasureVoltage(uint32_t instance, uint32_t *voltage)
     uint32_t resetMask               = instance == 0 ?
                                            PMC_RESETCTRL_BOD1RESETENA_SECURE_MASK | PMC_RESETCTRL_BOD1RESETENA_SECURE_DP_MASK :
                                            PMC_RESETCTRL_BOD2RESETENA_SECURE_MASK | PMC_RESETCTRL_BOD2RESETENA_SECURE_DP_MASK;
-    uint32_t nvicBodIrq              = instance == 0 ? BOD1_IRQn : BOD2_IRQn;
+    IRQn_Type nvicBodIrq             = instance == 0 ? BOD1_IRQn : BOD2_IRQn;
     void (*setBodLevel)(bod_level_t) = instance == 0 ? POWER_SetBod1Level : POWER_SetBod2Level;
     bool (*isBodActive)(void)        = instance == 0 ? POWER_IsBOD1Active : POWER_IsBOD2Active;
     uint32_t regValue;
@@ -729,7 +729,7 @@ static status_t MeasureVoltage(uint32_t instance, uint32_t *voltage)
     (instance == 0 ? DisableBOD1Resets : DisableBOD2Resets)();
 
     /* Start from previous measurement */
-    setBodLevel(levelSettings[currentSetting]);
+    setBodLevel((bod_level_t)levelSettings[currentSetting]);
     DelayUs(STABILIZATION_TIME_IN_US);
 
     /* The actual voltage is determined by changing the BOD trigger level until the level crosses Vbat_hv.
@@ -744,7 +744,7 @@ static status_t MeasureVoltage(uint32_t instance, uint32_t *voltage)
     {
         /* Update trigger level */
         currentSetting += direction;
-        setBodLevel(levelSettings[currentSetting]);
+        setBodLevel((bod_level_t)levelSettings[currentSetting]);
         DelayUs(STABILIZATION_TIME_IN_US);
         previousBodActive = bodActive;
         bodActive         = isBodActive();

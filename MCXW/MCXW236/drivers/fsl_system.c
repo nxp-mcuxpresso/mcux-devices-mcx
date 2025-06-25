@@ -480,7 +480,7 @@ chip_version_t SYSTEM_GetChipVersion(void)
     chip_version_t chipVersion = kCHIPVERSION_UNKNOWN;
     uint32_t metalFixNr        = ((uint32_t)FLASH_NMPA->GPO1.GPO1_0 & FLASH_NMPA_GPO1_0_METAL_REVISION_ID_MASK) >>
                           FLASH_NMPA_GPO1_0_METAL_REVISION_ID_SHIFT;
-    chipVersion = metalFixNr | 0xA0;
+    chipVersion = (chip_version_t)(metalFixNr | 0xA0);
     return chipVersion;
 }
 
@@ -499,7 +499,7 @@ void SYSTEM_GetDeviceType(uint16_t *typeNr, bool *securityEnabled, chip_package_
                          FLASH_NMPA_DEVICE_TYPE_DEVICE_TYPE_NUM_SHIFT);
     *securityEnabled      = (bool)((nmpa->DEVICE_TYPE & FLASH_NMPA_DEVICE_TYPE_DEVICE_TYPE_SEC_MASK) >>
                               FLASH_NMPA_DEVICE_TYPE_DEVICE_TYPE_SEC_SHIFT);
-    *packageType          = (uint8_t)((nmpa->DEVICE_TYPE & FLASH_NMPA_DEVICE_TYPE_DEVICE_TYPE_PKG_MASK) >>
+    *packageType          = (chip_package_type_t)((nmpa->DEVICE_TYPE & FLASH_NMPA_DEVICE_TYPE_DEVICE_TYPE_PKG_MASK) >>
                              FLASH_NMPA_DEVICE_TYPE_DEVICE_TYPE_PKG_SHIFT);
     *nrOfPins             = (uint8_t)((nmpa->DEVICE_TYPE & FLASH_NMPA_DEVICE_TYPE_DEVICE_TYPE_PIN_MASK) >>
                           FLASH_NMPA_DEVICE_TYPE_DEVICE_TYPE_PIN_SHIFT);

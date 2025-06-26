@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.2.3]
+
+- Improvements:
+  - Fixed the MSG issue that overrunning array fro192mFreq of 5 4-byte elements at element index 7.
+
 ## [2.2.2]
 
 - New Features:

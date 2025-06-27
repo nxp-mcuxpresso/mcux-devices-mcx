@@ -333,6 +333,11 @@
 /* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
 #define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (1)
 
+/* OSTIMER module features */
+
+/* @brief Has binary encoded value in counter register. */
+#define FSL_FEATURE_OSTIMER_HAS_BINARY_ENCODED_COUNTER (1)
+
 /* PORT module features */
 
 /* @brief Has control lock (register bit PCR[LK]). */

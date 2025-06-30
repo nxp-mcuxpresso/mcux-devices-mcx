@@ -19,8 +19,8 @@
  *****************************************************************************/
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.1.0 */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 1, 1))
+/*! @brief CLOCK driver version 2.1.2 */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 1, 2))
 /*@}*/
 
 /* Definition for delay API in clock driver, users can redefine it to the real
@@ -119,6 +119,12 @@ extern volatile uint32_t g_xtal0Freq;
 #define EDMA_CLOCKS \
     {               \
         kCLOCK_Edma \
+    }
+
+/*! @brief Clock ip name array for EMAC. */
+#define EMAC_CLOCKS \
+    {               \
+        kCLOCK_Emac \
     }
 
 /*! @brief Clock ip name array for EDMA TCD. */
@@ -449,7 +455,7 @@ typedef enum _clock_ip_name
     kCLOCK_Sema42 = MC_ME_COFB_TUPLE(0x530U, 24), /*!< Semaphores2 (PRTN2_COFB0) */
     kCLOCK_Stm1   = MC_ME_COFB_TUPLE(0x530U, 29), /*!< System Timer Module 1 (PRTN2_COFB0) */
     /* PRTN2_COFB1_CLKEN Bit Fields */
-    kCLOCK_Enet     = MC_ME_COFB_TUPLE(0x534U, 0),   /*!< ENET (PRTN2_COFB1) */
+    kCLOCK_Emac     = MC_ME_COFB_TUPLE(0x534U, 0),   /*!< EMAC (PRTN2_COFB1) */
     kCLOCK_Lpuart8  = MC_ME_COFB_TUPLE(0x534U, 3U),  /*!< Low Power UART 8 (PRTN2_COFB1). */
     kCLOCK_Lpuart9  = MC_ME_COFB_TUPLE(0x534U, 4U),  /*!< Low Power UART 9 (PRTN2_COFB1). */
     kCLOCK_Lpuart10 = MC_ME_COFB_TUPLE(0x534U, 5U),  /*!< Low Power UART 10 (PRTN2_COFB1). */

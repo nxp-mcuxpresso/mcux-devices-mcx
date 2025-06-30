@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250623
+**     Build:               b250630
 **
 **     Abstract:
 **         Chip specific module features.
@@ -668,7 +668,7 @@
 /* @brief Lowest interrupt request number. */
 #define FSL_FEATURE_INTERRUPT_IRQ_MIN (-14)
 /* @brief Highest interrupt request number. */
-#define FSL_FEATURE_INTERRUPT_IRQ_MAX (207)
+#define FSL_FEATURE_INTERRUPT_IRQ_MAX (223)
 
 /* PIT module features */
 

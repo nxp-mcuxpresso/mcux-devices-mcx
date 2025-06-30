@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250623
+**     Build:               b250630
 **
 **     Abstract:
 **         Chip specific module features.
@@ -39,6 +39,8 @@
 #define FSL_FEATURE_SOC_EDMA_COUNT (1)
 /* @brief EIM availability on the SoC. */
 #define FSL_FEATURE_SOC_EIM_COUNT (1)
+/* @brief EMAC availability on the SoC. */
+#define FSL_FEATURE_SOC_EMAC_COUNT (1)
 /* @brief EMIOS availability on the SoC. */
 #define FSL_FEATURE_SOC_EMIOS_COUNT (3)
 /* @brief FLEXCAN availability on the SoC. */
@@ -679,7 +681,7 @@
 /* @brief Lowest interrupt request number. */
 #define FSL_FEATURE_INTERRUPT_IRQ_MIN (-14)
 /* @brief Highest interrupt request number. */
-#define FSL_FEATURE_INTERRUPT_IRQ_MAX (207)
+#define FSL_FEATURE_INTERRUPT_IRQ_MAX (223)
 
 /* PIT module features */
 

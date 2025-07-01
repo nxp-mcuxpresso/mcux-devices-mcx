@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-11
-**     Build:               b250623
+**     Build:               b250630
 **
 **     Abstract:
 **         Chip specific module features.
@@ -1211,13 +1211,13 @@
 #define FSL_FEATURE_SIM_DIVIDER_HAS_TRACEDIV (0)
 /* @brief Has NFC clock divider (register bit field CLKDIV4[NFCDIV] and CLKDIV4[NFCFRAC]). */
 #define FSL_FEATURE_SIM_DIVIDER_HAS_NFCDIV (0)
-/* @brief Has Kinetis family ID (register bit field SDID[FAMILYID]). */
+/* @brief Has Kinetis/MCX family ID (register bit field SDID[FAMILYID]). */
 #define FSL_FEATURE_SIM_SDID_HAS_FAMILYID (0)
-/* @brief Has Kinetis family ID (register bit field SDID[FAMID]). */
+/* @brief Has Kinetis/MCX family ID (register bit field SDID[FAMID]). */
 #define FSL_FEATURE_SIM_SDID_HAS_FAMID (1)
-/* @brief Has Kinetis sub-family ID (register bit field SDID[SUBFAMID]). */
+/* @brief Has Kinetis/MCX sub-family ID (register bit field SDID[SUBFAMID]). */
 #define FSL_FEATURE_SIM_SDID_HAS_SUBFAMID (1)
-/* @brief Has Kinetis series ID (register bit field SDID[SERIESID]). */
+/* @brief Has Kinetis/MCX series ID (register bit field SDID[SERIESID]). */
 #define FSL_FEATURE_SIM_SDID_HAS_SERIESID (1)
 /* @brief Has device die ID (register bit field SDID[DIEID]). */
 #define FSL_FEATURE_SIM_SDID_HAS_DIEID (0)

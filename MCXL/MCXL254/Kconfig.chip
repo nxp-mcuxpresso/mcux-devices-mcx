@@ -27,7 +27,7 @@ endchoice
 
 config MCUX_HW_DEVICE_ID
     string
-    default "MCXL254xxx" if MCUX_HW_DEVICE_ID_MCXL254xxx
+    default "MCXL254" if MCUX_HW_DEVICE_ID_MCXL254xxx
 
 config MCUX_HW_DEVICE_PART
     string

@@ -1,0 +1,124 @@
+---
+
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXN526
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXN526"
+        full_name: "MCXN526"
+        name: "MCXN526"
+        platform: "MCX"
+        series: "MCXN"
+        family: "MCXN5XX"
+        subfamily: "MCXN526"
+        frequency_mhz: 150
+        core:
+          - name: "Cortex-M33"
+            type: "cm33"
+            id: "cm33_core0"
+            description: ""
+            fpu: "SP_FPU"
+            dsp: true
+            mpu: true
+            sau: true
+            boot_role: "primary"
+          - name: "Cortex-M33"
+            type: "cm33"
+            id: "cm33_core1"
+            description: ""
+            fpu: "NO_FPU"
+            dsp: false
+            mpu: false
+            sau: false
+            boot_role: "primary_secondary"
+            slave_role:
+              - id: "M33SLAVE"
+                name: "Cortex-M33 core1 acts as slave by default"
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH0"
+              name: "PROGRAM_FLASH0"
+              addr: 0x0
+              size: 0x80000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+              aliases:
+                - name: "PROGRAM_FLASH_alias0"
+                  addr: 0x10000000
+                  size: 0x80000
+                  access: "RO"
+            - id: "PROGRAM_FLASH1"
+              name: "PROGRAM_FLASH1"
+              addr: 0x80000
+              size: 0x80000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+              aliases:
+                - name: "PROGRAM_FLASH_alias1"
+                  addr: 0x10080000
+                  size: 0x80000
+                  access: "RO"
+            - id: "SRAM"
+              name: "SRAM"
+              addr: 0x20000000
+              size: 0x40000
+              type: "RAM"
+              access: "RW"
+              default: true
+              aliases:
+                - name: "SRAM_alias"
+                  addr: 0x30000000
+                  size: 0x40000
+                  access: "RW"
+            - id: "SRAMX"
+              name: "SRAMX"
+              addr: 0x4000000
+              size: 0x18000
+              type: "RAM"
+              access: "RW"
+              default: true
+              aliases:
+                - name: "SRAMX_alias"
+                  addr: 0x14000000
+                  size: 0x18000
+                  access: "RW"
+            - id: "USB_RAM"
+              name: "USB_RAM"
+              addr: 0x400ba000
+              size: 0x1000
+              type: "RAM"
+              access: "RW"
+              default: true
+              aliases:
+                - name: "USB_RAM_alias"
+                  addr: 0x500ba000
+                  size: 0x1000
+                  access: "RW"
+            - id: "BootROM"
+              name: "BootROM"
+              addr: 0x3000000
+              size: 0x40000
+              type: "ROM"
+              access: "RO"
+              aliases:
+                - name: "BootROM_alias"
+                  addr: 0x13000000
+                  size: 0x40000
+                  access: "RO"
+        total_memory:
+          ram_size_kb: 352
+          flash_size_kb: 1024
+        part:
+          - name: "MCXN526VDF"
+          - name: "MCXN526VKL"
+        modules:
+          - name: "USB"
+            feature: "KHCI_COUNT"
+            value: "1"
+...

@@ -1,6 +1,7 @@
 /*
 ** ###################################################################
-**     Processors:          MCXN546VDF_cm33_core0
+**     Processors:          MCXN546VAB_cm33_core0
+**                          MCXN546VDF_cm33_core0
 **                          MCXN546VKL_cm33_core0
 **                          MCXN546VNL_cm33_core0
 **                          MCXN546VPB_cm33_core0
@@ -8,13 +9,13 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b241105
+**     Build:               b250703
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com

@@ -36,6 +36,7 @@ device.hardware_data:
             mpu: true
             sau: true
             frequency_mhz: 96
+            boot_role: "primary"
             memory:
               memoryBlock:
                 - id: "PROGRAM_FLASH"
@@ -74,6 +75,10 @@ device.hardware_data:
             mpu: false
             sau: false
             frequency_mhz: 10
+            boot_role: "secondary"
+            slave_role:
+              - id: "M0SLAVE"
+                name: "Cortex-M0 acts as slave by default"
             memory:
               memoryBlock:
                 - id: "AON_SRAM"

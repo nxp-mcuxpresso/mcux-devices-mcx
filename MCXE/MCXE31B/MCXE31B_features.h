@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250630
+**     Build:               b250708
 **
 **     Abstract:
 **         Chip specific module features.
@@ -73,6 +73,8 @@
 #define FSL_FEATURE_SOC_RTC_COUNT (1)
 /* @brief SEMA42 availability on the SoC. */
 #define FSL_FEATURE_SOC_SEMA42_COUNT (1)
+/* @brief SIUL2 availability on the SoC. */
+#define FSL_FEATURE_SOC_SIUL2_COUNT (1)
 /* @brief STM availability on the SoC. */
 #define FSL_FEATURE_SOC_STM_COUNT (2)
 /* @brief TRGMUX availability on the SoC. */

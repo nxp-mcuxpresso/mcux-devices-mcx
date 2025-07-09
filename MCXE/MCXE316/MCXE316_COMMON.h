@@ -3,14 +3,15 @@
 **     Processors:          MCXE316MLF
 **                          MCXE316MPA
 **
-**     Compilers:           GNU C Compiler
+**     Compilers:
+**                          GNU C Compiler
 **                          IAR ANSI C/C++ Compiler for ARM
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    MCXE31 RM Rev1
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250527
+**     Build:               b250708
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE316
@@ -268,12 +269,12 @@ typedef enum IRQn {
   Reserved227_IRQn             = 211,              /**< Reserved interrupt */
   PLL_LOL_IRQn                 = 212,              /**< PLL LOL interrupt */
   CORE_CLK_FAIL_IRQn           = 213,              /**< CORE_CLK_FAIL CMU reset reaction interrupt */
-  Reserved230_IRQn             = 214,              /**< PLL2 LOL interrupt */
+  Reserved230_IRQn             = 214,              /**< Reserved interrupt */
   AIPS_PLAT_CLK_FAIL_IRQn      = 215,              /**< AIPS_PLAT_CLK_FAIL CMU reset reaction interrupt */
-  Reserved232_IRQn             = 216,              /**< XRDC Error Interrupt */
+  Reserved232_IRQn             = 216,              /**< Reserved interrupt */
   HSE_B_CLK_FAIL_IRQn          = 217,              /**< HSE_B_CLK_FAIL CMU reset reaction interrupt */
   Reserved234_IRQn             = 218,              /**< Reserved interrupt */
-  Reserved235_IRQn             = 219,              /**< CM7_CORE_CLK_FAIL CMU reset reaction interrupt */
+  Reserved235_IRQn             = 219,              /**< Reserved interrupt */
   Reserved236_IRQn             = 220,              /**< Reserved interrupt */
   Reserved237_IRQn             = 221,              /**< Reserved interrupt */
   Reserved238_IRQn             = 222,              /**< Reserved interrupt */
@@ -929,6 +930,8 @@ typedef enum _xbic_slave_port
 #define DMA_BASE_ADDRS                           { EDMA_BASE }
 /** Array initializer of DMA peripheral base pointers */
 #define DMA_BASE_PTRS                            { EDMA }
+/** Interrupt vectors for the DMA peripheral type */
+#define DMA_IRQS                                 { { DMATCD0_IRQn, DMATCD1_IRQn, DMATCD2_IRQn, DMATCD3_IRQn, DMATCD4_IRQn, DMATCD5_IRQn, DMATCD6_IRQn, DMATCD7_IRQn, DMATCD8_IRQn, DMATCD9_IRQn, DMATCD10_IRQn, DMATCD11_IRQn, DMATCD12_IRQn, DMATCD13_IRQn, DMATCD14_IRQn, DMATCD15_IRQn, DMATCD16_IRQn, DMATCD17_IRQn, DMATCD18_IRQn, DMATCD19_IRQn, DMATCD20_IRQn, DMATCD21_IRQn, DMATCD22_IRQn, DMATCD23_IRQn, DMATCD24_IRQn, DMATCD25_IRQn, DMATCD26_IRQn, DMATCD27_IRQn, DMATCD28_IRQn, DMATCD29_IRQn, DMATCD30_IRQn, DMATCD31_IRQn } }
 
 /* DMAMUX - Peripheral instance base addresses */
 /** Peripheral DMAMUX_0 base address */
@@ -1313,6 +1316,8 @@ typedef enum _xbic_slave_port
 #define SIUL2_BASE_ADDRS                         { SIUL2_BASE }
 /** Array initializer of SIUL2 peripheral base pointers */
 #define SIUL2_BASE_PTRS                          { SIUL2 }
+/** Interrupt vectors for the SIUL2 peripheral type */
+#define SIUL2_IRQS                               { { SIUL2_0_IRQn, SIUL2_1_IRQn, SIUL2_2_IRQn, SIUL2_3_IRQn } }
 
 /* STCU - Peripheral instance base addresses */
 /** Peripheral STCU base address */

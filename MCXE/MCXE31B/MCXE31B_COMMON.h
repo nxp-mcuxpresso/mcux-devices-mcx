@@ -9,7 +9,7 @@
 **
 **     Reference manual:    MCXE31 RM Rev1
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250630
+**     Build:               b250708
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE31B
@@ -1523,6 +1523,8 @@ typedef enum _xbic_slave_port
 #define SIUL2_BASE_ADDRS                         { SIUL2_BASE }
 /** Array initializer of SIUL2 peripheral base pointers */
 #define SIUL2_BASE_PTRS                          { SIUL2 }
+/** Interrupt vectors for the SIUL2 peripheral type */
+#define SIUL2_IRQS                               { { SIUL2_0_IRQn, SIUL2_1_IRQn, SIUL2_2_IRQn, SIUL2_3_IRQn } }
 
 /* STCU - Peripheral instance base addresses */
 /** Peripheral STCU base address */

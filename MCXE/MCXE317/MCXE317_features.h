@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250708
+**     Build:               b250710
 **
 **     Abstract:
 **         Chip specific module features.
@@ -351,7 +351,7 @@
 /* @brief Enhanced Rx FIFO size (Indicates how many CAN FD messages can be stored). */
 #define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO_SIZE (20)
 /* @brief Has more than 64 MBs. */
-#define FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB (1)
+#define FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB (0)
 /* @brief The number of enhanced Rx FIFO filter element registers. */
 #define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO_FILTER_MAX_NUMBER (128)
 /* @brief Does not support self wake feature(bitfield MCR[SLFWAK]) */

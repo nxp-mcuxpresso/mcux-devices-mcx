@@ -10,6 +10,18 @@
  * Definitions
  ******************************************************************************/
 
+#define DCM_DCMLCS_DCMLCSS_SHIFT 0x00U
+#define DCM_DCMLCS_DCMLCSS_MASK  (0x01U << DCM_DCMLCS_DCMLCSS_SHIFT)
+
+#define DCM_DCMLCS_DCMLCC_SHIFT  0x01U
+#define DCM_DCMLCS_DCMLCC_MASK   (0x03U << DCM_DCMLCS_DCMLCC_SHIFT)
+
+#define DCM_DCMLCS_DCMLCE_SHIFT  0x04U
+#define DCM_DCMLCS_DCMLCE_MASK   (0x01U << DCM_DCMLCS_DCMLCE_SHIFT)
+
+#define DCM_DCMLCS_DCMLCFE_SHIFT 0x05U
+#define DCM_DCMLCS_DCMLCFE_MASK  (0x01U << DCM_DCMLCS_DCMLCFE_SHIFT)
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -47,10 +59,10 @@ void DCM_GetDcfScanReport(uint32_t slot, dcm_dcf_scan_report_t *report)
  */
 static void DCM_GetLifeCycleSlotScanStatus(dcm_life_cycle_slot_scan_status_t *status, uint32_t regVal)
 {
-    status->hasError = (regVal & DCM_DCMLCS_DCMLCSS1_MASK) >> DCM_DCMLCS_DCMLCSS1_SHIFT;
-    status->marking  = (regVal & DCM_DCMLCS_DCMLCC1_MASK) >> DCM_DCMLCS_DCMLCC1_SHIFT;
-    status->hasEccError  = (regVal & DCM_DCMLCS_DCMLCE1_MASK) >> DCM_DCMLCS_DCMLCE1_SHIFT;
-    status->hasFlashError  = (regVal & DCM_DCMLCS_DCMLCFE1_MASK) >> DCM_DCMLCS_DCMLCFE1_SHIFT;
+    status->hasError = (regVal & DCM_DCMLCS_DCMLCSS_MASK) >> DCM_DCMLCS_DCMLCSS_SHIFT;
+    status->marking  = (regVal & DCM_DCMLCS_DCMLCC_MASK) >> DCM_DCMLCS_DCMLCC_SHIFT;
+    status->hasEccError  = (regVal & DCM_DCMLCS_DCMLCE_MASK) >> DCM_DCMLCS_DCMLCE_SHIFT;
+    status->hasFlashError  = (regVal & DCM_DCMLCS_DCMLCFE_MASK) >> DCM_DCMLCS_DCMLCFE_SHIFT;
 }
 
 /*

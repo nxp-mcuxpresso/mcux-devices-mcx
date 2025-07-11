@@ -22,7 +22,7 @@
 /*! @{ */
 
 /*! @brief DCM driver version. */
-#define FSL_DCM_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+#define FSL_DCM_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
 /*! @} */
 
 /*! @brief DCM life cycle slot count */
@@ -144,26 +144,6 @@ static inline dcm_life_cycle_t DCM_GetRealLifeCycle(void)
 static inline dcm_life_cycle_t DCM_GetCurrentLifeCycle(void)
 {
     return (dcm_life_cycle_t)((DCM->DCMLCC & DCM_DCMLCC_DCMCLC_MASK) >> DCM_DCMLCC_DCMCLC_SHIFT);
-}
-
-/*!
- * @brief Force on the current life cycle or not.
- *
- * If forced, the value configured according to the DCMLCF register is forced on
- * the current LC whereas the real LC remains the same.
- *
- * @param force Pass true to force on current life cycle.
- */
-static inline bool DCM_ForceOnCurrentLifeCycle(bool force)
-{
-    if (force)
-    {
-        DCM->DCMLCC |= DCM_DCMLCC_DCMLCFN_MASK;
-    }
-    else
-    {
-        DCM->DCMLCC &= ~DCM_DCMLCC_DCMLCFN_MASK;
-    }
 }
 
 /*!

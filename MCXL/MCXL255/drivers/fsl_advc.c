@@ -16,14 +16,12 @@
 #define FSL_COMPONENT_ID "platform.drivers.advc"
 #endif
 
-#define ADVC_OPTIMAL_CFG_CLOCK_MASK         (0xFFF9UL)
+#define ADVC_OPTIMAL_CFG_CLOCK_MASK (0xFFF9UL)
 
 typedef enum _advc_state
 {
     kADVC_NotInitalized = 0U,
     kADVC_Initalized    = 1U,
-    kADVC_Enabled       = 2U,
-    kADVC_Disabled      = 3U,
 } advc_state_t;
 
 typedef enum
@@ -99,6 +97,7 @@ extern ADVC_STATUS_t ADVC_DRIVER_convert_frequency_to_code(uint32_t frequency_in
                                                            ADVC_FREQUENCY_CODE_t *frequency_code);
 extern ADVC_STATUS_t ADVC_DRIVER_pre_voltage_change_request(ADVC_FREQUENCY_CODE_t frequency);
 extern ADVC_STATUS_t ADVC_DRIVER_post_voltage_change_request();
+extern bool ADVC_DRIVER_is_ADVC_enabled();
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -107,13 +106,31 @@ volatile advc_state_t g_advcState = kADVC_NotInitalized;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static bool ADVC_CheckAONApbClockEnabled(void)
+{
+    if ((AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_APB_CLK_MASK) != 0UL)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 /*!
  * brief Load advc configuration table and initialize ADVC.
  */
 #if __CORTEX_M == 33U
 void ADVC_Init(void)
 {
+    bool isAhbClockEnabled = ADVC_CheckAONApbClockEnabled();
     ADVC_DRIVER_init(FSL_FEATURE_ADVC_CFG_TABLE_ADDR);
+
+    if (isAhbClockEnabled)
+    {
+        AON__CGU->PER_CLK_EN |= CGU_PER_CLK_EN_APB_CLK_MASK;
+    }
     g_advcState = kADVC_Initalized;
 }
 #endif /* __CORTEX_M == 33U */
@@ -142,6 +159,8 @@ advc_result_t ADVC_Enable(advc_mode_t mode, uint8_t *vddCode)
     ADVC_ENABLE_CONFIG_t advcEnableConfig;
     ADVC_STATUS_t status;
 
+    bool isAhbClockEnabled = ADVC_CheckAONApbClockEnabled();
+
     if (mode == kADVC_ModeSafe)
     {
         advcEnableConfig.advc_safe_config.frequency_code        = ADVC_FREQUENCY_CODE_10MHZ;
@@ -160,12 +179,22 @@ advc_result_t ADVC_Enable(advc_mode_t mode, uint8_t *vddCode)
         /* To avoid violation of MISRA rule. */
     }
 
-    status = ADVC_DRIVER_Enable((ADVC_MODE_t)mode, &advcEnableConfig, vddCode);
-
-    if (status == ADVC_STATUS_OK)
+    if (vddCode == NULL)
     {
-        g_advcState = kADVC_Enabled;
+        uint8_t tmp8 = 0U;
+        status       = ADVC_DRIVER_Enable((ADVC_MODE_t)mode, &advcEnableConfig, &tmp8);
+        (void)tmp8;
     }
+    else
+    {
+        status = ADVC_DRIVER_Enable((ADVC_MODE_t)mode, &advcEnableConfig, vddCode);
+    }
+
+    if (isAhbClockEnabled)
+    {
+        AON__CGU->PER_CLK_EN |= CGU_PER_CLK_EN_APB_CLK_MASK;
+    }
+
     return (advc_result_t)status;
 }
 
@@ -177,7 +206,16 @@ advc_result_t ADVC_Enable(advc_mode_t mode, uint8_t *vddCode)
  */
 bool ADVC_IsEnabled(void)
 {
-    return (bool)(g_advcState == kADVC_Enabled);
+    bool isAhbClockEnabled = ADVC_CheckAONApbClockEnabled();
+    bool ret               = false;
+
+    ret = ADVC_DRIVER_is_ADVC_enabled();
+
+    if (isAhbClockEnabled)
+    {
+        AON__CGU->PER_CLK_EN |= CGU_PER_CLK_EN_APB_CLK_MASK;
+    }
+    return ret;
 }
 
 /*!
@@ -185,19 +223,34 @@ bool ADVC_IsEnabled(void)
  */
 void ADVC_Disable(void)
 {
+    bool isAhbClockEnabled = ADVC_CheckAONApbClockEnabled();
+
     ADVC_DRIVER_Disable();
-    g_advcState = kADVC_Disabled;
+
+    if (isAhbClockEnabled)
+    {
+        AON__CGU->PER_CLK_EN |= CGU_PER_CLK_EN_APB_CLK_MASK;
+    }
 }
 
 /*!
  * brief Check if ADVC is disabled.
  *
- * retval false ADVC is not disabled.
- * retval true ADVC is enabled.
+ * retval true ADVC is not disabled.
+ * retval false ADVC is enabled.
  */
 bool ADVC_IsDisabled(void)
 {
-    return (bool)(g_advcState == kADVC_Disabled);
+    bool isAhbClockEnabled = ADVC_CheckAONApbClockEnabled();
+    bool ret               = false;
+
+    ret = !(ADVC_DRIVER_is_ADVC_enabled());
+
+    if (isAhbClockEnabled)
+    {
+        AON__CGU->PER_CLK_EN |= CGU_PER_CLK_EN_APB_CLK_MASK;
+    }
+    return ret;
 }
 
 /*!
@@ -214,13 +267,18 @@ advc_result_t ADVC_PreVoltageChangeRequest(uint32_t aonCpuFreq)
     ADVC_FREQUENCY_CODE_t advcFreqCode;
     ADVC_STATUS_t status;
 
-    status = ADVC_DRIVER_convert_frequency_to_code(aonCpuFreq, &advcFreqCode);
+    bool isAhbClockEnabled = ADVC_CheckAONApbClockEnabled();
+    status                 = ADVC_DRIVER_convert_frequency_to_code(aonCpuFreq, &advcFreqCode);
 
     if (status == ADVC_STATUS_OK)
     {
         status = ADVC_DRIVER_pre_voltage_change_request(advcFreqCode);
     }
 
+    if (isAhbClockEnabled)
+    {
+        AON__CGU->PER_CLK_EN |= CGU_PER_CLK_EN_APB_CLK_MASK;
+    }
     return (advc_result_t)status;
 }
 
@@ -231,5 +289,15 @@ advc_result_t ADVC_PreVoltageChangeRequest(uint32_t aonCpuFreq)
  */
 advc_result_t ADVC_PostVoltageChangeRequest(void)
 {
-    return (advc_result_t)ADVC_DRIVER_post_voltage_change_request();
+    ADVC_STATUS_t status;
+    bool isAhbClockEnabled = ADVC_CheckAONApbClockEnabled();
+
+    status = ADVC_DRIVER_post_voltage_change_request();
+
+    if (isAhbClockEnabled)
+    {
+        AON__CGU->PER_CLK_EN |= CGU_PER_CLK_EN_APB_CLK_MASK;
+    }
+
+    return (advc_result_t)status;
 }

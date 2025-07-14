@@ -201,6 +201,7 @@ status_t Power_CreateHandle(power_handle_t *handle, uint32_t muChannelId)
     g_powerMuTransferState = kPower_MuTransferIdle;
 
     handle->dualCoreSynced = true;
+
     return kStatus_Success;
 }
 
@@ -1052,12 +1053,6 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
     SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
     SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
 
-    /* Disable ADVC in DPD2 mode. */
-    if (ADVC_IsEnabled())
-    {
-        ADVC_Disable();
-    }
-
     /*3. Configuration for SMM. */
     SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
@@ -1079,6 +1074,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
     {
         return kStatus_Power_CM0PNotWFI;
     }
+    else
     {
         if (config->disableFRO10M)
         {
@@ -1092,6 +1088,12 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
         sharedHandle->targetPowerMode   = kPower_DeepPowerDown2;
         sharedHandle->previousPowerMode = kPower_DeepPowerDown2;
         sharedHandle->cm0pWFI           = false;
+
+        /* Disable ADVC in DPD2 mode. */
+        if (ADVC_IsEnabled() == true)
+        {
+            ADVC_Disable();
+        }
 
         /* 5. Software configuration for CM33. */
         SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
@@ -1119,14 +1121,9 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
         {
             /* If current system is in DPD1 mode, enter DPD2 from DPD1.  */
             sharedHandle->targetPowerMode = kPower_DeepPowerDown2;
-            // patch
-            uint32_t *ptr = (uint32_t *)0xA0098038;
-            *ptr |= (1 << 11); // Set the 8th bit (bit 7, as bits are 0-indexed)
-
-            if (ADVC_IsEnabled())
-            {
-                ADVC_Disable();
-            }
+            // // patch
+            // uint32_t *ptr = (uint32_t *)0xA0098038;
+            // *ptr |= (1 << 11); // Set the 8th bit (bit 7, as bits are 0-indexed)
 
             /*1. Enable wakeup sources for main and aon domain. */
             Power_CheckThenEnableWakeupSource(config->mainWakeupSource);
@@ -1136,6 +1133,12 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
             SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
 
             /*2. Configuration for SMM. */
+            /* Disable ADVC in DPD2 mode. */
+            if (ADVC_IsEnabled() == true)
+            {
+                ADVC_Disable();
+            }
+
             SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
             SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
             SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
@@ -1157,6 +1160,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
             }
 
             sharedHandle->previousPowerMode = kPower_DeepPowerDown2;
+
             /*3. CM0P. Execute WFI */
             SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
             sharedHandle->cm0pWFI = true;

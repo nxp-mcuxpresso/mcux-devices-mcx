@@ -21,8 +21,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief advc driver version 2.0.0. */
-#define FSL_ADVC_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+/*! @brief advc driver version 2.0.1. */
+#define FSL_ADVC_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
 /*@}*/
 
 /*!
@@ -80,7 +80,7 @@ bool ADVC_IsInitialized(void);
  * @brief Enable ADVC
  *
  * @param[in] mode Specify the mode of advc, please refer to @ref advc_mode_t.
- * @param[out] vddCode The value of VDD.
+ * @param[out] vddCode The value of VDD_AON, NULL means do not care voltage of VDD_AON.
  *
  * @return The result outcome with enabling ADVC.
  */
@@ -102,8 +102,8 @@ void ADVC_Disable(void);
 /*!
  * @brief Check if ADVC is disabled.
  *
- * @retval false ADVC is not disabled.
- * @retval true ADVC is enabled.
+ * @retval true ADVC is not disabled.
+ * @retval false ADVC is enabled.
  */
 bool ADVC_IsDisabled(void);
 

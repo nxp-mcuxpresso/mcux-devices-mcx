@@ -12,8 +12,8 @@
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250715
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA344
@@ -28,14 +28,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file MCXA344_COMMON.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for MCXA344
  *
  * CMSIS Peripheral Access Layer for MCXA344
@@ -46,7 +49,7 @@
 
 /** Memory map major version (memory maps with equal major version number are
  * compatible) */
-#define MCU_MEM_MAP_VERSION 0x0100U
+#define MCU_MEM_MAP_VERSION 0x0200U
 /** Memory map minor version */
 #define MCU_MEM_MAP_VERSION_MINOR 0x0000U
 
@@ -187,7 +190,7 @@ typedef enum IRQn {
   Reserved121_IRQn             = 105,              /**< Reserved interrupt */
   Reserved122_IRQn             = 106,              /**< Reserved interrupt */
   MAU_IRQn                     = 107,              /**< MAU interrupt */
-  Reserved124_IRQn             = 108,              /**< Reserved interrupt */
+  SMARTDMA_IRQn                = 108,              /**< SmartDMA interrupt */
   Reserved125_IRQn             = 109,              /**< Reserved interrupt */
   Reserved126_IRQn             = 110,              /**< Reserved interrupt */
   Reserved127_IRQn             = 111,              /**< Reserved interrupt */

@@ -1,7 +1,7 @@
 //*****************************************************************************
 // MCXA343 startup code
 //
-// Version : 140725
+// Version : 150725
 //*****************************************************************************
 //
 // Copyright 2016-2025 NXP
@@ -196,7 +196,7 @@ WEAK void Reserved120_IRQHandler(void);
 WEAK void Reserved121_IRQHandler(void);
 WEAK void Reserved122_IRQHandler(void);
 WEAK void MAU_IRQHandler(void);
-WEAK void Reserved124_IRQHandler(void);
+WEAK void SMARTDMA_IRQHandler(void);
 WEAK void Reserved125_IRQHandler(void);
 WEAK void Reserved126_IRQHandler(void);
 WEAK void Reserved127_IRQHandler(void);
@@ -324,7 +324,7 @@ void Reserved120_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved121_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved122_DriverIRQHandler(void) ALIAS(DefaultISR);
 void MAU_DriverIRQHandler(void) ALIAS(DefaultISR);
-void Reserved124_DriverIRQHandler(void) ALIAS(DefaultISR);
+void SMARTDMA_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved125_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved126_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved127_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -551,7 +551,7 @@ __attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void)
     Reserved121_IRQHandler,           // 121: Reserved interrupt
     Reserved122_IRQHandler,           // 122: Reserved interrupt
     MAU_IRQHandler,                   // 123: MAU interrupt
-    Reserved124_IRQHandler,           // 124: Reserved interrupt
+    SMARTDMA_IRQHandler,              // 124: SmartDMA interrupt
     Reserved125_IRQHandler,           // 125: Reserved interrupt
     Reserved126_IRQHandler,           // 126: Reserved interrupt
     Reserved127_IRQHandler,           // 127: Reserved interrupt
@@ -1390,9 +1390,9 @@ WEAK void MAU_IRQHandler(void)
     MAU_DriverIRQHandler();
 }
 
-WEAK void Reserved124_IRQHandler(void)
+WEAK void SMARTDMA_IRQHandler(void)
 {
-    Reserved124_DriverIRQHandler();
+    SMARTDMA_DriverIRQHandler();
 }
 
 WEAK void Reserved125_IRQHandler(void)

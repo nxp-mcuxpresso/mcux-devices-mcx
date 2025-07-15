@@ -38,9 +38,9 @@ enum
     kStatus_Power_NotInTargetMode   = MAKE_STATUS(kStatusGroup_POWER, 3), /*!< Not in target low power mode. */
     kStatus_Power_NackWithMultiReasons = MAKE_STATUS(kStatusGroup_POWER, 4), /*!< The response is NACK, and serval
                                                                                 reasons cause NACK response. */
-    kStatus_Power_SyncFailed         = MAKE_STATUS(kStatusGroup_POWER, 5), /*!< Failed to sync dual core. */
-    kStatus_Power_CM0PNotWFI         = MAKE_STATUS(kStatusGroup_POWER, 6), /*!< CM0P do not execute WFI after approve
-                                                                                to enter target low power mode.. */
+    kStatus_Power_SyncFailed = MAKE_STATUS(kStatusGroup_POWER, 5),           /*!< Failed to sync dual core. */
+    kStatus_Power_CM0PNotWFI = MAKE_STATUS(kStatusGroup_POWER, 6),           /*!< CM0P do not execute WFI after approve
+                                                                                  to enter target low power mode.. */
 };
 
 /*!
@@ -67,33 +67,18 @@ typedef bool (*power_user_callback_t)(power_low_power_mode_t targetPowerMode, vo
  *
  * @note
  *    bit 7 - 0: aon control bit index;
- *    bit 15 - 8: wuu control bit index;
- *    bit 19 - 16: wuu event(0: interrupt, 1: DMA request, 2: trigger event);
  *    bit 23 - 20: external pin edge(1: rising edge, 2: falling edge, 3: any edge);
  *    bit 27 - 24: Wakeup domain(0: only Main, 1: only Aon, 2: Both Main and Aon), in some low power mode(such as PD2)
  *                  it is possible only wakeup Aon Domain.
- *    bit 30: external pin or internal module(0: internal module, 1: external pin);
- *    bit 31: wakeup source in aon domain or cm33 domain(0: In AON domain, 1: In CM33 domain).
- *
  */
-#define POWER_ENCODE_WS(cm33Ws, wuuExtPin, wakeupDomain, pinEdge, wuuEvent, wuuIndex, aonIndex)             \
-    ((((uint32_t)(cm33Ws) << 31UL) & (0x80000000UL)) | (((uint32_t)(wuuExtPin) << 30UL) & (0x40000000UL)) | \
-     (((uint32_t)(pinEdge) << 20UL) & 0xF00000UL) | (((uint32_t)(wuuEvent) << 16UL) & 0xF0000UL) |          \
-     (((uint32_t)(wuuIndex) << 8UL) & 0xFF00UL) | ((uint32_t)(aonIndex) & 0xFFUL) |                         \
-     (((uint32_t)(wakeupDomain) << 24UL) & (0xF000000UL)))
+#define POWER_ENCODE_WS(wakeupDomain, pinEdge, aonIndex)                                        \
+    (uint32_t)(((uint32_t)(aonIndex) & 0xFFUL) | (((uint32_t)(pinEdge) << 20UL) & 0xF00000UL) | \
+               (((uint32_t)(wakeupDomain) << 24UL) & (0xF000000UL)))
 
-#define POWER_DECODE_WS(wsCode)                              \
-    aonIndex     = (wsCode) & 0xFFUL;                        \
-    wuuIndex     = ((wsCode) & 0xFF00UL) >> 8UL;             \
-    wuuEvent     = ((wsCode) & 0xF0000UL) >> 16UL;           \
-    pinEdge      = ((wsCode) & 0xF00000UL) >> 20UL;          \
-    isWuuExtPin  = (bool)(((wsCode) & 0x40000000UL) != 0UL); \
-    isCm33Ws     = (bool)(((wsCode) & 0x80000000UL) != 0UL); \
+#define POWER_DECODE_WS(wsCode)                     \
+    aonIndex     = (wsCode) & 0xFFUL;               \
+    pinEdge      = ((wsCode) & 0xF00000UL) >> 20UL; \
     wakeupDomain = ((wsCode) & 0xF000000UL) >> 24UL
-
-#define POWER_DPD2_WS_BIT_MASK     (0xFFUL)
-#define POWER_DPD3_WS_BIT_MASK     (0x37UL)
-#define POWER_SHUTDOWN_WS_BIT_MASK (0x20UL)
 
 /*!
  * @brief The enumeration of wakeup sources for different low power modes.
@@ -103,137 +88,117 @@ typedef enum _power_wakeup_source
 {
     kPower_WS_NONE = 0xFFFFFFFFUL,
 
-    kPower_WS_Main_RtcAlarm0 = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 0U),   /*!< RTC Alarm0 as wakeup source, only
-    wakeup Main Domain */
-    kPower_WS_Aon_RtcAlarm0 = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 0U),    /*!< RTC Alarm0 as wakeup source, only
-        wakeup AON Domain */
-    kPower_WS_Both_RtcAlarm0 = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 0U),   /*!< RTC Alarm0 as wakeup source,
-         wakeup both Main and AON Domains */
+    kPower_WS_Main_RtcAlarm0 = POWER_ENCODE_WS(0U, 0U, 0U), /*!< RTC Alarm0 as wakeup source, only wakeup Main Domain */
+    kPower_WS_Aon_RtcAlarm0  = POWER_ENCODE_WS(1U, 0U, 0U), /*!< RTC Alarm0 as wakeup source, only wakeup AON Domain */
+    kPower_WS_Both_RtcAlarm0 = POWER_ENCODE_WS(2U, 0U, 0U), /*!< RTC Alarm0 as wakeup source,
+                                                          wakeup both Main and AON Domains */
 
-    kPower_WS_Main_RtcAlarm1 = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 1U),   /*!< RTC Alarm1 as wakeup source, only
-        wakeup Main Domain */
-    kPower_WS_Aon_RtcAlarm1 = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 1U),    /*!< RTC Alarm1 as wakeup source, only
-        wakeup AON Domain */
-    kPower_WS_Both_RtcAlarm1 = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 1U),   /*!< RTC Alarm1 as wakeup source,
-         wakeup both Main and AON Domains */
+    kPower_WS_Main_RtcAlarm1 = POWER_ENCODE_WS(0U, 0U, 1U), /*!< RTC Alarm1 as wakeup source, only wakeup Main Domain */
+    kPower_WS_Aon_RtcAlarm1 = POWER_ENCODE_WS(1U, 0U, 1U),  /*!< RTC Alarm1 as wakeup source, only wakeup AON Domain */
+    kPower_WS_Both_RtcAlarm1 = POWER_ENCODE_WS(2U, 0U, 1U), /*!< RTC Alarm1 as wakeup source, 
+                                                            wakeup both Main and AON Domains */
 
-    kPower_WS_Main_QTimerIrq = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 2U),   /*!< QTimer IRQ as wakeup source, only
-        wakeup Main Domain */
-    kPower_WS_Aon_QTimerIrq = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 2U),    /*!< QTimer IRQ as wakeup source, only
-        wakeup AON Domain */
-    kPower_WS_Both_QTimerIrq = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 2U),   /*!< QTimer IRQ as wakeup source,
-         wakeup both Main and AON Domains */
+    kPower_WS_Main_QTimerIrq = POWER_ENCODE_WS(0U, 0U, 2U), /*!< QTimer IRQ as wakeup source, only wakeup Main Domain */
+    kPower_WS_Aon_QTimerIrq = POWER_ENCODE_WS(1U, 0U, 2U),  /*!< QTimer IRQ as wakeup source, only wakeup AON Domain */
+    kPower_WS_Both_QTimerIrq = POWER_ENCODE_WS(2U, 0U, 2U), /*!< QTimer IRQ as wakeup source,
+                                                            wakeup both Main and AON Domains */
 
-    kPower_WS_Main_RtcWDT = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 3U),      /*!< RTC watch dog as wakeup source, only
-        wakeup Main Domain */
-    kPower_WS_Aon_RtcWDT = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 3U),       /*!< RTC watch dog as wakeup source, only
-        wakeup AON Domain */
-    kPower_WS_Both_RtcWDT = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 3U),      /*!< RTC watch dog as wakeup source,
-         wakeup both Main and AON Domains */
+    kPower_WS_Main_RtcWDT = POWER_ENCODE_WS(0U, 0U, 3U),    /*!< RTC watch dog as wakeup source, only wakeup Main Domain */
+    kPower_WS_Aon_RtcWDT = POWER_ENCODE_WS(1U, 0U, 3U),     /*!< RTC watch dog as wakeup source, only wakeup AON Domain */
+    kPower_WS_Both_RtcWDT = POWER_ENCODE_WS(2U, 0U, 3U),    /*!< RTC watch dog as wakeup source,
+                                                            wakeup both Main and AON Domains */
 
-    kPower_WS_Main_RtcXtalFail = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 4U), /*!< RTC XTAL fail as wakeup source, only
-        wakeup Main Domain */
-    kPower_WS_Aon_RtcXtalFail = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 4U),  /*!< RTC XTAL fail as wakeup source, only
-        wakeup AON Domain */
-    kPower_WS_Both_RtcXtalFail = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 4U), /*!< RTC XTAL fail as wakeup source,
-        wakeup both Main and AON Domains */
+    kPower_WS_Main_RtcXtalFail = POWER_ENCODE_WS(0U, 0U, 4U), /*!< RTC XTAL fail as wakeup source,
+                                                            only wakeup Main Domain */
+    kPower_WS_Aon_RtcXtalFail = POWER_ENCODE_WS(1U, 0U, 4U), /*!< RTC XTAL fail as wakeup source,
+                                                            only wakeup AON Domain */
+    kPower_WS_Both_RtcXtalFail = POWER_ENCODE_WS(2U, 0U, 4U), /*!< RTC XTAL fail as wakeup source,
+                                                            wakeup both Main and AON Domains */
 
-    kPower_WS_Main_ExternalINTFallEdge = POWER_ENCODE_WS(0U, 0U, 0U, 2U, 0U, 0U, 5U), /*!< External INT falling edge as
-    wakeup source, only wakeup Main Domain */
-    kPower_WS_Aon_ExternalINTFallEdge = POWER_ENCODE_WS(0U, 0U, 1U, 2U, 0U, 0U, 5U),  /*!< External INT falling edge as
-     wakeup  source, only wakeup AON Domain */
-    kPower_WS_Both_ExternalINTFallEdge = POWER_ENCODE_WS(0U, 0U, 2U, 2U, 0U, 0U, 5U), /*!< External INT falling edge as
-    wakeup source, wakeup both Main and AON Domains */
+    kPower_WS_Main_ExternalINTFallEdge = POWER_ENCODE_WS(0U, 2U, 5U), /*!< External INT falling edge as 
+                                                                    wakeup source, only wakeup Main Domain */
+    kPower_WS_Aon_ExternalINTFallEdge = POWER_ENCODE_WS(1U, 2U, 5U),  /*!< External INT falling edge as
+                                                                    wakeup  source, only wakeup AON Domain */
+    kPower_WS_Both_ExternalINTFallEdge = POWER_ENCODE_WS(2U, 2U, 5U), /*!< External INT falling edge as
+                                                                wakeup source, wakeup both Main and AON Domains */
 
-    kPower_WS_Main_ExternalINTRiseEdge = POWER_ENCODE_WS(0U, 0U, 0U, 1U, 0U, 0U, 5U), /*!< External INT rising edge as
-    wakeup source, only wakeup Main Domain */
-    kPower_WS_Aon_ExternalINTRiseEdge = POWER_ENCODE_WS(0U, 0U, 1U, 1U, 0U, 0U, 5U),  /*!< External INT rising edge as
-     wakeup  source, only wakeup AON Domain */
-    kPower_WS_Both_ExternalINTRiseEdge = POWER_ENCODE_WS(0U, 0U, 2U, 1U, 0U, 0U, 5U), /*!< External INT rising edge as
-    wakeup source, wakeup both Main and AON Domains */
+    kPower_WS_Main_ExternalINTRiseEdge = POWER_ENCODE_WS(0U, 1U, 5U), /*!< External INT rising edge as
+                                                                    wakeup source, only wakeup Main Domain */
+    kPower_WS_Aon_ExternalINTRiseEdge = POWER_ENCODE_WS(1U, 1U, 5U),  /*!< External INT rising edge as
+                                                                    wakeup  source, only wakeup AON Domain */
+    kPower_WS_Both_ExternalINTRiseEdge = POWER_ENCODE_WS(2U, 1U, 5U), /*!< External INT rising edge as
+                                                                wakeup source, wakeup both Main and AON Domains */
 
-    kPower_WS_Main_SMMTimer = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 6U), /*!< Deep sleep counter as wakeup source,
-      only wakeup Main Domain */
-    kPower_WS_Aon_SMMTimer = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 6U), /*!< Deep sleep counter as wakeup source, only
-     wakeup AON Domain */
-    kPower_WS_Both_SMMTimer = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 6U),   /*!< Deep sleep counter as wakeup source,
-         wakeup both Main and AON Domains */
+    kPower_WS_Main_SMMTimer = POWER_ENCODE_WS(0U, 0U, 6U),  /*!< Deep sleep counter as wakeup source,
+                                                                only wakeup Main Domain */
+    kPower_WS_Aon_SMMTimer = POWER_ENCODE_WS(1U, 0U, 6U),   /*!< Deep sleep counter as wakeup source, only
+                                                                wakeup AON Domain */
+    kPower_WS_Both_SMMTimer = POWER_ENCODE_WS(2U, 0U, 6U),  /*!< Deep sleep counter as wakeup source,
+                                                                wakeup both Main and AON Domains */
 
-    kPower_WS_Main_Comparator = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 7U), /*!< Voltage comparator as wakeup source,
-only wakeup Main Domain */
-    kPower_WS_Aon_Comparator = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 7U),  /*!< Voltage comparator as wakeup source,
- only  wakeup AON Domain */
-    kPower_WS_Both_Comparator = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 7U), /*!< Voltage comparator as wakeup source,
-wakeup both Main and AON Domains */
+    kPower_WS_Main_Comparator = POWER_ENCODE_WS(0U, 0U, 7U), /*!< Voltage comparator as wakeup source,
+                                                            only wakeup Main Domain */
+    kPower_WS_Aon_Comparator = POWER_ENCODE_WS(1U, 0U, 7U), /*!< Voltage comparator as wakeup source,
+                                                            only  wakeup AON Domain */
+    kPower_WS_Both_Comparator = POWER_ENCODE_WS(2U, 0U, 7U), /*!< Voltage comparator as wakeup source,
+                                                            wakeup both Main and AON Domains */
 
-    kPower_WS_Main_AonHsGpioWakeup0 = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 8U), /*!< HS_GPIO wakeup0 as wakeup
-      source, only wakeup Main Domain */
-    kPower_WS_Aon_AonHsGpioWakeup0 = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 8U), /*!< HS_GPIO wakeup0 as wakeup source,
-     only wakeup AON Domain */
-    kPower_WS_Both_AonHsGpioWakeup0 = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 8U), /*!< HS_GPIO wakeup0 as wakeup
-       source, wakeup both Main and AON Domains */
+    kPower_WS_Main_AonHsGpioWakeup0 = POWER_ENCODE_WS(0U, 0U, 8U),    /*!< HS_GPIO wakeup0 as wakeup
+                                                                        source, only wakeup Main Domain */
+    kPower_WS_Aon_AonHsGpioWakeup0 = POWER_ENCODE_WS(1U, 0U, 8U),     /*!< HS_GPIO wakeup0 as wakeup source,
+                                                                        only wakeup AON Domain */
+    kPower_WS_Both_AonHsGpioWakeup0 = POWER_ENCODE_WS(2U, 0U, 8U),    /*!< HS_GPIO wakeup0 as wakeup
+                                                                        source, wakeup both Main and AON Domains */
 
-    kPower_WS_Main_Lpuart0 = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 9U), /*!< LPUART0 Interrupt as wakeup source, only
-        wakeup Main Domain */
-    kPower_WS_Aon_Lpuart0 = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 9U),  /*!< LPUART0 Interrupt as wakeup source, only
-        wakeup AON Domain */
-    kPower_WS_Both_Lpuart0 = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 9U), /*!< LPUART0 Interrupt as wakeup source,
-        wakeup both Main and AON Domains */
+    kPower_WS_Main_Lpuart0 = POWER_ENCODE_WS(0U, 0U, 9U),  /*!< LPUART0 Interrupt as wakeup source, only
+                                                                wakeup Main Domain */
+    kPower_WS_Aon_Lpuart0 = POWER_ENCODE_WS(1U, 0U, 9U),   /*!< LPUART0 Interrupt as wakeup source, only
+                                                                wakeup AON Domain */
+    kPower_WS_Both_Lpuart0 = POWER_ENCODE_WS(2U, 0U, 9U),  /*!< LPUART0 Interrupt as wakeup source,
+                                                                wakeup both Main and AON Domains */
 
-    kPower_WS_Main_AdvcOrACMP = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 10U), /*!< ADVC or ACMP as wakeup source, only
-       wakeup Main Domain */
-    kPower_WS_Aon_AdvcOrACMP = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 10U),  /*!< ADVC or ACMP as wakeup source, only
-       wakeup AON Domain */
-    kPower_WS_Both_AdvcOrACMP = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 10U), /*!< ADVC or ACMP as wakeup source,
-       wakeup both Main and AON Domains */
+    kPower_WS_Main_AdvcOrACMP = POWER_ENCODE_WS(0U, 0U, 10U), /*!< ADVC or ACMP as wakeup source, only
+                                                                wakeup Main Domain */
+    kPower_WS_Aon_AdvcOrACMP = POWER_ENCODE_WS(1U, 0U, 10U), /*!< ADVC or ACMP as wakeup source, only
+                                                                wakeup AON Domain */
+    kPower_WS_Both_AdvcOrACMP = POWER_ENCODE_WS(2U, 0U, 10U), /*!< ADVC or ACMP as wakeup source,
+                                                                wakeup both Main and AON Domains */
 
-    kPower_WS_Main_Lpi2cInt = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 11U),   /*!< AON Lpi2c interrupt as wakeup source,
-       only   wakeup Main Domain */
-    kPower_WS_Aon_Lpi2cInt = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 11U),    /*!< AON Lpi2c interrupt as wakeup source,
-       only    wakeup AON Domain */
-    kPower_WS_Both_Lpi2cInt = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 11U),   /*!< AON Lpi2c interrupt as wakeup source,
-       wakeup both Main and AON Domains */
+    kPower_WS_Main_Lpi2cInt = POWER_ENCODE_WS(0U, 0U, 11U), /*!< AON Lpi2c interrupt as wakeup source,
+                                                                only wakeup Main Domain */
+    kPower_WS_Aon_Lpi2cInt = POWER_ENCODE_WS(1U, 0U, 11U),  /*!< AON Lpi2c interrupt as wakeup source,
+                                                                only wakeup AON Domain */
+    kPower_WS_Both_Lpi2cInt = POWER_ENCODE_WS(2U, 0U, 11U), /*!< AON Lpi2c interrupt as wakeup source,
+                                                            wakeup both Main and AON Domains */
 
-    kPower_WS_Main_AdcInt = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 12U),     /*!< ADC interrupt as wakeup source, only
-       wakeup Main Domain */
-    kPower_WS_Aon_AdcInt = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 12U),      /*!< ADC interrupt as wakeup source, only
-       wakeup AON Domain */
-    kPower_WS_Both_AdcInt = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 12U),     /*!< ADC interrupt as wakeup source,
-       wakeup both Main and AON Domains */
+    kPower_WS_Main_AdcInt = POWER_ENCODE_WS(0U, 0U, 12U), /*!< ADC interrupt as wakeup source, only
+                                                            wakeup Main Domain */   
+    kPower_WS_Aon_AdcInt = POWER_ENCODE_WS(1U, 0U, 12U),  /*!< ADC interrupt as wakeup source, only
+                                                            wakeup AON Domain */
+    kPower_WS_Both_AdcInt = POWER_ENCODE_WS(2U, 0U, 12U),  /*!< ADC interrupt as wakeup source,
+                                                                wakeup both Main and AON Domains */
 
-    kPower_WS_Main_LptmrInt = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 13U), /*!< LPTMR interrupt as wakeup source, only
-    wakeup Main Domain */
-    kPower_WS_Aon_LptmrInt = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 13U),  /*!< LPTMR interrupt as wakeup source, only
-    wakeup AON Domain */
-    kPower_WS_Both_LptmrInt = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 13U), /*!< LPTMR interrupt as wakeup source,
-    wakeup both Main and AON Domains */
+    kPower_WS_Main_LptmrInt = POWER_ENCODE_WS(0U, 0U, 13U),  /*!< LPTMR interrupt as wakeup source, only
+                                                                wakeup Main Domain */
+    kPower_WS_Aon_LptmrInt = POWER_ENCODE_WS(1U, 0U, 13U), /*!< LPTMR interrupt as wakeup source, only
+                                                                wakeup AON Domain */
+    kPower_WS_Both_LptmrInt = POWER_ENCODE_WS(2U, 0U, 13U), /*!< LPTMR interrupt as wakeup source,
+                                                                wakeup both Main and AON Domains */
 
-    kPower_WS_Main_TamperDetect = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 14U), /*!< Tamper detect as wakeup source,
-        only wakeup Main Domain */
-    kPower_WS_Aon_TamperDetect = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 14U), /*!< Tamper detect as wakeup source, only
-       wakeup AON Domain */
-    kPower_WS_Both_TamperDetect = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 14U), /*!< Tamper detect as wakeup source,
-        wakeup both Main and AON Domains */
+    kPower_WS_Main_TamperDetect = POWER_ENCODE_WS(0U, 0U, 14U), /*!< Tamper detect as wakeup source,
+                                                                    only wakeup Main Domain */
+    kPower_WS_Aon_TamperDetect = POWER_ENCODE_WS(1U, 0U, 14U), /*!< Tamper detect as wakeup source, only
+                                                                    wakeup AON Domain */
+    kPower_WS_Both_TamperDetect = POWER_ENCODE_WS(2U, 0U, 14U), /*!< Tamper detect as wakeup source,
+                                                                    wakeup both Main and AON Domains */
 
-    kPower_WS_Main_LcdInt = POWER_ENCODE_WS(0U, 0U, 0U, 0U, 0U, 0U, 15U), /*!< LCD interrupt as wakeup source, only
-  wakeup Main Domain */
-    kPower_WS_Aon_LcdInt = POWER_ENCODE_WS(0U, 0U, 1U, 0U, 0U, 0U, 15U),  /*!< LCD interrupt as wakeup source, only
-  wakeup AON Domain */
-    kPower_WS_Both_LcdInt = POWER_ENCODE_WS(0U, 0U, 2U, 0U, 0U, 0U, 15U), /*!< LCD interrupt as wakeup source,
-   wakeup both Main and AON Domains */
+    kPower_WS_Main_LcdInt = POWER_ENCODE_WS(0U, 0U, 15U), /*!< LCD interrupt as wakeup source, only
+                                                            wakeup Main Domain */
+    kPower_WS_Aon_LcdInt = POWER_ENCODE_WS(1U, 0U, 15U),  /*!< LCD interrupt as wakeup source, only
+                                                                wakeup AON Domain */
+    kPower_WS_Both_LcdInt = POWER_ENCODE_WS(2U, 0U, 15U), /*!< LCD interrupt as wakeup source,
+                                                            wakeup both Main and AON Domains */
 } power_wakeup_source_t;
-
-/*!
- * @brief The structure of dumped wakeup source information.
- */
-typedef struct _power_wakeup_source_info
-{
-    uint32_t aonWakeupSourceMask;    /*!< The mask of wakeup sources in AON domain. */
-    uint32_t wuuPinIntEnable[2];     /*!< Information of enabled Pin interrupts. */
-    uint32_t wuuModuleIntEnable;     /*!< Information of enabled internal module interrupts. */
-    uint32_t wuuModuleDmaTrigEnable; /*!< Information of enabled internal module DMA request/trigger. */
-    uint32_t wuuPinDmaTrigConfig[2]; /*!< Information of enabled pin DMA request/trigger. */
-} power_wakeup_source_info_t;
 
 /*!
  * @brief
@@ -287,42 +252,51 @@ typedef enum _power_mu_message_type
     kPower_MsgTypeSync    = 3U, /*!< Message type is to sync dual cores. */
 } power_mu_message_type_t;
 
+/*!
+ * @brief The reason of NACK response.
+ */
 typedef enum _power_mu_nack_reason
 {
-    kPower_MsgNACK_ChannelMisMatch = 1U << 0U,
-    kPower_MsgNACK_TargetModeNotAllowed = 1U << 1U,
-    kPower_MsgNACK_WrongMsgReceived = 1U << 2U,
+    kPower_MsgNACK_ChannelMisMatch      = 1U << 0U, /*!< NACK response due to channel mismatch. */
+    kPower_MsgNACK_TargetModeNotAllowed = 1U << 1U, /*!< NACK response due to target mode not allowed.. */
+    kPower_MsgNACK_WrongMsgReceived     = 1U << 2U, /*!< NACK response due to wrong message. */
 } power_mu_nack_reason_t;
-
-/*!
- * @brief Output voltage options for VDDCore in low power modes.
- *
- */
-typedef enum _power_vdd_core_output_voltage
-{
-    kPower_VddCoreOutput1P0V,
-} power_vdd_core_output_voltage_t;
 
 /*!
  * @brief Configuration structure for power down mode.
  */
 typedef struct _power_pd1_config
 {
-    power_wakeup_source_t mainWakeupSource;
-    uint32_t
-        mainRamArraysToRetain : 16U; /*!< Bitmask representing the main domain RAM arrays to retain during power down */
-    bool disableBandgap : 1U;        /*!< Flag to indicate whether to disable the bandgap during power down */
-    bool enableIVSMode : 1U;         /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
+    power_wakeup_source_t mainWakeupSource; /*!< Specify the wakeup source to main domain. If the selected wakeup
+                                            source is not already enabled, it will be enabled before entering PD1 mode.
+                                            Setting it to #kPower_WS_NONE indicates that this structure does not
+                                            control any wakeup source. Pre-enabled wakeup sources are not affected.
+                                             Wakeup sources can also be enabled manually by
+                                             invoking Power_EnableWakeupSource().  */
+    uint32_t mainRamArraysToRetain : 16U;   /*!< Bitmask representing the main domain RAM
+                                                  arrays to retain during power down */
+    bool disableBandgap : 1U;               /*!< Flag to indicate whether to disable the bandgap during power down */
+    bool enableIVSMode : 1U;                /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
 } power_pd1_config_t;
 
 typedef struct _power_pd2_config
 {
-    power_wakeup_source_t mainWakeupSource; /* The wakeup source used to wakeup main domain. */
-    power_wakeup_source_t aonWakeupSource;  /* The wakeup source used to wakeup aon domain. */
-    uint32_t
-        mainRamArraysToRetain : 16U; /*!< Bitmask representing the main domain RAM arrays to retain during DPD2 mode */
-    uint32_t
-        aonRamArraysToRetain : 16U;  /*!< Bitmask representing the AON domain RAM arrays to retain during DPD2 mode */
+    power_wakeup_source_t mainWakeupSource; /* Specify the wakeup source to main domain. If the selected wakeup
+                                            source is not already enabled, it will be enabled before entering PD2 mode.
+                                            Setting it to #kPower_WS_NONE indicates that this structure does not
+                                            control any wakeup source. Pre-enabled wakeup sources are not affected.
+                                             Wakeup sources can also be enabled manually by
+                                             invoking Power_EnableWakeupSource().. */
+    power_wakeup_source_t aonWakeupSource;  /* Specify the wakeup source to aon domain. If the selected wakeup
+                                            source is not already enabled, it will be enabled before entering PD2 mode.
+                                            Setting it to #kPower_WS_NONE indicates that this structure does not
+                                            control any wakeup source. Pre-enabled wakeup sources are not affected.
+                                             Wakeup sources can also be enabled manually by
+                                             invoking Power_EnableWakeupSource(). */
+    uint32_t mainRamArraysToRetain : 16U; /*!< Bitmask representing the main domain RAM arrays
+                                            to retain during DPD2 mode */
+    uint32_t aonRamArraysToRetain : 16U;  /*!< Bitmask representing the AON domain RAM arrays
+                                            to retain during DPD2 mode */
     bool enableIVSMode : 1U;         /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
     bool disableBandgap : 1U;        /*!< Flag to indicate whether to disable the bandgap during DPD2 mode */
     bool disableFRO10M : 1U;         /*!< Flag to indicate whether to disable the FRO10M clock during DPD2 mode */
@@ -344,7 +318,12 @@ typedef enum _power_dpd1_transition
  */
 typedef struct _power_dpd1_config
 {
-    power_wakeup_source_t mainWakeupSource;  /* The wakeup source used to wakeup main domain. */
+    power_wakeup_source_t mainWakeupSource; /* Specify the wakeup source to main domain. If the selected wakeup
+                                           source is not already enabled, it will be enabled before entering DPD1 mode.
+                                           Setting it to #kPower_WS_NONE indicates that this structure does not
+                                           control any wakeup source. Pre-enabled wakeup sources are not affected.
+                                            Wakeup sources can also be enabled manually by
+                                            invoking Power_EnableWakeupSource(). */
     uint32_t
         mainRamArraysToRetain : 16U; /*!< Bitmask representing the main domain RAM arrays to retain during power down */
     bool disableBandgap : 1U;        /*!< Flag to indicate whether to disable the bandgap during power down */
@@ -358,8 +337,18 @@ typedef struct _power_dpd1_config
  */
 typedef struct _power_dpd2_config
 {
-    power_wakeup_source_t mainWakeupSource; /* The wakeup source used to wakeup main domain. */
-    power_wakeup_source_t aonWakeupSource;  /* The wakeup source used to wakeup aon domain. */
+    power_wakeup_source_t mainWakeupSource; /* Specify the wakeup source to main domain. If the selected wakeup
+                                            source is not already enabled, it will be enabled before entering DPD2 mode.
+                                            Setting it to #kPower_WS_NONE indicates that this structure does not
+                                            control any wakeup source. Pre-enabled wakeup sources are not affected.
+                                             Wakeup sources can also be enabled manually by
+                                             invoking Power_EnableWakeupSource(). */
+    power_wakeup_source_t aonWakeupSource;  /* Specify the wakeup source to aon domain. If the selected wakeup
+                                            source is not already enabled, it will be enabled before entering DPD2 mode.
+                                            Setting it to #kPower_WS_NONE indicates that this structure does not
+                                            control any wakeup source. Pre-enabled wakeup sources are not affected.
+                                             Wakeup sources can also be enabled manually by
+                                             invoking Power_EnableWakeupSource(). */
     uint32_t
         mainRamArraysToRetain : 16U; /*!< Bitmask representing the main domain RAM arrays to retain during DPD2 mode */
     uint32_t
@@ -376,7 +365,12 @@ typedef struct _power_dpd2_config
  */
 typedef struct _power_dpd3_config
 {
-    power_wakeup_source_t wakeupSource; /* The wakeup source used to wakeup main and aon domain. */
+    power_wakeup_source_t wakeupSource; /* Specify the wakeup source to main and aon domain. If the selected wakeup
+                                            source is not already enabled, it will be enabled before entering DPD3 mode.
+                                            Setting it to #kPower_WS_NONE indicates that this structure does not
+                                            control any wakeup source. Pre-enabled wakeup sources are not affected.
+                                             Wakeup sources can also be enabled manually by
+                                             invoking Power_EnableWakeupSource(). */
 } power_dpd3_config_t;
 
 /*!
@@ -384,27 +378,42 @@ typedef struct _power_dpd3_config
  */
 typedef struct _power_sd_config
 {
-    power_wakeup_source_t wakeupSource; /* The wakeup source used to wakeup main and aon domain. */
+    power_wakeup_source_t wakeupSource; /* Specify the wakeup source to main and aon domain. If the selected wakeup
+                                            source is not already enabled, it will be enabled before entering SD mode.
+                                            Setting it to #kPower_WS_NONE indicates that this structure does not
+                                            control any wakeup source. Pre-enabled wakeup sources are not affected.
+                                             Wakeup sources can also be enabled manually by
+                                             invoking Power_EnableWakeupSource().  */
 } power_sd_config_t;
+
+/*!
+ * @brief The structure of dumped wakeup source information.
+ */
+typedef struct _power_wakeup_source_info
+{
+    uint32_t aonWakeupSourceMask;  /*!< The mask of wakeup sources in AON domain. */
+    uint32_t mainWakeupSourceMask; /*!< The mask of wakeup sources in Main domain. */
+} power_wakeup_source_info_t;
 
 /*!
  * @brief Structure to handle power management operations.
  */
 typedef struct _power_handle
 {
-    uint32_t lpConfig[4U];                  /*!< Array of two 32-bit values for low power configuration */
-    power_user_callback_t cm33Callback;   /*!< Callback function for CM33 core operations,
-                                                in type of @ref power_user_callback_t */
-    void *cm33UserData; /*!< User data pointer for CM33 core operations */
-    power_user_callback_t cm0pCallback;   /*!< Callback function for CM0+ core operations,
-                                                in type of @ref power_user_callback_t */
-    void *cm0pUserData; /*!< User data pointer for CM0+ core operations */
-    uint32_t muChannelId : 4U;           /*!< ID of the Message Unit (MU) channel used for power communication */
-    power_low_power_mode_t targetPowerMode : 4U; /*!< Current low power mode of the system */
+    uint32_t lpConfig[4U];                    /*!< Array of two 32-bit values for low power configuration */
+    power_user_callback_t cm33Callback;       /*!< Callback function for CM33 core operations,
+                                                    in type of @ref power_user_callback_t */
+    void *cm33UserData;                       /*!< User data pointer for CM33 core operations */
+    power_user_callback_t cm0pCallback;       /*!< Callback function for CM0+ core operations,
+                                                    in type of @ref power_user_callback_t */
+    void *cm0pUserData;                       /*!< User data pointer for CM0+ core operations */
+    power_wakeup_source_info_t enabledWsInfo; /*!< Used to record all enabled wakeup sources. */
+    uint32_t muChannelId : 4U;                /*!< ID of the Message Unit (MU) channel used for power communication */
+    power_low_power_mode_t targetPowerMode : 4U;   /*!< Current low power mode of the system */
     power_low_power_mode_t previousPowerMode : 4U; /*!< Used to record previous low power mode. */
-    bool dualCoreSynced : 1U;                    /*!< Flag indicating whether dual cores are synchronized */
-    bool requestCM33Start : 1U;                  /*!< Flag indicating whether a request to start CM33 core is made */
-    bool cm0pWFI : 1U;                           /*!< Flag indicating whether CM0P execute WFI. */
+    bool dualCoreSynced : 1U;                      /*!< Flag indicating whether dual cores are synchronized */
+    bool requestCM33Start : 1U;                    /*!< Flag indicating whether a request to start CM33 core is made */
+    bool cm0pWFI : 1U;                             /*!< Flag indicating whether CM0P execute WFI. */
 } power_handle_t;
 
 /*******************************************************************************
@@ -428,14 +437,14 @@ status_t Power_CreateHandle(power_handle_t *handle, uint32_t muChannelId);
 
 /*!
  * @brief Dump contents of handle.
- * 
+ *
  * @param[out] ptrDumpBuffer The pointer to a buffer in type of @ref power_handle_t to store dumped handle value.
  */
 void Power_DumpHandleValue(power_handle_t *ptrDumpBuffer);
 
 /*!
  * @brief Get configurations of latest requested low power mode.
- * 
+ *
  * @param[out] config The pointer to a buffer to store configurations of latest requested low power mode
  */
 void Power_GetPowerModeConfig(void *config);
@@ -460,7 +469,12 @@ void Power_RestoreHandleOffset(uint32_t offset);
  */
 
 /*!
- * @brief Enable input wakeup source, once enabled it will be effective until disabled
+ * @brief Enable input wakeup source, once enabled it will be effective until disabled.
+ *
+ * @details The enabled wakeup sources are recorded, and set to register before entering low power modes.
+ * @note There are two ways to enable wakeup source: The first one is invoking Power_EnableWakeupSource(), the
+ * way is used to enable more than one wakeup source; The second one is specify the wakeup source in configuration
+ * of low power mode.
  *
  * @param[in] ws Specify the coded wakeup source, please refer to @ref power_wakeup_source_t for details.
  */
@@ -472,6 +486,11 @@ void Power_EnableWakeupSource(power_wakeup_source_t ws);
  * @param[in] ws Specify the coded wakeup source, please refer to @ref power_wakeup_source_t for details.
  */
 void Power_DisableWakeupSource(power_wakeup_source_t ws);
+
+/*!
+ * @brief Disable all enabled wakeup sources to both main domain and aon domain.
+ */
+void Power_DisableAllWakeupSources(void);
 
 /*!
  * @brief Dump information of all configured wakeup sources, in type of @ref power_wakeup_source_info_t.
@@ -486,6 +505,20 @@ void Power_DumpEnabledWakeSource(power_wakeup_source_info_t *ptrWsInfo);
  * @param[out] ptrWakeupSourceMask Pointer to the variable to store mask of wakeup sources.
  */
 void Power_GetWakeupSource(uint32_t *ptrWakeupSourceMask);
+
+/*!
+ * @brief Check whether the selected wakeup source is already enabled, if it is then disable it.
+ *
+ * @param ws Specify the wakeup source in type of @ref power_wakeup_source_t.
+ */
+void Power_CheckThenDisableWakeupSource(power_wakeup_source_t ws);
+
+/*!
+ * @brief Check whether the selected wakeup source is disabled, if it is then enable it.
+ *
+ * @param ws Specify the wakeup source in type of @ref power_wakeup_source_t.
+ */
+void Power_CheckThenEnableWakeupSource(power_wakeup_source_t ws);
 
 /*!
  * @}
@@ -518,14 +551,14 @@ void Power_UnRegisterUserCallback(void);
 
 /*!
  * @brief Get the target low power mode of latest request.
- * 
+ *
  * @return The target low power mode @ref power_low_power_mode_t of latest request.
  */
 power_low_power_mode_t Power_GetTargetLowPowerMode(void);
 
 /*!
  * @brief Get previous power mode.
- * 
+ *
  * @return The previous power mode.
  */
 power_low_power_mode_t Power_GetPreviousPowerMode(void);
@@ -689,10 +722,10 @@ status_t Power_EnterShutDown(power_sd_config_t *config);
 /*!@name Power MU Transfer Callback
  @{
  */
- 
+
 /*!
  * @brief Get type of received MU message.
- * 
+ *
  * @param message The received message.
  *
  * @return The type of MU message.
@@ -701,16 +734,16 @@ power_mu_message_type_t Power_GetMuMessageType(uint32_t message);
 
 /*!
  * @brief Get direction of received MU message.
- * 
+ *
  * @param message The received message.
  *
- * @return The direction of MU message. 
+ * @return The direction of MU message.
  */
 power_mu_message_direction_t Power_GetMuMessageDir(uint32_t message);
 
 /*!
  * @brief The callback when one core want to sync with another, that is when the message type is #kPower_MsgTypeSync.
- * 
+ *
  * @param message Received message value.
  * @param channelId The channel which transfer the message.
  *
@@ -721,7 +754,7 @@ status_t Power_MuSyncCallback(uint32_t message, uint32_t channelId);
 
 /*!
  * @brief Interpret request message from requester.
- * 
+ *
  * @param message The message which request from requester.
  *
  * @retval kStatus_POWER_MuTransferError Something wrong during transfer.
@@ -732,7 +765,7 @@ status_t Power_InterpretRequest(uint32_t message);
 
 /*!
  * @brief Interpret responce of message.
- * 
+ *
  * @param message The message which responce to requester.
  *
  * @retval kStatus_POWER_MuTransferError    Something wrong during transfer.

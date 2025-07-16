@@ -81,7 +81,6 @@ typedef enum _clock_ip_name
 #if __CORTEX_M == (33U) /* Building on the main core */
 
     /* Check syscon mrcc reg, in RM */
-    kCLOCK_InputMux          = (0xFFFFFFF0U),                          /*!< Clock gate name: INPUTMUX0 + AON_INPUTMUX1 */
     kCLOCK_GateINPUTMUX0     = (0x00U | (0U)),                         /*!< Clock gate name: INPUTMUX0      */
     kCLOCK_GateCTIMER0       = (0x00U | (1U)),                         /*!< Clock gate name: CTIMER0        */
     kCLOCK_GateCTIMER1       = (0x00U | (2U)),                         /*!< Clock gate name: CTIMER1        */
@@ -123,8 +122,6 @@ typedef enum _clock_ip_name
     kCLOCK_GateTCU           = ((0x4U << 16U) | (0x10U << 8U) | (7U)), /*!< Clock gate name: TCU            */
     kCLOCK_GateTRNG0         = ((0x4U << 16U) | (0x10U << 8U) | (8U)), /*!< Clock gate name: TRNG0          */
     kCLOCK_GateUDF0          = ((0x4U << 16U) | (0x10U << 8U) | (9U)), /*!< Clock gate name: UDF0           */
-#else
-    kCLOCK_InputMux          = ((1U<<24U) | (16U)),                    /*!< Clock gate name: AON INPUTMUX  (only)*/
 #endif /* Building on the main core */
 
     /* Check AON CGU PER_CLK_EN in RM */
@@ -740,15 +737,6 @@ static inline void CLOCK_EnableClock(clock_ip_name_t clk)
     {
         return;
     }
- 
-#if __CORTEX_M == (33U) /* Building on the main core */
-    if (clk == kCLOCK_InputMux) /* Workaround for inputmux driver */
-    {
-        CLOCK_EnableClock(kCLOCK_GateAonINPUTMUX1);
-        CLOCK_EnableClock(kCLOCK_GateINPUTMUX0);
-        return;
-    }
-#endif    
 
     if (CLK_OF_AON(clk))
     {
@@ -773,7 +761,7 @@ static inline void CLOCK_EnableClock(clock_ip_name_t clk)
         /* Unlock clock configuration */
         SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
 
-        if (clk != kCLOCK_InputMux && clk != kCLOCK_GateWWDT0 && clk != kCLOCK_GateSRAMA0A1 && clk != kCLOCK_GateROMCP )
+        if (clk != kCLOCK_GateWWDT0 && clk != kCLOCK_GateSRAMA0A1 && clk != kCLOCK_GateROMCP)
         {
             *pPeripheralEnCtrl |= (1UL << bit_shift);
         }
@@ -841,7 +829,7 @@ static inline void CLOCK_DisableClock(clock_ip_name_t clk)
             *pClkCtrl = (1UL << bit_shift);
         }
 
-        if (clk != kCLOCK_InputMux && clk != kCLOCK_GateWWDT0 && clk != kCLOCK_GateSRAMA0A1 && clk != kCLOCK_GateROMCP)
+        if (clk != kCLOCK_GateWWDT0 && clk != kCLOCK_GateSRAMA0A1 && clk != kCLOCK_GateROMCP)
         {
             *pPeripheralEnCtrl &= ~(1UL << bit_shift);
         }

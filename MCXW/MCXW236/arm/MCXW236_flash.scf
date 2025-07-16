@@ -49,11 +49,15 @@
 #define m_interrupts_ram_start         0x20004000
 #define m_interrupts_ram_size          __ram_vector_table_size__
 
+#define  m_ramfunc_start               (m_interrupts_ram_start + m_interrupts_ram_size)
+#define  m_ramfunc_size                0x00002000
+
 /* 112k (SRAM0 = 16k, SRAM1 = 32k, SRAM2 = 64K) RAM to fit data segment */
-/* First  512B (from 0x20004000 until 0x20004200) ram is used to put vector table */
+/* First 512B (from 0x20004000 until 0x20004200) ram is used to put vector table */
+/* Next 8KB (from 0x20004200 until 0x20006200) ram is used to put ram function */
 /* The reset of ram is used for data memory */
-#define  m_data_start                  (m_interrupts_ram_start + m_interrupts_ram_size)
-#define  m_data_size                   (0x0001A000 - m_interrupts_ram_size)
+#define  m_data_start                  (m_ramfunc_start + m_ramfunc_size)
+#define  m_data_size                   (0x0001C000 - m_interrupts_ram_size - m_ramfunc_size)
 
 LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region size_region
 
@@ -62,6 +66,10 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region siz
   }
 
   VECTOR_RAM m_interrupts_ram_start EMPTY m_interrupts_ram_size {
+  }
+
+  ER_m_ramfunc m_ramfunc_start m_ramfunc_size {
+    * (*.ramfunc)
   }
 
   ER_m_text m_text_start FIXED m_text_size {

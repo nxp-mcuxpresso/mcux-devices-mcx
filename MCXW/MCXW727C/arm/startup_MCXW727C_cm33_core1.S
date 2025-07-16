@@ -4,7 +4,7 @@
 /*            MCXW727C_cm33_core1                                            */
 /*  @version: 2.0                                                            */
 /*  @date:    2024-10-29                                                     */
-/*  @build:   b250522                                                        */
+/*  @build:   b250716                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -373,6 +373,15 @@ RF_SFA_IRQHandler:
     bx    r0
     .size RF_SFA_IRQHandler, . - RF_SFA_IRQHandler
 
+    .align 1
+    .thumb_func
+    .weak TPM2_INT_IRQHandler
+    .type TPM2_INT_IRQHandler, %function
+TPM2_INT_IRQHandler:
+    ldr   r0,=TPM2_INT_DriverIRQHandler
+    bx    r0
+    .size TPM2_INT_IRQHandler, . - TPM2_INT_IRQHandler
+
 
 /*    Macro to define default handlers. Default handler
  *    will be weak symbol and just dead loops. They can be
@@ -417,7 +426,7 @@ RF_SFA_IRQHandler:
     def_irq_handler    PLL_ABORT_INT_IRQHandler
     def_irq_handler    FMU_INT_IRQHandler
     def_irq_handler    WOR_INT_IRQHandler
-    def_irq_handler    TPM2_INT_IRQHandler
+    def_irq_handler    TPM2_INT_DriverIRQHandler
     def_irq_handler    DSB_IRQHandler
     def_irq_handler    SECSUBSYS_IRQHandler
     def_irq_handler    LPTMR2_IRQHandler

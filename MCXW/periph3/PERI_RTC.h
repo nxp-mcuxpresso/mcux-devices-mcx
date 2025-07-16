@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b250522
+**     Build:               b250716
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for RTC
@@ -383,7 +383,10 @@ typedef struct {
 
 #define RTC_LR_PCL_MASK                          (0xFF0000U)
 #define RTC_LR_PCL_SHIFT                         (16U)
-/*! PCL - Pin Configuration Lock */
+/*! PCL - Pin Configuration Lock
+ *  0b00000000..Pin Configuration Register is locked and writes are ignored.
+ *  0b00000001..Pin Configuration Register is not locked and writes complete as normal.
+ */
 #define RTC_LR_PCL(x)                            (((uint32_t)(((uint32_t)(x)) << RTC_LR_PCL_SHIFT)) & RTC_LR_PCL_MASK)
 /*! @} */
 

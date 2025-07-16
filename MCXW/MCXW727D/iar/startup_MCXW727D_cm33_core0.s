@@ -4,7 +4,7 @@
 ;            MCXW727D_cm33_core0
 ;  @version: 2.0
 ;  @date:    2024-10-29
-;  @build:   b250522
+;  @build:   b250716
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -552,7 +552,19 @@ SFA0_IRQHandler
         PUBWEAK LPTMR1_IRQHandler
         PUBWEAK LPIT0_IRQHandler
         PUBWEAK TPM0_IRQHandler
+        PUBWEAK TPM0_DriverIRQHandler
+        SECTION .text:CODE:REORDER:NOROOT(2)
+TPM0_IRQHandler
+        LDR     R0, =TPM0_DriverIRQHandler
+        BX      R0
+
         PUBWEAK TPM1_IRQHandler
+        PUBWEAK TPM1_DriverIRQHandler
+        SECTION .text:CODE:REORDER:NOROOT(2)
+TPM1_IRQHandler
+        LDR     R0, =TPM1_DriverIRQHandler
+        BX      R0
+
         PUBWEAK LPI2C0_IRQHandler
         PUBWEAK LPI2C0_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
@@ -664,8 +676,8 @@ RTC_Seconds_IRQHandler
 LPTMR0_IRQHandler
 LPTMR1_IRQHandler
 LPIT0_IRQHandler
-TPM0_IRQHandler
-TPM1_IRQHandler
+TPM0_DriverIRQHandler
+TPM1_DriverIRQHandler
 LPI2C0_DriverIRQHandler
 LPI2C1_DriverIRQHandler
 I3C0_DriverIRQHandler

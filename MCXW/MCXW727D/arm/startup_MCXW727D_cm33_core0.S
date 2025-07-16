@@ -4,7 +4,7 @@
 /*            MCXW727D_cm33_core0                                            */
 /*  @version: 2.0                                                            */
 /*  @date:    2024-10-29                                                     */
-/*  @build:   b250522                                                        */
+/*  @build:   b250716                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -558,6 +558,24 @@ SFA0_IRQHandler:
 
     .align 1
     .thumb_func
+    .weak TPM0_IRQHandler
+    .type TPM0_IRQHandler, %function
+TPM0_IRQHandler:
+    ldr   r0,=TPM0_DriverIRQHandler
+    bx    r0
+    .size TPM0_IRQHandler, . - TPM0_IRQHandler
+
+    .align 1
+    .thumb_func
+    .weak TPM1_IRQHandler
+    .type TPM1_IRQHandler, %function
+TPM1_IRQHandler:
+    ldr   r0,=TPM1_DriverIRQHandler
+    bx    r0
+    .size TPM1_IRQHandler, . - TPM1_IRQHandler
+
+    .align 1
+    .thumb_func
     .weak LPI2C0_IRQHandler
     .type LPI2C0_IRQHandler, %function
 LPI2C0_IRQHandler:
@@ -665,8 +683,8 @@ FLEXIO0_IRQHandler:
     def_irq_handler    LPTMR0_IRQHandler
     def_irq_handler    LPTMR1_IRQHandler
     def_irq_handler    LPIT0_IRQHandler
-    def_irq_handler    TPM0_IRQHandler
-    def_irq_handler    TPM1_IRQHandler
+    def_irq_handler    TPM0_DriverIRQHandler
+    def_irq_handler    TPM1_DriverIRQHandler
     def_irq_handler    LPI2C0_DriverIRQHandler
     def_irq_handler    LPI2C1_DriverIRQHandler
     def_irq_handler    I3C0_DriverIRQHandler

@@ -4,7 +4,7 @@
 ;            MCXW727A_cm33_core1
 ;  @version: 2.0
 ;  @date:    2024-10-29
-;  @build:   b250522
+;  @build:   b250716
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -424,6 +424,12 @@ RF_SFA_IRQHandler
         PUBWEAK FMU_INT_IRQHandler
         PUBWEAK WOR_INT_IRQHandler
         PUBWEAK TPM2_INT_IRQHandler
+        PUBWEAK TPM2_INT_DriverIRQHandler
+        SECTION .text:CODE:REORDER:NOROOT(2)
+TPM2_INT_IRQHandler
+        LDR     R0, =TPM2_INT_DriverIRQHandler
+        BX      R0
+
         PUBWEAK DSB_IRQHandler
         PUBWEAK SECSUBSYS_IRQHandler
         PUBWEAK LPTMR2_IRQHandler
@@ -458,7 +464,7 @@ XO_RDY_INT_IRQHandler
 PLL_ABORT_INT_IRQHandler
 FMU_INT_IRQHandler
 WOR_INT_IRQHandler
-TPM2_INT_IRQHandler
+TPM2_INT_DriverIRQHandler
 DSB_IRQHandler
 SECSUBSYS_IRQHandler
 LPTMR2_IRQHandler

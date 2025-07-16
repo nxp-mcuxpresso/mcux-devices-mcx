@@ -2,6 +2,11 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-    config MCUX_COMPONENT_driver.siul2
-         bool "Use driver SIUL2"
-         default y
+config MCUX_HAS_COMPONENT_driver.siul2
+    bool
+    default y if MCUX_HW_IP_DriverType_SIUL2
+
+config MCUX_COMPONENT_driver.siul2
+    bool "Use driver SIUL2"
+    default y
+    depends on MCUX_HAS_COMPONENT_driver.siul2

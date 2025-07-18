@@ -9,8 +9,8 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    MCXE31 RM Rev1
-**     Version:             rev. 0.1, 2024-11-19
+**     Reference manual:    MCXE31 RM Rev2
+**     Version:             rev. 1.0, 2025-07-18
 **     Build:               b250718
 **
 **     Abstract:
@@ -26,14 +26,16 @@
 **     Revisions:
 **     - rev. 0.1 (2024-11-19)
 **         Initial version.
+**     - rev. 1.0 (2025-07-18)
+**         Rev2 RM.
 **
 ** ###################################################################
 */
 
 /*!
  * @file MCXE316_COMMON.h
- * @version 0.1
- * @date 2024-11-19
+ * @version 1.0
+ * @date 2025-07-18
  * @brief CMSIS Peripheral Access Layer for MCXE316
  *
  * CMSIS Peripheral Access Layer for MCXE316
@@ -44,9 +46,9 @@
 
 /** Memory map major version (memory maps with equal major version number are
  * compatible) */
-#define MCU_MEM_MAP_VERSION 0x0000U
+#define MCU_MEM_MAP_VERSION 0x0100U
 /** Memory map minor version */
-#define MCU_MEM_MAP_VERSION_MINOR 0x0001U
+#define MCU_MEM_MAP_VERSION_MINOR 0x0000U
 
 
 /* ----------------------------------------------------------------------------

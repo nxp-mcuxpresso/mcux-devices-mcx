@@ -6,7 +6,7 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    MCXE31 RM Rev1
+**     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 0.1, 2024-11-19
 **     Build:               b250310
 **

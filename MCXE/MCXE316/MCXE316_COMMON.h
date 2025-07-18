@@ -11,7 +11,7 @@
 **
 **     Reference manual:    MCXE31 RM Rev1
 **     Version:             rev. 0.1, 2024-11-19
-**     Build:               b250708
+**     Build:               b250718
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE316
@@ -1318,6 +1318,14 @@ typedef enum _xbic_slave_port
 #define SIUL2_BASE_PTRS                          { SIUL2 }
 /** Interrupt vectors for the SIUL2 peripheral type */
 #define SIUL2_IRQS                               { { SIUL2_0_IRQn, SIUL2_1_IRQn, SIUL2_2_IRQn, SIUL2_3_IRQn } }
+/*! Maximum pins which share the same EIRQ request */
+#define SIUL2_MAX_PINS_PER_EIRQ                  (3U)
+/*! Pins and EIRQ mapping array */
+#define SIUL2_EIRQ_PINS_MAP                      {{0, 64, 128}, {1, 65, 129}, {2, 66, 130}, {3, 67, 131}, {4, 16, 68}, {5, 69, -1}, {6, 70, 134}, {7, 71, 136}, \
+                                                  {32, 96, 137}, {33, 97, 138}, {34, 98, 139}, {35, 99, 140}, {36, 100, 141}, {37, 101, -1}, {40, 102, 143}, {41, 103, 144}, \
+                                                  {8, 72, -1}, {9, 73, -1}, {10, 74, -1}, {11, 75, -1}, {12, 76, -1}, {13, 77, -1}, {14, 78, -1}, {15, 79, -1}, \
+                                                  {42, 104, 113}, {43, 105, -1}, {44, 106, -1}, {45, 107, -1}, {46, 108, -1}, {47, 109, -1}, {48, 110, -1}, {49, 111, -1}}
+
 
 /* STCU - Peripheral instance base addresses */
 /** Peripheral STCU base address */

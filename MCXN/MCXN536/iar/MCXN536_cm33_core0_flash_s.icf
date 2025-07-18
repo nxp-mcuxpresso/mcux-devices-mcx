@@ -8,7 +8,7 @@
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250703
+**     Build:               b250718
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -65,8 +65,6 @@ if (isdefinedsymbol(__use_shmem__)) {
   define symbol m_data_end                       = 0x30007FFF;
 }
 
-define symbol m_usb_sram_start                 = 0x500BA000;
-define symbol m_usb_sram_end                   = 0x500BAFFF;
 
 /* 512B - memory for veneer table (NSC - secure, non-secure callable memory) */
 define symbol m_veneer_table_start             = 0x1001FE00;
@@ -95,11 +93,6 @@ define block QACCESS_DATA  { section DataQuickAccess };
 define region core1_region = mem:[from core1_image_start to core1_image_end];
 define block CORE1_IMAGE_WBLOCK          { section  __core1_image };
 
-/* regions for USB */
-define region USB_BDT_region = mem:[from m_usb_sram_start to m_usb_sram_start + usb_bdt_size - 1];
-define region USB_SRAM_region = mem:[from m_usb_sram_start + usb_bdt_size to m_usb_sram_end];
-place in USB_BDT_region                     { section m_usb_bdt };
-place in USB_SRAM_region                    { section m_usb_global };
 
 initialize by copy { readwrite, section .textrw, section CodeQuickAccess, section DataQuickAccess };
 

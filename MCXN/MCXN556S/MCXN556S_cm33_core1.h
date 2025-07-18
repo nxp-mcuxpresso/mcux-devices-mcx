@@ -8,7 +8,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250703
+**     Build:               b250718
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN556S_cm33_core1
@@ -49,7 +49,6 @@
 #include "PERI_AHBSC.h"
 #include "PERI_CACHE64_CTRL.h"
 #include "PERI_CACHE64_POLSEL.h"
-#include "PERI_CAN.h"
 #include "PERI_CDOG.h"
 #include "PERI_CMC.h"
 #include "PERI_CRC.h"

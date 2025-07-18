@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250703
+**     Build:               b250718
 **
 **     Abstract:
 **         Chip specific module features.
@@ -41,8 +41,6 @@
 #define FSL_FEATURE_SOC_EDMA_COUNT (2)
 /* @brief EIM availability on the SoC. */
 #define FSL_FEATURE_SOC_EIM_COUNT (1)
-/* @brief EVTG availability on the SoC. */
-#define FSL_FEATURE_SOC_EVTG_COUNT (1)
 /* @brief EWM availability on the SoC. */
 #define FSL_FEATURE_SOC_EWM_COUNT (1)
 /* @brief FLEXCAN availability on the SoC. */
@@ -105,8 +103,6 @@
 #define FSL_FEATURE_SOC_PWM_COUNT (1)
 /* @brief PUF availability on the SoC. */
 #define FSL_FEATURE_SOC_PUF_COUNT (4)
-/* @brief QDC availability on the SoC. */
-#define FSL_FEATURE_SOC_QDC_COUNT (1)
 /* @brief RTC availability on the SoC. */
 #define FSL_FEATURE_SOC_RTC_COUNT (1)
 /* @brief SCG availability on the SoC. */
@@ -115,6 +111,8 @@
 #define FSL_FEATURE_SOC_SCT_COUNT (1)
 /* @brief SEMA42 availability on the SoC. */
 #define FSL_FEATURE_SOC_SEMA42_COUNT (1)
+/* @brief SINC availability on the SoC. */
+#define FSL_FEATURE_SOC_SINC_COUNT (1)
 /* @brief SMARTDMA availability on the SoC. */
 #define FSL_FEATURE_SOC_SMARTDMA_COUNT (1)
 /* @brief SYSCON availability on the SoC. */
@@ -126,7 +124,7 @@
 /* @brief USBC availability on the SoC. */
 #define FSL_FEATURE_SOC_USBC_COUNT (1)
 /* @brief USBHSDCD availability on the SoC. */
-#define FSL_FEATURE_SOC_USBHSDCD_COUNT (2)
+#define FSL_FEATURE_SOC_USBHSDCD_COUNT (1)
 /* @brief USBNC availability on the SoC. */
 #define FSL_FEATURE_SOC_USBNC_COUNT (1)
 /* @brief USBPHY availability on the SoC. */
@@ -468,11 +466,6 @@
 #define FSL_FEATURE_EDMA_TCD_TYPEn(x) (0)
 /* @brief Number of DMA channels with asynchronous request capability. (Valid only for eDMA modules.) */
 #define FSL_FEATURE_EDMA_ASYNCHRO_REQUEST_CHANNEL_COUNT (16)
-
-/* EVTG module features */
-
-/* @brief OPAMP support force bypass */
-#define FSL_FEATURE_EVTG_HAS_FORCE_BYPASS_FLIPFLOP (1)
 
 /* EWM module features */
 
@@ -817,11 +810,6 @@
 /* @brief PINT Interrupt Combine */
 #define FSL_FEATURE_PINT_INTERRUPT_COMBINE (1)
 
-/* PLU module features */
-
-/* @brief Has WAKEINT_CTRL register. */
-#define FSL_FEATURE_PLU_HAS_WAKEINT_CTRL_REG (1)
-
 /* PORT module features */
 
 /* @brief Has control lock (register bit PCR[LK]). */
@@ -911,19 +899,6 @@
 /* @brief Has ERRATA_51989. */
 #define FSL_FEATURE_PWM_HAS_ERRATA_51989 (1)
 
-/* QDC module features */
-
-/* @brief Has no simultaneous PHASEA and PHASEB change interrupt (register bit field CTRL2[SABIE] and CTRL2[SABIRQ]). */
-#define FSL_FEATURE_QDC_HAS_NO_CTRL2_SAB_INT (0)
-/* @brief Has register CTRL3. */
-#define FSL_FEATURE_QDC_HAS_CTRL3 (1)
-/* @brief Has register LASTEDGE or LASTEDGEH. */
-#define FSL_FEATURE_QDC_HAS_LASTEDGE (1)
-/* @brief Has register POSDPERBFR, POSDPERH, or POSDPER. */
-#define FSL_FEATURE_QDC_HAS_POSDPER (1)
-/* @brief Has bitfiled FILT[FILT_PRSC]. */
-#define FSL_FEATURE_QDC_HAS_FILT_PRSC (1)
-
 /* RTC module features */
 
 /* @brief Has Tamper Direction Register support. */
@@ -1010,6 +985,15 @@
 /* @brief Gate counts */
 #define FSL_FEATURE_SEMA42_GATE_COUNT (16)
 
+/* SINC module features */
+
+/* @brief SINC channel count. */
+#define FSL_FEATURE_SINC_CHANNEL_COUNT (5)
+/* @brief SINC CACFR register has bitfield ADMASEL. */
+#define FSL_FEATURE_SINC_CACFR_HAS_ADMASEL (1)
+/* @brief SINC CACFR register has no bitfield PTMUX. */
+#define FSL_FEATURE_SINC_CACFR_HAS_NO_PTMUX (1)
+
 /* SPC module features */
 
 /* @brief Has DCDC */
@@ -1092,13 +1076,6 @@
 #define FSL_FEATURE_TSI_VERSION (6U)
 /* @brief TSI Channel Count */
 #define FSL_FEATURE_TSI_CHANNEL_COUNT (25U)
-
-/* USBHSDCD module features */
-
-/* @brief Size of the USB dedicated RAM */
-#define FSL_FEATURE_USB_USB_RAM (2048)
-/* @brief Base address of the USB dedicated RAM */
-#define FSL_FEATURE_USB_USB_RAM_BASE_ADDRESS (1074503680)
 
 /* USBPHY module features */
 

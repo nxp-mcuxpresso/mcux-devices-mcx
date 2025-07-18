@@ -100,18 +100,6 @@ device.hardware_data:
                   addr: 0x30060000
                   size: 0x8000
                   access: "RW"
-            - id: "USB_RAM"
-              name: "USB_RAM"
-              addr: 0x400ba000
-              size: 0x1000
-              type: "RAM"
-              access: "RW"
-              default: true
-              aliases:
-                - name: "USB_RAM_alias"
-                  addr: 0x500ba000
-                  size: 0x1000
-                  access: "RW"
             - id: "BootROM"
               name: "BootROM"
               addr: 0x3000000

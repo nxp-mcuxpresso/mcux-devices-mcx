@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250703
+**     Build:               b250718
 **
 **     Abstract:
 **         Chip specific module features.
@@ -41,12 +41,8 @@
 #define FSL_FEATURE_SOC_EDMA_COUNT (2)
 /* @brief EIM availability on the SoC. */
 #define FSL_FEATURE_SOC_EIM_COUNT (1)
-/* @brief EVTG availability on the SoC. */
-#define FSL_FEATURE_SOC_EVTG_COUNT (1)
 /* @brief EWM availability on the SoC. */
 #define FSL_FEATURE_SOC_EWM_COUNT (1)
-/* @brief FLEXCAN availability on the SoC. */
-#define FSL_FEATURE_SOC_FLEXCAN_COUNT (1)
 /* @brief FLEXIO availability on the SoC. */
 #define FSL_FEATURE_SOC_FLEXIO_COUNT (1)
 /* @brief FLEXSPI availability on the SoC. */
@@ -63,8 +59,6 @@
 #define FSL_FEATURE_SOC_HPDAC_COUNT (1)
 /* @brief I3C availability on the SoC. */
 #define FSL_FEATURE_SOC_I3C_COUNT (2)
-/* @brief I2S availability on the SoC. */
-#define FSL_FEATURE_SOC_I2S_COUNT (2)
 /* @brief INPUTMUX availability on the SoC. */
 #define FSL_FEATURE_SOC_INPUTMUX_COUNT (1)
 /* @brief ITRC availability on the SoC. */
@@ -93,8 +87,6 @@
 #define FSL_FEATURE_SOC_OPAMP_COUNT (3)
 /* @brief OSTIMER availability on the SoC. */
 #define FSL_FEATURE_SOC_OSTIMER_COUNT (1)
-/* @brief PDM availability on the SoC. */
-#define FSL_FEATURE_SOC_PDM_COUNT (1)
 /* @brief PINT availability on the SoC. */
 #define FSL_FEATURE_SOC_PINT_COUNT (1)
 /* @brief PKC availability on the SoC. */
@@ -103,8 +95,6 @@
 #define FSL_FEATURE_SOC_POWERQUAD_COUNT (1)
 /* @brief PORT availability on the SoC. */
 #define FSL_FEATURE_SOC_PORT_COUNT (6)
-/* @brief PWM availability on the SoC. */
-#define FSL_FEATURE_SOC_PWM_COUNT (1)
 /* @brief PUF availability on the SoC. */
 #define FSL_FEATURE_SOC_PUF_COUNT (4)
 /* @brief QDC availability on the SoC. */
@@ -123,8 +113,6 @@
 #define FSL_FEATURE_SOC_SYSCON_COUNT (1)
 /* @brief SYSPM availability on the SoC. */
 #define FSL_FEATURE_SOC_SYSPM_COUNT (2)
-/* @brief TSI availability on the SoC. */
-#define FSL_FEATURE_SOC_TSI_COUNT (1)
 /* @brief USB availability on the SoC. */
 #define FSL_FEATURE_SOC_USB_COUNT (1)
 /* @brief USBC availability on the SoC. */
@@ -239,79 +227,6 @@
 /* CACHE64_POLSEL module features */
 
 /* No feature definitions */
-
-/* FLEXCAN module features */
-
-/* @brief Message buffer size */
-#define FSL_FEATURE_FLEXCAN_HAS_MESSAGE_BUFFER_MAX_NUMBERn(x) (32)
-/* @brief Has doze mode support (register bit field MCR[DOZE]). */
-#define FSL_FEATURE_FLEXCAN_HAS_DOZE_MODE_SUPPORT (0)
-/* @brief Insatnce has doze mode support (register bit field MCR[DOZE]). */
-#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_DOZE_MODE_SUPPORTn(x) (0)
-/* @brief Has a glitch filter on the receive pin (register bit field MCR[WAKSRC]). */
-#define FSL_FEATURE_FLEXCAN_HAS_GLITCH_FILTER (1)
-/* @brief Has extended interrupt mask and flag register (register IMASK2, IFLAG2). */
-#define FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER (0)
-/* @brief Instance has extended bit timing register (register CBT). */
-#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_EXTENDED_TIMING_REGISTERn(x) (1)
-/* @brief Has a receive FIFO DMA feature (register bit field MCR[DMA]). */
-#define FSL_FEATURE_FLEXCAN_HAS_RX_FIFO_DMA (1)
-/* @brief Instance has a receive FIFO DMA feature (register bit field MCR[DMA]). */
-#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_RX_FIFO_DMAn(x) (1)
-/* @brief Remove CAN Engine Clock Source Selection from unsupported part. */
-#define FSL_FEATURE_FLEXCAN_SUPPORT_ENGINE_CLK_SEL_REMOVE (1)
-/* @brief Instance remove CAN Engine Clock Source Selection from unsupported part. */
-#define FSL_FEATURE_FLEXCAN_INSTANCE_SUPPORT_ENGINE_CLK_SEL_REMOVEn(x) (1)
-/* @brief Is affected by errata with ID 5641 (Module does not transmit a message that is enabled to be transmitted at a specific moment during the arbitration process). */
-#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_5641 (0)
-/* @brief Is affected by errata with ID 5829 (FlexCAN: FlexCAN does not transmit a message that is enabled to be transmitted in a specific moment during the arbitration process). */
-#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_5829 (0)
-/* @brief Is affected by errata with ID 6032 (FlexCAN: A frame with wrong ID or payload is transmitted into the CAN bus when the Message Buffer under transmission is either aborted or deactivated while the CAN bus is in the Bus Idle state). */
-#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_6032 (0)
-/* @brief Is affected by errata with ID 9595 (FlexCAN: Corrupt frame possible if the Freeze Mode or the Low-Power Mode are entered during a Bus-Off state). */
-#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_9595 (0)
-/* @brief Has CAN with Flexible Data rate (CAN FD) protocol. */
-#define FSL_FEATURE_FLEXCAN_HAS_FLEXIBLE_DATA_RATE (1)
-/* @brief CAN instance support Flexible Data rate (CAN FD) protocol. */
-#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_FLEXIBLE_DATA_RATEn(x) (1)
-/* @brief Has memory error control (register MECR). */
-#define FSL_FEATURE_FLEXCAN_HAS_MEMORY_ERROR_CONTROL (0)
-/* @brief Has enhanced bit timing register (register EPRS, ENCBT, EDCBT and ETDC). */
-#define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_BIT_TIMING_REG (1)
-/* @brief Has Pretended Networking mode support. */
-#define FSL_FEATURE_FLEXCAN_HAS_PN_MODE (1)
-/* @brief Has Enhanced Rx FIFO. */
-#define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO (1)
-/* @brief Has Enhanced Rx FIFO. */
-#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_ENHANCED_RX_FIFOn(x) (1)
-/* @brief Enhanced Rx FIFO size (Indicates how many CAN FD messages can be stored). */
-#define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO_SIZE (12)
-/* @brief The number of enhanced Rx FIFO filter element registers. */
-#define FSL_FEATURE_FLEXCAN_HAS_ENHANCED_RX_FIFO_FILTER_MAX_NUMBER (32)
-/* @brief Does not support Supervisor Mode (bitfield MCR[SUPV]. */
-#define FSL_FEATURE_FLEXCAN_HAS_NO_SUPV_SUPPORT (1)
-/* @brief Has more than 64 MBs. */
-#define FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB (0)
-/* @brief Does not support self wake feature(bitfield MCR[SLFWAK]) */
-#define FSL_FEATURE_FLEXCAN_HAS_NO_SLFWAK_SUPPORT (0)
-/* @brief Has external time tick source (bitfield CTRL2[TIMER_SRC]). */
-#define FSL_FEATURE_FLEXCAN_HAS_EXTERNAL_TIME_TICK (0)
-/* @brief Instance has external time tick source (register bit field CTRL2[TIMER_SRC]). */
-#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_EXTERNAL_TIME_TICKn(x) (0)
-/* @brief Has Time Stamp Capture Point(bitfield CTRL2[TSTAMPCAP]). */
-#define FSL_FEATURE_FLEXCAN_HAS_HIGH_RESOLUTION_TIMESTAMP (0)
-/* @brief Instance has Pretended Networking option (register bit field MCR[PNET_EN]). */
-#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_PN_MODEn(x) (1)
-/* @brief FlexCAN maximum data rate. */
-#define FSL_FEATURE_FLEXCAN_MAX_CANFD_BITRATE (10000000)
-/* @brief Support payload endianness selection (bitfield CTRL2[PES]). */
-#define FSL_FEATURE_FLEXCAN_HAS_ENDIANNESS_SELECTION (0)
-/* @brief Enter Freeze mode before entering Disable and Stop mode. */
-#define FSL_FEATURE_FLEXCAN_ENTER_FREEZE_MODE (0)
-/* @brief Is affected by errata with ID 8341 (FlexCAN: Entering Freeze Mode or Low Power Mode from Normal Mode can cause the FlexCAN module to stop operating). */
-#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_8341 (0)
-/* @brief Is affected by errata with ID 050443 (FlexCAN: : Receive Message Buffers may have its CODE Field corrupted if the Receive FIFO function is used in Classical CAN mode). */
-#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_050443 (0)
 
 /* CDOG module features */
 
@@ -472,11 +387,6 @@
 #define FSL_FEATURE_EDMA_TCD_TYPEn(x) (0)
 /* @brief Number of DMA channels with asynchronous request capability. (Valid only for eDMA modules.) */
 #define FSL_FEATURE_EDMA_ASYNCHRO_REQUEST_CHANNEL_COUNT (16)
-
-/* EVTG module features */
-
-/* @brief OPAMP support force bypass */
-#define FSL_FEATURE_EVTG_HAS_FORCE_BYPASS_FLIPFLOP (1)
 
 /* EWM module features */
 
@@ -781,39 +691,6 @@
 /* @brief OPAMP support reference buffer */
 #define FSL_FEATURE_OPAMP_HAS_SUPPORT_REFERENCE_BUFFER (1)
 
-/* PDM module features */
-
-/* @brief PDM FIFO offset */
-#define FSL_FEATURE_PDM_FIFO_OFFSET (4)
-/* @brief PDM Channel Number */
-#define FSL_FEATURE_PDM_CHANNEL_NUM (4)
-/* @brief PDM FIFO WIDTH Size */
-#define FSL_FEATURE_PDM_FIFO_WIDTH (4)
-/* @brief PDM FIFO DEPTH Size */
-#define FSL_FEATURE_PDM_FIFO_DEPTH (16)
-/* @brief PDM has RANGE_CTRL register */
-#define FSL_FEATURE_PDM_HAS_RANGE_CTRL (1)
-/* @brief PDM Has Low Frequency */
-#define FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ (0)
-/* @brief PDM Has No VADEF Bitfield In PDM VAD0_STAT Register */
-#define FSL_FEATURE_PDM_HAS_NO_VADEF (1)
-/* @brief PDM Has no minimum clkdiv */
-#define FSL_FEATURE_PDM_HAS_NO_MINIMUM_CLKDIV (1)
-/* @brief PDM Has no FIR_RDY Bitfield In PDM STAT Register */
-#define FSL_FEATURE_PDM_HAS_NO_FIR_RDY (1)
-/* @brief PDM Has no DOZEN Bitfield In PDM CTRL_1 Register */
-#define FSL_FEATURE_PDM_HAS_NO_DOZEN (0)
-/* @brief PDM Has DEC_BYPASS Bitfield In PDM CTRL_2 Register */
-#define FSL_FEATURE_PDM_HAS_DECIMATION_FILTER_BYPASS (0)
-/* @brief PDM Has DC_OUT_CTRL */
-#define FSL_FEATURE_PDM_HAS_DC_OUT_CTRL (1)
-/* @brief PDM Has Fixed DC CTRL VALUE. */
-#define FSL_FEATURE_PDM_DC_CTRL_VALUE_FIXED (1)
-/* @brief PDM Has no independent error IRQ */
-#define FSL_FEATURE_PDM_HAS_NO_INDEPENDENT_ERROR_IRQ (1)
-/* @brief PDM has no hardware Voice Activity Detector */
-#define FSL_FEATURE_PDM_HAS_NO_HWVAD (1)
-
 /* PINT module features */
 
 /* @brief Number of connected outputs */
@@ -884,37 +761,6 @@
 /* @brief Puf Activation Code Size. */
 #define FSL_FEATURE_PUF_ACTIVATION_CODE_SIZE (1000)
 
-/* PWM module features */
-
-/* @brief If (e)FlexPWM has module A channels (outputs). */
-#define FSL_FEATURE_PWM_HAS_CHANNELA (1)
-/* @brief If (e)FlexPWM has module B channels (outputs). */
-#define FSL_FEATURE_PWM_HAS_CHANNELB (1)
-/* @brief If (e)FlexPWM has module X channels (outputs). */
-#define FSL_FEATURE_PWM_HAS_CHANNELX (1)
-/* @brief If (e)FlexPWM has fractional feature. */
-#define FSL_FEATURE_PWM_HAS_FRACTIONAL (1)
-/* @brief If (e)FlexPWM has mux trigger source select bit field. */
-#define FSL_FEATURE_PWM_HAS_MUX_TRIGGER_SOURCE_SEL (1)
-/* @brief Number of submodules in each (e)FlexPWM module. */
-#define FSL_FEATURE_PWM_SUBMODULE_COUNT (4)
-/* @brief Number of fault channel in each (e)FlexPWM module. */
-#define FSL_FEATURE_PWM_FAULT_CH_COUNT (1)
-/* @brief (e)FlexPWM has no WAITEN Bitfield In CTRL2 Register. */
-#define FSL_FEATURE_PWM_HAS_NO_WAITEN (1)
-/* @brief If (e)FlexPWM has phase delay feature. */
-#define FSL_FEATURE_PWM_HAS_PHASE_DELAY (1)
-/* @brief If (e)FlexPWM has input filter capture feature. */
-#define FSL_FEATURE_PWM_HAS_INPUT_FILTER_CAPTURE (1)
-/* @brief If (e)FlexPWM has module capture functionality on A channels (inputs). */
-#define FSL_FEATURE_PWM_HAS_CAPTURE_ON_CHANNELA (1)
-/* @brief If (e)FlexPWM has module capture functionality on B channels (inputs). */
-#define FSL_FEATURE_PWM_HAS_CAPTURE_ON_CHANNELB (1)
-/* @brief If (e)FlexPWM has module capture functionality on X channels (inputs). */
-#define FSL_FEATURE_PWM_HAS_CAPTURE_ON_CHANNELX (1)
-/* @brief Has ERRATA_51989. */
-#define FSL_FEATURE_PWM_HAS_ERRATA_51989 (1)
-
 /* QDC module features */
 
 /* @brief Has no simultaneous PHASEA and PHASEB change interrupt (register bit field CTRL2[SABIE] and CTRL2[SABIRQ]). */
@@ -954,49 +800,6 @@
 #define FSL_FEATURE_RTC_HAS_NO_GP_DATA_REG (1)
 /* @brief Has TIMER_STB_MASK bitfile in CTRL register. */
 #define FSL_FEATURE_RTC_HAS_NO_TIMER_STB_MASK (1)
-
-/* SAI module features */
-
-/* @brief SAI has FIFO in this soc (register bit fields TCR1[TFW]. */
-#define FSL_FEATURE_SAI_HAS_FIFO (1)
-/* @brief Receive/transmit FIFO size in item count (register bit fields TCSR[FRDE], TCSR[FRIE], TCSR[FRF], TCR1[TFW], RCSR[FRDE], RCSR[FRIE], RCSR[FRF], RCR1[RFW], registers TFRn, RFRn). */
-#define FSL_FEATURE_SAI_FIFO_COUNTn(x) (8)
-/* @brief Receive/transmit channel number (register bit fields TCR3[TCE], RCR3[RCE], registers TDRn and RDRn). */
-#define FSL_FEATURE_SAI_CHANNEL_COUNTn(x) (2)
-/* @brief Maximum words per frame (register bit fields TCR3[WDFL], TCR4[FRSZ], TMR[TWM], RCR3[WDFL], RCR4[FRSZ], RMR[RWM]). */
-#define FSL_FEATURE_SAI_MAX_WORDS_PER_FRAME (32)
-/* @brief Has support of combining multiple data channel FIFOs into single channel FIFO (register bit fields TCR3[CFR], TCR4[FCOMB], TFR0[WCP], TFR1[WCP], RCR3[CFR], RCR4[FCOMB], RFR0[RCP], RFR1[RCP]). */
-#define FSL_FEATURE_SAI_HAS_FIFO_COMBINE_MODE (1)
-/* @brief Has packing of 8-bit and 16-bit data into each 32-bit FIFO word (register bit fields TCR4[FPACK], RCR4[FPACK]). */
-#define FSL_FEATURE_SAI_HAS_FIFO_PACKING (1)
-/* @brief Configures when the SAI will continue transmitting after a FIFO error has been detected (register bit fields TCR4[FCONT], RCR4[FCONT]). */
-#define FSL_FEATURE_SAI_HAS_FIFO_FUNCTION_AFTER_ERROR (1)
-/* @brief Configures if the frame sync is generated internally, a frame sync is only generated when the FIFO warning flag is clear or continuously (register bit fields TCR4[ONDEM], RCR4[ONDEM]). */
-#define FSL_FEATURE_SAI_HAS_ON_DEMAND_MODE (1)
-/* @brief Simplified bit clock source and asynchronous/synchronous mode selection (register bit fields TCR2[CLKMODE], RCR2[CLKMODE]), in comparison with the exclusively implemented TCR2[SYNC,BCS,BCI,MSEL], RCR2[SYNC,BCS,BCI,MSEL]. */
-#define FSL_FEATURE_SAI_HAS_CLOCKING_MODE (0)
-/* @brief Has register for configuration of the MCLK divide ratio (register bit fields MDR[FRACT], MDR[DIVIDE]). */
-#define FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER (0)
-/* @brief Interrupt source number */
-#define FSL_FEATURE_SAI_INT_SOURCE_NUM (1)
-/* @brief Has register of MCR. */
-#define FSL_FEATURE_SAI_HAS_MCR (1)
-/* @brief Has bit field MICS of the MCR register. */
-#define FSL_FEATURE_SAI_HAS_NO_MCR_MICS (1)
-/* @brief Has register of MDR */
-#define FSL_FEATURE_SAI_HAS_MDR (0)
-/* @brief Has support the BCLK bypass mode when BCLK = MCLK. */
-#define FSL_FEATURE_SAI_HAS_BCLK_BYPASS (1)
-/* @brief Has DIV bit fields of MCR register (register bit fields MCR[DIV]). */
-#define FSL_FEATURE_SAI_HAS_MCR_MCLK_POST_DIV (1)
-/* @brief Support Channel Mode (register bit fields TCR4[CHMOD]). */
-#define FSL_FEATURE_SAI_HAS_CHANNEL_MODE (1)
-/* @brief Support synchronous with another SAI. */
-#define FSL_FEATURE_SAI_HAS_SYNC_WITH_ANOTHER_SAI (1)
-/* @brief Has Bit Clock Swap option (register bit fields RCR2[BCS]) */
-#define FSL_FEATURE_SAI_HAS_BIT_CLOCK_SWAP (1)
-/* @brief SAI5 and SAI6 share one irq number. */
-#define FSL_FEATURE_SAI_SAI5_SAI6_SHARE_IRQ (0)
 
 /* SCT module features */
 
@@ -1082,13 +885,6 @@
 #define FSL_FEATURE_TRDC_HAS_DOMAIN_ERROR (0)
 /* @brief TRDC instance has TRDC_FLW_CTL. */
 #define FSL_FEATURE_TRDC_HAS_FLW (0)
-
-/* TSI module features */
-
-/* @brief TSI Version */
-#define FSL_FEATURE_TSI_VERSION (6U)
-/* @brief TSI Channel Count */
-#define FSL_FEATURE_TSI_CHANNEL_COUNT (25U)
 
 /* USBHSDCD module features */
 

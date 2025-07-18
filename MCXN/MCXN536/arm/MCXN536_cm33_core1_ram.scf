@@ -9,7 +9,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250703
+**     Build:               b250718
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -55,8 +55,6 @@
   #define  m_rpmsg_sh_mem_start        0x2002E000
   #define  m_rpmsg_sh_mem_size         0x00002000
 #endif
-#define  m_usb_sram_start              0x400BA000
-#define  m_usb_sram_size               0x00001000
 
 
 
@@ -85,14 +83,7 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region siz
   ARM_LIB_STACK m_data_start+m_data_size EMPTY -Stack_Size { ; Stack region growing down
   }
 
-  RW_m_usb_bdt m_usb_sram_start UNINIT usb_bdt_size {
-    * (*m_usb_bdt)
-  }
-
-  RW_m_usb_ram (m_usb_sram_start + usb_bdt_size) UNINIT (m_usb_sram_size - usb_bdt_size) {
-    * (*m_usb_global)
-  }
-    #if (defined(__use_shmem__))
+  #if (defined(__use_shmem__))
   RPMSG_SH_MEM m_rpmsg_sh_mem_start UNINIT m_rpmsg_sh_mem_size { ; Shared memory used by RPMSG
     * (rpmsg_sh_mem_section)
   }

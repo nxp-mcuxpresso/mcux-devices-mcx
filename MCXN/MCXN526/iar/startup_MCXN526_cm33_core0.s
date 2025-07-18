@@ -4,7 +4,7 @@
 ;            MCXN526_cm33_core0
 ;  @version: 3.0
 ;  @date:    2024-10-29
-;  @build:   b250703
+;  @build:   b250718
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -115,7 +115,7 @@ __vector_table_0x1c
         DCD     ADC0_IRQHandler                               ;Analog-to-Digital Converter 0 - General Purpose interrupt
         DCD     ADC1_IRQHandler                               ;Analog-to-Digital Converter 1 - General Purpose interrupt
         DCD     PINT0_IRQHandler                              ;Pin Interrupt Pattern Match Interrupt
-        DCD     PDM_EVENT_IRQHandler                          ;Microphone Interface interrupt
+        DCD     Reserved64_IRQHandler                         ;Reserved interrupt
         DCD     Reserved65_IRQHandler                         ;Reserved interrupt
         DCD     USB0_FS_IRQHandler                            ;Universal Serial Bus - Full Speed interrupt
         DCD     USB0_DCD_IRQHandler                           ;Universal Serial Bus - Device Charge Detect interrupt
@@ -126,10 +126,10 @@ __vector_table_0x1c
         DCD     CTIMER4_IRQHandler                            ;Standard counter/timer 4 interrupt
         DCD     OS_EVENT_IRQHandler                           ;OS event timer interrupt
         DCD     FLEXSPI0_IRQHandler                           ;Flexible Serial Peripheral Interface interrupt
-        DCD     SAI0_IRQHandler                               ;Serial Audio Interface 0 interrupt
-        DCD     SAI1_IRQHandler                               ;Serial Audio Interface 1 interrupt
+        DCD     Reserved75_IRQHandler                         ;Reserved interrupt
+        DCD     Reserved76_IRQHandler                         ;Reserved interrupt
         DCD     USDHC0_IRQHandler                             ;Ultra Secured Digital Host Controller interrupt
-        DCD     CAN0_IRQHandler                               ;Controller Area Network 0 interrupt
+        DCD     Reserved78_IRQHandler                         ;Reserved interrupt
         DCD     Reserved79_IRQHandler                         ;Reserved interrupt
         DCD     Reserved80_IRQHandler                         ;Reserved interrupt
         DCD     Reserved81_IRQHandler                         ;Reserved interrupt
@@ -168,8 +168,8 @@ __vector_table_0x1c
         DCD     GDET_IRQHandler                               ;Digital Glitch Detect 0 interrupt  or Digital Glitch Detect 1 interrupt
         DCD     VBAT0_IRQHandler                              ;VBAT interrupt( VBAT interrupt or digital tamper interrupt)
         DCD     EWM0_IRQHandler                               ;External Watchdog Monitor interrupt
-        DCD     TSI_END_OF_SCAN_IRQHandler                    ;TSI End of Scan interrupt
-        DCD     TSI_OUT_OF_SCAN_IRQHandler                    ;TSI Out of Scan interrupt
+        DCD     Reserved117_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved118_IRQHandler                        ;Reserved interrupt
         DCD     Reserved119_IRQHandler                        ;Reserved interrupt
         DCD     Reserved120_IRQHandler                        ;Reserved interrupt
         DCD     FLEXIO_IRQHandler                             ;Flexible Input/Output interrupt
@@ -206,9 +206,9 @@ __vector_table_0x1c
         DCD     ERM_SINGLE_BIT_ERROR_IRQHandler               ;ERM Single Bit error interrupt
         DCD     ERM_MULTI_BIT_ERROR_IRQHandler                ;ERM Multi Bit error interrupt
         DCD     FMU0_IRQHandler                               ;Flash Management Unit interrupt
-        DCD     ETHERNET_IRQHandler                           ;Ethernet QoS interrupt
-        DCD     ETHERNET_PMT_IRQHandler                       ;Ethernet QoS power management interrupt
-        DCD     ETHERNET_MACLP_IRQHandler                     ;Ethernet QoS MAC interrupt
+        DCD     Reserved155_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved156_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved157_IRQHandler                        ;Reserved interrupt
         DCD     Reserved158_IRQHandler                        ;Reserved interrupt
         DCD     LPTMR0_IRQHandler                             ;Low Power Timer 0 interrupt
         DCD     LPTMR1_IRQHandler                             ;Low Power Timer 1 interrupt
@@ -638,11 +638,11 @@ PINT0_IRQHandler
         LDR     R0, =PINT0_DriverIRQHandler
         BX      R0
 
-        PUBWEAK PDM_EVENT_IRQHandler
-        PUBWEAK PDM_EVENT_DriverIRQHandler
+        PUBWEAK Reserved64_IRQHandler
+        PUBWEAK Reserved64_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-PDM_EVENT_IRQHandler
-        LDR     R0, =PDM_EVENT_DriverIRQHandler
+Reserved64_IRQHandler
+        LDR     R0, =Reserved64_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved65_IRQHandler
@@ -715,18 +715,18 @@ FLEXSPI0_IRQHandler
         LDR     R0, =FLEXSPI0_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SAI0_IRQHandler
-        PUBWEAK SAI0_DriverIRQHandler
+        PUBWEAK Reserved75_IRQHandler
+        PUBWEAK Reserved75_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SAI0_IRQHandler
-        LDR     R0, =SAI0_DriverIRQHandler
+Reserved75_IRQHandler
+        LDR     R0, =Reserved75_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SAI1_IRQHandler
-        PUBWEAK SAI1_DriverIRQHandler
+        PUBWEAK Reserved76_IRQHandler
+        PUBWEAK Reserved76_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SAI1_IRQHandler
-        LDR     R0, =SAI1_DriverIRQHandler
+Reserved76_IRQHandler
+        LDR     R0, =Reserved76_DriverIRQHandler
         BX      R0
 
         PUBWEAK USDHC0_IRQHandler
@@ -736,11 +736,11 @@ USDHC0_IRQHandler
         LDR     R0, =USDHC0_DriverIRQHandler
         BX      R0
 
-        PUBWEAK CAN0_IRQHandler
-        PUBWEAK CAN0_DriverIRQHandler
+        PUBWEAK Reserved78_IRQHandler
+        PUBWEAK Reserved78_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-CAN0_IRQHandler
-        LDR     R0, =CAN0_DriverIRQHandler
+Reserved78_IRQHandler
+        LDR     R0, =Reserved78_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved79_IRQHandler
@@ -1009,18 +1009,18 @@ EWM0_IRQHandler
         LDR     R0, =EWM0_DriverIRQHandler
         BX      R0
 
-        PUBWEAK TSI_END_OF_SCAN_IRQHandler
-        PUBWEAK TSI_END_OF_SCAN_DriverIRQHandler
+        PUBWEAK Reserved117_IRQHandler
+        PUBWEAK Reserved117_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-TSI_END_OF_SCAN_IRQHandler
-        LDR     R0, =TSI_END_OF_SCAN_DriverIRQHandler
+Reserved117_IRQHandler
+        LDR     R0, =Reserved117_DriverIRQHandler
         BX      R0
 
-        PUBWEAK TSI_OUT_OF_SCAN_IRQHandler
-        PUBWEAK TSI_OUT_OF_SCAN_DriverIRQHandler
+        PUBWEAK Reserved118_IRQHandler
+        PUBWEAK Reserved118_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-TSI_OUT_OF_SCAN_IRQHandler
-        LDR     R0, =TSI_OUT_OF_SCAN_DriverIRQHandler
+Reserved118_IRQHandler
+        LDR     R0, =Reserved118_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved119_IRQHandler
@@ -1275,25 +1275,25 @@ FMU0_IRQHandler
         LDR     R0, =FMU0_DriverIRQHandler
         BX      R0
 
-        PUBWEAK ETHERNET_IRQHandler
-        PUBWEAK ETHERNET_DriverIRQHandler
+        PUBWEAK Reserved155_IRQHandler
+        PUBWEAK Reserved155_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-ETHERNET_IRQHandler
-        LDR     R0, =ETHERNET_DriverIRQHandler
+Reserved155_IRQHandler
+        LDR     R0, =Reserved155_DriverIRQHandler
         BX      R0
 
-        PUBWEAK ETHERNET_PMT_IRQHandler
-        PUBWEAK ETHERNET_PMT_DriverIRQHandler
+        PUBWEAK Reserved156_IRQHandler
+        PUBWEAK Reserved156_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-ETHERNET_PMT_IRQHandler
-        LDR     R0, =ETHERNET_PMT_DriverIRQHandler
+Reserved156_IRQHandler
+        LDR     R0, =Reserved156_DriverIRQHandler
         BX      R0
 
-        PUBWEAK ETHERNET_MACLP_IRQHandler
-        PUBWEAK ETHERNET_MACLP_DriverIRQHandler
+        PUBWEAK Reserved157_IRQHandler
+        PUBWEAK Reserved157_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-ETHERNET_MACLP_IRQHandler
-        LDR     R0, =ETHERNET_MACLP_DriverIRQHandler
+Reserved157_IRQHandler
+        LDR     R0, =Reserved157_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved158_IRQHandler
@@ -1442,7 +1442,7 @@ LP_FLEXCOMM9_DriverIRQHandler
 ADC0_DriverIRQHandler
 ADC1_DriverIRQHandler
 PINT0_DriverIRQHandler
-PDM_EVENT_DriverIRQHandler
+Reserved64_DriverIRQHandler
 Reserved65_DriverIRQHandler
 USB0_FS_DriverIRQHandler
 USB0_DCD_DriverIRQHandler
@@ -1453,10 +1453,10 @@ CTIMER3_DriverIRQHandler
 CTIMER4_DriverIRQHandler
 OS_EVENT_DriverIRQHandler
 FLEXSPI0_DriverIRQHandler
-SAI0_DriverIRQHandler
-SAI1_DriverIRQHandler
+Reserved75_DriverIRQHandler
+Reserved76_DriverIRQHandler
 USDHC0_DriverIRQHandler
-CAN0_DriverIRQHandler
+Reserved78_DriverIRQHandler
 Reserved79_DriverIRQHandler
 Reserved80_DriverIRQHandler
 Reserved81_DriverIRQHandler
@@ -1495,8 +1495,8 @@ NPU_DriverIRQHandler
 GDET_DriverIRQHandler
 VBAT0_DriverIRQHandler
 EWM0_DriverIRQHandler
-TSI_END_OF_SCAN_DriverIRQHandler
-TSI_OUT_OF_SCAN_DriverIRQHandler
+Reserved117_DriverIRQHandler
+Reserved118_DriverIRQHandler
 Reserved119_DriverIRQHandler
 Reserved120_DriverIRQHandler
 FLEXIO_DriverIRQHandler
@@ -1533,9 +1533,9 @@ PKC_ERR_DriverIRQHandler
 ERM_SINGLE_BIT_ERROR_DriverIRQHandler
 ERM_MULTI_BIT_ERROR_DriverIRQHandler
 FMU0_DriverIRQHandler
-ETHERNET_DriverIRQHandler
-ETHERNET_PMT_DriverIRQHandler
-ETHERNET_MACLP_DriverIRQHandler
+Reserved155_DriverIRQHandler
+Reserved156_DriverIRQHandler
+Reserved157_DriverIRQHandler
 Reserved158_DriverIRQHandler
 LPTMR0_DriverIRQHandler
 LPTMR1_DriverIRQHandler

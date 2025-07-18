@@ -93,11 +93,6 @@ config MCUX_HW_IP_DriverType_EWM
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN556S
 
-config MCUX_HW_IP_DriverType_FLEXCAN
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN556S
-
 config MCUX_HW_IP_DriverType_FLEXIO
     bool
     default y

@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250703
+**     Build:               b250718
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN526_cm33_core1
@@ -130,7 +130,7 @@ typedef enum IRQn {
   ADC0_IRQn                    = 45,               /**< Analog-to-Digital Converter 0 - General Purpose interrupt */
   ADC1_IRQn                    = 46,               /**< Analog-to-Digital Converter 1 - General Purpose interrupt */
   PINT0_IRQn                   = 47,               /**< Pin Interrupt Pattern Match Interrupt */
-  PDM_EVENT_IRQn               = 48,               /**< Microphone Interface interrupt */
+  Reserved64_IRQn              = 48,               /**< Reserved interrupt */
   Reserved65_IRQn              = 49,               /**< Reserved interrupt */
   USB0_FS_IRQn                 = 50,               /**< Universal Serial Bus - Full Speed interrupt */
   USB0_DCD_IRQn                = 51,               /**< Universal Serial Bus - Device Charge Detect interrupt */
@@ -141,10 +141,10 @@ typedef enum IRQn {
   CTIMER4_IRQn                 = 56,               /**< Standard counter/timer 4 interrupt */
   OS_EVENT_IRQn                = 57,               /**< OS event timer interrupt */
   FLEXSPI0_IRQn                = 58,               /**< Flexible Serial Peripheral Interface interrupt */
-  SAI0_IRQn                    = 59,               /**< Serial Audio Interface 0 interrupt */
-  SAI1_IRQn                    = 60,               /**< Serial Audio Interface 1 interrupt */
+  Reserved75_IRQn              = 59,               /**< Reserved interrupt */
+  Reserved76_IRQn              = 60,               /**< Reserved interrupt */
   USDHC0_IRQn                  = 61,               /**< Ultra Secured Digital Host Controller interrupt */
-  CAN0_IRQn                    = 62,               /**< Controller Area Network 0 interrupt */
+  Reserved78_IRQn              = 62,               /**< Reserved interrupt */
   Reserved79_IRQn              = 63,               /**< Reserved interrupt */
   Reserved80_IRQn              = 64,               /**< Reserved interrupt */
   Reserved81_IRQn              = 65,               /**< Reserved interrupt */
@@ -183,8 +183,8 @@ typedef enum IRQn {
   GDET_IRQn                    = 98,               /**< Digital Glitch Detect 0 interrupt  or Digital Glitch Detect 1 interrupt */
   VBAT0_IRQn                   = 99,               /**< VBAT interrupt( VBAT interrupt or digital tamper interrupt) */
   EWM0_IRQn                    = 100,              /**< External Watchdog Monitor interrupt */
-  TSI_END_OF_SCAN_IRQn         = 101,              /**< TSI End of Scan interrupt */
-  TSI_OUT_OF_SCAN_IRQn         = 102,              /**< TSI Out of Scan interrupt */
+  Reserved117_IRQn             = 101,              /**< Reserved interrupt */
+  Reserved118_IRQn             = 102,              /**< Reserved interrupt */
   Reserved119_IRQn             = 103,              /**< Reserved interrupt */
   Reserved120_IRQn             = 104,              /**< Reserved interrupt */
   FLEXIO_IRQn                  = 105,              /**< Flexible Input/Output interrupt */
@@ -221,9 +221,9 @@ typedef enum IRQn {
   ERM_SINGLE_BIT_ERROR_IRQn    = 136,              /**< ERM Single Bit error interrupt */
   ERM_MULTI_BIT_ERROR_IRQn     = 137,              /**< ERM Multi Bit error interrupt */
   FMU0_IRQn                    = 138,              /**< Flash Management Unit interrupt */
-  ETHERNET_IRQn                = 139,              /**< Ethernet QoS interrupt */
-  ETHERNET_PMT_IRQn            = 140,              /**< Ethernet QoS power management interrupt */
-  ETHERNET_MACLP_IRQn          = 141,              /**< Ethernet QoS MAC interrupt */
+  Reserved155_IRQn             = 139,              /**< Reserved interrupt */
+  Reserved156_IRQn             = 140,              /**< Reserved interrupt */
+  Reserved157_IRQn             = 141,              /**< Reserved interrupt */
   Reserved158_IRQn             = 142,              /**< Reserved interrupt */
   LPTMR0_IRQn                  = 143,              /**< Low Power Timer 0 interrupt */
   LPTMR1_IRQn                  = 144,              /**< Low Power Timer 1 interrupt */
@@ -492,42 +492,6 @@ typedef enum IRQn {
   /** Array initializer of CACHE64_POLSEL peripheral base pointers */
   #define CACHE64_POLSEL_BASE_PTRS                 { CACHE64_POLSEL0 }
 #endif
-
-/* CAN - Peripheral instance base addresses */
-#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral CAN0 base address */
-  #define CAN0_BASE                                (0x500D4000u)
-  /** Peripheral CAN0 base address */
-  #define CAN0_BASE_NS                             (0x400D4000u)
-  /** Peripheral CAN0 base pointer */
-  #define CAN0                                     ((CAN_Type *)CAN0_BASE)
-  /** Peripheral CAN0 base pointer */
-  #define CAN0_NS                                  ((CAN_Type *)CAN0_BASE_NS)
-  /** Array initializer of CAN peripheral base addresses */
-  #define CAN_BASE_ADDRS                           { CAN0_BASE }
-  /** Array initializer of CAN peripheral base pointers */
-  #define CAN_BASE_PTRS                            { CAN0 }
-  /** Array initializer of CAN peripheral base addresses */
-  #define CAN_BASE_ADDRS_NS                        { CAN0_BASE_NS }
-  /** Array initializer of CAN peripheral base pointers */
-  #define CAN_BASE_PTRS_NS                         { CAN0_NS }
-#else
-  /** Peripheral CAN0 base address */
-  #define CAN0_BASE                                (0x400D4000u)
-  /** Peripheral CAN0 base pointer */
-  #define CAN0                                     ((CAN_Type *)CAN0_BASE)
-  /** Array initializer of CAN peripheral base addresses */
-  #define CAN_BASE_ADDRS                           { CAN0_BASE }
-  /** Array initializer of CAN peripheral base pointers */
-  #define CAN_BASE_PTRS                            { CAN0 }
-#endif
-/** Interrupt vectors for the CAN peripheral type */
-#define CAN_Rx_Warning_IRQS                      { CAN0_IRQn }
-#define CAN_Tx_Warning_IRQS                      { CAN0_IRQn }
-#define CAN_Wake_Up_IRQS                         { CAN0_IRQn }
-#define CAN_Error_IRQS                           { CAN0_IRQn }
-#define CAN_Bus_Off_IRQS                         { CAN0_IRQn }
-#define CAN_ORed_Message_buffer_IRQS             { CAN0_IRQn }
 
 /* CDOG - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
@@ -867,35 +831,6 @@ typedef enum IRQn {
   #define ERM_BASE_ADDRS                           { ERM0_BASE }
   /** Array initializer of ERM peripheral base pointers */
   #define ERM_BASE_PTRS                            { ERM0 }
-#endif
-
-/* EVTG - Peripheral instance base addresses */
-#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral EVTG0 base address */
-  #define EVTG0_BASE                               (0x500D2000u)
-  /** Peripheral EVTG0 base address */
-  #define EVTG0_BASE_NS                            (0x400D2000u)
-  /** Peripheral EVTG0 base pointer */
-  #define EVTG0                                    ((EVTG_Type *)EVTG0_BASE)
-  /** Peripheral EVTG0 base pointer */
-  #define EVTG0_NS                                 ((EVTG_Type *)EVTG0_BASE_NS)
-  /** Array initializer of EVTG peripheral base addresses */
-  #define EVTG_BASE_ADDRS                          { EVTG0_BASE }
-  /** Array initializer of EVTG peripheral base pointers */
-  #define EVTG_BASE_PTRS                           { EVTG0 }
-  /** Array initializer of EVTG peripheral base addresses */
-  #define EVTG_BASE_ADDRS_NS                       { EVTG0_BASE_NS }
-  /** Array initializer of EVTG peripheral base pointers */
-  #define EVTG_BASE_PTRS_NS                        { EVTG0_NS }
-#else
-  /** Peripheral EVTG0 base address */
-  #define EVTG0_BASE                               (0x400D2000u)
-  /** Peripheral EVTG0 base pointer */
-  #define EVTG0                                    ((EVTG_Type *)EVTG0_BASE)
-  /** Array initializer of EVTG peripheral base addresses */
-  #define EVTG_BASE_ADDRS                          { EVTG0_BASE }
-  /** Array initializer of EVTG peripheral base pointers */
-  #define EVTG_BASE_PTRS                           { EVTG0 }
 #endif
 
 /* EWM - Peripheral instance base addresses */
@@ -1336,50 +1271,6 @@ typedef enum IRQn {
   /** Array initializer of HPDAC peripheral base pointers */
   #define HPDAC_BASE_PTRS                          { DAC2 }
 #endif
-
-/* I2S - Peripheral instance base addresses */
-#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral SAI0 base address */
-  #define SAI0_BASE                                (0x50106000u)
-  /** Peripheral SAI0 base address */
-  #define SAI0_BASE_NS                             (0x40106000u)
-  /** Peripheral SAI0 base pointer */
-  #define SAI0                                     ((I2S_Type *)SAI0_BASE)
-  /** Peripheral SAI0 base pointer */
-  #define SAI0_NS                                  ((I2S_Type *)SAI0_BASE_NS)
-  /** Peripheral SAI1 base address */
-  #define SAI1_BASE                                (0x50107000u)
-  /** Peripheral SAI1 base address */
-  #define SAI1_BASE_NS                             (0x40107000u)
-  /** Peripheral SAI1 base pointer */
-  #define SAI1                                     ((I2S_Type *)SAI1_BASE)
-  /** Peripheral SAI1 base pointer */
-  #define SAI1_NS                                  ((I2S_Type *)SAI1_BASE_NS)
-  /** Array initializer of I2S peripheral base addresses */
-  #define I2S_BASE_ADDRS                           { SAI0_BASE, SAI1_BASE }
-  /** Array initializer of I2S peripheral base pointers */
-  #define I2S_BASE_PTRS                            { SAI0, SAI1 }
-  /** Array initializer of I2S peripheral base addresses */
-  #define I2S_BASE_ADDRS_NS                        { SAI0_BASE_NS, SAI1_BASE_NS }
-  /** Array initializer of I2S peripheral base pointers */
-  #define I2S_BASE_PTRS_NS                         { SAI0_NS, SAI1_NS }
-#else
-  /** Peripheral SAI0 base address */
-  #define SAI0_BASE                                (0x40106000u)
-  /** Peripheral SAI0 base pointer */
-  #define SAI0                                     ((I2S_Type *)SAI0_BASE)
-  /** Peripheral SAI1 base address */
-  #define SAI1_BASE                                (0x40107000u)
-  /** Peripheral SAI1 base pointer */
-  #define SAI1                                     ((I2S_Type *)SAI1_BASE)
-  /** Array initializer of I2S peripheral base addresses */
-  #define I2S_BASE_ADDRS                           { SAI0_BASE, SAI1_BASE }
-  /** Array initializer of I2S peripheral base pointers */
-  #define I2S_BASE_PTRS                            { SAI0, SAI1 }
-#endif
-/** Interrupt vectors for the I2S peripheral type */
-#define I2S_RX_IRQS                              { SAI0_IRQn, SAI1_IRQn }
-#define I2S_TX_IRQS                              { SAI0_IRQn, SAI1_IRQn }
 
 /* I3C - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
@@ -2411,37 +2302,6 @@ typedef enum IRQn {
   #define OTPC_BASE_PTRS                           { OTPC0 }
 #endif
 
-/* PDM - Peripheral instance base addresses */
-#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral PDM base address */
-  #define PDM_BASE                                 (0x5010C000u)
-  /** Peripheral PDM base address */
-  #define PDM_BASE_NS                              (0x4010C000u)
-  /** Peripheral PDM base pointer */
-  #define PDM                                      ((PDM_Type *)PDM_BASE)
-  /** Peripheral PDM base pointer */
-  #define PDM_NS                                   ((PDM_Type *)PDM_BASE_NS)
-  /** Array initializer of PDM peripheral base addresses */
-  #define PDM_BASE_ADDRS                           { PDM_BASE }
-  /** Array initializer of PDM peripheral base pointers */
-  #define PDM_BASE_PTRS                            { PDM }
-  /** Array initializer of PDM peripheral base addresses */
-  #define PDM_BASE_ADDRS_NS                        { PDM_BASE_NS }
-  /** Array initializer of PDM peripheral base pointers */
-  #define PDM_BASE_PTRS_NS                         { PDM_NS }
-#else
-  /** Peripheral PDM base address */
-  #define PDM_BASE                                 (0x4010C000u)
-  /** Peripheral PDM base pointer */
-  #define PDM                                      ((PDM_Type *)PDM_BASE)
-  /** Array initializer of PDM peripheral base addresses */
-  #define PDM_BASE_ADDRS                           { PDM_BASE }
-  /** Array initializer of PDM peripheral base pointers */
-  #define PDM_BASE_PTRS                            { PDM }
-#endif
-/** Interrupt vectors for the PDM peripheral type */
-#define PDM_IRQS                                 { PDM_EVENT_IRQn }
-
 /* PINT - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
   /** Peripheral PINT0 base address */
@@ -2715,41 +2575,6 @@ typedef enum IRQn {
   /** Array initializer of PUF peripheral base pointers */
   #define PUF_BASE_PTRS                            { PUF, PUF_ALIAS1, PUF_ALIAS2, PUF_ALIAS3 }
 #endif
-
-/* PWM - Peripheral instance base addresses */
-#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral PWM0 base address */
-  #define PWM0_BASE                                (0x500CE000u)
-  /** Peripheral PWM0 base address */
-  #define PWM0_BASE_NS                             (0x400CE000u)
-  /** Peripheral PWM0 base pointer */
-  #define PWM0                                     ((PWM_Type *)PWM0_BASE)
-  /** Peripheral PWM0 base pointer */
-  #define PWM0_NS                                  ((PWM_Type *)PWM0_BASE_NS)
-  /** Array initializer of PWM peripheral base addresses */
-  #define PWM_BASE_ADDRS                           { PWM0_BASE }
-  /** Array initializer of PWM peripheral base pointers */
-  #define PWM_BASE_PTRS                            { PWM0 }
-  /** Array initializer of PWM peripheral base addresses */
-  #define PWM_BASE_ADDRS_NS                        { PWM0_BASE_NS }
-  /** Array initializer of PWM peripheral base pointers */
-  #define PWM_BASE_PTRS_NS                         { PWM0_NS }
-#else
-  /** Peripheral PWM0 base address */
-  #define PWM0_BASE                                (0x400CE000u)
-  /** Peripheral PWM0 base pointer */
-  #define PWM0                                     ((PWM_Type *)PWM0_BASE)
-  /** Array initializer of PWM peripheral base addresses */
-  #define PWM_BASE_ADDRS                           { PWM0_BASE }
-  /** Array initializer of PWM peripheral base pointers */
-  #define PWM_BASE_PTRS                            { PWM0 }
-#endif
-/** Interrupt vectors for the PWM peripheral type */
-#define PWM_CMP_IRQS                             { { FLEXPWM0_SUBMODULE0_IRQn, FLEXPWM0_SUBMODULE1_IRQn, FLEXPWM0_SUBMODULE2_IRQn, FLEXPWM0_SUBMODULE3_IRQn } }
-#define PWM_RELOAD_IRQS                          { { FLEXPWM0_SUBMODULE0_IRQn, FLEXPWM0_SUBMODULE1_IRQn, FLEXPWM0_SUBMODULE2_IRQn, FLEXPWM0_SUBMODULE3_IRQn } }
-#define PWM_CAPTURE_IRQS                         { { FLEXPWM0_SUBMODULE0_IRQn, FLEXPWM0_SUBMODULE1_IRQn, FLEXPWM0_SUBMODULE2_IRQn, FLEXPWM0_SUBMODULE3_IRQn } }
-#define PWM_FAULT_IRQS                           { FLEXPWM0_FAULT_IRQn }
-#define PWM_RELOAD_ERROR_IRQS                    { FLEXPWM0_RELOAD_ERROR_IRQn }
 
 /* QDC - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
@@ -3137,35 +2962,6 @@ typedef enum IRQn {
 #define MBC3_MEMORY_NSE_WORD_COUNT {1,0,0,0}
 #define MBC_MEMORY_NSE_WORD_COUNT {MBC0_MEMORY_NSE_WORD_COUNT , MBC1_MEMORY_NSE_WORD_COUNT, MBC2_MEMORY_NSE_WORD_COUNT, MBC3_MEMORY_NSE_WORD_COUNT}
 
-
-/* TSI - Peripheral instance base addresses */
-#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral TSI0 base address */
-  #define TSI0_BASE                                (0x50050000u)
-  /** Peripheral TSI0 base address */
-  #define TSI0_BASE_NS                             (0x40050000u)
-  /** Peripheral TSI0 base pointer */
-  #define TSI0                                     ((TSI_Type *)TSI0_BASE)
-  /** Peripheral TSI0 base pointer */
-  #define TSI0_NS                                  ((TSI_Type *)TSI0_BASE_NS)
-  /** Array initializer of TSI peripheral base addresses */
-  #define TSI_BASE_ADDRS                           { TSI0_BASE }
-  /** Array initializer of TSI peripheral base pointers */
-  #define TSI_BASE_PTRS                            { TSI0 }
-  /** Array initializer of TSI peripheral base addresses */
-  #define TSI_BASE_ADDRS_NS                        { TSI0_BASE_NS }
-  /** Array initializer of TSI peripheral base pointers */
-  #define TSI_BASE_PTRS_NS                         { TSI0_NS }
-#else
-  /** Peripheral TSI0 base address */
-  #define TSI0_BASE                                (0x40050000u)
-  /** Peripheral TSI0 base pointer */
-  #define TSI0                                     ((TSI_Type *)TSI0_BASE)
-  /** Array initializer of TSI peripheral base addresses */
-  #define TSI_BASE_ADDRS                           { TSI0_BASE }
-  /** Array initializer of TSI peripheral base pointers */
-  #define TSI_BASE_PTRS                            { TSI0 }
-#endif
 
 /* USB - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))

@@ -92,11 +92,6 @@ config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
-config MCUX_HW_IP_DriverType_SMARTCARD_EMVSIM
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
 # ip information
 config MCUX_HW_IP_DriverType_AHBSC
     bool
@@ -128,11 +123,6 @@ config MCUX_HW_IP_DriverType_CTIMER
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
-config MCUX_HW_IP_DriverType_CoolFlux_BSP32
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
 config MCUX_HW_IP_DriverType_DBGMB
     bool
     default y
@@ -149,11 +139,6 @@ config MCUX_HW_IP_DriverType_EDMA3
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
 config MCUX_HW_IP_DriverType_EIM
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
-config MCUX_HW_IP_DriverType_EMVSIM
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
@@ -214,6 +199,11 @@ config MCUX_HW_IP_DriverType_GDET
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
 config MCUX_HW_IP_DriverType_GPIO
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN247
+
+config MCUX_HW_IP_DriverType_HPDAC
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
@@ -318,17 +308,17 @@ config MCUX_HW_IP_DriverType_NPX
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
+config MCUX_HW_IP_DriverType_OPAMP
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN247
+
 config MCUX_HW_IP_DriverType_OSTIMER
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
 config MCUX_HW_IP_DriverType_OTPC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
-config MCUX_HW_IP_DriverType_PDM
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
@@ -383,11 +373,6 @@ config MCUX_HW_IP_DriverType_RTC_V2
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
-config MCUX_HW_IP_DriverType_SAI
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
 config MCUX_HW_IP_DriverType_SCG
     bool
     default y
@@ -399,6 +384,11 @@ config MCUX_HW_IP_DriverType_SCTIMER
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
 config MCUX_HW_IP_DriverType_SEMA42
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN247
+
+config MCUX_HW_IP_DriverType_SINC
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
@@ -424,11 +414,6 @@ config MCUX_HW_IP_DriverType_SYSPM
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
 config MCUX_HW_IP_DriverType_TRDC_1
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
-config MCUX_HW_IP_DriverType_TSI_V6
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
@@ -459,11 +444,6 @@ config MCUX_HW_IP_DriverType_USB_HSDCD
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
 config MCUX_HW_IP_DriverType_USB_PHY
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
-config MCUX_HW_IP_DriverType_USDHC
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247

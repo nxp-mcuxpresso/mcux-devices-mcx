@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250703
+**     Build:               b250718
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN527_cm33_core1
@@ -52,7 +52,6 @@
 #include "PERI_BSP32.h"
 #include "PERI_CACHE64_CTRL.h"
 #include "PERI_CACHE64_POLSEL.h"
-#include "PERI_CAN.h"
 #include "PERI_CDOG.h"
 #include "PERI_CMC.h"
 #include "PERI_CRC.h"
@@ -62,7 +61,6 @@
 #include "PERI_DMA.h"
 #include "PERI_EIM.h"
 #include "PERI_ERM.h"
-#include "PERI_EVTG.h"
 #include "PERI_EWM.h"
 #include "PERI_FLEXIO.h"
 #include "PERI_FLEXSPI.h"
@@ -72,7 +70,6 @@
 #include "PERI_GDET.h"
 #include "PERI_GPIO.h"
 #include "PERI_HPDAC.h"
-#include "PERI_I2S.h"
 #include "PERI_I3C.h"
 #include "PERI_INPUTMUX.h"
 #include "PERI_INTM.h"
@@ -90,14 +87,12 @@
 #include "PERI_OPAMP.h"
 #include "PERI_OSTIMER.h"
 #include "PERI_OTPC.h"
-#include "PERI_PDM.h"
 #include "PERI_PINT.h"
 #include "PERI_PKC.h"
 #include "PERI_PLU.h"
 #include "PERI_PORT.h"
 #include "PERI_POWERQUAD.h"
 #include "PERI_PUF.h"
-#include "PERI_PWM.h"
 #include "PERI_QDC.h"
 #include "PERI_RTC.h"
 #include "PERI_S50.h"
@@ -109,7 +104,6 @@
 #include "PERI_SYSCON.h"
 #include "PERI_SYSPM.h"
 #include "PERI_TRDC.h"
-#include "PERI_TSI.h"
 #include "PERI_USB.h"
 #include "PERI_USBDCD.h"
 #include "PERI_USBHS.h"

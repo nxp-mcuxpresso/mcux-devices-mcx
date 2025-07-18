@@ -8,7 +8,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250703
+**     Build:               b250718
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN556S_cm33_core1
@@ -142,7 +142,7 @@ typedef enum IRQn {
   SAI0_IRQn                    = 59,               /**< Serial Audio Interface 0 interrupt */
   SAI1_IRQn                    = 60,               /**< Serial Audio Interface 1 interrupt */
   USDHC0_IRQn                  = 61,               /**< Ultra Secured Digital Host Controller interrupt */
-  CAN0_IRQn                    = 62,               /**< Controller Area Network 0 interrupt */
+  Reserved78_IRQn              = 62,               /**< Reserved interrupt */
   Reserved79_IRQn              = 63,               /**< Reserved interrupt */
   Reserved80_IRQn              = 64,               /**< Reserved interrupt */
   Reserved81_IRQn              = 65,               /**< Reserved interrupt */
@@ -219,9 +219,9 @@ typedef enum IRQn {
   ERM_SINGLE_BIT_ERROR_IRQn    = 136,              /**< ERM Single Bit error interrupt */
   ERM_MULTI_BIT_ERROR_IRQn     = 137,              /**< ERM Multi Bit error interrupt */
   FMU0_IRQn                    = 138,              /**< Flash Management Unit interrupt */
-  ETHERNET_IRQn                = 139,              /**< Ethernet QoS interrupt */
-  ETHERNET_PMT_IRQn            = 140,              /**< Ethernet QoS power management interrupt */
-  ETHERNET_MACLP_IRQn          = 141,              /**< Ethernet QoS MAC interrupt */
+  Reserved155_IRQn             = 139,              /**< Reserved interrupt */
+  Reserved156_IRQn             = 140,              /**< Reserved interrupt */
+  Reserved157_IRQn             = 141,              /**< Reserved interrupt */
   Reserved158_IRQn             = 142,              /**< Reserved interrupt */
   LPTMR0_IRQn                  = 143,              /**< Low Power Timer 0 interrupt */
   LPTMR1_IRQn                  = 144,              /**< Low Power Timer 1 interrupt */
@@ -461,42 +461,6 @@ typedef enum IRQn {
   /** Array initializer of CACHE64_POLSEL peripheral base pointers */
   #define CACHE64_POLSEL_BASE_PTRS                 { CACHE64_POLSEL0 }
 #endif
-
-/* CAN - Peripheral instance base addresses */
-#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral CAN0 base address */
-  #define CAN0_BASE                                (0x500D4000u)
-  /** Peripheral CAN0 base address */
-  #define CAN0_BASE_NS                             (0x400D4000u)
-  /** Peripheral CAN0 base pointer */
-  #define CAN0                                     ((CAN_Type *)CAN0_BASE)
-  /** Peripheral CAN0 base pointer */
-  #define CAN0_NS                                  ((CAN_Type *)CAN0_BASE_NS)
-  /** Array initializer of CAN peripheral base addresses */
-  #define CAN_BASE_ADDRS                           { CAN0_BASE }
-  /** Array initializer of CAN peripheral base pointers */
-  #define CAN_BASE_PTRS                            { CAN0 }
-  /** Array initializer of CAN peripheral base addresses */
-  #define CAN_BASE_ADDRS_NS                        { CAN0_BASE_NS }
-  /** Array initializer of CAN peripheral base pointers */
-  #define CAN_BASE_PTRS_NS                         { CAN0_NS }
-#else
-  /** Peripheral CAN0 base address */
-  #define CAN0_BASE                                (0x400D4000u)
-  /** Peripheral CAN0 base pointer */
-  #define CAN0                                     ((CAN_Type *)CAN0_BASE)
-  /** Array initializer of CAN peripheral base addresses */
-  #define CAN_BASE_ADDRS                           { CAN0_BASE }
-  /** Array initializer of CAN peripheral base pointers */
-  #define CAN_BASE_PTRS                            { CAN0 }
-#endif
-/** Interrupt vectors for the CAN peripheral type */
-#define CAN_Rx_Warning_IRQS                      { CAN0_IRQn }
-#define CAN_Tx_Warning_IRQS                      { CAN0_IRQn }
-#define CAN_Wake_Up_IRQS                         { CAN0_IRQn }
-#define CAN_Error_IRQS                           { CAN0_IRQn }
-#define CAN_Bus_Off_IRQS                         { CAN0_IRQn }
-#define CAN_ORed_Message_buffer_IRQS             { CAN0_IRQn }
 
 /* CDOG - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))

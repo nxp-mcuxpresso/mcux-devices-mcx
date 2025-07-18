@@ -8,7 +8,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250709
+**     Build:               b250718
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -37,7 +37,6 @@ MEMORY
   m_interrupts          (RX)  : ORIGIN = 0x20000000, LENGTH = 0x00000400
   m_text                (RX)  : ORIGIN = 0x20000400, LENGTH = 0x00067C00
   m_data                (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00018000
-  m_usb_sram            (RW)  : ORIGIN = 0x400BA000, LENGTH = 0x00001000
 }
 
 /* Define output sections */
@@ -193,16 +192,6 @@ SECTIONS
     . += STACK_SIZE;
   } > m_data
 
-  m_usb_bdt (NOLOAD) :
-  {
-    . = ALIGN(512);
-    *(m_usb_bdt)
-  } > m_usb_sram
-
-  m_usb_global (NOLOAD) :
-  {
-    *(m_usb_global)
-  } > m_usb_sram
 
   /* Initializes stack on the end of block */
   __StackTop   = ORIGIN(m_data) + LENGTH(m_data);

@@ -95,11 +95,6 @@ config MCUX_HW_IP_DriverType_ERM
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN537
 
-config MCUX_HW_IP_DriverType_EVTG
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN537
-
 config MCUX_HW_IP_DriverType_EWM
     bool
     default y
@@ -245,6 +240,11 @@ config MCUX_HW_IP_DriverType_NPX
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN537
 
+config MCUX_HW_IP_DriverType_OPAMP
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN537
+
 config MCUX_HW_IP_DriverType_OSTIMER
     bool
     default y
@@ -266,11 +266,6 @@ config MCUX_HW_IP_DriverType_PINT
     depends on MCUX_HW_DEVICE_ID_MCXN537
 
 config MCUX_HW_IP_DriverType_PKC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN537
-
-config MCUX_HW_IP_DriverType_PLU
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN537
@@ -300,11 +295,6 @@ config MCUX_HW_IP_DriverType_PWM
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN537
 
-config MCUX_HW_IP_DriverType_QDC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN537
-
 config MCUX_HW_IP_DriverType_RTC_V2
     bool
     default y
@@ -326,6 +316,11 @@ config MCUX_HW_IP_DriverType_SCTIMER
     depends on MCUX_HW_DEVICE_ID_MCXN537
 
 config MCUX_HW_IP_DriverType_SEMA42
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN537
+
+config MCUX_HW_IP_DriverType_SINC
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN537

@@ -11,7 +11,6 @@
 #endif /* __CORTEX_M */
 #include "fsl_mu.h"
 #include "fsl_smm.h"
-#include "fsl_pmu.h"
 
 #include "fsl_advc.h"
 /*******************************************************************************
@@ -764,14 +763,17 @@ status_t Power_EnterPowerDown1(power_pd1_config_t *config)
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
     memcpy(sharedHandle->lpConfig, config, sizeof(power_pd1_config_t));
 #if __CORTEX_M == 33U
+    /*1. Enable wakeup sources.  */
     Power_CheckThenEnableWakeupSource(config->mainWakeupSource);
 
+    /*2. Configuration for SMM and PMU. */
     SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, false);
     SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
     SMM_StartPowerDownSequence(AON__SMM);
 
+    /* 3. Configuration for CMC. */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
     CMC->GPMCTRL = CMC_GPMCTRL_LPMODE((uint8_t)0x7);
@@ -843,7 +845,11 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config)
     SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
     SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
 
-    /* 3. Configuration for SMM. */
+    /* 3. Configuration for SMM and PMU. */
+    if (config->vddCoreAonVoltage != kPower_VddCoreAon_AdvcControl)
+    {
+        PMU_UpdateVDDCoreInActiveMode(AON__PMU, config->vddCoreAonVoltage);
+    }
     SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, false);
@@ -955,7 +961,11 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
     Power_CheckThenEnableWakeupSource(config->mainWakeupSource);
     SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
 
-    /* 1. Configuration for SMM. */
+    /* 1. Configuration for SMM and PMU. */
+    if (config->vddCoreAonVoltage != kPower_VddCoreAon_AdvcControl)
+    {
+        PMU_UpdateVDDCoreInActiveMode(AON__PMU, config->vddCoreAonVoltage);
+    }
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
     SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
@@ -1013,10 +1023,6 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
     memcpy(sharedHandle->lpConfig, config, sizeof(power_dpd2_config_t));
 
 #if __CORTEX_M == 33U
-    // patch
-    uint32_t *ptr = (uint32_t *)0xA0098038;
-    *ptr |= (1 << 11); // Set the 8th bit (bit 7, as bits are 0-indexed)
-
     /*1. Inform CM0P that CM33 request to set whole system into DPD2 mode, require CM0P execute WFI. */
     if (sharedHandle->requestCM33Start != true)
     {
@@ -1054,7 +1060,8 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
     SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
     SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
 
-    /*3. Configuration for SMM. */
+    /*3. Configuration for SMM and PMU. */
+    PMU_UpdateVDDCoreInLpMode(AON__PMU, (uint8_t)config->dpd2VddCoreAonVoltage);
     SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
@@ -1122,9 +1129,6 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
         {
             /* If current system is in DPD1 mode, enter DPD2 from DPD1.  */
             sharedHandle->targetPowerMode = kPower_DeepPowerDown2;
-            // // patch
-            // uint32_t *ptr = (uint32_t *)0xA0098038;
-            // *ptr |= (1 << 11); // Set the 8th bit (bit 7, as bits are 0-indexed)
 
             /*1. Enable wakeup sources for main and aon domain. */
             Power_CheckThenEnableWakeupSource(config->mainWakeupSource);
@@ -1133,13 +1137,13 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
             SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
             SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
 
-            /*2. Configuration for SMM. */
+            /*2. Configuration for SMM and PMU. */
             /* Disable ADVC in DPD2 mode. */
             if (ADVC_IsEnabled() == true)
             {
                 ADVC_Disable();
             }
-
+            PMU_UpdateVDDCoreInLpMode(AON__PMU, (uint8_t)config->dpd2VddCoreAonVoltage);
             SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
             SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
             SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
@@ -1323,13 +1327,16 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
     SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
     SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
 
-    /*3. Configuration of SMM. */
-    SMM_StartAonShutDownSequence(AON__SMM);
-    AON__SMM->RTC_DCDC_CNTRL &= ~(SMM_RTC_DCDC_CNTRL_LDO_EN_MASK);
-    AON__SMM->RTC_XTAL_CONFG1 &= ~SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
-    AON__SMM->RTC_XTAL_CONFG2 &= ~(SMM_RTC_XTAL_CONFG2_CAP_BNK_EN_MASK | SMM_RTC_XTAL_CONFG2_SOX_EN_MASK);
-    AON__SMM->RTC_DCDC_CNTRL |= SMM_RTC_DCDC_CNTRL_LDO_PULDWN_EN_MASK;
+    /*3. Configuration of SMM and PMU. */
 
+    PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
+    PMU_UpdateWakeupTime(AON__PMU, 0x7F8);
+    /* Clean all settings of RTC. */
+    AON__SMM->RTC_DCDC_CNTRL = 0xe00;
+    AON__SMM->RTC_XTAL_CONFG1 = 0x0UL;
+    AON__SMM->RTC_XTAL_CONFG2 = 0x0UL;
+    SMM_StartAonShutDownSequence(AON__SMM);
+    
     /*4. Configuration of CMC */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);

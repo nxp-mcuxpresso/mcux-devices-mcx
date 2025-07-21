@@ -10,6 +10,8 @@
     - Adjusted the sequence for entering specific low power modes.
     - Enhanced MU message details, including explanations for NACK responses.
     - Introduced cm0pWFI in power_handle_t to indicate whether CM0P executed WFI.
+    - Added member into power_pd2_config_t, power_dpd1_config_t, power_dpd2_config_t to control
+    output voltage of VDD_CORE_AON.
 
 - New Features
     - Introduced APIs to retrieve the previous low power mode.

@@ -263,6 +263,13 @@ typedef enum _power_mu_nack_reason
 } power_mu_nack_reason_t;
 
 /*!
+ * @brief Configuration structure for deep sleep mode.
+ */
+typedef struct _power_ds_config
+{
+} power_ds_config_t;
+
+/*!
  * @brief Configuration structure for power down mode.
  */
 typedef struct _power_pd1_config
@@ -627,7 +634,7 @@ status_t Power_EnterSleep(void);
  * @retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
  * @retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  */
-status_t Power_EnterDeepSleep(void);
+status_t Power_EnterDeepSleep(power_ds_config_t *config);
 
 /*!
  * @brief Enter Power Down 1 mode.

@@ -644,7 +644,7 @@ status_t Power_EnterLowPowerMode(power_low_power_mode_t lowpowerMode, void *conf
         }
         case kPower_DeepSleep:
         {
-            status = Power_EnterDeepSleep();
+            status = Power_EnterDeepSleep((power_ds_config_t *)config);
             break;
         }
         case kPower_PowerDown1:
@@ -723,9 +723,10 @@ status_t Power_EnterSleep(void)
  * retval kStatus_POWER_MuTransferError Something error occurs during MU transfer.
  * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  */
-status_t Power_EnterDeepSleep(void)
+status_t Power_EnterDeepSleep(power_ds_config_t *config)
 {
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    (void)config;
 #if __CORTEX_M == 33U
     /* Invoke CMC API to set Main domain as Deep power down mode and then
        execute WFI instruction. */

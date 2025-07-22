@@ -655,7 +655,7 @@
 /* @brief Has no RESET register. */
 #define FSL_FEATURE_WWDT_HAS_NO_RESET (1)
 
-#define FSL_FEATURE_ADVC_CFG_TABLE_ADDR (0x110000UL)
+#define FSL_FEATURE_ADVC_CFG_TABLE_ADDR (0x01100000UL)
       
 #endif /* _MCXL255_cm33_FEATURES_H_ */
 

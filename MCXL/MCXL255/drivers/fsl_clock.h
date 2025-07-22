@@ -9,7 +9,10 @@
 #define _FSL_CLOCK_H_
 
 #include "fsl_common.h"
+
+#if defined(ADVC_DRIVER_USED) & ADVC_DRIVER_USED
 #include "fsl_advc.h"
+#endif
 
 /*! @addtogroup clock */
 /*! @{ */

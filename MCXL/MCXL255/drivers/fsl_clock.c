@@ -85,6 +85,7 @@ static inline bool CLOCK_IsDivHalt(uint32_t div_value)
 
 static void ADVC_PreChg(const clock_aon_chg_t change, uint32_t newValue)
 {
+#if defined(ADVC_DRIVER_USED) & ADVC_DRIVER_USED
     if(ADVC_IsEnabled())
     {
         uint32_t freq = 0U;       
@@ -162,18 +163,19 @@ static void ADVC_PreChg(const clock_aon_chg_t change, uint32_t newValue)
         CLOCK_EnableClock(kCLOCK_GateAonAPB);
         
     } /* ADVC is enabled */
-    
- 
+#endif
 }
 
 static void ADVC_PostChg(void)
 {
+#if defined(ADVC_DRIVER_USED) & ADVC_DRIVER_USED
     if(ADVC_IsEnabled())
     {
         ADVC_PostVoltageChangeRequest();
         /* ADVC functions always diables APB clk, so enable it again. */
         CLOCK_EnableClock(kCLOCK_GateAonAPB);
     }
+#endif
 }
 
 /* Clock Selection for IP */

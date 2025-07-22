@@ -5,8 +5,8 @@
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXL25xRM DraftH
-**     Version:             rev. 0.9, 2025-06-13
-**     Build:               b250616
+**     Version:             rev. 1.0, 2025-06-13
+**     Build:               b250723
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -20,7 +20,6 @@
 **
 ** ###################################################################
 */
-
 
 
 /* Entry Point */

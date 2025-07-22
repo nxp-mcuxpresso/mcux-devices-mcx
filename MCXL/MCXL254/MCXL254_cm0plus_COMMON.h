@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftH
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250616
+**     Build:               b250723
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL254_cm0plus
@@ -91,7 +91,7 @@ typedef enum IRQn {
   PMU_IRQn                     = 20,               /**< PMU IRQ */
   KPP_IRQn                     = 21,               /**< Keypad Interrupt */
   LPADC_AON_IRQn               = 22,               /**< Analog-to-Digital Converter interrupt */
-  SGLCD_AON_IRQn               = 23,               /**< SLCD frame start interrupt */
+  SLCD_FRAME_AON_IRQn          = 23,               /**< SLCD frame start interrupt */
   TMR0_AON_IRQn                = 24,               /**< ORed QTMR Interrupts */
   TMR1_AON_IRQn                = 25,               /**< ORed QTMR Interrupts */
   LCSENSE_IRQn                 = 27,               /**< LCSense Fault/Tamper Interrupt */
@@ -127,9 +127,8 @@ typedef enum IRQn {
  * @}
  */ /* end of group Cortex_Core_Configuration */
 
-#ifndef MCXL254_cm0plus_SERIES
+
 #define MCXL254_cm0plus_SERIES
-#endif
 /* CPU specific feature definitions */
 #include "MCXL254_cm0plus_features.h"
 
@@ -577,9 +576,9 @@ typedef enum IRQn {
   /** Array initializer of SGLCD_CONTROL peripheral base pointers */
   #define SGLCD_CONTROL_BASE_PTRS                  { AON__SGLCD0_AON }
 #endif
+/** Interrupt vectors for the SGLCD */
+#define SGLCD_CONTROL_IRQS { SLCD_FRAME_AON_IRQn }
 
-/** Interrupt vectors for the LCD_CONTROL peripheral type */
-#define SGLCD_CONTROL_IRQS { SGLCD_AON_IRQn }
 
 /* SMM - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
@@ -734,3 +733,4 @@ typedef enum IRQn {
 
 
 #endif  /* MCXL254_CM0PLUS_COMMON_H_ */
+

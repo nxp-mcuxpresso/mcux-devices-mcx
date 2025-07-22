@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftH
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250616
+**     Build:               b250723
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL254_cm33
@@ -142,8 +142,8 @@ typedef enum IRQn {
   LPTMR_AON_IRQn               = 155,              /**< Low Power Timer 0 interrupt */
   ACMP0_AON_IRQn               = 157,              /**< Comparator interrupt */
   ADVC_IRQn                    = 158,              /**< ADVC_2.0 Controller Interrupt */
-  SGLCD_FRAME_AON_IRQn         = 160,              /**< Frame Update Interrupt */
-  SGLCD_FFAULT_AON_IRQn        = 161               /**< Fault Detect Interrupt */
+  SLCD_FRAME_AON_IRQn          = 160,              /**< Frame Update Interrupt */
+  SLCD_FFAULT_AON_IRQn         = 161               /**< Fault Detect Interrupt */
 } IRQn_Type;
 
 /*!
@@ -174,9 +174,8 @@ typedef enum IRQn {
  * @}
  */ /* end of group Cortex_Core_Configuration */
 
-#ifndef MCXL254_cm33_SERIES
+
 #define MCXL254_cm33_SERIES
-#endif 
 /* CPU specific feature definitions */
 #include "MCXL254_cm33_features.h"
 
@@ -699,6 +698,8 @@ typedef enum IRQn {
   /** Array initializer of FREQME peripheral base pointers */
   #define FREQME_BASE_PTRS                         { FREQME0 }
 #endif
+/** Interrupt vectors for the FREQME peripheral type */
+#define FREQME_IRQS                              { FREQME0_IRQn }
 
 /* GLIKEY - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
@@ -1497,9 +1498,9 @@ typedef enum IRQn {
   /** Array initializer of SGLCD_CONTROL peripheral base pointers */
   #define SGLCD_CONTROL_BASE_PTRS                  { AON__SGLCD0_AON }
 #endif
+/** Interrupt vectors for the SGLCD */
+#define SGLCD_CONTROL_IRQS { SLCD_FRAME_AON_IRQn }
 
-/** Interrupt vectors for the SGLCD_CONTROL peripheral type */
-#define SGLCD_CONTROL_IRQS { SGLCD_FRAME_AON_IRQn }
 
 /* SGLCD_FAULT_DETECT - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
@@ -1529,9 +1530,9 @@ typedef enum IRQn {
   /** Array initializer of SGLCD_FAULT_DETECT peripheral base pointers */
   #define SGLCD_FAULT_DETECT_BASE_PTRS             { SGLCD_FAULT_DETECT }
 #endif
+/** Interrupt vectors for the SGLCD */
+#define SGLCD_FAULT_DETECT_IRQS { SLCD_FFAULT_AON_IRQn }
 
-/** Interrupt vectors for the SGLCD_FAULT_DETECT peripheral type */
-#define SGLCD_FAULT_DETECT_IRQS { SGLCD_FFAULT_AON_IRQn }
 
 /* SMM - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
@@ -1904,3 +1905,4 @@ typedef enum IRQn {
 
 
 #endif  /* MCXL254_CM33_COMMON_H_ */
+

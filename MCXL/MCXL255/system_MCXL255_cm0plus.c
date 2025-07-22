@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftH
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250616
+**     Build:               b250723
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

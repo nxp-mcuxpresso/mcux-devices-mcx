@@ -4,7 +4,7 @@
 ;            MCXL255_cm0plus
 ;  @version: 1.0
 ;  @date:    2025-6-13
-;  @build:   b250616
+;  @build:   b250722
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -97,7 +97,7 @@ __vector_table_0x1c
         DCD     LCSENSE_IRQHandler                            ;LCSense Fault/Tamper Interrupt
         DCD     LPTMR_AON_IRQHandler                          ;Low Power Timer 0 interrupt
         DCD     Reserved45_IRQHandler                         ;xxx Interrupt 45
-        DCD     CMP0_AON_IRQHandler                           ;Comparator interrupt
+        DCD     ACMP0_AON_IRQHandler                          ;Comparator interrupt
         DCD     ADVC_IRQHandler                               ;ADVC_2.0 Controller Interrupt
         DCD     DefaultISR                                    ;48
         DCD     DefaultISR                                    ;49
@@ -370,11 +370,11 @@ Reserved45_IRQHandler
         LDR     R0, =Reserved45_DriverIRQHandler
         BX      R0
 
-        PUBWEAK CMP0_AON_IRQHandler
-        PUBWEAK CMP0_AON_DriverIRQHandler
+        PUBWEAK ACMP0_AON_IRQHandler
+        PUBWEAK ACMP0_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-CMP0_AON_IRQHandler
-        LDR     R0, =CMP0_AON_DriverIRQHandler
+ACMP0_AON_IRQHandler
+        LDR     R0, =ACMP0_AON_DriverIRQHandler
         BX      R0
 
         PUBWEAK ADVC_IRQHandler
@@ -414,7 +414,7 @@ Reserved42_DriverIRQHandler
 LCSENSE_DriverIRQHandler
 LPTMR_AON_DriverIRQHandler
 Reserved45_DriverIRQHandler
-CMP0_AON_DriverIRQHandler
+ACMP0_AON_DriverIRQHandler
 ADVC_DriverIRQHandler
 DefaultISR
         LDR R0, =DefaultISR

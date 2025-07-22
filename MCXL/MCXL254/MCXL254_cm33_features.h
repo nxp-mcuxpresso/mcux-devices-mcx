@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
-**     Version:             rev. 1.0, 2023-01-09
-**     Build:               b250422
+**     Version:             rev. 1.0, 2025-06-13
+**     Build:               b250728
 **
 **     Abstract:
 **         Chip specific module features.
@@ -14,8 +14,8 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2023-01-09)
-**         Generated based on Rev1 DraftI.
+**     - rev. 1.0 (2025-06-13)
+**         Generated based on Rev1 DraftH.
 **
 ** ###################################################################
 */
@@ -67,18 +67,12 @@
 #define FSL_FEATURE_SOC_OSTIMER_COUNT (1)
 /* @brief PKC availability on the SoC. */
 #define FSL_FEATURE_SOC_PKC_COUNT (1)
-/* @brief PMU availability on the SoC. */
-#define FSL_FEATURE_SOC_PMU_COUNT (1)
 /* @brief PORT availability on the SoC. */
 #define FSL_FEATURE_SOC_PORT_COUNT (4)
 /* @brief RTC availability on the SoC. */
 #define FSL_FEATURE_SOC_RTC_COUNT (1)
 /* @brief SCG availability on the SoC. */
 #define FSL_FEATURE_SOC_SCG_COUNT (1)
-/* @brief LCD availability on the SoC. */
-#define FSL_FEATURE_SOC_SLCD_COUNT (1)
-#define FSL_FEATURE_SOC_LCD_COUNT (1)
-#define FSL_FEATURE_LCD_HAS_FAULT_DETECT (1)
 /* @brief SYSCON availability on the SoC. */
 #define FSL_FEATURE_SOC_SYSCON_COUNT (2)
 /* @brief TMR availability on the SoC. */
@@ -126,13 +120,13 @@
 #define FSL_FEATURE_LPCMP_HAS_RRCR2 (1)
 /* @brief Has CCR0 CMP_STOP_EN bitfield. */
 #define FSL_FEATURE_LPCMP_HAS_CCR0_CMP_STOP_EN (1)
-/* @brief CMP instance support CCR0 CMP_STOP_EN bitfield. */
-#define FSL_FEATURE_LPCMP_INSTANCE_SUPPORT_CCR0_CMP_STOP_ENn(x) (1)
 
 /* LPADC module features */
 
 /* @brief FIFO availability on the SoC. */
 #define FSL_FEATURE_LPADC_FIFO_COUNT (1)
+/* @brief Does not support two simultanious single ended conversions (bitfield TCTRL[FIFO_SEL_B]). */
+#define FSL_FEATURE_LPADC_HAS_NO_TCTRL_FIFO_SEL_B (1)
 /* @brief Has subsequent trigger priority (bitfield CFG[TPRICTRL]). */
 #define FSL_FEATURE_LPADC_HAS_CFG_SUBSEQUENT_PRIORITY (1)
 /* @brief Has differential mode (bitfield CMDLn[DIFF]). */
@@ -143,8 +137,6 @@
 #define FSL_FEATURE_LPADC_HAS_CMDL_CTYPE (1)
 /* @brief Has conversion resolution select  (bitfield CMDLn[MODE]). */
 #define FSL_FEATURE_LPADC_HAS_CMDL_MODE (1)
-/* @brief Has compare function enable (bitfield CMDHn[CMPEN]). */
-#define FSL_FEATURE_LPADC_HAS_CMDH_CMPEN (1)
 /* @brief Has Wait for trigger assertion before execution (bitfield CMDHn[WAIT_TRIG]). */
 #define FSL_FEATURE_LPADC_HAS_CMDH_WAIT_TRIG (1)
 /* @brief Has offset calibration (bitfield CTRL[CALOFS]). */
@@ -153,8 +145,6 @@
 #define FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ (1)
 /* @brief Has calibration average (bitfield CTRL[CAL_AVGS]). */
 #define FSL_FEATURE_LPADC_HAS_CTRL_CAL_AVGS (1)
-/* @brief Has High Speed Mode Trim Request (bitfield CTRL[CALHS]). */
-#define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (1)
 /* @brief Has internal clock (bitfield CFG[ADCKEN]). */
 #define FSL_FEATURE_LPADC_HAS_CFG_ADCKEN (0)
 /* @brief Enable support for low voltage reference on option 1 reference (bitfield CFG[VREF1RNG]). */
@@ -163,10 +153,6 @@
 #define FSL_FEATURE_LPADC_HAS_CFG_CALOFS (0)
 /* @brief Has offset trim (register OFSTRIM). */
 #define FSL_FEATURE_LPADC_HAS_OFSTRIM (1)
-/* @brief OFSTRIM availability on the SoC. */
-#define FSL_FEATURE_LPADC_OFSTRIM_COUNT (1)
-/* @brief Has Trigger status register. */
-#define FSL_FEATURE_LPADC_HAS_TSTAT (1)
 /* @brief Has power select (bitfield CFG[PWRSEL]). */
 #define FSL_FEATURE_LPADC_HAS_CFG_PWRSEL (1)
 /* @brief Has alternate channel B scale (bitfield CMDLn[ALTB_CSCALE]). */
@@ -179,6 +165,12 @@
 #define FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE (0)
 /* @brief Conversion averaged bitfiled width. */
 #define FSL_FEATURE_LPADC_CONVERSIONS_AVERAGED_BITFIELD_WIDTH (4)
+/* @brief Enable hardware trigger command selection */
+#define FSL_FEATURE_LPADC_HAS_TCTRL_CMD_SEL (0)
+/* @brief OFSTRIM availability on the SoC. */
+#define FSL_FEATURE_LPADC_OFSTRIM_COUNT (1)
+/* @brief Has Trigger status register. */
+#define FSL_FEATURE_LPADC_HAS_TSTAT (1)
 /* @brief Has B side channels. */
 #define FSL_FEATURE_LPADC_HAS_B_SIDE_CHANNELS (0)
 /* @brief Indicate whether the LPADC STAT register has trigger exception interrupt function (bitfield STAT[TEXC_INT]). */
@@ -201,6 +193,10 @@
 #define FSL_FEATURE_LPADC_HAS_CFG_HPT_EXDI (1)
 /* @brief Indicate LPADC CFG register TPRICTRL bitfield width. */
 #define FSL_FEATURE_LPADC_CFG_TPRICTRL_BITFIELD_WIDTH (2)
+/* @brief Has compare function enable (bitfield CMDHn[CMPEN]). */
+#define FSL_FEATURE_LPADC_HAS_CMDH_CMPEN (1)
+/* @brief Has High Speed Mode Trim Request (bitfield CTRL[CALHS]). */
+#define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (1)
 
 /* AOI module features */
 
@@ -283,11 +279,6 @@
 #define FSL_FEATURE_LPUART_HAS_BOTH_EDGE_SAMPLING_SUPPORT (1)
 /* @brief Peripheral type. */
 #define FSL_FEATURE_LPUART_IS_SCI (1)
-/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
-#define FSL_FEATURE_LPUART_FIFO_SIZEn(x) \
-    (((x) == LPUART0) ? (4) : \
-    (((x) == LPUART1) ? (4) : \
-    (((x) == AON__LPUART0) ? (16) : (-1))))
 /* @brief Supports two match addresses to filter incoming frames. */
 #define FSL_FEATURE_LPUART_HAS_ADDRESS_MATCHING (1)
 /* @brief Has transmitter/receiver DMA enable bits C5[TDMAE]/C5[RDMAE] (or BAUD[TDMAE]/BAUD[RDMAE] if the registers are 32-bit wide). */
@@ -330,6 +321,18 @@
 #define FSL_FEATURE_LPUART_HAS_TIMEOUT (0)
 /* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
 #define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (1)
+/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
+#define FSL_FEATURE_LPUART_FIFO_SIZEn(x) \
+    (((x) == LPUART0) ? (4) : \
+    (((x) == LPUART1) ? (4) : \
+    (((x) == AON__LPUART0) ? (16) : (-1))))
+/* @brief UART support receive rts configuration (has bit MODIR[RTSWATER]). */
+#define FSL_FEATURE_LPUART_HAS_MODIR_RTSWATER (1)
+
+/* ADVC module features */
+
+/* @brief ADVC calibration data address. */
+#define FSL_FEATURE_ADVC_CFG_TABLE_ADDR (0x01100000UL)
 
 /* PORT module features */
 
@@ -361,6 +364,8 @@
 #define FSL_FEATURE_PORT_SUPPORT_DIFFERENT_VOLTAGE_RANGE (1)
 /* @brief Has EFT detect (registers EDFR, EDIER and EDCR). */
 #define FSL_FEATURE_PORT_SUPPORT_EFT (0)
+/* @brief Alt function 0 means GPIO (not analog). */
+#define FSL_FEATURE_PORT_PCR_MUX_GPIO (0)
 /* @brief Has drive strength control (register bit PCR[DSE]). */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH (1)
 /* @brief Defines width of PCR[MUX] field. */
@@ -382,6 +387,10 @@
 
 /* SLCD module features */
 
+/* @brief LCD registers are split into control and fault detect parts. */
+#define FSL_FEATURE_LCD_HAS_FAULT_DETECT (1)
+/* @brief (S)LCD availability on the SoC. */
+#define FSL_FEATURE_SOC_LCD_COUNT (1)
 /* @brief The SLCD module is designed for low-voltage and low-power operation */
 #define FSL_FEATURE_SLCD_LP_CONTROL (1)
 /* @brief Has Multi Alternate Clock Source (register bit GCR[ATLSOURCE]).  */
@@ -397,8 +406,6 @@
 /* @brief Has lcd doze enable (register bit GCR[LCDDOZE]). */
 #define FSL_FEATURE_SLCD_HAS_LCD_DOZE_ENABLE (1)
 
-#define FSL_FEATURE_SGLCD_HAS_FAULT_DETECT (1)
-
 /* SYSCON_AON module features */
 
 /* @brief Powerlib API is different with other series devices */
@@ -408,11 +415,8 @@
 
 /* CDOG module features */
 
-/* @brief CDOG Has No Reset */
+/* @brief SOC has no reset driver. */
 #define FSL_FEATURE_CDOG_HAS_NO_RESET (1)
-/* @brief CDOG Use Restart register */
-#define FSL_FEATURE_CDOG_USE_RESTART (1)
-#define FLS_FEATURE_CDOG_USE_RESTART (1)
 /* @brief CDOG Load default configurations during init function */
 #define FSL_FEATURE_CDOG_NEED_LOAD_DEFAULT_CONF (1)
 
@@ -539,7 +543,7 @@
 /* @brief P-Flash block count. */
 #define FSL_FEATURE_FLASH_PFLASH_BLOCK_COUNT (1u)
 /* @brief P-Flash block size. */
-#define FSL_FEATURE_FLASH_PFLASH_BLOCK_SIZE (0x80000u)
+#define FSL_FEATURE_FLASH_PFLASH_BLOCK_SIZE (0x40000u)
 /* @brief Flash sector size. */
 #define FSL_FEATURE_FLASH_PFLASH_SECTOR_SIZE (8192u)
 /* @brief Flash page size. */
@@ -626,6 +630,11 @@
 /* @brief The number of general purpose interrupts supported by MU. */
 #define FSL_FEATURE_MU_GPI_COUNT (20)
 
+/* OSTIMER module features */
+
+/* @brief Has binary encoded value in counter register. */
+#define FSL_FEATURE_OSTIMER_HAS_BINARY_ENCODED_COUNTER (1)
+
 /* SYSCON module features */
 
 /* @brief Powerlib API is different with other series devices */
@@ -647,8 +656,6 @@
 
 /* @brief Has no RESET register. */
 #define FSL_FEATURE_WWDT_HAS_NO_RESET (1)
-
-#define FSL_FEATURE_ADVC_CFG_TABLE_ADDR (0x110000UL)
 
 #endif /* _MCXL254_cm33_FEATURES_H_ */
 

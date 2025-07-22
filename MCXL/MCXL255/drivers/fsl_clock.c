@@ -147,8 +147,8 @@ static void ADVC_PreChg(const clock_aon_chg_t change, uint32_t newValue)
             if(AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_CLK_DIV_EN_MASK)
             {
                  const uint32_t aon_cpu_clk_div = (AON__CGU->CLOCK_DIV &
-                                          CGU_CLOCK_DIV_AONCPU_CLK_DIV_MASK) >>
-                                          CGU_CLOCK_DIV_AONCPU_CLK_DIV_SHIFT;
+                                          CGU_CLOCK_DIV_AON_CPU_CLK_DIV_MASK) >>
+                                          CGU_CLOCK_DIV_AON_CPU_CLK_DIV_SHIFT;
               
                  freq /= aon_cpu_clk_div + 1U;
             }
@@ -353,32 +353,32 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
         {   /* AON ACMP CLK 0*/
             if(value==0)
             {
-                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP0_CLK_EN_MASK);
-                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP_CLK0_DIV_EN_MASK);
+                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP0_CLK_EN_MASK);
+                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP_CLK0_DIV_EN_MASK);
             }
             else
             {
-                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_AON_ACMP_CLK0_DIV_MASK);
-                AON__CGU->ACMP_CLK_DIV |= (value-1U) << CGU_ACMP_CLK_DIV_AON_ACMP_CLK0_DIV_SHIFT;
+                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_AON_ACMP_CLK0_DIV_MASK);
+                AON__CGU->ACMP_CLK |= (value-1U) << CGU_ACMP_CLK_AON_ACMP_CLK0_DIV_SHIFT;
 
-                AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP_CLK0_DIV_EN_MASK;
-                AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP0_CLK_EN_MASK;
+                AON__CGU->ACMP_CLK |= CGU_ACMP_CLK_ACMP_CLK0_DIV_EN_MASK;
+                AON__CGU->ACMP_CLK |= CGU_ACMP_CLK_ACMP0_CLK_EN_MASK;
             }
         }
         else if(div_name == 0x411U)
         {   /* AON ACMP CLK 1*/
             if(value==0)
             {
-                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP1_CLK_EN_MASK);
-                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP_CLK1_DIV_EN_MASK);
+                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP1_CLK_EN_MASK);
+                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP_CLK1_DIV_EN_MASK);
             }
             else
             {
-                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_AON_ACMP_CLK1_DIV_MASK);
-                AON__CGU->ACMP_CLK_DIV |= (value-1U) << CGU_ACMP_CLK_DIV_AON_ACMP_CLK1_DIV_SHIFT;
+                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_AON_ACMP_CLK1_DIV_MASK);
+                AON__CGU->ACMP_CLK |= (value-1U) << CGU_ACMP_CLK_AON_ACMP_CLK1_DIV_SHIFT;
 
-                AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP_CLK1_DIV_EN_MASK;
-                AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP1_CLK_EN_MASK;
+                AON__CGU->ACMP_CLK |= CGU_ACMP_CLK_ACMP_CLK1_DIV_EN_MASK;
+                AON__CGU->ACMP_CLK |= CGU_ACMP_CLK_ACMP1_CLK_EN_MASK;
             }
 
         }
@@ -458,31 +458,31 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name)
     { /* AON clk*/
         if(div_name == 0x410U)
         {   /* AON ACMP CLK 0*/
-            uint32_t reg_val = AON__CGU->ACMP_CLK_DIV;
-            if((!(reg_val & CGU_ACMP_CLK_DIV_ACMP0_CLK_EN_MASK)) ||
-               (!(reg_val & CGU_ACMP_CLK_DIV_ACMP_CLK0_DIV_EN_MASK)))
+            uint32_t reg_val = AON__CGU->ACMP_CLK;
+            if((!(reg_val & CGU_ACMP_CLK_ACMP0_CLK_EN_MASK)) ||
+               (!(reg_val & CGU_ACMP_CLK_ACMP_CLK0_DIV_EN_MASK)))
             {
                 return 0; /* Not enabled clk or div*/
             }
             else
             {
-                reg_val &=  CGU_ACMP_CLK_DIV_AON_ACMP_CLK0_DIV_MASK;
-                reg_val >>=  CGU_ACMP_CLK_DIV_AON_ACMP_CLK0_DIV_SHIFT;
+                reg_val &=  CGU_ACMP_CLK_AON_ACMP_CLK0_DIV_MASK;
+                reg_val >>=  CGU_ACMP_CLK_AON_ACMP_CLK0_DIV_SHIFT;
                 return reg_val + 1U;
             }
         }
         else if(div_name == 0x411U)
         {   /* AON ACMP CLK 1*/
-            uint32_t reg_val = AON__CGU->ACMP_CLK_DIV;
-            if((!(reg_val & CGU_ACMP_CLK_DIV_ACMP1_CLK_EN_MASK)) ||
-               (!(reg_val & CGU_ACMP_CLK_DIV_ACMP_CLK1_DIV_EN_MASK)))
+            uint32_t reg_val = AON__CGU->ACMP_CLK;
+            if((!(reg_val & CGU_ACMP_CLK_ACMP1_CLK_EN_MASK)) ||
+               (!(reg_val & CGU_ACMP_CLK_ACMP_CLK1_DIV_EN_MASK)))
             {
                 return 0; /* Not enabled clk or div*/
             }
             else
             {
-                reg_val &=  CGU_ACMP_CLK_DIV_AON_ACMP_CLK1_DIV_MASK;
-                reg_val >>=  CGU_ACMP_CLK_DIV_AON_ACMP_CLK1_DIV_SHIFT;
+                reg_val &=  CGU_ACMP_CLK_AON_ACMP_CLK1_DIV_MASK;
+                reg_val >>=  CGU_ACMP_CLK_AON_ACMP_CLK1_DIV_SHIFT;
                 return reg_val + 1U;
             }
         }
@@ -533,11 +533,11 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
     { /* AON clk*/
         if(div_name == 0x410U)
         {   /* AON ACMP CLK 0*/
-            AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP_CLK0_DIV_EN_MASK);
+            AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP_CLK0_DIV_EN_MASK);
         }
         else if(div_name == 0x411U)
         {   /* AON ACMP CLK 1*/
-            AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP_CLK1_DIV_EN_MASK);
+            AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP_CLK1_DIV_EN_MASK);
         }
         else
         {   /* The rest of AON */
@@ -983,8 +983,8 @@ uint32_t CLOCK_GetAonCoreSysClkFreq(void)
                         CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) >>
                         CGU_CLK_CONFIG_ROOT_CLK_SEL_SHIFT;
         const uint32_t div = (AON__CGU->CLOCK_DIV &
-                        CGU_CLOCK_DIV_AONCPU_CLK_DIV_MASK) >>
-                        CGU_CLOCK_DIV_AONCPU_CLK_DIV_SHIFT;
+                        CGU_CLOCK_DIV_AON_CPU_CLK_DIV_MASK) >>
+                        CGU_CLOCK_DIV_AON_CPU_CLK_DIV_SHIFT;
 
         switch(sel)
         {
@@ -1621,72 +1621,6 @@ status_t CLOCK_FRO12MTrimConfig(sirc_trim_config_t config)
 }
 #endif /* Building on the main core */
 
-/**
- * @brief   Sets AON FRO 10M or 2M trim.
- * @param   is_fro2m : 0 for FRO10M, 1 for FRO2M
- * @param   config   : trim value
- */
-void CLOCK_AON_FRO_Trim_Set(uint8_t is_fro2m, aon_fro_trim_config_t config)
-{
-    volatile uint32_t *reg_config = (is_fro2m) ?
-                                    &AON__CGU->FRO2M_CONFIG :
-                                    &AON__CGU->FRO10M_CONFIG;
-
-    volatile uint32_t *reg_trim = (is_fro2m) ?
-                                  &AON__CGU->FRO2M_TRIM :
-                                  &AON__CGU->FRO10M_TRIM;
-    uint32_t val;
-    assert(config.fs_bp   <= 7U);
-    assert(config.fs_vcco <= 3U);
-    assert(config.tf      <= 7U);
-
-    assert(config.cltrim  <= 63U);
-    assert(config.ccotrim <= 63U);
-
-
-    val = *reg_trim;
-    val &= ~( CGU_FRO10M_TRIM_TRIM_FVCH_LV_MASK | CGU_FRO10M_TRIM_TRIM_TC_LV_MASK );
-    val |= CGU_FRO10M_TRIM_TRIM_FVCH_LV((config.fs_vcco << 2U)|config.fs_bp);
-    val |= CGU_FRO10M_CONFIG_TRIM_CCO_LV(config.tf);
-    *reg_trim = val;
-
-    val = *reg_config;
-    val &= ~( CGU_FRO10M_CONFIG_TRIM_CLK_LV_MASK | CGU_FRO10M_CONFIG_TRIM_CCO_LV_MASK );
-    val |= CGU_FRO10M_CONFIG_TRIM_CLK_LV(config.cltrim);  /* fine */
-    val |= CGU_FRO10M_CONFIG_TRIM_CCO_LV(config.ccotrim); /* coarse */
-    *reg_config = val;
-
-}
-
-/**
- * @brief   Reads AON FRO 10M or 2M trim values.
- * @param   is_fro2m : 0 for FRO10M, 1 for FRO2M
- * @param   config   : ptr to aon_fro_trim_config_t struct.
- */
-void CLOCK_AON_FRO_Trim_Get(uint8_t is_fro2m, aon_fro_trim_config_t * config)
-{
-    volatile uint32_t *reg_config = (is_fro2m) ?
-                                    &AON__CGU->FRO2M_CONFIG :
-                                    &AON__CGU->FRO10M_CONFIG;
-
-    volatile uint32_t *reg_trim = (is_fro2m) ?
-                                  &AON__CGU->FRO2M_TRIM :
-                                  &AON__CGU->FRO10M_TRIM;
-    uint32_t val;
-    assert(config);
-
-    val = *reg_trim;
-    config->fs_vcco = (val >> (CGU_FRO10M_TRIM_TRIM_FVCH_LV_SHIFT + 2U)) & 3U;
-    config->fs_bp = (val >> CGU_FRO10M_TRIM_TRIM_FVCH_LV_SHIFT) & 7U;
-    config->tf = (val >> CGU_FRO10M_TRIM_TRIM_TC_LV_SHIFT) & 7U;
-
-    val = *reg_config;
-
-    /* fine */
-    config->cltrim = (val & CGU_FRO10M_CONFIG_TRIM_CLK_LV_MASK) >> CGU_FRO10M_CONFIG_TRIM_CLK_LV_SHIFT;
-    /* coarse */
-    config->ccotrim = (val & CGU_FRO10M_CONFIG_TRIM_CCO_LV_MASK) >> CGU_FRO10M_CONFIG_TRIM_CCO_LV_SHIFT;
-}
 
 #if __CORTEX_M == (33U) /* Building on the main core */
 

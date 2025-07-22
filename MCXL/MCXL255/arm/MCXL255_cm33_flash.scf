@@ -5,15 +5,15 @@
 **                          MCXL255VLL_cm33
 **
 **     Compiler:            Keil ARM C/C++ Compiler
-**     Reference manual:    MCXL25xRM DraftF
-**     Version:             rev. 1.0, 2023-01-09
-**     Build:               b241211
+**     Reference manual:    MCXL25xRM DraftH
+**     Version:             rev. 1.0, 2025-06-13
+**     Build:               b250723
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com

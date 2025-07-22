@@ -4,7 +4,7 @@
 /*            MCXL253_cm0plus                                                */
 /*  @version: 1.0                                                            */
 /*  @date:    2025-6-13                                                      */
-/*  @build:   b250616                                                        */
+/*  @build:   b250723                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -61,14 +61,14 @@ __Vectors:
     .long   PMU_IRQHandler                                  /* PMU IRQ*/
     .long   KPP_IRQHandler                                  /* Keypad Interrupt*/
     .long   LPADC_AON_IRQHandler                            /* Analog-to-Digital Converter interrupt*/
-    .long   SGLCD_AON_IRQHandler                            /* SLCD frame start interrupt*/
+    .long   SLCD_FRAME_AON_IRQHandler                       /* SLCD frame start interrupt*/
     .long   TMR0_AON_IRQHandler                             /* ORed QTMR Interrupts*/
     .long   TMR1_AON_IRQHandler                             /* ORed QTMR Interrupts*/
     .long   Reserved42_IRQHandler                           /* xxx Interrupt 42*/
     .long   LCSENSE_IRQHandler                              /* LCSense Fault/Tamper Interrupt*/
     .long   LPTMR_AON_IRQHandler                            /* Low Power Timer 0 interrupt*/
     .long   Reserved45_IRQHandler                           /* xxx Interrupt 45*/
-    .long   CMP0_AON_IRQHandler                             /* Comparator interrupt*/
+    .long   ACMP0_AON_IRQHandler                            /* Comparator interrupt*/
     .long   ADVC_IRQHandler                                 /* ADVC_2.0 Controller Interrupt*/
 
     .size   __Vectors, . - __Vectors
@@ -429,12 +429,12 @@ LPADC_AON_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak SGLCD_AON_IRQHandler
-    .type SGLCD_AON_IRQHandler, %function
-SGLCD_AON_IRQHandler:
-    ldr   r0,=SGLCD_AON_DriverIRQHandler
+    .weak SLCD_FRAME_AON_IRQHandler
+    .type SLCD_FRAME_AON_IRQHandler, %function
+SLCD_FRAME_AON_IRQHandler:
+    ldr   r0,=SLCD_FRAME_AON_DriverIRQHandler
     bx    r0
-    .size SGLCD_AON_IRQHandler, . - SGLCD_AON_IRQHandler
+    .size SLCD_FRAME_AON_IRQHandler, . - SLCD_FRAME_AON_IRQHandler
 
     .align 1
     .thumb_func
@@ -492,12 +492,12 @@ Reserved45_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak CMP0_AON_IRQHandler
-    .type CMP0_AON_IRQHandler, %function
-CMP0_AON_IRQHandler:
-    ldr   r0,=CMP0_AON_DriverIRQHandler
+    .weak ACMP0_AON_IRQHandler
+    .type ACMP0_AON_IRQHandler, %function
+ACMP0_AON_IRQHandler:
+    ldr   r0,=ACMP0_AON_DriverIRQHandler
     bx    r0
-    .size CMP0_AON_IRQHandler, . - CMP0_AON_IRQHandler
+    .size ACMP0_AON_IRQHandler, . - ACMP0_AON_IRQHandler
 
     .align 1
     .thumb_func
@@ -540,14 +540,14 @@ ADVC_IRQHandler:
     def_irq_handler    PMU_DriverIRQHandler
     def_irq_handler    KPP_DriverIRQHandler
     def_irq_handler    LPADC_AON_DriverIRQHandler
-    def_irq_handler    SGLCD_AON_DriverIRQHandler
+    def_irq_handler    SLCD_FRAME_AON_DriverIRQHandler
     def_irq_handler    TMR0_AON_DriverIRQHandler
     def_irq_handler    TMR1_AON_DriverIRQHandler
     def_irq_handler    Reserved42_DriverIRQHandler
     def_irq_handler    LCSENSE_DriverIRQHandler
     def_irq_handler    LPTMR_AON_DriverIRQHandler
     def_irq_handler    Reserved45_DriverIRQHandler
-    def_irq_handler    CMP0_AON_DriverIRQHandler
+    def_irq_handler    ACMP0_AON_DriverIRQHandler
     def_irq_handler    ADVC_DriverIRQHandler
 
     .end

@@ -4,7 +4,7 @@
 ;            MCXL254_cm33
 ;  @version: 1.0
 ;  @date:    2025-6-13
-;  @build:   b250616
+;  @build:   b250723
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -131,7 +131,7 @@ __vector_table_0x1c
         DCD     Reserved77_IRQHandler                         ;xxx Interrupt 77
         DCD     ADC0_IRQHandler                               ;Analog-to-Digital Converter interrupt
         DCD     Reserved79_IRQHandler                         ;xxx Interrupt 79
-        DCD     CMP0_IRQHandler                               ;Comparator interrupt
+        DCD     ACMP0_IRQHandler                              ;Comparator interrupt
         DCD     Reserved81_IRQHandler                         ;xxx Interrupt 81
         DCD     Reserved82_IRQHandler                         ;xxx Interrupt 82
         DCD     Reserved83_IRQHandler                         ;xxx Interrupt 83
@@ -224,11 +224,11 @@ __vector_table_0x1c
         DCD     LCSENSE_IRQHandler                            ;LCSense Fault/Tamper Interrupt
         DCD     LPTMR_AON_IRQHandler                          ;Low Power Timer 0 interrupt
         DCD     Reserved172_IRQHandler                        ;xxx Interrupt 172
-        DCD     CMP0_AON_IRQHandler                           ;Comparator interrupt
+        DCD     ACMP0_AON_IRQHandler                          ;Comparator interrupt
         DCD     ADVC_IRQHandler                               ;ADVC_2.0 Controller Interrupt
         DCD     Reserved175_IRQHandler                        ;xxx Interrupt 175
-        DCD     SGLCD_FRAME_AON_IRQHandler                    ;Frame Update Interrupt
-        DCD     SGLCD_FFAULT_AON_IRQHandler                   ;Fault Detect Interrupt
+        DCD     SLCD_FRAME_AON_IRQHandler                     ;Frame Update Interrupt
+        DCD     SLCD_FFAULT_AON_IRQHandler                    ;Fault Detect Interrupt
 __Vectors_End
 
 __Vectors       EQU   __vector_table
@@ -757,11 +757,11 @@ Reserved79_IRQHandler
         LDR     R0, =Reserved79_DriverIRQHandler
         BX      R0
 
-        PUBWEAK CMP0_IRQHandler
-        PUBWEAK CMP0_DriverIRQHandler
+        PUBWEAK ACMP0_IRQHandler
+        PUBWEAK ACMP0_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-CMP0_IRQHandler
-        LDR     R0, =CMP0_DriverIRQHandler
+ACMP0_IRQHandler
+        LDR     R0, =ACMP0_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved81_IRQHandler
@@ -1408,11 +1408,11 @@ Reserved172_IRQHandler
         LDR     R0, =Reserved172_DriverIRQHandler
         BX      R0
 
-        PUBWEAK CMP0_AON_IRQHandler
-        PUBWEAK CMP0_AON_DriverIRQHandler
+        PUBWEAK ACMP0_AON_IRQHandler
+        PUBWEAK ACMP0_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-CMP0_AON_IRQHandler
-        LDR     R0, =CMP0_AON_DriverIRQHandler
+ACMP0_AON_IRQHandler
+        LDR     R0, =ACMP0_AON_DriverIRQHandler
         BX      R0
 
         PUBWEAK ADVC_IRQHandler
@@ -1429,18 +1429,18 @@ Reserved175_IRQHandler
         LDR     R0, =Reserved175_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SGLCD_FRAME_AON_IRQHandler
-        PUBWEAK SGLCD_FRAME_AON_DriverIRQHandler
+        PUBWEAK SLCD_FRAME_AON_IRQHandler
+        PUBWEAK SLCD_FRAME_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SGLCD_FRAME_AON_IRQHandler
-        LDR     R0, =SGLCD_FRAME_AON_DriverIRQHandler
+SLCD_FRAME_AON_IRQHandler
+        LDR     R0, =SLCD_FRAME_AON_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SGLCD_FFAULT_AON_IRQHandler
-        PUBWEAK SGLCD_FFAULT_AON_DriverIRQHandler
+        PUBWEAK SLCD_FFAULT_AON_IRQHandler
+        PUBWEAK SLCD_FFAULT_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SGLCD_FFAULT_AON_IRQHandler
-        LDR     R0, =SGLCD_FFAULT_AON_DriverIRQHandler
+SLCD_FFAULT_AON_IRQHandler
+        LDR     R0, =SLCD_FFAULT_AON_DriverIRQHandler
         BX      R0
 
 Reserved16_DriverIRQHandler
@@ -1474,8 +1474,8 @@ LPI2C1_DriverIRQHandler
 LPSPI0_DriverIRQHandler
 LPSPI1_DriverIRQHandler
 Reserved46_DriverIRQHandler
-LPUART_DriverIRQHandler
-LPUART_DriverIRQHandler
+LPUART0_DriverIRQHandler
+LPUART1_DriverIRQHandler
 Reserved49_DriverIRQHandler
 Reserved50_DriverIRQHandler
 Reserved51_DriverIRQHandler
@@ -1507,7 +1507,7 @@ WWDT0_DriverIRQHandler
 Reserved77_DriverIRQHandler
 ADC0_DriverIRQHandler
 Reserved79_DriverIRQHandler
-CMP0_DriverIRQHandler
+ACMP0_DriverIRQHandler
 Reserved81_DriverIRQHandler
 Reserved82_DriverIRQHandler
 Reserved83_DriverIRQHandler
@@ -1573,7 +1573,7 @@ Reserved142_DriverIRQHandler
 Reserved143_DriverIRQHandler
 LPI2C0_AON_DriverIRQHandler
 Reserved145_DriverIRQHandler
-LPUART_DriverIRQHandler
+LPUART0_AON_DriverIRQHandler
 Reserved147_DriverIRQHandler
 GPIO00_AON_DriverIRQHandler
 GPIO01_AON_DriverIRQHandler
@@ -1600,11 +1600,11 @@ Reserved169_DriverIRQHandler
 LCSENSE_DriverIRQHandler
 LPTMR_AON_DriverIRQHandler
 Reserved172_DriverIRQHandler
-CMP0_AON_DriverIRQHandler
+ACMP0_AON_DriverIRQHandler
 ADVC_DriverIRQHandler
 Reserved175_DriverIRQHandler
-SGLCD_FRAME_AON_DriverIRQHandler
-SGLCD_FFAULT_AON_DriverIRQHandler
+SLCD_FRAME_AON_DriverIRQHandler
+SLCD_FFAULT_AON_DriverIRQHandler
 DefaultISR
         B .
 

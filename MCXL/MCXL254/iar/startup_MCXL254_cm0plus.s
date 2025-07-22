@@ -4,7 +4,7 @@
 ;            MCXL254_cm0plus
 ;  @version: 1.0
 ;  @date:    2025-6-13
-;  @build:   b250616
+;  @build:   b250723
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -90,14 +90,14 @@ __vector_table_0x1c
         DCD     PMU_IRQHandler                                ;PMU IRQ
         DCD     KPP_IRQHandler                                ;Keypad Interrupt
         DCD     LPADC_AON_IRQHandler                          ;Analog-to-Digital Converter interrupt
-        DCD     SGLCD_AON_IRQHandler                          ;SLCD frame start interrupt
+        DCD     SLCD_FRAME_AON_IRQHandler                     ;SLCD frame start interrupt
         DCD     TMR0_AON_IRQHandler                           ;ORed QTMR Interrupts
         DCD     TMR1_AON_IRQHandler                           ;ORed QTMR Interrupts
         DCD     Reserved42_IRQHandler                         ;xxx Interrupt 42
         DCD     LCSENSE_IRQHandler                            ;LCSense Fault/Tamper Interrupt
         DCD     LPTMR_AON_IRQHandler                          ;Low Power Timer 0 interrupt
         DCD     Reserved45_IRQHandler                         ;xxx Interrupt 45
-        DCD     CMP0_AON_IRQHandler                           ;Comparator interrupt
+        DCD     ACMP0_AON_IRQHandler                          ;Comparator interrupt
         DCD     ADVC_IRQHandler                               ;ADVC_2.0 Controller Interrupt
         DCD     DefaultISR                                    ;48
         DCD     DefaultISR                                    ;49
@@ -321,11 +321,11 @@ LPADC_AON_IRQHandler
         LDR     R0, =LPADC_AON_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SGLCD_AON_IRQHandler
-        PUBWEAK SGLCD_AON_DriverIRQHandler
+        PUBWEAK SLCD_FRAME_AON_IRQHandler
+        PUBWEAK SLCD_FRAME_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SGLCD_AON_IRQHandler
-        LDR     R0, =SGLCD_AON_DriverIRQHandler
+SLCD_FRAME_AON_IRQHandler
+        LDR     R0, =SLCD_FRAME_AON_DriverIRQHandler
         BX      R0
 
         PUBWEAK TMR0_AON_IRQHandler
@@ -370,11 +370,11 @@ Reserved45_IRQHandler
         LDR     R0, =Reserved45_DriverIRQHandler
         BX      R0
 
-        PUBWEAK CMP0_AON_IRQHandler
-        PUBWEAK CMP0_AON_DriverIRQHandler
+        PUBWEAK ACMP0_AON_IRQHandler
+        PUBWEAK ACMP0_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-CMP0_AON_IRQHandler
-        LDR     R0, =CMP0_AON_DriverIRQHandler
+ACMP0_AON_IRQHandler
+        LDR     R0, =ACMP0_AON_DriverIRQHandler
         BX      R0
 
         PUBWEAK ADVC_IRQHandler
@@ -387,7 +387,7 @@ ADVC_IRQHandler
 Reserved16_DriverIRQHandler
 LPI2C0_AON_DriverIRQHandler
 Reserved18_DriverIRQHandler
-LPUART_DriverIRQHandler
+LPUART0_AON_DriverIRQHandler
 Reserved20_DriverIRQHandler
 GPIO00_AON_DriverIRQHandler
 Reserved22_DriverIRQHandler
@@ -407,14 +407,14 @@ CGU_DriverIRQHandler
 PMU_DriverIRQHandler
 KPP_DriverIRQHandler
 LPADC_AON_DriverIRQHandler
-SGLCD_AON_DriverIRQHandler
+SLCD_FRAME_AON_DriverIRQHandler
 TMR0_AON_DriverIRQHandler
 TMR1_AON_DriverIRQHandler
 Reserved42_DriverIRQHandler
 LCSENSE_DriverIRQHandler
 LPTMR_AON_DriverIRQHandler
 Reserved45_DriverIRQHandler
-CMP0_AON_DriverIRQHandler
+ACMP0_AON_DriverIRQHandler
 ADVC_DriverIRQHandler
 DefaultISR
         LDR R0, =DefaultISR

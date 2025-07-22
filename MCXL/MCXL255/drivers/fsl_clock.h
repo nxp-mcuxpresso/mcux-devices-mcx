@@ -745,7 +745,7 @@ static inline void CLOCK_EnableClock(clock_ip_name_t clk)
     {
         if(clk == kCLOCK_GateAonINPUTMUX1) 
         {
-            AON__SYSCON_AON->PINMUXCLKCTRL = SYSCON_AON_PINMUXCLKCTRL_PINMUX_CLK_CTRL(0);
+            AON__SYSCON_AON->INPUTMUXCLKCTRL = SYSCON_AON_INPUTMUXCLKCTRL_INPUTMUX_CLK_CTRL(0);
         }
         else
         {
@@ -1069,23 +1069,6 @@ status_t CLOCK_FROHFTrimConfig(firc_trim_config_t config);
  */
 status_t CLOCK_FRO12MTrimConfig(sirc_trim_config_t config);
 
-#endif /* Building on the main core */
-
-/**
- * @brief   Sets AON FRO 10M or 2M trim.
- * @param   is_fro2m : 0 for FRO10M, 1 for FRO2M
- * @param   config   : trim value
- */
-void CLOCK_AON_FRO_Trim_Set(uint8_t is_fro2m, aon_fro_trim_config_t config);
-
-/**
- * @brief   Reads AON FRO 10M or 2M trim values.
- * @param   is_fro2m : 0 for FRO10M, 1 for FRO2M
- * @param   config   : ptr to aon_fro_trim_config_t struct.
- */
-void CLOCK_AON_FRO_Trim_Get(uint8_t is_fro2m, aon_fro_trim_config_t * config);
-
-#if __CORTEX_M == (33U) /* Building on the main core */
 
 /*!
  * @brief Sets the ROSC monitor mode.

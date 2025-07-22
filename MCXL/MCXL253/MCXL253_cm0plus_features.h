@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250616
+**     Build:               b250728
 **
 **     Abstract:
 **         Chip specific module features.
@@ -31,8 +31,6 @@
 #define FSL_FEATURE_SOC_INPUTMUX_COUNT (1)
 /* @brief KPP availability on the SoC. */
 #define FSL_FEATURE_SOC_KPP_COUNT (1)
-/* @brief LCD availability on the SoC. */
-#define FSL_FEATURE_SOC_LCD_COUNT (1)
 /* @brief LPADC availability on the SoC. */
 #define FSL_FEATURE_SOC_LPADC_COUNT (1)
 /* @brief LPCMP availability on the SoC. */
@@ -45,14 +43,10 @@
 #define FSL_FEATURE_SOC_LPUART_COUNT (1)
 /* @brief MU availability on the SoC. */
 #define FSL_FEATURE_SOC_MU_COUNT (1)
-/* @brief PMU availability on the SoC. */
-#define FSL_FEATURE_SOC_PMU_COUNT (1)
 /* @brief PORT availability on the SoC. */
 #define FSL_FEATURE_SOC_PORT_COUNT (1)
 /* @brief RTC availability on the SoC. */
 #define FSL_FEATURE_SOC_RTC_COUNT (1)
-/* @brief SLCD availability on the SoC. */
-#define FSL_FEATURE_SOC_SLCD_COUNT (1)
 /* @brief SYSCON availability on the SoC. */
 #define FSL_FEATURE_SOC_SYSCON_COUNT (1)
 /* @brief TMR availability on the SoC. */
@@ -94,8 +88,6 @@
 #define FSL_FEATURE_LPCMP_HAS_RRCR2 (1)
 /* @brief Has CCR0 CMP_STOP_EN bitfield. */
 #define FSL_FEATURE_LPCMP_HAS_CCR0_CMP_STOP_EN (1)
-/* @brief CMP instance support CCR0 CMP_STOP_EN bitfield. */
-#define FSL_FEATURE_LPCMP_INSTANCE_SUPPORT_CCR0_CMP_STOP_ENn(x) (1)
 
 /* GPIO module features */
 
@@ -168,8 +160,6 @@
 #define FSL_FEATURE_LPUART_HAS_BOTH_EDGE_SAMPLING_SUPPORT (1)
 /* @brief Peripheral type. */
 #define FSL_FEATURE_LPUART_IS_SCI (1)
-/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
-#define FSL_FEATURE_LPUART_FIFO_SIZEn(x) (16)
 /* @brief Supports two match addresses to filter incoming frames. */
 #define FSL_FEATURE_LPUART_HAS_ADDRESS_MATCHING (1)
 /* @brief Has transmitter/receiver DMA enable bits C5[TDMAE]/C5[RDMAE] (or BAUD[TDMAE]/BAUD[RDMAE] if the registers are 32-bit wide). */
@@ -212,6 +202,15 @@
 #define FSL_FEATURE_LPUART_HAS_TIMEOUT (0)
 /* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
 #define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (1)
+/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
+#define FSL_FEATURE_LPUART_FIFO_SIZEn(x) (16)
+/* @brief UART support receive rts configuration (has bit MODIR[RTSWATER]). */
+#define FSL_FEATURE_LPUART_HAS_MODIR_RTSWATER (1)
+
+/* ADVC module features */
+
+/* @brief ADVC calibration data address. */
+#define FSL_FEATURE_ADVC_CFG_TABLE_ADDR (0x01100000UL)
 
 /* PORT module features */
 
@@ -243,6 +242,8 @@
 #define FSL_FEATURE_PORT_SUPPORT_DIFFERENT_VOLTAGE_RANGE (1)
 /* @brief Has EFT detect (registers EDFR, EDIER and EDCR). */
 #define FSL_FEATURE_PORT_SUPPORT_EFT (0)
+/* @brief Alt function 0 means GPIO (not analog). */
+#define FSL_FEATURE_PORT_PCR_MUX_GPIO (0)
 /* @brief Has drive strength control (register bit PCR[DSE]). */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH (1)
 /* @brief Defines width of PCR[MUX] field. */
@@ -264,6 +265,8 @@
 
 /* SLCD module features */
 
+/* @brief (S)LCD availability on the SoC. */
+#define FSL_FEATURE_SOC_LCD_COUNT (1)
 /* @brief The SLCD module is designed for low-voltage and low-power operation */
 #define FSL_FEATURE_SLCD_LP_CONTROL (1)
 /* @brief Has Multi Alternate Clock Source (register bit GCR[ATLSOURCE]).  */
@@ -278,8 +281,6 @@
 #define FSL_FEATURE_SLCD_HAS_LCD_WAIT (0)
 /* @brief Has lcd doze enable (register bit GCR[LCDDOZE]). */
 #define FSL_FEATURE_SLCD_HAS_LCD_DOZE_ENABLE (1)
-
-#define FSL_FEATURE_SGLCD_HAS_FAULT_DETECT (1)
 
 /* SYSCON_AON module features */
 
@@ -334,7 +335,6 @@
 #define FSL_FEATURE_MU_HAS_HR_BY_INSTANCEn(x) (0)
 /* @brief The number of general purpose interrupts supported by MU. */
 #define FSL_FEATURE_MU_GPI_COUNT (20)
-
 
 #endif /* _MCXL253_cm0plus_FEATURES_H_ */
 

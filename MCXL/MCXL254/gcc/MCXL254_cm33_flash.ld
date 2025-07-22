@@ -6,7 +6,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXL25xRM DraftH
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250616
+**     Build:               b250723
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -34,10 +34,10 @@ RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x000002C8
-  m_text                (RX)  : ORIGIN = 0x000002C8, LENGTH = 0x0001FD38
+  m_text                (RX)  : ORIGIN = 0x000002C8, LENGTH = 0x0002E538
   m_data                (RW)  : ORIGIN = 0x28000000, LENGTH = 0x00010000
   rpmsg_sh_mem          (RW)  : ORIGIN = 0xA1006000, LENGTH = RPMSG_SHMEM_SIZE
-  m_core1_image         (RX)  : ORIGIN = 0x00020000, LENGTH = 0x00010000
+  m_core1_image         (RX)  : ORIGIN = 0x0002E800, LENGTH = 0x0000F800
 }
 
 /* Define output sections */
@@ -82,7 +82,7 @@ SECTIONS
     *(.eh_frame)
     KEEP (*(.init))
     KEEP (*(.fini))
-    . = ALIGN(4);
+    . = ALIGN(4) ;
   } > m_text
 
   .ARM.extab :

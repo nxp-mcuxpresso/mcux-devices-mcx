@@ -23,7 +23,7 @@ menu "Device specific drivers configuration"
          select ADVC_DRIVER_USED
          default n
 
-     config ADVC_DRIVER_USED
+     config ADVC_DRIVER_USED # Workaround to overcome MCUX SDK package limitation
          bool "advc_driver"
          default n
 

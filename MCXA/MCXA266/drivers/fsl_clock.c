@@ -14,6 +14,12 @@
 #define FSL_COMPONENT_ID "platform.drivers.clock"
 #endif
 
+#define IFR1_ADDR          (0x01100000U)
+#define IFR1_VAL_180M_TRIM *((volatile uint32_t *)(IFR1_ADDR + 0x870U))
+#if FSL_FEATURE_FIRC_SUPPORT_240M
+#define IFR1_VAL_240M_TRIM *((volatile uint32_t *)(IFR1_ADDR + 0x874U))
+#endif
+
 #define NVALMAX       (0x100U)
 #define PVALMAX       (0x20U)
 #define MVALMAX       (0x10000U)
@@ -272,24 +278,45 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
     SYSCON->CLKUNLOCK |= SYSCON_CLKUNLOCK_UNLOCK_MASK;
 }
 
-/* Initialize the FROHF to given frequency (45,60,90,180) */
+/* Initialize the FROHF to given frequency (45,60,90,180)
+ * (80,120,240) are only supported for 240M part */
 status_t CLOCK_SetupFROHFClocking(uint32_t iFreq)
 {
-    uint8_t freq_select = 0x0U;
+    uint8_t freq_select       = 0x0U;
+    uint8_t need_switch_frohf = 0x0U;
+    uint32_t trim_value       = 0x0U;
     switch (iFreq)
     {
         case 45000000U:
             freq_select = 1U;
+            trim_value  = IFR1_VAL_180M_TRIM;
             break;
         case 60000000U:
             freq_select = 3U;
+            trim_value  = IFR1_VAL_180M_TRIM;
             break;
         case 90000000U:
             freq_select = 5U;
+            trim_value  = IFR1_VAL_180M_TRIM;
             break;
         case 180000000U:
             freq_select = 7U;
+            trim_value  = IFR1_VAL_180M_TRIM;
             break;
+#if FSL_FEATURE_FIRC_SUPPORT_240M
+        case 80000000U:
+            freq_select = 3U;
+            trim_value  = IFR1_VAL_240M_TRIM;
+            break;
+        case 120000000U:
+            freq_select = 5U;
+            trim_value  = IFR1_VAL_240M_TRIM;
+            break;
+        case 240000000U:
+            freq_select = 7U;
+            trim_value  = IFR1_VAL_240M_TRIM;
+            break;
+#endif
         default:
             freq_select = 0xFU;
             break;
@@ -298,6 +325,25 @@ status_t CLOCK_SetupFROHFClocking(uint32_t iFreq)
     if (0xFU == freq_select)
     {
         return kStatus_Fail;
+    }
+
+    /* Check if the trim value is valid */
+    if (trim_value == 0xFFFFFFFFU)
+    {
+        return kStatus_Fail;
+    }
+
+    /* Switch to FRO LF is FRO HF is in use */
+    if (0x3U == ((SCG0->CSR & SCG_CSR_SCS_MASK) >> SCG_CSR_SCS_SHIFT))
+    {
+        need_switch_frohf = 1;
+        CLOCK_AttachClk(kFRO12M_to_MAIN_CLK);
+    }
+
+    /* Load trim value from IFR */
+    if (SCG0->FIRCTRIM != trim_value)
+    {
+        SCG0->FIRCTRIM = trim_value;
     }
 
     /* Set FIRC frequency */
@@ -316,9 +362,15 @@ status_t CLOCK_SetupFROHFClocking(uint32_t iFreq)
     /* Lock FIRCCSR */
     SCG0->FIRCCSR |= SCG_FIRCCSR_LK_MASK;
 
-    /* Wait for FIRC clock to be valid. */
-    while ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRCVLD_MASK) == 0U)
+    /* Wait for FIRC clock to be stable. */
+    while ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRCACC_MASK) == 0U)
     {
+    }
+
+    /* Switch back to FRO HF */
+    if (1 == need_switch_frohf)
+    {
+        CLOCK_AttachClk(kFRO_HF_to_MAIN_CLK);
     }
 
     return kStatus_Success;
@@ -560,34 +612,45 @@ static uint32_t CLOCK_GetClk1MFreq(void)
  */
 static uint32_t CLOCK_GetFroHfFreq(void)
 {
-    uint32_t freq;
+    uint8_t div;
 
     if (((SCG0->FIRCCSR & SCG_FIRCCSR_FIRCEN_MASK) == 0U) ||
         ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRC_FCLK_PERIPH_EN_SHIFT) == 0U))
     {
-        freq = 0U;
+        div = 0U;
     }
 
     switch ((SCG0->FIRCCFG & SCG_FIRCCFG_FREQ_SEL_MASK) >> SCG_FIRCCFG_FREQ_SEL_SHIFT)
     {
         case 1U:
-            freq = 45000000U;
+            div = 4U;
             break;
         case 3U:
-            freq = 60000000U;
+            div = 3U;
             break;
         case 5U:
-            freq = 90000000U;
+            div = 2U;
             break;
         case 7U:
-            freq = 180000000U;
+            div = 1U;
             break;
         default:
-            freq = 0U;
+            div = 0U;
             break;
     }
 
-    return freq;
+#if FSL_FEATURE_FIRC_SUPPORT_240M
+    if (SCG0->FIRCTRIM == IFR1_VAL_180M_TRIM)
+    {
+        return (div != 0U) ? (180000000U / div) : 0U;
+    }
+    else
+    {
+        return (div != 0U) ? (240000000U / div) : 0U;
+    }
+#else
+    return (div != 0U) ? (180000000U / div) : 0U;
+#endif
 }
 
 /* Get HF FRO DIV Clk */
@@ -1323,41 +1386,8 @@ uint32_t CLOCK_GetClkoutClkFreq(void)
     return freq / ((clkdiv & 0xFFU) + 1U);
 }
 
-/*! brief  Return Frequency of Systick Clock
- *  return Frequency of Systick.
- */
-uint32_t CLOCK_GetSystickClkFreq(void)
-{
-    uint32_t freq   = 0U;
-    uint32_t clksel = (MRCC0->MRCC_SYSTICK_CLKSEL);
-    uint32_t clkdiv = (MRCC0->MRCC_SYSTICK_CLKDIV);
-
-    if (true == CLOCK_IsDivHalt(clkdiv))
-    {
-        return 0;
-    }
-
-    switch (clksel)
-    {
-        case 0U:
-            freq = CLOCK_GetCoreSysClkFreq();
-            break;
-        case 1U:
-            freq = CLOCK_GetClk1MFreq();
-            break;
-        case 2U:
-            freq = CLOCK_GetClk16KFreq(1);
-            break;
-        default:
-            freq = 0U;
-            break;
-    }
-
-    return freq / ((clkdiv & 0xFFU) + 1U);
-}
-
-/*! brief  Return Frequency of Systick Clock
- *  return Frequency of Systick.
+/*! brief  Return Frequency of WWDT Clock
+ *  return Frequency of WWDT.
  */
 uint32_t CLOCK_GetWwdtClkFreq(void)
 {

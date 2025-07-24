@@ -21,8 +21,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.0.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+/*! @brief CLOCK driver version 2.0.1. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
 /*@}*/
 
 /*! @brief Configure whether driver controls clock
@@ -52,7 +52,11 @@
 
 /* Definition for delay API in clock driver, users can redefine it to the real application. */
 #ifndef SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY
+#if FSL_FEATURE_FIRC_SUPPORT_240M
 #define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (180000000U)
+#else
+#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (240000000U)
+#endif
 #endif
 
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */
@@ -273,14 +277,14 @@ typedef enum _clock_ip_name
         }                                                                                  \
     }
 /*! @brief Clock ip name array for PKC. */
-#define PKC_CLOCKS        \
-    {                     \
-        kCLOCK_GatePKC0 \ \
+#define PKC_CLOCKS      \
+    {                   \
+        kCLOCK_GatePKC0 \
     }
 /*! @brief Clock ip name array for PORT. */
-#define PORT_CLOCKS                                                                                \
-    {                                                                                              \
-        kCLOCK_GatePORT0, kCLOCK_GatePORT1, kCLOCK_GatePORT2, kCLOCK_GatePORT3, kCLOCK_GatePORT4 \ \
+#define PORT_CLOCKS                                                                              \
+    {                                                                                            \
+        kCLOCK_GatePORT0, kCLOCK_GatePORT1, kCLOCK_GatePORT2, kCLOCK_GatePORT3, kCLOCK_GatePORT4 \
     }
 /*! @brief Clock ip name array for QDC. */
 #define QDC_CLOCKS                       \
@@ -298,8 +302,8 @@ typedef enum _clock_ip_name
         kCLOCK_GateSLCD0 \
     }
 /*! @brief Clock ip name array for SMARTDMA. */
-#define SMARTDMA_CLOCKS      \
-    {                        \
+#define SMARTDMA_CLOCKS \
+    {                   \
         kCLOCK_Smartdma \
     }
 /*! @brief Clock ip name array for TDET. */
@@ -910,7 +914,7 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name);
 void CLOCK_HaltClockDiv(clock_div_name_t div_name);
 
 /**
- * @brief   Initialize the FROHF to given frequency (48,64,96,192).
+ * @brief   Initialize the FROHF to given frequency.
  * This function turns on FIRC and select the given frequency as the source of fro_hf
  * @param   iFreq   : Desired frequency.
  * @return  returns success or fail status.

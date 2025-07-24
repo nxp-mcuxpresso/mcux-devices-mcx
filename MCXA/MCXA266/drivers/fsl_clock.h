@@ -21,8 +21,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.0.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+/*! @brief CLOCK driver version 2.0.1. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
 /*@}*/
 
 /*! @brief Configure whether driver controls clock
@@ -52,7 +52,11 @@
 
 /* Definition for delay API in clock driver, users can redefine it to the real application. */
 #ifndef SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY
+#if FSL_FEATURE_FIRC_SUPPORT_240M
 #define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (180000000U)
+#else
+#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (240000000U)
+#endif
 #endif
 
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */
@@ -273,14 +277,14 @@ typedef enum _clock_ip_name
         }                                                                                  \
     }
 /*! @brief Clock ip name array for PKC. */
-#define PKC_CLOCKS        \
-    {                     \
-        kCLOCK_GatePKC0 \ \
+#define PKC_CLOCKS      \
+    {                   \
+        kCLOCK_GatePKC0 \
     }
 /*! @brief Clock ip name array for PORT. */
-#define PORT_CLOCKS                                                                                \
-    {                                                                                              \
-        kCLOCK_GatePORT0, kCLOCK_GatePORT1, kCLOCK_GatePORT2, kCLOCK_GatePORT3, kCLOCK_GatePORT4 \ \
+#define PORT_CLOCKS                                                                              \
+    {                                                                                            \
+        kCLOCK_GatePORT0, kCLOCK_GatePORT1, kCLOCK_GatePORT2, kCLOCK_GatePORT3, kCLOCK_GatePORT4 \
     }
 /*! @brief Clock ip name array for QDC. */
 #define QDC_CLOCKS                       \
@@ -298,8 +302,8 @@ typedef enum _clock_ip_name
         kCLOCK_GateSLCD0 \
     }
 /*! @brief Clock ip name array for SMARTDMA. */
-#define SMARTDMA_CLOCKS      \
-    {                        \
+#define SMARTDMA_CLOCKS \
+    {                   \
         kCLOCK_Smartdma \
     }
 /*! @brief Clock ip name array for TDET. */
@@ -394,7 +398,6 @@ typedef enum _clock_select_name
     kCLOCK_SelLPUART5   = (0x1A0U), /*!< LPUART5   clock selection */
     kCLOCK_SelTRACE     = (0x1A8U), /*!< TRACE     clock selection */
     kCLOCK_SelCLKOUT    = (0x1B0U), /*!< CLKOUT    clock selection */
-    kCLOCK_SelSYSTICK   = (0x1B8U), /*!< SYSTICK   clock selection */
     kCLOCK_SelSCGSCS    = (0x200U), /*!< SCG SCS   clock selection */
     kCLOCK_SelMax       = (0x200U), /*!< MAX       clock selection */
 } clock_select_name_t;
@@ -631,11 +634,6 @@ typedef enum _clock_attach_id
     kSLOW_CLK_to_CLKOUT   = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 6U),      /*!< Attach SLOW_CLK to CLKOUT.   */
     kNONE_to_CLKOUT       = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 7U),      /*!< Attach NONE to CLKOUT.       */
 
-    kCPU_CLK_to_SYSTICK = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 0U),       /*!< Attach CPU_CLK to SYSTICK. */
-    kCLK_1M_to_SYSTICK  = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 1U),       /*!< Attach CLK_1M to SYSTICK.  */
-    kCLK_16K_to_SYSTICK = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 2U),       /*!< Attach CLK_16K to SYSTICK. */
-    kNONE_to_SYSTICK    = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 3U),       /*!< Attach NONE to SYSTICK.    */
-
     kNONE_to_NONE = (0xFFFFFFFFU),                                     /*!< Attach NONE to NONE. */
 
 } clock_attach_id_t;
@@ -677,7 +675,6 @@ typedef enum _clock_div_name
     kCLOCK_DivLPUART5   = (0x1A4U), /*!< LPUART5   clock divider */
     kCLOCK_DivTRACE     = (0x1ACU), /*!< DBG_TRACE clock divider */
     kCLOCK_DivCLKOUT    = (0x1B4U), /*!< CLKOUT    clock divider */
-    kCLOCK_DivSYSTICK   = (0x1BCU), /*!< SYSTICK   clock divider */
     kCLOCK_DivSLOWCLK   = (0x378U), /*!< SLOWCLK   clock divider */
     kCLOCK_DivBUSCLK    = (0x37CU), /*!< BUSCLK    clock divider */
     kCLOCK_DivAHBCLK    = (0x380U), /*!< AHBCLK    clock divider */
@@ -917,7 +914,7 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name);
 void CLOCK_HaltClockDiv(clock_div_name_t div_name);
 
 /**
- * @brief   Initialize the FROHF to given frequency (48,64,96,192).
+ * @brief   Initialize the FROHF to given frequency.
  * This function turns on FIRC and select the given frequency as the source of fro_hf
  * @param   iFreq   : Desired frequency.
  * @return  returns success or fail status.
@@ -1032,13 +1029,8 @@ uint32_t CLOCK_GetTraceClkFreq(void);
  */
 uint32_t CLOCK_GetClkoutClkFreq(void);
 
-/*! @brief  Return Frequency of Systick Clock
- *  @return Frequency of Systick.
- */
-uint32_t CLOCK_GetSystickClkFreq(void);
-
-/*! brief  Return Frequency of Systick Clock
- *  return Frequency of Systick.
+/*! brief  Return Frequency of WWDT Clock
+ *  return Frequency of WWDT.
  */
 uint32_t CLOCK_GetWwdtClkFreq(void);
 

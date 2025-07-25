@@ -237,7 +237,6 @@ typedef enum _clock_select_name
     kCLOCK_SelFLEXCAN0 = (0x148U), /*!< FLEXCAN0  clock selection */
     kCLOCK_SelTRACE    = (0x150U), /*!< TRACE     clock selection */
     kCLOCK_SelCLKOUT   = (0x158U), /*!< CLKOUT    clock selection */
-    kCLOCK_SelSYSTICK  = (0x160U), /*!< SYSTICK   clock selection */
     kCLOCK_SelSCGSCS   = (0x200U), /*!< SCG SCS   clock selection */
     kCLOCK_SelMax      = (0x200U), /*!< MAX       clock selection */
 } clock_select_name_t;
@@ -377,11 +376,6 @@ typedef enum _clock_attach_id
     kSLOW_CLK_to_CLKOUT   = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 6U),     /*!< Attach SLOW_CLK to CLKOUT.   */
     kNONE_to_CLKOUT       = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 7U),     /*!< Attach NONE to CLKOUT.       */
 
-    kCPU_CLK_to_SYSTICK = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 0U),      /*!< Attach CPU_CLK to SYSTICK. */
-    kCLK_1M_to_SYSTICK  = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 1U),      /*!< Attach CLK_1M to SYSTICK.  */
-    kCLK_16K_to_SYSTICK = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 2U),      /*!< Attach CLK_16K to SYSTICK. */
-    kNONE_to_SYSTICK    = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 3U),      /*!< Attach NONE to SYSTICK.    */
-
     kNONE_to_NONE = (0xFFFFFFFFU),                                    /*!< Attach NONE to NONE. */
 
 } clock_attach_id_t;
@@ -412,7 +406,6 @@ typedef enum _clock_div_name
     kCLOCK_DivFLEXCAN0  = (0x14CU), /*!< FLEXCAN0  clock divider */
     kCLOCK_DivTRACE     = (0x154U), /*!< DBG_TRACE clock divider */
     kCLOCK_DivCLKOUT    = (0x15CU), /*!< CLKOUT    clock divider */
-    kCLOCK_DivSYSTICK   = (0x164U), /*!< SYSTICK   clock divider */
     kCLOCK_DivSLOWCLK   = (0x378U), /*!< SLOWCLK   clock divider */
     kCLOCK_DivBUSCLK    = (0x37CU), /*!< BUSCLK    clock divider */
     kCLOCK_DivAHBCLK    = (0x380U), /*!< AHBCLK    clock divider */
@@ -750,13 +743,8 @@ uint32_t CLOCK_GetTraceClkFreq(void);
  */
 uint32_t CLOCK_GetClkoutClkFreq(void);
 
-/*! @brief  Return Frequency of Systick Clock
- *  @return Frequency of Systick.
- */
-uint32_t CLOCK_GetSystickClkFreq(void);
-
-/*! brief  Return Frequency of Systick Clock
- *  return Frequency of Systick.
+/*! brief  Return Frequency of WWDT Clock
+ *  return Frequency of WWDT.
  */
 uint32_t CLOCK_GetWwdtClkFreq(void);
 

@@ -51,7 +51,11 @@
 
 /* Definition for delay API in clock driver, users can redefine it to the real application. */
 #ifndef SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY
+#if defined(MCXN556S_cm33_core0_SERIES) || defined(MCXN556S_cm33_core1_SERIES)
+#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (170000000UL)
+#else
 #define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (150000000UL)
+#endif
 #endif
 
 /*! @brief Clock ip name array for ROM. */

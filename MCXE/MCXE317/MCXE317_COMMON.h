@@ -11,7 +11,7 @@
 **
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.0, 2025-07-18
-**     Build:               b250718
+**     Build:               b250728
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE317
@@ -124,8 +124,8 @@ typedef enum IRQn {
   SWT0_IRQn                    = 42,               /**< Platform watchdog initial time-out */
   Reserved59_IRQn              = 43,               /**< Reserved interrupt */
   Reserved60_IRQn              = 44,               /**< Reserved interrupt */
-  Reserved61_IRQn              = 45,               /**< Reserved interrupt */
-  Reserved62_IRQn              = 46,               /**< Reserved interrupt */
+  CTI_INT0_IRQn                = 45,               /**< CTI interrupt0 */
+  CTI_INT1_IRQn                = 46,               /**< CTI interrupt1 */
   Reserved63_IRQn              = 47,               /**< Reserved interrupt */
   FLASH_0_IRQn                 = 48,               /**< Program or erase operation is completed */
   FLASH_1_IRQn                 = 49,               /**< Main watchdog timeout interrupt */
@@ -248,7 +248,7 @@ typedef enum IRQn {
   Reserved201_IRQn             = 185,              /**< Reserved interrupt */
   FCCU_0_IRQn                  = 189,              /**< Interrupt request (ALARM state) */
   FCCU_1_IRQn                  = 190,              /**< Interrupt request (miscellaneous conditions) */
-  Reserved207_IRQn             = 191,              /**< Reserved interrupt */
+  STCU_IRQn                    = 191,              /**< LBIST and MBIST IRQ */
   MU0_B_TX_IRQn                = 192,              /**< ORed TX interrupt to MU-0 */
   MU0_B_RX_IRQn                = 193,              /**< ORed RX interrupt to MU-0 */
   MU0_B_IRQn                   = 194,              /**< ORed general purpose interrupt request to MU-0 */

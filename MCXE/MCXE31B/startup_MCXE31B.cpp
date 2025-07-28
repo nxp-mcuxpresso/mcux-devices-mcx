@@ -2,7 +2,7 @@
 //*****************************************************************************
 // MCXE31B startup code
 //
-// Version : 120625
+// Version : 280725
 //*****************************************************************************
 //
 // Copyright 2016-2025 NXP
@@ -130,8 +130,8 @@ WEAK void Reserved57_IRQHandler(void);
 WEAK void SWT0_IRQHandler(void);
 WEAK void Reserved59_IRQHandler(void);
 WEAK void Reserved60_IRQHandler(void);
-WEAK void Reserved61_IRQHandler(void);
-WEAK void Reserved62_IRQHandler(void);
+WEAK void CTI_INT0_IRQHandler(void);
+WEAK void CTI_INT1_IRQHandler(void);
 WEAK void Reserved63_IRQHandler(void);
 WEAK void FLASH_0_IRQHandler(void);
 WEAK void FLASH_1_IRQHandler(void);
@@ -276,7 +276,7 @@ WEAK void Reserved203_IRQHandler(void);
 WEAK void Reserved204_IRQHandler(void);
 WEAK void FCCU_0_IRQHandler(void);
 WEAK void FCCU_1_IRQHandler(void);
-WEAK void Reserved207_IRQHandler(void);
+WEAK void STCU_IRQHandler(void);
 WEAK void MU0_B_TX_IRQHandler(void);
 WEAK void MU0_B_RX_IRQHandler(void);
 WEAK void MU0_B_IRQHandler(void);
@@ -354,8 +354,8 @@ void Reserved57_DriverIRQHandler(void) ALIAS(DefaultISR);
 void SWT0_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved59_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved60_DriverIRQHandler(void) ALIAS(DefaultISR);
-void Reserved61_DriverIRQHandler(void) ALIAS(DefaultISR);
-void Reserved62_DriverIRQHandler(void) ALIAS(DefaultISR);
+void CTI_INT0_DriverIRQHandler(void) ALIAS(DefaultISR);
+void CTI_INT1_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved63_DriverIRQHandler(void) ALIAS(DefaultISR);
 void FLASH_0_DriverIRQHandler(void) ALIAS(DefaultISR);
 void FLASH_1_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -463,7 +463,7 @@ void Reserved203_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved204_DriverIRQHandler(void) ALIAS(DefaultISR);
 void FCCU_0_DriverIRQHandler(void) ALIAS(DefaultISR);
 void FCCU_1_DriverIRQHandler(void) ALIAS(DefaultISR);
-void Reserved207_DriverIRQHandler(void) ALIAS(DefaultISR);
+void STCU_DriverIRQHandler(void) ALIAS(DefaultISR);
 void MU0_B_TX_DriverIRQHandler(void) ALIAS(DefaultISR);
 void MU0_B_RX_DriverIRQHandler(void) ALIAS(DefaultISR);
 void MU0_B_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -655,8 +655,8 @@ void (* const __isr_vector[])(void) = {
     SWT0_IRQHandler,               // 58 : Platform watchdog initial time-out
     Reserved59_IRQHandler,         // 59 : Reserved interrupt
     Reserved60_IRQHandler,         // 60 : Reserved interrupt
-    Reserved61_IRQHandler,         // 61 : Reserved interrupt
-    Reserved62_IRQHandler,         // 62 : Reserved interrupt
+    CTI_INT0_IRQHandler,           // 61 : CTI interrupt0
+    CTI_INT1_IRQHandler,           // 62 : CTI interrupt1
     Reserved63_IRQHandler,         // 63 : Reserved interrupt
     FLASH_0_IRQHandler,            // 64 : Program or erase operation is completed
     FLASH_1_IRQHandler,            // 65 : Main watchdog timeout interrupt
@@ -801,7 +801,7 @@ void (* const __isr_vector[])(void) = {
     Reserved204_IRQHandler,        // 204: Reserved interrupt
     FCCU_0_IRQHandler,             // 205: Interrupt request(ALARM state)
     FCCU_1_IRQHandler,             // 206: Interrupt request(miscellaneous conditions)
-    Reserved207_IRQHandler,        // 207: Reserved interrupt
+    STCU_IRQHandler,               // 207: LBIST and MBIST IRQ
     MU0_B_TX_IRQHandler,           // 208: ORed TX interrupt to MU-0
     MU0_B_RX_IRQHandler,           // 209: ORed RX interrupt to MU-0
     MU0_B_IRQHandler,              // 210: ORed general purpose interrupt request to MU-0
@@ -1506,14 +1506,14 @@ WEAK void Reserved60_IRQHandler(void)
     Reserved60_DriverIRQHandler();
 }
 
-WEAK void Reserved61_IRQHandler(void)
+WEAK void CTI_INT0_IRQHandler(void)
 {
-    Reserved61_DriverIRQHandler();
+    CTI_INT0_DriverIRQHandler();
 }
 
-WEAK void Reserved62_IRQHandler(void)
+WEAK void CTI_INT1_IRQHandler(void)
 {
-    Reserved62_DriverIRQHandler();
+    CTI_INT1_DriverIRQHandler();
 }
 
 WEAK void Reserved63_IRQHandler(void)
@@ -2236,9 +2236,9 @@ WEAK void FCCU_1_IRQHandler(void)
     FCCU_1_DriverIRQHandler();
 }
 
-WEAK void Reserved207_IRQHandler(void)
+WEAK void STCU_IRQHandler(void)
 {
-    Reserved207_DriverIRQHandler();
+    STCU_DriverIRQHandler();
 }
 
 WEAK void MU0_B_TX_IRQHandler(void)

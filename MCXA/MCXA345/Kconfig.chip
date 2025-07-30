@@ -139,6 +139,11 @@ config MCUX_HW_IP_DriverType_DBGMB
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA345
 
+config MCUX_HW_IP_DriverType_DIGTMP
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA345
+
 config MCUX_HW_IP_DriverType_EDMA3
     bool
     default y

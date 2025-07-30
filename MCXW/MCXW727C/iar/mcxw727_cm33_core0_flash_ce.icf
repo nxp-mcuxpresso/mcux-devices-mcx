@@ -51,7 +51,7 @@ define symbol m_data1_end                       = 0x20027FFF - __size_cstack__;
 define symbol m_stack_start                    = 0x20028000 - __size_cstack__;
 define symbol m_stack_end                      = 0x20027FFF;
 
-define symbol m_data_dspv_start                = 0x20028000;
+define symbol m_data_dspv_start                = 0x20029000;
 define symbol m_data_dspv_end                  = 0x20037FFF;
 
 define memory mem with size = 4G;

@@ -37,7 +37,7 @@ MEMORY
   m_text                (RX)  : ORIGIN = 0x00000400, LENGTH = 0x001FFC00
   m_data0               (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00016000
   m_data1               (RW)  : ORIGIN = 0x20016000, LENGTH = 0x00012000
-  m_data_dspv           (RW)  : ORIGIN = 0x20028000, LENGTH = 0x00010000
+  m_data_dspv           (RW)  : ORIGIN = 0x20029000, LENGTH = 0x0000F000
 }
 
 /* Define output sections */

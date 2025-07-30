@@ -52,17 +52,6 @@
 #endif
 #endif
 
-/*! @brief External XTAL32/EXTAL32 clock frequency.
- *
- * The XTAL32/EXTAL32 clock frequency in Hz. When the clock is set up, use the
- * function CLOCK_SetXtal32Freq to set the value in the clock driver.
- *
- * This is important for the multicore platforms where only one core needs to set up
- * the clock. All other cores need to call the CLOCK_SetXtal32Freq
- * to get a valid clock frequency.
- */
-extern volatile uint32_t g_xtal32Freq;
-
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */
 /*------------------------------------------------------------------------------
  clock_ip_name_t definition:
@@ -143,6 +132,7 @@ typedef enum _clock_ip_name
     kCLOCK_GateAonLCD        = ((1U<<24U) | (14U)),                    /*!< Clock gate name: AON LCD        */
     kCLOCK_GateAonAVDC2P0    = ((1U<<24U) | (15U)),                    /*!< Clock gate name: AON AVDC2P0    */
     kCLOCK_GateAonINPUTMUX1  = ((1U<<24U) | (16U)),                    /*!< Clock gate name: AON INPUTMUX   */
+    kCLOCK_GateAonRootAux    = ((1U<<24U) | (17U)),                    /*!< Clock gate name: AON Root Aux CLK*/
 
     kCLOCK_GateNotAvail      = (0xFFFFFFFFU),                          /**< Clock gate name: None           */
 } clock_ip_name_t;
@@ -752,6 +742,10 @@ static inline void CLOCK_EnableClock(clock_ip_name_t clk)
         {
             AON__SYSCON_AON->INPUTMUXCLKCTRL = SYSCON_AON_INPUTMUXCLKCTRL_INPUTMUX_CLK_CTRL(0);
         }
+        else if(clk == kCLOCK_GateAonRootAux) 
+        {
+            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
+        }
         else
         {
             AON__CGU->PER_CLK_EN |= (1UL << bit_shift);
@@ -808,7 +802,14 @@ static inline void CLOCK_DisableClock(clock_ip_name_t clk)
 
     if (CLK_OF_AON(clk))
     {
-        AON__CGU->PER_CLK_EN &= ~(1UL << bit_shift);
+        if(clk == kCLOCK_GateAonRootAux) 
+        {
+            AON__CGU->CLK_CONFIG &= ~(CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK);
+        }
+        else
+        {
+            AON__CGU->PER_CLK_EN &= ~(1UL << bit_shift);
+        }
     }
 #if __CORTEX_M == (33U) /* Building on the main core */
     else
@@ -933,21 +934,17 @@ status_t CLOCK_SetupFROHFClocking(uint32_t iFreq, uint8_t div_sel);
  */
 status_t CLOCK_SetupFRO12MClocking(void);
 
+#endif /* Building on the main core */
+
 /*!
- * brief Initializes the SCG ROSC.
+ * @brief Initializes the ROSC (xtal32k).
  *
- * This function enables the SCG ROSC clock according to the
- * configuration.
- *
- * param config   Pointer to the configuration structure.
- * retval kStatus_Success ROSC is initialized.
- * retval kStatus_SCG_Busy ROSC has been enabled and is used by the system clock.
- * retval kStatus_ReadOnly ROSC control register is locked.
- *
- * note This function can't detect whether the system OSC has been enabled and
- * used by an IP.
+ * @param vbat_over3V  Set to true is vbat voltage is greater than 3V
+ * @retval kStatus_Success ROSC is initialized.
+ *        kStatus_Fail ROSC init failed.
+ *        kStatus_Busy ROSC is used as core clock.
  */
-status_t CLOCK_InitRosc(const scg_rosc_config_t *config);
+status_t CLOCK_InitRosc(bool vbat_over3V);
 
 /*!
  * brief De-initializes the SCG ROSC.
@@ -955,14 +952,9 @@ status_t CLOCK_InitRosc(const scg_rosc_config_t *config);
  * This function disables the SCG ROSC clock.
  *
  * retval kStatus_Success System OSC is deinitialized.
- * retval kStatus_SCG_Busy System OSC is used by the system clock.
- * retval kStatus_ReadOnly System OSC control register is locked.
- *
- * note This function can't detect whether the ROSC is used by an IP.
+ * retval kStatus_Busy ROSC is used by core.
  */
 status_t CLOCK_DeinitRosc(void);
-
-#endif /* Building on the main core */
 
 /*! @brief  Return Frequency of selected clock
  *  @return Frequency of selected clock
@@ -1117,15 +1109,6 @@ static inline void CLOCK_LockRoscControlStatusReg(void)
 
 #endif /* Building on the main core */
 
-/*!
- * @brief Sets the XTAL32 frequency based on board settings.
- *
- * @param freq The XTAL32/EXTAL32 input clock frequency in Hz.
- */
-static inline void CLOCK_SetXtal32Freq(uint32_t freq)
-{
-    g_xtal32Freq = freq;
-}
 
 #if __CORTEX_M == (33U) /* Building on the main core */
 /*!

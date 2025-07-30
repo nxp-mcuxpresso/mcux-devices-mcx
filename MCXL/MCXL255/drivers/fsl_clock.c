@@ -35,8 +35,6 @@ typedef enum _clock_aon_chg
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/*! @brief External RTC XTAL32K clock frequency. */
-volatile uint32_t g_xtal32Freq;
 
 /*******************************************************************************
  * Prototypes
@@ -82,6 +80,20 @@ static inline bool CLOCK_IsDivHalt(uint32_t div_value)
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+static void delay_ms(const uint32_t delay_ms)
+{
+#if __CORTEX_M == (33U) /* Building on the main core */
+    const uint32_t  coreClock_Hz = CLOCK_GetCoreSysClkFreq();
+#else
+    const uint32_t  coreClock_Hz = CLOCK_GetAonCoreSysClkFreq();
+#endif
+    assert(coreClock_Hz > 0U);
+    assert(delay_ms <= (UINT32_MAX/1000U)); 
+    
+    SDK_DelayAtLeastUs(delay_ms * 1000U, coreClock_Hz);
+}
+
 
 static void ADVC_PreChg(const clock_aon_chg_t change, uint32_t newValue)
 {
@@ -674,41 +686,175 @@ status_t CLOCK_SetupFRO12MClocking(void)
     return (status_t)kStatus_Success;
 }
 
-/*!
- * brief Initializes the SCG ROSC.
- *
- * This function enables the SCG ROSC clock according to the
- * configuration.
- *
- * param config   Pointer to the configuration structure.
- * retval kStatus_Success ROSC is initialized.
- * retval kStatus_Busy ROSC has been enabled and is used by the system clock.
- * retval kStatus_ReadOnly ROSC control register is locked.
- *
- * note This function can't detect whether the system OSC has been enabled and
- * used by an IP.
- */
-status_t CLOCK_InitRosc(const scg_rosc_config_t *config)
+#endif /* Building on the main core */
+
+static status_t is_xtal_clkout_vbat_ok()
 {
-    assert(config);
-    status_t status;
+    const uint32_t ok = (AON__SMM->RTC_ANLG_XTAL & SMM_RTC_ANLG_XTAL_RTC_ALV_INDCTN_MASK);
+  
+    return (0U != ok) ? (status_t)kStatus_Success : (status_t)kStatus_Fail;
+}
 
-    /* De-init the ROSC first. */
-    status = CLOCK_DeinitRosc();
+/*!
+ * brief Initializes the ROSC (xtal32k).
+ *
+ * param vbat_over3V  Set to true is vbat voltage is greater than 3V
+ * retval kStatus_Success ROSC is initialized.
+ *        kStatus_Fail ROSC init failed.
+ *        kStatus_Busy ROSC is used as core clock.
+ */
+status_t CLOCK_InitRosc(bool vbat_over3V)
+{
+  status_t status;
+  uint32_t supdet;
+  
+  // Set the XTAL32 Output Enable
+  AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_XTAL32_OUT_EN_MASK;
+  delay_ms(1U); 
+  
+  // reset RTC_AON
+  AON__RTC_AON->CONFIG &= ~RTC_CONFIG_SW_RST_MASK;
+  delay_ms(4U); 
+  
+  // Set RTC_ANA_RESET_N_VBAT and RTC_DIG_RESE_N to 1'b0 to put in reset (Do ana 3 times)
+  AON__SMM->RTC_DCDC_CNTRL &= ~(SMM_RTC_DCDC_CNTRL_DGTL_RST_N_MASK | SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK);
+  delay_ms(1U); 
 
-    if (kStatus_Success != status)
+
+  // Release reset for ANA
+  AON__SMM->RTC_DCDC_CNTRL |= SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK;
+  delay_ms(3U); 
+  AON__SMM->RTC_DCDC_CNTRL |= SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK;
+  delay_ms(3U);
+  AON__SMM->RTC_DCDC_CNTRL |= SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK;
+  delay_ms(1U);
+
+  // Enable current mirror
+  AON__SMM->RTC_XTAL_CONFG1 |= SMM_RTC_XTAL_CONFG1_CRNT_MROR_EN_MASK;
+  delay_ms(1U);
+
+  AON__SMM->BIAS_CTRL &= ~(SMM_BIAS_CTRL_EN_OSC_IREF_CM_TRIM_1NA_MASK | SMM_BIAS_CTRL_EN_OSC_IREF_CM_TRIM_2NA_MASK);
+  delay_ms(2U);
+
+  // enable 32khz
+  AON__SYSCON_AON->XTAL_32K_CLKCTRL &= ~SYSCON_AON_XTAL_32K_CLKCTRL_XTAL_32K_CLK_CTRL_MASK;
+  delay_ms(1U);
+
+  // Configure  RTC_XO settings CMP_IBIAS_SOX and DLY_IBIAS_SOX are TBD based on validation
+  AON__SMM->RTC_XTAL_CONFG1 &= ~(SMM_RTC_XTAL_CONFG1_AMPSEL_MASK | SMM_RTC_XTAL_CONFG1_CMP_IBIAS_SOX_MASK);
+  delay_ms(2U); 
+
+  AON__SMM->RTC_XTAL_CONFG2 &= ~(SMM_RTC_XTAL_CONFG2_DLY_IBIAS_SOX_MASK | SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX_MASK | SMM_RTC_XTAL_CONFG2_HYSTEL_MASK | SMM_RTC_XTAL_CONFG2_GMSEL_MASK);
+  delay_ms(1U);
+
+  // XTAL_SUPDET_TM_SOX_VBAT=2'b00 if VBAT <3 VXTAL_SUPDET_TM_SOX_VBAT=2'b01 if VBAT >=3
+  supdet = (vbat_over3V) ? 1U : 0U;
+  AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_SUPDET_TM_SOX_MASK) | SMM_RTC_XTAL_CONFG2_SUPDET_TM_SOX(supdet);
+  delay_ms(2U);
+
+  AON__SMM->RTC_ANLG_XTAL &= ~SMM_RTC_ANLG_XTAL_RTC_ALV_INDCTN_MASK;
+  delay_ms(1U);
+  AON__SMM->RTC_XTAL_CONFG2 &= ~SMM_RTC_XTAL_CONFG2_XTM_MASK;
+  delay_ms(1U);
+
+  AON__SMM->BIAS_CTRL &= ~(SMM_BIAS_CTRL_BIAS_EN_MASK | SMM_BIAS_CTRL_COARSE_MASK);
+  delay_ms(1U);
+
+  // Configure the load cap for RTC XO swithced mode
+  AON__SMM->RTC_XTAL_CONFG2 |= SMM_RTC_XTAL_CONFG2_CAP_BNK_EN_MASK;
+  delay_ms(3U);
+  AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) | SMM_RTC_XTAL_CONFG1_CB_XI(0x3);
+  delay_ms(1U);
+  AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XO_MASK) | SMM_RTC_XTAL_CONFG1_CB_XO(0x3);//THIS MISSING FROM SE
+  delay_ms(1U);
+  AON__SMM->BIAS_CTRL |= SMM_BIAS_CTRL_XTAL_SOX_4P_DIS_MASK;
+  delay_ms(2U);
+
+  // Enable RTC Alive Detector in SMM
+  AON__SMM->RTC_ANLG_XTAL |= SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
+  delay_ms(2U);
+  
+  /* LOCK  --------------------------------------- */
+  
+  status = (status_t)kStatus_Success;
+
+  for (uint32_t dly_cap_sox = 0; dly_cap_sox <= 7; dly_cap_sox++)
+  {
+    if (dly_cap_sox == 4)
     {
-        return status;
+      /*Sweep from 3'd0 to 3'd7 except 3'd4 */
+      delay_ms(1U);
+      continue;
     }
 
-    CLOCK_SetRoscMonitorMode(config->monitorMode);
-
-    /* Wait for ROSC clock to be valid. */
-    while ((SCG0->ROSCCSR & SCG_ROSCCSR_ROSCVLD_MASK) != SCG_ROSCCSR_ROSCVLD_MASK)
+    AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX_MASK) | SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX(dly_cap_sox);
+    delay_ms(1U);
+    for (uint32_t ampsel = 2; ampsel <= 3; ampsel++)
     {
-    }
+      AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_AMPSEL_SHIFT) | SMM_RTC_XTAL_CONFG1_AMPSEL(ampsel);
+      delay_ms(1U);
 
-    return (status_t)kStatus_Success;
+      for (uint32_t gmsel = 0; gmsel <= 3; gmsel++)
+      {
+        delay_ms(1U);
+
+        AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_GMSEL_MASK) | SMM_RTC_XTAL_CONFG2_GMSEL(gmsel);
+        delay_ms(1U);//added 05/14
+        /*
+         * Enable the RTC XO:
+         * Phase 1: Startup Mode
+         * 1)XTAL_EN=1'b1, XTAL_EN_SOX=1'b1
+         * Wait 500ms (typical)/2s (worst)
+         */
+        AON__SMM->RTC_XTAL_CONFG1 |= SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
+        delay_ms(1U);//added 05/14
+        AON__SMM->RTC_XTAL_CONFG2 |= SMM_RTC_XTAL_CONFG2_SOX_EN_MASK;
+        delay_ms(500U);
+        if (is_xtal_clkout_vbat_ok() == (status_t)kStatus_Success)
+        {
+          delay_ms(1U);
+          goto good_pair_l;
+        }
+        /*
+         * Disable the XO by XTAL_EN=1'b0 and then try each of the possible combinations:
+         *  1) XTAL_AMPSEL=2'd2 and 2'd3
+         *  2) XTAL_GMSEL=2'd0 to 2'd3
+         */
+        AON__SMM->RTC_XTAL_CONFG1 &= ~SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
+
+      }
+    }
+    status = (status_t)kStatus_Fail;
+    goto exit_l;
+
+  good_pair_l:
+    /*
+     * Good pair of ampsel and gmsel were found
+     * XO started and ready to move to switched mode.
+     * Phase 2: Switched Mode
+     * 1)XTAL_EN=1'b1, XTAL_EN_SOX=1'b1, XTAL_CB_XI=4'd0
+     * Wait 
+     * 2) Toggle XTAL_EN_SOX=1'b0 and wait 
+     */
+    AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) | SMM_RTC_XTAL_CONFG1_CB_XI(0x0);
+    delay_ms(2000U);
+    AON__SMM->RTC_XTAL_CONFG2 &= ~SMM_RTC_XTAL_CONFG2_SOX_EN_MASK;
+    delay_ms(1000U);
+    if (is_xtal_clkout_vbat_ok() == (status_t)kStatus_Success)
+    {
+      status = (status_t)kStatus_Success;
+      delay_ms(1U);
+      goto exit_l;
+    }
+    /*
+     * Disable the XO by XTAL_EN=1'b0 and then change the charge injection
+     */
+    AON__SMM->RTC_XTAL_CONFG1 &= ~SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
+  }
+  status = (status_t)kStatus_Fail; //RTC_LOCK_STATUS_CRYSTAL_NOT_LOCKED_AFTER_SWITCHED_MODE;
+  delay_ms(1U);
+exit_l:  
+  return status;
 }
 
 /*!
@@ -717,34 +863,37 @@ status_t CLOCK_InitRosc(const scg_rosc_config_t *config)
  * This function disables the SCG ROSC clock.
  *
  * retval kStatus_Success System OSC is deinitialized.
- * retval kStatus_Busy System OSC is used by the system clock.
- * retval kStatus_ReadOnly System OSC control register is locked.
- *
- * note This function can't detect whether the ROSC is used by an IP.
+ * retval kStatus_Busy ROSC is used by core.
  */
 status_t CLOCK_DeinitRosc(void)
 {
-    uint32_t reg = SCG0->ROSCCSR;
-
-    /* If clock is used by system, return error. */
-    if ((reg & SCG_ROSCCSR_ROSCSEL_MASK) == SCG_ROSCCSR_ROSCSEL_MASK)
+    uint32_t clk;
+#if __CORTEX_M == (33U) /* Building on the main core */
+    clk = CLOCK_GetClockSelect(kCLOCK_SelSCGSCS);
+    if(clk == 4U)
     {
-        return (status_t)kStatus_Busy;
+        /* Main core uses Rosc */
+        return kStatus_Busy;
     }
-
-    /* If configure register is locked, return error. */
-    if ((reg & SCG_ROSCCSR_LK_MASK) == SCG_ROSCCSR_LK_MASK)
+#else  
+    clk = CLOCK_GetClockSelect(kCLOKC_SelAonROOT);
+    if(clk == 3U)
     {
-        return (status_t)kStatus_ReadOnly;
+        /* AON core uses root aux clk... */
+        clk = CLOCK_GetClockSelect(kCLOKC_SelAonROOT_AUX);
+        if(clk == 0U)
+        {
+            /* ... aon aon root aux clk uses Rosc*/
+            return kStatus_Busy;
+        }
     }
-
-    /* De-initializes the SCG ROSC */
-    
+#endif  
+  
+    AON__SMM->RTC_DCDC_CNTRL &= ~(SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK | 
+                                  SMM_RTC_DCDC_CNTRL_DGTL_RST_N_MASK);   
 
     return (status_t)kStatus_Success;
 }
-
-#endif /* Building on the main core */
 
 /* Get IP Clk */
 /*! brief  Return Frequency of selected clock
@@ -956,9 +1105,7 @@ uint32_t CLOCK_GetRtcOscFreq(void)
     else
 #endif
     {
-        /* Please call CLOCK_SetXtal32Freq base on board setting before using RTC OSC clock. */
-        assert(g_xtal32Freq);
-        return g_xtal32Freq;
+        return 32768;
     }
 }
 
@@ -1021,9 +1168,7 @@ static uint32_t CLOCK_GetSysOscFreq(void)
 {
     if ((SCG0->ROSCCSR & SCG_ROSCCSR_ROSCVLD_MASK) == SCG_ROSCCSR_ROSCVLD_MASK) /* SOSC clock is valid. */
     {
-        /* Please call CLOCK_SetXtal32Freq base on board setting before using RTC OSC clock. */
-        assert(g_xtal32Freq);
-        return g_xtal32Freq;
+        return 32768U;
     }
     else
     {

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250623
+**     Build:               b250730
 **
 **     Abstract:
 **         Chip specific module features.
@@ -340,8 +340,6 @@
 
 /* FLEXIO module features */
 
-/* @brief Has DOZEN bit(CTRL[DOZEN]) */
-#define FSL_FEATURE_FLEXIO_HAS_DOZE_MODE_SUPPORT (1)
 /* @brief FLEXIO support reset from RSTCTL */
 #define FSL_FEATURE_FLEXIO_HAS_RESET (0)
 /* @brief Has Shifter Status Register (FLEXIO_SHIFTSTAT) */
@@ -370,6 +368,8 @@
 #define FSL_FEATURE_FLEXIO_TIMCFG_TIMDCE_FIELD_WIDTH (3)
 /* @brief Has pin input output related registers */
 #define FSL_FEATURE_FLEXIO_HAS_PIN_REGISTER (1)
+/* @brief Has DOZEN bit(CTRL[DOZEN]) */
+#define FSL_FEATURE_FLEXIO_HAS_DOZE_MODE_SUPPORT (1)
 
 /* MSF1 module features */
 
@@ -429,8 +429,20 @@
 #define FSL_FEATURE_I3C_HAS_NO_SCONFIG_IDRAND (1)
 /* @brief Register SCONFIG has HDROK bitfield. */
 #define FSL_FEATURE_I3C_HAS_HDROK (1)
-/* @brief SOC doesn't support slave IBI/MR/HJ. */
+/* @brief Has ERRATA_051617. */
+#define FSL_FEATURE_I3C_HAS_ERRATA_051617 (0)
+/* @brief SOC does not support slave IBI/MR/HJ */
 #define FSL_FEATURE_I3C_HAS_NO_SLAVE_IBI_MR_HJ (0)
+/* @brief Has ERRATA_052086. */
+#define FSL_FEATURE_I3C_HAS_ERRATA_052086 (0)
+/* @brief Has ERRATA_052123. */
+#define FSL_FEATURE_I3C_HAS_ERRATA_052123 (0)
+/* @brief Has IBI bytes. */
+#define FSL_FEATURE_I3C_HAS_IBI_PAYLOAD_SIZE_OPTIONAL_BYTE (0)
+/* @brief Has SCL delay after START. */
+#define FSL_FEATURE_I3C_HAS_START_SCL_DELAY (1)
+/* @brief Has no the master write data register for DMA. */
+#define FSL_FEATURE_I3C_HAS_NO_MASTER_DMA_WDATA_REG (0)
 
 /* LPCMP module features */
 
@@ -517,8 +529,6 @@
 #define FSL_FEATURE_LPUART_HAS_BOTH_EDGE_SAMPLING_SUPPORT (1)
 /* @brief Peripheral type. */
 #define FSL_FEATURE_LPUART_IS_SCI (1)
-/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
-#define FSL_FEATURE_LPUART_FIFO_SIZEn(x) (8)
 /* @brief Supports two match addresses to filter incoming frames. */
 #define FSL_FEATURE_LPUART_HAS_ADDRESS_MATCHING (1)
 /* @brief Has transmitter/receiver DMA enable bits C5[TDMAE]/C5[RDMAE] (or BAUD[TDMAE]/BAUD[RDMAE] if the registers are 32-bit wide). */
@@ -561,6 +571,8 @@
 #define FSL_FEATURE_LPUART_HAS_TIMEOUT (0)
 /* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
 #define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (0)
+/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
+#define FSL_FEATURE_LPUART_FIFO_SIZEn(x) (8)
 /* @brief UART support receive rts configuration (has bit MODIR[RTSWATER]). */
 #define FSL_FEATURE_LPUART_HAS_MODIR_RTSWATER (1)
 

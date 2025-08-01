@@ -150,6 +150,10 @@ typedef enum _SYSCON_RSTn
     {                                                \
         NotAvail_RSTn, kPORT0_RST_SHIFT_RSTn, kPORT1_RST_SHIFT_RSTn, kPORT2_RST_SHIFT_RSTn \
     } /* Reset bits for PORT peripheral */
+#define TRNG_RSTS             \
+    {                         \
+        kTRNG0_RST_SHIFT_RSTn \
+    } /* Reset bits for TRNG peripheral */
 #define UTICK_RSTS             \
     {                          \
         kUTICK0_RST_SHIFT_RSTn \

@@ -77,6 +77,8 @@
 #define FSL_FEATURE_SOC_SYSCON_COUNT (2)
 /* @brief TMR availability on the SoC. */
 #define FSL_FEATURE_SOC_TMR_COUNT (2)
+/* @brief TRNG availability on the SoC. */
+#define FSL_FEATURE_SOC_TRNG_COUNT (1)
 /* @brief UTICK availability on the SoC. */
 #define FSL_FEATURE_SOC_UTICK_COUNT (1)
 /* @brief WWDT availability on the SoC. */
@@ -643,6 +645,29 @@
 #define FSL_FEATURE_POWERLIB_EXTEND (1)
 /* @brief Starter register discontinuous. */
 #define FSL_FEATURE_SYSCON_STARTER_DISCONTINUOUS (1)
+
+/* TRNG module features */
+
+/* @brief TRNG does not support SCR4L. */
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_SCR4L (1)
+/* @brief TRNG does not support SCR5L. */
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_SCR5L (1)
+/* @brief TRNG does not support SCR6L. */
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_SCR6L (1)
+/* @brief TRNG does not support PKRMAX. */
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_PKRMAX (1)
+/* @brief TRNG does not support SAMP mode. */
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_MCTL_SAMP_MODE (1)
+/* @brief TRNG does not support ACC. */
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_ACC (1)
+/* @brief TRNG does not support SBLIM. */
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_SBLIM (1)
+/* @brief TRNG supports reset control. */
+#define FSL_FEATURE_TRNG_HAS_RSTCTL (1)
+/* @brief TRNG does not support FOR_CLK mode. */
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_MCTL_FOR_CLK_MODE (1)
+/* @brief TRNG has two oscillators. */
+#define FSL_FEATURE_TRNG_HAS_DUAL_OSCILATORS (1)
 
 /* UTICK module features */
 

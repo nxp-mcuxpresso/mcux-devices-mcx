@@ -335,6 +335,11 @@ typedef enum _clock_ip_name
     {                  \
         kCLOCK_GateTCU \
     }
+/*! @brief Clock ip name array for TRNG. */
+#define TRNG_CLOCKS      \
+    {                    \
+        kCLOCK_GateTRNG0 \
+    }
 /*! @brief Clock ip name array for UTICK. */
 #define UTICK_CLOCKS      \
     {                     \

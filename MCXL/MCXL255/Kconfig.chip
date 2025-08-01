@@ -198,3 +198,8 @@ config MCUX_HW_IP_DriverType_LPCMP
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXL255xxx
+
+config MCUX_HW_IP_DriverType_TRNG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXL255xxx

@@ -8,9 +8,25 @@
 **                          MCXA346VLL
 **                          MCXA346VLQ
 **                          MCXA346VPN
+**                          MCXA355VLH
+**                          MCXA355VLL
+**                          MCXA355VLQ
+**                          MCXA355VPN
+**                          MCXA356VLH
+**                          MCXA356VLL
+**                          MCXA356VLQ
+**                          MCXA356VPN
+**                          MCXA365VLH
+**                          MCXA365VLL
+**                          MCXA365VLQ
+**                          MCXA365VPN
+**                          MCXA366VLH
+**                          MCXA366VLL
+**                          MCXA366VLQ
+**                          MCXA366VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250519
+**     Build:               b250804
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA
@@ -45,6 +61,14 @@
 #include "MCXA345_COMMON.h"
 #elif (defined(CPU_MCXA346VLH) || defined(CPU_MCXA346VLL) || defined(CPU_MCXA346VLQ) || defined(CPU_MCXA346VPN))
 #include "MCXA346_COMMON.h"
+#elif (defined(CPU_MCXA355VLH) || defined(CPU_MCXA355VLL) || defined(CPU_MCXA355VLQ) || defined(CPU_MCXA355VPN))
+#include "MCXA355_COMMON.h"
+#elif (defined(CPU_MCXA356VLH) || defined(CPU_MCXA356VLL) || defined(CPU_MCXA356VLQ) || defined(CPU_MCXA356VPN))
+#include "MCXA356_COMMON.h"
+#elif (defined(CPU_MCXA365VLH) || defined(CPU_MCXA365VLL) || defined(CPU_MCXA365VLQ) || defined(CPU_MCXA365VPN))
+#include "MCXA365_COMMON.h"
+#elif (defined(CPU_MCXA366VLH) || defined(CPU_MCXA366VLL) || defined(CPU_MCXA366VLQ) || defined(CPU_MCXA366VPN))
+#include "MCXA366_COMMON.h"
 #else
   #error "No valid CPU defined!"
 #endif
@@ -86,8 +110,6 @@ typedef enum _dma_request_source
     kDma0RequestLPI2C2Tx            = 4U,          /**< LPI2C2 Transmit request */
     kDma0RequestLPI2C3Rx            = 5U,          /**< LPI2C3 Receive request */
     kDma0RequestLPI2C3Tx            = 6U,          /**< LPI2C3 Transmit request */
-    kDma0RequestMuxI3c0Rx           = 7U,          /**< I3C0 Receive request */
-    kDma0RequestMuxI3c0Tx           = 8U,          /**< I3C0 Transmit request */
     kDma0RequestLPI2C0Rx            = 11U,         /**< LPI2C0 Receive request */
     kDma0RequestLPI2C0Tx            = 12U,         /**< LPI2C0 Transmit request */
     kDma0RequestLPI2C1Rx            = 13U,         /**< LPI2C1 Receive request */
@@ -129,6 +151,7 @@ typedef enum _dma_request_source
     kDma0RequestMuxAdc1FifoRequest  = 52U,         /**< ADC1 FIFO request */
     kDma0RequestMuxHsCmp0DmaRequest = 53U,         /**< CMP0 DMA_request */
     kDma0RequestMuxHsCmp1DmaRequest = 54U,         /**< CMP1 DMA_request */
+    kDma0RequestMuxHsCmp2DmaRequest = 55U,         /**< CMP2 DMA_request */
     kDma0RequestMuxDac0FifoRequest  = 56U,         /**< DAC0 FIFO request */
     kDma0RequestMuxGpio0PinEventRequest0 = 60U,    /**< GPIO0 Pin event request 0 */
     kDma0RequestMuxGpio1PinEventRequest0 = 61U,    /**< GPIO1 Pin event request 0 */
@@ -149,13 +172,14 @@ typedef enum _dma_request_source
     kDma0RequestMuxFlexPWM1ReqVal1  = 84U,         /**< FlexPWM1 value1 request */
     kDma0RequestMuxFlexPWM1ReqVal2  = 85U,         /**< FlexPWM1 value2 request */
     kDma0RequestMuxFlexPWM1ReqVal3  = 86U,         /**< FlexPWM1 value2 request */
-    kDma0RequestMuxFlexCan1DmaRequest = 87U,       /**< CAN1 DMA request */
     kDma0RequestLPUART5Rx           = 102U,        /**< LPUART5 Receive request */
     kDma0RequestLPUART5Tx           = 103U,        /**< LPUART5 Transmit request */
+    kDma0RequestMuxMau0             = 115U,        /**< MAU0 DMA request */
+    kDma0RequestMuxI3c0Rx           = 7U,          /**< I3C0 Receive request */
+    kDma0RequestMuxI3c0Tx           = 8U,          /**< I3C0 Transmit request */
+    kDma0RequestMuxFlexCan1DmaRequest = 87U,       /**< CAN1 DMA request */
     kDma0RequestSGI0Datain          = 119U,        /**< SGI0 DATAIN request */
     kDma0RequestSGI0Dataout         = 120U,        /**< SGI0 DATOUT request */
-    kDma0RequestMuxHsCmp2DmaRequest = 55U,         /**< CMP2 DMA_request */
-    kDma0RequestMuxMau0             = 115U,        /**< MAU0 DMA request */
 } dma_request_source_t;
 
 /* @} */

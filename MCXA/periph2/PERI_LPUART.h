@@ -8,9 +8,25 @@
 **                          MCXA346VLL
 **                          MCXA346VLQ
 **                          MCXA346VPN
+**                          MCXA355VLH
+**                          MCXA355VLL
+**                          MCXA355VLQ
+**                          MCXA355VPN
+**                          MCXA356VLH
+**                          MCXA356VLL
+**                          MCXA356VLQ
+**                          MCXA356VPN
+**                          MCXA365VLH
+**                          MCXA365VLL
+**                          MCXA365VLQ
+**                          MCXA365VPN
+**                          MCXA366VLH
+**                          MCXA366VLL
+**                          MCXA366VLQ
+**                          MCXA366VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250417
+**     Build:               b250804
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPUART
@@ -45,6 +61,14 @@
 #include "MCXA345_COMMON.h"
 #elif (defined(CPU_MCXA346VLH) || defined(CPU_MCXA346VLL) || defined(CPU_MCXA346VLQ) || defined(CPU_MCXA346VPN))
 #include "MCXA346_COMMON.h"
+#elif (defined(CPU_MCXA355VLH) || defined(CPU_MCXA355VLL) || defined(CPU_MCXA355VLQ) || defined(CPU_MCXA355VPN))
+#include "MCXA355_COMMON.h"
+#elif (defined(CPU_MCXA356VLH) || defined(CPU_MCXA356VLL) || defined(CPU_MCXA356VLQ) || defined(CPU_MCXA356VPN))
+#include "MCXA356_COMMON.h"
+#elif (defined(CPU_MCXA365VLH) || defined(CPU_MCXA365VLL) || defined(CPU_MCXA365VLQ) || defined(CPU_MCXA365VPN))
+#include "MCXA365_COMMON.h"
+#elif (defined(CPU_MCXA366VLH) || defined(CPU_MCXA366VLL) || defined(CPU_MCXA366VLQ) || defined(CPU_MCXA366VPN))
+#include "MCXA366_COMMON.h"
 #else
   #error "No valid CPU defined!"
 #endif
@@ -342,60 +366,60 @@ typedef struct {
 #define LPUART_STAT_MA2F_MASK                    (0x4000U)
 #define LPUART_STAT_MA2F_SHIFT                   (14U)
 /*! MA2F - Match 2 Flag
- *  0b0..Not equal to MA2
  *  0b0..No effect
- *  0b1..Equal to MA2
+ *  0b0..Not equal to MA2
  *  0b1..Clear the flag
+ *  0b1..Equal to MA2
  */
 #define LPUART_STAT_MA2F(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_MA2F_SHIFT)) & LPUART_STAT_MA2F_MASK)
 
 #define LPUART_STAT_MA1F_MASK                    (0x8000U)
 #define LPUART_STAT_MA1F_SHIFT                   (15U)
 /*! MA1F - Match 1 Flag
- *  0b0..Not equal to MA1
  *  0b0..No effect
- *  0b1..Equal to MA1
+ *  0b0..Not equal to MA1
  *  0b1..Clear the flag
+ *  0b1..Equal to MA1
  */
 #define LPUART_STAT_MA1F(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_MA1F_SHIFT)) & LPUART_STAT_MA1F_MASK)
 
 #define LPUART_STAT_PF_MASK                      (0x10000U)
 #define LPUART_STAT_PF_SHIFT                     (16U)
 /*! PF - Parity Error Flag
- *  0b0..No parity error detected
  *  0b0..No effect
- *  0b1..Parity error detected
+ *  0b0..No parity error detected
  *  0b1..Clear the flag
+ *  0b1..Parity error detected
  */
 #define LPUART_STAT_PF(x)                        (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_PF_SHIFT)) & LPUART_STAT_PF_MASK)
 
 #define LPUART_STAT_FE_MASK                      (0x20000U)
 #define LPUART_STAT_FE_SHIFT                     (17U)
 /*! FE - Framing Error Flag
- *  0b0..No framing error detected (this does not guarantee that the framing is correct)
  *  0b0..No effect
- *  0b1..Framing error detected
+ *  0b0..No framing error detected (this does not guarantee that the framing is correct)
  *  0b1..Clear the flag
+ *  0b1..Framing error detected
  */
 #define LPUART_STAT_FE(x)                        (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_FE_SHIFT)) & LPUART_STAT_FE_MASK)
 
 #define LPUART_STAT_NF_MASK                      (0x40000U)
 #define LPUART_STAT_NF_SHIFT                     (18U)
 /*! NF - Noise Flag
- *  0b0..No noise detected
  *  0b0..No effect
- *  0b1..Noise detected
+ *  0b0..No noise detected
  *  0b1..Clear the flag
+ *  0b1..Noise detected
  */
 #define LPUART_STAT_NF(x)                        (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_NF_SHIFT)) & LPUART_STAT_NF_MASK)
 
 #define LPUART_STAT_OR_MASK                      (0x80000U)
 #define LPUART_STAT_OR_SHIFT                     (19U)
 /*! OR - Receiver Overrun Flag
- *  0b0..No overrun
  *  0b0..No effect
- *  0b1..Receive overrun (new LPUART data is lost)
+ *  0b0..No overrun
  *  0b1..Clear the flag
+ *  0b1..Receive overrun (new LPUART data is lost)
  */
 #define LPUART_STAT_OR(x)                        (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_OR_SHIFT)) & LPUART_STAT_OR_MASK)
 
@@ -404,8 +428,8 @@ typedef struct {
 /*! IDLE - Idle Line Flag
  *  0b0..Idle line detected
  *  0b0..No effect
- *  0b1..Idle line not detected
  *  0b1..Clear the flag
+ *  0b1..Idle line not detected
  */
 #define LPUART_STAT_IDLE(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_IDLE_SHIFT)) & LPUART_STAT_IDLE_MASK)
 
@@ -484,20 +508,20 @@ typedef struct {
 #define LPUART_STAT_RXEDGIF_MASK                 (0x40000000U)
 #define LPUART_STAT_RXEDGIF_SHIFT                (30U)
 /*! RXEDGIF - RXD Pin Active Edge Interrupt Flag
- *  0b0..Not occurred
  *  0b0..No effect
- *  0b1..Occurred
+ *  0b0..Not occurred
  *  0b1..Clear the flag
+ *  0b1..Occurred
  */
 #define LPUART_STAT_RXEDGIF(x)                   (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_RXEDGIF_SHIFT)) & LPUART_STAT_RXEDGIF_MASK)
 
 #define LPUART_STAT_LBKDIF_MASK                  (0x80000000U)
 #define LPUART_STAT_LBKDIF_SHIFT                 (31U)
 /*! LBKDIF - LIN Break Detect Interrupt Flag
- *  0b0..Not detected
  *  0b0..No effect
- *  0b1..Detected
+ *  0b0..Not detected
  *  0b1..Clear the flag
+ *  0b1..Detected
  */
 #define LPUART_STAT_LBKDIF(x)                    (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_LBKDIF_SHIFT)) & LPUART_STAT_LBKDIF_MASK)
 /*! @} */
@@ -1025,20 +1049,20 @@ typedef struct {
 #define LPUART_FIFO_RXUF_MASK                    (0x10000U)
 #define LPUART_FIFO_RXUF_SHIFT                   (16U)
 /*! RXUF - Receiver FIFO Underflow Flag
- *  0b0..No underflow
  *  0b0..No effect
- *  0b1..Underflow
+ *  0b0..No underflow
  *  0b1..Clear the flag
+ *  0b1..Underflow
  */
 #define LPUART_FIFO_RXUF(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_FIFO_RXUF_SHIFT)) & LPUART_FIFO_RXUF_MASK)
 
 #define LPUART_FIFO_TXOF_MASK                    (0x20000U)
 #define LPUART_FIFO_TXOF_SHIFT                   (17U)
 /*! TXOF - Transmitter FIFO Overflow Flag
- *  0b0..No overflow
  *  0b0..No effect
- *  0b1..Overflow
+ *  0b0..No overflow
  *  0b1..Clear the flag
+ *  0b1..Overflow
  */
 #define LPUART_FIFO_TXOF(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_FIFO_TXOF_SHIFT)) & LPUART_FIFO_TXOF_MASK)
 

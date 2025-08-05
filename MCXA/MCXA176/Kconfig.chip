@@ -254,11 +254,6 @@ config MCUX_HW_IP_DriverType_LPUART
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA176
 
-config MCUX_HW_IP_DriverType_MAU
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA176
-
 config MCUX_HW_IP_DriverType_MCX_CMC
     bool
     default y
@@ -315,11 +310,6 @@ config MCUX_HW_IP_DriverType_SCG
     depends on MCUX_HW_DEVICE_ID_MCXA176
 
 config MCUX_HW_IP_DriverType_SGI
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA176
-
-config MCUX_HW_IP_DriverType_SLCD40
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA176

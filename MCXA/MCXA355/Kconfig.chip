@@ -113,11 +113,6 @@ config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
     default "MCXA355" if MCUX_HW_DEVICE_ID_MCXA355
 
-config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA355
-
 # ip information
 config MCUX_HW_IP_DriverType_AOI
     bool
@@ -174,11 +169,6 @@ config MCUX_HW_IP_DriverType_FLEXCAN
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA355
 
-config MCUX_HW_IP_DriverType_FLEXIO
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA355
-
 config MCUX_HW_IP_DriverType_FMC
     bool
     default y
@@ -200,11 +190,6 @@ config MCUX_HW_IP_DriverType_GLIKEY
     depends on MCUX_HW_DEVICE_ID_MCXA355
 
 config MCUX_HW_IP_DriverType_GPIO
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA355
-
-config MCUX_HW_IP_DriverType_I3C
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA355
@@ -294,11 +279,6 @@ config MCUX_HW_IP_DriverType_PORT
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA355
 
-config MCUX_HW_IP_DriverType_PKC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA355
-
 config MCUX_HW_IP_DriverType_PWM
     bool
     default y
@@ -315,11 +295,6 @@ config MCUX_HW_IP_DriverType_SCG
     depends on MCUX_HW_DEVICE_ID_MCXA355
 
 config MCUX_HW_IP_DriverType_SGI
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA355
-
-config MCUX_HW_IP_DriverType_SLCD40
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA355
@@ -364,7 +339,3 @@ config MCUX_HW_IP_DriverType_WWDT
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA355
 
-config MCUX_HW_IP_DriverType_TRNG
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA355

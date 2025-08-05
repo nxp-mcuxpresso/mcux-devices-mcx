@@ -254,11 +254,6 @@ config MCUX_HW_IP_DriverType_LPUART
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA265
 
-config MCUX_HW_IP_DriverType_MAU
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA265
-
 config MCUX_HW_IP_DriverType_MCX_CMC
     bool
     default y

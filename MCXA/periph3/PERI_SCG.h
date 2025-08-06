@@ -1,14 +1,6 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA173VFM
-**                          MCXA173VLF
-**                          MCXA173VLH
-**                          MCXA173VLL
-**                          MCXA174VFM
-**                          MCXA174VLF
-**                          MCXA174VLH
-**                          MCXA174VLL
-**                          MCXA343VFM
+**     Processors:          MCXA343VFM
 **                          MCXA343VLF
 **                          MCXA343VLH
 **                          MCXA343VLL
@@ -17,8 +9,8 @@
 **                          MCXA344VLH
 **                          MCXA344VLL
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250806
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SCG
@@ -33,14 +25,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file PERI_SCG.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for SCG
  *
  * CMSIS Peripheral Access Layer for SCG
@@ -49,11 +44,7 @@
 #if !defined(PERI_SCG_H_)
 #define PERI_SCG_H_                              /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA173VFM) || defined(CPU_MCXA173VLF) || defined(CPU_MCXA173VLH) || defined(CPU_MCXA173VLL))
-#include "MCXA173_COMMON.h"
-#elif (defined(CPU_MCXA174VFM) || defined(CPU_MCXA174VLF) || defined(CPU_MCXA174VLH) || defined(CPU_MCXA174VLL))
-#include "MCXA174_COMMON.h"
-#elif (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
+#if (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
 #include "MCXA343_COMMON.h"
 #elif (defined(CPU_MCXA344VFM) || defined(CPU_MCXA344VLF) || defined(CPU_MCXA344VLH) || defined(CPU_MCXA344VLL))
 #include "MCXA344_COMMON.h"
@@ -101,33 +92,33 @@
 
 /** SCG - Register Layout Typedef */
 typedef struct {
-  __I  uint32_t VERID;                             /**< Version ID Register, offset: 0x0 */
-  __I  uint32_t PARAM;                             /**< Parameter Register, offset: 0x4 */
-  __IO uint32_t TRIM_LOCK;                         /**< Trim Lock register, offset: 0x8 */
+  __I  uint32_t VERID;                             /**< Version ID, offset: 0x0 */
+  __I  uint32_t PARAM;                             /**< Parameter, offset: 0x4 */
+  __IO uint32_t TRIM_LOCK;                         /**< Trim Lock, offset: 0x8 */
        uint8_t RESERVED_0[4];
-  __I  uint32_t CSR;                               /**< Clock Status Register, offset: 0x10 */
-  __IO uint32_t RCCR;                              /**< Run Clock Control Register, offset: 0x14 */
+  __I  uint32_t CSR;                               /**< Clock Status, offset: 0x10 */
+  __IO uint32_t RCCR;                              /**< Run Clock Control, offset: 0x14 */
        uint8_t RESERVED_1[232];
-  __IO uint32_t SOSCCSR;                           /**< SOSC Control Status Register, offset: 0x100 */
+  __IO uint32_t SOSCCSR;                           /**< SOSC Control Status, offset: 0x100 */
        uint8_t RESERVED_2[4];
-  __IO uint32_t SOSCCFG;                           /**< SOSC Configuration Register, offset: 0x108 */
+  __IO uint32_t SOSCCFG;                           /**< SOSC Configuration, offset: 0x108 */
        uint8_t RESERVED_3[244];
-  __IO uint32_t SIRCCSR;                           /**< SIRC Control Status Register, offset: 0x200 */
+  __IO uint32_t SIRCCSR;                           /**< SIRC Control Status, offset: 0x200 */
        uint8_t RESERVED_4[8];
-  __IO uint32_t SIRCTCFG;                          /**< SIRC Trim Configuration Register, offset: 0x20C */
-  __IO uint32_t SIRCTRIM;                          /**< SIRC Trim Register, offset: 0x210 */
+  __IO uint32_t SIRCTCFG;                          /**< SIRC Trim Configuration, offset: 0x20C */
+  __IO uint32_t SIRCTRIM;                          /**< SIRC Trim, offset: 0x210 */
        uint8_t RESERVED_5[4];
-  __IO uint32_t SIRCSTAT;                          /**< SIRC Auto-trimming Status Register, offset: 0x218 */
+  __IO uint32_t SIRCSTAT;                          /**< SIRC Auto-trimming Status, offset: 0x218 */
        uint8_t RESERVED_6[228];
-  __IO uint32_t FIRCCSR;                           /**< FIRC Control Status Register, offset: 0x300 */
+  __IO uint32_t FIRCCSR;                           /**< FIRC Control Status, offset: 0x300 */
        uint8_t RESERVED_7[4];
-  __IO uint32_t FIRCCFG;                           /**< FIRC Configuration Register, offset: 0x308 */
+  __IO uint32_t FIRCCFG;                           /**< FIRC Configuration, offset: 0x308 */
        uint8_t RESERVED_8[4];
-  __IO uint32_t FIRCTRIM;                          /**< FIRC Trim Register, offset: 0x310 */
+  __IO uint32_t FIRCTRIM;                          /**< FIRC Trim, offset: 0x310 */
        uint8_t RESERVED_9[236];
-  __IO uint32_t ROSCCSR;                           /**< ROSC Control Status Register, offset: 0x400 */
+  __IO uint32_t ROSCCSR;                           /**< ROSC Control Status, offset: 0x400 */
        uint8_t RESERVED_10[1020];
-  __IO uint32_t LDOCSR;                            /**< LDO Control and Status Register, offset: 0x800 */
+  __IO uint32_t LDOCSR;                            /**< LDO Control and Status, offset: 0x800 */
 } SCG_Type;
 
 /* ----------------------------------------------------------------------------
@@ -139,7 +130,7 @@ typedef struct {
  * @{
  */
 
-/*! @name VERID - Version ID Register */
+/*! @name VERID - Version ID */
 /*! @{ */
 
 #define SCG_VERID_VERSION_MASK                   (0xFFFFFFFFU)
@@ -148,7 +139,7 @@ typedef struct {
 #define SCG_VERID_VERSION(x)                     (((uint32_t)(((uint32_t)(x)) << SCG_VERID_VERSION_SHIFT)) & SCG_VERID_VERSION_MASK)
 /*! @} */
 
-/*! @name PARAM - Parameter Register */
+/*! @name PARAM - Parameter */
 /*! @{ */
 
 #define SCG_PARAM_SOSCCLKPRES_MASK               (0x2U)
@@ -184,7 +175,7 @@ typedef struct {
 #define SCG_PARAM_ROSCCLKPRES(x)                 (((uint32_t)(((uint32_t)(x)) << SCG_PARAM_ROSCCLKPRES_SHIFT)) & SCG_PARAM_ROSCCLKPRES_MASK)
 /*! @} */
 
-/*! @name TRIM_LOCK - Trim Lock register */
+/*! @name TRIM_LOCK - Trim Lock */
 /*! @{ */
 
 #define SCG_TRIM_LOCK_TRIM_UNLOCK_MASK           (0x1U)
@@ -209,7 +200,7 @@ typedef struct {
 #define SCG_TRIM_LOCK_TRIM_LOCK_KEY(x)           (((uint32_t)(((uint32_t)(x)) << SCG_TRIM_LOCK_TRIM_LOCK_KEY_SHIFT)) & SCG_TRIM_LOCK_TRIM_LOCK_KEY_MASK)
 /*! @} */
 
-/*! @name CSR - Clock Status Register */
+/*! @name CSR - Clock Status */
 /*! @{ */
 
 #define SCG_CSR_SCS_MASK                         (0x7000000U)
@@ -223,7 +214,7 @@ typedef struct {
 #define SCG_CSR_SCS(x)                           (((uint32_t)(((uint32_t)(x)) << SCG_CSR_SCS_SHIFT)) & SCG_CSR_SCS_MASK)
 /*! @} */
 
-/*! @name RCCR - Run Clock Control Register */
+/*! @name RCCR - Run Clock Control */
 /*! @{ */
 
 #define SCG_RCCR_SCS_MASK                        (0x7000000U)
@@ -237,7 +228,7 @@ typedef struct {
 #define SCG_RCCR_SCS(x)                          (((uint32_t)(((uint32_t)(x)) << SCG_RCCR_SCS_SHIFT)) & SCG_RCCR_SCS_MASK)
 /*! @} */
 
-/*! @name SOSCCSR - SOSC Control Status Register */
+/*! @name SOSCCSR - SOSC Control Status */
 /*! @{ */
 
 #define SCG_SOSCCSR_SOSCEN_MASK                  (0x1U)
@@ -274,7 +265,7 @@ typedef struct {
 
 #define SCG_SOSCCSR_LK_MASK                      (0x800000U)
 #define SCG_SOSCCSR_LK_SHIFT                     (23U)
-/*! LK - Lock Register
+/*! LK - Lock
  *  0b0..This Control Status Register can be written
  *  0b1..This Control Status Register cannot be written
  */
@@ -313,7 +304,7 @@ typedef struct {
 #define SCG_SOSCCSR_SOSCVLD_IE(x)                (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCSR_SOSCVLD_IE_SHIFT)) & SCG_SOSCCSR_SOSCVLD_IE_MASK)
 /*! @} */
 
-/*! @name SOSCCFG - SOSC Configuration Register */
+/*! @name SOSCCFG - SOSC Configuration */
 /*! @{ */
 
 #define SCG_SOSCCFG_EREFS_MASK                   (0x4U)
@@ -335,7 +326,7 @@ typedef struct {
 #define SCG_SOSCCFG_RANGE(x)                     (((uint32_t)(((uint32_t)(x)) << SCG_SOSCCFG_RANGE_SHIFT)) & SCG_SOSCCFG_RANGE_MASK)
 /*! @} */
 
-/*! @name SIRCCSR - SIRC Control Status Register */
+/*! @name SIRCCSR - SIRC Control Status */
 /*! @{ */
 
 #define SCG_SIRCCSR_SIRCSTEN_MASK                (0x2U)
@@ -388,7 +379,7 @@ typedef struct {
 
 #define SCG_SIRCCSR_LK_MASK                      (0x800000U)
 #define SCG_SIRCCSR_LK_SHIFT                     (23U)
-/*! LK - Lock Register
+/*! LK - Lock
  *  0b0..Control Status Register can be written
  *  0b1..Control Status Register cannot be written
  */
@@ -427,7 +418,7 @@ typedef struct {
 #define SCG_SIRCCSR_SIRCERR_IE(x)                (((uint32_t)(((uint32_t)(x)) << SCG_SIRCCSR_SIRCERR_IE_SHIFT)) & SCG_SIRCCSR_SIRCERR_IE_MASK)
 /*! @} */
 
-/*! @name SIRCTCFG - SIRC Trim Configuration Register */
+/*! @name SIRCTCFG - SIRC Trim Configuration */
 /*! @{ */
 
 #define SCG_SIRCTCFG_TRIMSRC_MASK                (0x3U)
@@ -446,7 +437,7 @@ typedef struct {
 #define SCG_SIRCTCFG_TRIMDIV(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_SIRCTCFG_TRIMDIV_SHIFT)) & SCG_SIRCTCFG_TRIMDIV_MASK)
 /*! @} */
 
-/*! @name SIRCTRIM - SIRC Trim Register */
+/*! @name SIRCTRIM - SIRC Trim */
 /*! @{ */
 
 #define SCG_SIRCTRIM_CCOTRIM_MASK                (0x3FU)
@@ -469,7 +460,7 @@ typedef struct {
 #define SCG_SIRCTRIM_FVCHTRIM(x)                 (((uint32_t)(((uint32_t)(x)) << SCG_SIRCTRIM_FVCHTRIM_SHIFT)) & SCG_SIRCTRIM_FVCHTRIM_MASK)
 /*! @} */
 
-/*! @name SIRCSTAT - SIRC Auto-trimming Status Register */
+/*! @name SIRCSTAT - SIRC Auto-trimming Status */
 /*! @{ */
 
 #define SCG_SIRCSTAT_CCOTRIM_MASK                (0x3FU)
@@ -483,7 +474,7 @@ typedef struct {
 #define SCG_SIRCSTAT_CLTRIM(x)                   (((uint32_t)(((uint32_t)(x)) << SCG_SIRCSTAT_CLTRIM_SHIFT)) & SCG_SIRCSTAT_CLTRIM_MASK)
 /*! @} */
 
-/*! @name FIRCCSR - FIRC Control Status Register */
+/*! @name FIRCCSR - FIRC Control Status */
 /*! @{ */
 
 #define SCG_FIRCCSR_FIRCEN_MASK                  (0x1U)
@@ -504,9 +495,9 @@ typedef struct {
 
 #define SCG_FIRCCSR_FIRC_SCLK_PERIPH_EN_MASK     (0x10U)
 #define SCG_FIRCCSR_FIRC_SCLK_PERIPH_EN_SHIFT    (4U)
-/*! FIRC_SCLK_PERIPH_EN - FIRC 48 MHz Clock to peripherals Enable
- *  0b0..FIRC 48 MHz to peripherals is disabled
- *  0b1..FIRC 48 MHz to peripherals is enabled
+/*! FIRC_SCLK_PERIPH_EN - FIRC 45 MHz Clock to peripherals Enable
+ *  0b0..FIRC 45 MHz to peripherals is disabled
+ *  0b1..FIRC 45 MHz to peripherals is enabled
  */
 #define SCG_FIRCCSR_FIRC_SCLK_PERIPH_EN(x)       (((uint32_t)(((uint32_t)(x)) << SCG_FIRCCSR_FIRC_SCLK_PERIPH_EN_SHIFT)) & SCG_FIRCCSR_FIRC_SCLK_PERIPH_EN_MASK)
 
@@ -520,7 +511,7 @@ typedef struct {
 
 #define SCG_FIRCCSR_LK_MASK                      (0x800000U)
 #define SCG_FIRCCSR_LK_SHIFT                     (23U)
-/*! LK - Lock Register
+/*! LK - Lock
  *  0b0..Control Status Register can be written
  *  0b1..Control Status Register cannot be written
  */
@@ -575,21 +566,21 @@ typedef struct {
 #define SCG_FIRCCSR_FIRCACC(x)                   (((uint32_t)(((uint32_t)(x)) << SCG_FIRCCSR_FIRCACC_SHIFT)) & SCG_FIRCCSR_FIRCACC_MASK)
 /*! @} */
 
-/*! @name FIRCCFG - FIRC Configuration Register */
+/*! @name FIRCCFG - FIRC Configuration */
 /*! @{ */
 
 #define SCG_FIRCCFG_FREQ_SEL_MASK                (0xEU)
 #define SCG_FIRCCFG_FREQ_SEL_SHIFT               (1U)
 /*! FREQ_SEL - Frequency select
- *  0b001..48 MHz FIRC clock selected, divided from 192 MHz
- *  0b011..64 MHz FIRC clock selected
- *  0b101..96 MHz FIRC clock selected
- *  0b111..192 MHz FIRC clock selected
+ *  0b001..45 MHz FIRC clock selected, divided from 180 MHz
+ *  0b011..60 MHz FIRC clock selected
+ *  0b101..90 MHz FIRC clock selected
+ *  0b111..180 MHz FIRC clock selected
  */
 #define SCG_FIRCCFG_FREQ_SEL(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_FIRCCFG_FREQ_SEL_SHIFT)) & SCG_FIRCCFG_FREQ_SEL_MASK)
 /*! @} */
 
-/*! @name FIRCTRIM - FIRC Trim Register */
+/*! @name FIRCTRIM - FIRC Trim */
 /*! @{ */
 
 #define SCG_FIRCTRIM_TRIMFINE_MASK               (0xFFU)
@@ -613,12 +604,12 @@ typedef struct {
 #define SCG_FIRCTRIM_TRIMSTART(x)                (((uint32_t)(((uint32_t)(x)) << SCG_FIRCTRIM_TRIMSTART_SHIFT)) & SCG_FIRCTRIM_TRIMSTART_MASK)
 /*! @} */
 
-/*! @name ROSCCSR - ROSC Control Status Register */
+/*! @name ROSCCSR - ROSC Control Status */
 /*! @{ */
 
 #define SCG_ROSCCSR_LK_MASK                      (0x800000U)
 #define SCG_ROSCCSR_LK_SHIFT                     (23U)
-/*! LK - Lock Register
+/*! LK - Lock
  *  0b0..Control Status Register can be written
  *  0b1..Control Status Register cannot be written
  */
@@ -649,7 +640,7 @@ typedef struct {
 #define SCG_ROSCCSR_ROSCERR(x)                   (((uint32_t)(((uint32_t)(x)) << SCG_ROSCCSR_ROSCERR_SHIFT)) & SCG_ROSCCSR_ROSCERR_MASK)
 /*! @} */
 
-/*! @name LDOCSR - LDO Control and Status Register */
+/*! @name LDOCSR - LDO Control and Status */
 /*! @{ */
 
 #define SCG_LDOCSR_LDOEN_MASK                    (0x1U)

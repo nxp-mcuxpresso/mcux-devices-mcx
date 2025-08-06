@@ -1,14 +1,6 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA173VFM
-**                          MCXA173VLF
-**                          MCXA173VLH
-**                          MCXA173VLL
-**                          MCXA174VFM
-**                          MCXA174VLF
-**                          MCXA174VLH
-**                          MCXA174VLL
-**                          MCXA343VFM
+**     Processors:          MCXA343VFM
 **                          MCXA343VLF
 **                          MCXA343VLH
 **                          MCXA343VLL
@@ -17,8 +9,8 @@
 **                          MCXA344VLH
 **                          MCXA344VLL
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250806
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PWM
@@ -33,14 +25,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file PERI_PWM.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for PWM
  *
  * CMSIS Peripheral Access Layer for PWM
@@ -49,11 +44,7 @@
 #if !defined(PERI_PWM_H_)
 #define PERI_PWM_H_                              /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA173VFM) || defined(CPU_MCXA173VLF) || defined(CPU_MCXA173VLH) || defined(CPU_MCXA173VLL))
-#include "MCXA173_COMMON.h"
-#elif (defined(CPU_MCXA174VFM) || defined(CPU_MCXA174VLF) || defined(CPU_MCXA174VLH) || defined(CPU_MCXA174VLL))
-#include "MCXA174_COMMON.h"
-#elif (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
+#if (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
 #include "MCXA343_COMMON.h"
 #elif (defined(CPU_MCXA344VFM) || defined(CPU_MCXA344VLF) || defined(CPU_MCXA344VLH) || defined(CPU_MCXA344VLL))
 #include "MCXA344_COMMON.h"
@@ -225,8 +216,8 @@ typedef struct {
  *  0b100..The local sync signal from this submodule is used to force updates.
  *  0b101..The master sync signal from submodule0 is used to force updates. This setting should not be used in
  *         submodule0 as it holds the FORCE OUTPUT signal to logic 0.
- *  0b110..The external force signal, EXT_FORCE, from outside the PWM module causes updates.
- *  0b111..The external sync signal, EXT_SYNC, from outside the PWM module causes updates.
+ *  0b110..The external force signal, EXT_FORCE, from outside the eFlexPWM module causes updates.
+ *  0b111..The external sync signal, EXT_SYNC, from outside the eFlexPWM module causes updates.
  */
 #define PWM_CTRL2_FORCE_SEL(x)                   (((uint16_t)(((uint16_t)(x)) << PWM_CTRL2_FORCE_SEL_SHIFT)) & PWM_CTRL2_FORCE_SEL_MASK)
 
@@ -656,9 +647,8 @@ typedef struct {
 #define PWM_DMAEN_CAPTDE_SHIFT                   (6U)
 /*! CAPTDE - Capture DMA Enable Source Select
  *  0b00..Read DMA requests disabled.
- *  0b01..Exceeding a FIFO watermark sets the DMA read request. This requires at least one of DMAEN[CA1DE],
- *        DMAEN[CA0DE], DMAEN[CB1DE], DMAEN[CB0DE], DMAEN[CX1DE], or DMAEN[CX0DE] to be set to determine which
- *        watermark(s) the DMA request is sensitive.
+ *  0b01..Exceeding a FIFO watermark sets the DMA read request. This requires at least one of DMAEN[CX1DE], or
+ *        DMAEN[CX0DE] to be set to determine which watermark(s) the DMA request is sensitive.
  *  0b10..A local synchronization (VAL1 matches counter) sets the read DMA request.
  *  0b11..A local reload (STS[RF] being set) sets the read DMA request.
  */

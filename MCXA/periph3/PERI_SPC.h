@@ -1,14 +1,6 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA173VFM
-**                          MCXA173VLF
-**                          MCXA173VLH
-**                          MCXA173VLL
-**                          MCXA174VFM
-**                          MCXA174VLF
-**                          MCXA174VLH
-**                          MCXA174VLL
-**                          MCXA343VFM
+**     Processors:          MCXA343VFM
 **                          MCXA343VLF
 **                          MCXA343VLH
 **                          MCXA343VLL
@@ -17,8 +9,8 @@
 **                          MCXA344VLH
 **                          MCXA344VLL
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250806
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SPC
@@ -33,14 +25,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file PERI_SPC.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for SPC
  *
  * CMSIS Peripheral Access Layer for SPC
@@ -49,11 +44,7 @@
 #if !defined(PERI_SPC_H_)
 #define PERI_SPC_H_                              /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA173VFM) || defined(CPU_MCXA173VLF) || defined(CPU_MCXA173VLH) || defined(CPU_MCXA173VLL))
-#include "MCXA173_COMMON.h"
-#elif (defined(CPU_MCXA174VFM) || defined(CPU_MCXA174VLF) || defined(CPU_MCXA174VLH) || defined(CPU_MCXA174VLL))
-#include "MCXA174_COMMON.h"
-#elif (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
+#if (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
 #include "MCXA343_COMMON.h"
 #elif (defined(CPU_MCXA344VFM) || defined(CPU_MCXA344VLF) || defined(CPU_MCXA344VLH) || defined(CPU_MCXA344VLL))
 #include "MCXA344_COMMON.h"
@@ -107,7 +98,8 @@ typedef struct {
   __I  uint32_t VERID;                             /**< Version ID, offset: 0x0 */
        uint8_t RESERVED_0[12];
   __IO uint32_t SC;                                /**< Status Control, offset: 0x10 */
-       uint8_t RESERVED_1[8];
+  __IO uint32_t CNTRL;                             /**< SPC Regulator Control, offset: 0x14 */
+       uint8_t RESERVED_1[4];
   __IO uint32_t LPREQ_CFG;                         /**< Low-Power Request Configuration, offset: 0x1C */
        uint8_t RESERVED_2[16];
   __IO uint32_t PD_STATUS[SPC_PD_STATUS_COUNT];    /**< SPC Power Domain Mode Status, array offset: 0x30, array step: 0x4 */
@@ -116,22 +108,25 @@ typedef struct {
        uint8_t RESERVED_4[16];
   __IO uint32_t SRAMRETLDO_REFTRIM;                /**< SRAM Retention Reference Trim, offset: 0x54 */
   __IO uint32_t SRAMRETLDO_CNTRL;                  /**< SRAM Retention LDO Control, offset: 0x58 */
-       uint8_t RESERVED_5[164];
+       uint8_t RESERVED_5[4];
+  __IO uint32_t HP_CNFG_CTRL;                      /**< High Power Config Control, offset: 0x60 */
+       uint8_t RESERVED_6[156];
   __IO uint32_t ACTIVE_CFG;                        /**< Active Power Mode Configuration, offset: 0x100 */
   __IO uint32_t ACTIVE_CFG1;                       /**< Active Power Mode Configuration 1, offset: 0x104 */
   __IO uint32_t LP_CFG;                            /**< Low-Power Mode Configuration, offset: 0x108 */
   __IO uint32_t LP_CFG1;                           /**< Low Power Mode Configuration 1, offset: 0x10C */
-       uint8_t RESERVED_6[16];
+  __IO uint32_t HP_CFG;                            /**< High Power Mode Configuration, offset: 0x110 */
+       uint8_t RESERVED_7[12];
   __IO uint32_t LPWKUP_DELAY;                      /**< Low Power Wake-Up Delay, offset: 0x120 */
   __IO uint32_t ACTIVE_VDELAY;                     /**< Active Voltage Trim Delay, offset: 0x124 */
-       uint8_t RESERVED_7[8];
+       uint8_t RESERVED_8[8];
   __IO uint32_t VD_STAT;                           /**< Voltage Detect Status, offset: 0x130 */
   __IO uint32_t VD_CORE_CFG;                       /**< Core Voltage Detect Configuration, offset: 0x134 */
   __IO uint32_t VD_SYS_CFG;                        /**< System Voltage Detect Configuration, offset: 0x138 */
-       uint8_t RESERVED_8[4];
+       uint8_t RESERVED_9[4];
   __IO uint32_t EVD_CFG;                           /**< External Voltage Domain Configuration, offset: 0x140 */
   __IO uint32_t GLITCH_DETECT_SC;                  /**< Glitch Detect Status Control, offset: 0x144 */
-       uint8_t RESERVED_9[440];
+       uint8_t RESERVED_10[440];
        uint32_t CORELDO_CFG;                       /**< LDO_CORE Configuration, offset: 0x300 */
 } SPC_Type;
 
@@ -186,10 +181,18 @@ typedef struct {
  */
 #define SPC_SC_SPC_LP_REQ(x)                     (((uint32_t)(((uint32_t)(x)) << SPC_SC_SPC_LP_REQ_SHIFT)) & SPC_SC_SPC_LP_REQ_MASK)
 
+#define SPC_SC_HP_ACTIVE_MASK                    (0x8U)
+#define SPC_SC_HP_ACTIVE_SHIFT                   (3U)
+/*! HP_ACTIVE - HP_CFG Select Status Flag
+ *  0b0..ACTIVE_CFG selected
+ *  0b1..HP_CFG selected
+ */
+#define SPC_SC_HP_ACTIVE(x)                      (((uint32_t)(((uint32_t)(x)) << SPC_SC_HP_ACTIVE_SHIFT)) & SPC_SC_HP_ACTIVE_MASK)
+
 #define SPC_SC_SPC_LP_MODE_MASK                  (0xF0U)
 #define SPC_SC_SPC_LP_MODE_SHIFT                 (4U)
 /*! SPC_LP_MODE - Power Domain Low-Power Mode Request
- *  0b0000..Sleep mode with system clock running
+ *  0b0000..
  *  0b0001..DSLEEP with system clock off
  *  0b0010..PDOWN with system clock off
  *  0b0100..
@@ -201,6 +204,18 @@ typedef struct {
 #define SPC_SC_ISO_CLR_SHIFT                     (16U)
 /*! ISO_CLR - Isolation Clear Flags */
 #define SPC_SC_ISO_CLR(x)                        (((uint32_t)(((uint32_t)(x)) << SPC_SC_ISO_CLR_SHIFT)) & SPC_SC_ISO_CLR_MASK)
+/*! @} */
+
+/*! @name CNTRL - SPC Regulator Control */
+/*! @{ */
+
+#define SPC_CNTRL_CORELDO_EN_MASK                (0x1U)
+#define SPC_CNTRL_CORELDO_EN_SHIFT               (0U)
+/*! CORELDO_EN - LDO_CORE Regulator Enable
+ *  0b0..Disable
+ *  0b1..Enable
+ */
+#define SPC_CNTRL_CORELDO_EN(x)                  (((uint32_t)(((uint32_t)(x)) << SPC_CNTRL_CORELDO_EN_SHIFT)) & SPC_CNTRL_CORELDO_EN_MASK)
 /*! @} */
 
 /*! @name LPREQ_CFG - Low-Power Request Configuration */
@@ -236,14 +251,6 @@ typedef struct {
 /*! @name PD_STATUS - SPC Power Domain Mode Status */
 /*! @{ */
 
-#define SPC_PD_STATUS_PWR_REQ_STATUS_MASK        (0x1U)
-#define SPC_PD_STATUS_PWR_REQ_STATUS_SHIFT       (0U)
-/*! PWR_REQ_STATUS - Power Request Status Flag
- *  0b0..Did not request
- *  0b1..Requested
- */
-#define SPC_PD_STATUS_PWR_REQ_STATUS(x)          (((uint32_t)(((uint32_t)(x)) << SPC_PD_STATUS_PWR_REQ_STATUS_SHIFT)) & SPC_PD_STATUS_PWR_REQ_STATUS_MASK)
-
 #define SPC_PD_STATUS_PD_LP_REQ_MASK             (0x10U)
 #define SPC_PD_STATUS_PD_LP_REQ_SHIFT            (4U)
 /*! PD_LP_REQ - Power Domain Low Power Request Flag
@@ -255,7 +262,7 @@ typedef struct {
 #define SPC_PD_STATUS_LP_MODE_MASK               (0xF00U)
 #define SPC_PD_STATUS_LP_MODE_SHIFT              (8U)
 /*! LP_MODE - Power Domain Low Power Mode Request
- *  0b0000..SLEEP with system clock running
+ *  0b0000..
  *  0b0001..DSLEEP with system clock off
  *  0b0010..PDOWN with system clock off
  *  0b0100..
@@ -320,6 +327,34 @@ typedef struct {
 #define SPC_SRAMRETLDO_CNTRL_SRAM_RET_EN(x)      (((uint32_t)(((uint32_t)(x)) << SPC_SRAMRETLDO_CNTRL_SRAM_RET_EN_SHIFT)) & SPC_SRAMRETLDO_CNTRL_SRAM_RET_EN_MASK)
 /*! @} */
 
+/*! @name HP_CNFG_CTRL - High Power Config Control */
+/*! @{ */
+
+#define SPC_HP_CNFG_CTRL_HP_REQ_EN_MASK          (0x1U)
+#define SPC_HP_CNFG_CTRL_HP_REQ_EN_SHIFT         (0U)
+/*! HP_REQ_EN - High Power Request Enable
+ *  0b0..High Power request Disable
+ *  0b1..High power reqeust Enable
+ */
+#define SPC_HP_CNFG_CTRL_HP_REQ_EN(x)            (((uint32_t)(((uint32_t)(x)) << SPC_HP_CNFG_CTRL_HP_REQ_EN_SHIFT)) & SPC_HP_CNFG_CTRL_HP_REQ_EN_MASK)
+
+#define SPC_HP_CNFG_CTRL_OVERRIDE_EN_MASK        (0x2U)
+#define SPC_HP_CNFG_CTRL_OVERRIDE_EN_SHIFT       (1U)
+/*! OVERRIDE_EN - Override Enable
+ *  0b0..Override Disabled
+ *  0b1..Override Enabled
+ */
+#define SPC_HP_CNFG_CTRL_OVERRIDE_EN(x)          (((uint32_t)(((uint32_t)(x)) << SPC_HP_CNFG_CTRL_OVERRIDE_EN_SHIFT)) & SPC_HP_CNFG_CTRL_OVERRIDE_EN_MASK)
+
+#define SPC_HP_CNFG_CTRL_OVERRIDE_SEL_MASK       (0x4U)
+#define SPC_HP_CNFG_CTRL_OVERRIDE_SEL_SHIFT      (2U)
+/*! OVERRIDE_SEL - Override Select
+ *  0b0..Force the HP request to 0
+ *  0b1..Force the HP request to 1
+ */
+#define SPC_HP_CNFG_CTRL_OVERRIDE_SEL(x)         (((uint32_t)(((uint32_t)(x)) << SPC_HP_CNFG_CTRL_OVERRIDE_SEL_SHIFT)) & SPC_HP_CNFG_CTRL_OVERRIDE_SEL_MASK)
+/*! @} */
+
 /*! @name ACTIVE_CFG - Active Power Mode Configuration */
 /*! @{ */
 
@@ -335,7 +370,7 @@ typedef struct {
 #define SPC_ACTIVE_CFG_CORELDO_VDD_LVL_SHIFT     (2U)
 /*! CORELDO_VDD_LVL - LDO_CORE VDD Regulator Voltage Level
  *  0b00..
- *  0b01..Regulate to mid voltage (1.0 V)
+ *  0b01..Regulate to mid voltage (1 V)
  *  0b10..Regulate to normal voltage (1.1 V)
  *  0b11..Regulate to overdrive voltage (1.15 V)
  */
@@ -358,14 +393,6 @@ typedef struct {
  *  0b11..
  */
 #define SPC_ACTIVE_CFG_BGMODE(x)                 (((uint32_t)(((uint32_t)(x)) << SPC_ACTIVE_CFG_BGMODE_SHIFT)) & SPC_ACTIVE_CFG_BGMODE_MASK)
-
-#define SPC_ACTIVE_CFG_VDD_VD_DISABLE_MASK       (0x800000U)
-#define SPC_ACTIVE_CFG_VDD_VD_DISABLE_SHIFT      (23U)
-/*! VDD_VD_DISABLE - VDD Voltage Detect Disable
- *  0b0..Enable
- *  0b1..Disable
- */
-#define SPC_ACTIVE_CFG_VDD_VD_DISABLE(x)         (((uint32_t)(((uint32_t)(x)) << SPC_ACTIVE_CFG_VDD_VD_DISABLE_SHIFT)) & SPC_ACTIVE_CFG_VDD_VD_DISABLE_MASK)
 
 #define SPC_ACTIVE_CFG_CORE_LVDE_MASK            (0x1000000U)
 #define SPC_ACTIVE_CFG_CORE_LVDE_SHIFT           (24U)
@@ -415,8 +442,8 @@ typedef struct {
 #define SPC_LP_CFG_CORELDO_VDD_LVL_MASK          (0xCU)
 #define SPC_LP_CFG_CORELDO_VDD_LVL_SHIFT         (2U)
 /*! CORELDO_VDD_LVL - LDO_CORE VDD Regulator Voltage Level
- *  0b00..Retention voltage
- *  0b01..Mid voltage (1.0 V)
+ *  0b00..Reserved
+ *  0b01..Mid voltage (1 V)
  *  0b10..Normal voltage (1.1 V)
  *  0b11..Overdrive voltage (1.15 V)
  */
@@ -488,6 +515,70 @@ typedef struct {
 #define SPC_LP_CFG1_SOC_CNTRL_SHIFT              (0U)
 /*! SOC_CNTRL - Low-Power Configuration Chip Control */
 #define SPC_LP_CFG1_SOC_CNTRL(x)                 (((uint32_t)(((uint32_t)(x)) << SPC_LP_CFG1_SOC_CNTRL_SHIFT)) & SPC_LP_CFG1_SOC_CNTRL_MASK)
+/*! @} */
+
+/*! @name HP_CFG - High Power Mode Configuration */
+/*! @{ */
+
+#define SPC_HP_CFG_CORELDO_VDD_DS_MASK           (0x1U)
+#define SPC_HP_CFG_CORELDO_VDD_DS_SHIFT          (0U)
+/*! CORELDO_VDD_DS - LDO_CORE VDD Drive Strength
+ *  0b0..Low
+ *  0b1..Normal
+ */
+#define SPC_HP_CFG_CORELDO_VDD_DS(x)             (((uint32_t)(((uint32_t)(x)) << SPC_HP_CFG_CORELDO_VDD_DS_SHIFT)) & SPC_HP_CFG_CORELDO_VDD_DS_MASK)
+
+#define SPC_HP_CFG_CORELDO_VDD_LVL_MASK          (0xCU)
+#define SPC_HP_CFG_CORELDO_VDD_LVL_SHIFT         (2U)
+/*! CORELDO_VDD_LVL - LDO_CORE VDD Regulator Voltage Level
+ *  0b00..
+ *  0b01..Regulate to mid voltage (1 V)
+ *  0b10..Regulate to normal voltage (1.1 V)
+ *  0b11..Regulate to overdrive voltage (1.15 V)
+ */
+#define SPC_HP_CFG_CORELDO_VDD_LVL(x)            (((uint32_t)(((uint32_t)(x)) << SPC_HP_CFG_CORELDO_VDD_LVL_SHIFT)) & SPC_HP_CFG_CORELDO_VDD_LVL_MASK)
+
+#define SPC_HP_CFG_GLITCH_DETECT_DISABLE_MASK    (0x1000U)
+#define SPC_HP_CFG_GLITCH_DETECT_DISABLE_SHIFT   (12U)
+/*! GLITCH_DETECT_DISABLE - VDD Core Glitch Detect Disable
+ *  0b0..VDD Core Low Voltage Glitch Detect enabled
+ *  0b1..VDD Core Low Voltage Glitch Detect disabled
+ */
+#define SPC_HP_CFG_GLITCH_DETECT_DISABLE(x)      (((uint32_t)(((uint32_t)(x)) << SPC_HP_CFG_GLITCH_DETECT_DISABLE_SHIFT)) & SPC_HP_CFG_GLITCH_DETECT_DISABLE_MASK)
+
+#define SPC_HP_CFG_BGMODE_MASK                   (0x300000U)
+#define SPC_HP_CFG_BGMODE_SHIFT                  (20U)
+/*! BGMODE - Bandgap Mode
+ *  0b00..Bandgap disabled
+ *  0b01..Bandgap enabled, buffer disabled
+ *  0b10..Bandgap enabled, buffer enabled
+ *  0b11..
+ */
+#define SPC_HP_CFG_BGMODE(x)                     (((uint32_t)(((uint32_t)(x)) << SPC_HP_CFG_BGMODE_SHIFT)) & SPC_HP_CFG_BGMODE_MASK)
+
+#define SPC_HP_CFG_CORE_LVDE_MASK                (0x1000000U)
+#define SPC_HP_CFG_CORE_LVDE_SHIFT               (24U)
+/*! CORE_LVDE - Core Low-Voltage Detection Enable
+ *  0b0..Disable
+ *  0b1..Enable
+ */
+#define SPC_HP_CFG_CORE_LVDE(x)                  (((uint32_t)(((uint32_t)(x)) << SPC_HP_CFG_CORE_LVDE_SHIFT)) & SPC_HP_CFG_CORE_LVDE_MASK)
+
+#define SPC_HP_CFG_SYS_LVDE_MASK                 (0x2000000U)
+#define SPC_HP_CFG_SYS_LVDE_SHIFT                (25U)
+/*! SYS_LVDE - System Low-Voltage Detection Enable
+ *  0b0..Disable
+ *  0b1..Enable
+ */
+#define SPC_HP_CFG_SYS_LVDE(x)                   (((uint32_t)(((uint32_t)(x)) << SPC_HP_CFG_SYS_LVDE_SHIFT)) & SPC_HP_CFG_SYS_LVDE_MASK)
+
+#define SPC_HP_CFG_SYS_HVDE_MASK                 (0x10000000U)
+#define SPC_HP_CFG_SYS_HVDE_SHIFT                (28U)
+/*! SYS_HVDE - System High-Voltage Detection Enable
+ *  0b0..Disable
+ *  0b1..Enable
+ */
+#define SPC_HP_CFG_SYS_HVDE(x)                   (((uint32_t)(((uint32_t)(x)) << SPC_HP_CFG_SYS_HVDE_SHIFT)) & SPC_HP_CFG_SYS_HVDE_MASK)
 /*! @} */
 
 /*! @name LPWKUP_DELAY - Low Power Wake-Up Delay */
@@ -604,6 +695,14 @@ typedef struct {
  *  0b1..Enable
  */
 #define SPC_VD_SYS_CFG_HVDIE(x)                  (((uint32_t)(((uint32_t)(x)) << SPC_VD_SYS_CFG_HVDIE_SHIFT)) & SPC_VD_SYS_CFG_HVDIE_MASK)
+
+#define SPC_VD_SYS_CFG_LVSEL_MASK                (0x100U)
+#define SPC_VD_SYS_CFG_LVSEL_SHIFT               (8U)
+/*! LVSEL - System Low-Voltage Level Select
+ *  0b0..Normal
+ *  0b1..Safe
+ */
+#define SPC_VD_SYS_CFG_LVSEL(x)                  (((uint32_t)(((uint32_t)(x)) << SPC_VD_SYS_CFG_LVSEL_SHIFT)) & SPC_VD_SYS_CFG_LVSEL_MASK)
 
 #define SPC_VD_SYS_CFG_LOCK_MASK                 (0x10000U)
 #define SPC_VD_SYS_CFG_LOCK_SHIFT                (16U)

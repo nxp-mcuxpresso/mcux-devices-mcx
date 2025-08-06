@@ -1,14 +1,6 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA173VFM
-**                          MCXA173VLF
-**                          MCXA173VLH
-**                          MCXA173VLL
-**                          MCXA174VFM
-**                          MCXA174VLF
-**                          MCXA174VLH
-**                          MCXA174VLL
-**                          MCXA343VFM
+**     Processors:          MCXA343VFM
 **                          MCXA343VLF
 **                          MCXA343VLH
 **                          MCXA343VLL
@@ -17,8 +9,8 @@
 **                          MCXA344VLH
 **                          MCXA344VLL
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250806
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for EIM
@@ -33,14 +25,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file PERI_EIM.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for EIM
  *
  * CMSIS Peripheral Access Layer for EIM
@@ -49,11 +44,7 @@
 #if !defined(PERI_EIM_H_)
 #define PERI_EIM_H_                              /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA173VFM) || defined(CPU_MCXA173VLF) || defined(CPU_MCXA173VLH) || defined(CPU_MCXA173VLL))
-#include "MCXA173_COMMON.h"
-#elif (defined(CPU_MCXA174VFM) || defined(CPU_MCXA174VLF) || defined(CPU_MCXA174VLH) || defined(CPU_MCXA174VLL))
-#include "MCXA174_COMMON.h"
-#elif (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
+#if (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
 #include "MCXA343_COMMON.h"
 #elif (defined(CPU_MCXA344VFM) || defined(CPU_MCXA344VLF) || defined(CPU_MCXA344VLH) || defined(CPU_MCXA344VLL))
 #include "MCXA344_COMMON.h"
@@ -221,7 +212,7 @@ typedef struct {
 
 #define EIM_EICHD0_WORD1_B0_3DATA_MASK_MASK      (0xFFFFFFFFU)
 #define EIM_EICHD0_WORD1_B0_3DATA_MASK_SHIFT     (0U)
-/*! B0_3DATA_MASK - Data Mask Bytes 0-3 */
+/*! B0_3DATA_MASK - Data Mask Field */
 #define EIM_EICHD0_WORD1_B0_3DATA_MASK(x)        (((uint32_t)(((uint32_t)(x)) << EIM_EICHD0_WORD1_B0_3DATA_MASK_SHIFT)) & EIM_EICHD0_WORD1_B0_3DATA_MASK_MASK)
 /*! @} */
 

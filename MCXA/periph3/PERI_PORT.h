@@ -1,14 +1,6 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA173VFM
-**                          MCXA173VLF
-**                          MCXA173VLH
-**                          MCXA173VLL
-**                          MCXA174VFM
-**                          MCXA174VLF
-**                          MCXA174VLH
-**                          MCXA174VLL
-**                          MCXA343VFM
+**     Processors:          MCXA343VFM
 **                          MCXA343VLF
 **                          MCXA343VLH
 **                          MCXA343VLL
@@ -17,8 +9,8 @@
 **                          MCXA344VLH
 **                          MCXA344VLL
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250806
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PORT
@@ -33,14 +25,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file PERI_PORT.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for PORT
  *
  * CMSIS Peripheral Access Layer for PORT
@@ -49,11 +44,7 @@
 #if !defined(PERI_PORT_H_)
 #define PERI_PORT_H_                             /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA173VFM) || defined(CPU_MCXA173VLF) || defined(CPU_MCXA173VLH) || defined(CPU_MCXA173VLL))
-#include "MCXA173_COMMON.h"
-#elif (defined(CPU_MCXA174VFM) || defined(CPU_MCXA174VLF) || defined(CPU_MCXA174VLH) || defined(CPU_MCXA174VLL))
-#include "MCXA174_COMMON.h"
-#elif (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
+#if (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
 #include "MCXA343_COMMON.h"
 #elif (defined(CPU_MCXA344VFM) || defined(CPU_MCXA344VLF) || defined(CPU_MCXA344VLH) || defined(CPU_MCXA344VLL))
 #include "MCXA344_COMMON.h"
@@ -114,7 +105,7 @@ typedef struct {
   __IO uint32_t CALIB0;                            /**< Calibration 0, offset: 0x60, available only on: PORT0, PORT1, PORT3, PORT4 (missing on PORT2) */
   __IO uint32_t CALIB1;                            /**< Calibration 1, offset: 0x64, available only on: PORT0, PORT1, PORT3, PORT4 (missing on PORT2) */
        uint8_t RESERVED_3[24];
-  __IO uint32_t PCR[PORT_PCR_COUNT];               /**< Pin Control 0..Pin Control 31, array offset: 0x80, array step: 0x4 */
+  __IO uint32_t PCR[PORT_PCR_COUNT];               /**< Pin Control 0..Pin Control 31, array offset: 0x80, array step: 0x4, irregular array, not all indices are valid */
 } PORT_Type;
 
 /* ----------------------------------------------------------------------------

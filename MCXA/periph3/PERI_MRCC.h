@@ -1,14 +1,6 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA173VFM
-**                          MCXA173VLF
-**                          MCXA173VLH
-**                          MCXA173VLL
-**                          MCXA174VFM
-**                          MCXA174VLF
-**                          MCXA174VLH
-**                          MCXA174VLL
-**                          MCXA343VFM
+**     Processors:          MCXA343VFM
 **                          MCXA343VLF
 **                          MCXA343VLH
 **                          MCXA343VLL
@@ -17,8 +9,8 @@
 **                          MCXA344VLH
 **                          MCXA344VLL
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250806
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MRCC
@@ -33,14 +25,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file PERI_MRCC.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for MRCC
  *
  * CMSIS Peripheral Access Layer for MRCC
@@ -49,11 +44,7 @@
 #if !defined(PERI_MRCC_H_)
 #define PERI_MRCC_H_                             /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA173VFM) || defined(CPU_MCXA173VLF) || defined(CPU_MCXA173VLH) || defined(CPU_MCXA173VLL))
-#include "MCXA173_COMMON.h"
-#elif (defined(CPU_MCXA174VFM) || defined(CPU_MCXA174VLF) || defined(CPU_MCXA174VLH) || defined(CPU_MCXA174VLL))
-#include "MCXA174_COMMON.h"
-#elif (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
+#if (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
 #include "MCXA343_COMMON.h"
 #elif (defined(CPU_MCXA344VFM) || defined(CPU_MCXA344VLF) || defined(CPU_MCXA344VLH) || defined(CPU_MCXA344VLL))
 #include "MCXA344_COMMON.h"
@@ -177,8 +168,6 @@ typedef struct {
   __IO uint32_t MRCC_DBG_TRACE_CLKDIV;             /**< DBG_TRACE clock divider control, offset: 0x154 */
   __IO uint32_t MRCC_CLKOUT_CLKSEL;                /**< CLKOUT clock selection control, offset: 0x158 */
   __IO uint32_t MRCC_CLKOUT_CLKDIV;                /**< CLKOUT clock divider control, offset: 0x15C */
-  __IO uint32_t MRCC_SYSTICK_CLKSEL;               /**< SYSTICK clock selection control, offset: 0x160 */
-  __IO uint32_t MRCC_SYSTICK_CLKDIV;               /**< SYSTICK clock divider control, offset: 0x164 */
 } MRCC_Type;
 
 /* ----------------------------------------------------------------------------
@@ -723,14 +712,6 @@ typedef struct {
  */
 #define MRCC_MRCC_GLB_CC0_ERM0(x)                (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_GLB_CC0_ERM0_SHIFT)) & MRCC_MRCC_GLB_CC0_ERM0_MASK)
 
-#define MRCC_MRCC_GLB_CC0_FMC_MASK               (0x10000U)
-#define MRCC_MRCC_GLB_CC0_FMC_SHIFT              (16U)
-/*! FMC - FMC
- *  0b0..Peripheral clock is disabled
- *  0b1..Peripheral clock is enabled
- */
-#define MRCC_MRCC_GLB_CC0_FMC(x)                 (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_GLB_CC0_FMC_SHIFT)) & MRCC_MRCC_GLB_CC0_FMC_MASK)
-
 #define MRCC_MRCC_GLB_CC0_AOI1_MASK              (0x20000U)
 #define MRCC_MRCC_GLB_CC0_AOI1_SHIFT             (17U)
 /*! AOI1 - AOI1
@@ -1204,14 +1185,6 @@ typedef struct {
  *  0b1..Automatic clock gating is enabled
  */
 #define MRCC_MRCC_GLB_ACC0_ERM0(x)               (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_GLB_ACC0_ERM0_SHIFT)) & MRCC_MRCC_GLB_ACC0_ERM0_MASK)
-
-#define MRCC_MRCC_GLB_ACC0_FMC_MASK              (0x10000U)
-#define MRCC_MRCC_GLB_ACC0_FMC_SHIFT             (16U)
-/*! FMC - FMC
- *  0b0..Automatic clock gating is disabled
- *  0b1..Automatic clock gating is enabled
- */
-#define MRCC_MRCC_GLB_ACC0_FMC(x)                (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_GLB_ACC0_FMC_SHIFT)) & MRCC_MRCC_GLB_ACC0_FMC_MASK)
 
 #define MRCC_MRCC_GLB_ACC0_AOI1_MASK             (0x20000U)
 #define MRCC_MRCC_GLB_ACC0_AOI1_SHIFT            (17U)
@@ -2587,53 +2560,6 @@ typedef struct {
  *  0b1..Clock frequency isn't stable
  */
 #define MRCC_MRCC_CLKOUT_CLKDIV_UNSTAB(x)        (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_CLKOUT_CLKDIV_UNSTAB_SHIFT)) & MRCC_MRCC_CLKOUT_CLKDIV_UNSTAB_MASK)
-/*! @} */
-
-/*! @name MRCC_SYSTICK_CLKSEL - SYSTICK clock selection control */
-/*! @{ */
-
-#define MRCC_MRCC_SYSTICK_CLKSEL_MUX_MASK        (0x3U)
-#define MRCC_MRCC_SYSTICK_CLKSEL_MUX_SHIFT       (0U)
-/*! MUX - Functional Clock Mux Select
- *  0b00..CPU_CLK
- *  0b01..CLK_1M
- *  0b10..CLK_16K
- *  0b11..Reserved1(NO Clock)
- */
-#define MRCC_MRCC_SYSTICK_CLKSEL_MUX(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_SYSTICK_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_SYSTICK_CLKSEL_MUX_MASK)
-/*! @} */
-
-/*! @name MRCC_SYSTICK_CLKDIV - SYSTICK clock divider control */
-/*! @{ */
-
-#define MRCC_MRCC_SYSTICK_CLKDIV_DIV_MASK        (0xFU)
-#define MRCC_MRCC_SYSTICK_CLKDIV_DIV_SHIFT       (0U)
-/*! DIV - Functional Clock Divider */
-#define MRCC_MRCC_SYSTICK_CLKDIV_DIV(x)          (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_SYSTICK_CLKDIV_DIV_SHIFT)) & MRCC_MRCC_SYSTICK_CLKDIV_DIV_MASK)
-
-#define MRCC_MRCC_SYSTICK_CLKDIV_RESET_MASK      (0x20000000U)
-#define MRCC_MRCC_SYSTICK_CLKDIV_RESET_SHIFT     (29U)
-/*! RESET - Reset divider counter
- *  0b0..Divider isn't reset
- *  0b1..Divider is reset
- */
-#define MRCC_MRCC_SYSTICK_CLKDIV_RESET(x)        (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_SYSTICK_CLKDIV_RESET_SHIFT)) & MRCC_MRCC_SYSTICK_CLKDIV_RESET_MASK)
-
-#define MRCC_MRCC_SYSTICK_CLKDIV_HALT_MASK       (0x40000000U)
-#define MRCC_MRCC_SYSTICK_CLKDIV_HALT_SHIFT      (30U)
-/*! HALT - Halt divider counter
- *  0b0..Divider clock is running
- *  0b1..Divider clock is stopped
- */
-#define MRCC_MRCC_SYSTICK_CLKDIV_HALT(x)         (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_SYSTICK_CLKDIV_HALT_SHIFT)) & MRCC_MRCC_SYSTICK_CLKDIV_HALT_MASK)
-
-#define MRCC_MRCC_SYSTICK_CLKDIV_UNSTAB_MASK     (0x80000000U)
-#define MRCC_MRCC_SYSTICK_CLKDIV_UNSTAB_SHIFT    (31U)
-/*! UNSTAB - Divider status flag
- *  0b0..Divider clock is stable
- *  0b1..Clock frequency isn't stable
- */
-#define MRCC_MRCC_SYSTICK_CLKDIV_UNSTAB(x)       (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_SYSTICK_CLKDIV_UNSTAB_SHIFT)) & MRCC_MRCC_SYSTICK_CLKDIV_UNSTAB_MASK)
 /*! @} */
 
 

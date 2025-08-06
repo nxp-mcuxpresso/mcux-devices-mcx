@@ -1,14 +1,6 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA173VFM
-**                          MCXA173VLF
-**                          MCXA173VLH
-**                          MCXA173VLL
-**                          MCXA174VFM
-**                          MCXA174VLF
-**                          MCXA174VLH
-**                          MCXA174VLL
-**                          MCXA343VFM
+**     Processors:          MCXA343VFM
 **                          MCXA343VLF
 **                          MCXA343VLH
 **                          MCXA343VLL
@@ -17,8 +9,8 @@
 **                          MCXA344VLH
 **                          MCXA344VLL
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250806
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA
@@ -33,14 +25,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file PERI_DMA.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for DMA
  *
  * CMSIS Peripheral Access Layer for DMA
@@ -49,11 +44,7 @@
 #if !defined(PERI_DMA_H_)
 #define PERI_DMA_H_                              /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA173VFM) || defined(CPU_MCXA173VLF) || defined(CPU_MCXA173VLH) || defined(CPU_MCXA173VLL))
-#include "MCXA173_COMMON.h"
-#elif (defined(CPU_MCXA174VFM) || defined(CPU_MCXA174VLF) || defined(CPU_MCXA174VLH) || defined(CPU_MCXA174VLL))
-#include "MCXA174_COMMON.h"
-#elif (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
+#if (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
 #include "MCXA343_COMMON.h"
 #elif (defined(CPU_MCXA344VFM) || defined(CPU_MCXA344VLF) || defined(CPU_MCXA344VLH) || defined(CPU_MCXA344VLL))
 #include "MCXA344_COMMON.h"
@@ -293,9 +284,9 @@ typedef struct {
 
 #define DMA_MP_CSR_GMRC_MASK                     (0x80U)
 #define DMA_MP_CSR_GMRC_SHIFT                    (7U)
-/*! GMRC - Global Master ID Replication Control
- *  0b0..Master ID replication disabled for all channels
- *  0b1..Master ID replication available and controlled by each channel's CHn_SBR[EMI] setting
+/*! GMRC - Global Initiator ID Replication Control
+ *  0b0..Initiator ID replication disabled for all channels
+ *  0b1..Initiator ID replication available and controlled by each channel's CHn_SBR[EMI] setting
  */
 #define DMA_MP_CSR_GMRC(x)                       (((uint32_t)(((uint32_t)(x)) << DMA_MP_CSR_GMRC_SHIFT)) & DMA_MP_CSR_GMRC_MASK)
 
@@ -596,7 +587,7 @@ typedef struct {
 
 #define DMA_CH_SBR_MID_MASK                      (0xFU)
 #define DMA_CH_SBR_MID_SHIFT                     (0U)
-/*! MID - Master ID */
+/*! MID - Initiator ID */
 #define DMA_CH_SBR_MID(x)                        (((uint32_t)(((uint32_t)(x)) << DMA_CH_SBR_MID_SHIFT)) & DMA_CH_SBR_MID_MASK)
 
 #define DMA_CH_SBR_PAL_MASK                      (0x8000U)
@@ -609,9 +600,9 @@ typedef struct {
 
 #define DMA_CH_SBR_EMI_MASK                      (0x10000U)
 #define DMA_CH_SBR_EMI_SHIFT                     (16U)
-/*! EMI - Enable Master ID Replication
- *  0b0..Master ID replication is disabled
- *  0b1..Master ID replication is enabled
+/*! EMI - Enable Initiator ID Replication
+ *  0b0..Initiator ID replication is disabled
+ *  0b1..Initiator ID replication is enabled
  */
 #define DMA_CH_SBR_EMI(x)                        (((uint32_t)(((uint32_t)(x)) << DMA_CH_SBR_EMI_SHIFT)) & DMA_CH_SBR_EMI_MASK)
 /*! @} */
@@ -714,7 +705,6 @@ typedef struct {
 #define DMA_TCD_ATTR_SMOD_SHIFT                  (11U)
 /*! SMOD - Source Address Modulo
  *  0b00000..Source address modulo feature disabled
- *  0b00001..Source address modulo feature enabled for any non-zero value [1-31]
  */
 #define DMA_TCD_ATTR_SMOD(x)                     (((uint16_t)(((uint16_t)(x)) << DMA_TCD_ATTR_SMOD_SHIFT)) & DMA_TCD_ATTR_SMOD_MASK)
 /*! @} */

@@ -1,14 +1,6 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA173VFM
-**                          MCXA173VLF
-**                          MCXA173VLH
-**                          MCXA173VLL
-**                          MCXA174VFM
-**                          MCXA174VLF
-**                          MCXA174VLH
-**                          MCXA174VLL
-**                          MCXA343VFM
+**     Processors:          MCXA343VFM
 **                          MCXA343VLF
 **                          MCXA343VLH
 **                          MCXA343VLL
@@ -17,8 +9,8 @@
 **                          MCXA344VLH
 **                          MCXA344VLL
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250806
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for OPAMP
@@ -33,14 +25,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file PERI_OPAMP.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for OPAMP
  *
  * CMSIS Peripheral Access Layer for OPAMP
@@ -49,11 +44,7 @@
 #if !defined(PERI_OPAMP_H_)
 #define PERI_OPAMP_H_                            /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA173VFM) || defined(CPU_MCXA173VLF) || defined(CPU_MCXA173VLH) || defined(CPU_MCXA173VLL))
-#include "MCXA173_COMMON.h"
-#elif (defined(CPU_MCXA174VFM) || defined(CPU_MCXA174VLF) || defined(CPU_MCXA174VLH) || defined(CPU_MCXA174VLL))
-#include "MCXA174_COMMON.h"
-#elif (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
+#if (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
 #include "MCXA343_COMMON.h"
 #elif (defined(CPU_MCXA344VFM) || defined(CPU_MCXA344VLF) || defined(CPU_MCXA344VLH) || defined(CPU_MCXA344VLL))
 #include "MCXA344_COMMON.h"
@@ -102,7 +93,7 @@
 /** OPAMP - Register Layout Typedef */
 typedef struct {
   __I  uint32_t VERID;                             /**< Version ID, offset: 0x0 */
-       uint32_t PARAM;                             /**< Parameter, offset: 0x4 */
+  __I  uint32_t PARAM;                             /**< Parameter, offset: 0x4 */
   __IO uint32_t OPAMP_CTRL;                        /**< OPAMP Control, offset: 0x8 */
 } OPAMP_Type;
 
@@ -134,6 +125,15 @@ typedef struct {
 #define OPAMP_VERID_MAJOR(x)                     (((uint32_t)(((uint32_t)(x)) << OPAMP_VERID_MAJOR_SHIFT)) & OPAMP_VERID_MAJOR_MASK)
 /*! @} */
 
+/*! @name PARAM - Parameter */
+/*! @{ */
+
+#define OPAMP_PARAM_PARAM_MASK                   (0xFFFFFFFFU)
+#define OPAMP_PARAM_PARAM_SHIFT                  (0U)
+/*! PARAM - Parameters */
+#define OPAMP_PARAM_PARAM(x)                     (((uint32_t)(((uint32_t)(x)) << OPAMP_PARAM_PARAM_SHIFT)) & OPAMP_PARAM_PARAM_MASK)
+/*! @} */
+
 /*! @name OPAMP_CTRL - OPAMP Control */
 /*! @{ */
 
@@ -145,18 +145,8 @@ typedef struct {
  */
 #define OPAMP_OPAMP_CTRL_OPA_EN(x)               (((uint32_t)(((uint32_t)(x)) << OPAMP_OPAMP_CTRL_OPA_EN_SHIFT)) & OPAMP_OPAMP_CTRL_OPA_EN_MASK)
 
-#define OPAMP_OPAMP_CTRL_OPA_BC_SEL_MASK         (0x30U)
-#define OPAMP_OPAMP_CTRL_OPA_BC_SEL_SHIFT        (4U)
-/*! OPA_BC_SEL - Bias current config selection
- *  0b00..Default value. Keep power consumption constant
- *  0b01..Reduce power consumption to 1/4
- *  0b10..Reduce power consumption to 1/2
- *  0b11..Double the power consumption
- */
-#define OPAMP_OPAMP_CTRL_OPA_BC_SEL(x)           (((uint32_t)(((uint32_t)(x)) << OPAMP_OPAMP_CTRL_OPA_BC_SEL_SHIFT)) & OPAMP_OPAMP_CTRL_OPA_BC_SEL_MASK)
-
-#define OPAMP_OPAMP_CTRL_OPA_CC_SEL_MASK         (0xC0U)
-#define OPAMP_OPAMP_CTRL_OPA_CC_SEL_SHIFT        (6U)
+#define OPAMP_OPAMP_CTRL_OPA_CC_SEL_MASK         (0x30U)
+#define OPAMP_OPAMP_CTRL_OPA_CC_SEL_SHIFT        (4U)
 /*! OPA_CC_SEL - Compensation capcitor config selection
  *  0b00..Fit 2X gains
  *  0b01..Fit 4X gains
@@ -164,6 +154,16 @@ typedef struct {
  *  0b11..Fit 16X gains
  */
 #define OPAMP_OPAMP_CTRL_OPA_CC_SEL(x)           (((uint32_t)(((uint32_t)(x)) << OPAMP_OPAMP_CTRL_OPA_CC_SEL_SHIFT)) & OPAMP_OPAMP_CTRL_OPA_CC_SEL_MASK)
+
+#define OPAMP_OPAMP_CTRL_OPA_BC_SEL_MASK         (0xC0U)
+#define OPAMP_OPAMP_CTRL_OPA_BC_SEL_SHIFT        (6U)
+/*! OPA_BC_SEL - Bias current config selection
+ *  0b00..Default value. Keep power consumption constant
+ *  0b01..Reduce power consumption to 1/4
+ *  0b10..Reduce power consumption to 1/2
+ *  0b11..Increase power consumption to 3/2
+ */
+#define OPAMP_OPAMP_CTRL_OPA_BC_SEL(x)           (((uint32_t)(((uint32_t)(x)) << OPAMP_OPAMP_CTRL_OPA_BC_SEL_SHIFT)) & OPAMP_OPAMP_CTRL_OPA_BC_SEL_MASK)
 /*! @} */
 
 

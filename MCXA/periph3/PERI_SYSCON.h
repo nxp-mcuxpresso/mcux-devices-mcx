@@ -1,14 +1,6 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA173VFM
-**                          MCXA173VLF
-**                          MCXA173VLH
-**                          MCXA173VLL
-**                          MCXA174VFM
-**                          MCXA174VLF
-**                          MCXA174VLH
-**                          MCXA174VLL
-**                          MCXA343VFM
+**     Processors:          MCXA343VFM
 **                          MCXA343VLF
 **                          MCXA343VLH
 **                          MCXA343VLL
@@ -17,8 +9,8 @@
 **                          MCXA344VLH
 **                          MCXA344VLL
 **
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250806
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SYSCON
@@ -33,14 +25,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file PERI_SYSCON.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for SYSCON
  *
  * CMSIS Peripheral Access Layer for SYSCON
@@ -49,11 +44,7 @@
 #if !defined(PERI_SYSCON_H_)
 #define PERI_SYSCON_H_                           /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA173VFM) || defined(CPU_MCXA173VLF) || defined(CPU_MCXA173VLH) || defined(CPU_MCXA173VLL))
-#include "MCXA173_COMMON.h"
-#elif (defined(CPU_MCXA174VFM) || defined(CPU_MCXA174VLF) || defined(CPU_MCXA174VLH) || defined(CPU_MCXA174VLL))
-#include "MCXA174_COMMON.h"
-#elif (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
+#if (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
 #include "MCXA343_COMMON.h"
 #elif (defined(CPU_MCXA344VFM) || defined(CPU_MCXA344VLF) || defined(CPU_MCXA344VLH) || defined(CPU_MCXA344VLL))
 #include "MCXA344_COMMON.h"
@@ -158,7 +149,6 @@ typedef struct {
   __I  uint32_t JTAG_ID;                           /**< JTAG Chip ID, offset: 0xFF0 */
   __I  uint32_t DEVICE_TYPE;                       /**< Device Type, offset: 0xFF4 */
   __I  uint32_t DEVICE_ID0;                        /**< Device ID, offset: 0xFF8 */
-  __I  uint32_t DIEID;                             /**< Chip Revision ID and Number, offset: 0xFFC */
 } SYSCON_Type;
 
 /* ----------------------------------------------------------------------------
@@ -182,21 +172,21 @@ typedef struct {
  */
 #define SYSCON_REMAP_CPU0_SBUS(x)                (((uint32_t)(((uint32_t)(x)) << SYSCON_REMAP_CPU0_SBUS_SHIFT)) & SYSCON_REMAP_CPU0_SBUS_MASK)
 
-#define SYSCON_REMAP_SMARTDMA_D_MASK             (0x30U)
-#define SYSCON_REMAP_SMARTDMA_D_SHIFT            (4U)
-/*! SmartDMA_D - RAMX0 address remap for SmartDMA D-BUS
- *  0b00..RAMX0: alias space is disabled.
- *  0b01..RAMX0: same alias space as CPU0_SBUS
- */
-#define SYSCON_REMAP_SMARTDMA_D(x)               (((uint32_t)(((uint32_t)(x)) << SYSCON_REMAP_SMARTDMA_D_SHIFT)) & SYSCON_REMAP_SMARTDMA_D_MASK)
-
-#define SYSCON_REMAP_SMARTDMA_I_MASK             (0xC0U)
-#define SYSCON_REMAP_SMARTDMA_I_SHIFT            (6U)
+#define SYSCON_REMAP_SMARTDMA_I_MASK             (0x30U)
+#define SYSCON_REMAP_SMARTDMA_I_SHIFT            (4U)
 /*! SmartDMA_I - RAMX0 address remap for SmartDMA I-BUS
  *  0b00..RAMX0: alias space is disabled.
  *  0b01..RAMX0: same alias space as CPU0_SBUS
  */
 #define SYSCON_REMAP_SMARTDMA_I(x)               (((uint32_t)(((uint32_t)(x)) << SYSCON_REMAP_SMARTDMA_I_SHIFT)) & SYSCON_REMAP_SMARTDMA_I_MASK)
+
+#define SYSCON_REMAP_SMARTDMA_D_MASK             (0xC0U)
+#define SYSCON_REMAP_SMARTDMA_D_SHIFT            (6U)
+/*! SmartDMA_D - RAMX0 address remap for SmartDMA D-BUS
+ *  0b00..RAMX0: alias space is disabled.
+ *  0b01..RAMX0: same alias space as CPU0_SBUS
+ */
+#define SYSCON_REMAP_SMARTDMA_D(x)               (((uint32_t)(((uint32_t)(x)) << SYSCON_REMAP_SMARTDMA_D_SHIFT)) & SYSCON_REMAP_SMARTDMA_D_MASK)
 
 #define SYSCON_REMAP_DMA0_MASK                   (0x300U)
 #define SYSCON_REMAP_DMA0_SHIFT                  (8U)
@@ -208,7 +198,7 @@ typedef struct {
 
 #define SYSCON_REMAP_LOCK_MASK                   (0x80000000U)
 #define SYSCON_REMAP_LOCK_SHIFT                  (31U)
-/*! LOCK - This 1-bit field provides a mechanism to limit writes to the this register to protect its
+/*! LOCK - This 1-bit field provides a mechanism to limit writes to this register to protect its
  *    contents. Once set, this bit remains asserted until a system reset.
  *  0b0..This register is not locked and can be altered.
  *  0b1..This register is locked and cannot be altered until a system reset.
@@ -336,7 +326,7 @@ typedef struct {
 
 #define SYSCON_PROTLVL_LOCK_MASK                 (0x80000000U)
 #define SYSCON_PROTLVL_LOCK_SHIFT                (31U)
-/*! LOCK - This 1-bit field provides a mechanism to limit writes to the this register to protect its
+/*! LOCK - This 1-bit field provides a mechanism to limit writes to this register to protect its
  *    contents. Once set, this bit remains asserted until a system reset.
  *  0b0..This register is not locked and can be altered.
  *  0b1..This register is locked and cannot be altered until a system reset.
@@ -555,23 +545,15 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT0_MASK             (0x1U)
 #define SYSCON_SMARTDMAINT_INT0_SHIFT            (0U)
-/*! INT0 - SmartDMA hijack NVIC IRQ1
+/*! INT0 - SmartDMA hijack NVIC IRQ2
  *  0b0..Disable
  *  0b1..Enable
  */
 #define SYSCON_SMARTDMAINT_INT0(x)               (((uint32_t)(((uint32_t)(x)) << SYSCON_SMARTDMAINT_INT0_SHIFT)) & SYSCON_SMARTDMAINT_INT0_MASK)
 
-#define SYSCON_SMARTDMAINT_INT1_MASK             (0x2U)
-#define SYSCON_SMARTDMAINT_INT1_SHIFT            (1U)
-/*! INT1 - SmartDMA hijack NVIC IRQ17
- *  0b0..Disable
- *  0b1..Enable
- */
-#define SYSCON_SMARTDMAINT_INT1(x)               (((uint32_t)(((uint32_t)(x)) << SYSCON_SMARTDMAINT_INT1_SHIFT)) & SYSCON_SMARTDMAINT_INT1_MASK)
-
 #define SYSCON_SMARTDMAINT_INT2_MASK             (0x4U)
 #define SYSCON_SMARTDMAINT_INT2_SHIFT            (2U)
-/*! INT2 - SmartDMA hijack NVIC IRQ18
+/*! INT2 - SmartDMA hijack NVIC IRQ26
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -579,7 +561,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT3_MASK             (0x8U)
 #define SYSCON_SMARTDMAINT_INT3_SHIFT            (3U)
-/*! INT3 - SmartDMA hijack NVIC IRQ29
+/*! INT3 - SmartDMA hijack NVIC IRQ27
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -587,7 +569,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT4_MASK             (0x10U)
 #define SYSCON_SMARTDMAINT_INT4_SHIFT            (4U)
-/*! INT4 - SmartDMA hijack NVIC IRQ30
+/*! INT4 - SmartDMA hijack NVIC IRQ28
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -595,7 +577,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT5_MASK             (0x20U)
 #define SYSCON_SMARTDMAINT_INT5_SHIFT            (5U)
-/*! INT5 - SmartDMA hijack NVIC IRQ31
+/*! INT5 - SmartDMA hijack NVIC IRQ29
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -603,7 +585,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT6_MASK             (0x40U)
 #define SYSCON_SMARTDMAINT_INT6_SHIFT            (6U)
-/*! INT6 - SmartDMA hijack NVIC IRQ32
+/*! INT6 - SmartDMA hijack NVIC IRQ31
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -611,7 +593,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT7_MASK             (0x80U)
 #define SYSCON_SMARTDMAINT_INT7_SHIFT            (7U)
-/*! INT7 - SmartDMA hijack NVIC IRQ33
+/*! INT7 - SmartDMA hijack NVIC IRQ32
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -619,7 +601,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT8_MASK             (0x100U)
 #define SYSCON_SMARTDMAINT_INT8_SHIFT            (8U)
-/*! INT8 - SmartDMA hijack NVIC IRQ34
+/*! INT8 - SmartDMA hijack NVIC IRQ33
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -627,23 +609,15 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT9_MASK             (0x200U)
 #define SYSCON_SMARTDMAINT_INT9_SHIFT            (9U)
-/*! INT9 - SmartDMA hijack NVIC IRQ35
+/*! INT9 - SmartDMA hijack NVIC IRQ34
  *  0b0..Disable
  *  0b1..Enable
  */
 #define SYSCON_SMARTDMAINT_INT9(x)               (((uint32_t)(((uint32_t)(x)) << SYSCON_SMARTDMAINT_INT9_SHIFT)) & SYSCON_SMARTDMAINT_INT9_MASK)
 
-#define SYSCON_SMARTDMAINT_INT10_MASK            (0x400U)
-#define SYSCON_SMARTDMAINT_INT10_SHIFT           (10U)
-/*! INT10 - SmartDMA hijack NVIC IRQ36
- *  0b0..Disable
- *  0b1..Enable
- */
-#define SYSCON_SMARTDMAINT_INT10(x)              (((uint32_t)(((uint32_t)(x)) << SYSCON_SMARTDMAINT_INT10_SHIFT)) & SYSCON_SMARTDMAINT_INT10_MASK)
-
 #define SYSCON_SMARTDMAINT_INT11_MASK            (0x800U)
 #define SYSCON_SMARTDMAINT_INT11_SHIFT           (11U)
-/*! INT11 - SmartDMA hijack NVIC IRQ37
+/*! INT11 - SmartDMA hijack NVIC IRQ39
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -651,7 +625,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT12_MASK            (0x1000U)
 #define SYSCON_SMARTDMAINT_INT12_SHIFT           (12U)
-/*! INT12 - SmartDMA hijack NVIC IRQ38
+/*! INT12 - SmartDMA hijack NVIC IRQ40
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -659,7 +633,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT13_MASK            (0x2000U)
 #define SYSCON_SMARTDMAINT_INT13_SHIFT           (13U)
-/*! INT13 - SmartDMA hijack NVIC IRQ39
+/*! INT13 - SmartDMA hijack NVIC IRQ41
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -667,7 +641,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT14_MASK            (0x4000U)
 #define SYSCON_SMARTDMAINT_INT14_SHIFT           (14U)
-/*! INT14 - SmartDMA hijack NVIC IRQ40
+/*! INT14 - SmartDMA hijack NVIC IRQ59
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -675,7 +649,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT15_MASK            (0x8000U)
 #define SYSCON_SMARTDMAINT_INT15_SHIFT           (15U)
-/*! INT15 - SmartDMA hijack NVIC IRQ41
+/*! INT15 - SmartDMA hijack NVIC IRQ62
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -683,7 +657,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT16_MASK            (0x10000U)
 #define SYSCON_SMARTDMAINT_INT16_SHIFT           (16U)
-/*! INT16 - SmartDMA hijack NVIC IRQ42
+/*! INT16 - SmartDMA hijack NVIC IRQ64
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -691,7 +665,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT17_MASK            (0x20000U)
 #define SYSCON_SMARTDMAINT_INT17_SHIFT           (17U)
-/*! INT17 - SmartDMA hijack NVIC IRQ45
+/*! INT17 - SmartDMA hijack NVIC IRQ71
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -699,7 +673,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT18_MASK            (0x40000U)
 #define SYSCON_SMARTDMAINT_INT18_SHIFT           (18U)
-/*! INT18 - SmartDMA hijack NVIC IRQ47
+/*! INT18 - SmartDMA hijack NVIC IRQ72
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -707,7 +681,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT19_MASK            (0x80000U)
 #define SYSCON_SMARTDMAINT_INT19_SHIFT           (19U)
-/*! INT19 - SmartDMA hijack NVIC IRQ50
+/*! INT19 - SmartDMA hijack NVIC IRQ73
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -715,7 +689,7 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT20_MASK            (0x100000U)
 #define SYSCON_SMARTDMAINT_INT20_SHIFT           (20U)
-/*! INT20 - SmartDMA hijack NVIC IRQ51
+/*! INT20 - SmartDMA hijack NVIC IRQ74
  *  0b0..Disable
  *  0b1..Enable
  */
@@ -723,27 +697,11 @@ typedef struct {
 
 #define SYSCON_SMARTDMAINT_INT21_MASK            (0x200000U)
 #define SYSCON_SMARTDMAINT_INT21_SHIFT           (21U)
-/*! INT21 - SmartDMA hijack NVIC IRQ66
+/*! INT21 - SmartDMA hijack NVIC IRQ75
  *  0b0..Disable
  *  0b1..Enable
  */
 #define SYSCON_SMARTDMAINT_INT21(x)              (((uint32_t)(((uint32_t)(x)) << SYSCON_SMARTDMAINT_INT21_SHIFT)) & SYSCON_SMARTDMAINT_INT21_MASK)
-
-#define SYSCON_SMARTDMAINT_INT22_MASK            (0x400000U)
-#define SYSCON_SMARTDMAINT_INT22_SHIFT           (22U)
-/*! INT22 - SmartDMA hijack NVIC IRQ67
- *  0b0..Disable
- *  0b1..Enable
- */
-#define SYSCON_SMARTDMAINT_INT22(x)              (((uint32_t)(((uint32_t)(x)) << SYSCON_SMARTDMAINT_INT22_SHIFT)) & SYSCON_SMARTDMAINT_INT22_MASK)
-
-#define SYSCON_SMARTDMAINT_INT23_MASK            (0x800000U)
-#define SYSCON_SMARTDMAINT_INT23_SHIFT           (23U)
-/*! INT23 - SmartDMA hijack NVIC IRQ77
- *  0b0..Disable
- *  0b1..Enable
- */
-#define SYSCON_SMARTDMAINT_INT23(x)              (((uint32_t)(((uint32_t)(x)) << SYSCON_SMARTDMAINT_INT23_SHIFT)) & SYSCON_SMARTDMAINT_INT23_MASK)
 /*! @} */
 
 /*! @name CPUSTAT - CPU Status */
@@ -1112,8 +1070,8 @@ typedef struct {
 
 #define SYSCON_SRAM_XEN_LOCK_MASK                (0x80000000U)
 #define SYSCON_SRAM_XEN_LOCK_SHIFT               (31U)
-/*! LOCK - This 1-bit field provides a mechanism to limit writes to the this register (and
- *    SRAM_XEN_DP) to protect its contents. Once set, this bit remains asserted until a system reset.
+/*! LOCK - This 1-bit field provides a mechanism to limit writes to this register (and SRAM_XEN_DP)
+ *    to protect its contents. Once set, this bit remains asserted until a system reset.
  *  0b0..This register is not locked and can be altered.
  *  0b1..This register is locked and cannot be altered.
  */
@@ -1335,29 +1293,10 @@ typedef struct {
 #define SYSCON_DEVICE_ID0_SECURITY_MASK          (0xF000000U)
 #define SYSCON_DEVICE_ID0_SECURITY_SHIFT         (24U)
 /*! SECURITY
- *  0b0101..Secure version.
+ *  0b0101..Secure version. (All values other than 1010b represent the secure version.)
  *  0b1010..Non secure version.
  */
 #define SYSCON_DEVICE_ID0_SECURITY(x)            (((uint32_t)(((uint32_t)(x)) << SYSCON_DEVICE_ID0_SECURITY_SHIFT)) & SYSCON_DEVICE_ID0_SECURITY_MASK)
-/*! @} */
-
-/*! @name DIEID - Chip Revision ID and Number */
-/*! @{ */
-
-#define SYSCON_DIEID_MINOR_REVISION_MASK         (0xFU)
-#define SYSCON_DIEID_MINOR_REVISION_SHIFT        (0U)
-/*! MINOR_REVISION - Chip minor revision */
-#define SYSCON_DIEID_MINOR_REVISION(x)           (((uint32_t)(((uint32_t)(x)) << SYSCON_DIEID_MINOR_REVISION_SHIFT)) & SYSCON_DIEID_MINOR_REVISION_MASK)
-
-#define SYSCON_DIEID_MAJOR_REVISION_MASK         (0xF0U)
-#define SYSCON_DIEID_MAJOR_REVISION_SHIFT        (4U)
-/*! MAJOR_REVISION - Chip major revision */
-#define SYSCON_DIEID_MAJOR_REVISION(x)           (((uint32_t)(((uint32_t)(x)) << SYSCON_DIEID_MAJOR_REVISION_SHIFT)) & SYSCON_DIEID_MAJOR_REVISION_MASK)
-
-#define SYSCON_DIEID_MCO_NUM_IN_DIE_ID_MASK      (0xFFFFF00U)
-#define SYSCON_DIEID_MCO_NUM_IN_DIE_ID_SHIFT     (8U)
-/*! MCO_NUM_IN_DIE_ID - Chip number */
-#define SYSCON_DIEID_MCO_NUM_IN_DIE_ID(x)        (((uint32_t)(((uint32_t)(x)) << SYSCON_DIEID_MCO_NUM_IN_DIE_ID_SHIFT)) & SYSCON_DIEID_MCO_NUM_IN_DIE_ID_MASK)
 /*! @} */
 
 

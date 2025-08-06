@@ -1,12 +1,14 @@
 /*
 ** ###################################################################
-**     Processors:          MCXW235BIHNAR
+**     Processors:          MCXW235AIHNAR
+**                          MCXW235AIUKAR
+**                          MCXW235BIHNAR
 **                          MCXW235BIUKAR
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250417
+**     Build:               b250806
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -33,7 +35,7 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00000200
-  m_text                (RX)  : ORIGIN = 0x00000200, LENGTH = 0x0009FE00
+  m_text                (RX)  : ORIGIN = 0x00000200, LENGTH = 0x0007FE00
   m_data                (RW)  : ORIGIN = 0x20004000, LENGTH = 0x00014000
   m_sramx               (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00004000
 }

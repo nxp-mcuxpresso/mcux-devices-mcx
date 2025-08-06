@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250603
+**     Build:               b250806
 **
 **     Abstract:
 **         Chip specific module features.
@@ -276,7 +276,7 @@
 #define FSL_FEATURE_FLASH_PFLASH_SECTOR_SIZE       FSL_FEATURE_SYSCON_FLASH_SECTOR_SIZE_BYTES
 #define FSL_FEATURE_FLASH_PFLASH_BLOCK_SIZE        (FSL_FEATURE_SYSCON_FLASH_SECTOR_SIZE_BYTES * 56)
 /* @brief Flash size in bytes */
-#define FSL_FEATURE_SYSCON_FLASH_SIZE_BYTES (655360)
+#define FSL_FEATURE_SYSCON_FLASH_SIZE_BYTES (524288)
 /* @brief Has Power Down mode */
 #define FSL_FEATURE_SYSCON_HAS_POWERDOWN_MODE (1)
 /* @brief CCM_ANALOG availability on the SoC.  */

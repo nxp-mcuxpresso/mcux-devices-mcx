@@ -1,12 +1,14 @@
 /*
 ** ###################################################################
-**     Processors:          MCXW235BIHNAR
+**     Processors:          MCXW235AIHNAR
+**                          MCXW235AIUKAR
+**                          MCXW235BIHNAR
 **                          MCXW235BIUKAR
 **
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250417
+**     Build:               b250806
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -26,7 +28,7 @@
 if (isdefinedsymbol(__stack_size__)) {
   define symbol __size_cstack__        = __stack_size__;
 } else {
-  define symbol __size_cstack__        = 0x0500;
+  define symbol __size_cstack__        = 0x0400;
 }
 
 if (isdefinedsymbol(__heap_size__)) {
@@ -39,13 +41,13 @@ define symbol m_interrupts_start               = 0x00000000;
 define symbol m_interrupts_end                 = 0x000001FF;
 
 define symbol m_text_start                     = 0x00000200;
-define symbol m_text_end                       = 0x0009FFFF;
+define symbol m_text_end                       = 0x0007FFFF;
 
 define symbol m_data_start                     = 0x20004000;
 define symbol m_data_end                       = 0x20017FFF;
 
-define symbol m_sramx_start                    = 0x04000000;
-define symbol m_sramx_end                      = 0x04003FFF;
+define exported symbol __VECTOR_TABLE          = m_interrupts_start;
+define exported symbol __RAM_VECTOR_TABLE_SIZE = 0x00000140;
 
 define memory mem with size = 4G;
 

@@ -1127,6 +1127,26 @@ static inline void CLOCK_SetXtal32Freq(uint32_t freq)
     g_xtal32Freq = freq;
 }
 
+#if __CORTEX_M == (33U) /* Building on the main core */
+/*!
+ * @brief Set flash wait state.
+ * @param state Flash wait state (0-15)
+ */
+void CLOCK_SetFlashWaitState(uint8_t state);
+
+/*!
+ * @brief Set flash wait state based on frequency.
+ * @param freq Core frequency.
+ */
+void CLOCK_SetFlashWaitStateBasedOnFreq(uint32_t freq);
+
+/*!
+ * @brief Get flash wait state.
+ * @return Returns flash wait state.
+ */
+uint8_t CLOCK_GetFlashWaitState(void);
+#endif /* Building on the main core */
+
 
 #if defined(__cplusplus)
 }

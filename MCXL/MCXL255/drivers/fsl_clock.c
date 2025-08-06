@@ -1658,3 +1658,48 @@ void CLOCK_EnableOstimer32kClock(void)
     return;
 }
 #endif /* Building on the main core */
+
+#if __CORTEX_M == (33U) /* Building on the main core */
+/*!
+ * @brief Set flash wait state.
+ *
+ * This function sets the flash wait state. Valid states are only 0-15.
+ *
+ * @param state Flash wait state (0-15)
+ */
+void CLOCK_SetFlashWaitState(uint8_t state)
+{
+    assert(state <= 15);
+    FMU0->FCTRL = (FMU0->FCTRL & ~FMU_FCTRL_RWSC_MASK) | (state << FMU_FCTRL_RWSC_SHIFT);
+}
+
+/*!
+ * @brief Set flash wait state based on frequency.
+ *
+ * This function sets the flash wait state based on frequency.
+ *
+ * @param freq Core frequency.
+ */
+void CLOCK_SetFlashWaitStateBasedOnFreq(uint32_t freq)
+{
+    if (freq <= 48000000U) {
+        CLOCK_SetFlashWaitState(0x1U);
+    }
+    else if (freq <= 96000000U)
+    {
+        CLOCK_SetFlashWaitState(0x2U);
+    }
+}
+
+/*!
+ * @brief Get flash wait state.
+ *
+ * This function returns flash wait state.ň
+ *
+ * @return Returns flash wait state.
+ */
+uint8_t CLOCK_GetFlashWaitState()
+{
+    return (FMU0->FCTRL & FMU_FCTRL_RWSC_MASK) >> FMU_FCTRL_RWSC_SHIFT;
+}
+#endif /* Building on the main core */

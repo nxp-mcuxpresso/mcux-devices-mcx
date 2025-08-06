@@ -62,7 +62,7 @@ __Vectors:
     .long   PMU_IRQHandler                                  /* PMU IRQ*/
     .long   KPP_IRQHandler                                  /* Keypad Interrupt*/
     .long   LPADC_AON_IRQHandler                            /* Analog-to-Digital Converter interrupt*/
-    .long   SLCD_FRAME_AON_IRQHandler                       /* SLCD frame start interrupt*/
+    .long   SGLCD_FRAME_AON_IRQHandler                       /* SGLCD frame start interrupt*/
     .long   TMR0_AON_IRQHandler                             /* ORed QTMR Interrupts*/
     .long   TMR1_AON_IRQHandler                             /* ORed QTMR Interrupts*/
     .long   Reserved42_IRQHandler                           /* xxx Interrupt 42*/
@@ -366,12 +366,12 @@ LPADC_AON_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak SLCD_FRAME_AON_IRQHandler
-    .type SLCD_FRAME_AON_IRQHandler, %function
-SLCD_FRAME_AON_IRQHandler:
-    ldr   r0,=SLCD_FRAME_AON_DriverIRQHandler
+    .weak SGLCD_FRAME_AON_IRQHandler
+    .type SGLCD_FRAME_AON_IRQHandler, %function
+SGLCD_FRAME_AON_IRQHandler:
+    ldr   r0,=SGLCD_FRAME_AON_DriverIRQHandler
     bx    r0
-    .size SLCD_FRAME_AON_IRQHandler, . - SLCD_FRAME_AON_IRQHandler
+    .size SGLCD_FRAME_AON_IRQHandler, . - SGLCD_FRAME_AON_IRQHandler
 
     .align 1
     .thumb_func
@@ -478,7 +478,7 @@ ADVC_IRQHandler:
     def_irq_handler    PMU_DriverIRQHandler
     def_irq_handler    KPP_DriverIRQHandler
     def_irq_handler    LPADC_AON_DriverIRQHandler
-    def_irq_handler    SLCD_FRAME_AON_DriverIRQHandler
+    def_irq_handler    SGLCD_FRAME_AON_DriverIRQHandler
     def_irq_handler    TMR0_AON_DriverIRQHandler
     def_irq_handler    TMR1_AON_DriverIRQHandler
     def_irq_handler    Reserved42_DriverIRQHandler

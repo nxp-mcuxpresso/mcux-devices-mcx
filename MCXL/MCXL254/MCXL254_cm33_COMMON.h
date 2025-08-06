@@ -174,8 +174,10 @@ typedef enum IRQn {
  * @}
  */ /* end of group Cortex_Core_Configuration */
 
-
+#ifndef MCXL254_cm33_SERIES
 #define MCXL254_cm33_SERIES
+#endif
+
 /* CPU specific feature definitions */
 #include "MCXL254_cm33_features.h"
 

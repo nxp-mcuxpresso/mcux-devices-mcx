@@ -90,7 +90,7 @@ __vector_table_0x1c
         DCD     PMU_IRQHandler                                ;PMU IRQ
         DCD     KPP_IRQHandler                                ;Keypad Interrupt
         DCD     LPADC_AON_IRQHandler                          ;Analog-to-Digital Converter interrupt
-        DCD     SGLCD_AON_IRQHandler                          ;SLCD frame start interrupt
+        DCD     SGLCD_AON_IRQHandler                          ;SGLCD frame start interrupt
         DCD     TMR0_AON_IRQHandler                           ;ORed QTMR Interrupts
         DCD     TMR1_AON_IRQHandler                           ;ORed QTMR Interrupts
         DCD     Reserved42_IRQHandler                         ;xxx Interrupt 42

@@ -198,8 +198,8 @@ __Vectors:
     .long   ACMP0_AON_IRQHandler                            /* Comparator interrupt*/
     .long   ADVC_IRQHandler                                 /* ADVC_2.0 Controller Interrupt*/
     .long   Reserved175_IRQHandler                          /* xxx Interrupt 175*/
-    .long   SLCD_FRAME_AON_IRQHandler                       /* Frame Update Interrupt*/
-    .long   SLCD_FFAULT_AON_IRQHandler                      /* Fault Detect Interrupt*/
+    .long   SGLCD_FRAME_AON_IRQHandler                       /* Frame Update Interrupt*/
+    .long   SGLCD_FFAULT_AON_IRQHandler                      /* Fault Detect Interrupt*/
 
     .size   __Vectors, . - __Vectors
 
@@ -1821,21 +1821,21 @@ Reserved175_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak SLCD_FRAME_AON_IRQHandler
-    .type SLCD_FRAME_AON_IRQHandler, %function
-SLCD_FRAME_AON_IRQHandler:
-    ldr   r0,=SLCD_FRAME_AON_DriverIRQHandler
+    .weak SGLCD_FRAME_AON_IRQHandler
+    .type SGLCD_FRAME_AON_IRQHandler, %function
+SGLCD_FRAME_AON_IRQHandler:
+    ldr   r0,=SGLCD_FRAME_AON_DriverIRQHandler
     bx    r0
-    .size SLCD_FRAME_AON_IRQHandler, . - SLCD_FRAME_AON_IRQHandler
+    .size SGLCD_FRAME_AON_IRQHandler, . - SGLCD_FRAME_AON_IRQHandler
 
     .align 1
     .thumb_func
-    .weak SLCD_FFAULT_AON_IRQHandler
-    .type SLCD_FFAULT_AON_IRQHandler, %function
-SLCD_FFAULT_AON_IRQHandler:
-    ldr   r0,=SLCD_FFAULT_AON_DriverIRQHandler
+    .weak SGLCD_FFAULT_AON_IRQHandler
+    .type SGLCD_FFAULT_AON_IRQHandler, %function
+SGLCD_FFAULT_AON_IRQHandler:
+    ldr   r0,=SGLCD_FFAULT_AON_DriverIRQHandler
     bx    r0
-    .size SLCD_FFAULT_AON_IRQHandler, . - SLCD_FFAULT_AON_IRQHandler
+    .size SGLCD_FFAULT_AON_IRQHandler, . - SGLCD_FFAULT_AON_IRQHandler
 
 
 /*    Macro to define default handlers. Default handler
@@ -1882,8 +1882,7 @@ SLCD_FFAULT_AON_IRQHandler:
     def_irq_handler    LPSPI0_DriverIRQHandler
     def_irq_handler    LPSPI1_DriverIRQHandler
     def_irq_handler    Reserved46_DriverIRQHandler
-    def_irq_handler    LPUART0_DriverIRQHandler
-    def_irq_handler    LPUART1_DriverIRQHandler
+    def_irq_handler    LPUART_DriverIRQHandler
     def_irq_handler    Reserved49_DriverIRQHandler
     def_irq_handler    Reserved50_DriverIRQHandler
     def_irq_handler    Reserved51_DriverIRQHandler
@@ -1981,7 +1980,6 @@ SLCD_FFAULT_AON_IRQHandler:
     def_irq_handler    Reserved143_DriverIRQHandler
     def_irq_handler    LPI2C0_AON_DriverIRQHandler
     def_irq_handler    Reserved145_DriverIRQHandler
-    def_irq_handler    LPUART0_AON_DriverIRQHandler
     def_irq_handler    Reserved147_DriverIRQHandler
     def_irq_handler    GPIO00_AON_DriverIRQHandler
     def_irq_handler    GPIO01_AON_DriverIRQHandler
@@ -2011,7 +2009,7 @@ SLCD_FFAULT_AON_IRQHandler:
     def_irq_handler    ACMP0_AON_DriverIRQHandler
     def_irq_handler    ADVC_DriverIRQHandler
     def_irq_handler    Reserved175_DriverIRQHandler
-    def_irq_handler    SLCD_FRAME_AON_DriverIRQHandler
-    def_irq_handler    SLCD_FFAULT_AON_DriverIRQHandler
+    def_irq_handler    SGLCD_FRAME_AON_DriverIRQHandler
+    def_irq_handler    SGLCD_FFAULT_AON_DriverIRQHandler
 
     .end

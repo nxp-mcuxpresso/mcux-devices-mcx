@@ -90,7 +90,7 @@ __vector_table_0x1c
         DCD     PMU_IRQHandler                                ;PMU IRQ
         DCD     KPP_IRQHandler                                ;Keypad Interrupt
         DCD     LPADC_AON_IRQHandler                          ;Analog-to-Digital Converter interrupt
-        DCD     SLCD_FRAME_AON_IRQHandler                     ;SLCD frame start interrupt
+        DCD     SGLCD_FRAME_AON_IRQHandler                    ;SGLCD frame start interrupt
         DCD     TMR0_AON_IRQHandler                           ;ORed QTMR Interrupts
         DCD     TMR1_AON_IRQHandler                           ;ORed QTMR Interrupts
         DCD     Reserved42_IRQHandler                         ;xxx Interrupt 42
@@ -321,11 +321,11 @@ LPADC_AON_IRQHandler
         LDR     R0, =LPADC_AON_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SLCD_FRAME_AON_IRQHandler
-        PUBWEAK SLCD_FRAME_AON_DriverIRQHandler
+        PUBWEAK SGLCD_FRAME_AON_IRQHandler
+        PUBWEAK SGLCD_FRAME_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SLCD_FRAME_AON_IRQHandler
-        LDR     R0, =SLCD_FRAME_AON_DriverIRQHandler
+SGLCD_FRAME_AON_IRQHandler
+        LDR     R0, =SGLCD_FRAME_AON_DriverIRQHandler
         BX      R0
 
         PUBWEAK TMR0_AON_IRQHandler
@@ -387,7 +387,7 @@ ADVC_IRQHandler
 Reserved16_DriverIRQHandler
 LPI2C0_AON_DriverIRQHandler
 Reserved18_DriverIRQHandler
-LPUART0_AON_DriverIRQHandler
+LPUART_DriverIRQHandler
 Reserved20_DriverIRQHandler
 GPIO00_AON_DriverIRQHandler
 Reserved22_DriverIRQHandler
@@ -407,7 +407,7 @@ CGU_DriverIRQHandler
 PMU_DriverIRQHandler
 KPP_DriverIRQHandler
 LPADC_AON_DriverIRQHandler
-SLCD_FRAME_AON_DriverIRQHandler
+SGLCD_FRAME_AON_DriverIRQHandler
 TMR0_AON_DriverIRQHandler
 TMR1_AON_DriverIRQHandler
 Reserved42_DriverIRQHandler

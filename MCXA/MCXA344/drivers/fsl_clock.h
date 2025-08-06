@@ -65,7 +65,7 @@ typedef enum _clock_ip_name
     kCLOCK_GateFREQME    = ((0x00U << 16U) | (7U)),          /*!< Clock gate name: FREQME  */
     kCLOCK_GateUTICK0    = ((0x00U << 16U) | (8U)),          /*!< Clock gate name: UTICK0  */
     kCLOCK_GateWWDT0     = ((0x00U << 16U) | (9U)),          /*!< Clock gate name: WWDT0     */
-    kCLOCK_GateSMARTDMA0 = ((0x00U << 16U) | (10U)),         /*!< Clock gate name: SMARTDMA0 */
+    kCLOCK_Smartdma      = ((0x00U << 16U) | (10U)),         /*!< Clock gate name: SMARTDMA0 */
     kCLOCK_GateDMA0      = ((0x00U << 16U) | (11U)),         /*!< Clock gate name: DMA0      */
     kCLOCK_GateAOI0      = ((0x00U << 16U) | (12U)),         /*!< Clock gate name: AOI0      */
     kCLOCK_GateCRC0      = ((0x00U << 16U) | (13U)),         /*!< Clock gate name: CRC0      */
@@ -173,7 +173,7 @@ typedef enum _clock_ip_name
 /*! @brief Clock ip name array for QDC. */
 #define QDC_CLOCKS {kCLOCK_GateQDC0, kCLOCK_GateQDC1}
 /*! @brief Clock ip name array for SMARTDMA. */
-#define SMARTDMA_CLOCKS {kCLOCK_GateSMARTDMA0}
+#define SMARTDMA_CLOCKS {kCLOCK_Smartdma}
 /*! @brief Clock ip name array for UTICK. */
 #define UTICK_CLOCKS {kCLOCK_GateUTICK0}
 /*! @brief Clock ip name array for WWDT. */

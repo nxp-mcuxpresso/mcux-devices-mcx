@@ -239,7 +239,7 @@ typedef enum _SYSCON_RSTn
 /*! @brief Reset bits for SMARTDMA peripheral */
 #define SMARTDMA_RSTS             \
     {                             \
-        kSMARTDMA0_RST_SHIFT_RSTn \
+        kSMART_DMA_RST_SHIFT_RSTn \
     }
 /*! @brief Reset bits for TRNG peripheral */
 #define TRNG_RSTS             \

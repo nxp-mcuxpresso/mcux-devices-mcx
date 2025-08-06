@@ -42,7 +42,7 @@ typedef enum _SYSCON_RSTn
     kCTIMER2_RST_SHIFT_RSTn   = ((0U << 8U) | 4U),  /*!< CTIMER2   reset control */
     kFREQME_RST_SHIFT_RSTn    = ((0U << 8U) | 7U),  /*!< FREQME    reset control */
     kUTICK0_RST_SHIFT_RSTn    = ((0U << 8U) | 8U),  /*!< UTICK0    reset control */
-    kSMARTDMA0_RST_SHIFT_RSTn = ((0U << 8U) | 10U), /*!< SMARTDMA0 reset control */
+    kSMART_DMA_RST_SHIFT_RSTn = ((0U << 8U) | 10U), /*!< SMARTDMA0 reset control */
     kDMA0_RST_SHIFT_RSTn      = ((0U << 8U) | 11U), /*!< DMA0      reset control */
     kAOI0_RST_SHIFT_RSTn      = ((0U << 8U) | 12U), /*!< AOI0      reset control */
     kCRC0_RST_SHIFT_RSTn      = ((0U << 8U) | 13U), /*!< CRC0      reset control */
@@ -136,7 +136,7 @@ typedef enum _SYSCON_RSTn
 #define PORT_RSTS_N \
     {kPORT0_RST_SHIFT_RSTn, kPORT1_RST_SHIFT_RSTn, kPORT2_RST_SHIFT_RSTn, kPORT3_RST_SHIFT_RSTn, kPORT4_RST_SHIFT_RSTn}
 /*! @brief Reset bits for SMARTDMA peripheral */
-#define SMARTDMA_RSTS {kSMARTDMA0_RST_SHIFT_RSTn}
+#define SMARTDMA_RSTS {kSMART_DMA_RST_SHIFT_RSTn}
 /*! @brief Reset bits for UTICK peripheral */
 #define UTICK_RSTS {kUTICK0_RST_SHIFT_RSTn}
 

@@ -247,7 +247,49 @@ void Power_GetPowerModeConfig(void *config)
 
     Power_DumpHandleValue(&handleBuf);
 
-    (void)memcpy(config, handleBuf.lpConfig, sizeof(*config));
+    switch(handleBuf.previousPowerMode)
+    {
+        case kPower_DeepSleep:
+        {
+            (void)memcpy(config, handleBuf.lpConfig, sizeof(power_ds_config_t));
+            break;
+        }
+        case kPower_PowerDown1:
+        {
+            (void)memcpy(config, handleBuf.lpConfig, sizeof(power_pd1_config_t));
+            break;
+        }
+        case kPower_PowerDown2:
+        {
+            (void)memcpy(config, handleBuf.lpConfig, sizeof(power_pd2_config_t));
+            break;
+        }
+        case kPower_DeepPowerDown1:
+        {
+            (void)memcpy(config, handleBuf.lpConfig, sizeof(power_dpd1_config_t));
+            break;
+        }
+        case kPower_DeepPowerDown2:
+        {
+            (void)memcpy(config, handleBuf.lpConfig, sizeof(power_dpd2_config_t));
+            break;
+        }
+        case kPower_DeepPowerDown3:
+        {
+            (void)memcpy(config, handleBuf.lpConfig, sizeof(power_dpd3_config_t));
+            break;
+        }
+        case kPower_ShutDown:
+        {
+            (void)memcpy(config, handleBuf.lpConfig, sizeof(power_sd_config_t));
+            break;
+        }
+        default:
+        {
+            /* Avoid violation of MISRA C-2012 rule. */
+            break;
+        }
+    }
 }
 
 /*!

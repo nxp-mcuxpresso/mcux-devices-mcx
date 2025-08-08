@@ -383,11 +383,6 @@ config MCUX_HW_IP_DriverType_SCTIMER
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
-config MCUX_HW_IP_DriverType_SEMA42
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
 config MCUX_HW_IP_DriverType_SINC
     bool
     default y

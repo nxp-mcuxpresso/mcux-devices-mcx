@@ -659,6 +659,9 @@ status_t CLOCK_SetupFRO12MClocking(void)
     SCG0->SIRCCSR |= SCG_SIRCCSR_SIRC_CLK_PERIPH_EN_MASK;
     /* Enable FRO12M clock for Flash use */
     SCG0->SIRCCSR |= SCG_SIRCCSR_SIRC_CLK_FLASH_EN_MASK;
+    
+    /* Enable FROM12M in deep sleep */
+    SCG0->SIRCCSR |= SCG_SIRCCSR_SIRCSTEN_MASK;
 
     /* Lock SIRCCSR */
     SCG0->SIRCCSR |= SCG_SIRCCSR_LK_MASK;

@@ -120,7 +120,7 @@ typedef enum _clock_ip_name
     kCLOCK_GatePORT2         = ((0x4U << 16U) | (0x10U << 8U) | (2U)), /*!< Clock gate name: PORT2          */
     kCLOCK_GatePORT3         = ((0x4U << 16U) | (0x10U << 8U) | (3U)), /*!< Clock gate name: PORT3          */
     kCLOCK_GateROMCP         = ((0x4U << 16U) | (0x10U << 8U) | (4U)), /*!< Clock gate name: ROMCP          */
-    kCLOCK_GateSGIO0         = ((0x4U << 16U) | (0x10U << 8U) | (5U)), /*!< Clock gate name: SGIO0          */
+    kCLOCK_GateSGI0          = ((0x4U << 16U) | (0x10U << 8U) | (5U)), /*!< Clock gate name: SGI0           */
     kCLOCK_GateSGLCD         = ((0x4U << 16U) | (0x10U << 8U) | (6U)), /*!< Clock gate name: SGLCD          */
     kCLOCK_GateTCU           = ((0x4U << 16U) | (0x10U << 8U) | (7U)), /*!< Clock gate name: TCU            */
     kCLOCK_GateTRNG0         = ((0x4U << 16U) | (0x10U << 8U) | (8U)), /*!< Clock gate name: TRNG0          */

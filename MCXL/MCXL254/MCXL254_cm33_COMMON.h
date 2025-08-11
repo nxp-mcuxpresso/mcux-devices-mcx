@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftH
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250723
+**     Build:               b250811
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL254_cm33
@@ -174,10 +174,8 @@ typedef enum IRQn {
  * @}
  */ /* end of group Cortex_Core_Configuration */
 
-#ifndef MCXL254_cm33_SERIES
-#define MCXL254_cm33_SERIES
-#endif
 
+#define MCXL254_cm33_SERIES
 /* CPU specific feature definitions */
 #include "MCXL254_cm33_features.h"
 
@@ -1264,31 +1262,31 @@ typedef enum IRQn {
 
 /* PKC - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  /** Peripheral PKC0__PKC base address */
-  #define PKC0__PKC_BASE                           (0x500D0000u)
-  /** Peripheral PKC0__PKC base address */
-  #define PKC0__PKC_BASE_NS                        (0x400D0000u)
-  /** Peripheral PKC0__PKC base pointer */
-  #define PKC0__PKC                                ((PKC_Type *)PKC0__PKC_BASE)
-  /** Peripheral PKC0__PKC base pointer */
-  #define PKC0__PKC_NS                             ((PKC_Type *)PKC0__PKC_BASE_NS)
+  /** Peripheral PKC0 base address */
+  #define PKC0_BASE                                (0x500D0000u)
+  /** Peripheral PKC0 base address */
+  #define PKC0_BASE_NS                             (0x400D0000u)
+  /** Peripheral PKC0 base pointer */
+  #define PKC0                                     ((PKC_Type *)PKC0_BASE)
+  /** Peripheral PKC0 base pointer */
+  #define PKC0_NS                                  ((PKC_Type *)PKC0_BASE_NS)
   /** Array initializer of PKC peripheral base addresses */
-  #define PKC_BASE_ADDRS                           { PKC0__PKC_BASE }
+  #define PKC_BASE_ADDRS                           { PKC0_BASE }
   /** Array initializer of PKC peripheral base pointers */
-  #define PKC_BASE_PTRS                            { PKC0__PKC }
+  #define PKC_BASE_PTRS                            { PKC0 }
   /** Array initializer of PKC peripheral base addresses */
-  #define PKC_BASE_ADDRS_NS                        { PKC0__PKC_BASE_NS }
+  #define PKC_BASE_ADDRS_NS                        { PKC0_BASE_NS }
   /** Array initializer of PKC peripheral base pointers */
-  #define PKC_BASE_PTRS_NS                         { PKC0__PKC_NS }
+  #define PKC_BASE_PTRS_NS                         { PKC0_NS }
 #else
-  /** Peripheral PKC0__PKC base address */
-  #define PKC0__PKC_BASE                           (0x400D0000u)
-  /** Peripheral PKC0__PKC base pointer */
-  #define PKC0__PKC                                ((PKC_Type *)PKC0__PKC_BASE)
+  /** Peripheral PKC0 base address */
+  #define PKC0_BASE                                (0x400D0000u)
+  /** Peripheral PKC0 base pointer */
+  #define PKC0                                     ((PKC_Type *)PKC0_BASE)
   /** Array initializer of PKC peripheral base addresses */
-  #define PKC_BASE_ADDRS                           { PKC0__PKC_BASE }
+  #define PKC_BASE_ADDRS                           { PKC0_BASE }
   /** Array initializer of PKC peripheral base pointers */
-  #define PKC_BASE_PTRS                            { PKC0__PKC }
+  #define PKC_BASE_PTRS                            { PKC0 }
 #endif
 
 /* PMU - Peripheral instance base addresses */

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250730
+**     Build:               b250811
 **
 **     Abstract:
 **         Chip specific module features.
@@ -706,14 +706,26 @@
 
 /* RTC module features */
 
-/* @brief Has no supervisor access bit (CR). */
-#define FSL_FEATURE_RTC_HAS_NO_CR_SUP (1)
-/* @brief Has no oscillator enable bit (CR). */
-#define FSL_FEATURE_RTC_HAS_NO_CR_OSCE (1)
+/* @brief Has wakeup pin. */
+#define FSL_FEATURE_RTC_HAS_WAKEUP_PIN (0)
+/* @brief Has wakeup pin selection (bit field CR[WPS]). */
+#define FSL_FEATURE_RTC_HAS_WAKEUP_PIN_SELECTION (0)
 /* @brief Has low power features (registers MER, MCLR and MCHR). */
 #define FSL_FEATURE_RTC_HAS_MONOTONIC (1)
+/* @brief Has read/write access control (registers WAR and RAR). */
+#define FSL_FEATURE_RTC_HAS_ACCESS_CONTROL (0)
+/* @brief Has security features (registers TTSR, MER, MCLR and MCHR). */
+#define FSL_FEATURE_RTC_HAS_SECURITY (1)
+/* @brief Has RTC_CLKIN available. */
+#define FSL_FEATURE_RTC_HAS_RTC_CLKIN (0)
+/* @brief Has prescaler adjust for LPO. */
+#define FSL_FEATURE_RTC_HAS_LPO_ADJUST (0)
 /* @brief Has Clock Pin Enable field. */
 #define FSL_FEATURE_RTC_HAS_CPE (1)
+/* @brief Has Timer Seconds Interrupt Configuration field. */
+#define FSL_FEATURE_RTC_HAS_TSIC (1)
+/* @brief Has OSC capacitor setting RTC_CR[SC2P ~ SC16P] */
+#define FSL_FEATURE_RTC_HAS_OSC_SCXP (0)
 /* @brief Has Tamper Interrupt Register (register TIR). */
 #define FSL_FEATURE_RTC_HAS_TIR (1)
 /* @brief Has Tamper Pin Interrupt Enable (bitfield TIR[TPIE]). */
@@ -736,6 +748,12 @@
 #define FSL_FEATURE_RTC_HAS_TTSR (1)
 /* @brief Has Pin Configuration Register (register PCR). */
 #define FSL_FEATURE_RTC_HAS_PCR (1)
+/* @brief Has Oscillator Enable(bitfield CR[OSCE]). */
+#define FSL_FEATURE_RTC_HAS_NO_CR_OSCE (1)
+/* @brief Is affected by errata with ID 010716 (RTC: Timer Alarm Flag can assert erroneously). */
+#define FSL_FEATURE_RTC_HAS_ERRATA_010716 (0)
+/* @brief Has clock output (bitfield CR[CLKO]). */
+#define FSL_FEATURE_RTC_HAS_CLOCK_OUTPUT (1)
 
 /* SEMA42 module features */
 

@@ -7,7 +7,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXL25xRM DraftH
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250808
+**     Build:               b250811
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -37,10 +37,18 @@
 #endif
 
 #define  m_interrupts_start            0x00000000
-#define  m_interrupts_size             0x000002E0
+#define  m_interrupts_size             0x000002C8
 
-#define  m_text_start                  0x000002E0
-#define  m_text_size                   0x0003FD20
+#define  m_text_start                  0x000002C8
+#define  m_text_size                   0x0001FD38
+
+#define  m_core1_image_start           0x00020000
+#define  m_core1_image_size            0x0001E000
+
+#if (defined(__use_shmem__))
+  #define  m_rpmsg_sh_mem_start        0xA1006000
+  #define  m_rpmsg_sh_mem_size         0x00002000
+#endif
 
 #define  m_data_start                  0x28000000
 #define  m_data_size                   0x00010000
@@ -64,4 +72,16 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region siz
   ARM_LIB_STACK m_data_start+m_data_size EMPTY -Stack_Size { ; Stack region growing down
   }
 
+#if (defined(__use_shmem__))
+  RPMSG_SH_MEM m_rpmsg_sh_mem_start UNINIT m_rpmsg_sh_mem_size { ; Shared memory used by RPMSG
+    * (rpmsg_sh_mem_section)
+  }
+#endif
+
+}
+
+LR_CORE1_IMAGE m_core1_image_start {
+  CORE1_REGION m_core1_image_start m_core1_image_size {
+    * (.core1_code)
+  }
 }

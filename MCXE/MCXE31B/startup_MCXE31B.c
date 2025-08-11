@@ -2,7 +2,7 @@
 //*****************************************************************************
 // MCXE31B startup code
 //
-// Version : 280725
+// Version : 110825
 //*****************************************************************************
 //
 // Copyright 2016-2025 NXP
@@ -890,6 +890,14 @@ extern unsigned int __bss_section_table_end;
 #define SRAM_BASE_ADDR 0x20400000UL
 #define SRAM_END_ADDR  0x20407fffUL
 
+//  ITCM1 backdoor base and end addresses
+#define ITCM1_BASE_ADDR 0x11400000UL
+#define ITCM1_END_ADDR 0x11407fffUL
+
+// DTCM1 backdoor base and end addresses
+#define DTCM1_BASE_ADDR 0x21400000UL
+#define DTCM1_END_ADDR 0x2140ffffUL
+
 // patterns for initial ecc, heap and stack sections initialization
 #ifndef STARTUP_ECC_INITVALUE
 #define STARTUP_ECC_INITVALUE   0xFEEDFACECAFEBEEFULL
@@ -959,6 +967,34 @@ void Reset_Handler(void) {
                     "STMIA   R0!, {R2 - R5}      \n"
                     "CMP     R0, R1              \n"
                     "BCC.N   .loop03             \n"
+                    );
+#endif
+
+#if !defined(BYPASS_ECC_ITCM1_INIT)
+    __asm volatile ("LDR     R0, =0x11400000     \n"
+                    "LDR     R1, =0x11407FFF     \n"
+                    "LDR     R2, =0              \n"
+                    "LDR     R3, =0              \n"
+                    "LDR     R4, =0              \n"
+                    "LDR     R5, =0              \n"
+                    ".loop04:                    \n"
+                    "STMIA   R0!, {R2 - R5}      \n"
+                    "CMP     R0, R1              \n"
+                    "BCC.N   .loop04             \n"
+                    );
+#endif
+
+#if !defined(BYPASS_ECC_DTCM1_INIT)
+    __asm volatile ("LDR     R0, =0x21400000     \n"
+                    "LDR     R1, =0x2140FFFF     \n"
+                    "LDR     R2, =0              \n"
+                    "LDR     R3, =0              \n"
+                    "LDR     R4, =0              \n"
+                    "LDR     R5, =0              \n"
+                    ".loop05:                    \n"
+                    "STMIA   R0!, {R2 - R5}      \n"
+                    "CMP     R0, R1              \n"
+                    "BCC.N   .loop05             \n"
                     );
 #endif
 
@@ -1037,6 +1073,25 @@ void Reset_Handler(void) {
       pDest = (uint64_t*)SRAM_BASE_ADDR;
       while (pDest < (uint64_t*)SRAM_END_ADDR) { *pDest++ = STARTUP_ECC_INITVALUE; }
     }
+#endif
+
+#if !defined(BYPASS_ECC_ITCM1_INIT)
+    __asm volatile ("LDR     R0, =0x11400000     \n"
+                    "LDR     R1, =0x11407FFF     \n"
+                    "LDR     R2, =0              \n"
+                    "LDR     R3, =0              \n"
+                    "LDR     R4, =0              \n"
+                    "LDR     R5, =0              \n"
+                    "loopITCM1:                  \n"
+                    "STMIA   R0!, {R2 - R5}      \n"
+                    "CMP     R0, R1              \n"
+                    "BCC.N   loopITCM1           \n"
+                    );
+#endif
+
+#if !defined(BYPASS_ECC_DTCM1_INIT)
+    pDest = (uint64_t*)DTCM1_BASE_ADDR;
+    while (pDest < (uint64_t*)DTCM1_END_ADDR) { *pDest++ = STARTUP_ECC_INITVALUE; }
 #endif
 
     SystemInit();

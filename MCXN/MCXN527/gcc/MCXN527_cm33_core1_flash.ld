@@ -1,12 +1,13 @@
 /*
 ** ###################################################################
-**     Processors:          MCXN527VDF_cm33_core1
+**     Processors:          MCXN527VAB_cm33_core1
+**                          MCXN527VDF_cm33_core1
 **                          MCXN527VKL_cm33_core1
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250703
+**     Build:               b250811
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

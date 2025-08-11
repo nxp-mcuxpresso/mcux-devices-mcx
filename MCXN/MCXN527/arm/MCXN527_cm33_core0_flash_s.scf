@@ -1,13 +1,14 @@
 #!armclang --target=arm-arm-none-eabi -march=armv8-m.main -E -x c
 /*
 ** ###################################################################
-**     Processors:          MCXN527VDF_cm33_core0
+**     Processors:          MCXN527VAB_cm33_core0
+**                          MCXN527VDF_cm33_core0
 **                          MCXN527VKL_cm33_core0
 **
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250703
+**     Build:               b250811
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler

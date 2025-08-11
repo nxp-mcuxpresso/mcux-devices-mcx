@@ -8,6 +8,8 @@
 **                          MCXN526VDF_cm33_core1
 **                          MCXN526VKL_cm33_core0
 **                          MCXN526VKL_cm33_core1
+**                          MCXN527VAB_cm33_core0
+**                          MCXN527VAB_cm33_core1
 **                          MCXN527VDF_cm33_core0
 **                          MCXN527VDF_cm33_core1
 **                          MCXN527VKL_cm33_core0
@@ -72,7 +74,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250709
+**     Build:               b250811
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ENET
@@ -114,9 +116,9 @@
 #include "MCXN526_cm33_core0_COMMON.h"
 #elif (defined(CPU_MCXN526VDF_cm33_core1) || defined(CPU_MCXN526VKL_cm33_core1))
 #include "MCXN526_cm33_core1_COMMON.h"
-#elif (defined(CPU_MCXN527VDF_cm33_core0) || defined(CPU_MCXN527VKL_cm33_core0))
+#elif (defined(CPU_MCXN527VAB_cm33_core0) || defined(CPU_MCXN527VDF_cm33_core0) || defined(CPU_MCXN527VKL_cm33_core0))
 #include "MCXN527_cm33_core0_COMMON.h"
-#elif (defined(CPU_MCXN527VDF_cm33_core1) || defined(CPU_MCXN527VKL_cm33_core1))
+#elif (defined(CPU_MCXN527VAB_cm33_core1) || defined(CPU_MCXN527VDF_cm33_core1) || defined(CPU_MCXN527VKL_cm33_core1))
 #include "MCXN527_cm33_core1_COMMON.h"
 #elif (defined(CPU_MCXN536VAB_cm33_core0) || defined(CPU_MCXN536VDF_cm33_core0) || defined(CPU_MCXN536VKL_cm33_core0) || defined(CPU_MCXN536VPB_cm33_core0))
 #include "MCXN536_cm33_core0_COMMON.h"

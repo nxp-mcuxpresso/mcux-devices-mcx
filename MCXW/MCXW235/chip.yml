@@ -28,7 +28,7 @@ device.hardware_data:
             - id: "PROGRAM_FLASH"
               name: "PROGRAM_FLASH"
               addr: 0x0
-              size: 0xa0000
+              size: 0x80000
               type: "Flash"
               access: "RO"
               default: true
@@ -36,7 +36,7 @@ device.hardware_data:
               aliases:
                 - name: "PROGRAM_FLASH_alias"
                   addr: 0x10000000
-                  size: 0xa0000
+                  size: 0x80000
                   access: "RW"
             - id: "SRAM"
               name: "SRAM"

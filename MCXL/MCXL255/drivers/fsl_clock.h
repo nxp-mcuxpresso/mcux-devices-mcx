@@ -463,8 +463,8 @@ typedef enum _clock_attach_id
     kFROdiv2_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 1U),         /*!< Attach FRO div 2 to AON LPADC.   */
     kFROdiv4_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 2U),         /*!< Attach FRO div 4 to AON LPADC.   */
     kROOT_AUX_to_AON_LPADC    = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 3U),         /*!< Attach ROOT AUX to AON LPADC.    */
-    kXTAL32K_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOKC_SelAonLCD,   4U),         /*!< Attach FRO RTC to AON LPADC.     */
-    kFRO16K_to_AON_LPADC      = CLK_ATTACH_MUX(kCLOKC_SelAonLCD,   5U),         /*!< Attach FRO fro16k to AON LPADC.  */
+    kXTAL32K_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 4U),         /*!< Attach FRO RTC to AON LPADC.     */
+    kFRO16K_to_AON_LPADC      = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 5U),         /*!< Attach FRO fro16k to AON LPADC.  */
 
     kFROdiv1_to_AON_SYSTICK     = CLK_ATTACH_MUX(kCLOKC_SelAonSYSTICK, 0U),     /*!< Attach FRO div 1 to AON SYSTICK.   */
     kFROdiv2_to_AON_SYSTICK     = CLK_ATTACH_MUX(kCLOKC_SelAonSYSTICK, 1U),     /*!< Attach FRO div 2 to AON SYSTICK.   */

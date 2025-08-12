@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftH
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250811
+**     Build:               b250812
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL254_cm33
@@ -175,7 +175,9 @@ typedef enum IRQn {
  */ /* end of group Cortex_Core_Configuration */
 
 
+#ifndef MCXL254_cm33_SERIES
 #define MCXL254_cm33_SERIES
+#endif
 /* CPU specific feature definitions */
 #include "MCXL254_cm33_features.h"
 

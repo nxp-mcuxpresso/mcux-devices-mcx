@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25xRM DraftH
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250723
+**     Build:               b250812
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXL253_cm0plus
@@ -66,10 +66,10 @@ typedef enum IRQn {
 
   /* Core interrupts */
   NonMaskableInt_IRQn          = -14,              /**< Non Maskable Interrupt */
-  HardFault_IRQn               = -13,              /**< Cortex-M0 SV Hard Fault Interrupt */
-  SVCall_IRQn                  = -5,               /**< Cortex-M0 SV Call Interrupt */
-  PendSV_IRQn                  = -2,               /**< Cortex-M0 Pend SV Interrupt */
-  SysTick_IRQn                 = -1,               /**< Cortex-M0 System Tick Interrupt */
+  HardFault_IRQn               = -13,              /**< Cortex-M0P SV Hard Fault Interrupt */
+  SVCall_IRQn                  = -5,               /**< Cortex-M0P SV Call Interrupt */
+  PendSV_IRQn                  = -2,               /**< Cortex-M0P Pend SV Interrupt */
+  SysTick_IRQn                 = -1,               /**< Cortex-M0P System Tick Interrupt */
 
   /* Device specific interrupts */
   LPI2C0_AON_IRQn              = 1,                /**< Low-Power Inter Integrated Circuit interrupt */
@@ -126,6 +126,7 @@ typedef enum IRQn {
 /*!
  * @}
  */ /* end of group Cortex_Core_Configuration */
+
 
 #ifndef MCXL253_cm0plus_SERIES
 #define MCXL253_cm0plus_SERIES

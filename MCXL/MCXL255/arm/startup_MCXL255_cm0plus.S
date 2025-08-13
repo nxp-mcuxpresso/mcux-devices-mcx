@@ -4,7 +4,7 @@
 /*            MCXL255_cm0plus                                                */
 /*  @version: 1.0                                                            */
 /*  @date:    2025-6-13                                                      */
-/*  @build:   b250723                                                        */
+/*  @build:   b250812                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -91,8 +91,6 @@ Reset_Handler:
     str     r1, [r0]
     ldr     r2, [r1]
     msr     msp, r2
-    ldr     r0, =Image$$ARM_LIB_STACK$$ZI$$Base
-    msr     msplim, r0
     ldr     r0,=SystemInit
     blx     r0
     cpsie   i               /* Unmask interrupts */
@@ -189,7 +187,7 @@ Reserved18_IRQHandler:
     .type LPUART0_AON_IRQHandler, %function
 LPUART0_AON_IRQHandler:
     ldr   r1,=LPUART_DriverIRQHandler
-    ldr   r0, =2 ;instance number
+    ldr   r0, =2
     bx    r1
     .size LPUART0_AON_IRQHandler, . - LPUART0_AON_IRQHandler
 

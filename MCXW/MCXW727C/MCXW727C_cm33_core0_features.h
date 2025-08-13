@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250811
+**     Build:               b250813
 **
 **     Abstract:
 **         Chip specific module features.
@@ -743,6 +743,8 @@
 #define FSL_FEATURE_RTC_HAS_PCR (1)
 /* @brief Has Oscillator Enable(bitfield CR[OSCE]). */
 #define FSL_FEATURE_RTC_HAS_NO_CR_OSCE (1)
+/* @brief Has no supervisor access bit (CR). */
+#define FSL_FEATURE_RTC_HAS_NO_CR_SUP (1)
 /* @brief Is affected by errata with ID 010716 (RTC: Timer Alarm Flag can assert erroneously). */
 #define FSL_FEATURE_RTC_HAS_ERRATA_010716 (0)
 /* @brief Has clock output (bitfield CR[CLKO]). */

@@ -3755,7 +3755,7 @@ typedef enum _inputmux_connection_t
     kINPUTMUX_Pwm0Sm2OutTrig0ToAoi0Mux    = 31U + (AOI0_MUX_REG << PMUX_SHIFT),
     kINPUTMUX_Pwm0Sm2OutTrig1ToAoi0Mux    = 32U + (AOI0_MUX_REG << PMUX_SHIFT),
     kINPUTMUX_Pwm0Sm3OutTrig0ToAoi0Mux    = 33U + (AOI0_MUX_REG << PMUX_SHIFT),
-    kINPUTMUX_Pwm0Sm3OutTrig1ToAoi0Mux    = 33U + (AOI0_MUX_REG << PMUX_SHIFT),
+    kINPUTMUX_Pwm0Sm3OutTrig1ToAoi0Mux    = 34U + (AOI0_MUX_REG << PMUX_SHIFT),
     kINPUTMUX_TrigIn0ToAoi0Mux            = 35U + (AOI0_MUX_REG << PMUX_SHIFT),
     kINPUTMUX_TrigIn1ToAoi0Mux            = 36U + (AOI0_MUX_REG << PMUX_SHIFT),
     kINPUTMUX_TrigIn2ToAoi0Mux            = 37U + (AOI0_MUX_REG << PMUX_SHIFT),

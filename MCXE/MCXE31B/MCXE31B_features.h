@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
-**     Version:             rev. 1.0, 2024-11-18
-**     Build:               b250710
+**     Version:             rev. 1.0, 2025-07-18
+**     Build:               b250813
 **
 **     Abstract:
 **         Chip specific module features.
@@ -14,8 +14,10 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 1.0 (2024-11-18)
+**     - rev. 0.1 (2024-11-18)
 **
+**     - rev. 1.0 (2025-07-18)
+**         Rev2 RM.
 **
 ** ###################################################################
 */
@@ -329,8 +331,6 @@
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_6032 (0)
 /* @brief Is affected by errata with ID 9595 (FlexCAN: Corrupt frame possible if the Freeze Mode or the Low-Power Mode are entered during a Bus-Off state). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_9595 (0)
-/* @brief Is affected by errata with ID 052403. */
-#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_052403 (1)
 /* @brief Has CAN with Flexible Data rate (CAN FD) protocol. */
 #define FSL_FEATURE_FLEXCAN_HAS_FLEXIBLE_DATA_RATE (1)
 /* @brief CAN instance support Flexible Data rate (CAN FD) protocol. */
@@ -387,13 +387,13 @@
 #define FSL_FEATURE_FLEXCAN_ENTER_FREEZE_MODE (0)
 /* @brief Is affected by errata with ID 8341 (FlexCAN: Entering Freeze Mode or Low Power Mode from Normal Mode can cause the FlexCAN module to stop operating). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_8341 (0)
+/* @brief Is affected by errata with ID 052403. */
+#define FSL_FEATURE_FLEXCAN_HAS_ERRATA_052403 (1)
 /* @brief Is affected by errata with ID 050443 (FlexCAN: : Receive Message Buffers may have its CODE Field corrupted if the Receive FIFO function is used in Classical CAN mode). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_050443 (0)
 
 /* FLEXIO module features */
 
-/* @brief Has DOZEN bit(CTRL[DOZEN]) */
-#define FSL_FEATURE_FLEXIO_HAS_DOZE_MODE_SUPPORT (0)
 /* @brief FLEXIO support reset from RSTCTL */
 #define FSL_FEATURE_FLEXIO_HAS_RESET (0)
 /* @brief Has Shifter Status Register (FLEXIO_SHIFTSTAT) */
@@ -422,6 +422,8 @@
 #define FSL_FEATURE_FLEXIO_TIMCFG_TIMDCE_FIELD_WIDTH (3)
 /* @brief Has pin input output related registers */
 #define FSL_FEATURE_FLEXIO_HAS_PIN_REGISTER (1)
+/* @brief Has DOZEN bit(CTRL[DOZEN]) */
+#define FSL_FEATURE_FLEXIO_HAS_DOZE_MODE_SUPPORT (0)
 
 /* INTM module features */
 
@@ -490,6 +492,8 @@
 #define FSL_FEATURE_LPSPI_HAS_NO_PCSCFG (0)
 /* @brief Has no WIDTH bits in TCR register. */
 #define FSL_FEATURE_LPSPI_HAS_NO_MULTI_WIDTH (0)
+/* @brief Has ERRATA050456. */
+#define FSL_FEATURE_LPSPI_HAS_ERRATA_050456 (1)
 
 /* LPUART module features */
 
@@ -523,8 +527,6 @@
 #define FSL_FEATURE_LPUART_HAS_BOTH_EDGE_SAMPLING_SUPPORT (1)
 /* @brief Peripheral type. */
 #define FSL_FEATURE_LPUART_IS_SCI (1)
-/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
-#define FSL_FEATURE_LPUART_FIFO_SIZEn(x) (4)
 /* @brief Supports two match addresses to filter incoming frames. */
 #define FSL_FEATURE_LPUART_HAS_ADDRESS_MATCHING (1)
 /* @brief Has transmitter/receiver DMA enable bits C5[TDMAE]/C5[RDMAE] (or BAUD[TDMAE]/BAUD[RDMAE] if the registers are 32-bit wide). */
@@ -567,6 +569,8 @@
 #define FSL_FEATURE_LPUART_HAS_TIMEOUT (0)
 /* @brief UART support swap TX and RX (has bit CTRL[SWAP]). */
 #define FSL_FEATURE_LPUART_HAS_CTRL_SWAP (0)
+/* @brief Capacity (number of entries) of the transmit/receive FIFO (or zero if no FIFO is available). */
+#define FSL_FEATURE_LPUART_FIFO_SIZEn(x) (4)
 /* @brief UART support receive rts configuration (has bit MODIR[RTSWATER]). */
 #define FSL_FEATURE_LPUART_HAS_MODIR_RTSWATER (1)
 
@@ -687,8 +691,6 @@
 
 /* PIT module features */
 
-/* @brief Has Real Time Interrupt. */
-#define FSL_FEATURE_PIT_HAS_RTI (1)
 /* @brief Number of channels (related to number of registers LDVALn, CVALn, TCTRLn, TFLGn). */
 #define FSL_FEATURE_PIT_TIMER_COUNT (4)
 /* @brief Has lifetime timer (related to existence of registers LTMR64L and LTMR64H). */
@@ -699,6 +701,10 @@
 #define FSL_FEATURE_PIT_HAS_SHARED_IRQ_HANDLER (1)
 /* @brief Has timer enable control. */
 #define FSL_FEATURE_PIT_HAS_MDIS (1)
+/* @brief Has Real Time Interrupt. */
+#define FSL_FEATURE_PIT_HAS_RTI (1)
+/* @brief Has ERRATA 7914. */
+#define FSL_FEATURE_PIT_HAS_ERRATA_7914 (0)
 
 /* PMC module features */
 
@@ -774,8 +780,6 @@
 
 /* SAI module features */
 
-/* @brief SAI has FIFO in this soc (register bit fields TCR1[TFW]. */
-#define FSL_FEATURE_SAI_HAS_FIFO (1)
 /* @brief Receive/transmit FIFO size in item count (register bit fields TCSR[FRDE], TCSR[FRIE], TCSR[FRF], TCR1[TFW], RCSR[FRDE], RCSR[FRIE], RCSR[FRF], RCR1[RFW], registers TFRn, RFRn). */
 #define FSL_FEATURE_SAI_FIFO_COUNTn(x) (8)
 /* @brief Receive/transmit channel number (register bit fields TCR3[TCE], RCR3[RCE], registers TDRn and RDRn). */
@@ -810,6 +814,8 @@
 #define FSL_FEATURE_SAI_HAS_MCR_MCLK_POST_DIV (0)
 /* @brief Support Channel Mode (register bit fields TCR4[CHMOD]). */
 #define FSL_FEATURE_SAI_HAS_CHANNEL_MODE (1)
+/* @brief SAI has FIFO in this soc (register bit fields TCR1[TFW]. */
+#define FSL_FEATURE_SAI_HAS_FIFO (1)
 /* @brief Support synchronous with another SAI. */
 #define FSL_FEATURE_SAI_HAS_SYNC_WITH_ANOTHER_SAI (0)
 /* @brief Has Bit Clock Swap option (register bit fields RCR2[BCS]) */

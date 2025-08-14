@@ -1044,7 +1044,7 @@ typedef enum IRQn {
   #define LPI2C_BASE_PTRS                          { LPI2C0, LPI2C1, AON__LPI2C0 }
 #endif
 /** Interrupt vectors for the LPI2C peripheral type */
-#define LPI2C_IRQS                               { LPI2C0_IRQn, LPI2C1_IRQn, NotAvail_IRQn }
+#define LPI2C_IRQS                               { LPI2C0_IRQn, LPI2C1_IRQn, LPI2C0_AON_IRQn }
 
 /* LPSPI - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

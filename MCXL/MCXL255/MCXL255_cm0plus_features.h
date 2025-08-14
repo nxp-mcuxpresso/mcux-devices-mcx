@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250728
+**     Build:               b250814
 **
 **     Abstract:
 **         Chip specific module features.
@@ -288,6 +288,11 @@
 #define FSL_FEATURE_POWERLIB_EXTEND (1)
 /* @brief Starter register discontinuous. */
 #define FSL_FEATURE_SYSCON_AON_STARTER_DISCONTINUOUS (1)
+
+/* TMR module features */
+
+/* @brief Has 32-bit width register. */
+#define FSL_FEATURE_TMR_HAS_32BIT_REGISTER (1)
 
 /* MU module features */
 

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250728
+**     Build:               b250814
 **
 **     Abstract:
 **         Chip specific module features.
@@ -415,13 +415,18 @@
 /* @brief Starter register discontinuous. */
 #define FSL_FEATURE_SYSCON_AON_STARTER_DISCONTINUOUS (1)
 
+/* TMR module features */
+
+/* @brief Has 32-bit width register. */
+#define FSL_FEATURE_TMR_HAS_32BIT_REGISTER (1)
+
 /* CDOG module features */
 
 /* @brief SOC has no reset driver. */
 #define FSL_FEATURE_CDOG_HAS_NO_RESET (1)
 /* @brief CDOG Load default configurations during init function */
 #define FSL_FEATURE_CDOG_NEED_LOAD_DEFAULT_CONF (1)
-/* @brief SOC Have RESET register. */
+/* @brief CDOG Uses restart */
 #define FSL_FEATURE_CDOG_USE_RESTART (1)
 
 /* CMC module features */

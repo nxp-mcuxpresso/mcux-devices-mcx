@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250813
+**     Build:               b250814
 **
 **     Abstract:
 **         Chip specific module features.
@@ -258,6 +258,8 @@
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_8341 (0)
 /* @brief Is affected by errata with ID 050443 (FlexCAN: : Receive Message Buffers may have its CODE Field corrupted if the Receive FIFO function is used in Classical CAN mode). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_050443 (0)
+/* @brief Support memory error interrupt (bitfield MECR[CEI_MSK]). */
+#define FSL_FEATURE_FLEXCAN_HAS_MEMORY_ERROR_INTERRUPT (0)
 
 /* CDOG module features */
 
@@ -436,6 +438,8 @@
 #define FSL_FEATURE_PWM_HAS_CAPTURE_ON_CHANNELB (0)
 /* @brief If (e)FlexPWM has module capture functionality on X channels (inputs). */
 #define FSL_FEATURE_PWM_HAS_CAPTURE_ON_CHANNELX (1)
+/* @brief Is affected by errata with ID 51989. */
+#define FSL_FEATURE_PWM_HAS_ERRATA_51989 (0)
 
 /* FMU module features */
 
@@ -741,11 +745,11 @@
 #define FSL_FEATURE_RTC_HAS_PCR (0)
 /* @brief Has Oscillator Enable(bitfield CR[OSCE]). */
 #define FSL_FEATURE_RTC_HAS_NO_CR_OSCE (1)
-/* @brief Has no supervisor access bit (CR). */
+/* @brief Has no supervisor access bit (CR[SUP]). */
 #define FSL_FEATURE_RTC_HAS_NO_CR_SUP (1)
 /* @brief Is affected by errata with ID 010716 (RTC: Timer Alarm Flag can assert erroneously). */
 #define FSL_FEATURE_RTC_HAS_ERRATA_010716 (0)
-/* @brief Has clock output (bitfield CR[CLKO]). */
+/* @brief Has clock output bit (CR[CLKO]). */
 #define FSL_FEATURE_RTC_HAS_CLOCK_OUTPUT (0)
 
 /* SPC module features */
@@ -819,7 +823,7 @@
 
 /* UTICK module features */
 
-/* @brief UTICK does not support PD configure. */
+/* @brief UTICK does not support power down configure. */
 #define FSL_FEATURE_UTICK_HAS_NO_PDCFG (1)
 
 /* VBAT module features */
@@ -841,8 +845,14 @@
 
 /* WWDT module features */
 
-/* @brief Has no RESET register. */
+/* @brief WWDT does not support oscillator lock. */
+#define FSL_FEATURE_WWDT_HAS_NO_OSCILLATOR_LOCK (0)
+/* @brief soc has reset. */
 #define FSL_FEATURE_WWDT_HAS_NO_RESET (1)
+/* @brief Has LPOSC as clock source. */
+#define FSL_FEATURE_WWDT_HAS_LPOSC_CLOCK_SOURCE (0)
+/* @brief WWDT WDTOF is not set in case of WD reset - get info from PMC instead. */
+#define FSL_FEATURE_WWDT_WDTRESET_FROM_PMC (0)
 
 #endif /* _MCXA346_FEATURES_H_ */
 

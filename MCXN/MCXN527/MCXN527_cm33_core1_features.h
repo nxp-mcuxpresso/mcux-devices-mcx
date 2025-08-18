@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250811
+**     Build:               b250814
 **
 **     Abstract:
 **         Chip specific module features.
@@ -234,6 +234,8 @@
 #define FSL_FEATURE_CDOG_HAS_NO_RESET (1)
 /* @brief CDOG Load default configurations during init function */
 #define FSL_FEATURE_CDOG_NEED_LOAD_DEFAULT_CONF (0)
+/* @brief CDOG Uses restart */
+#define FSL_FEATURE_CDOG_USE_RESTART (1)
 
 /* CMC module features */
 
@@ -485,7 +487,7 @@
 /* @brief FlexSPI Has ERRATA051426 */
 #define FSL_FEATURE_FLEXSPI_HAS_ERRATA_051426 (0)
 /* @brief FlexSPI has AHBCR RESUMEDISABLE bit */
-#define FSL_FEATURE_FLEXSPI_RESUMEDISABLE_BIT_CONFIG_SUPPORT (1)
+#define FSL_FEATURE_FLEXSPI_HAS_RESUMEDISABLE_BIT_CONFIG_SUPPORT (1)
 
 /* FMU module features */
 
@@ -827,6 +829,8 @@
 #define FSL_FEATURE_SCT_NUMBER_OF_MATCH_CAPTURE (16)
 /* @brief Number of outputs */
 #define FSL_FEATURE_SCT_NUMBER_OF_OUTPUTS (10)
+/* @brief Writing a zero asserts the SCT reset. */
+#define FSL_FEATURE_SCT_WRITE_ZERO_ASSERT_RESET (0)
 
 /* SEMA42 module features */
 
@@ -976,7 +980,7 @@
 
 /* UTICK module features */
 
-/* @brief UTICK does not support PD configure. */
+/* @brief UTICK does not support power down configure. */
 #define FSL_FEATURE_UTICK_HAS_NO_PDCFG (1)
 
 /* VBAT module features */
@@ -1000,10 +1004,16 @@
 
 /* WWDT module features */
 
-/* @brief Has no RESET register. */
-#define FSL_FEATURE_WWDT_HAS_NO_RESET (1)
-/* @brief WWDT does not support power down configure */
+/* @brief WWDT does not support oscillator lock. */
+#define FSL_FEATURE_WWDT_HAS_NO_OSCILLATOR_LOCK (0)
+/* @brief WWDT does not support power down configure. */
 #define FSL_FEATURE_WWDT_HAS_NO_PDCFG (1)
+/* @brief soc has reset. */
+#define FSL_FEATURE_WWDT_HAS_NO_RESET (1)
+/* @brief Has LPOSC as clock source. */
+#define FSL_FEATURE_WWDT_HAS_LPOSC_CLOCK_SOURCE (0)
+/* @brief WWDT WDTOF is not set in case of WD reset - get info from PMC instead. */
+#define FSL_FEATURE_WWDT_WDTRESET_FROM_PMC (0)
 
 #endif /* _MCXN527_cm33_core1_FEATURES_H_ */
 

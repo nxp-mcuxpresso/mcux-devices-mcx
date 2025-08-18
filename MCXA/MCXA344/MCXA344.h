@@ -12,8 +12,8 @@
 **                          MCUXpresso Compiler
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
-**     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250520
+**     Version:             rev. 2.0, 2024-10-29
+**     Build:               b250806
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA344
@@ -28,14 +28,17 @@
 **     Revisions:
 **     - rev. 1.0 (2024-03-26)
 **         Initial version based on Rev1 DraftC RM
+**     - rev. 2.0 (2024-10-29)
+**         Change the device header file from single flat file to multiple files based on peripherals,
+**         each peripheral with dedicated header file located in periphN folder.
 **
 ** ###################################################################
 */
 
 /*!
  * @file MCXA344.h
- * @version 1.0
- * @date 2024-03-26
+ * @version 2.0
+ * @date 2024-10-29
  * @brief CMSIS Peripheral Access Layer for MCXA344
  *
  * CMSIS Peripheral Access Layer for MCXA344

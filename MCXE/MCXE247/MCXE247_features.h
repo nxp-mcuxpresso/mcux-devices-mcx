@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250811
+**     Build:               b250814
 **
 **     Abstract:
 **         Chip specific module features.
@@ -183,6 +183,8 @@
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_8341 (1)
 /* @brief Is affected by errata with ID 050443 (FlexCAN: : Receive Message Buffers may have its CODE Field corrupted if the Receive FIFO function is used in Classical CAN mode). */
 #define FSL_FEATURE_FLEXCAN_HAS_ERRATA_050443 (1)
+/* @brief Support memory error interrupt (bitfield MECR[CEI_MSK]). */
+#define FSL_FEATURE_FLEXCAN_HAS_MEMORY_ERROR_INTERRUPT (0)
 
 /* ACMP module features */
 
@@ -325,12 +327,14 @@
 #define FSL_FEATURE_ENET_INSTANCE_HAS_ADD_1588_TIMER_CHN_INTn(x) (1)
 /* @brief Has threshold for the number of frames in the receive FIFO (register bit field RSEM[STAT_SECTION_EMPTY]). */
 #define FSL_FEATURE_ENET_HAS_RECEIVE_STATUS_THRESHOLD (1)
-/* @brief Has trasfer clock delay (register bit field ECR[TXC_DLY]). */
+/* @brief Has transfer clock delay (register bit field ECR[TXC_DLY]). */
 #define FSL_FEATURE_ENET_HAS_RGMII_TXC_DELAY (0)
 /* @brief Has receive clock delay (register bit field ECR[RXC_DLY]). */
 #define FSL_FEATURE_ENET_HAS_RGMII_RXC_DELAY (0)
 /* @brief PTP Timestamp CAPTURE bit always returns 0 when the capture is not over. */
 #define FSL_FEATURE_ENET_TIMESTAMP_CAPTURE_BIT_INVALID (0)
+/* @brief ENET Has Extra Clock Gate (RW610). */
+#define FSL_FEATURE_ENET_HAS_EXTRA_CLOCK_GATE (0)
 
 /* EWM module features */
 
@@ -1076,9 +1080,11 @@
 #define FSL_FEATURE_RTC_HAS_PCR (0)
 /* @brief Has Oscillator Enable(bitfield CR[OSCE]). */
 #define FSL_FEATURE_RTC_HAS_NO_CR_OSCE (1)
+/* @brief Has no supervisor access bit (CR[SUP]). */
+#define FSL_FEATURE_RTC_HAS_NO_CR_SUP (0)
 /* @brief Is affected by errata with ID 010716 (RTC: Timer Alarm Flag can assert erroneously). */
 #define FSL_FEATURE_RTC_HAS_ERRATA_010716 (1)
-/* @brief Has clock output (bitfield CR[CLKO]). */
+/* @brief Has clock output bit (CR[CLKO]). */
 #define FSL_FEATURE_RTC_HAS_CLOCK_OUTPUT (1)
 
 /* SCG module features */

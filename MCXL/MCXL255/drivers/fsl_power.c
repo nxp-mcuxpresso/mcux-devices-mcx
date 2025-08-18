@@ -13,6 +13,7 @@
 #include "fsl_smm.h"
 
 #include "fsl_advc.h"
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -247,7 +248,7 @@ void Power_GetPowerModeConfig(void *config)
 
     Power_DumpHandleValue(&handleBuf);
 
-    switch(handleBuf.previousPowerMode)
+    switch (handleBuf.previousPowerMode)
     {
         case kPower_DeepSleep:
         {
@@ -579,6 +580,7 @@ void Power_ResetPreviousPowerMode(void)
  */
 status_t Power_GetCurrentPowerMode(power_low_power_mode_t *ptrCurLpMode)
 {
+    assert(g_Handle_Offset != 0xFFFFFFFFUL);
     status_t status                     = kStatus_Success;
     uint8_t tmp8                        = SMM_GetPowerState(AON__SMM);
     power_handle_t *sharedHandle        = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
@@ -612,7 +614,7 @@ status_t Power_GetCurrentPowerMode(power_low_power_mode_t *ptrCurLpMode)
         }
         default:
         {
-            /* Avoid violation of MISRA rule. */
+            status = kStatus_Fail;
             break;
         }
     }
@@ -654,12 +656,18 @@ void Power_ClearLpPowerSettings(void)
     SMM_ClearMainCpuWakeupSources(AON__SMM);
     CMC_SetClockMode(CMC, kCMC_GateNoneClock);
     CMC_SetGlobalPowerMode(CMC, kCMC_ActiveOrSleepMode);
-    AON__SMM->STAT = SMM_STAT_DPD_SEQ_END_MASK | SMM_STAT_DPD_END_MASK;
+    AON__SMM->STAT      = SMM_STAT_DPD_SEQ_END_MASK | SMM_STAT_DPD_END_MASK;
+    AON__SMM->LSB_BCKP1 = 0UL;
+    AON__SMM->LSB_BCKP2 = 0UL;
+    AON__SMM->MSB_BCKP2 = 0UL;
 #elif __CORTEX_M == 0U
     SMM_DisableAonCpuIso(AON__SMM);
     SMM_ClearAllLowPowerSequence(AON__SMM);
     SMM_ClearAonCpuWakeupSources(AON__SMM);
+#if 0
     AON__SMM->STAT = SMM_STAT_DPD_SEQ_END_MASK | SMM_STAT_DPD_END_MASK;
+#endif
+    AON__SMM->MSB_BCKP1 = 0UL;
 #endif /* __CORTEX_M */
 }
 
@@ -1021,13 +1029,30 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
     sharedHandle->targetPowerMode   = kPower_DeepPowerDown1;
     sharedHandle->previousPowerMode = kPower_DeepPowerDown1;
 
-    /* 3. Software configuration for CM33. */
-    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-    __DSB();
-    __ISB();
-    __WFI();
+    if (config->mainRamArraysToRetain != kPower_MainDomainNoneRams)
+    {
+        AON__SMM->LSB_BCKP1 = 0UL;
+        if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
+        {
+            SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+            __DSB();
+            __ISB();
+            __WFI();
+        }
+        g_Handle_Offset                 = (uint32_t)((uint32_t)sharedHandle - POWER_SHARED_RAM_BASE_ADDR);
+        sharedHandle->previousPowerMode = kPower_DeepPowerDown1;
+        return kStatus_Power_WakeupFromDPD1;
+    }
+    else
+    {
+        /* 3. Software configuration for CM33. */
+        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+        __DSB();
+        __ISB();
+        __WFI();
 
-    return kStatus_Success;
+        return kStatus_Success;
+    }
 #elif __CORTEX_M == 0U
     sharedHandle->requestCM33Start = true;
     return Power_ReqestCM33StartLpSeq(kPower_DeepPowerDown1);
@@ -1195,8 +1220,6 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
             {
                 AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
             }
-            SMM_StartAonDPD2Sequence(AON__SMM);
-            (void)AON__SMM->PWDN_CONFIG;
 
             if (config->disableFRO10M)
             {
@@ -1211,9 +1234,33 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
             /*3. CM0P. Execute WFI */
             SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
             sharedHandle->cm0pWFI = true;
-            __DSB();
-            __ISB();
-            __WFI();
+
+            if ((config->wakeToDpd1 == true) && (config->aonRamArraysToRetain != kPower_AonDomainNoneRams))
+            {
+                if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
+                {
+                    AON__SMM->PWDN_CONFIG |= SMM_PWDN_CONFIG_DPD2_AON_MASK;
+                    (void)AON__SMM->PWDN_CONFIG;
+                    __DSB();
+                    __ISB();
+                    __WFI();
+                }
+                AON__SMM->MSB_BCKP1 = SMM_MSB_BCKP1_MSB1(0UL);
+                g_Handle_Offset     = (uint32_t)((uint32_t)sharedHandle - POWER_SHARED_RAM_BASE_ADDR);
+
+                return kStatus_Power_WakeupFromDPD2;
+            }
+            else
+            {
+                AON__SMM->MSB_BCKP1 = SMM_MSB_BCKP1_MSB1(0UL);
+                AON__SMM->PWDN_CONFIG |= SMM_PWDN_CONFIG_DPD2_AON_MASK;
+                (void)AON__SMM->PWDN_CONFIG;
+                __DSB();
+                __ISB();
+                __WFI();
+
+                return kStatus_Fail;
+            }
         }
     }
 
@@ -1374,11 +1421,11 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
     PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
     PMU_UpdateWakeupTime(AON__PMU, 0x7F8);
     /* Clean all settings of RTC. */
-    AON__SMM->RTC_DCDC_CNTRL = 0xe00;
+    AON__SMM->RTC_DCDC_CNTRL  = 0xe00;
     AON__SMM->RTC_XTAL_CONFG1 = 0x0UL;
     AON__SMM->RTC_XTAL_CONFG2 = 0x0UL;
     SMM_StartAonShutDownSequence(AON__SMM);
-    
+
     /*4. Configuration of CMC */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
@@ -1418,6 +1465,279 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
 
     return status;
 #endif /* __CORTEX_M == 0U */
+}
+
+uint32_t Power_PushContext(uint32_t handleAddr)
+{
+    /* Stack layout:
+        ---------    <-----High address
+        |  D15  |       -----
+        ---------           |
+        |  D14  |           |
+        ---------           |
+        |  D13  |           |
+        ---------           |
+        |  D12  |           |
+        ---------           |---- Only CM33
+        |  D11  |           |
+        ---------           |
+        |  D10  |           |
+        ---------           |
+        |  D9   |           |
+        ---------           |
+        |  D8   |       -----
+        ---------
+        |  LR   |
+        ---------
+        |  R12  |
+        ---------
+        |  R11  |
+        ---------
+        |  R10  |
+        ---------
+        |  R9   |
+        ---------
+        |  R8   |
+        ---------
+        |  R7   |
+        ---------
+        |  R6   |
+        ---------
+        |  R5   |
+        ---------
+        |  R4   |
+        ---------
+        | handle|
+        | value |
+        ---------
+        | handle|
+        | addr  |
+        ---------
+        | ASPR  |
+        ---------
+        | PSR   |
+        ---------
+        |PRIMASK|
+        ---------
+        |CONTROL|
+        ---------  <------ SP Address saved in backup register
+    */
+#ifdef __ARMVFP__
+    /* push FPU registers. */
+    asm volatile("VSTMDB sp!, {D15}");
+    asm volatile("VSTMDB sp!, {D14}");
+    asm volatile("VSTMDB sp!, {D13}");
+    asm volatile("VSTMDB sp!, {D12}");
+    asm volatile("VSTMDB sp!, {D11}");
+    asm volatile("VSTMDB sp!, {D10}");
+    asm volatile("VSTMDB sp!, {D9}");
+    asm volatile("VSTMDB sp!, {D8}");
+#endif
+    /* push LR */
+    asm volatile("PUSH {lr}");
+
+    /* push r12 */
+    asm volatile("PUSH {r0}");
+    asm volatile("MOV r0, r12");
+    asm volatile("POP {r1}");
+    asm volatile("PUSH {r0}");
+    asm volatile("MOV r12, r1");
+
+    /* push r11, r10, r9, r8. */
+    asm volatile("MOV r0, r8");
+    asm volatile("MOV r1, r9");
+    asm volatile("MOV r2, r10");
+    asm volatile("MOV r3, r11");
+    asm volatile("PUSH {r0-r3}");
+
+    /* push r7, r6, r5, r4. */
+    asm volatile("PUSH {r4-r7}");
+
+    /* push value of current handle.*/
+    asm volatile("MOV r0, r12");
+    asm volatile("LDR r1, [r0, #40]"); /* Latest word */
+    asm volatile("PUSH {r1}");
+    asm volatile("LDR r1, [r0, #36]"); /* handle->enabledWsInfo.mainWakeupSourceMask. */
+    asm volatile("PUSH {r1}");
+    asm volatile("LDR r1, [r0, #32]"); /* handle->enabledWsInfo.aonWakeupSourceMask. */
+    asm volatile("PUSH {r1}");
+    asm volatile("LDR r1, [r0, #28]"); /* handle->cm0pUserData. */
+    asm volatile("PUSH {r1}");
+    asm volatile("LDR r1, [r0, #24]"); /* handle->cm0pCallback. */
+    asm volatile("PUSH {r1}");
+    asm volatile("LDR r1, [r0, #20]"); /* handle->cm33UserData. */
+    asm volatile("PUSH {r1}");
+    asm volatile("LDR r1, [r0, #16]"); /* handle->cm33Callback. */
+    asm volatile("PUSH {r1}");
+    asm volatile("LDR r1, [r0, #12]"); /* handle->lpConfig[3]. */
+    asm volatile("PUSH {r1}");
+    asm volatile("LDR r1, [r0, #8]");  /* handle->lpConfig[2]. */
+    asm volatile("PUSH {r1}");
+    asm volatile("LDR r1, [r0, #4]");  /* handle->lpConfig[1]. */
+    asm volatile("PUSH {r1}");
+    asm volatile("LDR r1, [r0, #0]");  /* handle->lpConfig[0]. */
+    asm volatile("PUSH {r1}");
+    asm volatile("PUSH {r0}");
+
+    /* push aspr, psr, PRIMASK, CONTROL */
+    asm volatile("MRS r0, CONTROL");
+    asm volatile("MRS r1, PRIMASK");
+    asm volatile("MRS r2, psr");
+    asm volatile("MRS r3, apsr");
+    asm volatile("PUSH {r0-r3}");
+
+    /* save current sp to backup register */
+#if __CORTEX_M == 33U
+    asm volatile("MOV R0, SP");
+    asm volatile("UXTH R1, R0");
+    asm volatile("LDR R2, =0xA009A034");
+    asm volatile("STR R1, [R2]");
+    asm volatile("LSRS R1, R0, #16");
+    asm volatile("LDR R2, =0xA009A038");
+    asm volatile("STR R1, [R2]");
+#else
+    asm volatile("MOV R0, SP");
+    asm volatile("LDR R2, =0xA009A030");
+    asm volatile("STR R0, [R2]");
+#endif
+
+    asm volatile("MOVS R0, #0");
+    asm volatile("BX LR");
+
+    return 0;
+}
+
+#define POWER_BCKP1_MSB_VALUE (uint32_t)(AON__SMM->MSB_BCKP1 & SMM_MSB_BCKP1_MSB1_MASK)
+
+#define POWER_BCKP2_VALUE                                        \
+    (uint32_t)((AON__SMM->LSB_BCKP2 & SMM_LSB_BCKP2_LSB2_MASK) | \
+               ((AON__SMM->MSB_BCKP2 & SMM_MSB_BCKP2_MSB2_MASK) << 16UL))
+
+void Power_LowPowerBoot(void)
+{
+#if __CORTEX_M == 33U
+    if (POWER_BCKP2_VALUE != 0UL)
+    {
+        AON__SMM->LSB_BCKP1 = 0x5A5A;
+        asm volatile("MOV sp, %[input]"
+                     : // no C variable outputs
+                     : [input] "r"(POWER_BCKP2_VALUE)
+                     : // No need to tell nothing to the compiler
+        );
+#else
+    if (POWER_BCKP1_MSB_VALUE != 0UL)
+    {
+        asm volatile("MOV sp, %[input]"
+                     : // no C variable outputs
+                     : [input] "r"(POWER_BCKP1_MSB_VALUE)
+                     : // No need to tell nothing to the compiler
+        );
+#endif
+
+        asm volatile("POP {r0-r3}");
+        asm volatile("MSR CONTROL, r0");
+        asm volatile("MSR PRIMASK, r1");
+#ifdef __IAR_SYSTEMS_ICC__
+        __asm volatile("MSR psr, r2");
+        __asm volatile("MSR APSR, r3");
+#else
+        __asm volatile("MSR psr_nzcvq, r2");
+        __asm volatile("MSR APSR_nzcvq, r3");
+#endif
+
+        /* Restore handle value. */
+        asm volatile("POP {r0}");    /* handle address. */
+        asm volatile("POP {r1-r7}"); /* first 7 words of handle. */
+        asm volatile("STR r1, [r0]");
+#if __IAR_SYSTEMS_ICC__
+        asm volatile("ADDS r0, r0, #4");
+#else
+        asm volatile("ADD r0, r0, #4");
+#endif
+        asm volatile("STR r2, [r0]");
+#if __IAR_SYSTEMS_ICC__
+        asm volatile("ADDS r0, r0, #4");
+#else
+        asm volatile("ADD r0, r0, #4");
+#endif
+        asm volatile("STR r3, [r0]");
+#if __IAR_SYSTEMS_ICC__
+        asm volatile("ADDS r0, r0, #4");
+#else
+        asm volatile("ADD r0, r0, #4");
+#endif
+        asm volatile("STR r4, [r0]");
+#if __IAR_SYSTEMS_ICC__
+        asm volatile("ADDS r0, r0, #4");
+#else
+        asm volatile("ADD r0, r0, #4");
+#endif
+        asm volatile("STR r5, [r0]");
+#if __IAR_SYSTEMS_ICC__
+        asm volatile("ADDS r0, r0, #4");
+#else
+        asm volatile("ADD r0, r0, #4");
+#endif
+        asm volatile("STR r6, [r0]");
+#if __IAR_SYSTEMS_ICC__
+        asm volatile("ADDS r0, r0, #4");
+#else
+        asm volatile("ADD r0, r0, #4");
+#endif
+        asm volatile("STR r7, [r0]");
+#if __IAR_SYSTEMS_ICC__
+        asm volatile("ADDS r0, r0, #4");
+#else
+        asm volatile("ADD r0, r0, #4");
+#endif
+        asm volatile("POP {r1-r4}"); /*left 4 words of handle. */
+        asm volatile("STR r1, [r0]");
+#if __IAR_SYSTEMS_ICC__
+        asm volatile("ADDS r0, r0, #4");
+#else
+        asm volatile("ADD r0, r0, #4");
+#endif
+        asm volatile("STR r2, [r0]");
+#if __IAR_SYSTEMS_ICC__
+        asm volatile("ADDS r0, r0, #4");
+#else
+        asm volatile("ADD r0, r0, #4");
+#endif
+        asm volatile("STR r3, [r0]");
+#if __IAR_SYSTEMS_ICC__
+        asm volatile("ADDS r0, r0, #4");
+#else
+        asm volatile("ADD r0, r0, #4");
+#endif
+        asm volatile("STR r4, [r0]");
+
+        /* Restore r4-r7. */
+        asm volatile("POP {r4-r7}");
+
+        /* Restore r8-r12. */
+        asm volatile("POP {r0-r4}");
+        asm volatile("MOV r8, r0");
+        asm volatile("MOV r9, r1");
+        asm volatile("MOV r10, r2");
+        asm volatile("MOV r11, r3");
+        asm volatile("MOV r12, r4");
+
+        /* Restore LR */
+        asm volatile("POP {r0}"); /* saved PC */
+        asm volatile("MOV lr, r0");
+#ifdef __ARMVFP__
+        asm volatile("VLDMIA sp!, {D8}");
+        asm volatile("VLDMIA sp!, {D9}");
+        asm volatile("VLDMIA sp!, {D10}");
+        asm volatile("VLDMIA sp!, {D11}");
+        asm volatile("VLDMIA sp!, {D12}");
+        asm volatile("VLDMIA sp!, {D13}");
+        asm volatile("VLDMIA sp!, {D14}");
+        asm volatile("VLDMIA sp!, {D15}");
+#endif
+        asm volatile("MOVS r0, #1");
+        asm volatile("BX lr");
+    }
 }
 
 /*!
@@ -1614,10 +1934,30 @@ status_t Power_InterpretRequest(uint32_t message)
         {
             /* If CM0P approve to enter target low power mode, execute WFI. */
             SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-            sharedHandle->cm0pWFI = true;
-            __DSB();
-            __ISB();
-            __WFI();
+            sharedHandle->cm0pWFI         = true;
+            sharedHandle->targetPowerMode = targetLowPowerMode;
+            if (targetLowPowerMode == kPower_DeepPowerDown2)
+            {
+                if ((((power_dpd2_config_t *)lpConfigAddr)->aonRamArraysToRetain != kPower_AonDomainNoneRams) &&
+                    (((power_dpd2_config_t *)lpConfigAddr)->wakeToDpd1 == true))
+                {
+                    if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
+                    {
+                        __DSB();
+                        __ISB();
+                        __WFI();
+                    }
+                    AON__SMM->MSB_BCKP1             = SMM_MSB_BCKP1_MSB1(0UL);
+                    g_Handle_Offset                 = (uint32_t)((uint32_t)sharedHandle - POWER_SHARED_RAM_BASE_ADDR);
+                    sharedHandle->previousPowerMode = targetLowPowerMode;
+                }
+            }
+            else
+            {
+                __DSB();
+                __ISB();
+                __WFI();
+            }
         }
 #endif /* __CORTEX_M */
     }

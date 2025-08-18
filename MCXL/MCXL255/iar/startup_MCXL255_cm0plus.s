@@ -35,6 +35,9 @@
 
         EXTERN  __iar_program_start
         EXTERN  SystemInit
+#ifdef __ENABLE_LP_BOOT
+        EXTERN  Power_LowPowerBoot
+#endif
         PUBLIC  __vector_table
         PUBLIC  __vector_table_0x1c
         PUBLIC  __Vectors
@@ -131,6 +134,10 @@ Reset_Handler
         CPSIE   I               ; Unmask interrupts
         LDR     R0, =SystemInit
         BLX     R0
+#ifdef __ENABLE_LP_BOOT
+        LDR     R0, =Power_LowPowerBoot
+        BLX     R0
+#endif
         LDR     R0, =__iar_program_start
         BX      R0
 

@@ -42,7 +42,9 @@ enum
                                                                                 reasons cause NACK response. */
     kStatus_Power_SyncFailed = MAKE_STATUS(kStatusGroup_POWER, 5),           /*!< Failed to sync dual core. */
     kStatus_Power_CM0PNotWFI = MAKE_STATUS(kStatusGroup_POWER, 6),           /*!< CM0P do not execute WFI after approve
-                                                                                  to enter target low power mode.. */
+                                                                                  to enter target low power mode. */
+    kStatus_Power_WakeupFromDPD1 = MAKE_STATUS(kStatusGroup_POWER, 7),
+    kStatus_Power_WakeupFromDPD2 = MAKE_STATUS(kStatusGroup_POWER, 8),
 };
 
 /*!
@@ -226,19 +228,19 @@ enum _power_main_domain_sram_array
  */
 typedef enum _power_vdd_core_aon_output_voltage
 {
-    kPower_VddCoreAon_820mV = 0x14U,    /*!< The output voltage of VDD_CORE_AON is about 820mV. */
-    kPower_VddCoreAon_801mV = 0x16U,    /*!< The output voltage of VDD_CORE_AON is about 801mV. */
-    kPower_VddCoreAon_782mV = 0x18U,    /*!< The output voltage of VDD_CORE_AON is about 782mV. */
-    kPower_VddCoreAon_763mV = 0x1AU,    /*!< The output voltage of VDD_CORE_AON is about 763mV. */
-    kPower_VddCoreAon_744mV = 0x1CU,    /*!< The output voltage of VDD_CORE_AON is about 744mV. */
-    kPower_VddCoreAon_725mV = 0x1EU,    /*!< The output voltage of VDD_CORE_AON is about 725mV. */
-    kPower_VddCoreAon_706mV = 0x20U,    /*!< The output voltage of VDD_CORE_AON is about 706mV. */
-    kPower_VddCoreAon_687mV = 0x22U,    /*!< The output voltage of VDD_CORE_AON is about 687mV. */
-    kPower_VddCoreAon_668mV = 0x24U,    /*!< The output voltage of VDD_CORE_AON is about 668mV. */
-    kPower_VddCoreAon_649mV = 0x26U,    /*!< The output voltage of VDD_CORE_AON is about 649mV. */
-    kPower_VddCoreAon_630mV = 0x28U,    /*!< The output voltage of VDD_CORE_AON is about 630mV. */
-    kPower_VddCoreAon_611mV = 0x2AU,    /*!< The output voltage of VDD_CORE_AON is about 611mV. */
-    kPower_VddCoreAon_592mV = 0x2CU,    /*!< The output voltage of VDD_CORE_AON is about 592mV. */
+    kPower_VddCoreAon_820mV       = 0x14U, /*!< The output voltage of VDD_CORE_AON is about 820mV. */
+    kPower_VddCoreAon_801mV       = 0x16U, /*!< The output voltage of VDD_CORE_AON is about 801mV. */
+    kPower_VddCoreAon_782mV       = 0x18U, /*!< The output voltage of VDD_CORE_AON is about 782mV. */
+    kPower_VddCoreAon_763mV       = 0x1AU, /*!< The output voltage of VDD_CORE_AON is about 763mV. */
+    kPower_VddCoreAon_744mV       = 0x1CU, /*!< The output voltage of VDD_CORE_AON is about 744mV. */
+    kPower_VddCoreAon_725mV       = 0x1EU, /*!< The output voltage of VDD_CORE_AON is about 725mV. */
+    kPower_VddCoreAon_706mV       = 0x20U, /*!< The output voltage of VDD_CORE_AON is about 706mV. */
+    kPower_VddCoreAon_687mV       = 0x22U, /*!< The output voltage of VDD_CORE_AON is about 687mV. */
+    kPower_VddCoreAon_668mV       = 0x24U, /*!< The output voltage of VDD_CORE_AON is about 668mV. */
+    kPower_VddCoreAon_649mV       = 0x26U, /*!< The output voltage of VDD_CORE_AON is about 649mV. */
+    kPower_VddCoreAon_630mV       = 0x28U, /*!< The output voltage of VDD_CORE_AON is about 630mV. */
+    kPower_VddCoreAon_611mV       = 0x2AU, /*!< The output voltage of VDD_CORE_AON is about 611mV. */
+    kPower_VddCoreAon_592mV       = 0x2CU, /*!< The output voltage of VDD_CORE_AON is about 592mV. */
     kPower_VddCoreAon_AdvcControl = 0xFFU, /*!< The output voltage of VDD_CORE_AON is controlled by ADVC. */
 } power_vdd_core_output_voltage_t;
 
@@ -369,13 +371,13 @@ typedef struct _power_dpd1_config
  */
 typedef struct _power_dpd2_config
 {
-    power_wakeup_source_t mainWakeupSource; /* Specify the wakeup source to main domain. If the selected wakeup
+    power_wakeup_source_t mainWakeupSource; /*!< Specify the wakeup source to main domain. If the selected wakeup
                                             source is not already enabled, it will be enabled before entering DPD2 mode.
                                             Setting it to #kPower_WS_NONE indicates that this structure does not
                                             control any wakeup source. Pre-enabled wakeup sources are not affected.
                                              Wakeup sources can also be enabled manually by
                                              invoking Power_EnableWakeupSource(). */
-    power_wakeup_source_t aonWakeupSource;  /* Specify the wakeup source to aon domain. If the selected wakeup
+    power_wakeup_source_t aonWakeupSource;  /*!< Specify the wakeup source to aon domain. If the selected wakeup
                                             source is not already enabled, it will be enabled before entering DPD2 mode.
                                             Setting it to #kPower_WS_NONE indicates that this structure does not
                                             control any wakeup source. Pre-enabled wakeup sources are not affected.
@@ -390,8 +392,9 @@ typedef struct _power_dpd2_config
     bool switchToX32K : 1U;          /*!< Flag to indicate whether to switch to X32K clock source during DPD2 mode */
     bool disableFRO10M : 1U;         /*!< Flag to indicate whether to disable the FRO10M clock during DPD2 mode */
     bool wakeToDpd1 : 1U;            /*!< Flag to indicate whether to wake up to DPD1 mode after DPD2 mode */
-    power_vdd_core_output_voltage_t dpd2VddCoreAonVoltage : 8U; /*!< Specify output voltage of VDD_CORE AON in DPD2 mode,
-                                                                in type of @ref power_vdd_core_output_voltage_t. */
+    power_vdd_core_output_voltage_t
+        dpd2VddCoreAonVoltage : 8U;  /*!< Specify output voltage of VDD_CORE AON in DPD2 mode,
+                                     in type of @ref power_vdd_core_output_voltage_t. */
 } power_dpd2_config_t;
 
 /*!
@@ -418,7 +421,7 @@ typedef struct _power_sd_config
                                             control any wakeup source. Pre-enabled wakeup sources are not affected.
                                              Wakeup sources can also be enabled manually by
                                              invoking Power_EnableWakeupSource().  */
-    pmu_fro16k_output_freq_t fro16KOutputFreq; /*!< Specify the output frequency of FRO16K */ 
+    pmu_fro16k_output_freq_t fro16KOutputFreq; /*!< Specify the output frequency of FRO16K */
 } power_sd_config_t;
 
 /*!
@@ -748,6 +751,10 @@ status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config);
  * @retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  */
 status_t Power_EnterShutDown(power_sd_config_t *config);
+
+uint32_t Power_PushContext(uint32_t handleAddr);
+
+void Power_LowPowerBoot(void);
 
 /*!
  * @}

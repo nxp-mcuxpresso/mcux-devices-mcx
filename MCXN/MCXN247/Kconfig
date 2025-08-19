@@ -5,6 +5,7 @@
 
 rsource "Kconfig.chip"
 rsource "../MCXN947/drivers/Kconfig"
+rsource "../MCXN947/drivers/romapi/Kconfig"
 rsource "../../../../devices/arm/Kconfig.common"
 rsource "Kconfig.defconfig"
 

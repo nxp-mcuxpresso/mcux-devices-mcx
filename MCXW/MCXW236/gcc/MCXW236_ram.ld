@@ -6,9 +6,9 @@
 **                          MCXW236BIUKAR
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
+**     Reference manual:    MCXW23x User manual Rev. 1.0 - 7 April 2025
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250417
+**     Build:               b250819
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -24,12 +24,9 @@
 */
 
 
-
-/* Entry Point */
-ENTRY(Reset_Handler)
-
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
+M_VECTOR_RAM_SIZE = 0x00000140;
 
 /* Specify the memory areas */
 MEMORY
@@ -42,16 +39,48 @@ MEMORY
   m_data                (RW)  : ORIGIN = 0x2001E000, LENGTH = 0x00002000
 }
 
+GROUP(libgcc.a libc.a libm.a libnosys.a libc_nano.a)
+
+/* Entry Point */
+ENTRY(Reset_Handler)
+
 /* Define output sections */
 SECTIONS
 {
   /* The startup code goes first into internal flash */
   .interrupts :
   {
+    __VECTOR_TABLE = .;
+    __Vectors = .;
     . = ALIGN(4);
     KEEP(*(.isr_vector))     /* Startup code */
     . = ALIGN(4);
+    /* Global Section Table */
+    . = ALIGN(4) ;
+    __section_table_start = .;
+    __data_section_table = .;
+    LONG(LOADADDR(.data));
+    LONG(    ADDR(.data)) ;
+    LONG(  SIZEOF(.data));
+    __data_section_table_end = .;
+    __bss_section_table = .;
+    LONG(    ADDR(.bss));
+    LONG(  SIZEOF(.bss));
+    __bss_section_table_end = .;
+    __section_table_end = . ;
+    /* End of Global Section Table */
   } > m_interrupts
+
+  .interrupts_ram :
+  {
+    . = ALIGN(4);
+    __interrupts_ram_start__ = .; /* Create a global symbol at data start */
+    *(.m_interrupts_ram)     /* This is a user defined section */
+    . += M_VECTOR_RAM_SIZE;
+    . = ALIGN(4);
+    __interrupts_ram_end__ = .; /* Define a global symbol at data end */
+  } > m_data
+  __RAM_VECTOR_TABLE_SIZE_BYTES = (__interrupts_ram_end__ - __interrupts_ram_start__);
 
   /* The program code and other data goes into internal flash */
   .text :

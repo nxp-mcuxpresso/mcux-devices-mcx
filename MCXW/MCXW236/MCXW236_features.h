@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250813
+**     Build:               b250819
 **
 **     Abstract:
 **         Chip specific module features.
@@ -270,15 +270,20 @@
 
 /* @brief Flash phrase size in bytes */
 #define FSL_FEATURE_SYSCON_FLASH_PHRASE_SIZE_BYTES (16)
-#define FSL_FEATURE_FLASH_PHRASE_SIZE_BYTES        FSL_FEATURE_SYSCON_FLASH_PHRASE_SIZE_BYTES
+/* @brief Flash phrase size in bytes */
+#define FSL_FEATURE_FLASH_PHRASE_SIZE_BYTES (FSL_FEATURE_SYSCON_FLASH_PHRASE_SIZE_BYTES)
 /* @brief Flash page size in bytes */
 #define FSL_FEATURE_SYSCON_FLASH_PAGE_SIZE_BYTES (128)
-#define FSL_FEATURE_FLASH_PAGE_SIZE_BYTES        FSL_FEATURE_SYSCON_FLASH_PAGE_SIZE_BYTES
+/* @brief Flash page size in bytes */
+#define FSL_FEATURE_FLASH_PAGE_SIZE_BYTES (FSL_FEATURE_SYSCON_FLASH_PAGE_SIZE_BYTES)
 /* @brief Flash sector size in bytes */
 #define FSL_FEATURE_SYSCON_FLASH_SECTOR_SIZE_BYTES (8192)
-#define FSL_FEATURE_FLASH_SECTOR_SIZE_BYTES        FSL_FEATURE_SYSCON_FLASH_SECTOR_SIZE_BYTES
-#define FSL_FEATURE_FLASH_PFLASH_SECTOR_SIZE       FSL_FEATURE_SYSCON_FLASH_SECTOR_SIZE_BYTES
-#define FSL_FEATURE_FLASH_PFLASH_BLOCK_SIZE        (FSL_FEATURE_SYSCON_FLASH_SECTOR_SIZE_BYTES * 56)
+/* @brief Flash sector size in bytes */
+#define FSL_FEATURE_FLASH_SECTOR_SIZE_BYTES (FSL_FEATURE_SYSCON_FLASH_SECTOR_SIZE_BYTES)
+/* @brief Flash sector size in bytes */
+#define FSL_FEATURE_FLASH_PFLASH_SECTOR_SIZE (FSL_FEATURE_SYSCON_FLASH_SECTOR_SIZE_BYTES)
+/* @brief Flash block size in bytes */
+#define FSL_FEATURE_FLASH_PFLASH_BLOCK_SIZE (458752)
 /* @brief Flash size in bytes */
 #define FSL_FEATURE_SYSCON_FLASH_SIZE_BYTES (1040384)
 /* @brief Has Power Down mode */

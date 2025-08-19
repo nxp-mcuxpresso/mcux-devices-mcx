@@ -6,9 +6,9 @@
 **                          MCXW235BIUKAR
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
+**     Reference manual:    MCXW23x User manual Rev. 1.0 - 7 April 2025
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250806
+**     Build:               b250819
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

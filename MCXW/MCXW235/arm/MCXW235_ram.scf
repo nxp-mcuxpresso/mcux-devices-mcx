@@ -1,13 +1,15 @@
 #!armclang --target=arm-arm-none-eabi -march=armv8-m.main -E -x c
 /*
 ** ###################################################################
-**     Processors:          MCXW235BIHNAR
+**     Processors:          MCXW235AIHNAR
+**                          MCXW235AIUKAR
+**                          MCXW235BIHNAR
 **                          MCXW235BIUKAR
 **
 **     Compiler:            Keil ARM C/C++ Compiler
-**     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
+**     Reference manual:    MCXW23x User manual Rev. 1.0 - 7 April 2025
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250417
+**     Build:               b250819
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler

@@ -6,9 +6,9 @@
 **                          MCXW236BIUKAR
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
+**     Reference manual:    MCXW23x User manual Rev. 1.0 - 7 April 2025
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250417
+**     Build:               b250819
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -34,6 +34,7 @@ MEMORY
   m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00000200
   m_text                (RX)  : ORIGIN = 0x00000200, LENGTH = 0x000FDE00
   m_data                (RW)  : ORIGIN = 0x20004000, LENGTH = 0x0001C000
+  m_sramx               (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00004000
 }
 
 GROUP(libgcc.a libc.a libm.a libnosys.a libc_nano.a)

@@ -6,9 +6,9 @@
 **                          MCXW236BIUKAR
 **
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
-**     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
+**     Reference manual:    MCXW23x User manual Rev. 1.0 - 7 April 2025
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250417
+**     Build:               b250819
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -48,6 +48,8 @@ define symbol m_data_end                       = 0x2001FFFF;
 
 define exported symbol __VECTOR_TABLE          = m_interrupts_start;
 define exported symbol __RAM_VECTOR_TABLE_SIZE = 0x00000140;
+define symbol m_sramx_start                    = 0x04000000;
+define symbol m_sramx_end                      = 0x04003FFF;
 
 define memory mem with size = 4G;
 

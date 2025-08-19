@@ -7,9 +7,9 @@
 **                          MCXW235BIUKAR
 **
 **     Compiler:            Keil ARM C/C++ Compiler
-**     Reference manual:    MCXW23x User manual Rev.0.1  1 September 2022
+**     Reference manual:    MCXW23x User manual Rev. 1.0 - 7 April 2025
 **     Version:             rev. 1.0, 2022-03-08
-**     Build:               b250806
+**     Build:               b250819
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -29,7 +29,7 @@
 #if (defined(__stack_size__))
   #define Stack_Size                   __stack_size__
 #else
-  #define Stack_Size                   0x0500
+  #define Stack_Size                   0x0400
 #endif
 
 #if (defined(__heap_size__))
@@ -51,13 +51,14 @@
 
 #define  m_ramfunc_start               (m_interrupts_ram_start + m_interrupts_ram_size)
 #define  m_ramfunc_size                0x00002000
-
 /* 80K (SRAM0 = 16k, SRAM1 = 32k, SRAM2 = 32K) RAM to fit data segment */
-/* First  512B (from 0x20004000 until 0x20004200) ram is used to put vector table */
+/* First 512B (from 0x20004000 until 0x20004200) ram is used to put vector table */
 /* Next 8KB (from 0x20004200 until 0x20006200) ram is used to put ram function */
 /* The reset of ram is used for data memory */
 #define  m_data_start                  (m_ramfunc_start + m_ramfunc_size)
 #define  m_data_size                   (0x00014000 - m_interrupts_ram_size - m_ramfunc_size)
+#define  m_sramx_start                 0x04000000
+#define  m_sramx_size                  0x00004000
 
 LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region size_region
 

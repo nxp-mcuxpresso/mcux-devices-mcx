@@ -4,8 +4,6 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-#include "fsl_flash.h"
-#include "fsl_flash_ffr.h"
 #include "fsl_runbootloader.h"
 
 /*! @brief Component ID definition, used by tools. */

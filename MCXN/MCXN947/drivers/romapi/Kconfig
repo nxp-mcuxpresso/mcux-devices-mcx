@@ -9,11 +9,17 @@ config MCUX_HAS_COMPONENT_driver.romapi
 config MCUX_COMPONENT_driver.romapi
     bool "romapi"
     select MCUX_COMPONENT_driver.common
+    select MCUX_COMPONENT_driver.mem_interface
+    select MCUX_COMPONENT_driver.romapi_nboot
+    select MCUX_COMPONENT_driver.runbootloader
+    select MCUX_COMPONENT_driver.romapi_flashiap
     depends on MCUX_HAS_COMPONENT_driver.romapi
 
 config MCUX_COMPONENT_driver.mem_interface
     bool "mem_interface"
     select MCUX_COMPONENT_driver.common
+    select MCUX_COMPONENT_driver.romapi_nboot
+    select MCUX_COMPONENT_driver.romapi_flashiap
     depends on MCUX_HAS_COMPONENT_driver.romapi
 
 config MCUX_COMPONENT_driver.romapi_nboot

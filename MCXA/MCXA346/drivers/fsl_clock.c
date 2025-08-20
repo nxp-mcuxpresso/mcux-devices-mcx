@@ -343,7 +343,9 @@ status_t CLOCK_SetupFROHFClocking(uint32_t iFreq)
     /* Load trim value from IFR */
     if (SCG0->FIRCTRIM != trim_value)
     {
+        SCG0->TRIM_LOCK = 0x5A5A0001U;
         SCG0->FIRCTRIM = trim_value;
+        SCG0->TRIM_LOCK = 0x5A5A0000U;
     }
 
     /* Set FIRC frequency */

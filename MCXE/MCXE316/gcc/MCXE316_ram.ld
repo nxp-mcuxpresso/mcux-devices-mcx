@@ -4,9 +4,9 @@
 **                          MCXE316MPA_M7
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXE31 RM Rev1
+**     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.0, 2024-12-27
-**     Build:               b250401
+**     Build:               b250825
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -51,10 +51,10 @@ MEMORY
   m_text                (RX)  : ORIGIN = m_text_start,        LENGTH = m_text_end - m_text_start + 1
   m_data                (RW)  : ORIGIN = m_data_start,        LENGTH = m_data_end - m_data_start + 1
 }
+
 /* Define output sections */
 SECTIONS
 {
-
   /* The startup code goes first into internal flash */
   .interrupts :
   {
@@ -223,3 +223,4 @@ SECTIONS
 
   ASSERT(__StackLimit >= __HeapLimit, "region m_data overflowed with stack and heap")
 }
+

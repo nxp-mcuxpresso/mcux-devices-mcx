@@ -4,9 +4,9 @@
 **                          MCXE316MPA_M7
 **
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
-**     Reference manual:    MCXE31 RM Rev1
+**     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.0, 2024-12-27
-**     Build:               b250401
+**     Build:               b250825
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM

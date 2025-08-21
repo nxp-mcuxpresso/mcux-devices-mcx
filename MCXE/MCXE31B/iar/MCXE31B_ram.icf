@@ -1,11 +1,10 @@
 /*
 ** ###################################################################
-**     Processors:          MCXE31BMPB
-**
+**     Processor:           MCXE31BMPB_M7
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
-**     Reference manual:    MCXE31RM, Rev. 1, Jan. 2025
+**     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.0, 2024-12-27
-**     Build:               b241227
+**     Build:               b250825
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -30,7 +29,7 @@ define symbol m_stdby_ram_start        = 0x20400000;
 define symbol m_stdby_ram_end          = 0x20407FFF;
 
 define symbol m_interrupts_start       = m_itcm_start;
-define symbol m_interrupts_end         = m_itcm_start + 0x3FF;
+define symbol m_interrupts_end         = m_itcm_start + 0x000003FF;
 
 define symbol m_text_start             = m_interrupts_end + 1;
 define symbol m_text_end               = m_itcm_end;
@@ -80,4 +79,3 @@ place in CSTACK_region                      { block CSTACK };
 place in DATA_region                        { block NCACHE_VAR };
 place in DATA_region                        { block QACCESS_CODE };
 place in DATA_region                        { block QACCESS_DATA };
-

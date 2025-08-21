@@ -1,11 +1,10 @@
 /*
 ** ###################################################################
-**     Processors:          MCXE31BMPB
-**
+**     Processor:           MCXE31BMPB_M7
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXE31RM, Rev. 1, Jan. 2025
-**     Version:             rev. 1.0, 2023-03-01
-**     Build:               b241119
+**     Reference manual:    MCXE31 RM Rev2
+**     Version:             rev. 1.0, 2024-12-27
+**     Build:               b250825
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -36,7 +35,7 @@ m_stdby_ram_start        = 0x20400000;
 m_stdby_ram_end          = 0x20407FFF;
 
 m_interrupts_start       = m_itcm_start;
-m_interrupts_end         = m_interrupts_start + 0x3FF;
+m_interrupts_end         = m_interrupts_start + 0x000003FF;
 
 m_text_start             = m_interrupts_end + 1;
 m_text_end               = m_itcm_end;
@@ -45,7 +44,7 @@ m_data_start             = m_dtcm_start;
 m_data_end               = m_dtcm_end;
 
 /* Specify the memory areas */
-/* The flash memory region [0x007D4000-0x7FFFFF] is reserved for HSE_B. */
+/* The flash memory region [0x007D4000-0x7FFFFF] is reserved for security. */
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = m_interrupts_start,  LENGTH = m_interrupts_end - m_interrupts_start + 1

@@ -4,9 +4,9 @@
 **                          MCXE317MPB_M7
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXE31 RM Rev1
+**     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.0, 2024-12-27
-**     Build:               b250401
+**     Build:               b250825
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -69,6 +69,7 @@ MEMORY
   m_qacode              (RW)  : ORIGIN = m_qacode_start,      LENGTH = m_qacode_end - m_qacode_start + 1
   m_qadata              (RW)  : ORIGIN = m_qadata_start,      LENGTH = m_qadata_end - m_qadata_start + 1
 }
+
 /* Define output sections */
 SECTIONS
 {
@@ -213,6 +214,7 @@ SECTIONS
   {
     . = ALIGN(4);
     __qadata_start__ = .;
+    *(DataQuickAccess)
     . = ALIGN(4);
     __qadata_end__ = .;
   } > m_qadata
@@ -281,3 +283,4 @@ SECTIONS
 
   ASSERT(__StackLimit >= __HeapLimit, "region m_data overflowed with stack and heap")
 }
+

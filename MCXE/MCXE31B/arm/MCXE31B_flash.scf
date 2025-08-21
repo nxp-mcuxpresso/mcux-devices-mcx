@@ -1,12 +1,12 @@
 #!armclang --target=arm-arm-none-eabi -mcpu=cortex-m7 -E -x c
+
 /*
 ** ###################################################################
-**     Processors:          MCXE31BMPB
-**
+**     Processor:           MCXE31BMPB_M7
 **     Compiler:            Keil ARM C/C++ Compiler
-**     Reference manual:    MCXE31RM, Rev. 1, Jan. 2025
-**     Version:             rev. 1.0, 2025-03-03
-**     Build:               b250303
+**     Reference manual:    MCXE31 RM Rev2
+**     Version:             rev. 1.0, 2024-12-27
+**     Build:               b250825
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -20,6 +20,7 @@
 **
 ** ###################################################################
 */
+
 #define m_itcm_start                   0x00000000
 #define m_itcm_end                     0x00007FFF
 
@@ -41,13 +42,13 @@
 #define m_data_start                   0x20408000
 #define m_data_size                    0x00048000
 
-#define m_ncache_size                  0x00004000;
-#define m_ncache_start                 m_dtcm_start;
-#define m_ncache_end                   m_ncache_start + m_ncache_size - 1;
+#define m_ncache_size                  0x00004000
+#define m_ncache_start                 m_dtcm_start
+#define m_ncache_end                   m_ncache_start + m_ncache_size - 1
 
 #define m_qacode_start                 m_itcm_start
 #define m_qacode_end                   m_itcm_end
-#define m_qadata_start                 m_ncache_end + 1;
+#define m_qadata_start                 m_ncache_end + 1
 #define m_qadata_end                   m_dtcm_end
 
 /* Sizes */
@@ -89,12 +90,7 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size { ; load region size_
   {
     .ANY (DataQuickAccess)
   }
-  
-  RW_m_data m_data_start m_data_size-Stack_Size-Heap_Size { ; RW data
-    .ANY (+RW +ZI)
-    * (RamFunction)
-  }
-  
+
   RW_m_ncache m_ncache_start  m_ncache_size
   {
     .ANY (NonCacheable.init)
@@ -104,6 +100,11 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size { ; load region size_
   ; Empty region added for MPU configuration
   RW_m_ncache_unused +0 EMPTY m_ncache_size-ImageLength(RW_m_ncache)
   {
+  }
+
+  RW_m_data m_data_start m_data_size-Stack_Size-Heap_Size { ; RW data
+    .ANY (+RW +ZI)
+    * (RamFunction)
   }
 
   ARM_LIB_HEAP +0 EMPTY Heap_Size {    ; Heap region growing up

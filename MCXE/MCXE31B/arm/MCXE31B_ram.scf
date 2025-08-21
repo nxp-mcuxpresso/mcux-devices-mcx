@@ -1,12 +1,12 @@
 #!armclang --target=arm-arm-none-eabi -mcpu=cortex-m7 -E -x c
+
 /*
 ** ###################################################################
-**     Processors:          MCXE31BMPB
-**
+**     Processor:           MCXE31BMPB_M7
 **     Compiler:            Keil ARM C/C++ Compiler
-**     Reference manual:    MCXE31RM, Rev. 1, Jan. 2025
-**     Version:             rev. 1.0, 2025-03-03
-**     Build:               b250303
+**     Reference manual:    MCXE31 RM Rev2
+**     Version:             rev. 1.0, 2024-12-27
+**     Build:               b250825
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -20,6 +20,7 @@
 **
 ** ###################################################################
 */
+
 #define m_itcm_start                   0x00000000
 #define m_itcm_end                     0x00007FFF
 
@@ -32,11 +33,11 @@
 #define m_interrupts_start             m_itcm_start
 #define m_interrupts_size              0x00000400
 
-#define m_data_start                   m_dtcm_start
-#define m_data_size                    m_dtcm_end - m_dtcm_start + 1
-
 #define m_text_start                   m_interrupts_start + m_interrupts_size
 #define m_text_size                    m_itcm_end - m_itcm_start - m_interrupts_size + 1
+
+#define m_data_start                   m_dtcm_start
+#define m_data_size                    m_dtcm_end - m_dtcm_start + 1
 
 /* Sizes */
 #if (defined(__stack_size__))
@@ -65,6 +66,7 @@ LR_m_text m_text_start m_text_size {   ; load region size_region
     * (CodeQuickAccess)
     * (DataQuickAccess)
   }
+
   ARM_LIB_HEAP +0 EMPTY Heap_Size {    ; Heap region growing up
   }
   ARM_LIB_STACK m_data_start+m_data_size EMPTY -Stack_Size { ; Stack region growing down

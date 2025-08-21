@@ -1,11 +1,10 @@
 /*
 ** ###################################################################
-**     Processors:          MCXE31BMPB
-**
+**     Processor:           MCXE31BMPB_M7
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXE31RM, Rev. 1, Jan. 2025
-**     Version:             rev. 1.0, 2023-03-01
-**     Build:               b241119
+**     Reference manual:    MCXE31 RM Rev2
+**     Version:             rev. 1.0, 2024-12-27
+**     Build:               b250825
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -56,9 +55,8 @@ m_qacode_end             = m_itcm_end;
 m_qadata_start           = m_ncache_end + 1;
 m_qadata_end             = m_dtcm_end;
 
-
 /* Specify the memory areas */
-/* The flash memory region [0x007D4000-0x7FFFFF] is reserved for HSE_B. */
+/* The flash memory region [0x007D4000-0x7FFFFF] is reserved for security. */
 MEMORY
 {
   m_boot_header         (RX)  : ORIGIN = m_boot_header_start, LENGTH = m_boot_header_end - m_boot_header_start + 1
@@ -214,6 +212,7 @@ SECTIONS
   {
     . = ALIGN(4);
     __qadata_start__ = .;
+    *(DataQuickAccess)
     . = ALIGN(4);
     __qadata_end__ = .;
   } > m_qadata

@@ -10,7 +10,7 @@
 **                          MCXW236BIUKAR
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b250819
+**     Build:               b250821
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for INPUTMUX
@@ -334,7 +334,7 @@ typedef struct {
  *  0b01011..Timer CTIMER3 Match 1
  *  0b01100..Timer CTIMER4 Match 0
  *  0b01101..Timer CTIMER4 Match 1
- *  0b01110..COMP_OUTPUT
+ *  0b01110..Reserved
  *  0b01111..DMA0 output trigger mux 0
  *  0b10000..DMA0 output trigger mux 1
  *  0b10001..DMA0 output trigger mux 1

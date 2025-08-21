@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-07-18
-**     Build:               b250814
+**     Build:               b250821
 **
 **     Abstract:
 **         Chip specific module features.
@@ -824,6 +824,8 @@
 #define FSL_FEATURE_SAI_HAS_BIT_CLOCK_SWAP (0)
 /* @brief SAI5 and SAI6 share one irq number. */
 #define FSL_FEATURE_SAI_SAI5_SAI6_SHARE_IRQ (0)
+/* @brief Is affected by errata with ID 051421 (SAI: Synchronous mode with bypass is not supported). */
+#define FSL_FEATURE_SAI_HAS_ERRATA_051421 (1)
 
 /* SEMA42 module features */
 

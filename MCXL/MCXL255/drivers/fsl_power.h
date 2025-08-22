@@ -43,8 +43,8 @@ enum
     kStatus_Power_SyncFailed = MAKE_STATUS(kStatusGroup_POWER, 5),           /*!< Failed to sync dual core. */
     kStatus_Power_CM0PNotWFI = MAKE_STATUS(kStatusGroup_POWER, 6),           /*!< CM0P do not execute WFI after approve
                                                                                   to enter target low power mode. */
-    kStatus_Power_WakeupFromDPD1 = MAKE_STATUS(kStatusGroup_POWER, 7),
-    kStatus_Power_WakeupFromDPD2 = MAKE_STATUS(kStatusGroup_POWER, 8),
+    kStatus_Power_WakeupFromDPD1 = MAKE_STATUS(kStatusGroup_POWER, 7),      /*!< Wakeup from DPD1 mode successfully. */
+    kStatus_Power_WakeupFromDPD2 = MAKE_STATUS(kStatusGroup_POWER, 8),      /*!< Wakeup from DPD2 mode successfully. */
 };
 
 /*!
@@ -752,8 +752,74 @@ status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config);
  */
 status_t Power_EnterShutDown(power_sd_config_t *config);
 
+/*!
+ * @brief Save current context into stack.
+ *      ---------    <-----High address
+        |  D15  |       -----
+        ---------           |
+        |  D14  |           |
+        ---------           |
+        |  D13  |           |
+        ---------           |
+        |  D12  |           |
+        ---------           |---- Only CM33
+        |  D11  |           |
+        ---------           |
+        |  D10  |           |
+        ---------           |
+        |  D9   |           |
+        ---------           |
+        |  D8   |       -----
+        ---------
+        |  LR   |
+        ---------
+        |  R12  |
+        ---------
+        |  R11  |
+        ---------
+        |  R10  |
+        ---------
+        |  R9   |
+        ---------
+        |  R8   |
+        ---------
+        |  R7   |
+        ---------
+        |  R6   |
+        ---------
+        |  R5   |
+        ---------
+        |  R4   |
+        ---------
+        | handle|
+        | value |
+        ---------
+        | handle|
+        | addr  |
+        ---------
+        | ASPR  |
+        ---------
+        | PSR   |
+        ---------
+        |PRIMASK|
+        ---------
+        |CONTROL|
+        ---------  <------ SP Address saved in backup register
+ * 
+ * @note When use this function, please ensure the ram block which used as stack is retained in
+ * target low power mode.
+ * @note This function should used together with @ref Power_LowPowerBoot().
+ *
+ * @param handleAddr The address of handle.
+ *
+ * @retval 0 Return 0 before entering low power modes. 
+ * @retval 1 Return 1 after waking up from low power modes.
+ */
 uint32_t Power_PushContext(uint32_t handleAddr);
 
+/*!
+ * @brief Restore saved context from stack.
+ */
 void Power_LowPowerBoot(void);
 
 /*!

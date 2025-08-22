@@ -1467,6 +1467,64 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
 #endif /* __CORTEX_M == 0U */
 }
 
+/*!
+ * brief Save current context into stack.
+ *      ---------    <-----High address
+        |  D15  |       -----
+        ---------           |
+        |  D14  |           |
+        ---------           |
+        |  D13  |           |
+        ---------           |
+        |  D12  |           |
+        ---------           |---- Only CM33
+        |  D11  |           |
+        ---------           |
+        |  D10  |           |
+        ---------           |
+        |  D9   |           |
+        ---------           |
+        |  D8   |       -----
+        ---------
+        |  LR   |
+        ---------
+        |  R12  |
+        ---------
+        |  R11  |
+        ---------
+        |  R10  |
+        ---------
+        |  R9   |
+        ---------
+        |  R8   |
+        ---------
+        |  R7   |
+        ---------
+        |  R6   |
+        ---------
+        |  R5   |
+        ---------
+        |  R4   |
+        ---------
+        | handle|
+        | value |
+        ---------
+        | handle|
+        | addr  |
+        ---------
+        | ASPR  |
+        ---------
+        | PSR   |
+        ---------
+        |PRIMASK|
+        ---------
+        |CONTROL|
+        ---------  <------ SP Address saved in backup register
+ * param handleAddr The address of handle.
+ *
+ * retval 0 Return 0 before entering low power modes. 
+ * retval 1 Return 1 after waking up from low power modes.
+ */
 uint32_t Power_PushContext(uint32_t handleAddr)
 {
     /* Stack layout:
@@ -1613,6 +1671,9 @@ uint32_t Power_PushContext(uint32_t handleAddr)
     (uint32_t)((AON__SMM->LSB_BCKP2 & SMM_LSB_BCKP2_LSB2_MASK) | \
                ((AON__SMM->MSB_BCKP2 & SMM_MSB_BCKP2_MSB2_MASK) << 16UL))
 
+/*!
+ * brief Restore saved context from stack.
+ */
 void Power_LowPowerBoot(void)
 {
 #if __CORTEX_M == 33U

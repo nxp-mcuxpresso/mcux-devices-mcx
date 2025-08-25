@@ -75,7 +75,7 @@ typedef struct BootloaderTree
  * @retval #kStatus_NBOOT_Success Operation successfully finished
  * @retval #kStatus_NBOOT_Fail Error occured during operation
  */
-nboot_status_t NBOOT_ContextInit(nboot_context_t *context)
+nboot_status_protected_t NBOOT_ContextInit(nboot_context_t *context)
 {
     assert(BOOTLOADER_API_TREE_POINTER);
     return BOOTLOADER_API_TREE_POINTER->nbootDriver->nboot_context_init(context);
@@ -90,7 +90,7 @@ nboot_status_t NBOOT_ContextInit(nboot_context_t *context)
  * @retval #kStatus_NBOOT_Success Operation successfully finished
  * @retval #kStatus_NBOOT_Fail Error occured during operation
  */
-nboot_status_t NBOOT_ContextDeinit(nboot_context_t *context)
+nboot_status_protected_t NBOOT_ContextDeinit(nboot_context_t *context)
 {
     assert(BOOTLOADER_API_TREE_POINTER);
     return BOOTLOADER_API_TREE_POINTER->nbootDriver->nboot_context_deinit(context);
@@ -109,7 +109,7 @@ nboot_status_t NBOOT_ContextDeinit(nboot_context_t *context)
  * @retval #kStatus_NBOOT_Success Operation successfully finished
  * @retval #kStatus_NBOOT_Fail Error occured during operation
  */
-nboot_status_t NBOOT_ContextSetUuid(nboot_context_t *context, const uint8_t uuid[16])
+nboot_status_protected_t NBOOT_ContextSetUuid(nboot_context_t *context, const uint8_t uuid[16])
 {
     assert(BOOTLOADER_API_TREE_POINTER);
     return BOOTLOADER_API_TREE_POINTER->nbootDriver->nboot_context_set_uuid(context, uuid);

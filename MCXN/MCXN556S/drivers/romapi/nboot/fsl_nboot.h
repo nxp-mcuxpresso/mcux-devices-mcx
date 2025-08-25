@@ -99,6 +99,16 @@ typedef uint32_t nboot_status_t;
 /*! @brief Type for nboot protected status codes */
 typedef uint64_t nboot_status_protected_t;
 
+/*! @brief Enumeration for MCUX_CSSL_FP_FUNCID */
+#define MCUX_CSSL_FP_FUNCID_NBOOT_ContextInit                         (0x5DA1u)
+#define MCUX_CSSL_FP_FUNCID_NBOOT_ContextDeinit                       (0x30DBu)
+#define MCUX_CSSL_FP_FUNCID_NBOOT_ContextSetUuid                      (0x5E38u)
+#define MCUX_CSSL_FP_FUNCID_NBOOT_Sb4LoadManifest                     (0x42E7u)
+#define MCUX_CSSL_FP_FUNCID_NBOOT_Sb4LoadBlock                        (0x275Au)
+#define MCUX_CSSL_FP_FUNCID_NBOOT_SB4CheckAuthenticityAndCompleteness (0x22E7u)
+#define MCUX_CSSL_FP_FUNCID_NBOOT_ImgAuthenticate                     (0x2EA5u)
+#define NBOOT_CONTEXT_RTF_OFFSET                                      (0x100u)
+
 /**
  * \defgroup nbootStatusValues  This type defines status return values used by NBOOT functions that are not easily
  * disturbed by Fault Attacks
@@ -250,7 +260,7 @@ extern "C" {
  * @retval #kStatus_NBOOT_Success Operation successfully finished
  * @retval #kStatus_NBOOT_Fail Error occured during operation
  */
-nboot_status_t NBOOT_ContextInit(nboot_context_t *context);
+nboot_status_protected_t NBOOT_ContextInit(nboot_context_t *context);
 
 /*!
  * @brief The function is used to deinitialize nboot context data structure.
@@ -261,7 +271,7 @@ nboot_status_t NBOOT_ContextInit(nboot_context_t *context);
  * @retval #kStatus_NBOOT_Success Operation successfully finished
  * @retval #kStatus_NBOOT_Fail Error occured during operation
  */
-nboot_status_t NBOOT_ContextDeinit(nboot_context_t *context);
+nboot_status_protected_t NBOOT_ContextDeinit(nboot_context_t *context);
 
 /*!
  * @brief Set UUID in the nboot context
@@ -276,7 +286,7 @@ nboot_status_t NBOOT_ContextDeinit(nboot_context_t *context);
  * @retval #kStatus_NBOOT_Success Operation successfully finished
  * @retval #kStatus_NBOOT_Fail Error occured during operation
  */
-nboot_status_t NBOOT_ContextSetUuid(nboot_context_t *context, const uint8_t uuid[16]);
+nboot_status_protected_t NBOOT_ContextSetUuid(nboot_context_t *context, const uint8_t uuid[16]);
 
 /*!
  * @brief Load NBOOT SB4 manifest

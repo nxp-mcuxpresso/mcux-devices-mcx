@@ -892,10 +892,10 @@ typedef enum _inputmux_connection_t
     kINPUTMUXAON_AonTrigIn6ToQtmr1Tmrn                = 7U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< aon_trig_in6 input is selected */
     kINPUTMUXAON_AonTrigIn7ToQtmr1Tmrn                = 8U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< aon_trig_in7 input is selected */
     kINPUTMUXAON_Cm33TeToQtmr1Tmrn                    = 9U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< cm33 transmit event is selected */
-    kINPUTMUXAON_Qtmr1Tmr0OutputToQtmr1Tmrn           = 10U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr1_tmr0_output is selected */
-    kINPUTMUXAON_Qtmr1Tmr1OutputToQtmr1Tmrn           = 11U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr1_tmr1_output is selected */
-    kINPUTMUXAON_Qtmr1Tmr2OutputToQtmr1Tmrn           = 12U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr1_tmr2_output is selected */
-    kINPUTMUXAON_Qtmr1Tmr3OutputToQtmr1Tmrn           = 13U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr1_tmr3_output is selected */
+    kINPUTMUXAON_Qtmr0Tmr0OutputToQtmr1Tmrn           = 10U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr0_tmr0_output is selected */
+    kINPUTMUXAON_Qtmr0Tmr1OutputToQtmr1Tmrn           = 11U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr0_tmr1_output is selected */
+    kINPUTMUXAON_Qtmr0Tmr2OutputToQtmr1Tmrn           = 12U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr0_tmr2_output is selected */
+    kINPUTMUXAON_Qtmr0Tmr3OutputToQtmr1Tmrn           = 13U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr0_tmr3_output is selected */
     kINPUTMUXAON_Cmp0OutToQtmr1Tmrn                   = 14U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< cmp0_out is selected */
     kINPUTMUXAON_Lpi2c0CeopToQtmr1Tmrn                = 16U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< lpi2c0 controller end of packet is selected */
     kINPUTMUXAON_Lpi2c0TeopToQtmr1Tmrn                = 17U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< lpi2c0 target end of packet is selected */
@@ -926,10 +926,10 @@ typedef enum _inputmux_connection_t
     kINPUTMUXAON_WuuOToQtmr1Tmrn                      = 48U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< wuu output is selected */
     kINPUTMUXAON_GpioApet0ToQtmr1Tmrn                 = 49U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< gpio (aon) pin event trig 0 input is selected */
     kINPUTMUXAON_SocGlueXor0OutToQtmr1Tmrn            = 51U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< soc_glue_xor0_out is selected */
-    kINPUTMUXAON_Qtmr0Tmr0OutputToQtmr1Tmrn           = 53U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr0_tmr0_output is selected */
-    kINPUTMUXAON_Qtmr0Tmr1OutputToQtmr1Tmrn           = 54U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr0_tmr1_output is selected */
-    kINPUTMUXAON_Qtmr0Tmr2OutputToQtmr1Tmrn           = 55U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr0_tmr2_output is selected */
-    kINPUTMUXAON_Qtmr0Tmr3OutputToQtmr1Tmrn           = 56U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr0_tmr3_output is selected */
+    kINPUTMUXAON_Qtmr1Tmr0OutputToQtmr1Tmrn           = 53U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr1_tmr0_output is selected */
+    kINPUTMUXAON_Qtmr1Tmr1OutputToQtmr1Tmrn           = 54U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr1_tmr1_output is selected */
+    kINPUTMUXAON_Qtmr1Tmr2OutputToQtmr1Tmrn           = 55U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr1_tmr2_output is selected */
+    kINPUTMUXAON_Qtmr1Tmr3OutputToQtmr1Tmrn           = 56U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< qtmr1_tmr3_output is selected */
     kINPUTMUXAON_LcsenseSequencerPrimaryTriggerGlueOutToQtmr1Tmrn = 57U + (QTMR1_TMRn_REG << PMUX_SHIFT),  /*!< lcsense_sequencer_primary_trigger_glue_out is selected */
 
     /*!< ACMP0_TRIGn: ACMP0 Input Connections */

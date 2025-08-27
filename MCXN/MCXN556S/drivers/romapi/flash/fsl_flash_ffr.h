@@ -97,7 +97,7 @@ typedef struct
         uint32_t img_upd : 2;     //!< image cmac update
         uint32_t reserved0 : 1;
         uint32_t cmpa_update : 3; //!< CFPA page updated through SB command.
-        uint32_t reserved1 : 1;
+        uint32_t dice_alias_key_upd : 1;
         uint32_t dice_en : 1;     //!< Update DICE certificate during next boot
     } cfpa_page_version;
 

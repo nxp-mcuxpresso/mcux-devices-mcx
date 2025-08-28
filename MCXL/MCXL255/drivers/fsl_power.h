@@ -43,8 +43,8 @@ enum
     kStatus_Power_SyncFailed = MAKE_STATUS(kStatusGroup_POWER, 5),           /*!< Failed to sync dual core. */
     kStatus_Power_CM0PNotWFI = MAKE_STATUS(kStatusGroup_POWER, 6),           /*!< CM0P do not execute WFI after approve
                                                                                   to enter target low power mode. */
-    kStatus_Power_WakeupFromDPD1 = MAKE_STATUS(kStatusGroup_POWER, 7),      /*!< Wakeup from DPD1 mode successfully. */
-    kStatus_Power_WakeupFromDPD2 = MAKE_STATUS(kStatusGroup_POWER, 8),      /*!< Wakeup from DPD2 mode successfully. */
+    kStatus_Power_WakeupFromDPD1 = MAKE_STATUS(kStatusGroup_POWER, 7),       /*!< Wakeup from DPD1 mode successfully. */
+    kStatus_Power_WakeupFromDPD2 = MAKE_STATUS(kStatusGroup_POWER, 8),       /*!< Wakeup from DPD2 mode successfully. */
 };
 
 /*!
@@ -363,6 +363,8 @@ typedef struct _power_dpd1_config
     bool enableIVSMode : 1U;         /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
     power_dpd1_transition_t
         nextTrans : 2U;              /*!< Next transition after DPD1 mode, refer to @ref power_dpd1_transition_t */
+    bool saveContext : 1U;           /*!< True to save basic register context into stack, false to do not save. */
+    uint32_t reserved : 3U;          /*!< Reserved for using. */
     power_vdd_core_output_voltage_t vddCoreAonVoltage : 8U; /*!< Specify output voltage of VDD_CORE_AON */
 } power_dpd1_config_t;
 
@@ -392,6 +394,8 @@ typedef struct _power_dpd2_config
     bool switchToX32K : 1U;          /*!< Flag to indicate whether to switch to X32K clock source during DPD2 mode */
     bool disableFRO10M : 1U;         /*!< Flag to indicate whether to disable the FRO10M clock during DPD2 mode */
     bool wakeToDpd1 : 1U;            /*!< Flag to indicate whether to wake up to DPD1 mode after DPD2 mode */
+    bool saveContext : 1U;           /*!< True to save basic register context into stack, false to do not save. */
+    uint32_t reserved : 2U;          /*!< Reserved for using. */
     power_vdd_core_output_voltage_t
         dpd2VddCoreAonVoltage : 8U;  /*!< Specify output voltage of VDD_CORE AON in DPD2 mode,
                                      in type of @ref power_vdd_core_output_voltage_t. */
@@ -607,6 +611,12 @@ power_low_power_mode_t Power_GetPreviousPowerMode(void);
 void Power_ResetPreviousPowerMode(void);
 
 /*!
+ * @brief Update previous power mode as input low power mode.
+ *
+ * @param lpMode The low power mode to update, in type of @ref power_low_power_mode_t.
+ */
+void Power_UpdatePreviousPowerMode(power_low_power_mode_t lpMode);
+/*!
  * @brief Get current power mode.
  *
  * @param[out] ptrCurLpMode Pointer to store current low power mode
@@ -698,6 +708,8 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config);
  *
  * This function attempts to put the system into Deep Power Down 1 mode with the provided configuration.
  *
+ * @note If attempting to enable context saving feature, please ensure RAM blocks used by stack are retained.
+ *
  * @param[in] config Pointer to the Deep Power Down 1 mode configuration.
  *
  * @retval kStatus_Success Successfully entered Deep Power Down 1 mode.
@@ -717,6 +729,8 @@ power_dpd1_transition_t Power_GetDeepPowerDown1NextTransition(void);
  * @brief Enter Deep Power Down 2 mode.
  *
  * This function attempts to put the system into Deep Power Down 2 mode with the provided configuration.
+ *
+ * @note If attempting to enable context saving feature, please ensure RAM blocks used by stack are retained.
  *
  * @param[in] config Pointer to the Deep Power Down 2 mode configuration.
  *
@@ -805,20 +819,22 @@ status_t Power_EnterShutDown(power_sd_config_t *config);
         ---------
         |CONTROL|
         ---------  <------ SP Address saved in backup register
- * 
- * @note When use this function, please ensure the ram block which used as stack is retained in
- * target low power mode.
- * @note This function should used together with @ref Power_LowPowerBoot().
+ *
+ * @note User can use this function to save context before entering low power modes which will reset system.
+ * @note For CM33 project, LSB_BCKP1, LSB_BCKP2, MSB_BCKP2 are used.
+ * @note For CM0P project, MSB_BCKP1 is used.
  *
  * @param handleAddr The address of handle.
  *
- * @retval 0 Return 0 before entering low power modes. 
+ * @retval 0 Return 0 before entering low power modes.
  * @retval 1 Return 1 after waking up from low power modes.
  */
 uint32_t Power_PushContext(uint32_t handleAddr);
 
 /*!
  * @brief Restore saved context from stack.
+ *
+ * @note User can use this function to restore context after waking up from low power modes which reset system.
  */
 void Power_LowPowerBoot(void);
 

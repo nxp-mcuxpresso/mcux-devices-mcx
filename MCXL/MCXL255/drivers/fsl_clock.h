@@ -1128,6 +1128,29 @@ void CLOCK_SetFlashWaitStateBasedOnFreq(uint32_t freq);
  * @return Returns flash wait state.
  */
 uint8_t CLOCK_GetFlashWaitState(void);
+
+/*!
+ * @brief Enable/disable FRO12M(SIRC) Auto trim feature
+ *
+ * This requires ROSC (xtal32) initialized.
+ *
+ * @see CLOCK_InitRosc()
+ *
+ * @return kStatus_Fail on error, kStatus_Success otherwise.
+ */
+status_t CLOCK_FRO12MAutoTrimEnable(bool enable);
+
+/*!
+ * @brief Enable/disable FROHF(FRO96M/FIRC) Auto trim feature
+ *
+ * This requires ROSC (xtal32) initialized.
+ *
+ * @see CLOCK_InitRosc()
+ *
+ * @return kStatus_Fail on error, kStatus_Success otherwise.
+ */
+status_t CLOCK_FROHFAutoTrimEnable(bool enable);
+
 #endif /* Building on the main core */
 
 

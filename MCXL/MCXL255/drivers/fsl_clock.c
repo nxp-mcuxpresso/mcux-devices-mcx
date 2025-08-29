@@ -1847,4 +1847,109 @@ uint8_t CLOCK_GetFlashWaitState()
 {
     return (FMU0->FCTRL & FMU_FCTRL_RWSC_MASK) >> FMU_FCTRL_RWSC_SHIFT;
 }
+
+/*!
+ * @brief Enable/disable FRO12M(SIRC) Auto trim feature
+ *
+ * This requires ROSC (xtal32) initialized.
+ *
+ * @see CLOCK_InitRosc()
+ *
+ * @return kStatus_Fail on error, kStatus_Success otherwise.
+ */
+status_t CLOCK_FRO12MAutoTrimEnable(bool enable)
+{
+    status_t st = (status_t)kStatus_Success;
+    
+    /* unlock SIRCCSR */
+    SCG0->SIRCCSR &= ~(SCG_SIRCCSR_LK_MASK);
+    
+    if(enable)
+    {
+        /* select ROSC as auto trim clock source */
+        SCG0->SIRCTCFG = (SCG0->SIRCTCFG & ~(SCG_SIRCTCFG_TRIMSRC_MASK)) | SCG_SIRCTCFG_TRIMSRC(3U);  
+
+        /* enable auto trim  */
+        SCG0->SIRCCSR |= SCG_SIRCCSR_SIRCTREN_MASK;
+        /* enable update */
+        SCG0->SIRCCSR |= SCG_SIRCCSR_SIRCTRUP_MASK;
+        
+        /* Wait for SIRC is valid  */
+        while(!(SCG0->SIRCCSR & SCG_SIRCCSR_SIRCVLD_MASK)) {}
+        
+        /* Check for error */
+        if(SCG0->SIRCCSR & SCG_SIRCCSR_SIRCERR_MASK)
+        {     
+            st = (status_t)kStatus_Fail;
+        }
+        else
+        {
+            /* Wait for trim lock */
+            while(!(SCG0->SIRCCSR & SCG_SIRCCSR_TRIM_LOCK_MASK)) {}
+        }
+    }
+    else
+    {
+        /* Disable auto trim  */
+        SCG0->SIRCCSR &= ~(SCG_SIRCCSR_SIRCTREN_MASK);
+    }
+    
+    /* lock SIRCCSR */
+    SCG0->SIRCCSR |= SCG_SIRCCSR_LK_MASK;
+    
+    return st;
+}
+
+/*!
+ * @brief Enable/disable FROHF(FRO96M/FIRC) Auto trim feature
+ *
+ * This requires ROSC (xtal32) initialized.
+ *
+ * @see CLOCK_InitRosc()
+ *
+ * @return kStatus_Fail on error, kStatus_Success otherwise.
+ */
+status_t CLOCK_FROHFAutoTrimEnable(bool enable)
+{
+    status_t st = (status_t)kStatus_Success;
+    
+    /* unlock FIRCCSR */
+    SCG0->FIRCCSR &= ~(SCG_FIRCCSR_LK_MASK);
+    
+    if(enable)
+    {
+        /* select ROSC as auto trim clock source */
+        SCG0->FIRCTCFG = (SCG0->FIRCTCFG & ~(SCG_FIRCTCFG_TRIMSRC_MASK)) | SCG_FIRCTCFG_TRIMSRC(3U);  
+
+        /* enable auto trim  */
+        SCG0->FIRCCSR |= SCG_FIRCCSR_FIRCTREN_MASK;
+        /* enable update */
+        SCG0->FIRCCSR |= SCG_FIRCCSR_FIRCTRUP_MASK;
+        
+        /* Wait for FIRC is valid  */
+        while(!(SCG0->FIRCCSR & SCG_FIRCCSR_FIRCVLD_MASK)) {}
+        
+        /* Check for error */
+        if(SCG0->FIRCCSR & SCG_FIRCCSR_FIRCERR_MASK)
+        {     
+            st = (status_t)kStatus_Fail;
+        }
+        else
+        {
+            /* Wait for trim lock */
+            while(!(SCG0->FIRCCSR & SCG_FIRCCSR_TRIM_LOCK_MASK)) {}
+        }
+    }
+    else
+    {
+        /* Disable auto trim  */
+        SCG0->FIRCCSR &= ~(SCG_FIRCCSR_FIRCTREN_MASK);
+    }
+    
+    /* lock FIRCCSR */
+    SCG0->FIRCCSR |= SCG_FIRCCSR_LK_MASK;
+    
+    return st;
+}
+
 #endif /* Building on the main core */

@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250718
+**     Build:               b250901
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN537_cm33_core0
@@ -101,7 +101,6 @@
 #include "PERI_SCG.h"
 #include "PERI_SCT.h"
 #include "PERI_SEMA42.h"
-#include "PERI_SINC.h"
 #include "PERI_SMARTDMA.h"
 #include "PERI_SPC.h"
 #include "PERI_SYSCON.h"

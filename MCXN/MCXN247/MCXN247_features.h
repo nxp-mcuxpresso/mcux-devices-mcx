@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250814
+**     Build:               b250901
 **
 **     Abstract:
 **         Chip specific module features.
@@ -41,6 +41,8 @@
 #define FSL_FEATURE_SOC_EDMA_COUNT (2)
 /* @brief EIM availability on the SoC. */
 #define FSL_FEATURE_SOC_EIM_COUNT (1)
+/* @brief EMVSIM availability on the SoC. */
+#define FSL_FEATURE_SOC_EMVSIM_COUNT (2)
 /* @brief EVTG availability on the SoC. */
 #define FSL_FEATURE_SOC_EVTG_COUNT (1)
 /* @brief EWM availability on the SoC. */
@@ -95,8 +97,6 @@
 #define FSL_FEATURE_SOC_PINT_COUNT (1)
 /* @brief PKC availability on the SoC. */
 #define FSL_FEATURE_SOC_PKC_COUNT (1)
-/* @brief POWERQUAD availability on the SoC. */
-#define FSL_FEATURE_SOC_POWERQUAD_COUNT (1)
 /* @brief PORT availability on the SoC. */
 #define FSL_FEATURE_SOC_PORT_COUNT (6)
 /* @brief PWM availability on the SoC. */

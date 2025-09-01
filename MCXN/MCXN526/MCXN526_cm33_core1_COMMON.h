@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250718
+**     Build:               b250901
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN526_cm33_core1
@@ -206,10 +206,10 @@ typedef enum IRQn {
   Reserved137_IRQn             = 121,              /**< Reserved interrupt */
   Reserved138_IRQn             = 122,              /**< Reserved interrupt */
   Reserved139_IRQn             = 123,              /**< Reserved interrupt */
-  QDC0_COMPARE_IRQn            = 124,              /**< QDC0_Compare interrupt */
-  QDC0_HOME_IRQn               = 125,              /**< QDC0_Home interrupt */
-  QDC0_WDG_SAB_IRQn            = 126,              /**< QDC0_WDG_IRQ/SAB interrupt */
-  QDC0_IDX_IRQn                = 127,              /**< QDC0_IDX interrupt */
+  Reserved140_IRQn             = 124,              /**< Reserved interrupt */
+  Reserved141_IRQn             = 125,              /**< Reserved interrupt */
+  Reserved142_IRQn             = 126,              /**< Reserved interrupt */
+  Reserved143_IRQn             = 127,              /**< Reserved interrupt */
   Reserved144_IRQn             = 128,              /**< Reserved interrupt */
   Reserved145_IRQn             = 129,              /**< Reserved interrupt */
   Reserved146_IRQn             = 130,              /**< Reserved interrupt */
@@ -2575,40 +2575,6 @@ typedef enum IRQn {
   /** Array initializer of PUF peripheral base pointers */
   #define PUF_BASE_PTRS                            { PUF, PUF_ALIAS1, PUF_ALIAS2, PUF_ALIAS3 }
 #endif
-
-/* QDC - Peripheral instance base addresses */
-#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral QDC0 base address */
-  #define QDC0_BASE                                (0x500CF000u)
-  /** Peripheral QDC0 base address */
-  #define QDC0_BASE_NS                             (0x400CF000u)
-  /** Peripheral QDC0 base pointer */
-  #define QDC0                                     ((QDC_Type *)QDC0_BASE)
-  /** Peripheral QDC0 base pointer */
-  #define QDC0_NS                                  ((QDC_Type *)QDC0_BASE_NS)
-  /** Array initializer of QDC peripheral base addresses */
-  #define QDC_BASE_ADDRS                           { QDC0_BASE }
-  /** Array initializer of QDC peripheral base pointers */
-  #define QDC_BASE_PTRS                            { QDC0 }
-  /** Array initializer of QDC peripheral base addresses */
-  #define QDC_BASE_ADDRS_NS                        { QDC0_BASE_NS }
-  /** Array initializer of QDC peripheral base pointers */
-  #define QDC_BASE_PTRS_NS                         { QDC0_NS }
-#else
-  /** Peripheral QDC0 base address */
-  #define QDC0_BASE                                (0x400CF000u)
-  /** Peripheral QDC0 base pointer */
-  #define QDC0                                     ((QDC_Type *)QDC0_BASE)
-  /** Array initializer of QDC peripheral base addresses */
-  #define QDC_BASE_ADDRS                           { QDC0_BASE }
-  /** Array initializer of QDC peripheral base pointers */
-  #define QDC_BASE_PTRS                            { QDC0 }
-#endif
-/** Interrupt vectors for the QDC peripheral type */
-#define QDC_COMPARE_IRQS                         { QDC0_COMPARE_IRQn }
-#define QDC_HOME_IRQS                            { QDC0_HOME_IRQn }
-#define QDC_WDOG_IRQS                            { QDC0_WDG_SAB_IRQn }
-#define QDC_INDEX_IRQS                           { QDC0_IDX_IRQn }
 
 /* RTC - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))

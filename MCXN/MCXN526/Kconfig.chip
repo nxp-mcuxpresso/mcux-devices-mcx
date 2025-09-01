@@ -287,11 +287,6 @@ config MCUX_HW_IP_DriverType_PUFV3
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN526
 
-config MCUX_HW_IP_DriverType_QDC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN526
-
 config MCUX_HW_IP_DriverType_RTC_V2
     bool
     default y

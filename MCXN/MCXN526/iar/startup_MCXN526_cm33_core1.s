@@ -4,7 +4,7 @@
 ;            MCXN526_cm33_core1
 ;  @version: 3.0
 ;  @date:    2024-10-29
-;  @build:   b250718
+;  @build:   b250901
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -191,10 +191,10 @@ __vector_table_0x1c
         DCD     Reserved137_IRQHandler                        ;Reserved interrupt
         DCD     Reserved138_IRQHandler                        ;Reserved interrupt
         DCD     Reserved139_IRQHandler                        ;Reserved interrupt
-        DCD     QDC0_COMPARE_IRQHandler                       ;QDC0_Compare interrupt
-        DCD     QDC0_HOME_IRQHandler                          ;QDC0_Home interrupt
-        DCD     QDC0_WDG_SAB_IRQHandler                       ;QDC0_WDG_IRQ/SAB interrupt
-        DCD     QDC0_IDX_IRQHandler                           ;QDC0_IDX interrupt
+        DCD     Reserved140_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved141_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved142_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved143_IRQHandler                        ;Reserved interrupt
         DCD     Reserved144_IRQHandler                        ;Reserved interrupt
         DCD     Reserved145_IRQHandler                        ;Reserved interrupt
         DCD     Reserved146_IRQHandler                        ;Reserved interrupt
@@ -1163,32 +1163,32 @@ Reserved139_IRQHandler
         LDR     R0, =Reserved139_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC0_COMPARE_IRQHandler
-        PUBWEAK QDC0_COMPARE_DriverIRQHandler
+        PUBWEAK Reserved140_IRQHandler
+        PUBWEAK Reserved140_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC0_COMPARE_IRQHandler
-        LDR     R0, =QDC0_COMPARE_DriverIRQHandler
+Reserved140_IRQHandler
+        LDR     R0, =Reserved140_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC0_HOME_IRQHandler
-        PUBWEAK QDC0_HOME_DriverIRQHandler
+        PUBWEAK Reserved141_IRQHandler
+        PUBWEAK Reserved141_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC0_HOME_IRQHandler
-        LDR     R0, =QDC0_HOME_DriverIRQHandler
+Reserved141_IRQHandler
+        LDR     R0, =Reserved141_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC0_WDG_SAB_IRQHandler
-        PUBWEAK QDC0_WDG_SAB_DriverIRQHandler
+        PUBWEAK Reserved142_IRQHandler
+        PUBWEAK Reserved142_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC0_WDG_SAB_IRQHandler
-        LDR     R0, =QDC0_WDG_SAB_DriverIRQHandler
+Reserved142_IRQHandler
+        LDR     R0, =Reserved142_DriverIRQHandler
         BX      R0
 
-        PUBWEAK QDC0_IDX_IRQHandler
-        PUBWEAK QDC0_IDX_DriverIRQHandler
+        PUBWEAK Reserved143_IRQHandler
+        PUBWEAK Reserved143_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-QDC0_IDX_IRQHandler
-        LDR     R0, =QDC0_IDX_DriverIRQHandler
+Reserved143_IRQHandler
+        LDR     R0, =Reserved143_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved144_IRQHandler
@@ -1511,10 +1511,10 @@ Reserved136_DriverIRQHandler
 Reserved137_DriverIRQHandler
 Reserved138_DriverIRQHandler
 Reserved139_DriverIRQHandler
-QDC0_COMPARE_DriverIRQHandler
-QDC0_HOME_DriverIRQHandler
-QDC0_WDG_SAB_DriverIRQHandler
-QDC0_IDX_DriverIRQHandler
+Reserved140_DriverIRQHandler
+Reserved141_DriverIRQHandler
+Reserved142_DriverIRQHandler
+Reserved143_DriverIRQHandler
 Reserved144_DriverIRQHandler
 Reserved145_DriverIRQHandler
 Reserved146_DriverIRQHandler

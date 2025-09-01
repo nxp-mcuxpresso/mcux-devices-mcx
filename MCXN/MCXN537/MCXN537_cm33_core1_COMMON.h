@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250718
+**     Build:               b250901
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN537_cm33_core1
@@ -226,7 +226,7 @@ typedef enum IRQn {
   Reserved155_IRQn             = 139,              /**< Reserved interrupt */
   Reserved156_IRQn             = 140,              /**< Reserved interrupt */
   Reserved157_IRQn             = 141,              /**< Reserved interrupt */
-  SINC_FILTER_IRQn             = 142,              /**< SINC Filter interrupt  */
+  Reserved158_IRQn             = 142,              /**< Reserved interrupt */
   LPTMR0_IRQn                  = 143,              /**< Low Power Timer 0 interrupt */
   LPTMR1_IRQn                  = 144,              /**< Low Power Timer 1 interrupt */
   SCG_IRQn                     = 145,              /**< System Clock Generator interrupt */
@@ -2808,35 +2808,6 @@ typedef enum IRQn {
   #define SEMA42_BASE_ADDRS                        { SEMA42_0_BASE }
   /** Array initializer of SEMA42 peripheral base pointers */
   #define SEMA42_BASE_PTRS                         { SEMA42_0 }
-#endif
-
-/* SINC - Peripheral instance base addresses */
-#if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))
-  /** Peripheral SINC0 base address */
-  #define SINC0_BASE                               (0x50108000u)
-  /** Peripheral SINC0 base address */
-  #define SINC0_BASE_NS                            (0x40108000u)
-  /** Peripheral SINC0 base pointer */
-  #define SINC0                                    ((SINC_Type *)SINC0_BASE)
-  /** Peripheral SINC0 base pointer */
-  #define SINC0_NS                                 ((SINC_Type *)SINC0_BASE_NS)
-  /** Array initializer of SINC peripheral base addresses */
-  #define SINC_BASE_ADDRS                          { SINC0_BASE }
-  /** Array initializer of SINC peripheral base pointers */
-  #define SINC_BASE_PTRS                           { SINC0 }
-  /** Array initializer of SINC peripheral base addresses */
-  #define SINC_BASE_ADDRS_NS                       { SINC0_BASE_NS }
-  /** Array initializer of SINC peripheral base pointers */
-  #define SINC_BASE_PTRS_NS                        { SINC0_NS }
-#else
-  /** Peripheral SINC0 base address */
-  #define SINC0_BASE                               (0x40108000u)
-  /** Peripheral SINC0 base pointer */
-  #define SINC0                                    ((SINC_Type *)SINC0_BASE)
-  /** Array initializer of SINC peripheral base addresses */
-  #define SINC_BASE_ADDRS                          { SINC0_BASE }
-  /** Array initializer of SINC peripheral base pointers */
-  #define SINC_BASE_PTRS                           { SINC0 }
 #endif
 
 /* SMARTDMA - Peripheral instance base addresses */

@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250718
+**     Build:               b250901
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN526_cm33_core0
@@ -93,7 +93,6 @@
 #include "PERI_PORT.h"
 #include "PERI_POWERQUAD.h"
 #include "PERI_PUF.h"
-#include "PERI_QDC.h"
 #include "PERI_RTC.h"
 #include "PERI_S50.h"
 #include "PERI_SCG.h"

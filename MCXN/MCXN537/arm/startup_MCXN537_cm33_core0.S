@@ -4,7 +4,7 @@
 /*            MCXN537_cm33_core0                                             */
 /*  @version: 3.0                                                            */
 /*  @date:    2024-10-29                                                     */
-/*  @build:   b250718                                                        */
+/*  @build:   b250901                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -181,7 +181,7 @@ __Vectors:
     .long   Reserved155_IRQHandler                          /* Reserved interrupt*/
     .long   Reserved156_IRQHandler                          /* Reserved interrupt*/
     .long   Reserved157_IRQHandler                          /* Reserved interrupt*/
-    .long   SINC_FILTER_IRQHandler                          /* SINC Filter interrupt */
+    .long   Reserved158_IRQHandler                          /* Reserved interrupt*/
     .long   LPTMR0_IRQHandler                               /* Low Power Timer 0 interrupt*/
     .long   LPTMR1_IRQHandler                               /* Low Power Timer 1 interrupt*/
     .long   SCG_IRQHandler                                  /* System Clock Generator interrupt*/
@@ -1559,12 +1559,12 @@ Reserved157_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak SINC_FILTER_IRQHandler
-    .type SINC_FILTER_IRQHandler, %function
-SINC_FILTER_IRQHandler:
-    ldr   r0,=SINC_FILTER_DriverIRQHandler
+    .weak Reserved158_IRQHandler
+    .type Reserved158_IRQHandler, %function
+Reserved158_IRQHandler:
+    ldr   r0,=Reserved158_DriverIRQHandler
     bx    r0
-    .size SINC_FILTER_IRQHandler, . - SINC_FILTER_IRQHandler
+    .size Reserved158_IRQHandler, . - Reserved158_IRQHandler
 
     .align 1
     .thumb_func
@@ -1840,7 +1840,7 @@ CTI0_IRQHandler:
     def_irq_handler    Reserved155_DriverIRQHandler
     def_irq_handler    Reserved156_DriverIRQHandler
     def_irq_handler    Reserved157_DriverIRQHandler
-    def_irq_handler    SINC_FILTER_DriverIRQHandler
+    def_irq_handler    Reserved158_DriverIRQHandler
     def_irq_handler    LPTMR0_DriverIRQHandler
     def_irq_handler    LPTMR1_DriverIRQHandler
     def_irq_handler    SCG_DriverIRQHandler

@@ -320,11 +320,6 @@ config MCUX_HW_IP_DriverType_SEMA42
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN537
 
-config MCUX_HW_IP_DriverType_SINC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN537
-
 config MCUX_HW_IP_DriverType_SMARTDMA
     bool
     default y

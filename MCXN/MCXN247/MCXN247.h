@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250718
+**     Build:               b250901
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN247
@@ -62,6 +62,7 @@
 #include "PERI_DM.h"
 #include "PERI_DMA.h"
 #include "PERI_EIM.h"
+#include "PERI_EMVSIM.h"
 #include "PERI_ENET.h"
 #include "PERI_ERM.h"
 #include "PERI_EVTG.h"
@@ -94,7 +95,6 @@
 #include "PERI_PKC.h"
 #include "PERI_PLU.h"
 #include "PERI_PORT.h"
-#include "PERI_POWERQUAD.h"
 #include "PERI_PUF.h"
 #include "PERI_PWM.h"
 #include "PERI_QDC.h"

@@ -8,7 +8,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250718
+**     Build:               b250901
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN556S_cm33_core0
@@ -49,6 +49,7 @@
 #include "PERI_AHBSC.h"
 #include "PERI_CACHE64_CTRL.h"
 #include "PERI_CACHE64_POLSEL.h"
+#include "PERI_CAN.h"
 #include "PERI_CDOG.h"
 #include "PERI_CMC.h"
 #include "PERI_CRC.h"
@@ -57,6 +58,8 @@
 #include "PERI_DM.h"
 #include "PERI_DMA.h"
 #include "PERI_EIM.h"
+#include "PERI_EMVSIM.h"
+#include "PERI_ENET.h"
 #include "PERI_ERM.h"
 #include "PERI_EVTG.h"
 #include "PERI_EWM.h"
@@ -67,7 +70,6 @@
 #include "PERI_FREQME.h"
 #include "PERI_GDET.h"
 #include "PERI_GPIO.h"
-#include "PERI_HPDAC.h"
 #include "PERI_I2S.h"
 #include "PERI_I3C.h"
 #include "PERI_INPUTMUX.h"
@@ -83,13 +85,11 @@
 #include "PERI_MAILBOX.h"
 #include "PERI_MRT.h"
 #include "PERI_NPX.h"
-#include "PERI_OPAMP.h"
 #include "PERI_OSTIMER.h"
 #include "PERI_OTPC.h"
 #include "PERI_PDM.h"
 #include "PERI_PINT.h"
 #include "PERI_PKC.h"
-#include "PERI_PLU.h"
 #include "PERI_PORT.h"
 #include "PERI_POWERQUAD.h"
 #include "PERI_PUF.h"

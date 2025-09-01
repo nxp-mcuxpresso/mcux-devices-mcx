@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b250718
+**     Build:               b250901
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN247
@@ -187,8 +187,8 @@ typedef enum IRQn {
   EWM0_IRQn                    = 100,              /**< External Watchdog Monitor interrupt */
   Reserved117_IRQn             = 101,              /**< Reserved interrupt */
   Reserved118_IRQn             = 102,              /**< Reserved interrupt */
-  Reserved119_IRQn             = 103,              /**< Reserved interrupt */
-  Reserved120_IRQn             = 104,              /**< Reserved interrupt */
+  EMVSIM0_IRQn                 = 103,              /**< EMVSIM0 interrupt */
+  EMVSIM1_IRQn                 = 104,              /**< EMVSIM1 interrupt */
   FLEXIO_IRQn                  = 105,              /**< Flexible Input/Output interrupt */
   DAC0_IRQn                    = 106,              /**< Digital-to-Analog Converter 0 - General Purpose interrupt */
   DAC1_IRQn                    = 107,              /**< Digital-to-Analog Converter 1 - General Purpose interrupt */
@@ -824,6 +824,49 @@ typedef enum IRQn {
   /** Array initializer of EIM peripheral base pointers */
   #define EIM_BASE_PTRS                            { EIM0 }
 #endif
+
+/* EMVSIM - Peripheral instance base addresses */
+#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
+  /** Peripheral EMVSIM0 base address */
+  #define EMVSIM0_BASE                             (0x50103000u)
+  /** Peripheral EMVSIM0 base address */
+  #define EMVSIM0_BASE_NS                          (0x40103000u)
+  /** Peripheral EMVSIM0 base pointer */
+  #define EMVSIM0                                  ((EMVSIM_Type *)EMVSIM0_BASE)
+  /** Peripheral EMVSIM0 base pointer */
+  #define EMVSIM0_NS                               ((EMVSIM_Type *)EMVSIM0_BASE_NS)
+  /** Peripheral EMVSIM1 base address */
+  #define EMVSIM1_BASE                             (0x50104000u)
+  /** Peripheral EMVSIM1 base address */
+  #define EMVSIM1_BASE_NS                          (0x40104000u)
+  /** Peripheral EMVSIM1 base pointer */
+  #define EMVSIM1                                  ((EMVSIM_Type *)EMVSIM1_BASE)
+  /** Peripheral EMVSIM1 base pointer */
+  #define EMVSIM1_NS                               ((EMVSIM_Type *)EMVSIM1_BASE_NS)
+  /** Array initializer of EMVSIM peripheral base addresses */
+  #define EMVSIM_BASE_ADDRS                        { EMVSIM0_BASE, EMVSIM1_BASE }
+  /** Array initializer of EMVSIM peripheral base pointers */
+  #define EMVSIM_BASE_PTRS                         { EMVSIM0, EMVSIM1 }
+  /** Array initializer of EMVSIM peripheral base addresses */
+  #define EMVSIM_BASE_ADDRS_NS                     { EMVSIM0_BASE_NS, EMVSIM1_BASE_NS }
+  /** Array initializer of EMVSIM peripheral base pointers */
+  #define EMVSIM_BASE_PTRS_NS                      { EMVSIM0_NS, EMVSIM1_NS }
+#else
+  /** Peripheral EMVSIM0 base address */
+  #define EMVSIM0_BASE                             (0x40103000u)
+  /** Peripheral EMVSIM0 base pointer */
+  #define EMVSIM0                                  ((EMVSIM_Type *)EMVSIM0_BASE)
+  /** Peripheral EMVSIM1 base address */
+  #define EMVSIM1_BASE                             (0x40104000u)
+  /** Peripheral EMVSIM1 base pointer */
+  #define EMVSIM1                                  ((EMVSIM_Type *)EMVSIM1_BASE)
+  /** Array initializer of EMVSIM peripheral base addresses */
+  #define EMVSIM_BASE_ADDRS                        { EMVSIM0_BASE, EMVSIM1_BASE }
+  /** Array initializer of EMVSIM peripheral base pointers */
+  #define EMVSIM_BASE_PTRS                         { EMVSIM0, EMVSIM1 }
+#endif
+/** Interrupt vectors for the EMVSIM peripheral type */
+#define EMVSIM_IRQS                              { EMVSIM0_IRQn, EMVSIM1_IRQn }
 
 /* ENET - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
@@ -2428,37 +2471,6 @@ typedef enum IRQn {
   /** Array initializer of PORT peripheral base pointers */
   #define PORT_BASE_PTRS                           { PORT0, PORT1, PORT2, PORT3, PORT4, PORT5 }
 #endif
-
-/* POWERQUAD - Peripheral instance base addresses */
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  /** Peripheral POWERQUAD base address */
-  #define POWERQUAD_BASE                           (0x500BF000u)
-  /** Peripheral POWERQUAD base address */
-  #define POWERQUAD_BASE_NS                        (0x400BF000u)
-  /** Peripheral POWERQUAD base pointer */
-  #define POWERQUAD                                ((POWERQUAD_Type *)POWERQUAD_BASE)
-  /** Peripheral POWERQUAD base pointer */
-  #define POWERQUAD_NS                             ((POWERQUAD_Type *)POWERQUAD_BASE_NS)
-  /** Array initializer of POWERQUAD peripheral base addresses */
-  #define POWERQUAD_BASE_ADDRS                     { POWERQUAD_BASE }
-  /** Array initializer of POWERQUAD peripheral base pointers */
-  #define POWERQUAD_BASE_PTRS                      { POWERQUAD }
-  /** Array initializer of POWERQUAD peripheral base addresses */
-  #define POWERQUAD_BASE_ADDRS_NS                  { POWERQUAD_BASE_NS }
-  /** Array initializer of POWERQUAD peripheral base pointers */
-  #define POWERQUAD_BASE_PTRS_NS                   { POWERQUAD_NS }
-#else
-  /** Peripheral POWERQUAD base address */
-  #define POWERQUAD_BASE                           (0x400BF000u)
-  /** Peripheral POWERQUAD base pointer */
-  #define POWERQUAD                                ((POWERQUAD_Type *)POWERQUAD_BASE)
-  /** Array initializer of POWERQUAD peripheral base addresses */
-  #define POWERQUAD_BASE_ADDRS                     { POWERQUAD_BASE }
-  /** Array initializer of POWERQUAD peripheral base pointers */
-  #define POWERQUAD_BASE_PTRS                      { POWERQUAD }
-#endif
-/** Interrupt vectors for the POWERQUAD peripheral type */
-#define POWERQUAD_IRQS                           { PQ_IRQn }
 
 /* PUF - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

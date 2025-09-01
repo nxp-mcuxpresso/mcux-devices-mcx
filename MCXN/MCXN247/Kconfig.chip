@@ -92,6 +92,11 @@ config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
+config MCUX_HW_IP_DriverType_SMARTCARD_EMVSIM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN247
+
 # ip information
 config MCUX_HW_IP_DriverType_AHBSC
     bool
@@ -139,6 +144,11 @@ config MCUX_HW_IP_DriverType_EDMA3
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
 config MCUX_HW_IP_DriverType_EIM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN247
+
+config MCUX_HW_IP_DriverType_EMVSIM
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
@@ -273,11 +283,6 @@ config MCUX_HW_IP_DriverType_LPTMR
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
-config MCUX_HW_IP_DriverType_MAILBOX
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
 config MCUX_HW_IP_DriverType_MCX_CMC
     bool
     default y
@@ -339,11 +344,6 @@ config MCUX_HW_IP_DriverType_PLU
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
 config MCUX_HW_IP_DriverType_PORT
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
-config MCUX_HW_IP_DriverType_POWERQUAD
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247

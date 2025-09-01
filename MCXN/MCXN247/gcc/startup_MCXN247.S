@@ -4,7 +4,7 @@
 /*            MCXN247                                                        */
 /*  @version: 3.0                                                            */
 /*  @date:    2024-10-29                                                     */
-/*  @build:   b250718                                                        */
+/*  @build:   b250901                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -141,8 +141,8 @@ __Vectors:
     .long   EWM0_IRQHandler                                 /* External Watchdog Monitor interrupt*/
     .long   Reserved117_IRQHandler                          /* Reserved interrupt*/
     .long   Reserved118_IRQHandler                          /* Reserved interrupt*/
-    .long   Reserved119_IRQHandler                          /* Reserved interrupt*/
-    .long   Reserved120_IRQHandler                          /* Reserved interrupt*/
+    .long   EMVSIM0_IRQHandler                              /* EMVSIM0 interrupt*/
+    .long   EMVSIM1_IRQHandler                              /* EMVSIM1 interrupt*/
     .long   FLEXIO_IRQHandler                               /* Flexible Input/Output interrupt*/
     .long   DAC0_IRQHandler                                 /* Digital-to-Analog Converter 0 - General Purpose interrupt*/
     .long   DAC1_IRQHandler                                 /* Digital-to-Analog Converter 1 - General Purpose interrupt*/
@@ -1299,21 +1299,21 @@ Reserved118_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak Reserved119_IRQHandler
-    .type Reserved119_IRQHandler, %function
-Reserved119_IRQHandler:
-    ldr   r0,=Reserved119_DriverIRQHandler
+    .weak EMVSIM0_IRQHandler
+    .type EMVSIM0_IRQHandler, %function
+EMVSIM0_IRQHandler:
+    ldr   r0,=EMVSIM0_DriverIRQHandler
     bx    r0
-    .size Reserved119_IRQHandler, . - Reserved119_IRQHandler
+    .size EMVSIM0_IRQHandler, . - EMVSIM0_IRQHandler
 
     .align 1
     .thumb_func
-    .weak Reserved120_IRQHandler
-    .type Reserved120_IRQHandler, %function
-Reserved120_IRQHandler:
-    ldr   r0,=Reserved120_DriverIRQHandler
+    .weak EMVSIM1_IRQHandler
+    .type EMVSIM1_IRQHandler, %function
+EMVSIM1_IRQHandler:
+    ldr   r0,=EMVSIM1_DriverIRQHandler
     bx    r0
-    .size Reserved120_IRQHandler, . - Reserved120_IRQHandler
+    .size EMVSIM1_IRQHandler, . - EMVSIM1_IRQHandler
 
     .align 1
     .thumb_func
@@ -1891,8 +1891,8 @@ CTI0_IRQHandler:
     def_irq_handler    EWM0_DriverIRQHandler
     def_irq_handler    Reserved117_DriverIRQHandler
     def_irq_handler    Reserved118_DriverIRQHandler
-    def_irq_handler    Reserved119_DriverIRQHandler
-    def_irq_handler    Reserved120_DriverIRQHandler
+    def_irq_handler    EMVSIM0_DriverIRQHandler
+    def_irq_handler    EMVSIM1_DriverIRQHandler
     def_irq_handler    FLEXIO_DriverIRQHandler
     def_irq_handler    DAC0_DriverIRQHandler
     def_irq_handler    DAC1_DriverIRQHandler

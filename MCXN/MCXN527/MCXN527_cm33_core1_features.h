@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250814
+**     Build:               b250901
 **
 **     Abstract:
 **         Chip specific module features.
@@ -97,8 +97,6 @@
 #define FSL_FEATURE_SOC_PORT_COUNT (6)
 /* @brief PUF availability on the SoC. */
 #define FSL_FEATURE_SOC_PUF_COUNT (4)
-/* @brief QDC availability on the SoC. */
-#define FSL_FEATURE_SOC_QDC_COUNT (1)
 /* @brief RTC availability on the SoC. */
 #define FSL_FEATURE_SOC_RTC_COUNT (1)
 /* @brief SCG availability on the SoC. */
@@ -778,19 +776,6 @@
 #define FSL_FEATURE_PUF_ACTIVATION_CODE_ADDRESS (17826304)
 /* @brief Puf Activation Code Size. */
 #define FSL_FEATURE_PUF_ACTIVATION_CODE_SIZE (1000)
-
-/* QDC module features */
-
-/* @brief Has no simultaneous PHASEA and PHASEB change interrupt (register bit field CTRL2[SABIE] and CTRL2[SABIRQ]). */
-#define FSL_FEATURE_QDC_HAS_NO_CTRL2_SAB_INT (0)
-/* @brief Has register CTRL3. */
-#define FSL_FEATURE_QDC_HAS_CTRL3 (1)
-/* @brief Has register LASTEDGE or LASTEDGEH. */
-#define FSL_FEATURE_QDC_HAS_LASTEDGE (1)
-/* @brief Has register POSDPERBFR, POSDPERH, or POSDPER. */
-#define FSL_FEATURE_QDC_HAS_POSDPER (1)
-/* @brief Has bitfiled FILT[FILT_PRSC]. */
-#define FSL_FEATURE_QDC_HAS_FILT_PRSC (1)
 
 /* RTC module features */
 

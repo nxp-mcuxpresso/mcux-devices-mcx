@@ -4,7 +4,7 @@
 ;            MCXN537_cm33_core1
 ;  @version: 3.0
 ;  @date:    2024-10-29
-;  @build:   b250718
+;  @build:   b250901
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -209,7 +209,7 @@ __vector_table_0x1c
         DCD     Reserved155_IRQHandler                        ;Reserved interrupt
         DCD     Reserved156_IRQHandler                        ;Reserved interrupt
         DCD     Reserved157_IRQHandler                        ;Reserved interrupt
-        DCD     SINC_FILTER_IRQHandler                        ;SINC Filter interrupt
+        DCD     Reserved158_IRQHandler                        ;Reserved interrupt
         DCD     LPTMR0_IRQHandler                             ;Low Power Timer 0 interrupt
         DCD     LPTMR1_IRQHandler                             ;Low Power Timer 1 interrupt
         DCD     SCG_IRQHandler                                ;System Clock Generator interrupt
@@ -1289,11 +1289,11 @@ Reserved157_IRQHandler
         LDR     R0, =Reserved157_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SINC_FILTER_IRQHandler
-        PUBWEAK SINC_FILTER_DriverIRQHandler
+        PUBWEAK Reserved158_IRQHandler
+        PUBWEAK Reserved158_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SINC_FILTER_IRQHandler
-        LDR     R0, =SINC_FILTER_DriverIRQHandler
+Reserved158_IRQHandler
+        LDR     R0, =Reserved158_DriverIRQHandler
         BX      R0
 
         PUBWEAK LPTMR0_IRQHandler
@@ -1529,7 +1529,7 @@ FMU0_DriverIRQHandler
 Reserved155_DriverIRQHandler
 Reserved156_DriverIRQHandler
 Reserved157_DriverIRQHandler
-SINC_FILTER_DriverIRQHandler
+Reserved158_DriverIRQHandler
 LPTMR0_DriverIRQHandler
 LPTMR1_DriverIRQHandler
 SCG_DriverIRQHandler

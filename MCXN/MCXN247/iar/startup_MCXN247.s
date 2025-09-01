@@ -4,7 +4,7 @@
 ;            MCXN247
 ;  @version: 3.0
 ;  @date:    2024-10-29
-;  @build:   b250718
+;  @build:   b250901
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -170,8 +170,8 @@ __vector_table_0x1c
         DCD     EWM0_IRQHandler                               ;External Watchdog Monitor interrupt
         DCD     Reserved117_IRQHandler                        ;Reserved interrupt
         DCD     Reserved118_IRQHandler                        ;Reserved interrupt
-        DCD     Reserved119_IRQHandler                        ;Reserved interrupt
-        DCD     Reserved120_IRQHandler                        ;Reserved interrupt
+        DCD     EMVSIM0_IRQHandler                            ;EMVSIM0 interrupt
+        DCD     EMVSIM1_IRQHandler                            ;EMVSIM1 interrupt
         DCD     FLEXIO_IRQHandler                             ;Flexible Input/Output interrupt
         DCD     DAC0_IRQHandler                               ;Digital-to-Analog Converter 0 - General Purpose interrupt
         DCD     DAC1_IRQHandler                               ;Digital-to-Analog Converter 1 - General Purpose interrupt
@@ -1023,18 +1023,18 @@ Reserved118_IRQHandler
         LDR     R0, =Reserved118_DriverIRQHandler
         BX      R0
 
-        PUBWEAK Reserved119_IRQHandler
-        PUBWEAK Reserved119_DriverIRQHandler
+        PUBWEAK EMVSIM0_IRQHandler
+        PUBWEAK EMVSIM0_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-Reserved119_IRQHandler
-        LDR     R0, =Reserved119_DriverIRQHandler
+EMVSIM0_IRQHandler
+        LDR     R0, =EMVSIM0_DriverIRQHandler
         BX      R0
 
-        PUBWEAK Reserved120_IRQHandler
-        PUBWEAK Reserved120_DriverIRQHandler
+        PUBWEAK EMVSIM1_IRQHandler
+        PUBWEAK EMVSIM1_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-Reserved120_IRQHandler
-        LDR     R0, =Reserved120_DriverIRQHandler
+EMVSIM1_IRQHandler
+        LDR     R0, =EMVSIM1_DriverIRQHandler
         BX      R0
 
         PUBWEAK FLEXIO_IRQHandler
@@ -1497,8 +1497,8 @@ VBAT0_DriverIRQHandler
 EWM0_DriverIRQHandler
 Reserved117_DriverIRQHandler
 Reserved118_DriverIRQHandler
-Reserved119_DriverIRQHandler
-Reserved120_DriverIRQHandler
+EMVSIM0_DriverIRQHandler
+EMVSIM1_DriverIRQHandler
 FLEXIO_DriverIRQHandler
 DAC0_DriverIRQHandler
 DAC1_DriverIRQHandler

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250814
+**     Build:               b250901
 **
 **     Abstract:
 **         Chip specific module features.
@@ -111,8 +111,6 @@
 #define FSL_FEATURE_SOC_SCT_COUNT (1)
 /* @brief SEMA42 availability on the SoC. */
 #define FSL_FEATURE_SOC_SEMA42_COUNT (1)
-/* @brief SINC availability on the SoC. */
-#define FSL_FEATURE_SOC_SINC_COUNT (1)
 /* @brief SMARTDMA availability on the SoC. */
 #define FSL_FEATURE_SOC_SMARTDMA_COUNT (1)
 /* @brief SYSCON availability on the SoC. */
@@ -1006,15 +1004,6 @@
 
 /* @brief Gate counts */
 #define FSL_FEATURE_SEMA42_GATE_COUNT (16)
-
-/* SINC module features */
-
-/* @brief SINC channel count. */
-#define FSL_FEATURE_SINC_CHANNEL_COUNT (5)
-/* @brief SINC CACFR register has bitfield ADMASEL. */
-#define FSL_FEATURE_SINC_CACFR_HAS_ADMASEL (1)
-/* @brief SINC CACFR register has no bitfield PTMUX. */
-#define FSL_FEATURE_SINC_CACFR_HAS_NO_PTMUX (1)
 
 /* SPC module features */
 

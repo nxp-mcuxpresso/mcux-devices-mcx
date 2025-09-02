@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250826
+**     Build:               b250901
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SMM
@@ -301,14 +301,14 @@ typedef struct {
 /*! DPD_STRT - Start */
 #define SMM_PWDN_CONFIG_DPD_STRT(x)              (((uint32_t)(((uint32_t)(x)) << SMM_PWDN_CONFIG_DPD_STRT_SHIFT)) & SMM_PWDN_CONFIG_DPD_STRT_MASK)
 
-#define SMM_PWDN_CONFIG_DPD1_VDD1P1_SRC_MASK     (0x2U)
-#define SMM_PWDN_CONFIG_DPD1_VDD1P1_SRC_SHIFT    (1U)
-/*! DPD1_VDD1P1_SRC - DPD1_MAIN power supply
+#define SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC_MASK (0x2U)
+#define SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC_SHIFT (1U)
+/*! DPD1_VDD_CORE_MAIN_SRC - DPD1_MAIN power supply
  *  0b0..Keep as is
  *  0b1..Move to Low Power mode of the DCDC fixed.
  */
+#define SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC(x) (((uint32_t)(((uint32_t)(x)) << SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC_SHIFT)) & SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC_MASK)
 
-#define SMM_PWDN_CONFIG_DPD1_VDD1P1_SRC(x)       (((uint32_t)(((uint32_t)(x)) << SMM_PWDN_CONFIG_DPD1_VDD1P1_SRC_SHIFT)) & SMM_PWDN_CONFIG_DPD1_VDD1P1_SRC_MASK)
 #define SMM_PWDN_CONFIG_ADVC2P0_DPD2_ACT_MASK    (0x4U)
 #define SMM_PWDN_CONFIG_ADVC2P0_DPD2_ACT_SHIFT   (2U)
 /*! ADVC2P0_DPD2_ACT - ADVC2P0 DPD2 active */

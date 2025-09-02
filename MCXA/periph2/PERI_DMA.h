@@ -26,7 +26,7 @@
 **                          MCXA366VPN
 **
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b250804
+**     Build:               b250902
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DMA
@@ -110,6 +110,8 @@ typedef enum _dma_request_source
     kDma0RequestLPI2C2Tx            = 4U,          /**< LPI2C2 Transmit request */
     kDma0RequestLPI2C3Rx            = 5U,          /**< LPI2C3 Receive request */
     kDma0RequestLPI2C3Tx            = 6U,          /**< LPI2C3 Transmit request */
+    kDma0RequestMuxI3c0Rx           = 7U,          /**< I3C0 Receive request */
+    kDma0RequestMuxI3c0Tx           = 8U,          /**< I3C0 Transmit request */
     kDma0RequestLPI2C0Rx            = 11U,         /**< LPI2C0 Receive request */
     kDma0RequestLPI2C0Tx            = 12U,         /**< LPI2C0 Transmit request */
     kDma0RequestLPI2C1Rx            = 13U,         /**< LPI2C1 Receive request */
@@ -172,14 +174,14 @@ typedef enum _dma_request_source
     kDma0RequestMuxFlexPWM1ReqVal1  = 84U,         /**< FlexPWM1 value1 request */
     kDma0RequestMuxFlexPWM1ReqVal2  = 85U,         /**< FlexPWM1 value2 request */
     kDma0RequestMuxFlexPWM1ReqVal3  = 86U,         /**< FlexPWM1 value2 request */
+    kDma0RequestMuxFlexCan1DmaRequest = 87U,       /**< CAN1 DMA request */
     kDma0RequestLPUART5Rx           = 102U,        /**< LPUART5 Receive request */
     kDma0RequestLPUART5Tx           = 103U,        /**< LPUART5 Transmit request */
     kDma0RequestMuxMau0             = 115U,        /**< MAU0 DMA request */
-    kDma0RequestMuxI3c0Rx           = 7U,          /**< I3C0 Receive request */
-    kDma0RequestMuxI3c0Tx           = 8U,          /**< I3C0 Transmit request */
-    kDma0RequestMuxFlexCan1DmaRequest = 87U,       /**< CAN1 DMA request */
     kDma0RequestSGI0Datain          = 119U,        /**< SGI0 DATAIN request */
     kDma0RequestSGI0Dataout         = 120U,        /**< SGI0 DATOUT request */
+    kDma0RequestMuxAdc2FifoRequest  = 123U,        /**< ADC2 FIFO request */
+    kDma0RequestMuxAdc3FifoRequest  = 124U,        /**< ADC3 FIFO request */
 } dma_request_source_t;
 
 /* @} */

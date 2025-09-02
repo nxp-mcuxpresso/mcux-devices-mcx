@@ -53,9 +53,9 @@
 /* Definition for delay API in clock driver, users can redefine it to the real application. */
 #ifndef SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY
 #if FSL_FEATURE_FIRC_SUPPORT_240M
-#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (180000000U)
-#else
 #define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (240000000U)
+#else
+#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (180000000U)
 #endif
 #endif
 

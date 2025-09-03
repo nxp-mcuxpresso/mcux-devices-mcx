@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.1.3]
+
+- Improvements
+  - Added the missing enum kNONE_to_SCT_CLK.
+
 ## [2.1.2]
 
 - Improvements

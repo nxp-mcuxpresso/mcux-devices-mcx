@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-10-13
-**     Build:               b250814
+**     Build:               b250902
 **
 **     Abstract:
 **         Chip specific module features.
@@ -697,7 +697,9 @@
 /* @brief SFA instance support trigger. */
 #define FSL_FEATURE_SFA_INSTANCE_HAS_TRIGGERn(x) (1)
 /* @brief SFA instance support interrupt. */
-#define FSL_FEATURE_SFA_INSTANCE_HAS_INTERRUPTn(x) (1)
+#define FSL_FEATURE_SFA_INSTANCE_HAS_INTERRUPTn(x) \
+    (((x) == SFA0) ? (1) : \
+    (((x) == RF_SFA) ? (0) : (-1)))
 
 /* RTC module features */
 

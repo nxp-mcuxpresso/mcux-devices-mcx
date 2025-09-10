@@ -1035,6 +1035,11 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
     SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
     SMM_StartPowerDownSequence(AON__SMM);
 
+    if (config->disableFRO10M)
+    {
+        AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO10M_EN_MASK;
+    }
+
     /* 2. Configuration for CMC. */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
@@ -1172,10 +1177,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
     {
         if (config->disableFRO10M)
         {
-            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
-            AON__CGU->CLK_CONFIG =
-                (AON__CGU->CLK_CONFIG & ~CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) | CGU_CLK_CONFIG_ROOT_CLK_SEL(3U);
-            AON__CGU->CLK_CONFIG &= ~(CGU_CLK_CONFIG_FRO10M_EN_MASK | CGU_CLK_CONFIG_FRO2M_EN_MASK);
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO10M_EN_MASK;
         }
 
         sharedHandle->requestCM33Start  = false;
@@ -1268,10 +1270,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
 
             if (config->disableFRO10M)
             {
-                AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
-                AON__CGU->CLK_CONFIG =
-                    (AON__CGU->CLK_CONFIG & ~CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) | CGU_CLK_CONFIG_ROOT_CLK_SEL(3U);
-                AON__CGU->CLK_CONFIG &= ~(CGU_CLK_CONFIG_FRO10M_EN_MASK | CGU_CLK_CONFIG_FRO2M_EN_MASK);
+                AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO10M_EN_MASK;
             }
 
             sharedHandle->previousPowerMode = kPower_DeepPowerDown2;

@@ -22,8 +22,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief power driver version 2.1.0. */
-#define FSL_POWER_DRIVER_VERSION (MAKE_VERSION(2, 1, 0))
+/*! @brief power driver version 2.1.1. */
+#define FSL_POWER_DRIVER_VERSION (MAKE_VERSION(2, 1, 1))
 /*@}*/
 
 #if __CORTEX_M == 33U
@@ -364,7 +364,8 @@ typedef struct _power_dpd1_config
     power_dpd1_transition_t
         nextTrans : 2U;              /*!< Next transition after DPD1 mode, refer to @ref power_dpd1_transition_t */
     bool saveContext : 1U;           /*!< True to save basic register context into stack, false to do not save. */
-    uint32_t reserved : 3U;          /*!< Reserved for using. */
+    bool disableFRO10M : 1U;         /*!< Flag to indicate whether to disable the FRO10M clock during DPD1 mode */
+    uint32_t reserved : 2U;          /*!< Reserved for using. */
     power_vdd_core_output_voltage_t vddCoreAonVoltage : 8U; /*!< Specify output voltage of VDD_CORE_AON */
 } power_dpd1_config_t;
 

@@ -1,5 +1,9 @@
 # Power
 
+## [2.1.1]
+- Improvements
+    - Added "disableFRO10M" in power_dpd1_config_t to support disable FRO10M in power driver.
+
 ## [2.1.0]
 
 - Bug Fixes

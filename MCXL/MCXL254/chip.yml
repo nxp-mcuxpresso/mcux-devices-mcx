@@ -1,0 +1,71 @@
+---
+
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXL254
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXL254"
+        full_name: "MCXL254"
+        name: "MCXL254"
+        platform: "MCX"
+        series: "MCXL"
+        family: "MCXL2XX"
+        subfamily: "MCXL254"
+        frequency_mhz: 96
+        core:
+          - name: "Cortex-M33"
+            type: "cm33"
+            id: "cm33"
+            description: ""
+            fpu: "SP_FPU"
+            dsp: true
+            mpu: true
+            sau: true
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH"
+              name: "PROGRAM_FLASH"
+              addr: 0x0
+              size: 0x40000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+              aliases:
+                - name: "PROGRAM_FLASH_alias"
+                  addr: 0x10000000
+                  size: 0x40000
+                  access: "RW"
+            - id: "SRAMA"
+              name: "SRAMA"
+              addr: 0x28000000
+              size: 0x10000
+              type: "RAM"
+              access: "RW"
+              default: true
+              aliases:
+                - name: "SRAMA_alias"
+                  addr: 0x38000000
+                  size: 0x10000
+                  access: "RW"
+            - id: "BootROM"
+              name: "BootROM"
+              addr: 0x3000000
+              size: 0x8000
+              type: "ROM"
+              access: "RO"
+              aliases:
+                - name: "BootROM_alias"
+                  addr: 0x13000000
+                  size: 0x8000
+                  access: "RO"
+        total_memory:
+          ram_size_kb: 64
+          flash_size_kb: 256
+        part:
+          - name: "MCXL254VLL"
+          - name: "MCXL254VDF"
+        modules:
+...

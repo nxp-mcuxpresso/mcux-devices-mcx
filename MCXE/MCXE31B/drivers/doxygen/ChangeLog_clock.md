@@ -1,5 +1,8 @@
 # CLOCK
 
+## [2.1.3]
+- Bug fix
+  - Fixed the issue reported by CERT INT31-C checker. 
 ## [2.1.2]
 - New features
   - Added EMAC_CLOCKS. 

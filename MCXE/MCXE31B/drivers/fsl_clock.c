@@ -420,8 +420,9 @@ uint32_t CLOCK_GetPllPhiClkFreq(uint32_t index)
             freq   = CLOCK_GetFxoscFreq() / 1000U / div;
             temp   = (PLL->PLLDV & PLL_PLLDV_MFI_MASK) >> PLL_PLLDV_MFI_SHIFT;
             temp64 = (uint64_t)temp * 18432U + (uint64_t)(PLL->PLLFD & PLL_PLLFD_MFN_MASK);
-            temp64 = temp64 * 1000U / 18432U;
-            freq   = (uint32_t)((uint64_t)freq * temp64);
+            temp64 = temp64 * 1000U / 18432U * freq;
+            assert(temp64 <= 0xFFFFFFFFU);
+            freq   = (uint32_t)temp64;
         }
         else
         {

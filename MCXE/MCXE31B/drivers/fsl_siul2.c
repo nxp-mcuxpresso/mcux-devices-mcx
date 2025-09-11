@@ -368,7 +368,7 @@ void SIUL2_SetDmaInterruptConfig(SIUL2_Type *base, uint32_t req, siul2_interrupt
 void SIUL2_EnableExtInterrupt(SIUL2_Type *base, uint32_t req, siul2_interrupt_config_t config, int8_t filterCount)
 {
     assert(req < SIUL2_NUMBER_OF_EIRQ);
-    base->DISR0 = 1 << req;       /* Clear interrupt flag. */
+    base->DISR0 = 1U << req;      /* Clear interrupt flag. */
     base->DIRER0 |= (1U << req);  /* Enable Int/DMA request. */
     base->DIRSR0 &= ~(1U << req); /* Select interrupt. */
 
@@ -380,7 +380,7 @@ void SIUL2_EnableExtInterrupt(SIUL2_Type *base, uint32_t req, siul2_interrupt_co
 void SIUL2_EnableExtDma(SIUL2_Type *base, uint32_t req, siul2_interrupt_config_t config, int8_t filterCount)
 {
     assert(req < SIUL2_NUMBER_OF_EIRQ);
-    base->DISR0 = 1 << req;      /* Clear flag. */
+    base->DISR0 = 1U << req;     /* Clear flag. */
     base->DIRER0 |= (1U << req); /* Enable Int/DMA request. */
     base->DIRSR0 |= (1U << req); /* Select DMA. */
 

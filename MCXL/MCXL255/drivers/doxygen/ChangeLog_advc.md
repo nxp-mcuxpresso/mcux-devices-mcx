@@ -1,5 +1,10 @@
 # ADVC
 
+## [2.0.2]
+- Improvements
+    - Check and restore Systick in each APIs.
+    - Updated advc library, remove debug section.
+
 ## [2.0.1]
 
 - Improvements

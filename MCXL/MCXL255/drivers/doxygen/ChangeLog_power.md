@@ -3,6 +3,7 @@
 ## [2.1.1]
 - Improvements
     - Added "disableFRO10M" in power_dpd1_config_t to support disable FRO10M in power driver.
+    - Use the __ASM macro instead of asm to ensure compatibility across different toolchains.
 
 ## [2.1.0]
 

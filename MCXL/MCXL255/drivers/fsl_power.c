@@ -1626,85 +1626,85 @@ uint32_t Power_PushContext(uint32_t handleAddr)
     */
 #ifdef __ARMVFP__
     /* push FPU registers. */
-    asm volatile("VSTMDB sp!, {D15}");
-    asm volatile("VSTMDB sp!, {D14}");
-    asm volatile("VSTMDB sp!, {D13}");
-    asm volatile("VSTMDB sp!, {D12}");
-    asm volatile("VSTMDB sp!, {D11}");
-    asm volatile("VSTMDB sp!, {D10}");
-    asm volatile("VSTMDB sp!, {D9}");
-    asm volatile("VSTMDB sp!, {D8}");
+    __ASM volatile("VSTMDB sp!, {D15}");
+    __ASM volatile("VSTMDB sp!, {D14}");
+    __ASM volatile("VSTMDB sp!, {D13}");
+    __ASM volatile("VSTMDB sp!, {D12}");
+    __ASM volatile("VSTMDB sp!, {D11}");
+    __ASM volatile("VSTMDB sp!, {D10}");
+    __ASM volatile("VSTMDB sp!, {D9}");
+    __ASM volatile("VSTMDB sp!, {D8}");
 #endif
     /* push LR */
-    asm volatile("PUSH {lr}");
+    __ASM volatile("PUSH {lr}");
 
     /* push r12 */
-    asm volatile("PUSH {r0}");
-    asm volatile("MOV r0, r12");
-    asm volatile("POP {r1}");
-    asm volatile("PUSH {r0}");
-    asm volatile("MOV r12, r1");
+    __ASM volatile("PUSH {r0}");
+    __ASM volatile("MOV r0, r12");
+    __ASM volatile("POP {r1}");
+    __ASM volatile("PUSH {r0}");
+    __ASM volatile("MOV r12, r1");
 
     /* push r11, r10, r9, r8. */
-    asm volatile("MOV r0, r8");
-    asm volatile("MOV r1, r9");
-    asm volatile("MOV r2, r10");
-    asm volatile("MOV r3, r11");
-    asm volatile("PUSH {r0-r3}");
+    __ASM volatile("MOV r0, r8");
+    __ASM volatile("MOV r1, r9");
+    __ASM volatile("MOV r2, r10");
+    __ASM volatile("MOV r3, r11");
+    __ASM volatile("PUSH {r0-r3}");
 
     /* push r7, r6, r5, r4. */
-    asm volatile("PUSH {r4-r7}");
+    __ASM volatile("PUSH {r4-r7}");
 
     /* push value of current handle.*/
-    asm volatile("MOV r0, r12");
-    asm volatile("LDR r1, [r0, #40]"); /* Latest word */
-    asm volatile("PUSH {r1}");
-    asm volatile("LDR r1, [r0, #36]"); /* handle->enabledWsInfo.mainWakeupSourceMask. */
-    asm volatile("PUSH {r1}");
-    asm volatile("LDR r1, [r0, #32]"); /* handle->enabledWsInfo.aonWakeupSourceMask. */
-    asm volatile("PUSH {r1}");
-    asm volatile("LDR r1, [r0, #28]"); /* handle->cm0pUserData. */
-    asm volatile("PUSH {r1}");
-    asm volatile("LDR r1, [r0, #24]"); /* handle->cm0pCallback. */
-    asm volatile("PUSH {r1}");
-    asm volatile("LDR r1, [r0, #20]"); /* handle->cm33UserData. */
-    asm volatile("PUSH {r1}");
-    asm volatile("LDR r1, [r0, #16]"); /* handle->cm33Callback. */
-    asm volatile("PUSH {r1}");
-    asm volatile("LDR r1, [r0, #12]"); /* handle->lpConfig[3]. */
-    asm volatile("PUSH {r1}");
-    asm volatile("LDR r1, [r0, #8]");  /* handle->lpConfig[2]. */
-    asm volatile("PUSH {r1}");
-    asm volatile("LDR r1, [r0, #4]");  /* handle->lpConfig[1]. */
-    asm volatile("PUSH {r1}");
-    asm volatile("LDR r1, [r0, #0]");  /* handle->lpConfig[0]. */
-    asm volatile("PUSH {r1}");
-    asm volatile("PUSH {r0}");
+    __ASM volatile("MOV r0, r12");
+    __ASM volatile("LDR r1, [r0, #40]"); /* Latest word */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("LDR r1, [r0, #36]"); /* handle->enabledWsInfo.mainWakeupSourceMask. */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("LDR r1, [r0, #32]"); /* handle->enabledWsInfo.aonWakeupSourceMask. */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("LDR r1, [r0, #28]"); /* handle->cm0pUserData. */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("LDR r1, [r0, #24]"); /* handle->cm0pCallback. */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("LDR r1, [r0, #20]"); /* handle->cm33UserData. */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("LDR r1, [r0, #16]"); /* handle->cm33Callback. */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("LDR r1, [r0, #12]"); /* handle->lpConfig[3]. */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("LDR r1, [r0, #8]");  /* handle->lpConfig[2]. */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("LDR r1, [r0, #4]");  /* handle->lpConfig[1]. */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("LDR r1, [r0, #0]");  /* handle->lpConfig[0]. */
+    __ASM volatile("PUSH {r1}");
+    __ASM volatile("PUSH {r0}");
 
     /* push aspr, psr, PRIMASK, CONTROL */
-    asm volatile("MRS r0, CONTROL");
-    asm volatile("MRS r1, PRIMASK");
-    asm volatile("MRS r2, psr");
-    asm volatile("MRS r3, apsr");
-    asm volatile("PUSH {r0-r3}");
+    __ASM volatile("MRS r0, CONTROL");
+    __ASM volatile("MRS r1, PRIMASK");
+    __ASM volatile("MRS r2, XPSR");
+    __ASM volatile("MRS r3, APSR");
+    __ASM volatile("PUSH {r0-r3}");
 
     /* save current sp to backup register */
 #if __CORTEX_M == 33U
-    asm volatile("MOV R0, SP");
-    asm volatile("UXTH R1, R0");
-    asm volatile("LDR R2, =0xA009A034");
-    asm volatile("STR R1, [R2]");
-    asm volatile("LSRS R1, R0, #16");
-    asm volatile("LDR R2, =0xA009A038");
-    asm volatile("STR R1, [R2]");
+    __ASM volatile("MOV R0, SP");
+    __ASM volatile("UXTH R1, R0");
+    __ASM volatile("LDR R2, =0xA009A034");
+    __ASM volatile("STR R1, [R2]");
+    __ASM volatile("LSRS R1, R0, #16");
+    __ASM volatile("LDR R2, =0xA009A038");
+    __ASM volatile("STR R1, [R2]");
 #else
-    asm volatile("MOV R0, SP");
-    asm volatile("LDR R2, =0xA009A030");
-    asm volatile("STR R0, [R2]");
+    __ASM volatile("MOV R0, SP");
+    __ASM volatile("LDR R2, =0xA009A030");
+    __ASM volatile("STR R0, [R2]");
 #endif
 
-    asm volatile("MOVS R0, #0");
-    asm volatile("BX LR");
+    __ASM volatile("MOVS R0, #0");
+    __ASM volatile("BX LR");
 
     return 0;
 }
@@ -1721,8 +1721,12 @@ uint32_t Power_PushContext(uint32_t handleAddr)
 #ifdef __IAR_SYSTEMS_ICC__
 #pragma optimize = none
 void Power_LowPowerBoot(void)
-#else
+#elif (defined(__CC_ARM) || defined(__ARMCC_VERSION))
+void Power_LowPowerBoot(void)
+#elif (defined(__GNUC__)) || defined(DOXYGEN_OUTPUT)
 void __attribute__((optimize("O0"))) Power_LowPowerBoot(void)
+#else
+void Power_LowPowerBoot(void)
 #endif
 {
     AON__CGU->PER_CLK_EN |= CGU_PER_CLK_EN_APB_CLK_MASK;
@@ -1730,145 +1734,145 @@ void __attribute__((optimize("O0"))) Power_LowPowerBoot(void)
 #if __CORTEX_M == 33U
     if (POWER_BCKP2_VALUE != 0UL)
     {
-        asm volatile("MOV sp, %[input]"
+        __ASM volatile("MOV sp, %[input]"
                      : // no C variable outputs
                      : [input] "r"(POWER_BCKP2_VALUE)
                      : // No need to tell nothing to the compiler
         );
-        asm volatile("ISB");
+        __ASM volatile("ISB");
 #else
     if (POWER_BCKP1_MSB_VALUE != 0UL)
     {
-        asm volatile("MOV sp, %[input]"
+        __ASM volatile("MOV sp, %[input]"
                      : // no C variable outputs
                      : [input] "r"(POWER_BCKP1_MSB_VALUE)
                      : // No need to tell nothing to the compiler
         );
 #endif
 
-        asm volatile("POP {r0-r3}");
-        asm volatile("MSR CONTROL, r0");
-        asm volatile("MSR PRIMASK, r1");
+        __ASM volatile("POP {r0-r3}");
+        __ASM volatile("MSR CONTROL, r0");
+        __ASM volatile("MSR PRIMASK, r1");
 #ifdef __IAR_SYSTEMS_ICC__
-        __asm volatile("MSR psr, r2");
-        __asm volatile("MSR APSR, r3");
+        __ASM volatile("MSR psr, r2");
+        __ASM volatile("MSR APSR, r3");
 #else
-        __asm volatile("MSR psr_nzcvq, r2");
-        __asm volatile("MSR APSR_nzcvq, r3");
+        __ASM volatile("MSR xPSR_nzcvq, r2");
+        __ASM volatile("MSR APSR_nzcvq, r3");
 #endif
-        asm volatile("ISB");
+        __ASM volatile("ISB");
 
         /* Restore handle value. */
-        asm volatile("POP {r0}"); /* handle address. */
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("SUBS %[output], r0, %[offset]"
+        __ASM volatile("POP {r0}"); /* handle address. */
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("SUBS %[output], r0, %[offset]"
                      : [output] "=r"(g_Handle_Offset)
                      : [offset] "r"(POWER_SHARED_RAM_BASE_ADDR)
                      : "r0");
 #else
-        asm volatile("SUB %[output], r0, %[offset]"
+        __ASM volatile("SUB %[output], r0, %[offset]"
                      : [output] "=r"(g_Handle_Offset)
                      : [offset] "r"(POWER_SHARED_RAM_BASE_ADDR)
                      : "r0");
 #endif
-        asm volatile("ISB");
+        __ASM volatile("ISB");
 
-        asm volatile("MOV r0, %[input]"
+        __ASM volatile("MOV r0, %[input]"
                      :               // no C variable outputs
                      : [input] "r"(g_Handle_Offset + POWER_SHARED_RAM_BASE_ADDR)
                      :               // No need to tell nothing to the compiler
         );
-        asm volatile("POP {r1-r7}"); /* first 7 words of handle. */
-        asm volatile("STR r1, [r0]");
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("ADDS r0, r0, #4");
+        __ASM volatile("POP {r1-r7}"); /* first 7 words of handle. */
+        __ASM volatile("STR r1, [r0]");
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("ADDS r0, r0, #4");
 #else
-        asm volatile("ADD r0, r0, #4");
+        __ASM volatile("ADD r0, r0, #4");
 #endif
-        asm volatile("STR r2, [r0]");
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("ADDS r0, r0, #4");
+        __ASM volatile("STR r2, [r0]");
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("ADDS r0, r0, #4");
 #else
-        asm volatile("ADD r0, r0, #4");
+        __ASM volatile("ADD r0, r0, #4");
 #endif
-        asm volatile("STR r3, [r0]");
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("ADDS r0, r0, #4");
+        __ASM volatile("STR r3, [r0]");
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("ADDS r0, r0, #4");
 #else
-        asm volatile("ADD r0, r0, #4");
+        __ASM volatile("ADD r0, r0, #4");
 #endif
-        asm volatile("STR r4, [r0]");
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("ADDS r0, r0, #4");
+        __ASM volatile("STR r4, [r0]");
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("ADDS r0, r0, #4");
 #else
-        asm volatile("ADD r0, r0, #4");
+        __ASM volatile("ADD r0, r0, #4");
 #endif
-        asm volatile("STR r5, [r0]");
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("ADDS r0, r0, #4");
+        __ASM volatile("STR r5, [r0]");
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("ADDS r0, r0, #4");
 #else
-        asm volatile("ADD r0, r0, #4");
+        __ASM volatile("ADD r0, r0, #4");
 #endif
-        asm volatile("STR r6, [r0]");
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("ADDS r0, r0, #4");
+        __ASM volatile("STR r6, [r0]");
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("ADDS r0, r0, #4");
 #else
-        asm volatile("ADD r0, r0, #4");
+        __ASM volatile("ADD r0, r0, #4");
 #endif
-        asm volatile("STR r7, [r0]");
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("ADDS r0, r0, #4");
+        __ASM volatile("STR r7, [r0]");
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("ADDS r0, r0, #4");
 #else
-        asm volatile("ADD r0, r0, #4");
+        __ASM volatile("ADD r0, r0, #4");
 #endif
-        asm volatile("POP {r1-r4}"); /*left 4 words of handle. */
-        asm volatile("STR r1, [r0]");
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("ADDS r0, r0, #4");
+        __ASM volatile("POP {r1-r4}"); /*left 4 words of handle. */
+        __ASM volatile("STR r1, [r0]");
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("ADDS r0, r0, #4");
 #else
-        asm volatile("ADD r0, r0, #4");
+        __ASM volatile("ADD r0, r0, #4");
 #endif
-        asm volatile("STR r2, [r0]");
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("ADDS r0, r0, #4");
+        __ASM volatile("STR r2, [r0]");
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("ADDS r0, r0, #4");
 #else
-        asm volatile("ADD r0, r0, #4");
+        __ASM volatile("ADD r0, r0, #4");
 #endif
-        asm volatile("STR r3, [r0]");
-#if __IAR_SYSTEMS_ICC__
-        asm volatile("ADDS r0, r0, #4");
+        __ASM volatile("STR r3, [r0]");
+#if (defined(__ICCARM__)) || ((defined(__CC_ARM) || defined(__ARMCC_VERSION)))
+        __ASM volatile("ADDS r0, r0, #4");
 #else
-        asm volatile("ADD r0, r0, #4");
+        __ASM volatile("ADD r0, r0, #4");
 #endif
-        asm volatile("STR r4, [r0]");
-        asm volatile("ISB");
+        __ASM volatile("STR r4, [r0]");
+        __ASM volatile("ISB");
         /* Restore r4-r7. */
-        asm volatile("POP {r4-r7}");
-        asm volatile("ISB");
+        __ASM volatile("POP {r4-r7}");
+        __ASM volatile("ISB");
         /* Restore r8-r12. */
-        asm volatile("POP {r0-r4}");
-        asm volatile("MOV r8, r0");
-        asm volatile("MOV r9, r1");
-        asm volatile("MOV r10, r2");
-        asm volatile("MOV r11, r3");
-        asm volatile("MOV r12, r4");
-        asm volatile("ISB");
+        __ASM volatile("POP {r0-r4}");
+        __ASM volatile("MOV r8, r0");
+        __ASM volatile("MOV r9, r1");
+        __ASM volatile("MOV r10, r2");
+        __ASM volatile("MOV r11, r3");
+        __ASM volatile("MOV r12, r4");
+        __ASM volatile("ISB");
         /* Restore LR */
-        asm volatile("POP {r0}"); /* saved PC */
-        asm volatile("MOV lr, r0");
-        asm volatile("ISB");
+        __ASM volatile("POP {r0}"); /* saved PC */
+        __ASM volatile("MOV lr, r0");
+        __ASM volatile("ISB");
 #ifdef __ARMVFP__
-        asm volatile("VLDMIA sp!, {D8}");
-        asm volatile("VLDMIA sp!, {D9}");
-        asm volatile("VLDMIA sp!, {D10}");
-        asm volatile("VLDMIA sp!, {D11}");
-        asm volatile("VLDMIA sp!, {D12}");
-        asm volatile("VLDMIA sp!, {D13}");
-        asm volatile("VLDMIA sp!, {D14}");
-        asm volatile("VLDMIA sp!, {D15}");
+        __ASM volatile("VLDMIA sp!, {D8}");
+        __ASM volatile("VLDMIA sp!, {D9}");
+        __ASM volatile("VLDMIA sp!, {D10}");
+        __ASM volatile("VLDMIA sp!, {D11}");
+        __ASM volatile("VLDMIA sp!, {D12}");
+        __ASM volatile("VLDMIA sp!, {D13}");
+        __ASM volatile("VLDMIA sp!, {D14}");
+        __ASM volatile("VLDMIA sp!, {D15}");
 #endif
-        asm volatile("MOVS r0, #1");
-        asm volatile("BX lr");
+        __ASM volatile("MOVS r0, #1");
+        __ASM volatile("BX lr");
     }
 }
 

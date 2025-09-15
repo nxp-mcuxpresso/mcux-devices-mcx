@@ -912,7 +912,7 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config)
     {
         PMU_UpdateVDDCoreInActiveMode(AON__PMU, config->vddCoreAonVoltage);
     }
-    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
+    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain) & 0xFFUL));
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, false);
     SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
@@ -976,7 +976,7 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config)
             SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
 
             /*2. Update SMM settings. */
-            SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
+            SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain) & 0xFFUL));
             SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
             SMM_ShutDownBandgapInLowPowerModes(AON__SMM, false);
             SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
@@ -1153,7 +1153,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
 
     /*3. Configuration for SMM and PMU. */
     PMU_UpdateVDDCoreInLpMode(AON__PMU, (uint8_t)config->dpd2VddCoreAonVoltage);
-    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
+    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain) & 0xFFUL));
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
     SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
@@ -1258,7 +1258,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
                 ADVC_Disable();
             }
             PMU_UpdateVDDCoreInLpMode(AON__PMU, (uint8_t)config->dpd2VddCoreAonVoltage);
-            SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain)));
+            SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain) & 0xFFUL));
             SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
             SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
             SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);

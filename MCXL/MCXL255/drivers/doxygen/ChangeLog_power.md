@@ -4,6 +4,7 @@
 - Improvements
     - Added "disableFRO10M" in power_dpd1_config_t to support disable FRO10M in power driver.
     - Use the __ASM macro instead of asm to ensure compatibility across different toolchains.
+    - Fixed violation of CERT INT31-C of cast "~config->aonRamArraysToRetain" for int to uint8_t.
 
 ## [2.1.0]
 

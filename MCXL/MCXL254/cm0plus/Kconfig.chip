@@ -45,7 +45,7 @@ config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
 
 config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
     string
-    default "MCXL254xxx_M0+"
+    default "MCXL254_M0P"
 
 config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
     string
@@ -54,4 +54,4 @@ config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
 
 config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
-    default "MCXL254xxx_M0+"
+    default "MCXL254_M0P"

@@ -52,7 +52,7 @@ config MCUX_TOOLCHAIN_MCUX_STARTUP
 
 config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
     string
-    default "MCXL253xxx" if MCUX_HW_DEVICE_ID_MCXL253xxx
+    default "MCXL253_M33" if MCUX_HW_DEVICE_ID_MCXL253xxx
 
 config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
     string
@@ -61,7 +61,7 @@ config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
 
 config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
-    default "MCXL253xxx" if MCUX_HW_DEVICE_ID_MCXL253xxx
+    default "MCXL253_M33" if MCUX_HW_DEVICE_ID_MCXL253xxx
 
 # ip information
 config MCUX_HW_IP_DriverType_ARM

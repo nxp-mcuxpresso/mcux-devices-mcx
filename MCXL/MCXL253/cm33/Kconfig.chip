@@ -59,7 +59,7 @@ config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
 
 config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
     string
-    default "MCXL253xxx_M33"
+    default "MCXL253_M33"
 
 config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
     string
@@ -68,7 +68,7 @@ config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
 
 config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
-    default "MCXL253xxx_M33"
+    default "MCXL253_M33"
 
 
 # CM33 only ip information

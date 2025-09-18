@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.2.6]
+
+- Bug Fixes:
+  - Fixed violations of the CERT INT31-C.
+
 ## [2.2.5]
 
 - Improvements:

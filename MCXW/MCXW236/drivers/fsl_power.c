@@ -688,86 +688,110 @@ static status_t MeasureVoltage(uint32_t instance, uint32_t *voltage)
         kBOD_LEVEL_2725mv, kBOD_LEVEL_2750mv, kBOD_LEVEL_2775mv, kBOD_LEVEL_2800mv, kBOD_LEVEL_2825mv,
         kBOD_LEVEL_2850mv, kBOD_LEVEL_2875mv, kBOD_LEVEL_2900mv, kBOD_LEVEL_2925mv, kBOD_LEVEL_2950mv,
         kBOD_LEVEL_2975mv, kBOD_LEVEL_3000mv, kBOD_LEVEL_3025mv, kBOD_LEVEL_3050mv, kBOD_LEVEL_3075mv,
-        kBOD_LEVEL_3100mv};
-    uint32_t intMask =
-        instance == 0 ? ANACTRL_BOD_DCDC_INT_CTRL_BOD1_INT_ENABLE_MASK : ANACTRL_BOD_DCDC_INT_CTRL_BOD2_INT_ENABLE_MASK;
-    uint32_t resetMask               = instance == 0 ?
-                                           PMC_RESETCTRL_BOD1RESETENA_SECURE_MASK | PMC_RESETCTRL_BOD1RESETENA_SECURE_DP_MASK :
-                                           PMC_RESETCTRL_BOD2RESETENA_SECURE_MASK | PMC_RESETCTRL_BOD2RESETENA_SECURE_DP_MASK;
-    IRQn_Type nvicBodIrq             = instance == 0 ? BOD1_IRQn : BOD2_IRQn;
-    void (*setBodLevel)(bod_level_t) = instance == 0 ? POWER_SetBod1Level : POWER_SetBod2Level;
-    bool (*isBodActive)(void)        = instance == 0 ? POWER_IsBOD1Active : POWER_IsBOD2Active;
-    uint32_t regValue;
-    int32_t direction;
-    uint32_t bodActive;
-    uint32_t previousBodActive;
-    /* Store previous measurement as a static variable. Always start from previous measurement */
-    static uint32_t currentSetting = ARRAY_SIZE(levelSettings) - 1;
+        kBOD_LEVEL_3100mv
+    };
 
-    if (instance > 1)
+    if (instance > 1U || voltage == NULL)
     {
         return kStatus_InvalidArgument;
     }
 
-    /* Store interrupt settings */
-    uint32_t storedIntVal = ANACTRL->BOD_DCDC_INT_CTRL & intMask;
-    /* Store NVIC interrupt setting */
-    uint32_t storedNvicBodIrq = NVIC_GetEnableIRQ(nvicBodIrq);
-    /* Store NVIC SYS interrupt setting */
-    uint32_t storedNvicSysIrq = NVIC_GetEnableIRQ(WDT_BOD_IRQn);
-    /* Store reset settings */
-    uint32_t storedResetVal = PMC->RESETCTRL & resetMask;
+    const uint32_t intMask = (instance == 0U)
+        ? ANACTRL_BOD_DCDC_INT_CTRL_BOD1_INT_ENABLE_MASK
+        : ANACTRL_BOD_DCDC_INT_CTRL_BOD2_INT_ENABLE_MASK;
 
-    /* Disable NVIC interrupt */
+    const uint32_t resetMask = (instance == 0U)
+        ? (PMC_RESETCTRL_BOD1RESETENA_SECURE_MASK | PMC_RESETCTRL_BOD1RESETENA_SECURE_DP_MASK)
+        : (PMC_RESETCTRL_BOD2RESETENA_SECURE_MASK | PMC_RESETCTRL_BOD2RESETENA_SECURE_DP_MASK);
+
+    IRQn_Type nvicBodIrq             = (instance == 0U) ? BOD1_IRQn : BOD2_IRQn;
+    void (*setBodLevel)(bod_level_t) = (instance == 0U) ? POWER_SetBod1Level : POWER_SetBod2Level;
+    bool (*isBodActive)(void)        = (instance == 0U) ? POWER_IsBOD1Active : POWER_IsBOD2Active;
+
+    int32_t direction;
+    uint32_t bodActive;
+    uint32_t previousBodActive;
+
+    /* Store previous measurement as a static variable. Always start from previous measurement */
+    static int32_t currentSetting = (int32_t)(ARRAY_SIZE(levelSettings) - 1U);
+    const  int32_t maxIndex       = (int32_t)(ARRAY_SIZE(levelSettings) - 1U);
+
+    /* Store interrupt settings */
+    const uint32_t storedIntVal     = ANACTRL->BOD_DCDC_INT_CTRL & intMask;
+    /* Store NVIC interrupt setting */
+    const uint32_t storedNvicBodIrq = NVIC_GetEnableIRQ(nvicBodIrq);
+    /* Store NVIC SYS interrupt setting */
+    const uint32_t storedNvicSysIrq = NVIC_GetEnableIRQ(WDT_BOD_IRQn);
+    /* Store reset settings */
+    const uint32_t storedResetVal   = PMC->RESETCTRL & resetMask;
+
+    /* Disable NVIC interrupts */
     NVIC_DisableIRQ(nvicBodIrq);
     NVIC_DisableIRQ(WDT_BOD_IRQn);
 
-    /* Enable interrupts */
-    (instance == 0 ? EnableBOD1Interrupts : EnableBOD2Interrupts)();
+    /* Enable BOD interrupts */
+    (instance == 0U ? EnableBOD1Interrupts : EnableBOD2Interrupts)();
 
-    /* Disable reset */
-    (instance == 0 ? DisableBOD1Resets : DisableBOD2Resets)();
+    /* Disable BOD resets while measuring */
+    (instance == 0U ? DisableBOD1Resets : DisableBOD2Resets)();
 
     /* Start from previous measurement */
-    setBodLevel((bod_level_t)levelSettings[currentSetting]);
+    if (currentSetting < 0) 
+    {
+        currentSetting = 0;
+    } 
+    else if (currentSetting > maxIndex) 
+    {
+        currentSetting = maxIndex;
+    }
+
+    setBodLevel((bod_level_t)levelSettings[(size_t)currentSetting]);
     DelayUs(STABILIZATION_TIME_IN_US);
 
-    /* The actual voltage is determined by changing the BOD trigger level until the level crosses Vbat_hv.
-     * Determine direction of change from bodActive: if Vbat_hv is higher than trigger level,
-     * the trigger level is increased each iteration until it is no longer below Vbat and vice versa.*/
-    bodActive = previousBodActive = isBodActive();
-    direction                     = bodActive ? -1 : 1;
+    /* Determine direction from current BOD state */
+    bodActive         = isBodActive();
+    previousBodActive = bodActive;
+    direction         = bodActive ? -1 : 1;
 
-    /* Change level until bodActive status changes or until end of range (based on direction) */
-    while ((bodActive == previousBodActive) && ((currentSetting < ARRAY_SIZE(levelSettings) - 1) || direction < 0) &&
-           ((currentSetting > 0) || direction > 0))
+    /* Walk the threshold until the status flips or bounds are reached */
+    while ((bodActive == previousBodActive))
     {
-        /* Update trigger level */
-        currentSetting += direction;
-        setBodLevel((bod_level_t)levelSettings[currentSetting]);
+        int32_t next = currentSetting + direction;
+
+        /* Stop if the next step would go out of range */
+        if (next < 0 || next > maxIndex) 
+        {
+            break;
+        }
+
+        currentSetting = next;
+
+        setBodLevel((bod_level_t)levelSettings[(size_t)currentSetting]);
         DelayUs(STABILIZATION_TIME_IN_US);
+
         previousBodActive = bodActive;
         bodActive         = isBodActive();
     }
 
-    /* Is Vbat_hv higher? */
-    if (!bodActive && currentSetting < ARRAY_SIZE(levelSettings) - 1)
+    /* If Vbat_hv is above the last tested trigger, step up one (if possible) */
+    if ((!bodActive) && (currentSetting < maxIndex))
     {
-        /* Yes, this means that trigger level is one step below actual voltage level. Adjust level. */
         currentSetting++;
     }
 
-    /* Convert setting into voltage */
-    *voltage = 1100 + currentSetting * 25;
+    /* Convert index to millivolts: 1100 mV + N * 25 mV */
+    uint32_t mv = 1100u + (uint32_t)currentSetting * 25u;
+    *voltage    = mv;
 
     /* Restore reset settings */
-    regValue = PMC->RESETCTRL;
-    regValue = (regValue & ~resetMask) | storedResetVal;
-    /* Restore interrupt settings */
-    ANACTRL->BOD_DCDC_INT_CTRL |= storedIntVal;
-    /* Restore NVIC interrupt setting */
+    PMC->RESETCTRL = (PMC->RESETCTRL & ~resetMask) | storedResetVal;
+
+    /* Restore interrupt settings (clear then set only the masked bits) */
+    ANACTRL->BOD_DCDC_INT_CTRL =
+        (ANACTRL->BOD_DCDC_INT_CTRL & ~intMask) | storedIntVal;
+
+    /* Restore NVIC interrupt enables */
     (storedNvicBodIrq ? NVIC_EnableIRQ : NVIC_DisableIRQ)(nvicBodIrq);
-    /* Restore NVIC SYS interrupt setting */
     (storedNvicSysIrq ? NVIC_EnableIRQ : NVIC_DisableIRQ)(WDT_BOD_IRQn);
 
     return kStatus_Success;

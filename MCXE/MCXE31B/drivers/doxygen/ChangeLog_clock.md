@@ -1,8 +1,10 @@
 # CLOCK
 
 ## [2.1.3]
-- Bug fix
+- Bug fixes
   - Fixed the issue reported by CERT INT31-C checker. 
+- Improvements
+  - Added configurable timeout support for endless while loop. 
 ## [2.1.2]
 - New features
   - Added EMAC_CLOCKS. 

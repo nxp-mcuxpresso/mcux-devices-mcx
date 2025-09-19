@@ -1,7 +1,16 @@
-# Copyright 2024 NXP
+# Copyright 2024-2025 NXP
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
     config MCUX_COMPONENT_driver.clock
          bool "Use driver clock"
          default y
+
+if MCUX_COMPONENT_driver.clock
+    config CLOCK_RETRY_TIMES
+        int "Max loops to wait for operation complete (0 means wait forever)"
+        default 0
+        help
+          This parameter defines how many loops to check completion before return timeout.
+          If defined as 0, driver will wait forever until completion.
+endif

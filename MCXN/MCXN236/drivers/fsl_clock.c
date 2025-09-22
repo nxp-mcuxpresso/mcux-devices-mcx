@@ -754,6 +754,8 @@ void VBAT_SetOscConfig(VBAT_Type *base, const vbat_osc_config_t *config)
  */
 void CLOCK_AttachClk(clock_attach_id_t connection)
 {
+    assert(connection < kNONE_to_NONE);
+
     uint16_t mux;
     uint8_t sel;
     uint16_t item;
@@ -785,6 +787,7 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
                 }
                 else
                 {
+                    assert(mux <= CM_I3C1FCLKSEL);
                     ((volatile uint32_t *)pClkSel)[mux] = sel;
                 }
             }
@@ -803,6 +806,8 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
  */
 clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t attachId)
 {
+    assert(attachId < kNONE_to_NONE);
+
     uint16_t mux;
     uint32_t actualSel;
     uint32_t tmp32 = (uint32_t)attachId;
@@ -829,16 +834,19 @@ clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t attachId)
             }
             else
             {
+                assert(mux <= CM_I3C1FCLKSEL);
                 actualSel = (uint32_t)((volatile uint32_t *)pClkSel)[mux];
             }
 
             /* Consider the combination of two registers */
+            assert(actualSel < UINT32_MAX);
             actualAttachId |= CLK_ATTACH_ID(mux, actualSel, i);
         }
         tmp32 = GET_ID_NEXT_ITEM(tmp32); /*!<  pick up next descriptor */
     }
 
     actualAttachId |= selector;
+    assert(actualAttachId < kNONE_to_NONE);
 
     return (clock_attach_id_t)actualAttachId;
 }
@@ -2402,6 +2410,7 @@ static pll_error_t CLOCK_GetPllConfig(uint32_t finHz, uint32_t foutHz, pll_setup
     s_PllSetupCacheStruct[s_PllSetupCacheIdx].pllsscg[0] = pSetup->pllsscg[0];
     s_PllSetupCacheStruct[s_PllSetupCacheIdx].pllsscg[1] = pSetup->pllsscg[1];
     /* Update the index for next available buffer. */
+    assert(s_PllSetupCacheIdx < UINT32_MAX);
     s_PllSetupCacheIdx = (s_PllSetupCacheIdx + 1U) % CLOCK_USR_CFG_PLL_CONFIG_CACHE_COUNT;
 #endif /* CLOCK_USR_CFG_PLL_CONFIG_CACHE_COUNT */
 
@@ -2551,7 +2560,7 @@ static pll_error_t CLOCK_GetPllConfigInternal(uint32_t finHz, uint32_t foutHz, p
         fc = ((uint64_t)(uint32_t)(fccoHz % nDivOutHz) << 25UL) / nDivOutHz;
 
         /* Set multiplier */
-        pSetup->pllsscg[0] = (uint32_t)(PLL_SSCG_MD_INT_SET(pllMultiplier) | PLL_SSCG_MD_FRACT_SET((uint32_t)fc));
+        pSetup->pllsscg[0] = (uint32_t)((PLL_SSCG_MD_INT_SET(pllMultiplier) | PLL_SSCG_MD_FRACT_SET((uint32_t)fc)) & 0xFFFFFFFFU);
         pSetup->pllsscg[1] = (uint32_t)(PLL_SSCG_MD_INT_SET(pllMultiplier) >> 32U) | SCG_APLLSSCG1_SEL_SS_MDIV_MASK;
     }
 
@@ -2683,7 +2692,7 @@ bool CLOCK_EnableUsbhsPhyPllClock(clock_usb_phy_src_t src, uint32_t freq)
     {
         return false;
     }
-    multiplier = (uint16_t)(480000000UL / freq);
+    multiplier = (uint16_t)((480000000UL / freq) & 0xFFFFU);
 
     switch (multiplier)
     {

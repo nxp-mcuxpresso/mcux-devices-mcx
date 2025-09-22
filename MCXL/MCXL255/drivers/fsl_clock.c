@@ -506,10 +506,8 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name)
             const uint32_t enabled = reg_val & (1U << en_shift);
             if(enabled)
             {
-                const uint32_t div_shift = 3U*(en_shift+1U);
-                const uint32_t value = reg_val & (7U << div_shift);
-
-                return value + 1U;
+                const uint32_t div_shift = 3U * (en_shift + 1U);
+                return ((reg_val >> div_shift) & 7U) + 1U;
             }
             else
             {

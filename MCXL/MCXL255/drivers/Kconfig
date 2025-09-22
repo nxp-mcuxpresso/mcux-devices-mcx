@@ -35,7 +35,21 @@ menu "Device specific drivers configuration"
          select MCUX_COMPONENT_driver.smm
          select MCUX_COMPONENT_driver.pls_pmu
          select MCUX_COMPONENT_driver.advc
-         
+
+     if MCUX_COMPONENT_driver.power
+          config POWER_MU_TRANSFER_TIMEOUT
+               int "Maximum number of loops to wait for a response from the other core. A value of 0 indicates an infinite wait"
+               default 0
+               help
+               The g_powerMuTransferState is updated when the secondary core parses the request message and sends a response.
+
+          config POWER_CONTEXT_SAVING_DPD2_TO_DPD1_SYNC_TIMEOUT
+               int "Specifies the maximum number of iterations to wait for dual-core synchronization after waking up from DPD2 to DPD1 with context saving enabled. Set to 0 to wait indefinitely"
+               default 0
+               help
+               After waking up from DPD2 to DPD1 with context saving enabled, the CM0+ core waits to synchronize with the primary core.
+     endif
+
     config MCUX_COMPONENT_driver.reset
          bool "reset"
          default y

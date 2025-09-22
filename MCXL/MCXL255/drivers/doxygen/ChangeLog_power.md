@@ -1,5 +1,12 @@
 # Power
 
+## [2.2.0]
+- Improvements
+    - Updated the Power_CreateHandle() function to include a new second parameter, power_drv_config_t, allowing configuration without synchronizing the secondary core within the function.
+    - Added a new function, Power_SyncDualCoreBlocking(), to enable synchronization between dual cores.
+    - Improved Doxygen comments for better documentation.
+    - Introduced a timeout mechanism for the while loop to enhance reliability.
+
 ## [2.1.1]
 - Improvements
     - Added "disableFRO10M" in power_dpd1_config_t to support disable FRO10M in power driver.

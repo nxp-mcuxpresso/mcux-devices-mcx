@@ -1,5 +1,9 @@
 # CLOCK
 
+## [1.2.0]
+
+- Improved `CLOCK_InitRosc()` function
+
 ## [1.1.0]
 
 - Added support of INPUTMUX

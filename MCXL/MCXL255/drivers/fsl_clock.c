@@ -703,156 +703,146 @@ static status_t is_xtal_clkout_vbat_ok()
  */
 status_t CLOCK_InitRosc(bool vbat_over3V)
 {
-  status_t status;
-  uint32_t supdet;
-  
-  // Set the XTAL32 Output Enable
-  AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_XTAL32_OUT_EN_MASK;
-  delay_ms(1U); 
-  
-  // reset RTC_AON
-  AON__RTC_AON->CONFIG &= ~RTC_CONFIG_SW_RST_MASK;
-  delay_ms(4U); 
-  
-  // Set RTC_ANA_RESET_N_VBAT and RTC_DIG_RESE_N to 1'b0 to put in reset (Do ana 3 times)
-  AON__SMM->RTC_DCDC_CNTRL &= ~(SMM_RTC_DCDC_CNTRL_DGTL_RST_N_MASK | SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK);
-  delay_ms(1U); 
+    uint32_t supdet;
+    uint32_t i = 0;
+    uint32_t timeout = 500U;
+    status_t status = (status_t)kStatus_Fail;
 
-
-  // Release reset for ANA
-  AON__SMM->RTC_DCDC_CNTRL |= SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK;
-  delay_ms(3U); 
-  AON__SMM->RTC_DCDC_CNTRL |= SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK;
-  delay_ms(3U);
-  AON__SMM->RTC_DCDC_CNTRL |= SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK;
-  delay_ms(1U);
-
-  // Enable current mirror
-  AON__SMM->RTC_XTAL_CONFG1 |= SMM_RTC_XTAL_CONFG1_CRNT_MROR_EN_MASK;
-  delay_ms(1U);
-
-  AON__SMM->BIAS_CTRL &= ~(SMM_BIAS_CTRL_EN_OSC_IREF_CM_TRIM_1NA_MASK | SMM_BIAS_CTRL_EN_OSC_IREF_CM_TRIM_2NA_MASK);
-  delay_ms(2U);
-
-  // enable 32khz
-  AON__SYSCON_AON->XTAL_32K_CLKCTRL &= ~SYSCON_AON_XTAL_32K_CLKCTRL_XTAL_32K_CLK_CTRL_MASK;
-  delay_ms(1U);
-
-  // Configure  RTC_XO settings CMP_IBIAS_SOX and DLY_IBIAS_SOX are TBD based on validation
-  AON__SMM->RTC_XTAL_CONFG1 &= ~(SMM_RTC_XTAL_CONFG1_AMPSEL_MASK | SMM_RTC_XTAL_CONFG1_CMP_IBIAS_SOX_MASK);
-  delay_ms(2U); 
-
-  AON__SMM->RTC_XTAL_CONFG2 &= ~(SMM_RTC_XTAL_CONFG2_DLY_IBIAS_SOX_MASK | SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX_MASK | SMM_RTC_XTAL_CONFG2_HYSTEL_MASK | SMM_RTC_XTAL_CONFG2_GMSEL_MASK);
-  delay_ms(1U);
-
-  // XTAL_SUPDET_TM_SOX_VBAT=2'b00 if VBAT <3 VXTAL_SUPDET_TM_SOX_VBAT=2'b01 if VBAT >=3
-  supdet = (vbat_over3V) ? 1U : 0U;
-  AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_SUPDET_TM_SOX_MASK) | SMM_RTC_XTAL_CONFG2_SUPDET_TM_SOX(supdet);
-  delay_ms(2U);
-
-  AON__SMM->RTC_ANLG_XTAL &= ~SMM_RTC_ANLG_XTAL_RTC_ALV_INDCTN_MASK;
-  delay_ms(1U);
-  AON__SMM->RTC_XTAL_CONFG2 &= ~SMM_RTC_XTAL_CONFG2_XTM_MASK;
-  delay_ms(1U);
-
-  AON__SMM->BIAS_CTRL &= ~(SMM_BIAS_CTRL_BIAS_EN_MASK | SMM_BIAS_CTRL_COARSE_MASK);
-  delay_ms(1U);
-
-  // Configure the load cap for RTC XO swithced mode
-  AON__SMM->RTC_XTAL_CONFG2 |= SMM_RTC_XTAL_CONFG2_CAP_BNK_EN_MASK;
-  delay_ms(3U);
-  AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) | SMM_RTC_XTAL_CONFG1_CB_XI(0x3);
-  delay_ms(1U);
-  AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XO_MASK) | SMM_RTC_XTAL_CONFG1_CB_XO(0x3);//THIS MISSING FROM SE
-  delay_ms(1U);
-  AON__SMM->BIAS_CTRL |= SMM_BIAS_CTRL_XTAL_SOX_4P_DIS_MASK;
-  delay_ms(2U);
-
-  // Enable RTC Alive Detector in SMM
-  AON__SMM->RTC_ANLG_XTAL |= SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
-  delay_ms(2U);
-  
-  /* LOCK  --------------------------------------- */
-  
-  status = (status_t)kStatus_Success;
-
-  for (uint32_t dly_cap_sox = 0; dly_cap_sox <= 7; dly_cap_sox++)
-  {
-    if (dly_cap_sox == 4)
+    for (i = 0; i < 3U; i++)
     {
-      /*Sweep from 3'd0 to 3'd7 except 3'd4 */
-      delay_ms(1U);
-      continue;
-    }
-
-    AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX_MASK) | SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX(dly_cap_sox);
-    delay_ms(1U);
-    for (uint32_t ampsel = 2; ampsel <= 3; ampsel++)
-    {
-      AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_AMPSEL_SHIFT) | SMM_RTC_XTAL_CONFG1_AMPSEL(ampsel);
-      delay_ms(1U);
-
-      for (uint32_t gmsel = 0; gmsel <= 3; gmsel++)
-      {
+        AON__SMM->RTC_DCDC_CNTRL = SMM_RTC_DCDC_CNTRL_ISO_MASK | SMM_RTC_DCDC_CNTRL_DGTL_RST_N_MASK;
         delay_ms(1U);
-
-        AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_GMSEL_MASK) | SMM_RTC_XTAL_CONFG2_GMSEL(gmsel);
-        delay_ms(1U);//added 05/14
-        /*
-         * Enable the RTC XO:
-         * Phase 1: Startup Mode
-         * 1)XTAL_EN=1'b1, XTAL_EN_SOX=1'b1
-         * Wait 500ms (typical)/2s (worst)
-         */
-        AON__SMM->RTC_XTAL_CONFG1 |= SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
-        delay_ms(1U);//added 05/14
-        AON__SMM->RTC_XTAL_CONFG2 |= SMM_RTC_XTAL_CONFG2_SOX_EN_MASK;
-        delay_ms(500U);
-        if (is_xtal_clkout_vbat_ok() == (status_t)kStatus_Success)
-        {
-          delay_ms(1U);
-          goto good_pair_l;
-        }
-        /*
-         * Disable the XO by XTAL_EN=1'b0 and then try each of the possible combinations:
-         *  1) XTAL_AMPSEL=2'd2 and 2'd3
-         *  2) XTAL_GMSEL=2'd0 to 2'd3
-         */
-        AON__SMM->RTC_XTAL_CONFG1 &= ~SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
-
-      }
     }
-    status = (status_t)kStatus_Fail;
-    goto exit_l;
 
-  good_pair_l:
-    /*
-     * Good pair of ampsel and gmsel were found
-     * XO started and ready to move to switched mode.
-     * Phase 2: Switched Mode
-     * 1)XTAL_EN=1'b1, XTAL_EN_SOX=1'b1, XTAL_CB_XI=4'd0
-     * Wait 
-     * 2) Toggle XTAL_EN_SOX=1'b0 and wait 
-     */
-    AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) | SMM_RTC_XTAL_CONFG1_CB_XI(0x0);
-    delay_ms(2000U);
-    AON__SMM->RTC_XTAL_CONFG2 &= ~SMM_RTC_XTAL_CONFG2_SOX_EN_MASK;
-    delay_ms(1000U);
-    if (is_xtal_clkout_vbat_ok() == (status_t)kStatus_Success)
+    for (i = 0; i < 3U; i++)
     {
-      status = (status_t)kStatus_Success;
-      delay_ms(1U);
-      goto exit_l;
+        AON__SMM->RTC_DCDC_CNTRL =
+            SMM_RTC_DCDC_CNTRL_ISO_MASK | SMM_RTC_DCDC_CNTRL_DGTL_RST_N_MASK | SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK;
+        delay_ms(1U);
     }
-    /*
-     * Disable the XO by XTAL_EN=1'b0 and then change the charge injection
-     */
-    AON__SMM->RTC_XTAL_CONFG1 &= ~SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
-  }
-  status = (status_t)kStatus_Fail; //RTC_LOCK_STATUS_CRYSTAL_NOT_LOCKED_AFTER_SWITCHED_MODE;
-  delay_ms(1U);
-exit_l:  
-  return status;
+    
+    /* Enable current mirror,set initial AMP and GM, set everything else to default */
+    AON__SMM->RTC_XTAL_CONFG1 = SMM_RTC_XTAL_CONFG1_CRNT_MROR_EN_MASK | SMM_RTC_XTAL_CONFG1_AMPSEL(0);
+    delay_ms(2U);
+    AON__SMM->RTC_XTAL_CONFG2 = SMM_RTC_XTAL_CONFG2_GMSEL(0);
+    delay_ms(1U);
+    
+    /* XTAL_SUPDET_TM_SOX_VBAT=0 if VBAT <3 VXTAL_SUPDET_TM_SOX_VBAT=1 if VBAT >=3 */
+    supdet = (vbat_over3V) ? 1U : 0U;
+    AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_SUPDET_TM_SOX_MASK) |
+        SMM_RTC_XTAL_CONFG2_SUPDET_TM_SOX(supdet);
+    delay_ms(1U);
+    
+    /* Disable bias block */
+    AON__SMM->BIAS_CTRL &= ~(SMM_BIAS_CTRL_BIAS_EN_MASK | SMM_BIAS_CTRL_COARSE_MASK);
+    AON__SMM->BIAS_CTRL &= ~(SMM_BIAS_CTRL_EN_OSC_IREF_CM_TRIM_1NA_MASK | SMM_BIAS_CTRL_EN_OSC_IREF_CM_TRIM_2NA_MASK);
+    AON__SMM->BIAS_CTRL |= SMM_BIAS_CTRL_XTAL_SOX_4P_DIS_MASK;
+    delay_ms(1U);
+    
+    /* Configure the load cap for RTC XO swithced mode */
+    AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) | SMM_RTC_XTAL_CONFG1_CB_XI(0x3);
+    delay_ms(1U);
+    AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XO_MASK) | SMM_RTC_XTAL_CONFG1_CB_XO(0x3);
+    delay_ms(1U);
+    AON__SMM->RTC_XTAL_CONFG2 |= SMM_RTC_XTAL_CONFG2_CAP_BNK_EN_MASK;
+    delay_ms(3U);
+    
+    /* Enable RTC alive detector */
+    AON__SMM->RTC_ANLG_XTAL |= SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
+    AON__RTC_AON->RTC_ALV_DTCT &= ~RTC_RTC_ALV_DTCT_BYPASS_MASK;
+    AON__RTC_AON->RTC_ALV_DTCT |= RTC_RTC_ALV_DTCT_DTCT_EN_MASK;
+    
+    for (uint32_t dly = 0; dly <= 7U; dly++)
+    {
+        if (dly == 4U)
+        {
+          /* 4 should not be used based on RM */
+          continue;
+        }
+        
+        AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX_MASK) | SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX(dly);
+        
+        for (uint32_t amp = 0; amp <= 3U; amp++)
+        {
+            /* Skip invalid AMP value (1 is not allowed, only 0, 2, 3) */
+            if (amp == 1U)
+                continue;
+            
+            for (uint32_t gm = 0; gm <= 3U; gm++)
+            {
+                
+                /* Set another AMP and GM values */
+                AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_AMPSEL_MASK) | SMM_RTC_XTAL_CONFG1_AMPSEL(amp);
+                AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_GMSEL_MASK) | SMM_RTC_XTAL_CONFG2_GMSEL(gm);
+                delay_ms(2U);
+
+                /* Enable XTAL */
+                AON__SMM->RTC_XTAL_CONFG1 |= SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
+                delay_ms(1U);
+                AON__SMM->RTC_XTAL_CONFG2 |= SMM_RTC_XTAL_CONFG2_SOX_EN_MASK;
+                delay_ms(100U);
+                
+                timeout = 500U;
+                while ((is_xtal_clkout_vbat_ok() != (status_t)kStatus_Success) && timeout > 0U)
+                {
+                    delay_ms(1U);
+                    timeout--;
+                };
+                
+                if (timeout > 0U)
+                {
+                    break;
+                };
+                
+                /* Disable XTAL */
+                AON__SMM->RTC_XTAL_CONFG1 &= ~SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
+                delay_ms(2U);
+            };
+            
+            if (timeout > 0U)
+            {
+                break;
+            };
+        };
+        
+        /* Use switched mode */
+        AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) | SMM_RTC_XTAL_CONFG1_CB_XI(0x0);
+        delay_ms(100U);
+        AON__SMM->RTC_XTAL_CONFG2 &= ~SMM_RTC_XTAL_CONFG2_SOX_EN_MASK;
+        delay_ms(100U);
+        
+        timeout = 500U;
+        while ((is_xtal_clkout_vbat_ok() != (status_t)kStatus_Success) && timeout > 0U)
+        {
+            delay_ms(1U);
+            timeout--;
+        };
+        
+        if (timeout > 0U)
+        {
+            status = (status_t)kStatus_Success;
+            break;
+        };
+    };
+   
+    /* Enable LDO, set voltage to 0.8V */
+    AON__SMM->RTC_DCDC_CNTRL = SMM_RTC_DCDC_CNTRL_ISO_MASK | SMM_RTC_DCDC_CNTRL_DGTL_RST_N_MASK |
+                               SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK | SMM_RTC_DCDC_CNTRL_LDO_EN_MASK |
+                               SMM_RTC_DCDC_CNTRL_LDO_PULDWN_EN_MASK | SMM_RTC_DCDC_CNTRL_LDO_CONFIG(0x15);
+    delay_ms(10U);
+
+    /* Disable pull down */
+    AON__SMM->RTC_DCDC_CNTRL &= ~SMM_RTC_DCDC_CNTRL_LDO_PULDWN_EN_MASK;
+    AON__SMM->RTC_DCDC_CNTRL &= ~SMM_RTC_DCDC_CNTRL_ISO_MASK;
+    AON__SMM->RTC_DCDC_CNTRL |= SMM_RTC_DCDC_CNTRL_DGTL_RST_N_MASK;
+    
+    /* Disable RTC alive detector */
+    AON__SMM->RTC_ANLG_XTAL &= ~SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
+    AON__RTC_AON->RTC_ALV_DTCT |= RTC_RTC_ALV_DTCT_BYPASS_MASK;
+    AON__RTC_AON->RTC_ALV_DTCT &= ~RTC_RTC_ALV_DTCT_DTCT_EN_MASK;
+    delay_ms(1U);
+    
+    return status;
 }
 
 /*!

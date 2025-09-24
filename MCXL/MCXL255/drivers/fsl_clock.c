@@ -965,27 +965,6 @@ static uint32_t CLOCK_GetAonRootAuxFreq(void)
     return freq;
 }
 
-static uint32_t CLOCK_GetAonFroFreq(void)
-{
-    uint32_t freq = 0U;
-
-    /* 2MHz is selected*/
-    if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_SEL_MODE_MASK)
-    {
-        if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO2M_EN_MASK)
-        {
-            freq = 2000000U;
-        }
-    }
-    /* 10MHz is selected*/
-    else if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO10M_EN_MASK)
-    {
-        freq = 10000000U;
-    }
-
-    return freq;
-}
-
 static uint32_t CLOCK_getAonPerClkFreq(void)
 {
     uint32_t freq = 0U;
@@ -1002,13 +981,13 @@ static uint32_t CLOCK_getAonPerClkFreq(void)
         switch(sel)
         {
             case 0U:
-              freq = CLOCK_GetAonFroFreq();
+              freq = CLOCK_GetFroAonFreq();
               break;
             case 1U:
-              freq = CLOCK_GetAonFroFreq() / 2U;
+              freq = CLOCK_GetFroAonFreq() / 2U;
               break;
             case 2U:
-              freq = CLOCK_GetAonFroFreq() / 4U;
+              freq = CLOCK_GetFroAonFreq() / 4U;
               break;
             case 3U:
               freq = CLOCK_GetAonRootAuxFreq();
@@ -1133,13 +1112,13 @@ uint32_t CLOCK_GetAonCoreSysClkFreq(void)
         switch(sel)
         {
             case 0U:
-              freq = CLOCK_GetAonFroFreq();
+              freq = CLOCK_GetFroAonFreq();
               break;
             case 1U:
-              freq = CLOCK_GetAonFroFreq() / 2U;
+              freq = CLOCK_GetFroAonFreq() / 2U;
               break;
             case 2U:
-              freq = CLOCK_GetAonFroFreq() / 4U;
+              freq = CLOCK_GetFroAonFreq() / 4U;
               break;
             case 3U:
               freq = CLOCK_GetAonRootAuxFreq();
@@ -1691,23 +1670,28 @@ uint32_t CLOCK_GetSystickClkFreq(void)
 #endif /* Building on the main core */
 
 /**
- * @brief  Return Frequency of Systick Clock
- * @return Frequency of AON FRO (10M/2M or 0 when not eneabled).
+ * @brief  Get frequency of selected AON FRO
+ * @return Frequency of AON FRO (10M/2M or 0 when disabled).
  */
 uint32_t CLOCK_GetFroAonFreq(void)
 {
-    if((AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO10M_EN_MASK) == 0U)
+    uint32_t freq = 0U;
+
+    /* 2MHz is selected*/
+    if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_SEL_MODE_MASK)
     {
-        return 0U;
+        if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO2M_EN_MASK)
+        {
+            freq = 2000000U;
+        }
     }
-    else if(!(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_SEL_MODE_MASK))
+    /* 10MHz is selected*/
+    else if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO10M_EN_MASK)
     {
-        return 10000000U;
+        freq = 10000000U;
     }
-    else
-    {
-        return 2000000U;
-    }
+
+    return freq;
 }
 
 #if __CORTEX_M == (33U) /* Building on the main core */

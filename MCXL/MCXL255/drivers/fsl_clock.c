@@ -966,17 +966,20 @@ static uint32_t CLOCK_GetAonFroFreq(void)
 {
     uint32_t freq = 0U;
 
-    if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO10M_EN_MASK)
+    /* 2MHz is selected*/
+    if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_SEL_MODE_MASK)
     {
-        if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_SEL_MODE_MASK)
+        if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO2M_EN_MASK)
         {
             freq = 2000000U;
         }
-        else
-        {
-            freq = 10000000U;
-        }
     }
+    /* 10MHz is selected*/
+    else if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO10M_EN_MASK)
+    {
+        freq = 10000000U;
+    }
+
     return freq;
 }
 

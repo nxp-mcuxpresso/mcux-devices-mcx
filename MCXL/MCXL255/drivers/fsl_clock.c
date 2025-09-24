@@ -579,17 +579,20 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
     switch(iFreq)
     {
         case 10000000U:
-            AON__CGU->CLK_CONFIG &= ~(1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT);
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_FRO10M_EN_SHIFT;
+            AON__CGU->CLK_CONFIG &= ~(1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT);
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO2M_EN_MASK;
             break;
         case 2000000U:
             AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_FRO2M_EN_MASK;
+            SDK_DelayAtLeastUs(500U, SystemCoreClock);
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT;
-            AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_FRO10M_EN_SHIFT;
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO10M_EN_MASK;
             break;
         case 0U:
             /* Turn off */
-            AON__CGU->CLK_CONFIG &= ~(1U << CGU_CLK_CONFIG_FRO10M_EN_SHIFT);
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO2M_EN_MASK;
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO10M_EN_MASK;
             break;
         default:
             ADVC_PostChg();

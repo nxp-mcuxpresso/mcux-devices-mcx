@@ -6,6 +6,7 @@
     - Added a new function, Power_SyncDualCoreBlocking(), to enable synchronization between dual cores.
     - Improved Doxygen comments for better documentation.
     - Introduced a timeout mechanism for the while loop to enhance reliability.
+    - Added new member disableFRO2M in power_dpd2_config_t.
 
 ## [2.1.1]
 - Improvements

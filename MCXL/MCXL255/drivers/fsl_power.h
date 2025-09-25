@@ -415,7 +415,8 @@ typedef struct _power_dpd2_config
     uint32_t disableFRO10M : 1U;     /*!< Flag to indicate whether to disable the FRO10M clock during DPD2 mode */
     uint32_t wakeToDpd1 : 1U;        /*!< Flag to indicate whether to wake up to DPD1 mode after DPD2 mode */
     uint32_t saveContext : 1U;       /*!< True to save basic register context into stack, false to do not save. */
-    uint32_t reserved : 2U;          /*!< Reserved for using. */
+    uint32_t disableFRO2M : 1U;      /*!< True to disable FRO2M, false to do not disable. */
+    uint32_t reserved : 1U;          /*!< Reserved for using. */
     power_vdd_core_output_voltage_t
         dpd2VddCoreAonVoltage : 8U;  /*!< Specify output voltage of VDD_CORE AON in DPD2 mode,
                                      in type of @ref power_vdd_core_output_voltage_t. */

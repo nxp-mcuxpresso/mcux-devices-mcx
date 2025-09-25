@@ -1287,6 +1287,10 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
         {
             AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO10M_EN_MASK;
         }
+        if ((config->disableFRO2M) == true)
+        {
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO2M_EN_MASK;
+        }
 
         sharedHandle->requestCM33Start  = false;
         sharedHandle->targetPowerMode   = kPower_DeepPowerDown2;

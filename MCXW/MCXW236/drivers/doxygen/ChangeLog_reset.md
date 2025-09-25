@@ -1,5 +1,10 @@
 # RESET
 
+## [2.0.2]
+
+- Improvements
+  - Fixed the MSG ARR30-C violation issue.
+
 ## [2.0.1]
 
 - Improvements

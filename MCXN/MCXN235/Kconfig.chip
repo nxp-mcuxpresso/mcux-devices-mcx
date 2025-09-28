@@ -359,6 +359,11 @@ config MCUX_HW_IP_DriverType_SMARTDMA
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN235
 
+config MCUX_HW_IP_DriverType_SMARTDMA_MCXN
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN235
+
 config MCUX_HW_IP_DriverType_SWD
     bool
     default y

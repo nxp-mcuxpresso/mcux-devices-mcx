@@ -289,6 +289,11 @@ config MCUX_HW_IP_DriverType_SMARTDMA
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA344
 
+config MCUX_HW_IP_DriverType_SMARTDMA_MCXA
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA344
+
 config MCUX_HW_IP_DriverType_SYSCON_LPCAC
     bool
     default y

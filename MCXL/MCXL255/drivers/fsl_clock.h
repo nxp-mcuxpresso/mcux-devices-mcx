@@ -65,8 +65,6 @@
 /*! @brief True when clock gate belongs to AON domain */
 #define CLK_OF_AON(value) (((uint32_t)(value)) & (1U<<24U))
 
-#define REG_PWM0SUBCTL (250U)
-
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */
 typedef enum _clock_ip_name
 {
@@ -768,16 +766,7 @@ static inline void CLOCK_EnableClock(clock_ip_name_t clk)
             *pPeripheralEnCtrl |= (1UL << bit_shift);
         }
 
-        if (reg_cc_offset == REG_PWM0SUBCTL)
-        {
-            SYSCON->PWM0SUBCTL |= (1UL << bit_shift);
-            //MRCC->MRCC_GLB_PR0 |= MRCC_MRCC_GLB_PR0_FLEXPWM0_MASK;
-            //MRCC->MRCC_GLB_CCSET0 = MRCC_MRCC_GLB_CC0_FLEXPWM0_MASK; FIXME
-        }
-        else
-        {
-            *pClkCtrl = (1UL << bit_shift);
-        }
+        *pClkCtrl = (1UL << bit_shift);
 
         /* Freeze clock configuration */
         SYSCON->CLKUNLOCK |= SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
@@ -823,20 +812,7 @@ static inline void CLOCK_DisableClock(clock_ip_name_t clk)
         /* Unlock clock configuration */
         SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
 
-        if (reg_cc_offset == REG_PWM0SUBCTL)
-        {
-            SYSCON->PWM0SUBCTL &= ~(1UL << bit_shift);
-
-            /*if (0U == (SYSCON->PWM0SUBCTL & 0xFU))
-            {
-                MRCC->MRCC_GLB_CCCLR0 = MRCC_MRCC_GLB_CC0_FLEXPWM0_MASK;
-                MRCC->MRCC_GLB_PR0 &= ~(MRCC_MRCC_GLB_PR0_FLEXPWM0_MASK);
-            }FIXME */
-        }
-        else
-        {
-            *pClkCtrl = (1UL << bit_shift);
-        }
+        *pClkCtrl = (1UL << bit_shift);
 
         if (clk != kCLOCK_GateWWDT0 && clk != kCLOCK_GateSRAMA0A1 && clk != kCLOCK_GateROMCP)
         {

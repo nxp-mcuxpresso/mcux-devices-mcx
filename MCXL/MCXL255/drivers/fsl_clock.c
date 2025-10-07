@@ -687,6 +687,60 @@ status_t CLOCK_SetupFRO12MClocking(void)
     return (status_t)kStatus_Success;
 }
 
+/**
+ * @brief Enable automatic clock control for an IP.
+ * @param clk : IP identifier.
+ * @return  Nothing
+ */
+void CLOCK_EnableAutoClockGate(clock_ip_name_t clk)
+{
+    const uint32_t bit_shift = CLK_PERIPHERAL_BIT_SHIFT(clk);
+    const uint32_t reg_acc_offset = CLK_GATE_REG_ACC_OFFSET(clk);
+
+    volatile uint32_t *pAcc = (volatile uint32_t *)((uint32_t)(&(MRCC->GLB_ACC0)) + reg_acc_offset);
+
+    if (clk == kCLOCK_GateNotAvail || clk == kCLOCK_GateMTR ||
+        clk == kCLOCK_GateTCU)
+    {
+        return;
+    }
+
+    /* Unlock clock configuration */
+    SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
+
+    *pAcc |= (1UL << bit_shift);
+
+    /* Freeze clock configuration */
+    SYSCON->CLKUNLOCK |= SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
+}
+
+/**
+ * @brief Disable automatic clock control for an IP.
+ * @param clk : IP identifier.
+ * @return  Nothing
+ */
+void CLOCK_DisableAutoClockGate(clock_ip_name_t clk)
+{
+    const uint32_t bit_shift = CLK_PERIPHERAL_BIT_SHIFT(clk);
+    const uint32_t reg_acc_offset = CLK_GATE_REG_ACC_OFFSET(clk);
+
+    volatile uint32_t *pAcc = (volatile uint32_t *)((uint32_t)(&(MRCC->GLB_ACC0)) + reg_acc_offset);
+
+    if (clk == kCLOCK_GateNotAvail || clk == kCLOCK_GateMTR ||
+        clk == kCLOCK_GateTCU)
+    {
+        return;
+    }
+
+    /* Unlock clock configuration */
+    SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
+
+    *pAcc &= ~(1UL << bit_shift);
+
+    /* Freeze clock configuration */
+    SYSCON->CLKUNLOCK |= SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
+}
+
 #endif /* Building on the main core */
 
 static status_t is_xtal_clkout_vbat_ok()

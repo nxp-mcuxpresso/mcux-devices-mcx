@@ -56,11 +56,13 @@
 /*------------------------------------------------------------------------------
  clock_ip_name_t definition:
 ------------------------------------------------------------------------------*/
+/*! @brief The offset of the registers MRCC_GLB_ACC0 and MRCC_GLB_ACC1. */
+#define CLK_GATE_REG_ACC_OFFSET(value) ((((uint32_t)(value)) >> 16U) & 0x000000FFU)
 /*! @brief The offset of the registers MRCC_GLB_PR0 and MRCC_GLB_PR1. */
 #define CLK_GATE_REG_PR_OFFSET(value) ((((uint32_t)(value)) >> 16U) & 0x000000FFU)
 /*! @brief The offset of the registers MRCC_GLB_CC0 and MRCC_GLB_CC1. */
 #define CLK_GATE_REG_CC_OFFSET(value) ((((uint32_t)(value)) >> 8U) & 0x000000FFU)
-/*! @brief Bit definitions for the peripherals in MRCC_GLB_PR and MRCC_GLB_CC */
+/*! @brief Bit definitions for the peripherals in MRCC_GLB_PR, MRCC_GLB_CC and MRCC_GLB_ACC */
 #define CLK_PERIPHERAL_BIT_SHIFT(value) (((uint32_t)(value)) & 0x000000FFU)
 /*! @brief True when clock gate belongs to AON domain */
 #define CLK_OF_AON(value) (((uint32_t)(value)) & (1U<<24U))
@@ -83,6 +85,9 @@ typedef enum _clock_ip_name
     kCLOCK_GateCrc           = (0x00U | (9U)),                         /*!< Clock gate name: CRC            */
     kCLOCK_Crc0              = (0x00U | (9U)),                         /*!< Clock gate name: CRC (Alias)    */
     kCLOCK_GateERM0          = (0x00U | (10U)),                        /*!< Clock gate name: ERM0           */
+    kCLOCK_GateNVMMBC        = (0x00U | (11U)),                        /*!< Clock gate name: NVM_MBC        */
+    kCLOCK_GateNVMNXPCTL     = (0x00U | (12U)),                        /*!< Clock gate name: NVM_NXP_CTL    */
+    kCLOCK_GateFMU0          = (0x00U | (13U)),                        /*!< Clock gate name: FMU0           */
     kCLOCK_GateLPI2C0        = (0x00U | (14U)),                        /*!< Clock gate name: LPI2C0         */
     kCLOCK_GateLPI2C1        = (0x00U | (15U)),                        /*!< Clock gate name: LPI2C0         */
     kCLOCK_GateLPSPI0        = (0x00U | (16U)),                        /*!< Clock gate name: LPSPI0         */
@@ -750,7 +755,7 @@ static inline void CLOCK_EnableClock(clock_ip_name_t clk)
         }
     }
 #if __CORTEX_M == (33U) /* Building on the main core */
-    else
+    else if (clk != kCLOCK_GateFMU0 && clk != kCLOCK_GateNVMNXPCTL && clk != kCLOCK_GateNVMMBC)
     {
         uint32_t reg_cc_offset               = CLK_GATE_REG_CC_OFFSET(clk);
         uint32_t reg_pr_offset               = CLK_GATE_REG_PR_OFFSET(clk);
@@ -801,7 +806,7 @@ static inline void CLOCK_DisableClock(clock_ip_name_t clk)
         }
     }
 #if __CORTEX_M == (33U) /* Building on the main core */
-    else
+    else if (clk != kCLOCK_GateFMU0 && clk != kCLOCK_GateNVMNXPCTL && clk != kCLOCK_GateNVMMBC)
     {
         uint32_t reg_cc_offset               = CLK_GATE_REG_CC_OFFSET(clk);
         uint32_t reg_pr_offset               = CLK_GATE_REG_PR_OFFSET(clk);
@@ -909,6 +914,20 @@ status_t CLOCK_SetupFROHFClocking(uint32_t iFreq, uint8_t div_sel);
  * @return  returns success or fail status.
  */
 status_t CLOCK_SetupFRO12MClocking(void);
+
+/**
+ * @brief Enable automatic clock control for an IP.
+ * @param clk : IP identifier.
+ * @return  Nothing
+ */
+void CLOCK_EnableAutoClockGate(clock_ip_name_t clk);
+
+/**
+ * @brief Disable automatic clock control for an IP.
+ * @param clk : IP identifier.
+ * @return  Nothing
+ */
+void CLOCK_DisableAutoClockGate(clock_ip_name_t clk);
 
 #endif /* Building on the main core */
 

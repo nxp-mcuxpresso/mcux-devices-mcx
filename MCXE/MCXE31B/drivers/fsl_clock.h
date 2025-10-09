@@ -19,8 +19,8 @@
  *****************************************************************************/
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.1.3 */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 1, 3))
+/*! @brief CLOCK driver version 2.2.0 */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 2, 0))
 /*@}*/
 
 /*! @brief Retry times for waiting flag. */

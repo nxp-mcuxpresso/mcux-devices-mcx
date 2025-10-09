@@ -11,7 +11,7 @@ device.hardware_data:
         name: "MCXA366"
         platform: "MCX"
         series: "MCXA"
-        family: "MCXA2XX"
+        family: "MCXA3XX"
         subfamily: "MCXA366"
         frequency_mhz: 240
         core:

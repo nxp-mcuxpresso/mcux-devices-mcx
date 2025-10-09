@@ -11,7 +11,7 @@ device.hardware_data:
         name: "MCXA355"
         platform: "MCX"
         series: "MCXA"
-        family: "MCXA1XX"
+        family: "MCXA3XX"
         subfamily: "MCXA355"
         frequency_mhz: 240
         core:

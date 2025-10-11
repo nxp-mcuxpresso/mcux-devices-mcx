@@ -1,5 +1,10 @@
 # ROMAPI
 
+## [1.2.4]
+
+- Improvements
+  - Added the FUSE ID definitions in fsl_nboo.h
+
 ## [1.2.3]
 
 - Improvements

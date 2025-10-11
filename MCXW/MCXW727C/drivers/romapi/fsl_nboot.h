@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021,2025 NXP
  *  
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -81,7 +81,14 @@
 #define NBOOT_FUSEID_RADIO_VER_CNT                    (0x27)
 #define NBOOT_FUSEID_SNT_VER_CNT                      (0x28)
 #define NBOOT_FUSEID_CM33_BOOTLOADER_VER_CNT          (0x29)
-#define NBOOT_FUSEID_LAST                             (0x2a)
+#define NBOOT_FUSEID_CM33_S_VER_CNT_VIRTUAL           (0x2a)
+#define NBOOT_FUSEID_CM33_NS_VER_CNT_VIRTUAL          (0x2b)
+#define NBOOT_FUSEID_RADIO_VER_CNT_VIRTUAL            (0x2c)
+#define NBOOT_FUSEID_SNT_VER_CNT_VIRTUAL              (0x2d)
+#define NBOOT_FUSEID_CM33_BOOTLOADER_VER_CNT_VIRTUAL  (0x2e)
+#define NBOOT_FUSEID_NBU_SEC_BOOT_EN                  (0x33)
+#define NBOOT_FUSEID_OEM_SEC_BOOT_EN                  (0x35)
+#define NBOOT_FUSEID_LAST                             (0x36)
 
 #define NBOOT_MAX_LIFECYCLE_VALUE (0xffU)
 

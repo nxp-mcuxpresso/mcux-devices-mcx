@@ -1,5 +1,12 @@
 # ROMAPI
 
+## [1.2.5]
+
+- Improvements
+  - Removed unsupported nboot_sb3_load_s200_fw from nboot_interface_t in fsl_nboot.h.
+  - Added nboot_force_one_shot_secure_level in nboot_interface_t.
+  - Added nboot_sb3_consistency_verify in nboot_interface_t.
+
 ## [1.2.4]
 
 - Improvements

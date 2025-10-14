@@ -147,6 +147,13 @@
 #define NBOOT_SC_S_MEMSET (0x2a33U)
 #define NBOOT_SC_S_MEMCMP (0x2b44U)
 
+/* Security level */
+typedef uint32_t nboot_security_level_t;
+#define NBOOT_NON_SECURE ((nboot_security_level_t)0x00u)
+#define NBOOT_NON_SECURE_PRIVILEGED ((nboot_security_level_t)0x01u)
+#define NBOOT_SECURE ((nboot_security_level_t)0x2u)
+#define NBOOT_SECURE_PRIVILEGED ((nboot_security_level_t)0x3u)
+
 typedef enum
 {
     kSB3_COMMAND_none            = 0x0U,
@@ -321,7 +328,6 @@ typedef struct
     nboot_status_t (*nboot_context_free)(nboot_context_t *context);
     nboot_status_t (*nboot_sb3_load_manifest)(nboot_context_t *context, uint32_t *manifest);
     nboot_status_t (*nboot_sb3_load_block)(nboot_context_t *context, uint32_t *block);
-    nboot_status_t (*nboot_sb3_load_s200_fw)(nboot_context_t *context, uint32_t *sb3Data);
     nboot_status_t (*nboot_img_authenticate_ecdsa)(nboot_context_t *context,
                                                    uint8_t imageStart[],
                                                    nboot_bool_t *isSignatureVerified);
@@ -339,6 +345,9 @@ typedef struct
                                          uint32_t propertyId,
                                          uint8_t *destData,
                                          size_t *dataLen);
+    void (*reserved)(void);
+    nboot_status_t (*nboot_force_one_shot_secure_level)(nboot_context_t *context, nboot_security_level_t secLvl);
+    nboot_status_t (*nboot_sb3_consistency_verify)(nboot_context_t *context, uint8_t sb3Data[], nboot_bool_t *isConsistent);
 } nboot_interface_t;
 
 /*******************************************************************************
@@ -398,21 +407,6 @@ nboot_status_t NBOOT_SB3LoaderManifest(nboot_context_t *context, uint32_t *manif
  * @retval #kStatus_NBOOT_Fail Returned in case of error.
  */
 nboot_status_t NBOOT_SB3LoaderBlock(nboot_context_t *context, uint32_t *block);
-
-/*!
- * @brief Authenticate and load Sentinel200 firmware at once
- *
- * This function verifies and decrypts SB3.1 file with S200 firmware. Decryption is performed to S200 RAM and firmware
- * automaticly started after sucessfull load. The NBOOT context has to be initialized by the function nboot_context_init
- * before calling this function.
- *
- * @param context NBOOT context data struct.
- * @param sb3Data pointer to the sb3.1 block wit s200 firmware
- *
- * @retval #kStatus_NBOOT_Success Returned when the operation completed successfully
- * @retval #kStatus_NBOOT_Fail Returned in case of error.
- */
-nboot_status_t NBOOT_SB3LoaderS200Fw(nboot_context_t *context, uint32_t *sb3Data);
 
 /*!
  * @brief Secure boot image authentication.
@@ -500,6 +494,31 @@ nboot_status_t NBOOT_FuseRead(nboot_context_t *context,
  * @retval Please refer to nboot_status_t.
  */
 nboot_status_t NBOOT_PropertyGet(nboot_context_t *context, uint32_t propertyId, uint8_t *destData, size_t *dataLen);
+
+/*!
+ * @brief Switch ELE to specified secure level access for next command.
+ *
+ * @param context
+ * @param secLvl Required security level, must be either equal or lower as security level of the host sending this
+ * command
+ *
+ * @retval Please refer to nboot_status_t.
+ */
+nboot_status_t NBOOT_ForceOneShotSecureLevel(nboot_context_t *context, nboot_security_level_t secLvl);
+
+/*!
+ * @brief Authenticate SB3 header and verifies consistency of blocks.
+ *
+ * This function authenticates SB3 header and verifies consistency of all data blocks to avoid processing of corrupted
+ * data.
+ *
+ * @param context          [in]      Initialized nboot context
+ * @param sb3Data          [in]      Pointer to start of SB3.1 to be verified.
+ * @param isConsistent     [out]     Pointer to secure bool indicating verification result
+ *
+ * @retval Please refer to nboot_status_t.
+ */
+nboot_status_t NBOOT_Sb3ConsistencyVerify(nboot_context_t *context, uint8_t sb3Data[], nboot_bool_t *isConsistent);
 
 #if defined(__cplusplus)
 }

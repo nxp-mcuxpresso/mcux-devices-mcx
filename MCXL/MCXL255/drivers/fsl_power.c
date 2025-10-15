@@ -73,7 +73,9 @@ volatile power_mu_transfer_state_t g_powerMuTransferState = kPower_MuTransferIdl
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-uint32_t g_Handle_Offset = 0xFFFFFFFFUL;
+#define POWER_HANDLE_OFFSET_NOT_INIT_VALUE (0x5A5AA5A5UL)
+
+uint32_t g_Handle_Offset = POWER_HANDLE_OFFSET_NOT_INIT_VALUE;
 
 #if __CORTEX_M == 33U
 #define POWER_USED_MU (MUA)
@@ -131,7 +133,7 @@ static status_t Power_ReqestCM33StartLpSeq(power_low_power_mode_t targetMode)
     power_handle_t *curHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     tmp32 =
-        Power_PopulateMuMessage(kPower_MsgTypeRequest, kPower_MsgDirAonToMain, targetMode, (uint16_t)g_Handle_Offset);
+        Power_PopulateMuMessage(kPower_MsgTypeRequest, kPower_MsgDirAonToMain, targetMode, (uint16_t)(g_Handle_Offset && 0xFFFFUL));
     MU_SendMsg(POWER_USED_MU, curHandle->muChannelId, tmp32);
 
 #if POWER_MU_TRANSFER_TIMEOUT
@@ -204,7 +206,7 @@ status_t Power_CreateHandle(power_handle_t *handle, const power_drv_config_t *co
     {
         /* Inform the other core that it attempts to create a handle. */
         uint32_t tmp32 = Power_PopulateMuMessage(kPower_MsgTypeSync, kPower_MsgDirMainToAon, kPower_Active,
-                                                 (uint16_t)g_Handle_Offset);
+                                                 (uint16_t)(g_Handle_Offset && 0xFFFFUL));
 
         g_powerMuTransferState = kPower_MuTransferStart;
         MU_SendMsg(POWER_USED_MU, config->muChannelId, tmp32);
@@ -246,6 +248,8 @@ status_t Power_CreateHandle(power_handle_t *handle, const power_drv_config_t *co
  */
 void Power_DumpHandleValue(power_handle_t *ptrDumpBuffer)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     memcpy(ptrDumpBuffer, sharedHandle, sizeof(power_handle_t));
@@ -258,6 +262,8 @@ void Power_DumpHandleValue(power_handle_t *ptrDumpBuffer)
  */
 uint32_t Power_GetHandleOffset(void)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     return g_Handle_Offset;
 }
 
@@ -273,11 +279,13 @@ void Power_RestoreHandleOffset(uint32_t offset)
 
 status_t Power_SyncDualCoreBlocking(void)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     /* Inform the other core that it attempts to create a handle. */
     uint32_t tmp32 =
-        Power_PopulateMuMessage(kPower_MsgTypeSync, kPower_MsgDirMainToAon, kPower_Active, (uint16_t)g_Handle_Offset);
+        Power_PopulateMuMessage(kPower_MsgTypeSync, kPower_MsgDirMainToAon, kPower_Active, (uint16_t)(g_Handle_Offset && 0xFFFFUL));
 
     g_powerMuTransferState = kPower_MuTransferStart;
     MU_SendMsg(POWER_USED_MU, sharedHandle->muChannelId, tmp32);
@@ -374,6 +382,8 @@ void Power_GetPowerModeConfig(void *config)
  */
 power_low_power_mode_t Power_GetTargetLowPowerMode(void)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     return sharedHandle->targetPowerMode;
@@ -386,6 +396,8 @@ power_low_power_mode_t Power_GetTargetLowPowerMode(void)
  */
 void Power_EnableWakeupSource(power_wakeup_source_t ws)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     uint32_t aonIndex;
     uint32_t pinEdge;
     uint32_t wakeupDomain;
@@ -443,6 +455,8 @@ void Power_EnableWakeupSource(power_wakeup_source_t ws)
  */
 void Power_DisableWakeupSource(power_wakeup_source_t ws)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     uint32_t        aonIndex;
     uint32_t        pinEdge;
     uint32_t        wakeupDomain;
@@ -490,6 +504,7 @@ void Power_DisableAllWakeupSources(void)
 void Power_DumpEnabledWakeSource(power_wakeup_source_info_t *ptrWsInfo)
 {
     assert(ptrWsInfo);
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
 
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
@@ -513,6 +528,8 @@ void Power_GetWakeupSource(uint32_t *ptrWakeupSourceMask)
  */
 void Power_CheckThenDisableWakeupSource(power_wakeup_source_t ws)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     uint32_t        aonIndex;
     uint32_t        pinEdge;
     uint32_t        wakeupDomain;
@@ -558,6 +575,8 @@ void Power_CheckThenDisableWakeupSource(power_wakeup_source_t ws)
  */
 void Power_CheckThenEnableWakeupSource(power_wakeup_source_t ws)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     uint32_t        aonIndex;
     uint32_t        pinEdge;
     uint32_t        wakeupDomain;
@@ -603,6 +622,8 @@ void Power_CheckThenEnableWakeupSource(power_wakeup_source_t ws)
  */
 void Power_RegisterUserCallback(power_user_callback_t callback, void *userData)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 #if __CORTEX_M == 33U
     sharedHandle->cm33Callback = callback;
@@ -618,6 +639,8 @@ void Power_RegisterUserCallback(power_user_callback_t callback, void *userData)
  */
 void Power_UnRegisterUserCallback(void)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 #if __CORTEX_M == 33U
     sharedHandle->cm33Callback = NULL;
@@ -635,6 +658,8 @@ void Power_UnRegisterUserCallback(void)
  */
 power_low_power_mode_t Power_GetPreviousPowerMode(void)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     return sharedHandle->previousPowerMode;
@@ -645,6 +670,8 @@ power_low_power_mode_t Power_GetPreviousPowerMode(void)
  */
 void Power_ResetPreviousPowerMode(void)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     sharedHandle->previousPowerMode = kPower_Active;
@@ -657,6 +684,8 @@ void Power_ResetPreviousPowerMode(void)
  */
 void Power_UpdatePreviousPowerMode(power_low_power_mode_t lpMode)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     sharedHandle->previousPowerMode = lpMode;
@@ -671,7 +700,8 @@ void Power_UpdatePreviousPowerMode(power_low_power_mode_t lpMode)
  */
 status_t Power_GetCurrentPowerMode(power_low_power_mode_t *ptrCurLpMode)
 {
-    assert(g_Handle_Offset != 0xFFFFFFFFUL);
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     status_t               status       = kStatus_Success;
     uint8_t                tmp8         = SMM_GetPowerState(AON__SMM);
     power_handle_t        *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
@@ -721,6 +751,9 @@ status_t Power_GetCurrentPowerMode(power_low_power_mode_t *ptrCurLpMode)
  */
 power_low_power_mode_t Power_GetTargetPowerMode(void)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
+
     power_handle_t        *sharedHandle    = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
     power_low_power_mode_t targetPowerMode = sharedHandle->targetPowerMode;
 
@@ -732,6 +765,8 @@ power_low_power_mode_t Power_GetTargetPowerMode(void)
  */
 void Power_ClearTargetPowerMode(void)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle  = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
     sharedHandle->targetPowerMode = kPower_Active;
 }
@@ -837,6 +872,8 @@ status_t Power_EnterLowPowerMode(power_low_power_mode_t lowpowerMode, void *conf
 status_t Power_EnterSleep(void)
 {
 #if __CORTEX_M == 33U
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle  = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
     sharedHandle->targetPowerMode = kPower_Sleep;
     __DSB();
@@ -863,6 +900,8 @@ status_t Power_EnterSleep(void)
  */
 status_t Power_EnterDeepSleep(power_ds_config_t *config)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
     (void)config;
 #if __CORTEX_M == 33U
@@ -899,6 +938,8 @@ status_t Power_EnterDeepSleep(power_ds_config_t *config)
  */
 status_t Power_EnterPowerDown1(power_pd1_config_t *config)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
     memset(sharedHandle->lpConfig, 0UL, 16UL);
     memcpy(sharedHandle->lpConfig, config, sizeof(power_pd1_config_t));
@@ -946,6 +987,8 @@ status_t Power_EnterPowerDown1(power_pd1_config_t *config)
  */
 status_t Power_EnterPowerDown2(power_pd2_config_t *config)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
     memset(sharedHandle->lpConfig, 0UL, 16UL);
     memcpy(sharedHandle->lpConfig, config, sizeof(power_pd2_config_t));
@@ -1109,6 +1152,8 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config)
  */
 status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     memset(sharedHandle->lpConfig, 0UL, 16UL);
@@ -1181,6 +1226,8 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
  */
 power_dpd1_transition_t Power_GetDeepPowerDown1NextTransition(void)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t     *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
     power_dpd1_config_t config;
     memcpy(&config, sharedHandle->lpConfig, sizeof(power_dpd1_config_t));
@@ -1204,6 +1251,8 @@ power_dpd1_transition_t Power_GetDeepPowerDown1NextTransition(void)
  */
 status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     if (sharedHandle->dualCoreSynced == false)
@@ -1447,6 +1496,8 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
  */
 status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     if (sharedHandle->dualCoreSynced == false)
@@ -1560,6 +1611,8 @@ status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config)
  */
 status_t Power_EnterShutDown(power_sd_config_t *config)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     if (sharedHandle->dualCoreSynced == false)
@@ -2162,6 +2215,8 @@ status_t Power_MuSyncCallback(uint32_t message, uint32_t channelId)
  */
 status_t Power_InterpretRequest(uint32_t message)
 {
+    assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+
     power_mu_message_type_t      resType         = kPower_MsgTypeACK;
     power_mu_message_direction_t responseDir     = kPower_MsgDirAonToMain;
     power_user_callback_t        curCallback     = NULL;

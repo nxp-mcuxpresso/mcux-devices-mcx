@@ -133,7 +133,7 @@ static status_t Power_ReqestCM33StartLpSeq(power_low_power_mode_t targetMode)
     power_handle_t *curHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
     tmp32 =
-        Power_PopulateMuMessage(kPower_MsgTypeRequest, kPower_MsgDirAonToMain, targetMode, (uint16_t)(g_Handle_Offset && 0xFFFFUL));
+        Power_PopulateMuMessage(kPower_MsgTypeRequest, kPower_MsgDirAonToMain, targetMode, (uint16_t)(g_Handle_Offset & 0xFFFFUL));
     MU_SendMsg(POWER_USED_MU, curHandle->muChannelId, tmp32);
 
 #if POWER_MU_TRANSFER_TIMEOUT
@@ -206,7 +206,7 @@ status_t Power_CreateHandle(power_handle_t *handle, const power_drv_config_t *co
     {
         /* Inform the other core that it attempts to create a handle. */
         uint32_t tmp32 = Power_PopulateMuMessage(kPower_MsgTypeSync, kPower_MsgDirMainToAon, kPower_Active,
-                                                 (uint16_t)(g_Handle_Offset && 0xFFFFUL));
+                                                 (uint16_t)(g_Handle_Offset & 0xFFFFUL));
 
         g_powerMuTransferState = kPower_MuTransferStart;
         MU_SendMsg(POWER_USED_MU, config->muChannelId, tmp32);
@@ -285,7 +285,7 @@ status_t Power_SyncDualCoreBlocking(void)
 
     /* Inform the other core that it attempts to create a handle. */
     uint32_t tmp32 =
-        Power_PopulateMuMessage(kPower_MsgTypeSync, kPower_MsgDirMainToAon, kPower_Active, (uint16_t)(g_Handle_Offset && 0xFFFFUL));
+        Power_PopulateMuMessage(kPower_MsgTypeSync, kPower_MsgDirMainToAon, kPower_Active, (uint16_t)(g_Handle_Offset & 0xFFFFUL));
 
     g_powerMuTransferState = kPower_MuTransferStart;
     MU_SendMsg(POWER_USED_MU, sharedHandle->muChannelId, tmp32);

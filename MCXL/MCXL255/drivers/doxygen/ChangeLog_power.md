@@ -9,7 +9,7 @@
     - Added new member disableFRO2M in power_dpd2_config_t.
 
 - Bug Fixes
-    - Fixed incorrect bitwise AND operation in Power_CreateHandle() and Power_SyncDualCoreBlocking() functions where `g_Handle_Offset && 0xFFFFUL` was incorrectly used instead of `g_Handle_Offset & 0xFFFFUL`.
+    - Fixed incorrect bitwise AND operation in Power_CreateHandle() and Power_SyncDualCoreBlocking() functions.
     - Fixed the same bitwise AND issue in Power_ReqestCM33StartLpSeq() function.
 
 ## [2.1.1]

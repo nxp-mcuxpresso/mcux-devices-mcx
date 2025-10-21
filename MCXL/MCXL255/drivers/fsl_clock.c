@@ -1053,6 +1053,40 @@ static uint32_t CLOCK_getAonPerClkFreq(void)
     return freq;
 }
 
+static uint32_t CLOCK_getAonTmrClkFreq(void)
+{
+    uint32_t freq = 0U;
+
+    if(AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_COM_GRP_CLK_EN_MASK)
+    {
+        const uint32_t sel = (AON__CGU->PER_CLK_CONFIG &
+                        CGU_PER_CLK_CONFIG_TMR_GRP_SEL_MASK) >>
+                       CGU_PER_CLK_CONFIG_TMR_GRP_SEL_SHIFT;
+        const uint32_t div = (AON__CGU->CLOCK_DIV &
+                        CGU_CLOCK_DIV_COM_GRP_CLK_DIV_MASK) >>
+                       CGU_CLOCK_DIV_COM_GRP_CLK_DIV_SHIFT;
+
+        switch(sel)
+        {
+            case 0U:
+              freq = CLOCK_GetFroAonFreq();
+              break;
+            case 1U:
+              freq = CLOCK_GetFroAonFreq() / 2U;
+              break;
+            case 2U:
+              freq = CLOCK_GetFroAonFreq() / 4U;
+              break;
+            case 3U:
+              freq = CLOCK_GetAonRootAuxFreq();
+              break;
+        }
+
+        freq /= div + 1U;
+    }
+    return freq;
+}
+
 #if __CORTEX_M == (33U) /* Building on the main core */
 /* Get FRO 12M Clk */
 /*! brief  Return Frequency of FRO 12MHz
@@ -1120,20 +1154,11 @@ static uint32_t CLOCK_GetFroHfFreq(void)
 /*!
  * @brief Gets the RTC OSC clock frequency.
  *
- * @return  Clock frequency; If the clock is invalid, returns 0.
+ * @return  Clock frequency.
  */
 uint32_t CLOCK_GetRtcOscFreq(void)
 {
-#if __CORTEX_M == (33U) /* Building on the main core */ /* FIXME how is RTC generated? */
-    if ((SCG0->ROSCCSR & SCG_ROSCCSR_ROSCVLD_MASK) != SCG_ROSCCSR_ROSCVLD_MASK) /* RTC OSC clock is not valid. */
-    {
-        return 0U;
-    }
-    else
-#endif
-    {
-        return 32768;
-    }
+    return 32768;
 }
 
 /*!
@@ -1366,6 +1391,22 @@ uint32_t CLOCK_GetLpi2cClkFreq(uint32_t id)
         freq = CLOCK_GetPeriphGrpFreq(id);
     }
 #endif
+    return freq;
+}
+
+/* Get QTMR Clk */
+/*! brief  Return Frequency of QTMR functional Clock
+ *  return Frequency of QTMR functional Clock
+ */
+uint32_t CLOCK_GetQtmrClkFreq(void)
+{
+    uint32_t freq = 0U;
+
+    if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_QTMR0_CLK_EN_MASK)
+    {
+        freq = CLOCK_getAonTmrClkFreq();
+    }
+
     return freq;
 }
 

@@ -983,6 +983,11 @@ uint32_t CLOCK_GetLpspiClkFreq(uint32_t id);
  */
 uint32_t CLOCK_GetLpi2cClkFreq(uint32_t id);
 
+/*! @brief  Return Frequency of QTMR functional Clock
+ *  @return Frequency of QTMR functional Clock
+ */
+uint32_t CLOCK_GetQtmrClkFreq(void);
+
 /*! @brief  Return Frequency of LPUART functional Clock
  *  @return Frequency of LPUART functional Clock
  */

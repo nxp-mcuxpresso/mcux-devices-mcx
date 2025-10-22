@@ -44,10 +44,14 @@ typedef enum _clock_aon_chg
 static uint32_t CLOCK_GetFroAonFreq(void);
 /* Get RTC OSC Clk */
 static uint32_t CLOCK_GetRtcOscFreq(void);
+/* Get FRO16K (PMUIRC) Clk */
+static uint32_t CLOCK_GetFro16KFreq(void);
 /* Get AON_AUX_CLK freq*/
 static uint32_t CLOCK_GetAonAuxFreq(void);
 /* Get AON ROOT AUX freq */
 static uint32_t CLOCK_GetAonRootAuxFreq(void);
+/* Get CLK 16K Clk */
+static uint32_t CLOCK_GetClk16KFreq(void);
 
 #if __CORTEX_M == (33U) /* Building on the main core */
 /* Get Main_Clk */
@@ -58,8 +62,6 @@ static uint32_t CLOCK_GetFro12MFreq(void);
 static uint32_t CLOCK_GetClk1MFreq(void);
 /* Get HF FRO Clk */
 static uint32_t CLOCK_GetFroHfFreq(void);
-/* Get CLK 16K Clk */
-static uint32_t CLOCK_GetClk16KFreq(void);
 /* Get SOSC OSC Clk */
 static uint32_t CLOCK_GetSysOscFreq(void);
 
@@ -989,7 +991,7 @@ uint32_t CLOCK_GetFreq(clock_name_t clockName)
             break;
 #endif /* Building on the main core */
         case kCLOCK_Fro16k: /* AON PAC and SMM clock. */
-            freq = 16384U;
+            freq = CLOCK_GetFro16KFreq();
             break;
         case kCLOKC_FroAON: /* AON functional clock. this is wrong add kCLOKC_FroAON */
             freq = CLOCK_GetFroAonFreq();
@@ -1162,6 +1164,30 @@ uint32_t CLOCK_GetRtcOscFreq(void)
 }
 
 /*!
+ * @brief Gets FRO16K (PMUIRC) clock frequency.
+ *
+ * @return  Clock frequency.
+ */
+uint32_t CLOCK_GetFro16KFreq(void)
+{
+    uint32_t freq = 0U;
+
+    if (AON__PMU->FRO_CTRL & PMU_FRO_CTRL_FRO16K_EN_MASK)
+    {
+        if (AON__PMU->FRO_CTRL & PMU_FRO_CTRL_CLOCK_SEL_MASK)
+        {
+            freq = 8192U;
+        }
+        else
+        {
+            freq = 16384U;
+        }
+    }
+
+    return freq;
+}
+
+/*!
  * @brief Gets the AON_AUX_CLK frequency.
  *
  * @return  Clock frequency;
@@ -1207,6 +1233,15 @@ uint32_t CLOCK_GetAonCoreSysClkFreq(void)
         freq /= div + 1U;
     }
     return freq; 
+}
+
+/* Get CLK 16K Clk */
+/*! brief  Return Frequency of CLK 16KHz
+ *  return Frequency of CLK 16KHz
+ */
+static uint32_t CLOCK_GetClk16KFreq(void)
+{
+    return (CLOCK_GetRtcOscFreq() / 2U);
 }
 
 #if __CORTEX_M == (33U) /* Building on the main core */
@@ -1267,16 +1302,6 @@ static uint32_t CLOCK_GetPeriphGrpFreq(uint32_t id)
     return freq / ((clkdiv & 0xFFU) + 1U);
 }
 
-
-/* Get CLK 16K Clk */
-/*! brief  Return Frequency of CLK 16KHz
- *  return Frequency of CLK 16KHz
- */
-static uint32_t CLOCK_GetClk16KFreq(void)
-{
-    return (CLOCK_GetRtcOscFreq() / 2U);
-}
-
 /* Get MAIN Clk */
 /*! brief  Return Frequency of Core System
  *  return Frequency of Core System
@@ -1300,7 +1325,7 @@ uint32_t CLOCK_GetMainClk(void)
             freq = CLOCK_GetRtcOscFreq();
             break;
           case 9U: /* PMUIRC FRO16K*/
-            freq = 16000U;
+            freq = CLOCK_GetFro16KFreq();
             break;
           case 10U: /* LPIRC FRO10M*/
             freq = 10000000U;
@@ -1443,6 +1468,36 @@ uint32_t CLOCK_GetLpuartClkFreq(uint32_t id)
     return freq;
 }
 
+/*! brief  Return Frequency of LPTMR functional Clock
+ *  return Frequency of LPTMR functional Clock
+ */
+uint32_t CLOCK_GetLptmrClkFreq(void)
+{
+    uint32_t freq   =  0U;
+    uint32_t clksel = (AON__CGU->PER_CLK_CONFIG & CGU_PER_CLK_CONFIG_LPTMR_GRP_SEL_MASK) >> CGU_PER_CLK_CONFIG_LPTMR_GRP_SEL_SHIFT;
+    
+    if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_LPTMR_CLK_EN_MASK)
+    {
+        switch (clksel)
+        {
+            case 0U:
+                freq = CLOCK_getAonTmrClkFreq();
+                break;
+            case 1U:
+                freq = CLOCK_GetFro16KFreq();
+                break;
+            case 2U:
+                freq = CLOCK_GetClk16KFreq();
+                break;
+            default:
+                freq = 0U;
+                break;
+        }
+    }
+    
+    return freq;
+}
+
 #if __CORTEX_M == (33U) /* Building on the main core */
 
 /* Get UTICK0 Clk */
@@ -1492,14 +1547,6 @@ uint32_t CLOCK_GetWwdtClkFreq(void)
     return freq / ((clkdiv & 0xFFU) + 1U);
 }
 
-/*! brief  Return Frequency of LPTMR functional Clock
- *  return Frequency of LPTMR functional Clock
- */
-uint32_t CLOCK_GetLptmrClkFreq(void)
-{
-    return CLOCK_GetFreq(kCLOCK_SLOW_CLK);
-}
-
 /*! brief  Return Frequency of OSTIMER
  *  return Frequency of OSTIMER Clock
  */
@@ -1514,7 +1561,7 @@ uint32_t CLOCK_GetOstimerClkFreq(void)
             freq = CLOCK_GetClk16KFreq();
             break;
         case 1U:
-            freq = CLOCK_GetClk16KFreq();
+            freq = CLOCK_GetFro16KFreq();
             break;
         case 3U:
             freq = CLOCK_GetClk1MFreq();

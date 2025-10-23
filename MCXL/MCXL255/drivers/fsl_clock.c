@@ -430,35 +430,43 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
 #if __CORTEX_M == (33U) /* Building on the main core */
     else
     {
-      volatile uint32_t *pDivCtrl;
+        volatile uint32_t *pDivCtrl;
 
-          /* Unlock clock configuration */
-      SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
+        /* Unlock clock configuration */
+        SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
 
-      if ((div_name == kCLOCK_DivAHBCLK)  || (div_name == kCLOCK_DivAHBAIPSCLK))
-      {
-          pDivCtrl = (volatile uint32_t *)(SYSCON_BASE + (uint32_t)div_name);
-          *pDivCtrl = (value - 1U);
-      }
-      else
-      {
-          pDivCtrl = (volatile uint32_t *)(MRCC_BASE + (uint32_t)div_name);
+        if (div_name == kCLOCK_DivAHBCLK)
+        {
+            if (value > 0U)
+            {
+                pDivCtrl = (volatile uint32_t *)(SYSCON_BASE + (uint32_t)div_name);
+                *pDivCtrl = (value - 1U);
+            }
+        }
+        else if (div_name == kCLOCK_DivAHBAIPSCLK)
+        {
+            pDivCtrl = (volatile uint32_t *)(SYSCON_BASE + (uint32_t)div_name);
+            *pDivCtrl = (value) ? 0U : (1UL << SYSCON_AHBAIPSCLKDIV_HALT_SHIFT);
+        }
+        else
+        {
+            pDivCtrl = (volatile uint32_t *)(MRCC_BASE + (uint32_t)div_name);
 
-          /* halt and reset clock dividers */
-          *pDivCtrl = 0x3UL << 29U;
+            /* halt and reset clock dividers */
+            *pDivCtrl = 0x3UL << 29U;
 
-          if (value == 0U) /*!<  halt */
-          {
-              *pDivCtrl |= (1UL << 30U);
-          }
-          else
-          {
-              *pDivCtrl = (value - 1U);
-          }
-      }
+            if (value == 0U) /*!<  halt */
+            {
+                *pDivCtrl |= (1UL << 30U);
+            }
+            else
+            {
+                *pDivCtrl = (value - 1U);
+            }
+        }
 
-      /* Freeze clock configuration */
-      SYSCON->CLKUNLOCK |= SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
+        /* Freeze clock configuration */
+        SYSCON->CLKUNLOCK |= SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
     }
 #endif /* Building on the main core */
 }
@@ -520,15 +528,31 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name)
 #if __CORTEX_M == (33U) /* Building on the main core */
     else
     {
-        volatile uint32_t *pDivCtrl = (volatile uint32_t *)(MRCC_BASE + (uint32_t)div_name);
+        volatile uint32_t *pDivCtrl;
 
-        if (((*pDivCtrl) & (1UL << 30U)) != 0U)
+        if (div_name == kCLOCK_DivAHBCLK)
         {
-            return 0;
+            pDivCtrl = (volatile uint32_t *)(SYSCON_BASE + (uint32_t)div_name);
+            return ((*pDivCtrl & 0xFFU) + 1U);
+        }
+        else if (div_name == kCLOCK_DivAHBAIPSCLK)
+        {
+            pDivCtrl = (volatile uint32_t *)(SYSCON_BASE + (uint32_t)div_name);
+            /* Only Halt is supported. Return 1 if not halted.*/
+            return ((*pDivCtrl & SYSCON_AHBAIPSCLKDIV_HALT_MASK) >> SYSCON_AHBAIPSCLKDIV_HALT_SHIFT) ? 0 : 1;
         }
         else
         {
-            return ((*pDivCtrl & 0xFFU) + 1U);
+            pDivCtrl = (volatile uint32_t *)(MRCC_BASE + (uint32_t)div_name);
+
+            if (((*pDivCtrl) & (1UL << 30U)) != 0U)
+            {
+                return 0;
+            }
+            else
+            {
+                return ((*pDivCtrl & 0xFFU) + 1U);
+            }
         }
     }
 #else /* Building on AON */
@@ -562,13 +586,21 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
     {
         volatile uint32_t *pDivCtrl = (volatile uint32_t *)(MRCC_BASE + (uint32_t)div_name);
 
-        /* Unlock clock configuration */
-        SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
+        if (div_name != kCLOCK_DivAHBCLK)
+        {
+            if (div_name == kCLOCK_DivAHBAIPSCLK)
+            {
+                pDivCtrl = (volatile uint32_t *)(SYSCON_BASE + (uint32_t)div_name);
+            }
+            
+            /* Unlock clock configuration */
+            SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
 
-        *pDivCtrl |= (1UL << 30U);
+            *pDivCtrl |= (1UL << 30U);
 
-        /* Freeze clock configuration */
-        SYSCON->CLKUNLOCK |= SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
+            /* Freeze clock configuration */
+            SYSCON->CLKUNLOCK |= SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
+        }
     }
 #endif
 }

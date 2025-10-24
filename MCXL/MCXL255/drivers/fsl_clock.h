@@ -989,6 +989,12 @@ uint32_t CLOCK_GetLpi2cClkFreq(uint32_t id);
  */
 uint32_t CLOCK_GetQtmrClkFreq(void);
 
+/*!
+ *  @brief  Return Frequency of LPTMR functional Clock
+ *  @return Frequency of LPTMR functional Clock
+ */
+uint32_t CLOCK_GetLptmrClkFreq(void);
+
 /*! @brief  Return Frequency of LPUART functional Clock
  *  @return Frequency of LPUART functional Clock
  */
@@ -1006,12 +1012,6 @@ uint32_t CLOCK_GetUtickClkFreq(void);
  *  @return Frequency of WWDT0 functional Clock
  */
 uint32_t CLOCK_GetWwdtClkFreq(void);
-
-/*!
- *  @brief  Return Frequency of LPTMR functional Clock
- *  @return Frequency of LPTMR functional Clock
- */
-uint32_t CLOCK_GetLptmrClkFreq(void);
 
 /*! @brief  Return Frequency of OSTIMER
  *  @return Frequency of OSTIMER Clock

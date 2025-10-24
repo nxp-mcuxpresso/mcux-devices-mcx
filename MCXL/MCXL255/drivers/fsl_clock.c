@@ -1052,7 +1052,12 @@ static uint32_t CLOCK_GetAonRootAuxFreq(void)
     {
         if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_ROOT_AUX_CLK_SEL_MASK)
         {
-            freq = 32768U; /* FIXME how to get aon_aux_clk freq?*/
+#if __CORTEX_M == (33U) /* Building on the main core */
+            /* SYSCON register is needed for calculation. Accessible from main core only. */
+            freq = CLOCK_GetFroHfFreq() / CLOCK_GetClockDiv(kCLOCK_DivAONAUXCLK);
+#else /* Building on AON */
+            freq = 0U;
+#endif
         }
         else
         {

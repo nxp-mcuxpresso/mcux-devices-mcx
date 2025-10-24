@@ -77,6 +77,11 @@ static inline bool CLOCK_IsDivHalt(uint32_t div_value)
         return false;
     }
 }
+
+static inline bool CLOCK_IsSysconDivider(clock_div_name_t div_name)
+{
+    return (div_name >= 0x200U);
+}
 #endif /* Building on the main core */
 
 /*******************************************************************************
@@ -361,9 +366,9 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
 {
     assert(div_name <= kCLOCK_DivMax);
 
-    if(div_name >= 0x400U)
+    if(div_name >= 0x800U)
     { /* AON clk*/
-        if(div_name == 0x410U)
+        if(div_name == 0x810U)
         {   /* AON ACMP CLK 0*/
             if(value==0)
             {
@@ -379,7 +384,7 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
                 AON__CGU->ACMP_CLK |= CGU_ACMP_CLK_ACMP0_CLK_EN_MASK;
             }
         }
-        else if(div_name == 0x411U)
+        else if(div_name == 0x811U)
         {   /* AON ACMP CLK 1*/
             if(value==0)
             {
@@ -435,18 +440,20 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
         /* Unlock clock configuration */
         SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_CLKGEN_LOCKOUT_MASK;
 
-        if (div_name == kCLOCK_DivAHBCLK)
-        {
-            if (value > 0U)
-            {
-                pDivCtrl = (volatile uint32_t *)(SYSCON_BASE + (uint32_t)div_name);
-                *pDivCtrl = (value - 1U);
-            }
-        }
-        else if (div_name == kCLOCK_DivAHBAIPSCLK)
+        if (CLOCK_IsSysconDivider(div_name))
         {
             pDivCtrl = (volatile uint32_t *)(SYSCON_BASE + (uint32_t)div_name);
-            *pDivCtrl = (value) ? 0U : (1UL << SYSCON_AHBAIPSCLKDIV_HALT_SHIFT);
+            if (div_name == kCLOCK_DivAHBAIPSCLK)
+            {
+                *pDivCtrl = (value) ? 0U : (1UL << SYSCON_AHBAIPSCLKDIV_HALT_SHIFT);
+            }
+            else
+            {
+                if (value > 0U)
+                {
+                    *pDivCtrl = (value - 1U);
+                }
+            }
         }
         else
         {
@@ -476,9 +483,9 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name)
 {
     assert(div_name <= kCLOCK_DivMax);
 
-    if(div_name >= 0x400)
+    if(div_name >= 0x800)
     { /* AON clk*/
-        if(div_name == 0x410U)
+        if(div_name == 0x810U)
         {   /* AON ACMP CLK 0*/
             uint32_t reg_val = AON__CGU->ACMP_CLK;
             if((!(reg_val & CGU_ACMP_CLK_ACMP0_CLK_EN_MASK)) ||
@@ -493,7 +500,7 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name)
                 return reg_val + 1U;
             }
         }
-        else if(div_name == 0x411U)
+        else if(div_name == 0x811U)
         {   /* AON ACMP CLK 1*/
             uint32_t reg_val = AON__CGU->ACMP_CLK;
             if((!(reg_val & CGU_ACMP_CLK_ACMP1_CLK_EN_MASK)) ||
@@ -529,17 +536,19 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name)
     else
     {
         volatile uint32_t *pDivCtrl;
-
-        if (div_name == kCLOCK_DivAHBCLK)
+        
+        if (CLOCK_IsSysconDivider(div_name))
         {
             pDivCtrl = (volatile uint32_t *)(SYSCON_BASE + (uint32_t)div_name);
-            return ((*pDivCtrl & 0xFFU) + 1U);
-        }
-        else if (div_name == kCLOCK_DivAHBAIPSCLK)
-        {
-            pDivCtrl = (volatile uint32_t *)(SYSCON_BASE + (uint32_t)div_name);
-            /* Only Halt is supported. Return 1 if not halted.*/
-            return ((*pDivCtrl & SYSCON_AHBAIPSCLKDIV_HALT_MASK) >> SYSCON_AHBAIPSCLKDIV_HALT_SHIFT) ? 0 : 1;
+            if (div_name == kCLOCK_DivAHBAIPSCLK)
+            {
+                /* Only Halt is supported. Return 1 if not halted.*/
+                return ((*pDivCtrl & SYSCON_AHBAIPSCLKDIV_HALT_MASK) >> SYSCON_AHBAIPSCLKDIV_HALT_SHIFT) ? 0 : 1;
+            }
+            else
+            {
+                return ((*pDivCtrl & 0xFFU) + 1U);
+            }
         }
         else
         {
@@ -565,13 +574,13 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
 {
     assert(div_name <= kCLOCK_DivMax);
 
-    if(div_name >= 0x400)
+    if(div_name >= 0x800)
     { /* AON clk*/
-        if(div_name == 0x410U)
+        if(div_name == 0x810U)
         {   /* AON ACMP CLK 0*/
             AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP_CLK0_DIV_EN_MASK);
         }
-        else if(div_name == 0x411U)
+        else if(div_name == 0x811U)
         {   /* AON ACMP CLK 1*/
             AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP_CLK1_DIV_EN_MASK);
         }

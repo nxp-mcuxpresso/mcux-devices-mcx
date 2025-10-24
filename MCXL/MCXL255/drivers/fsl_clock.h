@@ -600,13 +600,14 @@ typedef enum _clock_div_name
     kCLOCK_DivFRO_HF_DIV   = (0x10CU), /*!< FRO_HF_DIV clock divider */
     kCLOCK_DivAHBAIPSCLK   = (0x378U), /*!< AHB2AIPS   clock divider */
     kCLOCK_DivAHBCLK       = (0x380U), /*!< System     clock divider */
+    kCLOCK_DivAONAUXCLK    = (0x544U), /*!< AON auxiliary clock divider. */
 #endif
-    kCLOCK_DIVAonCPU       = (0x400U), /*!< Aon CPU    clock divider */
-    kCLOCK_DIVAonCMP       = (0x401U), /*!< Aon Comp grp clock divider */
-    kCLOCK_DIVAonSYS       = (0x402U), /*!< Aon SYSTICK clock divider */
-    kCLOCK_DIVAonACMP0CLK0  = (0x410U), /*!< Aon CMP0 CLK0 clock divider */
-    kCLOCK_DIVAonACMP0CLK1  = (0x411U), /*!< Aon CMP0 CLK1 clock divider */
-    kCLOCK_DivMax          = (0x411U), /*!< MAX        clock divider */
+    kCLOCK_DIVAonCPU       = (0x800U), /*!< Aon CPU    clock divider */
+    kCLOCK_DIVAonCMP       = (0x801U), /*!< Aon Comp grp clock divider */
+    kCLOCK_DIVAonSYS       = (0x802U), /*!< Aon SYSTICK clock divider */
+    kCLOCK_DIVAonACMP0CLK0 = (0x810U), /*!< Aon CMP0 CLK0 clock divider */
+    kCLOCK_DIVAonACMP0CLK1 = (0x811U), /*!< Aon CMP0 CLK1 clock divider */
+    kCLOCK_DivMax          = (0x811U), /*!< MAX clock divider */
 } clock_div_name_t;
 
 #if __CORTEX_M == (33U) /* Building on the main core */

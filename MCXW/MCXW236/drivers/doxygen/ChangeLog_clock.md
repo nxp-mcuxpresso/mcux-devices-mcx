@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.1.5]
+
+- Improvements
+  - Fixed the MSG ARR30-C violation issues.
+
 ## [2.1.4]
 
 - Improvements

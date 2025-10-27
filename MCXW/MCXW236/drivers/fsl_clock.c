@@ -45,9 +45,6 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
     uint32_t sel;
     uint16_t item;
     uint32_t i;
-    volatile uint32_t *pClkSel;
-
-    pClkSel = &(SYSCON->SYSTICKCLKSELX[0]);
 
     if (connection != kNONE_to_NONE)
     {
@@ -63,13 +60,58 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
                 mux = GET_ID_ITEM_MUX(item);
                 sel = GET_ID_ITEM_SEL(item);
 
-                if (mux == CM_RTCOSC32KCLKSEL)
+                switch (mux)
                 {
-                    PMC->RTCOSC32K |= sel;
-                }
-                else
-                {
-                    pClkSel[mux] = sel;
+                    case CM_RTCOSC32KCLKSEL:
+                      PMC->RTCOSC32K |= sel;
+                      break;
+                    case CM_MAINCLKSELB:
+                      SYSCON->MAINCLKSELB = sel;
+                      break;
+                    case CM_MAINCLKSELA:
+                      SYSCON->MAINCLKSELA = sel;
+                      break;
+                    case CM_CLKOUTCLKSEL:
+                      SYSCON->CLKOUTSEL = sel;
+                      break;
+                    case CM_FXCOMCLKSEL0:
+                      SYSCON->FCCLKSELX[0] = sel;
+                      break;
+                    case CM_FXCOMCLKSEL1:
+                      SYSCON->FCCLKSELX[1] = sel;
+                      break;
+                    case CM_FXCOMCLKSEL2:
+                      SYSCON->FCCLKSELX[2] = sel;
+                      break;
+                    case CM_SCTCLKSEL:
+                      SYSCON->SCTCLKSEL = sel;
+                      break;
+                    case CM_TRACECLKSEL:
+                      SYSCON->TRACECLKSEL = sel;
+                      break;
+                    case CM_SYSTICKCLKSEL:
+                      SYSCON->SYSTICKCLKSELX[0] = sel;
+                      break;
+                    case CM_CTIMERCLKSEL0:
+                      SYSCON->CTIMERCLKSELX[0] = sel;
+                      break;
+                    case CM_CTIMERCLKSEL1:
+                      SYSCON->CTIMERCLKSELX[1] = sel;
+                      break;
+                    case CM_CTIMERCLKSEL2:
+                      SYSCON->CTIMERCLKSELX[2] = sel;
+                      break;
+                    case CM_CTIMERCLKSEL3:
+                      SYSCON->CTIMERCLKSELX[3] = sel;
+                      break;
+                    case CM_CTIMERCLKSEL4:
+                      SYSCON->CTIMERCLKSELX[4] = sel;
+                      break;
+                    case CM_SPIFICLKSEL:
+                      SYSCON->SPIFICLKSEL = sel;
+                      break;
+                    default:
+                      break;
                 }
             }
             connection = GET_ID_NEXT_ITEM(connection); /* pick up next descriptor */
@@ -196,13 +238,10 @@ static bool CLOCK_CheckAttachId(clock_attach_id_t attachId)
 clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t attachId)
 {
     uint8_t mux;
-    uint32_t actualSel;
+    uint32_t actualSel = 0;
     uint32_t i;
     clock_attach_id_t actualAttachId = kNONE_to_NONE;
     uint32_t selector;
-    volatile uint32_t *pClkSel;
-
-    pClkSel = &(SYSCON->SYSTICKCLKSELX[0]);
 
     if (attachId == kNONE_to_NONE)
     {
@@ -223,16 +262,61 @@ clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t attachId)
         mux = GET_ID_ITEM_MUX(attachId);
         if (attachId)
         {
-            if (mux == CM_RTCOSC32KCLKSEL)
+            switch (mux)
             {
-                actualSel = PMC->RTCOSC32K;
-            }
-            else
-            {
-                actualSel = pClkSel[mux];
+                case CM_RTCOSC32KCLKSEL:
+                  actualSel = PMC->RTCOSC32K;
+                  break;
+                case CM_MAINCLKSELB:
+                  actualSel = SYSCON->MAINCLKSELB;
+                  break;
+                case CM_MAINCLKSELA:
+                  actualSel = SYSCON->MAINCLKSELA;
+                  break;
+                case CM_CLKOUTCLKSEL:
+                  actualSel = SYSCON->CLKOUTSEL;
+                  break;
+                case CM_FXCOMCLKSEL0:
+                  actualSel = SYSCON->FCCLKSELX[0];
+                  break;
+                case CM_FXCOMCLKSEL1:
+                  actualSel = SYSCON->FCCLKSELX[1];
+                  break;
+                case CM_FXCOMCLKSEL2:
+                  actualSel = SYSCON->FCCLKSELX[2];
+                  break;
+                case CM_SCTCLKSEL:
+                  actualSel = SYSCON->SCTCLKSEL;
+                  break;
+                case CM_TRACECLKSEL:
+                  actualSel = SYSCON->TRACECLKSEL;
+                  break;
+                case CM_SYSTICKCLKSEL:
+                  actualSel = SYSCON->SYSTICKCLKSELX[0];
+                  break;
+                case CM_CTIMERCLKSEL0:
+                  actualSel = SYSCON->CTIMERCLKSELX[0];
+                  break;
+                case CM_CTIMERCLKSEL1:
+                  actualSel = SYSCON->CTIMERCLKSELX[1];
+                  break;
+                case CM_CTIMERCLKSEL2:
+                  actualSel = SYSCON->CTIMERCLKSELX[2];
+                  break;
+                case CM_CTIMERCLKSEL3:
+                  actualSel = SYSCON->CTIMERCLKSELX[3];
+                  break;
+                case CM_CTIMERCLKSEL4:
+                  actualSel = SYSCON->CTIMERCLKSELX[4];
+                  break;
+                case CM_SPIFICLKSEL:
+                  actualSel = SYSCON->SPIFICLKSEL;
+                  break;
+                default:
+                  break;
             }
 
-            if (actualSel>= UINT32_MAX)
+            if (actualSel >= UINT32_MAX)
             {
                 return kNONE_to_NONE;
             }

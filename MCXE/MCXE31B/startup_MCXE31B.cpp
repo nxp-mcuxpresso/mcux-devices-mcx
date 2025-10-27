@@ -1051,7 +1051,7 @@ void Reset_Handler(void) {
 #if !defined(BYPASS_ECC_ITCM_INIT)
     __asm volatile ("LDR     R0, =0x00000000     \n"
                     "LDR     R1, =0x00007FFF     \n"
-                    "LDR     R2, =ram_init_itcm  \n"
+                    "LDR     R2, =Reset_Handler_C\n"
                     "CMP.W   R1, R2              \n"
                     "BCS.N   ram_init_itcm_done  \n"
                     "ram_init_itcm:              \n"

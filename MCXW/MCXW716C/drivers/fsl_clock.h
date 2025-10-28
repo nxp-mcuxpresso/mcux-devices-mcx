@@ -37,10 +37,10 @@
  ******************************************************************************/
 
 /*! @name Driver version */
-/*@{*/
+/*! @{ */
 /*! @brief CLOCK driver version 2.2.5. */
 #define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 2, 5))
-/*@}*/
+/*! @} */
 
 /* Definition for delay API in clock driver, users can redefine it to the real application. */
 #ifndef SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY
@@ -893,7 +893,7 @@ static inline void CLOCK_SetClkOutSel(clock_clkout_src_t setting)
 {
     CLOCK_REG(&SCG0->CLKOUTCNFG) = SCG_CLKOUTCNFG_CLKOUTSEL(setting);
 }
-/* @} */
+/*! @} */
 
 /*!
  * @name SCG System OSC Clock.
@@ -999,7 +999,7 @@ static inline void CLOCK_LockSysOscControlStatusReg(void)
     CLOCK_REG(&SCG0->SOSCCSR) |= SCG_SOSCCSR_LK_MASK;
 }
 
-/* @} */
+/*! @} */
 
 /*!
  * @name SCG Slow IRC Clock.
@@ -1068,7 +1068,7 @@ static inline void CLOCK_LockSircControlStatusReg(void)
     CLOCK_REG(&SCG0->SIRCCSR) |= SCG_SIRCCSR_LK_MASK;
 }
 
-/* @} */
+/*! @} */
 
 /*!
  * @name SCG Fast IRC Clock.
@@ -1284,6 +1284,8 @@ static inline void CLOCK_LockRoscControlStatusReg(void)
     CLOCK_REG(&SCG0->ROSCCSR) |= SCG_ROSCCSR_LK_MASK;
 }
 
+/*! @} */
+
 /*!
  * @name External clock frequency
  * @{
@@ -1309,7 +1311,7 @@ static inline void CLOCK_SetXtal32Freq(uint32_t freq)
     g_xtal32Freq = freq;
 }
 
-/* @} */
+/*! @} */
 
 #if defined(__cplusplus)
 }

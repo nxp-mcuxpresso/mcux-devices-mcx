@@ -31,6 +31,7 @@ menu "Device specific drivers configuration"
          bool "Use driver power"
          select MCUX_COMPONENT_driver.wuu if MCUX_HW_CORE_ID_CM33
          select MCUX_COMPONENT_driver.mcx_cmc if MCUX_HW_CORE_ID_CM33
+         select MCUX_COMPONENT_driver.common if MCUX_HW_CORE_ID_CM0PLUS
          select MCUX_COMPONENT_driver.mu1
          select MCUX_COMPONENT_driver.smm
          select MCUX_COMPONENT_driver.pls_pmu

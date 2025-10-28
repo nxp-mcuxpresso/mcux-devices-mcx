@@ -27,7 +27,7 @@ if (CONFIG_MCUX_COMPONENT_driver.advc)
     mcux_add_library(
         BASE_PATH ${SdkRootDirPath}/${device_root}
         CORES cm33
-        LIBS "MCX/MCXL/MCXL255/drivers/advc_cm33.lib"
+        LIBS "MCX/MCXL/MCXL255/drivers/libadvc_cm33.a"
         TOOLCHAINS iar armgcc
     )
     mcux_add_library(
@@ -39,7 +39,7 @@ if (CONFIG_MCUX_COMPONENT_driver.advc)
     mcux_add_library(
         BASE_PATH ${SdkRootDirPath}/${device_root}
         CORES cm0p
-        LIBS "MCX/MCXL/MCXL255/drivers/advc_cm0p.lib"
+        LIBS "MCX/MCXL/MCXL255/drivers/libadvc_cm0p.a"
         TOOLCHAINS iar armgcc
     )
     mcux_add_library(

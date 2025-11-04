@@ -1216,21 +1216,7 @@ uint32_t CLOCK_GetRtcOscFreq(void)
  */
 uint32_t CLOCK_GetFro16KFreq(void)
 {
-    uint32_t freq = 0U;
-
-    if (AON__PMU->FRO_CTRL & PMU_FRO_CTRL_FRO16K_EN_MASK)
-    {
-        if (AON__PMU->FRO_CTRL & PMU_FRO_CTRL_CLOCK_SEL_MASK)
-        {
-            freq = 8192U;
-        }
-        else
-        {
-            freq = 16384U;
-        }
-    }
-
-    return freq;
+    return 16384U;
 }
 
 /*!

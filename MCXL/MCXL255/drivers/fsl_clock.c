@@ -818,8 +818,16 @@ status_t CLOCK_InitRosc(bool vbat_over3V)
         {7, 0, 0}, {7, 2, 2}, {7, 3, 3},
     };
     
-    /* Set the XTAL32 Output Enable */
-    AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_XTAL32_OUT_EN_MASK;
+    /* Enable RTC Alive Detector in SMM */
+    AON__SMM->RTC_ANLG_XTAL |= SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
+    delay_ms(1U);
+    /* Check if already initialized */
+    if (is_xtal_clkout_vbat_ok() == (status_t)kStatus_Success)
+    {
+        /* Disable RTC alive detector in SMM */
+        AON__SMM->RTC_ANLG_XTAL &= ~SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
+        return (status_t)kStatus_Success;
+    }
     
     /* Set RTC_ANA_RESET_N_VBAT and RTC_DIG_RESE_N to 1'b0 to put in reset */
     AON__SMM->RTC_DCDC_CNTRL &= ~(SMM_RTC_DCDC_CNTRL_DGTL_RST_N_MASK | SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK);
@@ -850,9 +858,6 @@ status_t CLOCK_InitRosc(bool vbat_over3V)
     AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) | SMM_RTC_XTAL_CONFG1_CB_XI(0x3);
     AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XO_MASK) | SMM_RTC_XTAL_CONFG1_CB_XO(0x3);
     AON__SMM->BIAS_CTRL |= SMM_BIAS_CTRL_XTAL_SOX_4P_DIS_MASK;
-
-    /* Enable RTC Alive Detector in SMM */
-    AON__SMM->RTC_ANLG_XTAL |= SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
 
     for (uint32_t i = 0; i < sizeof(xtal_params) / sizeof(xtal_params[0]); i++)
     {

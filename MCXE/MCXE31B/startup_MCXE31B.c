@@ -67,6 +67,7 @@ void ResetISR(void);
 #else
 void Reset_Handler(void);
 #endif // __MCUXPRESSO
+void Reset_Handler_C(void);
 WEAK void NMI_Handler(void);
 WEAK void HardFault_Handler(void);
 WEAK void MemManage_Handler(void);

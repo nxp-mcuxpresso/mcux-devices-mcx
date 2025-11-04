@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b251028
+**     Build:               b251104
 **
 **     Abstract:
 **         Chip specific module features.
@@ -859,6 +859,8 @@
 #define FSL_FEATURE_SYSCON_HAS_LPCAC_CTRL_PARITY_MISS_EN_BIT (0)
 /* @brief Has parity error report (bitfield LPCAC_CTRL[PARITY_FAULT_EN]). */
 #define FSL_FEATURE_SYSCON_HAS_LPCAC_CTRL_PARITY_FAULT_EN_BIT (0)
+/* @brief FIRC support 240M */
+#define FSL_FEATURE_FIRC_SUPPORT_240M (0)
 
 /* SysTick module features */
 

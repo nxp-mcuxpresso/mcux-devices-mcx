@@ -20,8 +20,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.0.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+/*! @brief CLOCK driver version 2.0.1. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
 /*@}*/
 
 /*! @brief Configure whether driver controls clock
@@ -41,7 +41,11 @@
 /* Definition for delay API in clock driver, users can redefine it to the real
  * application. */
 #ifndef SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY
+#if FSL_FEATURE_FIRC_SUPPORT_240M
+#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (240000000U)
+#else
 #define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (180000000U)
+#endif
 #endif
 
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */

@@ -7,8 +7,19 @@ menu "Device specific drivers configuration"
     rsource "romapi/Kconfig"
 
     config MCUX_COMPONENT_driver.clock
-         bool "clock"
-         default n
+        bool "clock"
+        default y
+
+    if MCUX_COMPONENT_driver.clock
+
+        config CLOCK_XTAL_DRIVE_PARAMS_COUNT
+            int "XTAL drive parameters count"
+            default 1
+            help
+                Count of XTAL drive parameters triplets
+                used for Rosc initialization.
+
+    endif
 
     config MCUX_COMPONENT_driver.edma_soc
          bool "edma_soc"

@@ -794,40 +794,86 @@ static status_t is_xtal_clkout_vbat_ok()
 }
 
 /*!
- * brief Initializes the ROSC (xtal32k).
+ * brief Fills the Rosc initialization configuration structure with default values.
  *
- * param vbat_over3V  Set to true is vbat voltage is greater than 3V
- * retval kStatus_Success ROSC is initialized.
- *        kStatus_Fail ROSC init failed.
- *        kStatus_Busy ROSC is used as core clock.
+ * The default values are chosen for safe and common startup behavior.
+ * Delays and timeouts are defined in milliseconds.
+ * For example:
+ * code
+ *  config->xtal_drive_params[0].dly_cap_sox            = 0U;
+ *  config->xtal_drive_params[0].amp                    = 0U;
+ *  config->xtal_drive_params[0].gm                     = 0U;
+ *  config->detectionDelay                              = 2000U;
+ *  config->detectionTimeout                            = 0U;
+ *  config->detectionDelaySwitchedMode                  = 500U;
+ *  config->detectionTimeoutSwitchedMode                = 0U;
+ *  config->cbXo                                        = 3U;
+ *  config->cbXi                                        = 3U;
+ *  config->vbatOver3V                                  = true;
+ * endcode
+ * This function should be called before CLOCK_InitRosc if custom configuration is not fully provided.
+ *
+ * param config Pointer to the rosc_init_config_t structure to be filled.
  */
-status_t CLOCK_InitRosc(bool vbat_over3V)
+void CLOCK_GetDefaultInitRoscConfig(rosc_init_config_t *config)
 {
-    uint32_t supdet;
-    status_t status = (status_t)kStatus_Fail;
-    uint32_t timeout = 500U;
+    /* Check input parameters */
+    assert(config != NULL);
 
-    /* Define dly, amp and gm combinations */
-    static const struct {
-        uint32_t dly_cap_sox;
-        uint32_t amp;
-        uint32_t gm;
-    } xtal_params[] = {
-        {0, 0, 0}, {0, 2, 2}, {0, 3, 3},
-        {3, 0, 0}, {3, 2, 2}, {3, 3, 3},
-        {7, 0, 0}, {7, 2, 2}, {7, 3, 3},
-    };
+    /* Clear the structure */
+    (void)memset(config, 0, sizeof(rosc_init_config_t));
+
+    config->xtal_drive_params[0].dly_cap_sox            = 0U;
+    config->xtal_drive_params[0].amp                    = 0U;
+    config->xtal_drive_params[0].gm                     = 0U;
+    config->detectionDelay                              = 2000U;
+    config->detectionTimeout                            = 0U;
+    config->detectionDelaySwitchedMode                  = 500U;
+    config->detectionTimeoutSwitchedMode                = 0U;
+    config->cbXo                                        = 3U;
+    config->cbXi                                        = 3U;
+    config->vbatOver3V                                  = true;
+}
+
+/*!
+ * brief Checks if ROSC (xtal32k) is initialized.
+ *
+ * This function enables the RTC alive detector temporarily to check if the
+ * ROSC (32kHz crystal oscillator) is properly initialized and running.
+ *
+ * return true if ROSC is initialized and running properly, false if ROSC is not initialized or not running properly.
+ */
+bool CLOCK_IsRoscInitialized(void)
+{
+    bool initialized;
     
     /* Enable RTC Alive Detector in SMM */
     AON__SMM->RTC_ANLG_XTAL |= SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
     delay_ms(1U);
+    
     /* Check if already initialized */
-    if (is_xtal_clkout_vbat_ok() == (status_t)kStatus_Success)
-    {
-        /* Disable RTC alive detector in SMM */
-        AON__SMM->RTC_ANLG_XTAL &= ~SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
-        return (status_t)kStatus_Success;
-    }
+    initialized = (is_xtal_clkout_vbat_ok() == (status_t)kStatus_Success);
+    
+    /* Disable RTC alive detector in SMM */
+    AON__SMM->RTC_ANLG_XTAL &= ~SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
+    
+    return initialized;
+}
+
+/*!
+ * brief Initializes the ROSC (xtal32k).
+ *
+ * param vbat_over3V  Set to true is vbat voltage is greater than 3V
+ * param config Pointer to the user-defined rosc_init_config_t structure.
+ * return kStatus_Success ROSC is initialized.
+ *        kStatus_Fail ROSC init failed.
+ *        kStatus_Busy ROSC is used as core clock.
+ */
+status_t CLOCK_InitRosc(const rosc_init_config_t *config)
+{
+    uint32_t supdet;
+    status_t status = (status_t)kStatus_Fail;
+    uint32_t timeout;
     
     /* Set RTC_ANA_RESET_N_VBAT and RTC_DIG_RESE_N to 1'b0 to put in reset */
     AON__SMM->RTC_DCDC_CNTRL &= ~(SMM_RTC_DCDC_CNTRL_DGTL_RST_N_MASK | SMM_RTC_DCDC_CNTRL_ANA_RESET_N_MASK);
@@ -847,7 +893,7 @@ status_t CLOCK_InitRosc(bool vbat_over3V)
     /* Configure RTC_XO settings */
     AON__SMM->RTC_XTAL_CONFG1 &= ~(SMM_RTC_XTAL_CONFG1_AMPSEL_MASK | SMM_RTC_XTAL_CONFG1_CMP_IBIAS_SOX_MASK);
     AON__SMM->RTC_XTAL_CONFG2 &= ~(SMM_RTC_XTAL_CONFG2_DLY_IBIAS_SOX_MASK | SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX_MASK | SMM_RTC_XTAL_CONFG2_HYSTEL_MASK | SMM_RTC_XTAL_CONFG2_GMSEL_MASK);
-    supdet = (vbat_over3V) ? 1U : 0U;
+    supdet = (config->vbatOver3V) ? 1U : 0U;
     AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_SUPDET_TM_SOX_MASK) | SMM_RTC_XTAL_CONFG2_SUPDET_TM_SOX(supdet);
     AON__SMM->RTC_ANLG_XTAL &= ~SMM_RTC_ANLG_XTAL_RTC_ALV_INDCTN_MASK;
     AON__SMM->RTC_XTAL_CONFG2 &= ~SMM_RTC_XTAL_CONFG2_XTM_MASK;
@@ -855,25 +901,37 @@ status_t CLOCK_InitRosc(bool vbat_over3V)
 
     /* Configure the load cap for RTC XO switched mode */
     AON__SMM->RTC_XTAL_CONFG2 |= SMM_RTC_XTAL_CONFG2_CAP_BNK_EN_MASK;
-    AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) | SMM_RTC_XTAL_CONFG1_CB_XI(0x3);
-    AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XO_MASK) | SMM_RTC_XTAL_CONFG1_CB_XO(0x3);
+    AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) |
+                                SMM_RTC_XTAL_CONFG1_CB_XI(config->cbXi);
+    AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XO_MASK) |
+                                SMM_RTC_XTAL_CONFG1_CB_XO(config->cbXo);
     AON__SMM->BIAS_CTRL |= SMM_BIAS_CTRL_XTAL_SOX_4P_DIS_MASK;
+    
+    /* Enable RTC Alive Detector in SMM */
+    AON__SMM->RTC_ANLG_XTAL |= SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
 
-    for (uint32_t i = 0; i < sizeof(xtal_params) / sizeof(xtal_params[0]); i++)
+    for (uint32_t i = 0U; i < CLOCK_XTAL_DRIVE_PARAMS_COUNT; i++)
     {
         AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_AMPSEL_SHIFT) |
-                                    SMM_RTC_XTAL_CONFG1_AMPSEL(xtal_params[i].amp);
+                                    SMM_RTC_XTAL_CONFG1_AMPSEL(config->xtal_drive_params[i].amp);
         AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX_MASK) |
-                                    SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX(xtal_params[i].dly_cap_sox);
+                                    SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX(config->xtal_drive_params[i].dly_cap_sox);
         AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_GMSEL_MASK) |
-                                    SMM_RTC_XTAL_CONFG2_GMSEL(xtal_params[i].gm);
+                                    SMM_RTC_XTAL_CONFG2_GMSEL(config->xtal_drive_params[i].gm);
         
         /* Enable XTAL */
         AON__SMM->RTC_XTAL_CONFG1 |= SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
         AON__SMM->RTC_XTAL_CONFG2 |= SMM_RTC_XTAL_CONFG2_SOX_EN_MASK;
-        delay_ms(50U);
+        delay_ms(config->detectionDelay);
         
-        if (is_xtal_clkout_vbat_ok() != (status_t)kStatus_Success)
+        timeout = config->detectionTimeout;
+        while ((is_xtal_clkout_vbat_ok() != (status_t)kStatus_Success) && timeout > 0U)
+        {
+            delay_ms(1U);
+            timeout--;
+        };
+        
+        if ((timeout == 0U) && (is_xtal_clkout_vbat_ok() != (status_t)kStatus_Success))
         {
             /* Disable XTAL */
             AON__SMM->RTC_XTAL_CONFG1 &= ~SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
@@ -883,19 +941,20 @@ status_t CLOCK_InitRosc(bool vbat_over3V)
         /* Use switched mode */
         AON__SMM->RTC_ANLG_XTAL &= ~SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
         AON__SMM->RTC_XTAL_CONFG1 |= SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;
-        AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) | SMM_RTC_XTAL_CONFG1_CB_XI(0x0);
-        delay_ms(50U);
+        AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_CB_XI_MASK) | SMM_RTC_XTAL_CONFG1_CB_XI(0);
+        delay_ms(config->detectionDelaySwitchedMode);
         AON__SMM->RTC_XTAL_CONFG2 &= ~SMM_RTC_XTAL_CONFG2_SOX_EN_MASK;
         AON__SMM->RTC_ANLG_XTAL |= SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
-
-        timeout = 50U;
+        delay_ms(1U);
+        
+        timeout = config->detectionTimeoutSwitchedMode;
         while ((is_xtal_clkout_vbat_ok() != (status_t)kStatus_Success) && timeout > 0U)
         {
             delay_ms(1U);
             timeout--;
         };
         
-        if (timeout == 0U)
+        if ((timeout == 0U) && (is_xtal_clkout_vbat_ok() != (status_t)kStatus_Success))
         {
             /* Disable XTAL */
             AON__SMM->RTC_XTAL_CONFG1 &= ~SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;

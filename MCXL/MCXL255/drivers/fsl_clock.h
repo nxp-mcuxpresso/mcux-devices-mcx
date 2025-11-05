@@ -67,6 +67,15 @@
 /*! @brief True when clock gate belongs to AON domain */
 #define CLK_OF_AON(value) (((uint32_t)(value)) & (1U<<24U))
 
+/*! @brief Count of XTAL driver parameters' triplets for Rosc initialization*/
+#ifndef CLOCK_XTAL_DRIVE_PARAMS_COUNT
+#ifdef CONFIG_CLOCK_XTAL_DRIVE_PARAMS_COUNT
+#define CLOCK_XTAL_DRIVE_PARAMS_COUNT CONFIG_CLOCK_XTAL_DRIVE_PARAMS_COUNT
+#else
+#define CLOCK_XTAL_DRIVE_PARAMS_COUNT (1U)
+#endif
+#endif
+
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */
 typedef enum _clock_ip_name
 {
@@ -718,6 +727,27 @@ typedef struct _aon_fro_trim_config
     uint8_t ccotrim;     /*!< Trim fine freq value; 0-63 */
 } aon_fro_trim_config_t;
 
+/*! @brief XTAL drive parameter structure containing dly_cap_sox, amp and gm values. */
+typedef struct _xtal_drive_param
+{
+    uint8_t dly_cap_sox; /*!< Pulse location */
+    uint8_t amp;         /*!< Amplitude control */
+    uint8_t gm;          /*!< GM setting */
+} xtal_drive_param_t;
+
+/*! @brief ROSC initialization configuration structure. */
+typedef struct _rosc_init_config
+{
+    xtal_drive_param_t xtal_drive_params[CLOCK_XTAL_DRIVE_PARAMS_COUNT]; /*!< Array of dly_cap_sox, amp and gm parameters */
+    uint32_t detectionDelay; /*!< Delay before start of rosc initialization detection */
+    uint32_t detectionTimeout; /*!< Timeout for detection of rosc initialization */
+    uint32_t detectionDelaySwitchedMode; /*!< Delay before start of rosc initialization detection in switched mode */
+    uint32_t detectionTimeoutSwitchedMode; /*!< Timeout for detection of rosc initialization in switched mode */
+    uint8_t cbXo; /*!< Selects the internal capacitance on XO or XTAL pin */
+    uint8_t cbXi; /*!< Selects the internal capacitance on XI or XTAL pin */
+    bool vbatOver3V; /*!< Initialization configuration for vbat voltage value */
+} rosc_init_config_t;
+
 /*******************************************************************************
  * API
  ******************************************************************************/
@@ -933,14 +963,48 @@ void CLOCK_DisableAutoClockGate(clock_ip_name_t clk);
 #endif /* Building on the main core */
 
 /*!
+ * @brief Fills the Rosc initialization configuration structure with default values.
+ *
+ * The default values are chosen for safe and common startup behavior.
+ * Delays and timeouts are defined in milliseconds.
+ * For example:
+ * @code
+ *  config->xtal_drive_params[0].dly_cap_sox            = 0U;
+ *  config->xtal_drive_params[0].amp                    = 0U;
+ *  config->xtal_drive_params[0].gm                     = 0U;
+ *  config->detectionDelay                              = 2000U;
+ *  config->detectionTimeout                            = 0U;
+ *  config->detectionDelaySwitchedMode                  = 500U;
+ *  config->detectionTimeoutSwitchedMode                = 0U;
+ *  config->cbXo                                        = 3U;
+ *  config->cbXi                                        = 3U;
+ *  config->vbatOver3V                                  = true;
+ * @endcode
+ * This function should be called before CLOCK_InitRosc if custom configuration is not fully provided.
+ *
+ * @param config Pointer to the rosc_init_config_t structure to be filled.
+ */
+void CLOCK_GetDefaultInitRoscConfig(rosc_init_config_t *config);
+
+/*!
+ * @brief Checks if ROSC (xtal32k) is initialized.
+ *
+ * This function enables the RTC alive detector temporarily to check if the
+ * ROSC (32kHz crystal oscillator) is properly initialized and running.
+ *
+ * @return true if ROSC is initialized and running properly, false if ROSC is not initialized or not running properly.
+ */
+bool CLOCK_IsRoscInitialized(void);
+
+/*!
  * @brief Initializes the ROSC (xtal32k).
  *
- * @param vbat_over3V  Set to true is vbat voltage is greater than 3V
- * @retval kStatus_Success ROSC is initialized.
- *        kStatus_Fail ROSC init failed.
- *        kStatus_Busy ROSC is used as core clock.
+ * @param config Pointer to the user-defined rosc_init_config_t structure.
+ * @return kStatus_Success ROSC is initialized.
+ *         kStatus_Fail ROSC init failed.
+ *         kStatus_Busy ROSC is used as core clock.
  */
-status_t CLOCK_InitRosc(bool vbat_over3V);
+status_t CLOCK_InitRosc(const rosc_init_config_t *config);
 
 /*!
  * brief De-initializes the SCG ROSC.

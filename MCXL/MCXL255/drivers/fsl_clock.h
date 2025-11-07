@@ -626,6 +626,7 @@ typedef enum _clock_div_name
  */
 typedef enum _firc_trim_mode
 {
+    kSCG_FircTrimDisable = 0U, /*!< Disable trimming to external source */
     kSCG_FircTrimNonUpdate = SCG_FIRCCSR_FIRCTREN_MASK,
     /*!< Trim enable but not enable trim value update. In this mode, the
      trim value is fixed to the initialized value which is defined by
@@ -662,6 +663,7 @@ typedef struct _firc_trim_config
  */
 typedef enum _sirc_trim_mode
 {
+    kSCG_SircTrimDisable = 0U, /*!< Disable trimming to external source */
     kSCG_SircTrimNonUpdate = SCG_SIRCCSR_SIRCTREN_MASK,
     /*!< Trim enable but not enable trim value update. In this mode, the
      trim value is fixed to the initialized value which is defined by
@@ -1127,18 +1129,27 @@ uint32_t CLOCK_GetSystickClkFreq(void);
 
 /**
  * @brief   Setup FROHF trim.
- * @param   config   : FROHF trim value
+ *
+ * Configures FROHF trimming for auto trim or non-auto trim. It does not
+ * start the auto trim, just configures it. For non-auto trim,
+ * coarse and fine trimming values are applied.
+ *
+ * @param   config Pointer to FROHF trim configuration
  * @return  returns success or fail status.
  */
-status_t CLOCK_FROHFTrimConfig(firc_trim_config_t config);
+status_t CLOCK_FROHFTrimConfig(const firc_trim_config_t *config);
 
 /**
  * @brief   Setup FRO 12M trim.
- * @param   config   : FRO 12M trim value
+ *
+ * Configures FRO 12M (SIRC) trimming for auto trim or non-auto trim. It does not
+ * start the auto trim, just configures it. For non-auto trim,
+ * CL and CCO trimming values are applied.
+ *
+ * @param   config Pointer to FRO 12M trim value
  * @return  returns success or fail status.
  */
-status_t CLOCK_FRO12MTrimConfig(sirc_trim_config_t config);
-
+status_t CLOCK_FRO12MTrimConfig(const sirc_trim_config_t *config);
 
 /*!
  * @brief Sets the ROSC monitor mode.

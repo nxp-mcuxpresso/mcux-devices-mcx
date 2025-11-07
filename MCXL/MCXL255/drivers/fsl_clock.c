@@ -1921,20 +1921,35 @@ uint32_t CLOCK_GetFroAonFreq(void)
 #if __CORTEX_M == (33U) /* Building on the main core */
 /**
  * @brief   Setup FROHF trim.
- * @param   config   : FROHF trim value
+ *
+ * Configures FROHF trimming for auto trim or non-auto trim. It does not
+ * start the auto trim, just configures it. For non-auto trim,
+ * coarse and fine trimming values are applied.
+ *
+ * @param   config Pointer to FROHF trim configuration
  * @return  returns success or fail status.
  */
-status_t CLOCK_FROHFTrimConfig(firc_trim_config_t config)
+status_t CLOCK_FROHFTrimConfig(const firc_trim_config_t *config)
 {
-    SCG0->FIRCTCFG = SCG_FIRCTCFG_TRIMSRC(config.trimSrc);
-
-    if (kSCG_FircTrimNonUpdate == config.trimMode)
-    {
-        SCG0->FIRCSTAT = SCG_FIRCSTAT_TRIMFINE(config.trimFine);
-    }
-
+    SCG0->FIRCTCFG = SCG_FIRCTCFG_TRIMSRC(config->trimSrc);
+    
+    /* Unlock FIRCCSR*/
+    SCG0->FIRCCSR &= ~(SCG_FIRCCSR_LK_MASK);
+    
     /* Set trim mode. */
-    SCG0->FIRCCSR = (uint32_t)config.trimMode;
+    SCG0->FIRCCSR &= ~(SCG_FIRCCSR_FIRCTREN_MASK | SCG_FIRCCSR_FIRCTRUP_MASK);
+    if (config->trimMode != kSCG_FircTrimDisable)
+    {
+        SCG0->FIRCCSR |= SCG_FIRCCSR_FIRCTREN_MASK;
+    }
+    
+    /* Lock FIRCCSR*/
+    SCG0->FIRCCSR |= SCG_FIRCCSR_LK_MASK;
+
+    if (kSCG_FircTrimNonUpdate == config->trimMode)
+    {
+        SCG0->FIRCSTAT = SCG_FIRCSTAT_TRIMCOAR(config->trimCoar) | SCG_FIRCSTAT_TRIMFINE(config->trimFine);
+    }
 
     if ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRCERR_MASK) == SCG_FIRCCSR_FIRCERR_MASK)
     {
@@ -1946,21 +1961,35 @@ status_t CLOCK_FROHFTrimConfig(firc_trim_config_t config)
 
 /**
  * @brief   Setup FRO 12M trim.
- * @param   config   : FRO 12M trim value
+ *
+ * Configures FRO 12M (SIRC) trimming for auto trim or non-auto trim. It does not
+ * start the auto trim, just configures it. For non-auto trim,
+ * CL and CCO trimming values are applied.
+ *
+ * @param   config Pointer to FRO 12M trim value
  * @return  returns success or fail status.
  */
-status_t CLOCK_FRO12MTrimConfig(sirc_trim_config_t config)
+status_t CLOCK_FRO12MTrimConfig(const sirc_trim_config_t *config)
 {
-    SCG0->SIRCTCFG = SCG_SIRCTCFG_TRIMSRC(config.trimSrc);
-
-    if (kSCG_SircTrimNonUpdate == config.trimMode)
-    {
-        SCG0->SIRCSTAT = SCG_SIRCSTAT_CCOTRIM(config.cltrim);
-        SCG0->SIRCSTAT = SCG_SIRCSTAT_CCOTRIM(config.ccotrim);
-    }
-
+    SCG0->SIRCTCFG = SCG_SIRCTCFG_TRIMSRC(config->trimSrc);
+    
+    /* Unlock SIRCCSR*/
+    SCG0->SIRCCSR &= ~(SCG_SIRCCSR_LK_MASK);
+    
     /* Set trim mode. */
-    SCG0->SIRCCSR = (uint32_t)config.trimMode;
+    SCG0->SIRCCSR &= ~(SCG_SIRCCSR_SIRCTREN_MASK | SCG_SIRCCSR_SIRCTRUP_MASK);
+    if (config->trimMode != kSCG_SircTrimDisable)
+    {
+        SCG0->SIRCCSR |= SCG_SIRCCSR_SIRCTREN_MASK;
+    }
+    
+    /* Lock SIRCCSR*/
+    SCG0->SIRCCSR |= SCG_SIRCCSR_LK_MASK;
+
+    if (kSCG_SircTrimNonUpdate == config->trimMode)
+    {
+        SCG0->SIRCSTAT = SCG_SIRCSTAT_CLTRIM(config->cltrim) | SCG_SIRCSTAT_CCOTRIM(config->ccotrim);
+    }
 
     if ((SCG0->SIRCCSR & SCG_SIRCCSR_SIRCERR_MASK) == SCG_SIRCCSR_SIRCERR_MASK)
     {

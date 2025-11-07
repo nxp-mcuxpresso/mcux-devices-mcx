@@ -498,7 +498,7 @@ typedef enum _clock_attach_id
     kFIRC_to_MAIN_CLK   = CLK_ATTACH_MUX(kCLOCK_SelSCGSCS, 3U),             /*!< Attach FIRC to MAIN_CLK.   */
     kROSC_to_MAIN_CLK   = CLK_ATTACH_MUX(kCLOCK_SelSCGSCS, 4U),             /*!< Attach ROSC to MAIN_CLK.   */
     kPMUIRC_to_MAIN_CLK = CLK_ATTACH_MUX(kCLOCK_SelSCGSCS, 9U),             /*!< Attach PMUIRC to MAIN_CLK. */
-    kLPIRC_to_MAIN_CLK  = CLK_ATTACH_MUX(kCLOCK_SelSCGSCS,10U),             /*!< Attach LPIRC to MAIN_CLK.  */
+    kLPIRC_to_MAIN_CLK  = CLK_ATTACH_MUX(kCLOCK_SelSCGSCS,10U),             /*!< Attach LPIRC (FRO10M) to MAIN_CLK. */
 
     kFIRC_to_FRO_HF     = CLK_ATTACH_MUX(kCLOCK_SelFIRC, 0U),               /*!< Attach FIRC to FRO_HF.      */
     kFIRC_DIV_to_FRO_HF = CLK_ATTACH_MUX(kCLOCK_SelFIRC, 1U),               /*!< Attach FIRC_DIV to FRO_HF.  */
@@ -532,6 +532,7 @@ typedef enum _clock_attach_id
     kFRO12M_to_CLKOUT     = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 0U),           /*!< Attach FRO12M to CLKOUT.     */
     kSLOW_CLK_to_CLKOUT   = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 1U),           /*!< Attach SLOW_CLK to CLKOUT.   */
     kCLK_16K_to_CLKOUT    = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 3U),           /*!< Attach CLK_16K to CLKOUT.    */
+    kFRO10M_to_CLKOUT     = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 5U),           /*!< Attach FRO10M to CLKOUT.     */
     kFRO_HF_DIV_to_CLKOUT = CLK_ATTACH_MUX(kCLOCK_SelCLKOUT, 7U),           /*!< Attach FRO_HF_DIV to CLKOUT. */
 
     kFRO12M_to_PERIPH_GROUP0 = CLK_ATTACH_MUX(kCLOCK_SelPERIPH_GROUP0, 0U), /*!< Attach FRO12M to PERIPH_GROUP_0.   */

@@ -614,7 +614,18 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
 #endif
 }
 
-/* Initialize the FROHF to given frequency (10M, 2M) */
+/**
+ * @brief   Initialize the AON FRO to given frequency.
+ * 
+ * Initialize the AON FRO to given frequency and selects the frequency
+ * as AON Root Clock source for Root_Clock1, 2, 3 clock signals.
+ * In case of 10M selection, it also disables 2M FRO as it has no
+ * other usage than AON Root Clock source. In case of 2M selection,
+ * 10M FRO is kept running as it can be used in main domain.
+ * 
+ * @param   iFreq : Desired frequency (10M, 2M, 0=off).
+ * @return  returns success or fail status.
+ */
 status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
 {
     ADVC_PreChg(kClockAonChg_Fro, iFreq);
@@ -623,14 +634,16 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
     {
         case 10000000U:
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_FRO10M_EN_SHIFT;
+            SDK_DelayAtLeastUs(500U, SystemCoreClock);
             AON__CGU->CLK_CONFIG &= ~(1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT);
+            /* Disable 2M FRO as it has no other usage except Root Clock */
             AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO2M_EN_MASK;
             break;
         case 2000000U:
             AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_FRO2M_EN_MASK;
             SDK_DelayAtLeastUs(500U, SystemCoreClock);
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT;
-            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO10M_EN_MASK;
+            /* Do not disable 10M FRO as it can be used in main domain */
             break;
         case 0U:
             /* Turn off */

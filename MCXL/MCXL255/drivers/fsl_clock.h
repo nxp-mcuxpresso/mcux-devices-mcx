@@ -915,8 +915,15 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name);
 void CLOCK_HaltClockDiv(clock_div_name_t div_name);
 
 /**
- * @brief   Initialize the AON FRO to given frequency..
- * @param   iFreq   : Desired frequency (10M,2M,0=off).
+ * @brief   Initialize the AON FRO to given frequency.
+ * 
+ * Initialize the AON FRO to given frequency and selects the frequency
+ * as AON Root Clock source for Root_Clock1, 2, 3 clock signals.
+ * In case of 10M selection, it also disables 2M FRO as it has no
+ * other usage than AON Root Clock source. In case of 2M selection,
+ * 10M FRO is kept running as it can be used in main domain.
+ * 
+ * @param   iFreq : Desired frequency (10M, 2M, 0=off).
  * @return  returns success or fail status.
  */
 status_t CLOCK_SetupFROAonClocking(uint32_t iFreq);

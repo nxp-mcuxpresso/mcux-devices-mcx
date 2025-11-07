@@ -463,6 +463,8 @@
 #define FSL_FEATURE_CTIMER_HAS_CCR_CAP3 (1)
 /* @brief CTIMER Has register MSR */
 #define FSL_FEATURE_CTIMER_HAS_MSR (1)
+/* @brief CTIMER will enter interrupt twice when function clock much slower than bus clock. */
+#define FSL_FEATURE_CTIMER_HAS_ERRATA_53024 (1)
 
 /* EDMA module features */
 

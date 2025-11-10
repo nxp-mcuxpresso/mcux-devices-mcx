@@ -1014,11 +1014,11 @@ status_t CLOCK_DeinitRosc(void)
         return kStatus_Busy;
     }
 #else  
-    clk = CLOCK_GetClockSelect(kCLOKC_SelAonROOT);
+    clk = CLOCK_GetClockSelect(kCLOCK_SelAonROOT);
     if(clk == 3U)
     {
         /* AON core uses root aux clk... */
-        clk = CLOCK_GetClockSelect(kCLOKC_SelAonROOT_AUX);
+        clk = CLOCK_GetClockSelect(kCLOCK_SelAonROOT_AUX);
         if(clk == 0U)
         {
             /* ... aon aon root aux clk uses Rosc*/
@@ -1084,7 +1084,7 @@ uint32_t CLOCK_GetFreq(clock_name_t clockName)
         case kCLOCK_Fro16k: /* AON PAC and SMM clock. */
             freq = CLOCK_GetFro16KFreq();
             break;
-        case kCLOKC_FroAON: /* AON functional clock. this is wrong add kCLOKC_FroAON */
+        case kCLOCK_FroAON: /* AON functional clock. this is wrong add kCLOCK_FroAON */
             freq = CLOCK_GetFroAonFreq();
             break;
         default:

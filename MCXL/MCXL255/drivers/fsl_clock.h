@@ -389,7 +389,7 @@ typedef enum _clock_name
 #endif
     kCLOCK_RtcOscClk,  /*!< RTC OSC clock.             */
     kCLOCK_Fro16k,     /*!< AON PAC and SMM clock.     */
-    kCLOKC_FroAON      /*!< AON free runnin clock.     */
+    kCLOCK_FroAON      /*!< AON free running clock.    */
 } clock_name_t;
 
 /*! @brief Clock Mux Switches
@@ -432,16 +432,16 @@ typedef enum _clock_select_name
     kCLOCK_SelFIRC          = (0x300U), /*!< FIRC Divider clock selection     */
 #endif
 
-    kCLOKC_SelAonROOT_AUX   = CLK_AON_SEL(0U,  4U, 1U), /*!< AON ROOT_AUX clock selection          */
-    kCLOKC_SelAonROOT       = CLK_AON_SEL(0U,  2U, 3U), /*!< AON ROOT clock selection              */
-    kCLOKC_SelAonACMP0      = CLK_AON_SEL(4U, 13U, 3U), /*!< AON ACMP0 clock selection             */
-    kCLOKC_SelAonLCD        = CLK_AON_SEL(4U, 12U, 1U), /*!< AON LCD clock selection               */
-    kCLOKC_SelAonLPADC      = CLK_AON_SEL(4U,  9U, 7U), /*!< AON LPADC clock selection             */
-    kCLOKC_SelAonSYSTICK    = CLK_AON_SEL(4U,  7U, 3U), /*!< AON SYS tick clock selection          */
-    kCLOKC_SelAonKPP        = CLK_AON_SEL(4U,  6U, 1U), /*!< AON KPP clock selection               */
-    kCLOKC_SelAonLPTMR      = CLK_AON_SEL(4U,  4U, 3U), /*!< AON LPTMR GRP clock selection         */
-    kCLOKC_SelAonTMR        = CLK_AON_SEL(4U,  2U, 3U), /*!< AON TMR GRP clock selection           */
-    kCLOKC_SelAonCOM        = CLK_AON_SEL(4U,  0U, 3U), /*!< AON COM comaprator (aon_per_clk) clock selection */
+    kCLOCK_SelAonROOT_AUX   = CLK_AON_SEL(0U,  4U, 1U), /*!< AON ROOT_AUX clock selection          */
+    kCLOCK_SelAonROOT       = CLK_AON_SEL(0U,  2U, 3U), /*!< AON ROOT clock selection              */
+    kCLOCK_SelAonACMP0      = CLK_AON_SEL(4U, 13U, 3U), /*!< AON ACMP0 clock selection             */
+    kCLOCK_SelAonLCD        = CLK_AON_SEL(4U, 12U, 1U), /*!< AON LCD clock selection               */
+    kCLOCK_SelAonLPADC      = CLK_AON_SEL(4U,  9U, 7U), /*!< AON LPADC clock selection             */
+    kCLOCK_SelAonSYSTICK    = CLK_AON_SEL(4U,  7U, 3U), /*!< AON SYS tick clock selection          */
+    kCLOCK_SelAonKPP        = CLK_AON_SEL(4U,  6U, 1U), /*!< AON KPP clock selection               */
+    kCLOCK_SelAonLPTMR      = CLK_AON_SEL(4U,  4U, 3U), /*!< AON LPTMR GRP clock selection         */
+    kCLOCK_SelAonTMR        = CLK_AON_SEL(4U,  2U, 3U), /*!< AON TMR GRP clock selection           */
+    kCLOCK_SelAonCOM        = CLK_AON_SEL(4U,  0U, 3U), /*!< AON COM comaprator (aon_per_clk) clock selection */
 } clock_select_name_t;
 
 /*!
@@ -450,50 +450,50 @@ typedef enum _clock_select_name
 
 typedef enum _clock_attach_id
 {
-    kXTAL32K_to_AON_ROOT_AUX  = CLK_ATTACH_MUX(kCLOKC_SelAonROOT_AUX, 0U),         /*!< Attach XTAL32K to AON AUX.   */
-    kAUX_to_AON_ROOT_AUX      = CLK_ATTACH_MUX(kCLOKC_SelAonROOT_AUX, 1U),         /*!< Attach AUX to AON AUX.    */
+    kXTAL32K_to_AON_ROOT_AUX  = CLK_ATTACH_MUX(kCLOCK_SelAonROOT_AUX, 0U),         /*!< Attach XTAL32K to AON AUX.   */
+    kAUX_to_AON_ROOT_AUX      = CLK_ATTACH_MUX(kCLOCK_SelAonROOT_AUX, 1U),         /*!< Attach AUX to AON AUX.    */
 
-    kFROdiv1_to_AON_CPU     = CLK_ATTACH_MUX(kCLOKC_SelAonROOT, 0U),         /*!< Attach FRO div 1 to AON_CPU.   */
-    kFROdiv2_to_AON_CPU     = CLK_ATTACH_MUX(kCLOKC_SelAonROOT, 1U),         /*!< Attach FRO div 2 to AON_CPU.   */
-    kFROdiv4_to_AON_CPU     = CLK_ATTACH_MUX(kCLOKC_SelAonROOT, 2U),         /*!< Attach FRO div 4 to AON_CPU.   */
-    kROOT_AUX_to_AON_CPU    = CLK_ATTACH_MUX(kCLOKC_SelAonROOT, 3U),         /*!< Attach ROOT AUX to AON_CPU.    */
+    kFROdiv1_to_AON_CPU     = CLK_ATTACH_MUX(kCLOCK_SelAonROOT, 0U),         /*!< Attach FRO div 1 to AON_CPU.   */
+    kFROdiv2_to_AON_CPU     = CLK_ATTACH_MUX(kCLOCK_SelAonROOT, 1U),         /*!< Attach FRO div 2 to AON_CPU.   */
+    kFROdiv4_to_AON_CPU     = CLK_ATTACH_MUX(kCLOCK_SelAonROOT, 2U),         /*!< Attach FRO div 4 to AON_CPU.   */
+    kROOT_AUX_to_AON_CPU    = CLK_ATTACH_MUX(kCLOCK_SelAonROOT, 3U),         /*!< Attach ROOT AUX to AON_CPU.    */
 
-    kFROdiv1_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOKC_SelAonACMP0, 0U),         /*!< Attach FRO div 1 to AON ACMP0.   */
-    kFROdiv2_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOKC_SelAonACMP0, 1U),         /*!< Attach FRO div 2 to AON ACMP0.   */
-    kFROdiv4_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOKC_SelAonACMP0, 2U),         /*!< Attach FRO div 4 to AON ACMP0.   */
-    kROOT_AUX_to_AON_CMP0    = CLK_ATTACH_MUX(kCLOKC_SelAonACMP0, 3U),         /*!< Attach ROOT AUX to AON ACMP0.    */
+    kFROdiv1_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOCK_SelAonACMP0, 0U),         /*!< Attach FRO div 1 to AON ACMP0.   */
+    kFROdiv2_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOCK_SelAonACMP0, 1U),         /*!< Attach FRO div 2 to AON ACMP0.   */
+    kFROdiv4_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOCK_SelAonACMP0, 2U),         /*!< Attach FRO div 4 to AON ACMP0.   */
+    kROOT_AUX_to_AON_CMP0    = CLK_ATTACH_MUX(kCLOCK_SelAonACMP0, 3U),         /*!< Attach ROOT AUX to AON ACMP0.    */
 
-    kCLK_16K_to_AON_LCD     = CLK_ATTACH_MUX(kCLOKC_SelAonLCD, 0U),         /*!< Attach FRO clk_16k to AON LCD.   */
-    kFRO16K_to_AON_LCD      = CLK_ATTACH_MUX(kCLOKC_SelAonLCD, 1U),         /*!< Attach FRO fro16k to AON LCD.   */
+    kCLK_16K_to_AON_LCD     = CLK_ATTACH_MUX(kCLOCK_SelAonLCD, 0U),         /*!< Attach FRO clk_16k to AON LCD.   */
+    kFRO16K_to_AON_LCD      = CLK_ATTACH_MUX(kCLOCK_SelAonLCD, 1U),         /*!< Attach FRO fro16k to AON LCD.   */
 
-    kFROdiv1_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 0U),         /*!< Attach FRO div 1 to AON LPADC.   */
-    kFROdiv2_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 1U),         /*!< Attach FRO div 2 to AON LPADC.   */
-    kFROdiv4_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 2U),         /*!< Attach FRO div 4 to AON LPADC.   */
-    kROOT_AUX_to_AON_LPADC    = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 3U),         /*!< Attach ROOT AUX to AON LPADC.    */
-    kXTAL32K_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 4U),         /*!< Attach FRO RTC to AON LPADC.     */
-    kFRO16K_to_AON_LPADC      = CLK_ATTACH_MUX(kCLOKC_SelAonLPADC, 5U),         /*!< Attach FRO fro16k to AON LPADC.  */
+    kFROdiv1_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOCK_SelAonLPADC, 0U),         /*!< Attach FRO div 1 to AON LPADC.   */
+    kFROdiv2_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOCK_SelAonLPADC, 1U),         /*!< Attach FRO div 2 to AON LPADC.   */
+    kFROdiv4_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOCK_SelAonLPADC, 2U),         /*!< Attach FRO div 4 to AON LPADC.   */
+    kROOT_AUX_to_AON_LPADC    = CLK_ATTACH_MUX(kCLOCK_SelAonLPADC, 3U),         /*!< Attach ROOT AUX to AON LPADC.    */
+    kXTAL32K_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOCK_SelAonLPADC, 4U),         /*!< Attach FRO RTC to AON LPADC.     */
+    kFRO16K_to_AON_LPADC      = CLK_ATTACH_MUX(kCLOCK_SelAonLPADC, 5U),         /*!< Attach FRO fro16k to AON LPADC.  */
 
-    kFROdiv1_to_AON_SYSTICK     = CLK_ATTACH_MUX(kCLOKC_SelAonSYSTICK, 0U),     /*!< Attach FRO div 1 to AON SYSTICK.   */
-    kFROdiv2_to_AON_SYSTICK     = CLK_ATTACH_MUX(kCLOKC_SelAonSYSTICK, 1U),     /*!< Attach FRO div 2 to AON SYSTICK.   */
-    kFROdiv4_to_AON_SYSTICK     = CLK_ATTACH_MUX(kCLOKC_SelAonSYSTICK, 2U),     /*!< Attach FRO div 4 to AON SYSTICK.   */
-    kROOT_AUX_to_AON_SYSTICK    = CLK_ATTACH_MUX(kCLOKC_SelAonSYSTICK, 3U),     /*!< Attach ROOT AUX to AON SYSTICK.    */
+    kFROdiv1_to_AON_SYSTICK     = CLK_ATTACH_MUX(kCLOCK_SelAonSYSTICK, 0U),     /*!< Attach FRO div 1 to AON SYSTICK.   */
+    kFROdiv2_to_AON_SYSTICK     = CLK_ATTACH_MUX(kCLOCK_SelAonSYSTICK, 1U),     /*!< Attach FRO div 2 to AON SYSTICK.   */
+    kFROdiv4_to_AON_SYSTICK     = CLK_ATTACH_MUX(kCLOCK_SelAonSYSTICK, 2U),     /*!< Attach FRO div 4 to AON SYSTICK.   */
+    kROOT_AUX_to_AON_SYSTICK    = CLK_ATTACH_MUX(kCLOCK_SelAonSYSTICK, 3U),     /*!< Attach ROOT AUX to AON SYSTICK.    */
 
-    kXTAL32K_to_AON_KPP     = CLK_ATTACH_MUX(kCLOKC_SelAonKPP, 0U),         /*!< Attach XTAL32K to AON KPP.   */
-    kFRO16K_to_AON_KPP      = CLK_ATTACH_MUX(kCLOKC_SelAonKPP, 1U),         /*!< Attach FRO fro16k to AON KPP.   */
+    kXTAL32K_to_AON_KPP     = CLK_ATTACH_MUX(kCLOCK_SelAonKPP, 0U),         /*!< Attach XTAL32K to AON KPP.   */
+    kFRO16K_to_AON_KPP      = CLK_ATTACH_MUX(kCLOCK_SelAonKPP, 1U),         /*!< Attach FRO fro16k to AON KPP.   */
 
-    AON_TMR_to_AON_LPTMR    = CLK_ATTACH_MUX(kCLOKC_SelAonLPTMR, 0U),       /*!< Attach AON TIMER CLK to AON LPTMR GRP.*/
-    kFRO16K_to_AON_LPTMR    = CLK_ATTACH_MUX(kCLOKC_SelAonLPTMR, 1U),       /*!< Attach FRO16K to AON LPTMR GRP.*/
-    kCLK_16K_to_AON_LPTMR   = CLK_ATTACH_MUX(kCLOKC_SelAonLPTMR, 2U),       /*!< Attach CLK_16K to AON LPTMR GRP.*/
+    AON_TMR_to_AON_LPTMR    = CLK_ATTACH_MUX(kCLOCK_SelAonLPTMR, 0U),       /*!< Attach AON TIMER CLK to AON LPTMR GRP.*/
+    kFRO16K_to_AON_LPTMR    = CLK_ATTACH_MUX(kCLOCK_SelAonLPTMR, 1U),       /*!< Attach FRO16K to AON LPTMR GRP.*/
+    kCLK_16K_to_AON_LPTMR   = CLK_ATTACH_MUX(kCLOCK_SelAonLPTMR, 2U),       /*!< Attach CLK_16K to AON LPTMR GRP.*/
 
-    kFROdiv1_to_AON_TMR     = CLK_ATTACH_MUX(kCLOKC_SelAonTMR, 0U),         /*!< Attach FRO div 1 to AON TMR GRP.*/
-    kFROdiv2_to_AON_TMR     = CLK_ATTACH_MUX(kCLOKC_SelAonTMR, 1U),         /*!< Attach FRO div 2 to AON TMR GRP.*/
-    kFROdiv4_to_AON_TMR     = CLK_ATTACH_MUX(kCLOKC_SelAonTMR, 2U),         /*!< Attach FRO div 4 to AON TMR GRP.*/
-    kROOT_AUX_to_AON_TMR    = CLK_ATTACH_MUX(kCLOKC_SelAonTMR, 3U),         /*!< Attach ROOT AUX to AON TMR GRP. */
+    kFROdiv1_to_AON_TMR     = CLK_ATTACH_MUX(kCLOCK_SelAonTMR, 0U),         /*!< Attach FRO div 1 to AON TMR GRP.*/
+    kFROdiv2_to_AON_TMR     = CLK_ATTACH_MUX(kCLOCK_SelAonTMR, 1U),         /*!< Attach FRO div 2 to AON TMR GRP.*/
+    kFROdiv4_to_AON_TMR     = CLK_ATTACH_MUX(kCLOCK_SelAonTMR, 2U),         /*!< Attach FRO div 4 to AON TMR GRP.*/
+    kROOT_AUX_to_AON_TMR    = CLK_ATTACH_MUX(kCLOCK_SelAonTMR, 3U),         /*!< Attach ROOT AUX to AON TMR GRP. */
 
-    kFROdiv1_to_AON_COM     = CLK_ATTACH_MUX(kCLOKC_SelAonCOM, 0U),         /*!< Attach FRO div 1 to AON COM GRP.*/
-    kFROdiv2_to_AON_COM     = CLK_ATTACH_MUX(kCLOKC_SelAonCOM, 1U),         /*!< Attach FRO div 2 to AON COM GRP.*/
-    kFROdiv4_to_AON_COM     = CLK_ATTACH_MUX(kCLOKC_SelAonCOM, 2U),         /*!< Attach FRO div 4 to AON COM GRP.*/
-    kROOT_AUX_to_AON_COM    = CLK_ATTACH_MUX(kCLOKC_SelAonCOM, 3U),         /*!< Attach ROOT AUX to AON COM GRP. */
+    kFROdiv1_to_AON_COM     = CLK_ATTACH_MUX(kCLOCK_SelAonCOM, 0U),         /*!< Attach FRO div 1 to AON COM GRP.*/
+    kFROdiv2_to_AON_COM     = CLK_ATTACH_MUX(kCLOCK_SelAonCOM, 1U),         /*!< Attach FRO div 2 to AON COM GRP.*/
+    kFROdiv4_to_AON_COM     = CLK_ATTACH_MUX(kCLOCK_SelAonCOM, 2U),         /*!< Attach FRO div 4 to AON COM GRP.*/
+    kROOT_AUX_to_AON_COM    = CLK_ATTACH_MUX(kCLOCK_SelAonCOM, 3U),         /*!< Attach ROOT AUX to AON COM GRP. */
 
 #if __CORTEX_M == (33U) /* Building on the main core */
     /* MAIN domain below: */

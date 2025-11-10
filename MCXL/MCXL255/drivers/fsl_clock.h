@@ -175,7 +175,7 @@ typedef enum _clock_ip_name
 /*! @brief Clock ip name array for AOI. */
 #define AOI_CLOCKS      \
     {                   \
-        kCLOCK_GateNotAvail \
+        kCLOCK_GateAOI0 \
     }
 /*! @brief Clock ip name array for ATX. */
 #define ATX_CLOCKS      \
@@ -258,14 +258,14 @@ typedef enum _clock_ip_name
 #if __CORTEX_M == (33U) /* Building on the main core */
 #define LPADC_CLOCKS    \
     {                   \
-         kCLOCK_GateADC0 \
+        kCLOCK_GateADC0 \
     }
 #endif
     
 /*! @brief Clock ip name array for LPADC. */
 #define AON_LPADC_CLOCKS    \
     {                   \
-         kCLOCK_GateAonLPADC \
+        kCLOCK_GateAonLPADC \
     }
 
 /*! @brief Clock ip name array for LPUART. */
@@ -358,6 +358,11 @@ typedef enum _clock_ip_name
 #define TMR_CLOCKS      \
     {                    \
         kCLOCK_GateAonQTMR0, kCLOCK_GateAonQTMR1 \
+    }
+/*! @brief Clock ip name array for AON LPTMRs. */
+#define LPTMR_CLOCKS        \
+    {                       \
+        kCLOCK_GateAonLPTMR \
     }
 /*! @brief Clock ip name array for QTMRs. */
 #define KPP_CLOCKS      \

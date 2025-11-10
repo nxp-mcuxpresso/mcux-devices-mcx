@@ -1,6 +1,14 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA343VFM
+**     Processors:          MCXA173VFM
+**                          MCXA173VLF
+**                          MCXA173VLH
+**                          MCXA173VLL
+**                          MCXA174VFM
+**                          MCXA174VLF
+**                          MCXA174VLH
+**                          MCXA174VLL
+**                          MCXA343VFM
 **                          MCXA343VLF
 **                          MCXA343VLH
 **                          MCXA343VLL
@@ -44,7 +52,11 @@
 #if !defined(PERI_PORT_H_)
 #define PERI_PORT_H_                             /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
+#if (defined(CPU_MCXA173VFM) || defined(CPU_MCXA173VLF) || defined(CPU_MCXA173VLH) || defined(CPU_MCXA173VLL))
+#include "MCXA173_COMMON.h"
+#elif (defined(CPU_MCXA174VFM) || defined(CPU_MCXA174VLF) || defined(CPU_MCXA174VLH) || defined(CPU_MCXA174VLL))
+#include "MCXA174_COMMON.h"
+#elif (defined(CPU_MCXA343VFM) || defined(CPU_MCXA343VLF) || defined(CPU_MCXA343VLH) || defined(CPU_MCXA343VLL))
 #include "MCXA343_COMMON.h"
 #elif (defined(CPU_MCXA344VFM) || defined(CPU_MCXA344VLF) || defined(CPU_MCXA344VLH) || defined(CPU_MCXA344VLL))
 #include "MCXA344_COMMON.h"

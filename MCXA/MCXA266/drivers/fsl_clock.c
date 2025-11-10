@@ -1590,7 +1590,7 @@ status_t CLOCK_SetFLASHAccessCyclesForFreq(uint32_t system_freq_hz, run_mode_t m
         }
         case (uint32_t)kOD_Mode:
         {
-            if (system_freq_hz > 180000000U)
+            if (system_freq_hz > SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY)
             {
                 return kStatus_Fail;
             }

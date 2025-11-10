@@ -5,8 +5,8 @@
 **     Processor:           MCXE31BMPB_M7
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXE31 RM Rev2
-**     Version:             rev. 1.0, 2024-12-27
-**     Build:               b250825
+**     Version:             rev. 1.1, 2025-11-07
+**     Build:               b251107
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -60,7 +60,7 @@ LR_m_text m_text_start m_text_size {   ; load region size_region
 
   RW_m_data m_data_start m_data_size-Stack_Size-Heap_Size { ; RW data
     .ANY (+RW +ZI)
-    * (RamFunction)
+    * (.ramfunc)
     * (NonCacheable.init)
     * (*NonCacheable)
     * (CodeQuickAccess)

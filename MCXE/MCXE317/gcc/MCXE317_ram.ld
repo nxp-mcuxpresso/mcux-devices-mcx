@@ -5,8 +5,8 @@
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXE31 RM Rev2
-**     Version:             rev. 1.0, 2024-12-27
-**     Build:               b250825
+**     Version:             rev. 1.1, 2025-11-07
+**     Build:               b251107
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

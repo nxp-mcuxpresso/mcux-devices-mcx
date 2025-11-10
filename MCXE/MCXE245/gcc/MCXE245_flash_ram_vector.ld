@@ -6,8 +6,8 @@
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXE24x RM Rev.1
-**     Version:             rev. 1.0, 2025-02-21
-**     Build:               b250429
+**     Version:             rev. 1.1, 2025-11-07
+**     Build:               b251107
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

@@ -5,14 +5,14 @@
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXC444RM, Rev.1, Mar 2024
-**     Version:             rev. 1.0, 2024-03-11
-**     Build:               b240401
+**     Version:             rev. 1.1, 2025-11-07
+**     Build:               b251107
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2024 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com

@@ -6,8 +6,8 @@
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
-**     Version:             rev. 1.0, 2021-08-03
-**     Build:               b250811
+**     Version:             rev. 1.1, 2025-11-07
+**     Build:               b251107
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

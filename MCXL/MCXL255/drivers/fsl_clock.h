@@ -497,9 +497,6 @@ typedef enum _clock_attach_id
     kROOT_AUX_to_AON_COM    = CLK_ATTACH_MUX(kCLOCK_SelAonCOM, 3U),         /*!< Attach ROOT AUX to AON COM GRP. */
 
 #if __CORTEX_M == (33U) /* Building on the main core */
-    /* MAIN domain below: */
-
-    kSOSC_to_MAIN_CLK   = CLK_ATTACH_MUX(kCLOCK_SelSCGSCS, 1U),             /*!< Attach SOSC to MAIN_CLK.   */
     kSIRC_to_MAIN_CLK   = CLK_ATTACH_MUX(kCLOCK_SelSCGSCS, 2U),             /*!< Attach SIRC to MAIN_CLK.   */
     kFIRC_to_MAIN_CLK   = CLK_ATTACH_MUX(kCLOCK_SelSCGSCS, 3U),             /*!< Attach FIRC to MAIN_CLK.   */
     kROSC_to_MAIN_CLK   = CLK_ATTACH_MUX(kCLOCK_SelSCGSCS, 4U),             /*!< Attach ROSC to MAIN_CLK.   */

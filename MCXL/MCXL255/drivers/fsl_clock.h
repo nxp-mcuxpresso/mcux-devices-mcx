@@ -424,6 +424,7 @@ typedef enum _clock_select_name
     kCLOCK_SelOSTIMER0      = (0x0E8U), /*!< OSTIMER0  clock selection        */
     kCLOCK_SelADC0          = (0x0C0U), /*!< ADC0      clock selection        */
     kCLOCK_SelCMP0_RR       = (0x0D0U), /*!< CMP0_RR   clock selection        */
+    kCLOCK_SelDBGTRACE      = (0x0D8U), /*!< DBGTRACE  clock selection        */
     kCLOCK_SelCLKOUT        = (0x0E0U), /*!< CLKOUT    clock selection        */
     kCLOCK_SelPERIPH_GROUP0 = (0x0F0U), /*!< PERIPH_GROUP_0 clock selection   */
     kCLOCK_SelPERIPH_GROUP1 = (0x0F8U), /*!< PERIPH_GROUP_1 clock selection   */
@@ -585,6 +586,10 @@ typedef enum _clock_attach_id
     kCPU_CLK_to_SYSTICK = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 0U),          /*!< Attach CPU_CLK to SYSTICK.  */
     kCLK_1M_to_SYSTICK  = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 1U),          /*!< Attach CLK_1M to SYSTICK.   */
     kCLK_16K_to_SYSTICK = CLK_ATTACH_MUX(kCLOCK_SelSYSTICK, 2U),          /*!< Attach kCLK_16K to SYSTICK. */
+
+    kCPU_CLK_to_DBGTRACE = CLK_ATTACH_MUX(kCLOCK_SelDBGTRACE, 0U),        /*!< Attach CPU_CLK to DEBUG TRACE.  */
+    kCLK_1M_to_DBGTRACE  = CLK_ATTACH_MUX(kCLOCK_SelDBGTRACE, 1U),        /*!< Attach CLK_1M to DEBUG TRACE.   */
+    kCLK_16K_to_DBGTRACE = CLK_ATTACH_MUX(kCLOCK_SelDBGTRACE, 2U),        /*!< Attach kCLK_16K to DEBUG TRACE. */
 #endif
 
     kNONE_to_NONE = (0xFFFFFFFFU),                                        /*!< Attach NONE to NONE. */

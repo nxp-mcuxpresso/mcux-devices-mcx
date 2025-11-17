@@ -2,9 +2,9 @@
 ;  @file:    startup_MCXC443.s
 ;  @purpose: CMSIS Cortex-M0P Core Device Startup File
 ;            MCXC443
-;  @version: 2.0
-;  @date:    2024-10-29
-;  @build:   b250630
+;  @version: 3.0
+;  @date:    2025-11-17
+;  @build:   b251117
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.

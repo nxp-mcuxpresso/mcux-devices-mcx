@@ -2,9 +2,9 @@
 /*  @file:    startup_MCXC041.s                                              */
 /*  @purpose: CMSIS Cortex-M0P Core Device Startup File                      */
 /*            MCXC041                                                        */
-/*  @version: 2.0                                                            */
-/*  @date:    2024-10-29                                                     */
-/*  @build:   b250521                                                        */
+/*  @version: 3.0                                                            */
+/*  @date:    2025-11-17                                                     */
+/*  @build:   b251117                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */

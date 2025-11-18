@@ -232,11 +232,6 @@ config MCUX_HW_IP_DriverType_LPC_SWD
     default y
     depends on MCUX_HW_DEVICE_ID_MCXW235
 
-config MCUX_HW_IP_DriverType_MAILBOX
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXW235
-
 config MCUX_HW_IP_DriverType_MCO_CRC
     bool
     default y

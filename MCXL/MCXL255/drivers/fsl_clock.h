@@ -52,6 +52,18 @@
 #endif
 #endif
 
+/* IFR trimming data pointer definitions for core voltage-related configurations */
+#define IFR1_VDD_CORE_MAIN_1P0_TRIM ((uint32_t *)0x01100884U)
+#define IFR1_VDD_CORE_MAIN_1P1_TRIM ((uint32_t *)0x01100888U)
+#define IFR1_VDD_CORE_MAIN_MASK (0xFFU)
+#define IFR1_LVD_HVD_TRIM_0 ((uint32_t *)0x01100890U)
+#define IFR1_LVD_HVD_TRIM_1 ((uint32_t *)0x01100894U)
+#define IFR1_LVD_LV_1P0_TRIM_SHIFT (12U)
+#define IFR1_LVD_LV_1P1_TRIM_SHIFT (16U)
+#define IFR1_HVD_LV_1P0_TRIM_SHIFT (28U)
+#define IFR1_HVD_LV_1P1_TRIM_SHIFT (0U)
+#define IFR1_LVD_HVD_TRIM_MASK (0xFU)
+
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */
 /*------------------------------------------------------------------------------
  clock_ip_name_t definition:
@@ -722,6 +734,25 @@ typedef struct _scg_rosc_config
     scg_rosc_monitor_mode_t monitorMode; /*!< Clock monitor mode selected.     */
 } scg_rosc_config_t;
 
+/*!
+ * @brief VDD_CORE_MAIN related configuration.
+ */
+typedef struct _vdd_core_main_config
+{
+    uint8_t vddCoreMainAconfig; /*!< VDD_CORE DCDC_MAIN Active Configuration */
+    uint8_t lvdLvTrim; /*!< Trim bits for vdd_lv low voltage detect */
+    uint8_t hvdLvTrim; /*!< VBAT low voltage detect trim */
+} vdd_core_main_config_t;
+
+/*!
+ * @brief Main core drive modes.
+ */
+typedef enum _main_drive_t
+{
+    kCLOCK_MidDrive = 0U,   /*!< Mid drive mode */
+    kCLOCK_StandardDrive,   /*!< Standard drive mode */
+} main_drive_t;
+
 #endif /* Building on the main core */
 
 /*!
@@ -1242,8 +1273,15 @@ status_t CLOCK_FRO12MAutoTrimEnable(bool enable);
  */
 status_t CLOCK_FROHFAutoTrimEnable(bool enable);
 
-#endif /* Building on the main core */
+/*!
+ * @brief Get trimming data for VDD CORE MAIN, HVD and LVD.
+ * @param drive : Main core drive mode
+ * @param config : Pointer to configuration (trimmed parameters values) which are read from IFR1
+ * @return  Nothing
+ */
+void CLOCK_GetVDDCoreMainConfig(main_drive_t drive, vdd_core_main_config_t *config);
 
+#endif /* Building on the main core */
 
 #if defined(__cplusplus)
 }

@@ -2183,4 +2183,26 @@ status_t CLOCK_FROHFAutoTrimEnable(bool enable)
     return st;
 }
 
+/*!
+ * @brief Get trimming data for VDD CORE MAIN, HVD and LVD.
+ * @param drive : Main core drive mode
+ * @param config : Pointer to configuration (trimmed parameters values) which are read from IFR1
+ * @return  Nothing
+ */
+void CLOCK_GetVDDCoreMainConfig(main_drive_t drive, vdd_core_main_config_t *config)
+{    
+    if (drive == kCLOCK_MidDrive)
+    {
+        config->vddCoreMainAconfig = (*(IFR1_VDD_CORE_MAIN_1P0_TRIM) & IFR1_VDD_CORE_MAIN_MASK);
+        config->lvdLvTrim = (((*IFR1_LVD_HVD_TRIM_0) >> IFR1_LVD_LV_1P0_TRIM_SHIFT) & IFR1_LVD_HVD_TRIM_MASK);
+        config->hvdLvTrim = (((*IFR1_LVD_HVD_TRIM_0) >> IFR1_HVD_LV_1P0_TRIM_SHIFT) & IFR1_LVD_HVD_TRIM_MASK);
+    }
+    else
+    {
+        config->vddCoreMainAconfig = (*(IFR1_VDD_CORE_MAIN_1P1_TRIM) & IFR1_VDD_CORE_MAIN_MASK);
+        config->lvdLvTrim = (((*IFR1_LVD_HVD_TRIM_0) >> IFR1_LVD_LV_1P1_TRIM_SHIFT) & IFR1_LVD_HVD_TRIM_MASK);
+        config->hvdLvTrim = (((*IFR1_LVD_HVD_TRIM_1) >> IFR1_HVD_LV_1P1_TRIM_SHIFT) & IFR1_LVD_HVD_TRIM_MASK);
+    }
+}
+
 #endif /* Building on the main core */

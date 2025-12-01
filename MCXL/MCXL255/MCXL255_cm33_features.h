@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b251107
+**     Build:               b251128
 **
 **     Abstract:
 **         Chip specific module features.
@@ -370,6 +370,8 @@
 #define FSL_FEATURE_PORT_SUPPORT_DIFFERENT_VOLTAGE_RANGE (1)
 /* @brief Has EFT detect (registers EDFR, EDIER and EDCR). */
 #define FSL_FEATURE_PORT_SUPPORT_EFT (0)
+/* @brief Function 0 is GPIO. */
+#define FSL_FEATURE_PORT_PCR_MUX_GPIO (0)
 /* @brief Has drive strength control (register bit PCR[DSE]). */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH (1)
 /* @brief Defines width of PCR[MUX] field. */
@@ -463,7 +465,7 @@
 #define FSL_FEATURE_CTIMER_HAS_CCR_CAP3 (1)
 /* @brief CTIMER Has register MSR */
 #define FSL_FEATURE_CTIMER_HAS_MSR (1)
-/* @brief CTIMER will enter interrupt twice when function clock much slower than bus clock. */
+/* @brief Is affected by errata with ID 53024 (CTIMER will enter interrupt twice when function clock much slower than bus clock). */
 #define FSL_FEATURE_CTIMER_HAS_ERRATA_53024 (1)
 
 /* EDMA module features */

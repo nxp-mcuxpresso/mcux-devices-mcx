@@ -1,6 +1,5 @@
 /*
- * Copyright 2022, NXP
- * All rights reserved.
+ * Copyright 2022-2025 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -25,8 +24,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief reset driver version 2.4.0 */
-#define FSL_RESET_DRIVER_VERSION (MAKE_VERSION(2, 4, 0))
+/*! @brief reset driver version 2.4.1 */
+#define FSL_RESET_DRIVER_VERSION (MAKE_VERSION(2, 4, 1))
 /*@}*/
 
 /*!
@@ -131,7 +130,7 @@ typedef enum _SYSCON_RSTn
 #define GPIO_RSTS_N                                                                                 \
     {                                                                                               \
         kGPIO0_RST_SHIFT_RSTn, kGPIO1_RST_SHIFT_RSTn, kGPIO2_RST_SHIFT_RSTn, kGPIO3_RST_SHIFT_RSTn, \
-            kGPIO4_RST_SHIFT_RSTn                                                                   \
+            kGPIO4_RST_SHIFT_RSTn, kRST_None                                                        \
     } /* Reset bits for GPIO peripheral */
 #define INPUTMUX_RSTS       \
     {                       \

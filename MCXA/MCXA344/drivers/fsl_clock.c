@@ -259,17 +259,11 @@ status_t CLOCK_SetupFROHFClocking(uint32_t iFreq)
         return kStatus_Fail;
     }
 
+#if FSL_FEATURE_FIRC_SUPPORT_240M
     /* Check if the trim value is valid */
     if (trim_value == 0xFFFFFFFFU)
     {
         return kStatus_Fail;
-    }
-
-    /* Switch to FRO LF is FRO HF is in use */
-    if (0x3U == ((SCG0->CSR & SCG_CSR_SCS_MASK) >> SCG_CSR_SCS_SHIFT))
-    {
-        need_switch_frohf = 1;
-        CLOCK_AttachClk(kFRO12M_to_MAIN_CLK);
     }
 
     /* Load trim value from IFR */
@@ -278,6 +272,16 @@ status_t CLOCK_SetupFROHFClocking(uint32_t iFreq)
         SCG0->TRIM_LOCK = 0x5A5A0001U;
         SCG0->FIRCTRIM = trim_value;
         SCG0->TRIM_LOCK = 0x5A5A0000U;
+    }
+#else
+    (void)trim_value;
+#endif
+
+    /* Switch to FRO LF if FRO HF is in use */
+    if (0x3U == ((SCG0->CSR & SCG_CSR_SCS_MASK) >> SCG_CSR_SCS_SHIFT))
+    {
+        need_switch_frohf = 1;
+        CLOCK_AttachClk(kFRO12M_to_MAIN_CLK);
     }
 
     /* Set FIRC frequency */

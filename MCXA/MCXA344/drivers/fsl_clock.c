@@ -107,6 +107,8 @@ clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t connection)
     actual_sel      = CLOCK_GetClockSelect((clock_select_name_t)reg_offset);
     clock_attach_id = CLK_ATTACH_MUX(reg_offset, actual_sel);
 
+    assert(clock_attach_id < kNONE_to_NONE);
+
     return (clock_attach_id_t)clock_attach_id;
 }
 

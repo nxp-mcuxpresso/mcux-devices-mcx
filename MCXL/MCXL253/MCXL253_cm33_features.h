@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-06-13
-**     Build:               b251128
+**     Build:               b251210
 **
 **     Abstract:
 **         Chip specific module features.
@@ -201,6 +201,8 @@
 #define FSL_FEATURE_LPADC_HAS_CMDH_CMPEN (1)
 /* @brief Has High Speed Mode Trim Request (bitfield CTRL[CALHS]). */
 #define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (1)
+/* @brief Has Justified Left Enable (bitfield CFG2[JLEFT]). */
+#define FSL_FEATURE_LPADC_HAS_CFG2_JLEFT (1)
 
 /* AOI module features */
 
@@ -443,7 +445,9 @@
 #define FSL_FEATURE_MCX_CMC_HAS_RSTCNT_REG (1)
 /* @brief Has BLR register */
 #define FSL_FEATURE_MCX_CMC_HAS_BLR_REG (1)
-/* @brief Has SCR bit in  BSR register */
+/* @brief Has no bitfield FLASHWAKE in FLASHCR register */
+#define FSL_FEATURE_MCX_CMC_HAS_NO_FLASHCR_WAKE (0)
+/* @brief Has SCR bit in BSR register */
 #define FSL_FEATURE_MCX_CMC_HAS_BSR_SCR_BIT (1)
 
 /* CRC module features */

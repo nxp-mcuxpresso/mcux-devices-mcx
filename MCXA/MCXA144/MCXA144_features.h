@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.1, 2025-11-17
-**     Build:               b251117
+**     Build:               b251210
 **
 **     Abstract:
 **         Chip specific module features.
@@ -168,6 +168,8 @@
 #define FSL_FEATURE_LPADC_HAS_CMDH_CMPEN (1)
 /* @brief Has High Speed Mode Trim Request (bitfield CTRL[CALHS]). */
 #define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (1)
+/* @brief Has Justified Left Enable (bitfield CFG2[JLEFT]). */
+#define FSL_FEATURE_LPADC_HAS_CFG2_JLEFT (1)
 
 /* AOI module features */
 
@@ -268,6 +270,10 @@
 #define FSL_FEATURE_MCX_CMC_HAS_RSTCNT_REG (1)
 /* @brief Has BLR register */
 #define FSL_FEATURE_MCX_CMC_HAS_BLR_REG (0)
+/* @brief Has no bitfield FLASHWAKE in FLASHCR register */
+#define FSL_FEATURE_MCX_CMC_HAS_NO_FLASHCR_WAKE (0)
+/* @brief Has SCR bit in BSR register */
+#define FSL_FEATURE_MCX_CMC_HAS_BSR_SCR_BIT (0)
 
 /* LPCMP module features */
 
@@ -731,8 +737,12 @@
 
 /* EQDC module features */
 
+/* @brief Is affected by errata with ID 051383 (Quadrature decoder CTRL[DMAEN] bit can not be cleared by SW). */
+#define FSL_FEATURE_EQDC_HAS_ERRATA_051383 (0)
 /* @brief If EQDC CTRL2 register has EMIP bit field. */
 #define FSL_FEATURE_EQDC_CTRL2_HAS_EMIP_BIT_FIELD (1)
+/* @brief If has compare interrupt. */
+#define FSL_FEATURE_EQDC_HAS_NO_COMPARE_INTERRUPT (0)
 
 /* SPC module features */
 
@@ -843,6 +853,15 @@
 #define FSL_FEATURE_MCX_VBAT_HAS_SWICTL_REG (0)
 /* @brief Has CLKMON register */
 #define FSL_FEATURE_MCX_VBAT_HAS_CLKMON_REG (0)
+/* @brief Has FINE_AMP_GAIN bitfield in register OSCCTLA */
+#define FSL_FEATURE_MCX_VBAT_HAS_OSCCTLA_FINE_AMP_GAIN_BIT (0)
+/* @brief Has OSCCTLB register */
+#define FSL_FEATURE_MCX_VBAT_HAS_B_SIDE_REG (0)
+
+/* WUU module features */
+
+/* @brief Has MF register. */
+#define FSL_FEATURE_WUU_HAS_MF (0)
 
 /* WWDT module features */
 

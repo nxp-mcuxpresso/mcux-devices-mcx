@@ -1,5 +1,9 @@
 # CLOCK
 
+## [2.2.1]
+- Improvements
+  - Added clock array for CRC. 
+
 ## [2.2.0]
 - Improvements
   - Added configurable timeout support for endless while loop. 

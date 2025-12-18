@@ -25,7 +25,7 @@
 /*! @name Driver version */
 /*@{*/
 /*! @brief reset driver version 2.4.1 */
-#define FSL_RESET_DRIVER_VERSION (MAKE_VERSION(2, 4, 1))
+#define FSL_RESET_DRIVER_VERSION (MAKE_VERSION(2, 4, 2))
 /*@}*/
 
 /*!
@@ -132,6 +132,11 @@ typedef enum _SYSCON_RSTn
         kGPIO0_RST_SHIFT_RSTn, kGPIO1_RST_SHIFT_RSTn, kGPIO2_RST_SHIFT_RSTn, kGPIO3_RST_SHIFT_RSTn, \
             kGPIO4_RST_SHIFT_RSTn, kRST_None                                                        \
     } /* Reset bits for GPIO peripheral */
+#define PORT_RSTS_N                                                                                 \
+    {                                                                                               \
+        kPORT0_RST_SHIFT_RSTn, kPORT1_RST_SHIFT_RSTn, kPORT2_RST_SHIFT_RSTn, kPORT3_RST_SHIFT_RSTn, \
+            kPORT4_RST_SHIFT_RSTn, kRST_None                                                        \
+    } /* Reset bits for PORT peripheral */
 #define INPUTMUX_RSTS       \
     {                       \
         kMUX_RST_SHIFT_RSTn \
@@ -164,6 +169,46 @@ typedef enum _SYSCON_RSTn
     {                                              \
         kI3C0_RST_SHIFT_RSTn, kI3C1_RST_SHIFT_RSTn \
     } /* Reset bits for I3C peripheral */
+#define FREQME_RSTS_N          \
+    {                          \
+        kFREQME_RST_SHIFT_RSTn \
+    } /* Reset bits for FREQME peripheral */
+#define SMARTDMA_RSTS             \
+    {                             \
+        kSMART_DMA_RST_SHIFT_RSTn \
+    } /* Reset bits for SMARTDMA peripheral */
+#define FLEXIO_RSTS            \
+    {                          \
+        kFLEXIO_RST_SHIFT_RSTn \
+    } /* Resets bits for FLEXIO peripheral */
+#define SAI_RSTS                                   \
+    {                                              \
+        kSAI0_RST_SHIFT_RSTn, kSAI1_RST_SHIFT_RSTn \
+    } /* Reset bits for SAI peripheral */
+#define FLEXCAN_RSTS                                       \
+    {                                                      \
+        kFLEXCAN0_RST_SHIFT_RSTn, kFLEXCAN1_RST_SHIFT_RSTn \
+    } /* Reset bits for FLEXCAN peripheral */
+#define PUF_RSTS            \
+    {                       \
+        kPUF_RST_SHIFT_RSTn \
+    } /* Reset bits for PUF peripheral */
+#define EQDC_RSTS                                  \
+    {                                              \
+        kQDC0_RST_SHIFT_RSTn, kQDC1_RST_SHIFT_RSTn \
+    } /* Reset bits for EQDC peripheral */
+#define PWM_RSTS                                   \
+    {                                              \
+        kPWM0_RST_SHIFT_RSTn, kPWM1_RST_SHIFT_RSTn \
+    } /* Reset bits for PWM peripheral */
+#define AOI_RSTS             \
+    {                        \
+        kAOI0_RST_SHIFT_RSTn \
+    } /* Reset bits for ADC peripheral */
+#define EIM_RSTS_N           \
+    {                       \
+        kEIM_RST_SHIFT_RSTn \
+    } /* Reset bits for EIM peripheral */
 typedef SYSCON_RSTn_t reset_ip_name_t;
 
 /*******************************************************************************

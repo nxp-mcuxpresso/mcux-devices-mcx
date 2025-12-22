@@ -1,5 +1,10 @@
 # ROMAPI
 
+## [1.2.6]
+
+- Improvements:
+  - Fixed violations of the MISRA C-2012 Rule 8.4, 10.1.
+
 ## [1.2.5]
 
 - Improvements

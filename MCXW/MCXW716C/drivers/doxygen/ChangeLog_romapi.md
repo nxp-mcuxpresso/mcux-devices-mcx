@@ -1,5 +1,11 @@
 # ROMAPI
 
+## [1.2.3]
+
+- Improvements
+  - Fixed violations of the MISRA C-2012 Rule 10.1.
+  - Enabled the FLASH_VerifyEraseBlock API.
+
 ## [1.2.2]
 
 - Improvements

@@ -372,32 +372,32 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
         {   /* AON ACMP CLK 0*/
             if(value==0)
             {
-                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP0_CLK_EN_MASK);
-                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP_CLK0_DIV_EN_MASK);
+                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP0_CLK0_EN_MASK);
+                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP_CLK0_DIV_EN_MASK);
             }
             else
             {
-                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_AON_ACMP_CLK0_DIV_MASK);
-                AON__CGU->ACMP_CLK |= (value-1U) << CGU_ACMP_CLK_AON_ACMP_CLK0_DIV_SHIFT;
+                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_AON_ACMP_CLK0_DIV_MASK);
+                AON__CGU->ACMP_CLK_DIV |= (value-1U) << CGU_ACMP_CLK_DIV_AON_ACMP_CLK0_DIV_SHIFT;
 
-                AON__CGU->ACMP_CLK |= CGU_ACMP_CLK_ACMP_CLK0_DIV_EN_MASK;
-                AON__CGU->ACMP_CLK |= CGU_ACMP_CLK_ACMP0_CLK_EN_MASK;
+                AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP_CLK0_DIV_EN_MASK;
+                AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP0_CLK0_EN_MASK;
             }
         }
         else if(div_name == 0x811U)
         {   /* AON ACMP CLK 1*/
             if(value==0)
             {
-                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP1_CLK_EN_MASK);
-                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP_CLK1_DIV_EN_MASK);
+                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP0_CLK1_EN_MASK);
+                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP_CLK1_DIV_EN_MASK);
             }
             else
             {
-                AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_AON_ACMP_CLK1_DIV_MASK);
-                AON__CGU->ACMP_CLK |= (value-1U) << CGU_ACMP_CLK_AON_ACMP_CLK1_DIV_SHIFT;
+                AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_AON_ACMP_CLK1_DIV_MASK);
+                AON__CGU->ACMP_CLK_DIV |= (value-1U) << CGU_ACMP_CLK_DIV_AON_ACMP_CLK1_DIV_SHIFT;
 
-                AON__CGU->ACMP_CLK |= CGU_ACMP_CLK_ACMP_CLK1_DIV_EN_MASK;
-                AON__CGU->ACMP_CLK |= CGU_ACMP_CLK_ACMP1_CLK_EN_MASK;
+                AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP_CLK1_DIV_EN_MASK;
+                AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP0_CLK1_EN_MASK;
             }
 
         }
@@ -487,31 +487,31 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name)
     { /* AON clk*/
         if(div_name == 0x810U)
         {   /* AON ACMP CLK 0*/
-            uint32_t reg_val = AON__CGU->ACMP_CLK;
-            if((!(reg_val & CGU_ACMP_CLK_ACMP0_CLK_EN_MASK)) ||
-               (!(reg_val & CGU_ACMP_CLK_ACMP_CLK0_DIV_EN_MASK)))
+            uint32_t reg_val = AON__CGU->ACMP_CLK_DIV;
+            if((!(reg_val &  CGU_ACMP_CLK_DIV_ACMP0_CLK0_EN_MASK)) ||
+               (!(reg_val & CGU_ACMP_CLK_DIV_ACMP_CLK0_DIV_EN_MASK)))
             {
                 return 0; /* Not enabled clk or div*/
             }
             else
             {
-                reg_val &=  CGU_ACMP_CLK_AON_ACMP_CLK0_DIV_MASK;
-                reg_val >>=  CGU_ACMP_CLK_AON_ACMP_CLK0_DIV_SHIFT;
+                reg_val &=  CGU_ACMP_CLK_DIV_AON_ACMP_CLK0_DIV_MASK;
+                reg_val >>=  CGU_ACMP_CLK_DIV_AON_ACMP_CLK0_DIV_SHIFT;
                 return reg_val + 1U;
             }
         }
         else if(div_name == 0x811U)
         {   /* AON ACMP CLK 1*/
-            uint32_t reg_val = AON__CGU->ACMP_CLK;
-            if((!(reg_val & CGU_ACMP_CLK_ACMP1_CLK_EN_MASK)) ||
-               (!(reg_val & CGU_ACMP_CLK_ACMP_CLK1_DIV_EN_MASK)))
+            uint32_t reg_val = AON__CGU->ACMP_CLK_DIV;
+            if((!(reg_val & CGU_ACMP_CLK_DIV_ACMP0_CLK1_EN_MASK)) ||
+               (!(reg_val & CGU_ACMP_CLK_DIV_ACMP_CLK1_DIV_EN_MASK)))
             {
                 return 0; /* Not enabled clk or div*/
             }
             else
             {
-                reg_val &=  CGU_ACMP_CLK_AON_ACMP_CLK1_DIV_MASK;
-                reg_val >>=  CGU_ACMP_CLK_AON_ACMP_CLK1_DIV_SHIFT;
+                reg_val &= CGU_ACMP_CLK_DIV_AON_ACMP_CLK1_DIV_MASK;
+                reg_val >>= CGU_ACMP_CLK_DIV_AON_ACMP_CLK1_DIV_SHIFT;
                 return reg_val + 1U;
             }
         }
@@ -578,11 +578,11 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
     { /* AON clk*/
         if(div_name == 0x810U)
         {   /* AON ACMP CLK 0*/
-            AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP_CLK0_DIV_EN_MASK);
+            AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP_CLK0_DIV_EN_MASK);
         }
         else if(div_name == 0x811U)
         {   /* AON ACMP CLK 1*/
-            AON__CGU->ACMP_CLK &= ~(CGU_ACMP_CLK_ACMP_CLK1_DIV_EN_MASK);
+            AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP_CLK1_DIV_EN_MASK);
         }
         else
         {   /* The rest of AON */
@@ -633,22 +633,22 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
     switch(iFreq)
     {
         case 10000000U:
-            AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_FRO10M_EN_SHIFT;
+            AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_LPIRC_EN_SHIFT;
             SDK_DelayAtLeastUs(500U, SystemCoreClock);
             AON__CGU->CLK_CONFIG &= ~(1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT);
             /* Disable 2M FRO as it has no other usage except Root Clock */
-            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO2M_EN_MASK;
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_ULPIRC_EN_MASK;
             break;
         case 2000000U:
-            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_FRO2M_EN_MASK;
+            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ULPIRC_EN_MASK;
             SDK_DelayAtLeastUs(500U, SystemCoreClock);
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT;
             /* Do not disable 10M FRO as it can be used in main domain */
             break;
         case 0U:
             /* Turn off */
-            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO2M_EN_MASK;
-            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_FRO10M_EN_MASK;
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_ULPIRC_EN_MASK;
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_LPIRC_EN_MASK;
             break;
         default:
             ADVC_PostChg();
@@ -1121,7 +1121,7 @@ static uint32_t CLOCK_getAonPerClkFreq(void)
 {
     uint32_t freq = 0U;
 
-    if(AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_COM_GRP_CLK_EN_MASK)
+    if(AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_COM_GRP_CLK_DIV_EN_MASK)
     {
         const uint32_t sel = (AON__CGU->PER_CLK_CONFIG &
                         CGU_PER_CLK_CONFIG_COM_GRP_SEL_MASK) >>
@@ -1155,7 +1155,7 @@ static uint32_t CLOCK_getAonTmrClkFreq(void)
 {
     uint32_t freq = 0U;
 
-    if(AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_COM_GRP_CLK_EN_MASK)
+    if(AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_COM_GRP_CLK_DIV_EN_MASK)
     {
         const uint32_t sel = (AON__CGU->PER_CLK_CONFIG &
                         CGU_PER_CLK_CONFIG_TMR_GRP_SEL_MASK) >>
@@ -1459,7 +1459,7 @@ uint32_t CLOCK_GetCTimerClkFreq(uint32_t id)
             freq = CLOCK_GetFro12MFreq();
             break;
         case 1U:
-            freq = CLOCK_GetRtcOscFreq();
+            freq = CLOCK_GetClk1MFreq();
             break;
         case 2U:
             freq = CLOCK_GetClk16KFreq();
@@ -1487,7 +1487,7 @@ uint32_t CLOCK_GetLpi2cClkFreq(uint32_t id)
 
     if(id == 2U)
     {   /* AON I2C*/
-        if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_I2C_CLK_MASK)
+        if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_LPI2C_CLK_MASK)
         {
             freq = CLOCK_getAonPerClkFreq();
         }
@@ -1509,7 +1509,7 @@ uint32_t CLOCK_GetQtmrClkFreq(void)
 {
     uint32_t freq = 0U;
 
-    if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_QTMR0_CLK_EN_MASK)
+    if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_QTMR_CLK_EN_MASK)
     {
         freq = CLOCK_getAonTmrClkFreq();
     }
@@ -1536,7 +1536,7 @@ uint32_t CLOCK_GetLpuartClkFreq(uint32_t id)
 
     if(id == 2U)
     {   /* AON lpuart*/
-        if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_UART_CLK_MASK)
+        if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_LPUART_CLK_MASK)
         {
             freq = CLOCK_getAonPerClkFreq();
         }
@@ -1904,13 +1904,13 @@ uint32_t CLOCK_GetFroAonFreq(void)
     /* 2MHz is selected*/
     if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_SEL_MODE_MASK)
     {
-        if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO2M_EN_MASK)
+        if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_ULPIRC_EN_MASK)
         {
             freq = 2000000U;
         }
     }
     /* 10MHz is selected*/
-    else if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_FRO10M_EN_MASK)
+    else if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_LPIRC_EN_MASK)
     {
         freq = 10000000U;
     }

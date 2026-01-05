@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 NXP
+ * Copyright 2025-2026 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -195,10 +195,17 @@ typedef enum _clock_ip_name
         kCLOCK_GateNotAvail \
     }
 /*! @brief Clock ip name array for CRC. */
+#if __CORTEX_M == (33U) /* Building on the main core */
+#define CRC_CLOCKS      \
+    {                        \
+        kCLOCK_GateCrc \
+    }
+#else
 #define CRC_CLOCKS  \
     {               \
         kCLOCK_GateNotAvail \
     }
+#endif
 /*! @brief Clock ip name array for CTIMER. */
 #define CTIMER_CLOCKS                                              \
     {                                                              \

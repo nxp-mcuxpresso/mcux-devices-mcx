@@ -64,6 +64,13 @@
 #define IFR1_HVD_LV_1P1_TRIM_SHIFT (0U)
 #define IFR1_LVD_HVD_TRIM_MASK (0xFU)
 
+/* AON FROs autotrim configuration */
+#define AON_FRO_AUTO_CAL_INT (0x1000U)
+#define AON_FRO_AUTO_CAL_3M_CAL_DWN_CNT (0xB4U)
+#define AON_FRO_AUTO_CAL_3M_TGT_LSB (0x205DU)
+#define AON_FRO_AUTO_CAL_10M_CAL_DWN_CNT (0x64U)
+#define AON_FRO_AUTO_CAL_10M_TGT_LSB (0x3C33U)
+
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */
 /*------------------------------------------------------------------------------
  clock_ip_name_t definition:
@@ -796,6 +803,13 @@ typedef struct _rosc_init_config
     bool vbatOver3V; /*!< Initialization configuration for vbat voltage value */
 } rosc_init_config_t;
 
+/*! @brief AON FRO autotrim configuration. */
+typedef enum _aon_fro_autotrim_config_t
+{
+    kCLOCK_AonFro3M = 0xdc38U, /*!< ULPIRC target is 3MHz. */
+    kCLOCK_AonFro10M = 0xdc30U /*!< LPIRC target is 10MHz. */
+} aon_fro_autotrim_config_t;
+
 /*******************************************************************************
  * API
  ******************************************************************************/
@@ -967,11 +981,11 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name);
  * 
  * Initialize the AON FRO to given frequency and selects the frequency
  * as AON Root Clock source for Root_Clock1, 2, 3 clock signals.
- * In case of 10M selection, it also disables 2M FRO as it has no
- * other usage than AON Root Clock source. In case of 2M selection,
- * 10M FRO is kept running as it can be used in main domain.
+ * In case of LPIRC selection, it also disables ULPIRC as it has no
+ * other usage than AON Root Clock source. In case of ULPIRC selection,
+ * LPIRC is kept running as it can be used in main domain.
  * 
- * @param   iFreq : Desired frequency (10M, 2M, 0=off).
+ * @param   iFreq : Desired frequency (10M, 3M, 0=off).
  * @return  returns success or fail status.
  */
 status_t CLOCK_SetupFROAonClocking(uint32_t iFreq);
@@ -980,6 +994,19 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq);
  *  @return Frequency of the core
  */
 uint32_t CLOCK_GetAonCoreSysClkFreq(void);
+
+/*!
+ * @brief Enable/disable Aon LPIRC/ULPIRC auto trim feature
+ *
+ * Initialized ROSC (xtal32) is required.
+ *
+ * @see CLOCK_InitRosc()
+ *
+ * @param config : Autotrim target frequency configuration.
+ * @param enable : True to enable autotrim, false to disable it.
+ * @return kStatus_Fail on error, kStatus_Success otherwise.
+ */
+status_t CLOCK_AonFroAutoTrimEnable(aon_fro_autotrim_config_t config, bool enable);
 
 #if __CORTEX_M == (33U) /* Building on the main core */
 /**

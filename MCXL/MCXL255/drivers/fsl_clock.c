@@ -26,7 +26,7 @@
 typedef enum _clock_aon_chg
 {
     kClockAonChg_auxClk,     /* RTC/AUX clk was changed or disabled, pass frequency or 0 for disable */
-    kClockAonChg_Fro,        /* FRO10M_2M changed, pass 10M/2M/0 */
+    kClockAonChg_Fro,        /* LPIRC/ULPIRC changed, pass 10M/3M/0 */
     kClockAonChg_clkSel,     /* ROOT_CLK_SEL_MUX changed, pass mux value */
     kClockAonChg_cpuClkDiv,  /* AON_CPU_CLK_DIV changed, pass divisor(>1) or 0 when AON_CPU_CLK is disabled */
     
@@ -40,7 +40,7 @@ typedef enum _clock_aon_chg
  * Prototypes
  ******************************************************************************/
 
-/* Get get AON FRO10/2M Clk */
+/* Get get AON FRO Clk */
 static uint32_t CLOCK_GetFroAonFreq(void);
 /* Get RTC OSC Clk */
 static uint32_t CLOCK_GetRtcOscFreq(void);
@@ -619,16 +619,20 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
  * 
  * Initialize the AON FRO to given frequency and selects the frequency
  * as AON Root Clock source for Root_Clock1, 2, 3 clock signals.
- * In case of 10M selection, it also disables 2M FRO as it has no
- * other usage than AON Root Clock source. In case of 2M selection,
- * 10M FRO is kept running as it can be used in main domain.
+ * In case of LPIRC selection, it also disables ULPIRC as it has no
+ * other usage than AON Root Clock source. In case of ULPIRC selection,
+ * LPIRC is kept running as it can be used in main domain.
  * 
- * @param   iFreq : Desired frequency (10M, 2M, 0=off).
+ * @param   iFreq : Desired frequency (10M, 3M, 0=off).
  * @return  returns success or fail status.
  */
 status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
 {
+    uint32_t trimCoarse = 0U;
+    
     ADVC_PreChg(kClockAonChg_Fro, iFreq);
+
+    CLOCK_AonFroAutoTrimEnable(kCLOCK_AonFro10M, false);
     
     switch(iFreq)
     {
@@ -636,14 +640,29 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_LPIRC_EN_SHIFT;
             SDK_DelayAtLeastUs(500U, SystemCoreClock);
             AON__CGU->CLK_CONFIG &= ~(1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT);
-            /* Disable 2M FRO as it has no other usage except Root Clock */
+            /* Disable ULPIRC as it has no other usage except Root Clock */
             AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_ULPIRC_EN_MASK;
+
+            CLOCK_AonFroAutoTrimEnable(kCLOCK_AonFro10M, true);
             break;
-        case 2000000U:
-            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ULPIRC_EN_MASK;
-            SDK_DelayAtLeastUs(500U, SystemCoreClock);
+        case 3000000U:
+            /* Workaround for ULPIRC initialization */
+            if ((AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_ULPIRC_EN_MASK) == 0U)
+            {
+                AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ULPIRC_EN_MASK;
+                SDK_DelayAtLeastUs(500U, SystemCoreClock);
+                trimCoarse = AON__CGU->ULPIRC_CONFIG & CGU_ULPIRC_CONFIG_TRIM_COA_LV_MASK;
+                AON__CGU->ULPIRC_CONFIG &= ~CGU_ULPIRC_CONFIG_TRIM_COA_LV_MASK;
+                SDK_DelayAtLeastUs(1200U, SystemCoreClock);
+                AON__CGU->ULPIRC_CONFIG |= 0x3FU;
+                SDK_DelayAtLeastUs(100U, SystemCoreClock);
+                AON__CGU->ULPIRC_CONFIG = (AON__CGU->ULPIRC_CONFIG & ~CGU_ULPIRC_CONFIG_TRIM_COA_LV_MASK) | trimCoarse;
+            }
+
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT;
-            /* Do not disable 10M FRO as it can be used in main domain */
+
+            CLOCK_AonFroAutoTrimEnable(kCLOCK_AonFro3M, true);
+            /* Do not disable LPIRC as it can be used in main domain */
             break;
         case 0U:
             /* Turn off */
@@ -1894,28 +1913,90 @@ uint32_t CLOCK_GetSystickClkFreq(void)
 #endif /* Building on the main core */
 
 /**
- * @brief  Get frequency of selected AON FRO
- * @return Frequency of AON FRO (10M/2M or 0 when disabled).
+ * @brief  Get frequency of selected AON FRO (LPIRC/ULPIRC)
+ * @return Frequency of LPIRC/ULPIRC, 0 when disabled.
  */
 uint32_t CLOCK_GetFroAonFreq(void)
 {
     uint32_t freq = 0U;
 
-    /* 2MHz is selected*/
+    /* ULPIRC is selected*/
     if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_SEL_MODE_MASK)
     {
         if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_ULPIRC_EN_MASK)
         {
-            freq = 2000000U;
+            freq = 3000000U;
         }
     }
-    /* 10MHz is selected*/
+    /* LPIRC is selected*/
     else if(AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_LPIRC_EN_MASK)
     {
         freq = 10000000U;
     }
 
     return freq;
+}
+
+/*!
+ * @brief Enable/disable Aon FRO (LPIRC/ULPIRC) auto trim feature
+ *
+ * This requires ROSC (xtal32) initialized.
+ *
+ * @see CLOCK_InitRosc()
+ *
+ * @param config : Autotrim target frequency configuration.
+ * @param enable : True to enable autotrim, false to disable it.
+ * @return kStatus_Fail on error, kStatus_Success otherwise.
+ */
+status_t CLOCK_AonFroAutoTrimEnable(aon_fro_autotrim_config_t config, bool enable)
+{
+    status_t status = (status_t)kStatus_Success;
+
+    if (enable)
+    {
+        /* Reset autotrim function */
+        AON__CGU->RST_SUB_BLK |= CGU_RST_SUB_BLK_CAL_RST_N(1);
+        
+        /* Disable autotrim*/
+        AON__CGU->CAL_CONFIG &= ~(1<<CGU_CAL_CONFIG_AUTO_CAL_SHIFT);
+        AON__CGU->CAL_CONFIG &= ~(1<<CGU_CAL_CONFIG_CAL_CLK_EN_SHIFT);
+               
+        /* Set calibration interval*/
+        AON__CGU->AUTO_CAL_INT = AON_FRO_AUTO_CAL_INT;
+        
+        /* Set calibration target*/
+        if(config == kCLOCK_AonFro10M)
+        {
+            AON__CGU->CAL_DWN_CNT = AON_FRO_AUTO_CAL_10M_CAL_DWN_CNT;
+            AON__CGU->AUTO_CAL_TGT_LSB = AON_FRO_AUTO_CAL_10M_TGT_LSB;
+        }
+        else
+        {
+            AON__CGU->CAL_CONFIG |= (1<<CGU_CAL_CONFIG_CAL_SRC_SHIFT);
+            AON__CGU->CAL_DWN_CNT = AON_FRO_AUTO_CAL_3M_CAL_DWN_CNT;
+            AON__CGU->AUTO_CAL_TGT_LSB = AON_FRO_AUTO_CAL_3M_TGT_LSB;
+        }
+        
+        /* Enable Interrupts */
+        AON__CGU->INT = 0x0303;
+
+        /* Enable calibration*/
+        if(config == kCLOCK_AonFro10M)
+        {
+            AON__CGU->CAL_CONFIG = 0xDC30U;
+        }
+        else
+        {
+            AON__CGU->CAL_CONFIG = 0xDC38U;
+        }
+    }
+    else
+    {
+        /* Disable auto trim */
+        AON__CGU->CAL_CONFIG &= ~(1<<CGU_CAL_CONFIG_AUTO_CAL_SHIFT);
+    }
+    
+    return status;
 }
 
 #if __CORTEX_M == (33U) /* Building on the main core */

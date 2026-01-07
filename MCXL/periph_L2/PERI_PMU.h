@@ -14,7 +14,7 @@
 **                          MCXL255VLL_cm33
 **
 **     Version:             rev. 1.1, 2026-01-02
-**     Build:               b260105
+**     Build:               b260106
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PMU
@@ -239,6 +239,11 @@ typedef struct {
 
 /*! @name PMU_TRIM4 - PMU Trim4 */
 /*! @{ */
+
+#define PMU_PMU_TRIM4_LVD_LV_TRIM_MASK           (0xFU)
+#define PMU_PMU_TRIM4_LVD_LV_TRIM_SHIFT          (0U)
+/*! LVD_LV_TRIM - LVD LV Trim */
+#define PMU_PMU_TRIM4_LVD_LV_TRIM(x)             (((uint32_t)(((uint32_t)(x)) << PMU_PMU_TRIM4_LVD_LV_TRIM_SHIFT)) & PMU_PMU_TRIM4_LVD_LV_TRIM_MASK)
 
 #define PMU_PMU_TRIM4_HVD_LV_TRIM_MASK           (0xF00U)
 #define PMU_PMU_TRIM4_HVD_LV_TRIM_SHIFT          (8U)

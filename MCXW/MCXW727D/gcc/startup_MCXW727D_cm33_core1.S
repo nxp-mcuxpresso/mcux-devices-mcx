@@ -337,6 +337,18 @@ Reset_Handler:
     strlt   r0, [r2], #4
     blt    .LC0
 #endif
+#ifdef INIT_BLE_DEBUG_DAT
+    ldr    r1, =__debug_rom
+    ldr    r2, =__sqram_debug_start__
+    ldr    r3, =__sqram_debug_end__
+
+.copy_sqram_debug:
+    cmp     r2, r3
+    ittt    lt
+    ldrlt   r0, [r1], #4
+    strlt   r0, [r2], #4
+    blt    .copy_sqram_debug
+#endif
 
 #ifdef __STARTUP_CLEAR_BSS
 /*     This part of work usually is done in C library startup code. Otherwise,

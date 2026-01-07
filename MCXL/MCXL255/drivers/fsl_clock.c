@@ -628,7 +628,14 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
  */
 status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
 {
+#if __CORTEX_M == (33U) /* Building on the main core */
+    const uint32_t  coreClock_Hz = CLOCK_GetCoreSysClkFreq();
+#else
+    const uint32_t  coreClock_Hz = CLOCK_GetAonCoreSysClkFreq();
+#endif
     uint32_t trimCoarse = 0U;
+
+    assert(coreClock_Hz > 0U);
     
     ADVC_PreChg(kClockAonChg_Fro, iFreq);
 
@@ -638,7 +645,7 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
     {
         case 10000000U:
             AON__CGU->CLK_CONFIG |= 1U << CGU_CLK_CONFIG_LPIRC_EN_SHIFT;
-            SDK_DelayAtLeastUs(500U, SystemCoreClock);
+            SDK_DelayAtLeastUs(500U, coreClock_Hz);
             AON__CGU->CLK_CONFIG &= ~(1U << CGU_CLK_CONFIG_SEL_MODE_SHIFT);
             /* Disable ULPIRC as it has no other usage except Root Clock */
             AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_ULPIRC_EN_MASK;
@@ -650,12 +657,12 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
             if ((AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_ULPIRC_EN_MASK) == 0U)
             {
                 AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ULPIRC_EN_MASK;
-                SDK_DelayAtLeastUs(500U, SystemCoreClock);
+                SDK_DelayAtLeastUs(500U, coreClock_Hz);
                 trimCoarse = AON__CGU->ULPIRC_CONFIG & CGU_ULPIRC_CONFIG_TRIM_COA_LV_MASK;
                 AON__CGU->ULPIRC_CONFIG &= ~CGU_ULPIRC_CONFIG_TRIM_COA_LV_MASK;
-                SDK_DelayAtLeastUs(1200U, SystemCoreClock);
+                SDK_DelayAtLeastUs(1200U, coreClock_Hz);
                 AON__CGU->ULPIRC_CONFIG |= 0x3FU;
-                SDK_DelayAtLeastUs(100U, SystemCoreClock);
+                SDK_DelayAtLeastUs(100U, coreClock_Hz);
                 AON__CGU->ULPIRC_CONFIG = (AON__CGU->ULPIRC_CONFIG & ~CGU_ULPIRC_CONFIG_TRIM_COA_LV_MASK) | trimCoarse;
             }
 

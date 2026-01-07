@@ -213,7 +213,10 @@ typedef enum _clock_ip_name
         kCLOCK_GateNotAvail \
     }
 #endif
-/*! @brief Clock ip name array for CTIMER. */
+/*! @brief Clock ip name array for CTIMER.
+ *
+ * CTIMER2 register access is only available when CTIMER1 clock is enabled and CTIMER1 is released from reset.
+*/
 #define CTIMER_CLOCKS                                              \
     {                                                              \
         kCLOCK_GateCTIMER0, kCLOCK_GateCTIMER1, kCLOCK_GateCTIMER2 \

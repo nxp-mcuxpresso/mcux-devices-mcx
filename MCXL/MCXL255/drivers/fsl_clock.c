@@ -1510,10 +1510,7 @@ uint32_t CLOCK_GetLpi2cClkFreq(uint32_t id)
 
     if(id == 2U)
     {   /* AON I2C*/
-        if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_LPI2C_CLK_MASK)
-        {
-            freq = CLOCK_getAonPerClkFreq();
-        }
+        freq = CLOCK_getAonPerClkFreq();
     }
 #if __CORTEX_M == (33U) /* Building on the main core */
     else
@@ -1530,14 +1527,7 @@ uint32_t CLOCK_GetLpi2cClkFreq(uint32_t id)
  */
 uint32_t CLOCK_GetQtmrClkFreq(void)
 {
-    uint32_t freq = 0U;
-
-    if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_QTMR_CLK_EN_MASK)
-    {
-        freq = CLOCK_getAonTmrClkFreq();
-    }
-
-    return freq;
+    return CLOCK_getAonTmrClkFreq();
 }
 
 #if __CORTEX_M == (33U) /* Building on the main core */
@@ -1559,10 +1549,7 @@ uint32_t CLOCK_GetLpuartClkFreq(uint32_t id)
 
     if(id == 2U)
     {   /* AON lpuart*/
-        if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_LPUART_CLK_MASK)
-        {
-            freq = CLOCK_getAonPerClkFreq();
-        }
+        freq = CLOCK_getAonPerClkFreq();
     }
 #if __CORTEX_M == (33U) /* Building on the main core */
     else
@@ -1580,24 +1567,21 @@ uint32_t CLOCK_GetLptmrClkFreq(void)
 {
     uint32_t freq   =  0U;
     uint32_t clksel = (AON__CGU->PER_CLK_CONFIG & CGU_PER_CLK_CONFIG_LPTMR_GRP_SEL_MASK) >> CGU_PER_CLK_CONFIG_LPTMR_GRP_SEL_SHIFT;
-    
-    if(AON__CGU->PER_CLK_EN & CGU_PER_CLK_EN_LPTMR_CLK_EN_MASK)
+
+    switch (clksel)
     {
-        switch (clksel)
-        {
-            case 0U:
-                freq = CLOCK_getAonTmrClkFreq();
-                break;
-            case 1U:
-                freq = CLOCK_GetFro16KFreq();
-                break;
-            case 2U:
-                freq = CLOCK_GetClk16KFreq();
-                break;
-            default:
-                freq = 0U;
-                break;
-        }
+        case 0U:
+            freq = CLOCK_getAonTmrClkFreq();
+            break;
+        case 1U:
+            freq = CLOCK_GetFro16KFreq();
+            break;
+        case 2U:
+            freq = CLOCK_GetClk16KFreq();
+            break;
+        default:
+            freq = 0U;
+            break;
     }
     
     return freq;

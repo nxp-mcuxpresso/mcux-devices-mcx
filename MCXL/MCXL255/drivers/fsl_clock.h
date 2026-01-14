@@ -25,8 +25,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 1.2.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(1, 2, 0))
+/*! @brief CLOCK driver version 1.3.0. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(1, 3, 0))
 /*@}*/
 
 /*! @brief Configure whether driver controls clock
@@ -46,7 +46,7 @@
 /* Definition for delay API in clock driver, users can redefine it to the real application. */
 #ifndef SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY
 #if __CORTEX_M == 33
-#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (96000000U)
+#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (DEFAULT_SYSTEM_CLOCK)
 #else
 #define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (10000000U)
 #endif
@@ -117,7 +117,9 @@ typedef enum _clock_ip_name
     kCLOCK_GateNVMNXPCTL     = (0x00U | (12U)),                        /*!< Clock gate name: NVM_NXP_CTL    */
     kCLOCK_GateFMU0          = (0x00U | (13U)),                        /*!< Clock gate name: FMU0           */
     kCLOCK_GateLPI2C0        = (0x00U | (14U)),                        /*!< Clock gate name: LPI2C0         */
-    kCLOCK_GateLPI2C1        = (0x00U | (15U)),                        /*!< Clock gate name: LPI2C0         */
+#if defined(LPI2C1)
+    kCLOCK_GateLPI2C1        = (0x00U | (15U)),                        /*!< Clock gate name: LPI2C1         */
+#endif
     kCLOCK_GateLPSPI0        = (0x00U | (16U)),                        /*!< Clock gate name: LPSPI0         */
     kCLOCK_GateLPSPI1        = (0x00U | (17U)),                        /*!< Clock gate name: LPSPI1         */
     kCLOCK_GateLPUART0       = (0x00U | (18U)),                        /*!< Clock gate name: LPUART0        */
@@ -141,7 +143,9 @@ typedef enum _clock_ip_name
     kCLOCK_GatePORT3         = ((0x4U << 16U) | (0x10U << 8U) | (3U)), /*!< Clock gate name: PORT3          */
     kCLOCK_GateROMCP         = ((0x4U << 16U) | (0x10U << 8U) | (4U)), /*!< Clock gate name: ROMCP          */
     kCLOCK_GateSGI0          = ((0x4U << 16U) | (0x10U << 8U) | (5U)), /*!< Clock gate name: SGI0           */
+#if defined(FSL_FEATURE_SOC_LCD_COUNT) && (FSL_FEATURE_SOC_LCD_COUNT > 0U)
     kCLOCK_GateSGLCD         = ((0x4U << 16U) | (0x10U << 8U) | (6U)), /*!< Clock gate name: SGLCD          */
+#endif
     kCLOCK_GateTCU           = ((0x4U << 16U) | (0x10U << 8U) | (7U)), /*!< Clock gate name: TCU            */
     kCLOCK_GateTRNG0         = ((0x4U << 16U) | (0x10U << 8U) | (8U)), /*!< Clock gate name: TRNG0          */
     kCLOCK_GateUDF0          = ((0x4U << 16U) | (0x10U << 8U) | (9U)), /*!< Clock gate name: UDF0           */
@@ -154,21 +158,31 @@ typedef enum _clock_ip_name
     kCLOCK_GateAonPORT       = ((1U<<24U) | (5U)),                     /*!< Clock gate name: AON PORT       */
     kCLOCK_GateAonGPIO       = ((1U<<24U) | (6U)),                     /*!< Clock gate name: AON GPIO       */
     kCLOCK_GateAonQTMR0      = ((1U<<24U) | (7U)),                     /*!< Clock gate name: AON QTMR0      */
+#if defined(AON__TMR1)
     kCLOCK_GateAonQTMR1      = ((1U<<24U) | (7U)),                     /*!< Clock gate name: AON QTMR1      */
+#endif
     kCLOCK_GateAonLPTMR      = ((1U<<24U) | (9U)),                     /*!< Clock gate name: AON LPTMR      */
+#if defined(FSL_FEATURE_SOC_KPP_COUNT) && (FSL_FEATURE_SOC_KPP_COUNT > 0U)
     kCLOCK_GateAonKPP        = ((1U<<24U) | (10U)),                    /*!< Clock gate name: AON KPP        */
+#endif
     kCLOCK_GateAonLPADC      = ((1U<<24U) | (11U)),                    /*!< Clock gate name: AON LPADC      */
     kCLOCK_GateAonSYS        = ((1U<<24U) | (12U)),                    /*!< Clock gate name: AON SYS (tick) */
-    kCLOCK_GateAonACMP0      = ((1U<<24U) | (13U)),                    /*!< Clock gate name: AON comparator */
+    kCLOCK_GateAonLPACMP     = ((1U<<24U) | (13U)),                    /*!< Clock gate name: AON LPACMP     */
+#if defined(FSL_FEATURE_SOC_LCD_COUNT) && (FSL_FEATURE_SOC_LCD_COUNT > 0U)
     kCLOCK_GateAonLCD        = ((1U<<24U) | (14U)),                    /*!< Clock gate name: AON LCD        */
+#endif
     kCLOCK_GateAonAVDC2P0    = ((1U<<24U) | (15U)),                    /*!< Clock gate name: AON AVDC2P0    */
     kCLOCK_GateAonINPUTMUX1  = ((1U<<24U) | (16U)),                    /*!< Clock gate name: AON INPUTMUX   */
     kCLOCK_GateAonRootAux    = ((1U<<24U) | (17U)),                    /*!< Clock gate name: AON Root Aux CLK*/
-
+#if defined(AON__ACMP0)
+    kCLOCK_GateAonACMP0      = ((1U<<24U) | (1U<<25U) | (1U)),         /*!< Clock gate name: AON ACMP functional clock */
+    kCLOCK_GateAonACMP0RR    = ((1U<<24U) | (1U<<25U) | (0U)),         /*!< Clock gate name: AON ACMP Round-Robin clock */
+#endif
     kCLOCK_GateNotAvail      = (0xFFFFFFFFU),                          /**< Clock gate name: None           */
 } clock_ip_name_t;
 
 /*! @brief Clock ip name array for SLCD. */
+#if defined(FSL_FEATURE_SOC_LCD_COUNT) && (FSL_FEATURE_SOC_LCD_COUNT > 0U)
 #if __CORTEX_M == (33U) /* Building on the main core */
 #define SLCD_FAULT_DETECT_CLOCKS \
     {                            \
@@ -184,11 +198,12 @@ typedef enum _clock_ip_name
     {                       \
         kCLOCK_GateAonLCD   \
     }
+#endif /* FSL_FEATURE_SOC_LCD_COUNT */
 
 /*! @brief Clock ip name array for LPACMP. */
-#define LPACMP_CLOCKS      \
-    {                   \
-        kCLOCK_GateAonACMP0 \
+#define LPACMP_CLOCKS        \
+    {                        \
+        kCLOCK_GateAonLPACMP \
     }
 
 /*! @brief Clock ip name array for AOI. */
@@ -272,15 +287,24 @@ typedef enum _clock_ip_name
 
 /*! @brief Clock ip name array for LPCMP. */
 #if __CORTEX_M == (33U) /* Building on the main core */
+#if defined(AON__ACMP0)
 #define LPCMP_CLOCKS                          \
     {                                         \
         kCLOCK_GateACMP0, kCLOCK_GateAonACMP0 \
     }
 #else
+#define LPCMP_CLOCKS      \
+    {                     \
+        kCLOCK_GateACMP0, \
+    }
+#endif /* AON__ACMP0 */
+#else
+#if defined(AON__ACMP0)
     #define LPCMP_CLOCKS                    \
     {                                       \
         kCLOCK_GateAonACMP0                 \
     }
+#endif /* AON__ACMP0 */
 #endif
 
 /*! @brief Clock ip name array for LPADC. */
@@ -310,13 +334,19 @@ typedef enum _clock_ip_name
     }
 #endif
 
-
 /*! @brief Clock ip name array for LPI2C. */
 #if __CORTEX_M == (33U) /* Building on the main core */
+#if defined(LPI2C1)
 #define LPI2C_CLOCKS      \
     {                     \
         kCLOCK_GateLPI2C0, kCLOCK_GateLPI2C1, kCLOCK_GateAonI2C \
     }
+#else
+#define LPI2C_CLOCKS      \
+    {                     \
+        kCLOCK_GateLPI2C0, kCLOCK_GateNotAvail, kCLOCK_GateAonI2C \
+    }
+#endif /* LPI2C1 */
 #else
 #define LPI2C_CLOCKS      \
     {                     \
@@ -384,21 +414,29 @@ typedef enum _clock_ip_name
 /*! @brief Peripherals clock source definition. */
 #define BUS_CLK kCLOCK_BusClk
 /*! @brief Clock ip name array for QTMRs. */
+#if defined(AON__TMR1)
 #define TMR_CLOCKS      \
     {                    \
         kCLOCK_GateAonQTMR0, kCLOCK_GateAonQTMR1 \
     }
+#else
+#define TMR_CLOCKS      \
+    {                       \
+        kCLOCK_GateAonQTMR0 \
+    }
+#endif /* AON__TMR1 */
 /*! @brief Clock ip name array for AON LPTMRs. */
 #define LPTMR_CLOCKS        \
     {                       \
         kCLOCK_GateAonLPTMR \
     }
 /*! @brief Clock ip name array for QTMRs. */
+#if defined(FSL_FEATURE_SOC_KPP_COUNT) && (FSL_FEATURE_SOC_KPP_COUNT > 0U)
 #define KPP_CLOCKS      \
     {                    \
         kCLOCK_GateAonKPP \
     }
-
+#endif
 
 /*! @brief Clock name used to get clock frequency. */
 typedef enum _clock_name
@@ -464,11 +502,17 @@ typedef enum _clock_select_name
 
     kCLOCK_SelAonROOT_AUX   = CLK_AON_SEL(0U,  4U, 1U), /*!< AON ROOT_AUX clock selection          */
     kCLOCK_SelAonROOT       = CLK_AON_SEL(0U,  2U, 3U), /*!< AON ROOT clock selection              */
+#if defined(AON__ACMP0)
     kCLOCK_SelAonACMP0      = CLK_AON_SEL(4U, 13U, 3U), /*!< AON ACMP0 clock selection             */
+#endif
+#if defined(FSL_FEATURE_SOC_LCD_COUNT) && (FSL_FEATURE_SOC_LCD_COUNT > 0U)
     kCLOCK_SelAonLCD        = CLK_AON_SEL(4U, 12U, 1U), /*!< AON LCD clock selection               */
+#endif
     kCLOCK_SelAonLPADC      = CLK_AON_SEL(4U,  9U, 7U), /*!< AON LPADC clock selection             */
     kCLOCK_SelAonSYSTICK    = CLK_AON_SEL(4U,  7U, 3U), /*!< AON SYS tick clock selection          */
+#if defined(FSL_FEATURE_SOC_KPP_COUNT) && (FSL_FEATURE_SOC_KPP_COUNT > 0U)
     kCLOCK_SelAonKPP        = CLK_AON_SEL(4U,  6U, 1U), /*!< AON KPP clock selection               */
+#endif
     kCLOCK_SelAonLPTMR      = CLK_AON_SEL(4U,  4U, 3U), /*!< AON LPTMR GRP clock selection         */
     kCLOCK_SelAonTMR        = CLK_AON_SEL(4U,  2U, 3U), /*!< AON TMR GRP clock selection           */
     kCLOCK_SelAonCOM        = CLK_AON_SEL(4U,  0U, 3U), /*!< AON COM comaprator (aon_per_clk) clock selection */
@@ -488,13 +532,17 @@ typedef enum _clock_attach_id
     kFROdiv4_to_AON_CPU     = CLK_ATTACH_MUX(kCLOCK_SelAonROOT, 2U),         /*!< Attach FRO div 4 to AON_CPU.   */
     kROOT_AUX_to_AON_CPU    = CLK_ATTACH_MUX(kCLOCK_SelAonROOT, 3U),         /*!< Attach ROOT AUX to AON_CPU.    */
 
+#if defined(AON__ACMP0)
     kFROdiv1_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOCK_SelAonACMP0, 0U),         /*!< Attach FRO div 1 to AON ACMP0.   */
     kFROdiv2_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOCK_SelAonACMP0, 1U),         /*!< Attach FRO div 2 to AON ACMP0.   */
     kFROdiv4_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOCK_SelAonACMP0, 2U),         /*!< Attach FRO div 4 to AON ACMP0.   */
     kROOT_AUX_to_AON_CMP0    = CLK_ATTACH_MUX(kCLOCK_SelAonACMP0, 3U),         /*!< Attach ROOT AUX to AON ACMP0.    */
+#endif
 
+#if defined(FSL_FEATURE_SOC_LCD_COUNT) && (FSL_FEATURE_SOC_LCD_COUNT > 0U)
     kCLK_16K_to_AON_LCD     = CLK_ATTACH_MUX(kCLOCK_SelAonLCD, 0U),         /*!< Attach FRO clk_16k to AON LCD.   */
     kFRO16K_to_AON_LCD      = CLK_ATTACH_MUX(kCLOCK_SelAonLCD, 1U),         /*!< Attach FRO fro16k to AON LCD.   */
+#endif
 
     kFROdiv1_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOCK_SelAonLPADC, 0U),         /*!< Attach FRO div 1 to AON LPADC.   */
     kFROdiv2_to_AON_LPADC     = CLK_ATTACH_MUX(kCLOCK_SelAonLPADC, 1U),         /*!< Attach FRO div 2 to AON LPADC.   */
@@ -508,8 +556,10 @@ typedef enum _clock_attach_id
     kFROdiv4_to_AON_SYSTICK     = CLK_ATTACH_MUX(kCLOCK_SelAonSYSTICK, 2U),     /*!< Attach FRO div 4 to AON SYSTICK.   */
     kROOT_AUX_to_AON_SYSTICK    = CLK_ATTACH_MUX(kCLOCK_SelAonSYSTICK, 3U),     /*!< Attach ROOT AUX to AON SYSTICK.    */
 
+#if defined(FSL_FEATURE_SOC_KPP_COUNT) && (FSL_FEATURE_SOC_KPP_COUNT > 0U)
     kXTAL32K_to_AON_KPP     = CLK_ATTACH_MUX(kCLOCK_SelAonKPP, 0U),         /*!< Attach XTAL32K to AON KPP.   */
     kFRO16K_to_AON_KPP      = CLK_ATTACH_MUX(kCLOCK_SelAonKPP, 1U),         /*!< Attach FRO fro16k to AON KPP.   */
+#endif
 
     AON_TMR_to_AON_LPTMR    = CLK_ATTACH_MUX(kCLOCK_SelAonLPTMR, 0U),       /*!< Attach AON TIMER CLK to AON LPTMR GRP.*/
     kFRO16K_to_AON_LPTMR    = CLK_ATTACH_MUX(kCLOCK_SelAonLPTMR, 1U),       /*!< Attach FRO16K to AON LPTMR GRP.*/
@@ -651,8 +701,10 @@ typedef enum _clock_div_name
     kCLOCK_DIVAonCPU       = (0x800U), /*!< Aon CPU    clock divider */
     kCLOCK_DIVAonCMP       = (0x801U), /*!< Aon Comp grp clock divider */
     kCLOCK_DIVAonSYS       = (0x802U), /*!< Aon SYSTICK clock divider */
+#if defined(AON__ACMP0)
     kCLOCK_DIVAonACMP0CLK0 = (0x810U), /*!< Aon CMP0 CLK0 clock divider */
     kCLOCK_DIVAonACMP0CLK1 = (0x811U), /*!< Aon CMP0 CLK1 clock divider */
+#endif
     kCLOCK_DivMax          = (0x811U), /*!< MAX clock divider */
 } clock_div_name_t;
 
@@ -845,6 +897,12 @@ static inline void CLOCK_EnableClock(clock_ip_name_t clk)
         {
             AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
         }
+#if defined(AON__ACMP0)
+        else if(clk & (1U<<25U)) /* ACMP clock*/
+        {
+            AON__CGU->ACMP_CLK_DIV |= (1UL << bit_shift);
+        }
+#endif
         else
         {
             AON__CGU->PER_CLK_EN |= (1UL << bit_shift);

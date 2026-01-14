@@ -1,5 +1,9 @@
 # CLOCK
 
+## [1.3.0]
+
+- Added support of MCXL14x family
+
 ## [1.2.0]
 
 - Improved `CLOCK_InitRosc()` function

@@ -86,15 +86,6 @@
 /*! @brief True when clock gate belongs to AON domain */
 #define CLK_OF_AON(value) (((uint32_t)(value)) & (1U<<24U))
 
-/*! @brief Count of XTAL driver parameters' triplets for Rosc initialization*/
-#ifndef CLOCK_XTAL_DRIVE_PARAMS_COUNT
-#ifdef CONFIG_CLOCK_XTAL_DRIVE_PARAMS_COUNT
-#define CLOCK_XTAL_DRIVE_PARAMS_COUNT CONFIG_CLOCK_XTAL_DRIVE_PARAMS_COUNT
-#else
-#define CLOCK_XTAL_DRIVE_PARAMS_COUNT (1U)
-#endif
-#endif
-
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */
 typedef enum _clock_ip_name
 {
@@ -848,7 +839,8 @@ typedef struct _xtal_drive_param
 /*! @brief ROSC initialization configuration structure. */
 typedef struct _rosc_init_config
 {
-    xtal_drive_param_t xtal_drive_params[CLOCK_XTAL_DRIVE_PARAMS_COUNT]; /*!< Array of dly_cap_sox, amp and gm parameters */
+    uint8_t xtalDriveParamsSize; /*!< Size of xtal_drive_params array*/
+    xtal_drive_param_t (*xtal_drive_params)[]; /*!< Pointer to array of dly_cap_sox, amp and gm parameters */
     uint32_t detectionDelay; /*!< Delay before start of rosc initialization detection */
     uint32_t detectionTimeout; /*!< Timeout for detection of rosc initialization */
     uint32_t detectionDelaySwitchedMode; /*!< Delay before start of rosc initialization detection in switched mode */

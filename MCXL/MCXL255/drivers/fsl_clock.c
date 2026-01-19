@@ -36,6 +36,10 @@ typedef enum _clock_aon_chg
  * Variables
  ******************************************************************************/
 
+static xtal_drive_param_t s_XtalDriveParamsDefault[1] = {
+	{.dly_cap_sox = 0, .amp = 0, .gm = 0},
+};
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -839,16 +843,15 @@ static status_t is_xtal_clkout_vbat_ok()
  * Delays and timeouts are defined in milliseconds.
  * For example:
  * code
- *  config->xtal_drive_params[0].dly_cap_sox            = 0U;
- *  config->xtal_drive_params[0].amp                    = 0U;
- *  config->xtal_drive_params[0].gm                     = 0U;
- *  config->detectionDelay                              = 2000U;
- *  config->detectionTimeout                            = 0U;
- *  config->detectionDelaySwitchedMode                  = 500U;
- *  config->detectionTimeoutSwitchedMode                = 0U;
- *  config->cbXo                                        = 3U;
- *  config->cbXi                                        = 3U;
- *  config->vbatOver3V                                  = true;
+ *   config->xtalDriveParamsSize          = 1U;
+ *   config->xtal_drive_params            = &s_XtalDriveParamsDefault;
+ *   config->detectionDelay               = 2000U;
+ *   config->detectionTimeout             = 0U;
+ *   config->detectionDelaySwitchedMode   = 500U;
+ *   config->detectionTimeoutSwitchedMode = 0U;
+ *   config->cbXo                         = 3U;
+ *   config->cbXi                         = 3U;
+ *   config->vbatOver3V                   = true;
  * endcode
  * This function should be called before CLOCK_InitRosc if custom configuration is not fully provided.
  *
@@ -861,17 +864,16 @@ void CLOCK_GetDefaultInitRoscConfig(rosc_init_config_t *config)
 
     /* Clear the structure */
     (void)memset(config, 0, sizeof(rosc_init_config_t));
-
-    config->xtal_drive_params[0].dly_cap_sox            = 0U;
-    config->xtal_drive_params[0].amp                    = 0U;
-    config->xtal_drive_params[0].gm                     = 0U;
-    config->detectionDelay                              = 2000U;
-    config->detectionTimeout                            = 0U;
-    config->detectionDelaySwitchedMode                  = 500U;
-    config->detectionTimeoutSwitchedMode                = 0U;
-    config->cbXo                                        = 3U;
-    config->cbXi                                        = 3U;
-    config->vbatOver3V                                  = true;
+   
+    config->xtalDriveParamsSize          = 1U;
+    config->xtal_drive_params            = &s_XtalDriveParamsDefault;
+    config->detectionDelay               = 2000U;
+    config->detectionTimeout             = 0U;
+    config->detectionDelaySwitchedMode   = 500U;
+    config->detectionTimeoutSwitchedMode = 0U;
+    config->cbXo                         = 3U;
+    config->cbXi                         = 3U;
+    config->vbatOver3V                   = true;
 }
 
 /*!
@@ -946,14 +948,14 @@ status_t CLOCK_InitRosc(const rosc_init_config_t *config)
     /* Enable RTC Alive Detector in SMM */
     AON__SMM->RTC_ANLG_XTAL |= SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
 
-    for (uint32_t i = 0U; i < CLOCK_XTAL_DRIVE_PARAMS_COUNT; i++)
+    for (uint32_t i = 0U; i < config->xtalDriveParamsSize; i++)
     {
         AON__SMM->RTC_XTAL_CONFG1 = (AON__SMM->RTC_XTAL_CONFG1 & ~SMM_RTC_XTAL_CONFG1_AMPSEL_SHIFT) |
-                                    SMM_RTC_XTAL_CONFG1_AMPSEL(config->xtal_drive_params[i].amp);
+                                    SMM_RTC_XTAL_CONFG1_AMPSEL((*config->xtal_drive_params)[i].amp);
         AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX_MASK) |
-                                    SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX(config->xtal_drive_params[i].dly_cap_sox);
+                                    SMM_RTC_XTAL_CONFG2_DLY_CAP_SOX((*config->xtal_drive_params)[i].dly_cap_sox);
         AON__SMM->RTC_XTAL_CONFG2 = (AON__SMM->RTC_XTAL_CONFG2 & ~SMM_RTC_XTAL_CONFG2_GMSEL_MASK) |
-                                    SMM_RTC_XTAL_CONFG2_GMSEL(config->xtal_drive_params[i].gm);
+                                    SMM_RTC_XTAL_CONFG2_GMSEL((*config->xtal_drive_params)[i].gm);
         
         /* Enable XTAL */
         AON__SMM->RTC_XTAL_CONFG1 |= SMM_RTC_XTAL_CONFG1_XTAL_EN_MASK;

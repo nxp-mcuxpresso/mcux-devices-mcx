@@ -88,6 +88,9 @@ static inline bool CLOCK_IsSysconDivider(clock_div_name_t div_name)
 }
 #endif /* Building on the main core */
 
+/* Switch Aon CPU clock to 32kHz */
+static void CLOCK_SwitchAonCpuClkTo32K(void);
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -201,6 +204,23 @@ static void ADVC_PostChg(void)
 #endif
 }
 
+/* Switch Aon CPU clock to 32kHz */
+static void CLOCK_SwitchAonCpuClkTo32K(void)
+{
+    /* Step 1: Configure RTC alive detector bypass */
+    AON__RTC_AON->RTC_ALV_DTCT |= RTC_RTC_ALV_DTCT_BYPASS(1);
+   
+    /* Step 2: Enable XTAL fail interrupt (optional, for safety) */
+    /* Can be implemented outside clock driver based on system requirements */
+   
+    /* Step 3: Enable AON root aux clock */
+    AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN(1);
+   
+    /* Step 4: Switch AON root aux clock select to 32KHz */
+    AON__CGU->CLK_CONFIG = (AON__CGU->CLK_CONFIG & ~CGU_CLK_CONFIG_ROOT_AUX_CLK_SEL_MASK) | 
+                            CGU_CLK_CONFIG_ROOT_AUX_CLK_SEL(0);
+}
+
 /* Clock Selection for IP */
 /**
  * brief   Configure the clock selection muxes.
@@ -229,6 +249,7 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
           break;
         case kROOT_AUX_to_AON_CPU:
           ADVC_PreChg(kClockAonChg_clkSel, 3U);
+          CLOCK_SwitchAonCpuClkTo32K();
           break;
         case kXTAL32K_to_AON_ROOT_AUX:
           ADVC_PreChg(kClockAonChg_auxClk, CLOCK_GetRtcOscFreq());

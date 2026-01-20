@@ -111,7 +111,7 @@ static void delay_ms(const uint32_t delay_ms)
 
 static void ADVC_PreChg(const clock_aon_chg_t change, uint32_t newValue)
 {
-#if defined(ADVC_DRIVER_USED) & ADVC_DRIVER_USED
+#ifdef CONFIG_ADVC_DRIVER_USED
     if(ADVC_IsEnabled())
     {
         uint32_t freq = 0U;       
@@ -194,7 +194,7 @@ static void ADVC_PreChg(const clock_aon_chg_t change, uint32_t newValue)
 
 static void ADVC_PostChg(void)
 {
-#if defined(ADVC_DRIVER_USED) & ADVC_DRIVER_USED
+#ifdef CONFIG_ADVC_DRIVER_USED
     if(ADVC_IsEnabled())
     {
         ADVC_PostVoltageChangeRequest();

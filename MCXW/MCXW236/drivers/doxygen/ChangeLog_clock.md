@@ -1,5 +1,11 @@
 # CLOCK
 
+## [2.1.6]
+
+- Improvements
+  - Prevent division by zero in CLOCK_SetFlexCommClock().
+    Add a guard for freq == 0U to avoid a potential divide-by-zero fault.
+
 ## [2.1.5]
 
 - Improvements

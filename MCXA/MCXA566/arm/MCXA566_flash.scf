@@ -8,13 +8,13 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b251014
+**     Build:               b260121
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -37,14 +37,21 @@
   #define Heap_Size                    0x0400
 #endif
 
+/* SRAM A1,A2 are reserved for PKC */
+#if (defined(__pkc__))
+  #define __ram_offset__               0x4000
+#else
+  #define __ram_offset__               0
+#endif
+
 #define  m_interrupts_start            0x00000000
 #define  m_interrupts_size             0x00000400
 
 #define  m_text_start                  0x00000400
 #define  m_text_size                   0x000FFC00
 
-#define  m_data_start                  0x20000000
-#define  m_data_size                   0x00060000
+#define  m_data_start                  0x20000000 + __ram_offset__
+#define  m_data_size                   0x00060000 - __ram_offset__
 
 #define  m_sramx0_start                0x04000000
 #define  m_sramx0_size                 0x00020000

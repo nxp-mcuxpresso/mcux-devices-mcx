@@ -7,13 +7,13 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b251014
+**     Build:               b260121
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -29,13 +29,15 @@ ENTRY(Reset_Handler)
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
+/* SRAM A1,A2 are reserved for PKC */
+RAM_OFFSET = DEFINED(__pkc__) ? 0x4000 : 0;
 
 /* Specify the memory areas */
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00000400
   m_text                (RX)  : ORIGIN = 0x00000400, LENGTH = 0x001FFC00
-  m_data                (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00080000
+  m_data                (RW)  : ORIGIN = 0x20000000 + RAM_OFFSET, LENGTH = 0x00080000 - RAM_OFFSET
   m_sramx0              (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00020000
 }
 

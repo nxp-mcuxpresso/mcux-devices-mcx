@@ -1,4 +1,4 @@
-# Copyright 2024-2025 NXP
+# Copyright 2024-2026 NXP
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -21,7 +21,7 @@ if (CONFIG_MCUX_COMPONENT_driver.inputmux_connections)
 endif()
 
 if (CONFIG_MCUX_COMPONENT_driver.advc)
-    mcux_component_version(2.0.1)
+    mcux_component_version(2.0.3)
     mcux_add_source( SOURCES fsl_advc.c fsl_advc.h )
     mcux_add_include( INCLUDES . )
     mcux_add_library(

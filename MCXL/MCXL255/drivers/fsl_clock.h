@@ -163,8 +163,15 @@ typedef enum _clock_ip_name
     kCLOCK_GateAonLCD        = ((1U<<24U) | (14U)),                    /*!< Clock gate name: AON LCD        */
 #endif
     kCLOCK_GateAonAVDC2P0    = ((1U<<24U) | (15U)),                    /*!< Clock gate name: AON AVDC2P0    */
+    /* AON__SYSCON_AON clock gates */
     kCLOCK_GateAonINPUTMUX1  = ((1U<<24U) | (16U)),                    /*!< Clock gate name: AON INPUTMUX   */
-    kCLOCK_GateAonRootAux    = ((1U<<24U) | (17U)),                    /*!< Clock gate name: AON Root Aux CLK*/
+    kCLOCK_GateXTAL32Clk     = ((1U<<24U) | (17U)),                    /*!< Clock gate name: XTAL32K clock */
+    /* AON_CGU_CLK_CONFIG clock gates */
+    kCLOCK_GateAonRootAux    = ((1U<<24U) | (18U)),                    /*!< Clock gate name: AON Root Aux CLK */
+    kCLOCK_GateXTAL32Out     = ((1U<<24U) | (19U)),                    /*!< Clock gate name: XTAL32K[1] Output Enable */
+    /* AON__RTC_AON clock gates */
+    kCLOCK_GateXTAL32ToCGU   = ((1U<<24U) | (20U)),                    /*!< Clock gate name: XTAL32K Enable towards CGU */
+
 #if defined(AON__ACMP0)
     kCLOCK_GateAonACMP0      = ((1U<<24U) | (1U<<25U) | (1U)),         /*!< Clock gate name: AON ACMP functional clock */
     kCLOCK_GateAonACMP0RR    = ((1U<<24U) | (1U<<25U) | (0U)),         /*!< Clock gate name: AON ACMP Round-Robin clock */
@@ -881,16 +888,28 @@ static inline void CLOCK_EnableClock(clock_ip_name_t clk)
 
     if (CLK_OF_AON(clk))
     {
-        if(clk == kCLOCK_GateAonINPUTMUX1) 
+        if (clk == kCLOCK_GateAonINPUTMUX1)
         {
             AON__SYSCON_AON->INPUTMUXCLKCTRL = SYSCON_AON_INPUTMUXCLKCTRL_INPUTMUX_CLK_CTRL(0);
         }
-        else if(clk == kCLOCK_GateAonRootAux) 
+        else if (clk == kCLOCK_GateXTAL32Clk)
+        {
+            AON__SYSCON_AON->XTAL_32K_CLKCTRL = SYSCON_AON_XTAL_32K_CLKCTRL_XTAL_32K_CLK_CTRL(0);
+        }
+        else if (clk == kCLOCK_GateAonRootAux)
         {
             AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
         }
+        else if (clk == kCLOCK_GateXTAL32Out)
+        {
+            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_XTAL32_OUT_EN_MASK;
+        }
+        else if (clk == kCLOCK_GateXTAL32ToCGU)
+        {
+            AON__RTC_AON->CONFIG |= RTC_CONFIG_XTAL32_EN_MASK;
+        }
 #if defined(AON__ACMP0)
-        else if(clk & (1U<<25U)) /* ACMP clock*/
+        else if (clk & (1U<<25U)) /* ACMP clock*/
         {
             AON__CGU->ACMP_CLK_DIV |= (1UL << bit_shift);
         }
@@ -942,10 +961,32 @@ static inline void CLOCK_DisableClock(clock_ip_name_t clk)
 
     if (CLK_OF_AON(clk))
     {
-        if(clk == kCLOCK_GateAonRootAux) 
+        if (clk == kCLOCK_GateAonINPUTMUX1)
+        {
+            AON__SYSCON_AON->INPUTMUXCLKCTRL = SYSCON_AON_INPUTMUXCLKCTRL_INPUTMUX_CLK_CTRL(1);
+        }
+        else if (clk == kCLOCK_GateXTAL32Clk)
+        {
+            AON__SYSCON_AON->XTAL_32K_CLKCTRL = SYSCON_AON_XTAL_32K_CLKCTRL_XTAL_32K_CLK_CTRL(1);
+        }
+        else if (clk == kCLOCK_GateAonRootAux) 
         {
             AON__CGU->CLK_CONFIG &= ~(CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK);
         }
+        else if (clk == kCLOCK_GateXTAL32Out) 
+        {
+            AON__CGU->CLK_CONFIG &= ~(CGU_CLK_CONFIG_XTAL32_OUT_EN_MASK);
+        }
+        else if (clk == kCLOCK_GateXTAL32ToCGU)
+        {
+            AON__RTC_AON->CONFIG &= ~(RTC_CONFIG_XTAL32_EN_MASK);
+        }
+#if defined(AON__ACMP0)
+        else if (clk & (1U<<25U)) /* ACMP clock*/
+        {
+            AON__CGU->ACMP_CLK_DIV &= ~(1UL << bit_shift);
+        }
+#endif
         else
         {
             AON__CGU->PER_CLK_EN &= ~(1UL << bit_shift);

@@ -88,9 +88,6 @@ static inline bool CLOCK_IsSysconDivider(clock_div_name_t div_name)
 }
 #endif /* Building on the main core */
 
-/* Switch Aon CPU clock to 32kHz */
-static void CLOCK_SwitchAonCpuClkTo32K(void);
-
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -204,23 +201,6 @@ static void ADVC_PostChg(void)
 #endif
 }
 
-/* Switch Aon CPU clock to 32kHz */
-static void CLOCK_SwitchAonCpuClkTo32K(void)
-{
-    /* Step 1: Configure RTC alive detector bypass */
-    AON__RTC_AON->RTC_ALV_DTCT |= RTC_RTC_ALV_DTCT_BYPASS(1);
-   
-    /* Step 2: Enable XTAL fail interrupt (optional, for safety) */
-    /* Can be implemented outside clock driver based on system requirements */
-   
-    /* Step 3: Enable AON root aux clock */
-    AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN(1);
-   
-    /* Step 4: Switch AON root aux clock select to 32KHz */
-    AON__CGU->CLK_CONFIG = (AON__CGU->CLK_CONFIG & ~CGU_CLK_CONFIG_ROOT_AUX_CLK_SEL_MASK) | 
-                            CGU_CLK_CONFIG_ROOT_AUX_CLK_SEL(0);
-}
-
 /* Clock Selection for IP */
 /**
  * brief   Configure the clock selection muxes.
@@ -230,7 +210,7 @@ static void CLOCK_SwitchAonCpuClkTo32K(void)
 void CLOCK_AttachClk(clock_attach_id_t connection)
 {
     const uint32_t reg_offset = CLK_ATTACH_REG_OFFSET(connection);
-    const uint32_t clk_sel    = CLK_ATTACH_CLK_SEL(connection);
+    uint32_t clk_sel = CLK_ATTACH_CLK_SEL(connection);
 
     if (kNONE_to_NONE != connection)
     {
@@ -239,27 +219,45 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
         switch(connection)
         {
         case kFROdiv1_to_AON_CPU:
-          ADVC_PreChg(kClockAonChg_clkSel, 0U);
-          break;
+            ADVC_PreChg(kClockAonChg_clkSel, 0U);
+            break;
         case kFROdiv2_to_AON_CPU:
-          ADVC_PreChg(kClockAonChg_clkSel, 1U);
-          break;
+            ADVC_PreChg(kClockAonChg_clkSel, 1U);
+            break;
         case kFROdiv4_to_AON_CPU:
-          ADVC_PreChg(kClockAonChg_clkSel, 2U);
-          break;
+            ADVC_PreChg(kClockAonChg_clkSel, 2U);
+            break;
         case kROOT_AUX_to_AON_CPU:
-          ADVC_PreChg(kClockAonChg_clkSel, 3U);
-          CLOCK_SwitchAonCpuClkTo32K();
-          break;
+            ADVC_PreChg(kClockAonChg_clkSel, 3U);
+            break;
+        case kXTAL32K_to_AON_CPU:
+            ADVC_PreChg(kClockAonChg_clkSel, 3U);
+            /* Enable AON root aux clock */
+            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN(1);  
+            /* Switch AON root aux clock select to XTAL32_OUT */
+            AON__CGU->CLK_CONFIG = (AON__CGU->CLK_CONFIG & ~CGU_CLK_CONFIG_ROOT_AUX_CLK_SEL_MASK) | 
+                                    CGU_CLK_CONFIG_ROOT_AUX_CLK_SEL(0);
+            /* Select AUX_ROT_AUX clock for AON_MAIN_CLK*/
+            clk_sel = 3U;
+            break;
+        case kAUX_to_AON_CPU:
+            ADVC_PreChg(kClockAonChg_clkSel, 3U);
+            /* Enable AON root aux clock */
+            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN(1);  
+            /* Switch AON root aux clock select to AON_AUX_CLK */
+            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_SEL(1);
+            /* Select AUX_ROT_AUX clock for AON_MAIN_CLK*/
+            clk_sel = 3U;
+            break;
         case kXTAL32K_to_AON_ROOT_AUX:
-          ADVC_PreChg(kClockAonChg_auxClk, CLOCK_GetRtcOscFreq());
-          break;
+            ADVC_PreChg(kClockAonChg_auxClk, CLOCK_GetRtcOscFreq());
+            break;
         case kAUX_to_AON_ROOT_AUX:
-          ADVC_PreChg(kClockAonChg_auxClk, CLOCK_GetAonAuxFreq());  
-          break;
+            ADVC_PreChg(kClockAonChg_auxClk, CLOCK_GetAonAuxFreq());
+            break;
         default: 
-          run_advc_postchg = 0U;
-          break;
+            run_advc_postchg = 0U;
+            break;
         }
         
         CLOCK_SetClockSelect((clock_select_name_t)reg_offset, clk_sel);
@@ -908,7 +906,7 @@ void CLOCK_GetDefaultInitRoscConfig(rosc_init_config_t *config)
 bool CLOCK_IsRoscInitialized(void)
 {
     bool initialized;
-    
+
     /* Enable RTC Alive Detector in SMM */
     AON__SMM->RTC_ANLG_XTAL |= SMM_RTC_ANLG_XTAL_RTC_ALV_DTCT_EN_MASK;
     delay_ms(1U);

@@ -530,6 +530,11 @@ typedef enum _clock_attach_id
     kFROdiv4_to_AON_CPU     = CLK_ATTACH_MUX(kCLOCK_SelAonROOT, 2U),         /*!< Attach FRO div 4 to AON_CPU.   */
     kROOT_AUX_to_AON_CPU    = CLK_ATTACH_MUX(kCLOCK_SelAonROOT, 3U),         /*!< Attach ROOT AUX to AON_CPU.    */
 
+    /*!< Attach XTAL32K to AON_CPU including control of kCLOCK_SelAonROOT_AUX mux. */
+    kXTAL32K_to_AON_CPU     = CLK_ATTACH_MUX(kCLOCK_SelAonROOT, 4U),
+    /*!< Attach AON_AUX to AON_CPU including control of kCLOCK_SelAonROOT_AUX mux. */
+    kAUX_to_AON_CPU         = CLK_ATTACH_MUX(kCLOCK_SelAonROOT, 5U),
+
 #if defined(AON__ACMP0)
     kFROdiv1_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOCK_SelAonACMP0, 0U),         /*!< Attach FRO div 1 to AON ACMP0.   */
     kFROdiv2_to_AON_CMP0     = CLK_ATTACH_MUX(kCLOCK_SelAonACMP0, 1U),         /*!< Attach FRO div 2 to AON ACMP0.   */

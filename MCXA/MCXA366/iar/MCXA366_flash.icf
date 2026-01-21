@@ -8,13 +8,13 @@
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b250519
+**     Build:               b260121
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -37,13 +37,20 @@ if (isdefinedsymbol(__heap_size__)) {
   define symbol __size_heap__          = 0x0400;
 }
 
+/* SRAM A1,A2 are reserved for PKC */
+if (isdefinedsymbol(__pkc__)) {
+  define symbol __ram_offset__         = 0x4000;
+} else {
+  define symbol __ram_offset__         = 0;
+}
+
 define symbol m_interrupts_start               = 0x00000000;
 define symbol m_interrupts_end                 = 0x000003FF;
 
 define symbol m_text_start                     = 0x00000400;
 define symbol m_text_end                       = 0x000FDFFF;
 
-define symbol m_data_start                     = 0x20000000;
+define symbol m_data_start                     = 0x20000000 + __ram_offset__;
 define symbol m_data_end                       = 0x2003BFFF;
 
 define symbol m_sramx0_start                   = 0x04000000;

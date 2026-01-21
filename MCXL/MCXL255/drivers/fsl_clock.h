@@ -577,13 +577,13 @@ typedef enum _clock_attach_id
     kFIRC_DIV_to_FRO_HF = CLK_ATTACH_MUX(kCLOCK_SelFIRC, 1U),               /*!< Attach FIRC_DIV to FRO_HF.  */
 
     kFRO12M_to_CTIMERg0     = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg0, 0U),       /*!< Attach FRO12M to CTIMER0.     */
-    kXTAL32K_to_CTIMERg0    = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg0, 1U),       /*!< Attach XTAL32K to CTIMER0.    */
-    kCLK_16K_to_CTIMERg0    = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg0, 2U),       /*!< Attach CLK_16K to CTIMER0.    */
+    kCLK_1M_to_CTIMERg0     = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg0, 1U),       /*!< Attach kCLK_1M to CTIMER0.    */
+    kCLK_16K_to_CTIMERg0    = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg0, 2U),       /*!< Attach CLK_16K[2] to CTIMER0. */
     kFRO_HF_DIV_to_CTIMERg0 = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg0, 3U),       /*!< Attach FRO_HF_DIV to CTIMER0. */
 
     kFRO12M_to_CTIMERg1     = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg1, 0U),       /*!< Attach FRO12M to CTIMER1,2.     */
-    kXTAL32K_to_CTIMERg1    = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg1, 1U),       /*!< Attach XTAL32K to CTIMER1,2.    */
-    kCLK_16K_to_CTIMERg1    = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg1, 2U),       /*!< Attach CLK_16K to CTIMER1,2.    */
+    kCLK_1M_to_CTIMERg1     = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg1, 1U),       /*!< Attach kCLK_1M to CTIMER1,2.    */
+    kCLK_16K_to_CTIMERg1    = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg1, 2U),       /*!< Attach CLK_16K[2] to CTIMER1,2. */
     kFRO_HF_DIV_to_CTIMERg1 = CLK_ATTACH_MUX(kCLOCK_SelCTIMERg1, 3U),       /*!< Attach FRO_HF_DIV to CTIMER1,2. */
 
     kFRO12M_to_UTICK0  = CLK_ATTACH_MUX(kCLOCK_SelUTICK0, 0U),              /*!< Attach FRO12M to UTICK0.  */

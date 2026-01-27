@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260126
+**     Build:               b260127
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA536
@@ -850,6 +850,8 @@ typedef enum IRQn {
   /** Array initializer of GDET peripheral base pointers */
   #define GDET_BASE_PTRS                           { DGDET0 }
 #endif
+/** Interrupt vectors for the GDET peripheral type */
+#define GDET_IRQS                                { GDET_IRQn }
 
 /* GLIKEY - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

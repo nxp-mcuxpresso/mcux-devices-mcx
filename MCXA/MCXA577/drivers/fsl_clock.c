@@ -856,11 +856,11 @@ bool CLOCK_EnableUsbhsPhyPllClock(uint32_t clockSourceFreq)
     uint16_t multiplier = 0U;
     bool err            = false;
 
-    USBPHY0->CTRL_CLR    = USBPHY_CTRL_SFTRST_MASK;
-    USBPHY0->ANACTRL_SET = USBPHY_ANACTRL_LVI_EN_MASK;
-    USBPHY0->PLL_SIC_SET = USBPHY_PLL_SIC_PLL_REG_ENABLE_MASK;
+    USBHS1_PHY->CTRL_CLR    = USBPHY_CTRL_SFTRST_MASK;
+    USBHS1_PHY->ANACTRL_SET = USBPHY_ANACTRL_LVI_EN_MASK;
+    USBHS1_PHY->PLL_SIC_SET = USBPHY_PLL_SIC_PLL_REG_ENABLE_MASK;
     SDK_DelayAtLeastUs(15U, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
-    USBPHY0->PLL_SIC_SET = USBPHY_PLL_SIC_PLL_POWER(1);
+    USBHS1_PHY->PLL_SIC_SET = USBPHY_PLL_SIC_PLL_POWER(1);
     if ((480000000UL % clockSourceFreq) != 0UL)
     {
         return false;
@@ -921,15 +921,15 @@ bool CLOCK_EnableUsbhsPhyPllClock(uint32_t clockSourceFreq)
         return false;
     }
 
-    USBPHY0->PLL_SIC = (USBPHY0->PLL_SIC & ~(USBPHY_PLL_SIC_PLL_DIV_SEL_MASK)) | phyPllDiv;
+    USBHS1_PHY->PLL_SIC = (USBHS1_PHY->PLL_SIC & ~(USBPHY_PLL_SIC_PLL_DIV_SEL_MASK)) | phyPllDiv;
 
-    USBPHY0->PLL_SIC_CLR = USBPHY_PLL_SIC_PLL_BYPASS_MASK;
-    USBPHY0->PLL_SIC_SET = (USBPHY_PLL_SIC_PLL_EN_USB_CLKS_MASK);
+    USBHS1_PHY->PLL_SIC_CLR = USBPHY_PLL_SIC_PLL_BYPASS_MASK;
+    USBHS1_PHY->PLL_SIC_SET = (USBPHY_PLL_SIC_PLL_EN_USB_CLKS_MASK);
 
-    USBPHY0->CTRL_CLR = USBPHY_CTRL_CLR_CLKGATE_MASK;
-    USBPHY0->PWD      = 0x0U;
+    USBHS1_PHY->CTRL_CLR = USBPHY_CTRL_CLR_CLKGATE_MASK;
+    USBHS1_PHY->PWD      = 0x0U;
 
-    while (0UL == (USBPHY0->PLL_SIC & USBPHY_PLL_SIC_PLL_LOCK_MASK))
+    while (0UL == (USBHS1_PHY->PLL_SIC & USBPHY_PLL_SIC_PLL_LOCK_MASK))
     {
     }
 
@@ -942,7 +942,7 @@ bool CLOCK_EnableUsbhsPhyPllClock(uint32_t clockSourceFreq)
  */
 void CLOCK_DisableUsbhsPhyPllClock(void)
 {
-    USBPHY0->CTRL |= USBPHY_CTRL_CLKGATE_MASK; /* Set to 1U to gate clocks */
+    USBHS1_PHY->CTRL |= USBPHY_CTRL_CLKGATE_MASK; /* Set to 1U to gate clocks */
 }
 
 /*! brief Enable USB HS clock.
@@ -951,7 +951,7 @@ void CLOCK_DisableUsbhsPhyPllClock(void)
  */
 bool CLOCK_EnableUsbhsClock(void)
 {
-    USB0->USBCMD |= USBHS_USBCMD_RST_MASK;
+    USBHS1__USBC->USBCMD |= USBHS_USBCMD_RST_MASK;
     /* Add a delay between RST and RS so make sure there is a DP pullup sequence*/
     for (uint32_t i = 0; i < 400000U; i++)
     {
@@ -963,7 +963,7 @@ bool CLOCK_EnableUsbhsClock(void)
 /* Get UsbPll */
 static uint32_t CLOCK_GetUsbPllFreq(void)
 {
-    if (0 == (USBPHY0->CTRL & USBPHY_CTRL_CLKGATE_MASK))
+    if (0 == (USBHS1_PHY->CTRL & USBPHY_CTRL_CLKGATE_MASK))
     {
         return 480000000U;
     }
@@ -983,30 +983,30 @@ bool CLOCK_EnableUsbhsPhyPfdClock(uint32_t pfdDiv, pfd_clkout_selection_t pfdClk
     }
 
     /* Gate the PFD clock before configuration */
-    USBPHY0->PFDA |= USBPHY_PFDA_PFD0_CLKGATE_MASK;
+    USBHS1_PHY->PFDA |= USBPHY_PFDA_PFD0_CLKGATE_MASK;
 
     /* Reset USBPLL */
-    USBPHY0->PLL_SIC &= ~USBPHY_PLL_SIC_PLL_POWER_MASK;
-    USBPHY0->PLL_SIC |= USBPHY_PLL_SIC_PLL_POWER_MASK;
+    USBHS1_PHY->PLL_SIC &= ~USBPHY_PLL_SIC_PLL_POWER_MASK;
+    USBHS1_PHY->PLL_SIC |= USBPHY_PLL_SIC_PLL_POWER_MASK;
 
     /* Wait for USBPLL to stabilize */
-    while (0 == (USBPHY0->PLL_SIC & USBPHY_PLL_SIC_PLL_LOCK_MASK))
+    while (0 == (USBHS1_PHY->PLL_SIC & USBPHY_PLL_SIC_PLL_LOCK_MASK))
     {
         __NOP();
     }
 
     /* Select the PFD clock source */
-    USBPHY0->ANACTRL =
-        (USBPHY0->ANACTRL & ~USBPHY_ANACTRL_PFD_CLK_SEL_MASK) | USBPHY_ANACTRL_PFD_CLK_SEL((uint8_t)pfdClkSel);
+    USBHS1_PHY->ANACTRL =
+        (USBHS1_PHY->ANACTRL & ~USBPHY_ANACTRL_PFD_CLK_SEL_MASK) | USBPHY_ANACTRL_PFD_CLK_SEL((uint8_t)pfdClkSel);
 
     /* 480 MHz * 18 / n, where n = 18-3 */
-    USBPHY0->PFDA = (USBPHY0->PFDA & ~USBPHY_PFDA_PFD0_FRAC_MASK) | USBPHY_PFDA_PFD0_FRAC((uint8_t)pfdDiv);
+    USBHS1_PHY->PFDA = (USBHS1_PHY->PFDA & ~USBPHY_PFDA_PFD0_FRAC_MASK) | USBPHY_PFDA_PFD0_FRAC((uint8_t)pfdDiv);
 
     /* Ungate the PFD clock */
-    USBPHY0->PFDA &= ~USBPHY_PFDA_PFD0_CLKGATE_MASK;
+    USBHS1_PHY->PFDA &= ~USBPHY_PFDA_PFD0_CLKGATE_MASK;
 
     /* Wait for PFD to stabilize */
-    while (!(USBPHY0->PFDA & USBPHY_PFDA_PFD0_STABLE_MASK))
+    while (!(USBHS1_PHY->PFDA & USBPHY_PFDA_PFD0_STABLE_MASK))
     {
         __NOP();
     }
@@ -1023,13 +1023,13 @@ static uint32_t CLOCK_GetUsbPfdClkFreq(void)
     uint32_t usbPhyClkSrc = 0U;
     uint32_t freq         = 0U;
 
-    if ((0U != (USBPHY0->CTRL & USBPHY_CTRL_CLKGATE_MASK)) || (0U != (USBPHY0->PFDA & USBPHY_PFDA_PFD0_CLKGATE_MASK)))
+    if ((0U != (USBHS1_PHY->CTRL & USBPHY_CTRL_CLKGATE_MASK)) || (0U != (USBHS1_PHY->PFDA & USBPHY_PFDA_PFD0_CLKGATE_MASK)))
     {
         return 0U;
     }
 
-    pfdDiv    = (USBPHY0->PFDA & USBPHY_PFDA_PFD0_FRAC_MASK) >> USBPHY_PFDA_PFD0_FRAC_SHIFT;
-    pfdClkSel = (USBPHY0->ANACTRL & USBPHY_ANACTRL_PFD_CLK_SEL_MASK) >> USBPHY_ANACTRL_PFD_CLK_SEL_SHIFT;
+    pfdDiv    = (USBHS1_PHY->PFDA & USBPHY_PFDA_PFD0_FRAC_MASK) >> USBPHY_PFDA_PFD0_FRAC_SHIFT;
+    pfdClkSel = (USBHS1_PHY->ANACTRL & USBPHY_ANACTRL_PFD_CLK_SEL_MASK) >> USBPHY_ANACTRL_PFD_CLK_SEL_SHIFT;
 
     if ((pfdDiv < 18U) || (pfdDiv > 35U))
     {

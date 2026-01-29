@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260107
+**     Build:               b260129
 **
 **     Abstract:
 **         Chip specific module features.
@@ -881,6 +881,16 @@
 #define FSL_FEATURE_MCX_SPC_HAS_PD_STATUS_PWR_REQ_STATUS_BIT (1)
 /* @brief Support overdrive voltage */
 #define FSL_FEATURE_MCX_SPC_SUPPORT_OVERDRIVE_VOLTAGE (1)
+/* @brief Has SPC_LP_REQ bit in SC register */
+#define FSL_FEATURE_MCX_SPC_HAS_SC_SPC_LP_REQ_BIT (1)
+/* @brief Has SPC_LP_MODE bit in SC register */
+#define FSL_FEATURE_MCX_SPC_HAS_SC_SPC_LP_MODE_BIT (1)
+/* @brief Has SRAMCTL register */
+#define FSL_FEATURE_MCX_SPC_HAS_SRAMCTL_REG (1)
+/* @brief Has PD_STATUS register */
+#define FSL_FEATURE_MCX_SPC_HAS_PD_STATUS_REG (1)
+/* @brief Has SRAMRETLDO_REFTRIM register */
+#define FSL_FEATURE_MCX_SPC_HAS_SRAMRETLDO_REFTRIM_REG (0)
 
 /* SYSCON module features */
 
@@ -1018,6 +1028,8 @@
 #define FSL_FEATURE_VREF_HAS_REFCHSELN_EN (1)
 /* @brief Has bitfield REFCHSELP_EN in CSR register. */
 #define FSL_FEATURE_VREF_HAS_REFCHSELP_EN (1)
+/* @brief Support max voltage of 2.5V. */
+#define FSL_FEATURE_VREF_SUPPORT_2V5 (1)
 
 /* WWDT module features */
 

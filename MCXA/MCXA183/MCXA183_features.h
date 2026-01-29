@@ -1,13 +1,13 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.1, 2025-11-17
-**     Build:               b251210
+**     Build:               b260129
 **
 **     Abstract:
 **         Chip specific module features.
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -796,6 +796,18 @@
 #define FSL_FEATURE_MCX_SPC_HAS_DCDC_CFG_BLEED_EN (0)
 /* @brief Has Power Request Status Flag */
 #define FSL_FEATURE_MCX_SPC_HAS_PD_STATUS_PWR_REQ_STATUS_BIT (0)
+/* @brief Support overdrive voltage */
+#define FSL_FEATURE_MCX_SPC_SUPPORT_OVERDRIVE_VOLTAGE (1)
+/* @brief Has SPC_LP_REQ bit in SC register */
+#define FSL_FEATURE_MCX_SPC_HAS_SC_SPC_LP_REQ_BIT (1)
+/* @brief Has SPC_LP_MODE bit in SC register */
+#define FSL_FEATURE_MCX_SPC_HAS_SC_SPC_LP_MODE_BIT (1)
+/* @brief Has SRAMCTL register */
+#define FSL_FEATURE_MCX_SPC_HAS_SRAMCTL_REG (1)
+/* @brief Has PD_STATUS register */
+#define FSL_FEATURE_MCX_SPC_HAS_PD_STATUS_REG (1)
+/* @brief Has SRAMRETLDO_REFTRIM register */
+#define FSL_FEATURE_MCX_SPC_HAS_SRAMRETLDO_REFTRIM_REG (1)
 
 /* SYSCON module features */
 

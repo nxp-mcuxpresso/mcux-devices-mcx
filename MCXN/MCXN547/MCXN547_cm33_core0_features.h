@@ -1,13 +1,13 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.1, 2025-11-17
-**     Build:               b251117
+**     Build:               b260129
 **
 **     Abstract:
 **         Chip specific module features.
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -224,6 +224,8 @@
 #define FSL_FEATURE_LPADC_HAS_CMDH_CMPEN (1)
 /* @brief Has High Speed Mode Trim Request (bitfield CTRL[CALHS]). */
 #define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (0)
+/* @brief Has Justified Left Enable (bitfield CFG2[JLEFT]). */
+#define FSL_FEATURE_LPADC_HAS_CFG2_JLEFT (0)
 /* @brief Temperature sensor parameter A (slope). */
 #define FSL_FEATURE_LPADC_TEMP_PARAMETER_A (783U)
 /* @brief Temperature sensor parameter B (offset). */
@@ -336,6 +338,8 @@
 #define FSL_FEATURE_MCX_CMC_HAS_BLR_REG (1)
 /* @brief Has no bitfield FLASHWAKE in FLASHCR register */
 #define FSL_FEATURE_MCX_CMC_HAS_NO_FLASHCR_WAKE (1)
+/* @brief Has SCR bit in BSR register */
+#define FSL_FEATURE_MCX_CMC_HAS_BSR_SCR_BIT (0)
 
 /* LPCMP module features */
 
@@ -903,6 +907,10 @@
 /* @brief Defines whether PCR[IRQC] bit-field has trigger states. */
 #define FSL_FEATURE_PORT_HAS_IRQC_TRIGGER (0)
 
+/* POWERQUAD module features */
+
+/* No feature definitions */
+
 /* PUF module features */
 
 /* @brief Puf Activation Code Address. */
@@ -980,6 +988,14 @@
 #define FSL_FEATURE_RTC_HAS_NO_GP_DATA_REG (1)
 /* @brief Has TIMER_STB_MASK bitfile in CTRL register. */
 #define FSL_FEATURE_RTC_HAS_NO_TIMER_STB_MASK (1)
+/* @brief Has RTC Tamper 45 Filter Configuration Register support */
+#define FSL_FEATURE_RTC_HAS_FILTER45_CFG (0)
+/* @brief Has RTC Tamper 67 Filter Configuration Register support */
+#define FSL_FEATURE_RTC_HAS_FILTER67_CFG (0)
+/* @brief Has RTC Minutes Count Down Timer Register support */
+#define FSL_FEATURE_RTC_HAS_MINUTES_TIMER_FEATURE (0)
+/* @brief Has RTC BCD mode support */
+#define FSL_FEATURE_RTC_HAS_BCD_MODE (0)
 
 /* SAI module features */
 
@@ -1070,8 +1086,24 @@
 #define FSL_FEATURE_MCX_SPC_HAS_CNTRL_REG (1)
 /* @brief Has DPDOWN_PULLDOWN_DISABLE */
 #define FSL_FEATURE_MCX_SPC_HAS_DPDOWN_PULLDOWN_DISABLE_BIT (1)
+/* @brief Not have glitch detect */
+#define FSL_FEATURE_MCX_SPC_HAS_NO_GLITCH_DETECT (0)
 /* @brief Has BLEED_EN */
 #define FSL_FEATURE_MCX_SPC_HAS_DCDC_CFG_BLEED_EN (1)
+/* @brief Has Power Request Status Flag */
+#define FSL_FEATURE_MCX_SPC_HAS_PD_STATUS_PWR_REQ_STATUS_BIT (1)
+/* @brief Support overdrive voltage */
+#define FSL_FEATURE_MCX_SPC_SUPPORT_OVERDRIVE_VOLTAGE (1)
+/* @brief Has SPC_LP_REQ bit in SC register */
+#define FSL_FEATURE_MCX_SPC_HAS_SC_SPC_LP_REQ_BIT (1)
+/* @brief Has SPC_LP_MODE bit in SC register */
+#define FSL_FEATURE_MCX_SPC_HAS_SC_SPC_LP_MODE_BIT (1)
+/* @brief Has SRAMCTL register */
+#define FSL_FEATURE_MCX_SPC_HAS_SRAMCTL_REG (1)
+/* @brief Has PD_STATUS register */
+#define FSL_FEATURE_MCX_SPC_HAS_PD_STATUS_REG (1)
+/* @brief Has SRAMRETLDO_REFTRIM register */
+#define FSL_FEATURE_MCX_SPC_HAS_SRAMRETLDO_REFTRIM_REG (0)
 
 /* SYSCON module features */
 
@@ -1122,8 +1154,30 @@
 
 /* @brief TSI Version */
 #define FSL_FEATURE_TSI_VERSION (6U)
+/* @brief Has channels selection reigster(Self-cap,Shield,Mutual TX or Mutual RX). */
+#define FSL_FEATURE_TSI_HAS_CHANNEL_SEL (0)
+/* @brief Has Self-cap mode channels selection reigster. */
+#define FSL_FEATURE_TSI_HAS_SELF_SEL (0)
+/* @brief Has Shield mode channels selection reigster. */
+#define FSL_FEATURE_TSI_HAS_SHIELD_SEL (0)
+/* @brief Has Mutual TX mode channels selection reigster. */
+#define FSL_FEATURE_TSI_HAS_MUTUAL_TX_SEL (0)
+/* @brief Has Mutual RX mode channels selection reigster. */
+#define FSL_FEATURE_TSI_HAS_MUTUAL_RX_SEL (0)
+/* @brief Has bitfield TSIEN_DPD in GENCS register. */
+#define FSL_FEATURE_TSI_HAS_TSI_DPD_ENABLE (0)
+/* @brief Do not has bitfield M_TX_USED in MUL register. */
+#define FSL_FEATURE_TSI_HAS_NO_MUTUAL_TX_USED (0)
+/* @brief Do not has bitfield S_CTRIM in CONFIG register. */
+#define FSL_FEATURE_TSI_HAS_NO_S_CTRIM (0)
+/* @brief Has bitfield CLK_SEL in GENCS register. */
+#define FSL_FEATURE_TSI_HAS_CLK_SEL (0)
+/* @brief DVOLT value option num. */
+#define FSL_FEATURE_TSI_DVOLT_OPTION_NUM (5)
+/* @brief Has SINC_BITFIELD in SINC register. */
+#define FSL_FEATURE_TSI_HAS_SINC_SINC_BITFIELD (0)
 /* @brief TSI Channel Count */
-#define FSL_FEATURE_TSI_CHANNEL_COUNT (25U)
+#define FSL_FEATURE_TSI_CHANNEL_COUNT (25)
 
 /* USBHSDCD module features */
 
@@ -1220,6 +1274,38 @@
 #define FSL_FEATURE_MCX_VBAT_HAS_CLKMON_REG (0)
 /* @brief Has FINE_AMP_GAIN bitfield in register OSCCTLA */
 #define FSL_FEATURE_MCX_VBAT_HAS_OSCCTLA_FINE_AMP_GAIN_BIT (0)
+/* @brief Has OSCCTLB register */
+#define FSL_FEATURE_MCX_VBAT_HAS_B_SIDE_REG (1)
+
+/* VREF module features */
+
+/* @brief Has chop oscillator (bit TRM[CHOPEN]) */
+#define FSL_FEATURE_VREF_HAS_CHOP_OSC (0)
+/* @brief Has second order curvature compensation (bit SC[ICOMPEN]) */
+#define FSL_FEATURE_VREF_HAS_COMPENSATION (0)
+/* @brief If high/low buffer mode supported */
+#define FSL_FEATURE_VREF_MODE_LV_TYPE (0)
+/* @brief Module has also low reference (registers VREFL/VREFH) */
+#define FSL_FEATURE_VREF_HAS_LOW_REFERENCE (0)
+/* @brief Has VREF_TRM4. */
+#define FSL_FEATURE_VREF_HAS_TRM4 (0)
+/* @brief Has bitfield LPBG_BUF_EN in CSR register. */
+#define FSL_FEATURE_VREF_HAS_LOWPOWER_BUFFER (1)
+/* @brief Has bitfield LPBGEN in CSR register. */
+#define FSL_FEATURE_VREF_HAS_LPBGEN (1)
+/* @brief Has bitfield IBIAS_EN in CSR register. */
+#define FSL_FEATURE_VREF_HAS_IBIAS_EN (0)
+/* @brief Has bitfield REFCHSELN_EN in CSR register. */
+#define FSL_FEATURE_VREF_HAS_REFCHSELN_EN (0)
+/* @brief Has bitfield REFCHSELP_EN in CSR register. */
+#define FSL_FEATURE_VREF_HAS_REFCHSELP_EN (0)
+/* @brief Support max voltage of 2.5V. */
+#define FSL_FEATURE_VREF_SUPPORT_2V5 (0)
+
+/* WUU module features */
+
+/* @brief Has MF register. */
+#define FSL_FEATURE_WUU_HAS_MF (0)
 
 /* WWDT module features */
 

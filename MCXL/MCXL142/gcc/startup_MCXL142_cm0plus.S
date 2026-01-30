@@ -4,7 +4,7 @@
 /*            MCXL142_cm0plus                                                */
 /*  @version: 1.1                                                            */
 /*  @date:    2026-1-2                                                       */
-/*  @build:   b260113                                                        */
+/*  @build:   b260129                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -63,7 +63,7 @@ __Vectors:
     .long   LPADC_AON_IRQHandler                            /* Analog-to-Digital Converter interrupt*/
     .long   Reserved39_IRQHandler                           /* xxx Interrupt 39*/
     .long   TMR0_AON_IRQHandler                             /* ORed QTMR Interrupts*/
-    .long   Reserved41_IRQHandler                           /* xxx Interrupt 41*/
+    .long   TMR1_AON_IRQHandler                             /* ORed QTMR Interrupts*/
     .long   Reserved42_IRQHandler                           /* xxx Interrupt 42*/
     .long   LCSENSE_IRQHandler                              /* LCSense Fault/Tamper Interrupt*/
     .long   LPTMR_AON_IRQHandler                            /* Low Power Timer 0 interrupt*/
@@ -100,6 +100,11 @@ Reset_Handler:
     msr     msplim, r0
 #ifndef __NO_SYSTEM_INIT
     ldr   r0,=SystemInit
+    blx   r0
+#endif
+
+#ifdef __ENABLE_LP_BOOT
+    ldr   r0,=Power_LowPowerBoot
     blx   r0
 #endif
 /*     Loop to copy data from read only memory to RAM. The ranges
@@ -251,8 +256,9 @@ Reserved18_IRQHandler:
     .weak LPUART0_AON_IRQHandler
     .type LPUART0_AON_IRQHandler, %function
 LPUART0_AON_IRQHandler:
-    ldr   r0,=LPUART0_AON_DriverIRQHandler
-    bx    r0
+    ldr   r1, =LPUART_DriverIRQHandler
+    ldr   r0, =2 /*instance number*/
+    bx    r1
     .size LPUART0_AON_IRQHandler, . - LPUART0_AON_IRQHandler
 
     .align 1
@@ -446,12 +452,12 @@ TMR0_AON_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak Reserved41_IRQHandler
-    .type Reserved41_IRQHandler, %function
-Reserved41_IRQHandler:
-    ldr   r0,=Reserved41_DriverIRQHandler
+    .weak TMR1_AON_IRQHandler
+    .type TMR1_AON_IRQHandler, %function
+TMR1_AON_IRQHandler:
+    ldr   r0,=TMR1_AON_DriverIRQHandler
     bx    r0
-    .size Reserved41_IRQHandler, . - Reserved41_IRQHandler
+    .size TMR1_AON_IRQHandler, . - TMR1_AON_IRQHandler
 
     .align 1
     .thumb_func
@@ -519,7 +525,7 @@ ADVC_IRQHandler:
     def_irq_handler    Reserved16_DriverIRQHandler
     def_irq_handler    LPI2C0_AON_DriverIRQHandler
     def_irq_handler    Reserved18_DriverIRQHandler
-    def_irq_handler    LPUART0_AON_DriverIRQHandler
+    def_irq_handler    LPUART_DriverIRQHandler
     def_irq_handler    Reserved20_DriverIRQHandler
     def_irq_handler    GPIO00_AON_DriverIRQHandler
     def_irq_handler    Reserved22_DriverIRQHandler
@@ -541,7 +547,7 @@ ADVC_IRQHandler:
     def_irq_handler    LPADC_AON_DriverIRQHandler
     def_irq_handler    Reserved39_DriverIRQHandler
     def_irq_handler    TMR0_AON_DriverIRQHandler
-    def_irq_handler    Reserved41_DriverIRQHandler
+    def_irq_handler    TMR1_AON_DriverIRQHandler
     def_irq_handler    Reserved42_DriverIRQHandler
     def_irq_handler    LCSENSE_DriverIRQHandler
     def_irq_handler    LPTMR_AON_DriverIRQHandler

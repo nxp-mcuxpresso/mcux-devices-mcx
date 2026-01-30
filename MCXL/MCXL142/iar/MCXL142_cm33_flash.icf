@@ -6,7 +6,7 @@
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXL25x RM Rev.1 RC
 **     Version:             rev. 1.1, 2026-01-02
-**     Build:               b260113
+**     Build:               b260129
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -45,7 +45,7 @@ define exported symbol core1_image_start       = 0x00-10000;
 define exported symbol core1_image_end         = 0x0000DFFF;
 
 define symbol m_data_start                     = 0x28000000;
-define symbol m_data_end                       = 0x28003FFF;
+define symbol m_data_end                       = 0x28007FFF;
 
 if (isdefinedsymbol(__use_shmem__)) {
   define exported symbol rpmsg_sh_mem_start      = 0xA1006000;

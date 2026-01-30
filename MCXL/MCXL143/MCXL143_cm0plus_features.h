@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.1, 2026-01-02
-**     Build:               b260113
+**     Build:               b260129
 **
 **     Abstract:
 **         Chip specific module features.
@@ -48,7 +48,7 @@
 /* @brief SYSCON availability on the SoC. */
 #define FSL_FEATURE_SOC_SYSCON_COUNT (1)
 /* @brief TMR availability on the SoC. */
-#define FSL_FEATURE_SOC_TMR_COUNT (1)
+#define FSL_FEATURE_SOC_TMR_COUNT (2)
 
 /* GPIO module features */
 

@@ -4,7 +4,7 @@
 ;            MCXL144_cm33
 ;  @version: 1.1
 ;  @date:    2026-1-2
-;  @build:   b260113
+;  @build:   b260129
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
@@ -35,6 +35,9 @@
 
         EXTERN  __iar_program_start
         EXTERN  SystemInit
+#ifdef __ENABLE_LP_BOOT
+        EXTERN Power_LowPowerBoot
+#endif
         PUBLIC  __vector_table
         PUBLIC  __vector_table_0x1c
         PUBLIC  __Vectors
@@ -219,7 +222,7 @@ __vector_table_0x1c
         DCD     LPADC_AON_IRQHandler                          ;ADC Summary Interrupt
         DCD     Reserved166_IRQHandler                        ;xxx Interrupt 166
         DCD     TMR0_AON_IRQHandler                           ;ORed QTMR Interrupts
-        DCD     Reserved168_IRQHandler                        ;xxx Interrupt 168
+        DCD     TMR1_AON_IRQHandler                           ;ORed QTMR Interrupts
         DCD     Reserved169_IRQHandler                        ;xxx Interrupt 169
         DCD     LCSENSE_IRQHandler                            ;LCSense Fault/Tamper Interrupt
         DCD     LPTMR_AON_IRQHandler                          ;Low Power Timer 0 interrupt
@@ -252,6 +255,11 @@ Reset_Handler
         CPSIE   I               ; Unmask interrupts
         LDR     R0, =SystemInit
         BLX     R0
+#ifdef __ENABLE_LP_BOOT
+        LDR     R0, =Power_LowPowerBoot
+        BLX     R0
+#endif
+
         LDR     R0, =__iar_program_start
         BX      R0
 
@@ -523,18 +531,19 @@ Reserved46_IRQHandler
         BX      R0
 
         PUBWEAK LPUART0_IRQHandler
-        PUBWEAK LPUART0_DriverIRQHandler
+        PUBWEAK LPUART_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 LPUART0_IRQHandler
-        LDR     R0, =LPUART0_DriverIRQHandler
-        BX      R0
+        LDR     R1, =LPUART_DriverIRQHandler
+        LDR     R0, =0 ;instance number
+        BX      R1
 
         PUBWEAK LPUART1_IRQHandler
-        PUBWEAK LPUART1_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 LPUART1_IRQHandler
-        LDR     R0, =LPUART1_DriverIRQHandler
-        BX      R0
+        LDR     R1, =LPUART_DriverIRQHandler
+        LDR     R0, =1 ;instance number  
+        BX      R1
 
         PUBWEAK Reserved49_IRQHandler
         PUBWEAK Reserved49_DriverIRQHandler
@@ -1216,11 +1225,11 @@ Reserved145_IRQHandler
         BX      R0
 
         PUBWEAK LPUART0_AON_IRQHandler
-        PUBWEAK LPUART0_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 LPUART0_AON_IRQHandler
-        LDR     R0, =LPUART0_AON_DriverIRQHandler
-        BX      R0
+        LDR     R1, =LPUART_DriverIRQHandler
+        LDR     R0, =2 ;instance number
+        BX      R1
 
         PUBWEAK Reserved147_IRQHandler
         PUBWEAK Reserved147_DriverIRQHandler
@@ -1369,11 +1378,11 @@ TMR0_AON_IRQHandler
         LDR     R0, =TMR0_AON_DriverIRQHandler
         BX      R0
 
-        PUBWEAK Reserved168_IRQHandler
-        PUBWEAK Reserved168_DriverIRQHandler
+        PUBWEAK TMR1_AON_IRQHandler
+        PUBWEAK TMR1_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-Reserved168_IRQHandler
-        LDR     R0, =Reserved168_DriverIRQHandler
+TMR1_AON_IRQHandler
+        LDR     R0, =TMR1_AON_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved169_IRQHandler
@@ -1449,8 +1458,6 @@ Reserved43_DriverIRQHandler
 LPSPI0_DriverIRQHandler
 LPSPI1_DriverIRQHandler
 Reserved46_DriverIRQHandler
-LPUART0_DriverIRQHandler
-LPUART1_DriverIRQHandler
 Reserved49_DriverIRQHandler
 Reserved50_DriverIRQHandler
 Reserved51_DriverIRQHandler
@@ -1548,7 +1555,7 @@ Reserved142_DriverIRQHandler
 Reserved143_DriverIRQHandler
 LPI2C0_AON_DriverIRQHandler
 Reserved145_DriverIRQHandler
-LPUART0_AON_DriverIRQHandler
+LPUART_DriverIRQHandler
 Reserved147_DriverIRQHandler
 GPIO00_AON_DriverIRQHandler
 GPIO01_AON_DriverIRQHandler
@@ -1570,7 +1577,7 @@ Reserved164_DriverIRQHandler
 LPADC_AON_DriverIRQHandler
 Reserved166_DriverIRQHandler
 TMR0_AON_DriverIRQHandler
-Reserved168_DriverIRQHandler
+TMR1_AON_DriverIRQHandler
 Reserved169_DriverIRQHandler
 LCSENSE_DriverIRQHandler
 LPTMR_AON_DriverIRQHandler

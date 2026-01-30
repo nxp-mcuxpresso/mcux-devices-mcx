@@ -6,7 +6,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXL25x RM Rev.1 RC
 **     Version:             rev. 1.1, 2026-01-02
-**     Build:               b260113
+**     Build:               b260129
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -35,7 +35,7 @@ MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x000002C8
   m_text                (RX)  : ORIGIN = 0x000002C8, LENGTH = 0x0000A538
-  m_data                (RW)  : ORIGIN = 0x28000000, LENGTH = 0x00004000
+  m_data                (RW)  : ORIGIN = 0x28000000, LENGTH = 0x00008000
   rpmsg_sh_mem          (RW)  : ORIGIN = 0xA1006000, LENGTH = RPMSG_SHMEM_SIZE
   m_core1_image         (RX)  : ORIGIN = 0x0000A800, LENGTH = 0x00003800
 }

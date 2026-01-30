@@ -1792,8 +1792,6 @@ SGLCD_FFAULT_AON_IRQHandler:
     def_irq_handler    LPSPI0_DriverIRQHandler
     def_irq_handler    LPSPI1_DriverIRQHandler
     def_irq_handler    Reserved46_DriverIRQHandler
-    def_irq_handler    LPUART0_DriverIRQHandler
-    def_irq_handler    LPUART1_DriverIRQHandler
     def_irq_handler    Reserved49_DriverIRQHandler
     def_irq_handler    Reserved50_DriverIRQHandler
     def_irq_handler    Reserved51_DriverIRQHandler
@@ -1891,7 +1889,7 @@ SGLCD_FFAULT_AON_IRQHandler:
     def_irq_handler    Reserved143_DriverIRQHandler
     def_irq_handler    LPI2C0_AON_DriverIRQHandler
     def_irq_handler    Reserved145_DriverIRQHandler
-    def_irq_handler    LPUART0_AON_DriverIRQHandler
+    def_irq_handler    LPUART_DriverIRQHandler
     def_irq_handler    Reserved147_DriverIRQHandler
     def_irq_handler    GPIO00_AON_DriverIRQHandler
     def_irq_handler    GPIO01_AON_DriverIRQHandler

@@ -232,6 +232,10 @@ Reset_Handler:
     ldr   r0,=SystemInit
     blx   r0
 #endif
+#ifdef __ENABLE_LP_BOOT
+    ldr   r0,=Power_LowPowerBoot
+    blx   r0
+#endif
 /*     Loop to copy data from read only memory to RAM. The ranges
  *      of copy from/to are specified by following symbols evaluated in
  *      linker script.

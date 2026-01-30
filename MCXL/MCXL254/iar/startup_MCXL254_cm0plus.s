@@ -35,6 +35,9 @@
 
         EXTERN  __iar_program_start
         EXTERN  SystemInit
+#ifdef __ENABLE_LP_BOOT
+        EXTERN  Power_LowPowerBoot
+#endif
         PUBLIC  __vector_table
         PUBLIC  __vector_table_0x1c
         PUBLIC  __Vectors
@@ -90,7 +93,7 @@ __vector_table_0x1c
         DCD     PMU_IRQHandler                                ;PMU IRQ
         DCD     KPP_IRQHandler                                ;Keypad Interrupt
         DCD     LPADC_AON_IRQHandler                          ;Analog-to-Digital Converter interrupt
-        DCD     SGLCD_FRAME_AON_IRQHandler                    ;SGLCD frame start interrupt
+        DCD     SGLCD_AON_IRQHandler                          ;SGLCD frame start interrupt
         DCD     TMR0_AON_IRQHandler                           ;ORed QTMR Interrupts
         DCD     TMR1_AON_IRQHandler                           ;ORed QTMR Interrupts
         DCD     Reserved42_IRQHandler                         ;xxx Interrupt 42
@@ -131,6 +134,10 @@ Reset_Handler
         CPSIE   I               ; Unmask interrupts
         LDR     R0, =SystemInit
         BLX     R0
+#ifdef __ENABLE_LP_BOOT
+        LDR     R0, =Power_LowPowerBoot
+        BLX     R0
+#endif
         LDR     R0, =__iar_program_start
         BX      R0
 
@@ -321,11 +328,11 @@ LPADC_AON_IRQHandler
         LDR     R0, =LPADC_AON_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SGLCD_FRAME_AON_IRQHandler
-        PUBWEAK SGLCD_FRAME_AON_DriverIRQHandler
+        PUBWEAK SGLCD_AON_IRQHandler
+        PUBWEAK SGLCD_AON_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SGLCD_FRAME_AON_IRQHandler
-        LDR     R0, =SGLCD_FRAME_AON_DriverIRQHandler
+SGLCD_AON_IRQHandler
+        LDR     R0, =SGLCD_AON_DriverIRQHandler
         BX      R0
 
         PUBWEAK TMR0_AON_IRQHandler
@@ -407,7 +414,7 @@ CGU_DriverIRQHandler
 PMU_DriverIRQHandler
 KPP_DriverIRQHandler
 LPADC_AON_DriverIRQHandler
-SGLCD_FRAME_AON_DriverIRQHandler
+SGLCD_AON_DriverIRQHandler
 TMR0_AON_DriverIRQHandler
 TMR1_AON_DriverIRQHandler
 Reserved42_DriverIRQHandler

@@ -456,7 +456,7 @@ ADVC_IRQHandler:
     def_irq_handler    Reserved16_DriverIRQHandler
     def_irq_handler    LPI2C0_AON_DriverIRQHandler
     def_irq_handler    Reserved18_DriverIRQHandler
-    def_irq_handler    LPUART0_AON_DriverIRQHandler
+    def_irq_handler    LPUART_DriverIRQHandler
     def_irq_handler    Reserved20_DriverIRQHandler
     def_irq_handler    GPIO00_AON_DriverIRQHandler
     def_irq_handler    Reserved22_DriverIRQHandler

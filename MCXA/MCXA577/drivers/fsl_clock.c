@@ -951,7 +951,7 @@ void CLOCK_DisableUsbhsPhyPllClock(void)
  */
 bool CLOCK_EnableUsbhsClock(void)
 {
-    USBHS1__USBC->USBCMD |= USBHS_USBCMD_RST_MASK;
+    USBHS1->USBCMD |= USBHS_USBCMD_RST_MASK;
     /* Add a delay between RST and RS so make sure there is a DP pullup sequence*/
     for (uint32_t i = 0; i < 400000U; i++)
     {

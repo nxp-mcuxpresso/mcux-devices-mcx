@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260129
+**     Build:               b260203
 **
 **     Abstract:
 **         Chip specific module features.
@@ -65,6 +65,8 @@
 #define FSL_FEATURE_SOC_LPADC_COUNT (2)
 /* @brief LPCMP availability on the SoC. */
 #define FSL_FEATURE_SOC_LPCMP_COUNT (1)
+/* @brief LPDAC availability on the SoC. */
+#define FSL_FEATURE_SOC_LPDAC_COUNT (2)
 /* @brief LPI2C availability on the SoC. */
 #define FSL_FEATURE_SOC_LPI2C_COUNT (5)
 /* @brief LPSPI availability on the SoC. */
@@ -93,6 +95,8 @@
 #define FSL_FEATURE_SOC_TRNG_COUNT (1)
 /* @brief USBHS availability on the SoC. */
 #define FSL_FEATURE_SOC_USBHS_COUNT (1)
+/* @brief USBHSDCD availability on the SoC. */
+#define FSL_FEATURE_SOC_USBHSDCD_COUNT (1)
 /* @brief USBNC availability on the SoC. */
 #define FSL_FEATURE_SOC_USBNC_COUNT (1)
 /* @brief USBPHY availability on the SoC. */
@@ -277,6 +281,23 @@
 #define FSL_FEATURE_CTIMER_HAS_CCR_CAP3 (1)
 /* @brief CTIMER Has register MSR */
 #define FSL_FEATURE_CTIMER_HAS_MSR (1)
+
+/* LPDAC module features */
+
+/* @brief FIFO size. */
+#define FSL_FEATURE_LPDAC_FIFO_SIZE (16)
+/* @brief Has OPAMP as buffer, speed control signal (bitfield GCR[BUF_SPD_CTRL]). */
+#define FSL_FEATURE_LPDAC_HAS_GCR_BUF_SPD_CTRL (1)
+/* @brief Buffer Enable(bitfield GCR[BUF_EN]). */
+#define FSL_FEATURE_LPDAC_HAS_GCR_BUF_EN (1)
+/* @brief RCLK cycles before data latch(bitfield GCR[LATCH_CYC]). */
+#define FSL_FEATURE_LPDAC_HAS_GCR_LATCH_CYC (1)
+/* @brief VREF source number. */
+#define FSL_FEATURE_ANALOG_NUM_OF_VREF_SRC (3)
+/* @brief Has internal reference current options. */
+#define FSL_FEATURE_LPDAC_HAS_INTERNAL_REFERENCE_CURRENT (1)
+/* @brief Support Period trigger mode DAC (bitfield IER[PTGCOCO_IE]). */
+#define FSL_FEATURE_LPDAC_HAS_PERIODIC_TRIGGER_MODE (1)
 
 /* EDMA module features */
 

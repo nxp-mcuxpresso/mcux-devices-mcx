@@ -30,13 +30,13 @@
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b251029
+**     Build:               b260203
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SPC
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -358,7 +358,7 @@ typedef struct {
  *  0b00..
  *  0b01..Regulate to mid voltage (1.0 V)
  *  0b10..Regulate to normal voltage (1.1 V)
- *  0b11..Regulate to overdrive voltage (1.15 V)
+ *  0b11..Regulate to overdrive voltage (1.2 V)
  */
 #define SPC_ACTIVE_CFG_CORELDO_VDD_LVL(x)        (((uint32_t)(((uint32_t)(x)) << SPC_ACTIVE_CFG_CORELDO_VDD_LVL_SHIFT)) & SPC_ACTIVE_CFG_CORELDO_VDD_LVL_MASK)
 
@@ -455,7 +455,7 @@ typedef struct {
  *  0b00..Reserved
  *  0b01..Mid voltage (1.0 V)
  *  0b10..Normal voltage (1.1 V)
- *  0b11..Overdrive voltage (1.15 V)
+ *  0b11..Overdrive voltage (1.2 V)
  */
 #define SPC_LP_CFG_CORELDO_VDD_LVL(x)            (((uint32_t)(((uint32_t)(x)) << SPC_LP_CFG_CORELDO_VDD_LVL_SHIFT)) & SPC_LP_CFG_CORELDO_VDD_LVL_MASK)
 

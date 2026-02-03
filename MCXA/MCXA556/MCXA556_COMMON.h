@@ -9,7 +9,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260202
+**     Build:               b260203
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA556
@@ -1242,6 +1242,49 @@ typedef enum IRQn {
   #define LPCMP_BASE_PTRS                          { CMP0 }
 #endif
 
+/* LPDAC - Peripheral instance base addresses */
+#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
+  /** Peripheral DAC0 base address */
+  #define DAC0_BASE                                (0x500B4000u)
+  /** Peripheral DAC0 base address */
+  #define DAC0_BASE_NS                             (0x400B4000u)
+  /** Peripheral DAC0 base pointer */
+  #define DAC0                                     ((LPDAC_Type *)DAC0_BASE)
+  /** Peripheral DAC0 base pointer */
+  #define DAC0_NS                                  ((LPDAC_Type *)DAC0_BASE_NS)
+  /** Peripheral DAC1 base address */
+  #define DAC1_BASE                                (0x500B5000u)
+  /** Peripheral DAC1 base address */
+  #define DAC1_BASE_NS                             (0x400B5000u)
+  /** Peripheral DAC1 base pointer */
+  #define DAC1                                     ((LPDAC_Type *)DAC1_BASE)
+  /** Peripheral DAC1 base pointer */
+  #define DAC1_NS                                  ((LPDAC_Type *)DAC1_BASE_NS)
+  /** Array initializer of LPDAC peripheral base addresses */
+  #define LPDAC_BASE_ADDRS                         { DAC0_BASE, DAC1_BASE }
+  /** Array initializer of LPDAC peripheral base pointers */
+  #define LPDAC_BASE_PTRS                          { DAC0, DAC1 }
+  /** Array initializer of LPDAC peripheral base addresses */
+  #define LPDAC_BASE_ADDRS_NS                      { DAC0_BASE_NS, DAC1_BASE_NS }
+  /** Array initializer of LPDAC peripheral base pointers */
+  #define LPDAC_BASE_PTRS_NS                       { DAC0_NS, DAC1_NS }
+#else
+  /** Peripheral DAC0 base address */
+  #define DAC0_BASE                                (0x400B4000u)
+  /** Peripheral DAC0 base pointer */
+  #define DAC0                                     ((LPDAC_Type *)DAC0_BASE)
+  /** Peripheral DAC1 base address */
+  #define DAC1_BASE                                (0x400B5000u)
+  /** Peripheral DAC1 base pointer */
+  #define DAC1                                     ((LPDAC_Type *)DAC1_BASE)
+  /** Array initializer of LPDAC peripheral base addresses */
+  #define LPDAC_BASE_ADDRS                         { DAC0_BASE, DAC1_BASE }
+  /** Array initializer of LPDAC peripheral base pointers */
+  #define LPDAC_BASE_PTRS                          { DAC0, DAC1 }
+#endif
+/** Interrupt vectors for the LPDAC peripheral type */
+#define LPDAC_IRQS                               { DAC0_IRQn, DAC1_IRQn }
+
 /* LPI2C - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
   /** Peripheral LPI2C0 base address */
@@ -2076,6 +2119,35 @@ typedef enum IRQn {
 /** Interrupt vectors for the USBHS peripheral type */
 #define USBHS_IRQS                               { USB1_HS_IRQn }
 
+/* USBHSDCD - Peripheral instance base addresses */
+#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
+  /** Peripheral USBHS1_PHY_DCD base address */
+  #define USBHS1_PHY_DCD_BASE                      (0x5002F800u)
+  /** Peripheral USBHS1_PHY_DCD base address */
+  #define USBHS1_PHY_DCD_BASE_NS                   (0x4002F800u)
+  /** Peripheral USBHS1_PHY_DCD base pointer */
+  #define USBHS1_PHY_DCD                           ((USBHSDCD_Type *)USBHS1_PHY_DCD_BASE)
+  /** Peripheral USBHS1_PHY_DCD base pointer */
+  #define USBHS1_PHY_DCD_NS                        ((USBHSDCD_Type *)USBHS1_PHY_DCD_BASE_NS)
+  /** Array initializer of USBHSDCD peripheral base addresses */
+  #define USBHSDCD_BASE_ADDRS                      { USBHS1_PHY_DCD_BASE }
+  /** Array initializer of USBHSDCD peripheral base pointers */
+  #define USBHSDCD_BASE_PTRS                       { USBHS1_PHY_DCD }
+  /** Array initializer of USBHSDCD peripheral base addresses */
+  #define USBHSDCD_BASE_ADDRS_NS                   { USBHS1_PHY_DCD_BASE_NS }
+  /** Array initializer of USBHSDCD peripheral base pointers */
+  #define USBHSDCD_BASE_PTRS_NS                    { USBHS1_PHY_DCD_NS }
+#else
+  /** Peripheral USBHS1_PHY_DCD base address */
+  #define USBHS1_PHY_DCD_BASE                      (0x4002F800u)
+  /** Peripheral USBHS1_PHY_DCD base pointer */
+  #define USBHS1_PHY_DCD                           ((USBHSDCD_Type *)USBHS1_PHY_DCD_BASE)
+  /** Array initializer of USBHSDCD peripheral base addresses */
+  #define USBHSDCD_BASE_ADDRS                      { USBHS1_PHY_DCD_BASE }
+  /** Array initializer of USBHSDCD peripheral base pointers */
+  #define USBHSDCD_BASE_PTRS                       { USBHS1_PHY_DCD }
+#endif
+
 /* USBNC - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
   /** Peripheral USBHS1NC base address */
@@ -2142,6 +2214,7 @@ typedef enum IRQn {
 #define USBPHY_TX_TXCAL45DM_MASK            USBPHY_TX_TXCAL45DN_MASK
 #define USBPHY_TX_TXCAL45DM_SHIFT           USBPHY_TX_TXCAL45DN_SHIFT
 #define USBPHY_TX_TXCAL45DM(x)              USBPHY_TX_TXCAL45DN(x)
+
 
 
 /* UTICK - Peripheral instance base addresses */

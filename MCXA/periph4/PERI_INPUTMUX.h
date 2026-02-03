@@ -30,13 +30,13 @@
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b251029
+**     Build:               b260203
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for INPUTMUX
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -139,6 +139,7 @@
 #define INPUTMUX_AOI0_INPUTK_COUNT                16u
 #define INPUTMUX_EXT_TRIGN_COUNT                  8u
 #define INPUTMUX_FLEXIO_TRIGN_COUNT               4u
+#define INPUTMUX_TRIGFILP_COUNT                   12u
 
 /** INPUTMUX - Register Layout Typedef */
 typedef struct {
@@ -217,6 +218,10 @@ typedef struct {
   __IO uint32_t LPUART5r;                          /**< LPUART5 trigger input connections, offset: 0x6C0, 'r' suffix has been added to avoid a clash with peripheral base pointer macro 'LPUART5' */
        uint8_t RESERVED_33[28];
   __IO uint32_t FLEXIO_TRIG[INPUTMUX_FLEXIO_TRIGN_COUNT]; /**< FlexIO Trigger Input Connections, array offset: 0x6E0, array step: 0x4 */
+       uint8_t RESERVED_34[788];
+  __I  uint32_t TRIGFIL_STAT0;                     /**< Trigger filter stat, offset: 0xA04 */
+       uint8_t RESERVED_35[8];
+  __IO uint32_t TRIGFIL[INPUTMUX_TRIGFILP_COUNT];  /**< TRIGFIL control, array offset: 0xA10, array step: 0x4 */
 } INPUTMUX_Type;
 
 /* ----------------------------------------------------------------------------
@@ -3671,6 +3676,123 @@ typedef struct {
 
 /* The count of INPUTMUX_FLEXIO_TRIGN_FLEXIO_TRIG */
 #define INPUTMUX_FLEXIO_TRIGN_FLEXIO_TRIG_COUNT  (4U)
+
+/*! @name TRIGFIL_STAT0 - Trigger filter stat */
+/*! @{ */
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN0_VAL_MASK (0x1U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN0_VAL_SHIFT (0U)
+/*! TRIG_IN0_VAL - TRIG_IN value
+ *  0b0..TRIG_IN0 is 0
+ *  0b1..TRIG_IN0 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN0_VAL(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN0_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN0_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN1_VAL_MASK (0x2U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN1_VAL_SHIFT (1U)
+/*! TRIG_IN1_VAL - TRIG_IN value
+ *  0b0..TRIG_IN1 is 0
+ *  0b1..TRIG_IN1 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN1_VAL(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN1_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN1_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN2_VAL_MASK (0x4U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN2_VAL_SHIFT (2U)
+/*! TRIG_IN2_VAL - TRIG_IN value
+ *  0b0..TRIG_IN2 is 0
+ *  0b1..TRIG_IN2 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN2_VAL(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN2_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN2_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN3_VAL_MASK (0x8U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN3_VAL_SHIFT (3U)
+/*! TRIG_IN3_VAL - TRIG_IN value
+ *  0b0..TRIG_IN3 is 0
+ *  0b1..TRIG_IN3 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN3_VAL(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN3_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN3_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN4_VAL_MASK (0x10U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN4_VAL_SHIFT (4U)
+/*! TRIG_IN4_VAL - TRIG_IN value
+ *  0b0..TRIG_IN4 is 0
+ *  0b1..TRIG_IN4 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN4_VAL(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN4_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN4_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN5_VAL_MASK (0x20U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN5_VAL_SHIFT (5U)
+/*! TRIG_IN5_VAL - TRIG_IN value
+ *  0b0..TRIG_IN5 is 0
+ *  0b1..TRIG_IN5 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN5_VAL(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN5_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN5_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN6_VAL_MASK (0x40U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN6_VAL_SHIFT (6U)
+/*! TRIG_IN6_VAL - TRIG_IN value
+ *  0b0..TRIG_IN6 is 0
+ *  0b1..TRIG_IN6 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN6_VAL(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN6_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN6_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN7_VAL_MASK (0x80U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN7_VAL_SHIFT (7U)
+/*! TRIG_IN7_VAL - TRIG_IN value
+ *  0b0..TRIG_IN7 is 0
+ *  0b1..TRIG_IN7 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN7_VAL(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN7_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN7_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN8_VAL_MASK (0x100U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN8_VAL_SHIFT (8U)
+/*! TRIG_IN8_VAL - TRIG_IN value
+ *  0b0..TRIG_IN8 is 0
+ *  0b1..TRIG_IN8 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN8_VAL(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN8_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN8_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN9_VAL_MASK (0x200U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN9_VAL_SHIFT (9U)
+/*! TRIG_IN9_VAL - TRIG_IN value
+ *  0b0..TRIG_IN9 is 0
+ *  0b1..TRIG_IN9 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN9_VAL(x)   (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN9_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN9_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN10_VAL_MASK (0x400U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN10_VAL_SHIFT (10U)
+/*! TRIG_IN10_VAL - TRIG_IN value
+ *  0b0..TRIG_IN10 is 0
+ *  0b1..TRIG_IN10 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN10_VAL(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN10_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN10_VAL_MASK)
+
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN11_VAL_MASK (0x800U)
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN11_VAL_SHIFT (11U)
+/*! TRIG_IN11_VAL - TRIG_IN value
+ *  0b0..TRIG_IN11 is 0
+ *  0b1..TRIG_IN11 is 1
+ */
+#define INPUTMUX_TRIGFIL_STAT0_TRIG_IN11_VAL(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFIL_STAT0_TRIG_IN11_VAL_SHIFT)) & INPUTMUX_TRIGFIL_STAT0_TRIG_IN11_VAL_MASK)
+/*! @} */
+
+/*! @name TRIGFILP_TRIGFIL - TRIGFIL control */
+/*! @{ */
+
+#define INPUTMUX_TRIGFILP_TRIGFIL_FILT_PER_MASK  (0xFFU)
+#define INPUTMUX_TRIGFILP_TRIGFIL_FILT_PER_SHIFT (0U)
+/*! FILT_PER - Input Filter Sample Period */
+#define INPUTMUX_TRIGFILP_TRIGFIL_FILT_PER(x)    (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFILP_TRIGFIL_FILT_PER_SHIFT)) & INPUTMUX_TRIGFILP_TRIGFIL_FILT_PER_MASK)
+
+#define INPUTMUX_TRIGFILP_TRIGFIL_FILT_CNT_MASK  (0x700U)
+#define INPUTMUX_TRIGFILP_TRIGFIL_FILT_CNT_SHIFT (8U)
+/*! FILT_CNT - Input Filter Sample Count */
+#define INPUTMUX_TRIGFILP_TRIGFIL_FILT_CNT(x)    (((uint32_t)(((uint32_t)(x)) << INPUTMUX_TRIGFILP_TRIGFIL_FILT_CNT_SHIFT)) & INPUTMUX_TRIGFILP_TRIGFIL_FILT_CNT_MASK)
+/*! @} */
+
+/* The count of INPUTMUX_TRIGFILP_TRIGFIL */
+#define INPUTMUX_TRIGFILP_TRIGFIL_COUNT          (12U)
 
 
 /*!

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260129
+**     Build:               b260203
 **
 **     Abstract:
 **         Chip specific module features.
@@ -99,6 +99,8 @@
 #define FSL_FEATURE_SOC_TRNG_COUNT (1)
 /* @brief USBHS availability on the SoC. */
 #define FSL_FEATURE_SOC_USBHS_COUNT (1)
+/* @brief USBHSDCD availability on the SoC. */
+#define FSL_FEATURE_SOC_USBHSDCD_COUNT (1)
 /* @brief USBNC availability on the SoC. */
 #define FSL_FEATURE_SOC_USBNC_COUNT (1)
 /* @brief USBPHY availability on the SoC. */
@@ -263,11 +265,9 @@
 /* @brief Does not support self wake feature(bitfield MCR[SLFWAK]) */
 #define FSL_FEATURE_FLEXCAN_HAS_NO_SLFWAK_SUPPORT (0)
 /* @brief Has external time tick source (bitfield CTRL2[TIMER_SRC]). */
-#define FSL_FEATURE_FLEXCAN_HAS_EXTERNAL_TIME_TICK (1)
+#define FSL_FEATURE_FLEXCAN_HAS_EXTERNAL_TIME_TICK (0)
 /* @brief Instance has external time tick source (register bit field CTRL2[TIMER_SRC]). */
-#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_EXTERNAL_TIME_TICKn(x) \
-    (((x) == CAN0) ? (1) : \
-    (((x) == CAN1) ? (0) : (-1)))
+#define FSL_FEATURE_FLEXCAN_INSTANCE_HAS_EXTERNAL_TIME_TICKn(x) (0)
 /* @brief Has Time Stamp Capture Point(bitfield CTRL2[TSTAMPCAP]). */
 #define FSL_FEATURE_FLEXCAN_HAS_HIGH_RESOLUTION_TIMESTAMP (0)
 /* @brief Instance has Pretended Networking option (register bit field MCR[PNET_EN]). */

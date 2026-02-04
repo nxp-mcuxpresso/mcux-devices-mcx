@@ -387,7 +387,7 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
     assert(div_name <= kCLOCK_DivMax);
 
     if (div_name >= 0x800U)
-    {     /* AON clk*/
+    { /* AON clk*/
         if (div_name == 0x810U)
         { /* AON ACMP CLK 0*/
             if (value == 0)
@@ -503,7 +503,7 @@ uint32_t CLOCK_GetClockDiv(clock_div_name_t div_name)
     assert(div_name <= kCLOCK_DivMax);
 
     if (div_name >= 0x800)
-    {     /* AON clk*/
+    { /* AON clk*/
         if (div_name == 0x810U)
         { /* AON ACMP CLK 0*/
             uint32_t reg_val = AON__CGU->ACMP_CLK_DIV;
@@ -594,7 +594,7 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
     assert(div_name <= kCLOCK_DivMax);
 
     if (div_name >= 0x800)
-    {     /* AON clk*/
+    { /* AON clk*/
         if (div_name == 0x810U)
         { /* AON ACMP CLK 0*/
             AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP_CLK0_DIV_EN_MASK);
@@ -2078,7 +2078,7 @@ status_t CLOCK_FRO12MTrimConfig(const sirc_trim_config_t *config)
 
     return (status_t)kStatus_Success;
 }
-#endif                  /* Building on the main core */
+#endif /* Building on the main core */
 
 #if __CORTEX_M == (33U) /* Building on the main core */
 
@@ -2112,7 +2112,7 @@ void CLOCK_EnableOstimer32kClock(void)
     /* Has no OS Timer control register in PMC, return directly */
     return;
 }
-#endif                  /* Building on the main core */
+#endif /* Building on the main core */
 
 #if __CORTEX_M == (33U) /* Building on the main core */
 /*!
@@ -2281,13 +2281,13 @@ void CLOCK_GetVDDCoreMainConfig(main_drive_t drive, vdd_core_main_config_t *conf
 {
     if (drive == kCLOCK_MidDrive)
     {
-        config->vddCoreMainAconfig = (*(IFR1_VDD_CORE_MAIN_1P0_TRIM)&IFR1_VDD_CORE_MAIN_MASK);
+        config->vddCoreMainAconfig = (*(IFR1_VDD_CORE_MAIN_1P0_TRIM) & IFR1_VDD_CORE_MAIN_MASK);
         config->lvdLvTrim          = (((*IFR1_LVD_HVD_TRIM_0) >> IFR1_LVD_LV_1P0_TRIM_SHIFT) & IFR1_LVD_HVD_TRIM_MASK);
         config->hvdLvTrim          = (((*IFR1_LVD_HVD_TRIM_0) >> IFR1_HVD_LV_1P0_TRIM_SHIFT) & IFR1_LVD_HVD_TRIM_MASK);
     }
     else
     {
-        config->vddCoreMainAconfig = (*(IFR1_VDD_CORE_MAIN_1P1_TRIM)&IFR1_VDD_CORE_MAIN_MASK);
+        config->vddCoreMainAconfig = (*(IFR1_VDD_CORE_MAIN_1P1_TRIM) & IFR1_VDD_CORE_MAIN_MASK);
         config->lvdLvTrim          = (((*IFR1_LVD_HVD_TRIM_0) >> IFR1_LVD_LV_1P1_TRIM_SHIFT) & IFR1_LVD_HVD_TRIM_MASK);
         config->hvdLvTrim          = (((*IFR1_LVD_HVD_TRIM_1) >> IFR1_HVD_LV_1P1_TRIM_SHIFT) & IFR1_LVD_HVD_TRIM_MASK);
     }

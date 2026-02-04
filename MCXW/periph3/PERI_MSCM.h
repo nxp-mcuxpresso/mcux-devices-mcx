@@ -8,7 +8,7 @@
 **                          MCXW727DMFTA_cm33_core1
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b251124
+**     Build:               b260204
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MSCM
@@ -1205,9 +1205,9 @@ typedef struct {
  *          least significant byte first.
  *
  * @param[out] aOutUid16B   Pointer to a buffer that will receive the 16-byte UID.
- *                          Must be at least 16 bytes in size. Cannot be NULL.
+ *                          Must be at least 16 bytes in size. Caller must ensure it is not NULL.
  * @param[out] pOutLen      Pointer to a variable that will receive the length
- *                          of the UID in bytes (always 16). Cannot be NULL.
+ *                          of the UID in bytes (always 16). Caller must ensure it is not NULL.
  *
  * @return None
  */
@@ -1220,10 +1220,10 @@ static inline void Chip_GetUID(uint8_t *aOutUid16B, uint8_t *pOutLen)
     uint8_t i;
 
     /* Get the MCU uid */
-    uid.words[0] = MSCM->UID[0];;
-    uid.words[1] = MSCM->UID[1];;
-    uid.words[2] = MSCM->UID[2];;
-    uid.words[3] = MSCM->UID[3];;
+    uid.words[0] = MSCM->UID[0];
+    uid.words[1] = MSCM->UID[1];
+    uid.words[2] = MSCM->UID[2];
+    uid.words[3] = MSCM->UID[3];
 
     /* Copy bytes */
     for (i = 0U; i < 16U; i++)
@@ -1233,8 +1233,6 @@ static inline void Chip_GetUID(uint8_t *aOutUid16B, uint8_t *pOutLen)
 
     /* Get the uid length */
     *pOutLen = 16U;
-
-    return;
 }
 
 

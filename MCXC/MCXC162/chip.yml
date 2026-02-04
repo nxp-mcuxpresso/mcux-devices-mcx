@@ -1,0 +1,53 @@
+---
+
+device.hardware_data:
+  section-type: "manifest_content"
+  belong_to: set.device.MCXC162
+  contents:
+    generated_from_chip_model: "yes"
+    devices:
+      - id: "MCXC162"
+        full_name: "MCXC162"
+        name: "MCXC162"
+        platform: "MCX"
+        series: "MCXC"
+        family: "MCXC1XX"
+        subfamily: "MCXC162"
+        frequency_mhz: 72
+        core:
+          - name: "Cortex-M23"
+            type: "cm23"
+            id: "cm23_core0"
+            description: "M23 core"
+            fpu: "SP_FPU"
+            dsp: false
+            mpu: false
+            sau: false
+        memory:
+          memoryBlock:
+            - id: "PROGRAM_FLASH"
+              name: "PROGRAM_FLASH"
+              addr: 0x0
+              size: 0x10000
+              type: "Flash"
+              access: "RO"
+              default: true
+              startup: true
+            - id: "SRAM"
+              name: "SRAM"
+              addr: 0x20000000
+              size: 0x3000
+              type: "RAM"
+              access: "RW"
+              default: true
+        total_memory:
+          ram_size_kb: 12
+          flash_size_kb: 64
+        part:
+          - name: "MCXC162VFG"
+          - name: "MCXC162VFK"
+          - name: "MCXC162VFM"
+          - name: "MCXC162VFT"
+          - name: "MCXC162VLF"
+        modules:
+...

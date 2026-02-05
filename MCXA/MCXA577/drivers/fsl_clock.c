@@ -1005,12 +1005,6 @@ bool CLOCK_EnableUsbhsPhyPfdClock(uint32_t pfdDiv, pfd_clkout_selection_t pfdClk
     /* Ungate the PFD clock */
     USBHS1_PHY->PFDA &= ~USBPHY_PFDA_PFD0_CLKGATE_MASK;
 
-    /* Wait for PFD to stabilize */
-    while (!(USBHS1_PHY->PFDA & USBPHY_PFDA_PFD0_STABLE_MASK))
-    {
-        __NOP();
-    }
-
     return kStatus_Success;
 }
 

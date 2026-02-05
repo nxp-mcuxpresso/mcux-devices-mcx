@@ -2,7 +2,7 @@
 //*****************************************************************************
 // MCXA457 startup code
 //
-// Version : 190126
+// Version : 050226
 //*****************************************************************************
 //
 // Copyright 2016-2026 NXP
@@ -333,7 +333,7 @@ void Reserved101_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved102_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved103_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved104_DriverIRQHandler(void) ALIAS(DefaultISR);
-void ESPI_DriverIRQHandler(void) ALIAS(DefaultISR);
+void ESPI_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void ETHERNET_DriverIRQHandler(void) ALIAS(DefaultISR);
 void ETHERNET_PMT_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved108_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -1389,7 +1389,7 @@ WEAK void Reserved104_IRQHandler(void)
 
 WEAK void ESPI_IRQHandler(void)
 {
-    ESPI_DriverIRQHandler();
+    ESPI_DriverIRQHandler(0U);
 }
 
 WEAK void ETHERNET_IRQHandler(void)
@@ -1504,7 +1504,7 @@ WEAK void SGI_IRQHandler(void)
 
 WEAK void SPI_FILTER_IRQHandler(void)
 {
-	SPI_FILTER_DriverIRQHandler(0U);
+    SPI_FILTER_DriverIRQHandler(0U);
 }
 
 WEAK void TRNG0_IRQHandler(void)

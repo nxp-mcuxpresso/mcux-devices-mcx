@@ -41,7 +41,7 @@
 /* Definition for delay API in clock driver, users can redefine it to the real
  * application. */
 #ifndef SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY
-#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (200000000U)
+#define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (240000000U)
 #endif
 
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */

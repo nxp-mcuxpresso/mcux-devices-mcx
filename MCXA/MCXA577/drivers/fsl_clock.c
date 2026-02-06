@@ -2261,9 +2261,13 @@ status_t CLOCK_SetFLASHAccessCyclesForFreq(uint32_t system_freq_hz, run_mode_t m
         }
         case (uint32_t)kOD_Mode:
         {
-            if (system_freq_hz > 200000000U)
+            if (system_freq_hz > 240000000U)
             {
                 return kStatus_Fail;
+            }
+            else if (system_freq_hz > 200000000U)
+            {
+                num_wait_states_added = 5U;
             }
             else if (system_freq_hz > 160000000U)
             {

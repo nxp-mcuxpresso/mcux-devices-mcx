@@ -7,7 +7,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260123
+**     Build:               b260209
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -36,8 +36,8 @@ RAM_OFFSET = DEFINED(__pkc__) ? 0x4000 : 0;
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00000400
-  m_text                (RX)  : ORIGIN = 0x00000400, LENGTH = 0x000FFC00
-  m_data                (RW)  : ORIGIN = 0x20000000 + RAM_OFFSET, LENGTH = 0x00060000 - RAM_OFFSET
+  m_text                (RX)  : ORIGIN = 0x00000400, LENGTH = 0x001FFC00
+  m_data                (RW)  : ORIGIN = 0x20000000 + RAM_OFFSET, LENGTH = 0x00080000 - RAM_OFFSET
   m_sramx0              (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00020000
 }
 

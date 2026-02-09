@@ -7,7 +7,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260123
+**     Build:               b260209
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -34,8 +34,8 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x20000000, LENGTH = 0x00000400
-  m_text                (RX)  : ORIGIN = 0x20000400, LENGTH = 0x0002FC00
-  m_data                (RW)  : ORIGIN = 0x20030000, LENGTH = 0x00030000
+  m_text                (RX)  : ORIGIN = 0x20000400, LENGTH = 0x0003FC00
+  m_data                (RW)  : ORIGIN = 0x20040000, LENGTH = 0x00040000
 }
 
 /* Define output sections */

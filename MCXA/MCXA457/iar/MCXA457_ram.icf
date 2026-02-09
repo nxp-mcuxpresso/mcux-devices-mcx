@@ -7,7 +7,7 @@
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260123
+**     Build:               b260209
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -40,10 +40,10 @@ define symbol m_interrupts_start               = 0x20000000;
 define symbol m_interrupts_end                 = 0x200003FF;
 
 define symbol m_text_start                     = 0x20000400;
-define symbol m_text_end                       = 0x2002FFFF;
+define symbol m_text_end                       = 0x2003FFFF;
 
-define symbol m_data_start                     = 0x20030000;
-define symbol m_data_end                       = 0x2005FFFF;
+define symbol m_data_start                     = 0x20040000;
+define symbol m_data_end                       = 0x2007FFFF;
 
 define memory mem with size = 4G;
 

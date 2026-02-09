@@ -8,7 +8,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260123
+**     Build:               b260209
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -41,10 +41,10 @@
 #define  m_interrupts_size             0x00000400
 
 #define  m_text_start                  0x20000400
-#define  m_text_size                   0x0002FC00
+#define  m_text_size                   0x0003FC00
 
-#define  m_data_start                  0x20030000
-#define  m_data_size                   0x00030000
+#define  m_data_start                  0x20040000
+#define  m_data_size                   0x00040000
 
 LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region size_region
 

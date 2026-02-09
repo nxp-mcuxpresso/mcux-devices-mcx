@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260203
+**     Build:               b260209
 **
 **     Abstract:
 **         Chip specific module features.
@@ -899,7 +899,7 @@
 /* @brief Flash sector size in bytes */
 #define FSL_FEATURE_SYSCON_FLASH_SECTOR_SIZE_BYTES (8192)
 /* @brief Flash size in bytes */
-#define FSL_FEATURE_SYSCON_FLASH_SIZE_BYTES (1048576)
+#define FSL_FEATURE_SYSCON_FLASH_SIZE_BYTES (2097152)
 /* @brief Support ROMAPI */
 #define FSL_FEATURE_SYSCON_ROMAPI (1)
 /* @brief ROMAPI tree address */
@@ -956,8 +956,8 @@
 #define FSL_FEATURE_TSI_HAS_MUTUAL_TX_SEL (1)
 /* @brief Has Mutual RX mode channels selection reigster. */
 #define FSL_FEATURE_TSI_HAS_MUTUAL_RX_SEL (1)
-/* @brief Has bitfield TSIEN_DPD in GENCS register. */
-#define FSL_FEATURE_TSI_HAS_TSI_DPD_ENABLE (1)
+/* @brief Has no bitfield SETCLK in GENCS register. */
+#define FSL_FEATURE_TSI_HAS_NO_SETCLK (1)
 /* @brief Do not has bitfield M_TX_USED in MUL register. */
 #define FSL_FEATURE_TSI_HAS_NO_MUTUAL_TX_USED (1)
 /* @brief Do not has bitfield S_CTRIM in CONFIG register. */

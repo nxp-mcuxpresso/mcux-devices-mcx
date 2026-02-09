@@ -4,11 +4,11 @@
 ;            MCXN247
 ;  @version: 3.0
 ;  @date:    2024-10-29
-;  @build:   b250901
+;  @build:   b260209
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
-; Copyright 2016-2025 NXP
+; Copyright 2016-2026 NXP
 ; SPDX-License-Identifier: BSD-3-Clause
 ;
 ; The modules in this file are included in the libraries, and may be replaced
@@ -143,7 +143,7 @@ __vector_table_0x1c
         DCD     ELS_IRQHandler                                ;ELS interrupt
         DCD     PKC_IRQHandler                                ;PKC interrupt
         DCD     PUF_IRQHandler                                ;Physical Unclonable Function interrupt
-        DCD     PQ_IRQHandler                                 ;Power Quad interrupt
+        DCD     Reserved92_IRQHandler                         ;Reserved interrupt
         DCD     EDMA_1_CH0_IRQHandler                         ;eDMA_1_CH0 error or transfer complete
         DCD     EDMA_1_CH1_IRQHandler                         ;eDMA_1_CH1 error or transfer complete
         DCD     EDMA_1_CH2_IRQHandler                         ;eDMA_1_CH2 error or transfer complete
@@ -164,7 +164,7 @@ __vector_table_0x1c
         DCD     CDOG1_IRQHandler                              ;Code Watchdog Timer 1 interrupt
         DCD     I3C0_IRQHandler                               ;Improved Inter Integrated Circuit interrupt 0
         DCD     I3C1_IRQHandler                               ;Improved Inter Integrated Circuit interrupt 1
-        DCD     NPU_IRQHandler                                ;NPU interrupt
+        DCD     Reserved113_IRQHandler                        ;Reserved interrupt
         DCD     GDET_IRQHandler                               ;Digital Glitch Detect 0 interrupt  or Digital Glitch Detect 1 interrupt
         DCD     VBAT0_IRQHandler                              ;VBAT interrupt( VBAT interrupt or digital tamper interrupt)
         DCD     EWM0_IRQHandler                               ;External Watchdog Monitor interrupt
@@ -834,11 +834,11 @@ PUF_IRQHandler
         LDR     R0, =PUF_DriverIRQHandler
         BX      R0
 
-        PUBWEAK PQ_IRQHandler
-        PUBWEAK PQ_DriverIRQHandler
+        PUBWEAK Reserved92_IRQHandler
+        PUBWEAK Reserved92_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-PQ_IRQHandler
-        LDR     R0, =PQ_DriverIRQHandler
+Reserved92_IRQHandler
+        LDR     R0, =Reserved92_DriverIRQHandler
         BX      R0
 
         PUBWEAK EDMA_1_CH0_IRQHandler
@@ -981,11 +981,11 @@ I3C1_IRQHandler
         LDR     R0, =I3C1_DriverIRQHandler
         BX      R0
 
-        PUBWEAK NPU_IRQHandler
-        PUBWEAK NPU_DriverIRQHandler
+        PUBWEAK Reserved113_IRQHandler
+        PUBWEAK Reserved113_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-NPU_IRQHandler
-        LDR     R0, =NPU_DriverIRQHandler
+Reserved113_IRQHandler
+        LDR     R0, =Reserved113_DriverIRQHandler
         BX      R0
 
         PUBWEAK GDET_IRQHandler
@@ -1470,7 +1470,7 @@ SEC_VIO_DriverIRQHandler
 ELS_DriverIRQHandler
 PKC_DriverIRQHandler
 PUF_DriverIRQHandler
-PQ_DriverIRQHandler
+Reserved92_DriverIRQHandler
 EDMA_1_CH0_DriverIRQHandler
 EDMA_1_CH1_DriverIRQHandler
 EDMA_1_CH2_DriverIRQHandler
@@ -1491,7 +1491,7 @@ CDOG0_DriverIRQHandler
 CDOG1_DriverIRQHandler
 I3C0_DriverIRQHandler
 I3C1_DriverIRQHandler
-NPU_DriverIRQHandler
+Reserved113_DriverIRQHandler
 GDET_DriverIRQHandler
 VBAT0_DriverIRQHandler
 EWM0_DriverIRQHandler

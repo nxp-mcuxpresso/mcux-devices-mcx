@@ -4,11 +4,11 @@
 ;            MCXN526_cm33_core0
 ;  @version: 3.0
 ;  @date:    2024-10-29
-;  @build:   b250901
+;  @build:   b260209
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
-; Copyright 2016-2025 NXP
+; Copyright 2016-2026 NXP
 ; SPDX-License-Identifier: BSD-3-Clause
 ;
 ; The modules in this file are included in the libraries, and may be replaced
@@ -164,7 +164,7 @@ __vector_table_0x1c
         DCD     CDOG1_IRQHandler                              ;Code Watchdog Timer 1 interrupt
         DCD     I3C0_IRQHandler                               ;Improved Inter Integrated Circuit interrupt 0
         DCD     I3C1_IRQHandler                               ;Improved Inter Integrated Circuit interrupt 1
-        DCD     NPU_IRQHandler                                ;NPU interrupt
+        DCD     Reserved113_IRQHandler                        ;Reserved interrupt
         DCD     GDET_IRQHandler                               ;Digital Glitch Detect 0 interrupt  or Digital Glitch Detect 1 interrupt
         DCD     VBAT0_IRQHandler                              ;VBAT interrupt( VBAT interrupt or digital tamper interrupt)
         DCD     EWM0_IRQHandler                               ;External Watchdog Monitor interrupt
@@ -179,12 +179,12 @@ __vector_table_0x1c
         DCD     HSCMP0_IRQHandler                             ;High-Speed comparator0 interrupt
         DCD     HSCMP1_IRQHandler                             ;High-Speed comparator1 interrupt
         DCD     HSCMP2_IRQHandler                             ;High-Speed comparator2 interrupt
-        DCD     FLEXPWM0_RELOAD_ERROR_IRQHandler              ;FlexPWM0_reload_error interrupt
-        DCD     FLEXPWM0_FAULT_IRQHandler                     ;FlexPWM0_fault interrupt
-        DCD     FLEXPWM0_SUBMODULE0_IRQHandler                ;FlexPWM0 Submodule 0 capture/compare/reload interrupt
-        DCD     FLEXPWM0_SUBMODULE1_IRQHandler                ;FlexPWM0 Submodule 1 capture/compare/reload interrupt
-        DCD     FLEXPWM0_SUBMODULE2_IRQHandler                ;FlexPWM0 Submodule 2 capture/compare/reload interrupt
-        DCD     FLEXPWM0_SUBMODULE3_IRQHandler                ;FlexPWM0 Submodule 3 capture/compare/reload interrupt
+        DCD     Reserved128_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved129_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved130_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved131_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved132_IRQHandler                        ;Reserved interrupt
+        DCD     Reserved133_IRQHandler                        ;Reserved interrupt
         DCD     Reserved134_IRQHandler                        ;Reserved interrupt
         DCD     Reserved135_IRQHandler                        ;Reserved interrupt
         DCD     Reserved136_IRQHandler                        ;Reserved interrupt
@@ -981,11 +981,11 @@ I3C1_IRQHandler
         LDR     R0, =I3C1_DriverIRQHandler
         BX      R0
 
-        PUBWEAK NPU_IRQHandler
-        PUBWEAK NPU_DriverIRQHandler
+        PUBWEAK Reserved113_IRQHandler
+        PUBWEAK Reserved113_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-NPU_IRQHandler
-        LDR     R0, =NPU_DriverIRQHandler
+Reserved113_IRQHandler
+        LDR     R0, =Reserved113_DriverIRQHandler
         BX      R0
 
         PUBWEAK GDET_IRQHandler
@@ -1086,46 +1086,46 @@ HSCMP2_IRQHandler
         LDR     R0, =HSCMP2_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM0_RELOAD_ERROR_IRQHandler
-        PUBWEAK FLEXPWM0_RELOAD_ERROR_DriverIRQHandler
+        PUBWEAK Reserved128_IRQHandler
+        PUBWEAK Reserved128_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM0_RELOAD_ERROR_IRQHandler
-        LDR     R0, =FLEXPWM0_RELOAD_ERROR_DriverIRQHandler
+Reserved128_IRQHandler
+        LDR     R0, =Reserved128_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM0_FAULT_IRQHandler
-        PUBWEAK FLEXPWM0_FAULT_DriverIRQHandler
+        PUBWEAK Reserved129_IRQHandler
+        PUBWEAK Reserved129_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM0_FAULT_IRQHandler
-        LDR     R0, =FLEXPWM0_FAULT_DriverIRQHandler
+Reserved129_IRQHandler
+        LDR     R0, =Reserved129_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM0_SUBMODULE0_IRQHandler
-        PUBWEAK FLEXPWM0_SUBMODULE0_DriverIRQHandler
+        PUBWEAK Reserved130_IRQHandler
+        PUBWEAK Reserved130_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM0_SUBMODULE0_IRQHandler
-        LDR     R0, =FLEXPWM0_SUBMODULE0_DriverIRQHandler
+Reserved130_IRQHandler
+        LDR     R0, =Reserved130_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM0_SUBMODULE1_IRQHandler
-        PUBWEAK FLEXPWM0_SUBMODULE1_DriverIRQHandler
+        PUBWEAK Reserved131_IRQHandler
+        PUBWEAK Reserved131_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM0_SUBMODULE1_IRQHandler
-        LDR     R0, =FLEXPWM0_SUBMODULE1_DriverIRQHandler
+Reserved131_IRQHandler
+        LDR     R0, =Reserved131_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM0_SUBMODULE2_IRQHandler
-        PUBWEAK FLEXPWM0_SUBMODULE2_DriverIRQHandler
+        PUBWEAK Reserved132_IRQHandler
+        PUBWEAK Reserved132_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM0_SUBMODULE2_IRQHandler
-        LDR     R0, =FLEXPWM0_SUBMODULE2_DriverIRQHandler
+Reserved132_IRQHandler
+        LDR     R0, =Reserved132_DriverIRQHandler
         BX      R0
 
-        PUBWEAK FLEXPWM0_SUBMODULE3_IRQHandler
-        PUBWEAK FLEXPWM0_SUBMODULE3_DriverIRQHandler
+        PUBWEAK Reserved133_IRQHandler
+        PUBWEAK Reserved133_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-FLEXPWM0_SUBMODULE3_IRQHandler
-        LDR     R0, =FLEXPWM0_SUBMODULE3_DriverIRQHandler
+Reserved133_IRQHandler
+        LDR     R0, =Reserved133_DriverIRQHandler
         BX      R0
 
         PUBWEAK Reserved134_IRQHandler
@@ -1491,7 +1491,7 @@ CDOG0_DriverIRQHandler
 CDOG1_DriverIRQHandler
 I3C0_DriverIRQHandler
 I3C1_DriverIRQHandler
-NPU_DriverIRQHandler
+Reserved113_DriverIRQHandler
 GDET_DriverIRQHandler
 VBAT0_DriverIRQHandler
 EWM0_DriverIRQHandler
@@ -1506,12 +1506,12 @@ DAC2_DriverIRQHandler
 HSCMP0_DriverIRQHandler
 HSCMP1_DriverIRQHandler
 HSCMP2_DriverIRQHandler
-FLEXPWM0_RELOAD_ERROR_DriverIRQHandler
-FLEXPWM0_FAULT_DriverIRQHandler
-FLEXPWM0_SUBMODULE0_DriverIRQHandler
-FLEXPWM0_SUBMODULE1_DriverIRQHandler
-FLEXPWM0_SUBMODULE2_DriverIRQHandler
-FLEXPWM0_SUBMODULE3_DriverIRQHandler
+Reserved128_DriverIRQHandler
+Reserved129_DriverIRQHandler
+Reserved130_DriverIRQHandler
+Reserved131_DriverIRQHandler
+Reserved132_DriverIRQHandler
+Reserved133_DriverIRQHandler
 Reserved134_DriverIRQHandler
 Reserved135_DriverIRQHandler
 Reserved136_DriverIRQHandler

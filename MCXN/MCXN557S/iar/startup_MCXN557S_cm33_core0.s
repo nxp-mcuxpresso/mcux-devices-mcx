@@ -4,11 +4,11 @@
 ;            MCXN557S_cm33_core0
 ;  @version: 3.0
 ;  @date:    2024-10-29
-;  @build:   b251013
+;  @build:   b260209
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
-; Copyright 2016-2025 NXP
+; Copyright 2016-2026 NXP
 ; SPDX-License-Identifier: BSD-3-Clause
 ;
 ; The modules in this file are included in the libraries, and may be replaced
@@ -164,7 +164,7 @@ __vector_table_0x1c
         DCD     CDOG1_IRQHandler                              ;Code Watchdog Timer 1 interrupt
         DCD     I3C0_IRQHandler                               ;Improved Inter Integrated Circuit interrupt 0
         DCD     I3C1_IRQHandler                               ;Improved Inter Integrated Circuit interrupt 1
-        DCD     NPU_IRQHandler                                ;NPU interrupt
+        DCD     Reserved113_IRQHandler                        ;Reserved interrupt
         DCD     GDET_IRQHandler                               ;Digital Glitch Detect 0 interrupt  or Digital Glitch Detect 1 interrupt
         DCD     VBAT0_IRQHandler                              ;VBAT interrupt( VBAT interrupt or digital tamper interrupt)
         DCD     EWM0_IRQHandler                               ;External Watchdog Monitor interrupt
@@ -981,11 +981,11 @@ I3C1_IRQHandler
         LDR     R0, =I3C1_DriverIRQHandler
         BX      R0
 
-        PUBWEAK NPU_IRQHandler
-        PUBWEAK NPU_DriverIRQHandler
+        PUBWEAK Reserved113_IRQHandler
+        PUBWEAK Reserved113_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-NPU_IRQHandler
-        LDR     R0, =NPU_DriverIRQHandler
+Reserved113_IRQHandler
+        LDR     R0, =Reserved113_DriverIRQHandler
         BX      R0
 
         PUBWEAK GDET_IRQHandler
@@ -1491,7 +1491,7 @@ CDOG0_DriverIRQHandler
 CDOG1_DriverIRQHandler
 I3C0_DriverIRQHandler
 I3C1_DriverIRQHandler
-NPU_DriverIRQHandler
+Reserved113_DriverIRQHandler
 GDET_DriverIRQHandler
 VBAT0_DriverIRQHandler
 EWM0_DriverIRQHandler

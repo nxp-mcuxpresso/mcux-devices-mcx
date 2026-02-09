@@ -4,11 +4,11 @@
 /*            MCXN546_cm33_core1                                             */
 /*  @version: 3.0                                                            */
 /*  @date:    2024-10-29                                                     */
-/*  @build:   b250703                                                        */
+/*  @build:   b260209                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
-/* Copyright 2016-2025 NXP                                                   */
+/* Copyright 2016-2026 NXP                                                   */
 /* SPDX-License-Identifier: BSD-3-Clause                                     */
 /*****************************************************************************/
 /* Version: GCC for ARM Embedded Processors                                  */
@@ -135,7 +135,7 @@ __Vectors:
     .long   CDOG1_IRQHandler                                /* Code Watchdog Timer 1 interrupt*/
     .long   I3C0_IRQHandler                                 /* Improved Inter Integrated Circuit interrupt 0*/
     .long   I3C1_IRQHandler                                 /* Improved Inter Integrated Circuit interrupt 1*/
-    .long   NPU_IRQHandler                                  /* NPU interrupt*/
+    .long   Reserved113_IRQHandler                          /* Reserved interrupt*/
     .long   GDET_IRQHandler                                 /* Digital Glitch Detect 0 interrupt  or Digital Glitch Detect 1 interrupt*/
     .long   VBAT0_IRQHandler                                /* VBAT interrupt( VBAT interrupt or digital tamper interrupt)*/
     .long   EWM0_IRQHandler                                 /* External Watchdog Monitor interrupt*/
@@ -1236,12 +1236,12 @@ I3C1_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak NPU_IRQHandler
-    .type NPU_IRQHandler, %function
-NPU_IRQHandler:
-    ldr   r0,=NPU_DriverIRQHandler
+    .weak Reserved113_IRQHandler
+    .type Reserved113_IRQHandler, %function
+Reserved113_IRQHandler:
+    ldr   r0,=Reserved113_DriverIRQHandler
     bx    r0
-    .size NPU_IRQHandler, . - NPU_IRQHandler
+    .size Reserved113_IRQHandler, . - Reserved113_IRQHandler
 
     .align 1
     .thumb_func
@@ -1876,7 +1876,7 @@ CTI0_IRQHandler:
     def_irq_handler    CDOG1_DriverIRQHandler
     def_irq_handler    I3C0_DriverIRQHandler
     def_irq_handler    I3C1_DriverIRQHandler
-    def_irq_handler    NPU_DriverIRQHandler
+    def_irq_handler    Reserved113_DriverIRQHandler
     def_irq_handler    GDET_DriverIRQHandler
     def_irq_handler    VBAT0_DriverIRQHandler
     def_irq_handler    EWM0_DriverIRQHandler

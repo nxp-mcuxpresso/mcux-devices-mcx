@@ -4,11 +4,11 @@
 /*            MCXN526_cm33_core1                                             */
 /*  @version: 3.0                                                            */
 /*  @date:    2024-10-29                                                     */
-/*  @build:   b250901                                                        */
+/*  @build:   b260209                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
-/* Copyright 2016-2025 NXP                                                   */
+/* Copyright 2016-2026 NXP                                                   */
 /* SPDX-License-Identifier: BSD-3-Clause                                     */
 /*****************************************************************************/
 /* Version: GCC for ARM Embedded Processors                                  */
@@ -136,7 +136,7 @@ __Vectors:
     .long   CDOG1_IRQHandler                                /* Code Watchdog Timer 1 interrupt*/
     .long   I3C0_IRQHandler                                 /* Improved Inter Integrated Circuit interrupt 0*/
     .long   I3C1_IRQHandler                                 /* Improved Inter Integrated Circuit interrupt 1*/
-    .long   NPU_IRQHandler                                  /* NPU interrupt*/
+    .long   Reserved113_IRQHandler                          /* Reserved interrupt*/
     .long   GDET_IRQHandler                                 /* Digital Glitch Detect 0 interrupt  or Digital Glitch Detect 1 interrupt*/
     .long   VBAT0_IRQHandler                                /* VBAT interrupt( VBAT interrupt or digital tamper interrupt)*/
     .long   EWM0_IRQHandler                                 /* External Watchdog Monitor interrupt*/
@@ -151,12 +151,12 @@ __Vectors:
     .long   HSCMP0_IRQHandler                               /* High-Speed comparator0 interrupt*/
     .long   HSCMP1_IRQHandler                               /* High-Speed comparator1 interrupt*/
     .long   HSCMP2_IRQHandler                               /* High-Speed comparator2 interrupt*/
-    .long   FLEXPWM0_RELOAD_ERROR_IRQHandler                /* FlexPWM0_reload_error interrupt*/
-    .long   FLEXPWM0_FAULT_IRQHandler                       /* FlexPWM0_fault interrupt*/
-    .long   FLEXPWM0_SUBMODULE0_IRQHandler                  /* FlexPWM0 Submodule 0 capture/compare/reload interrupt*/
-    .long   FLEXPWM0_SUBMODULE1_IRQHandler                  /* FlexPWM0 Submodule 1 capture/compare/reload interrupt*/
-    .long   FLEXPWM0_SUBMODULE2_IRQHandler                  /* FlexPWM0 Submodule 2 capture/compare/reload interrupt*/
-    .long   FLEXPWM0_SUBMODULE3_IRQHandler                  /* FlexPWM0 Submodule 3 capture/compare/reload interrupt*/
+    .long   Reserved128_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved129_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved130_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved131_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved132_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved133_IRQHandler                          /* Reserved interrupt*/
     .long   Reserved134_IRQHandler                          /* Reserved interrupt*/
     .long   Reserved135_IRQHandler                          /* Reserved interrupt*/
     .long   Reserved136_IRQHandler                          /* Reserved interrupt*/
@@ -1146,12 +1146,12 @@ I3C1_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak NPU_IRQHandler
-    .type NPU_IRQHandler, %function
-NPU_IRQHandler:
-    ldr   r0,=NPU_DriverIRQHandler
+    .weak Reserved113_IRQHandler
+    .type Reserved113_IRQHandler, %function
+Reserved113_IRQHandler:
+    ldr   r0,=Reserved113_DriverIRQHandler
     bx    r0
-    .size NPU_IRQHandler, . - NPU_IRQHandler
+    .size Reserved113_IRQHandler, . - Reserved113_IRQHandler
 
     .align 1
     .thumb_func
@@ -1281,57 +1281,57 @@ HSCMP2_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak FLEXPWM0_RELOAD_ERROR_IRQHandler
-    .type FLEXPWM0_RELOAD_ERROR_IRQHandler, %function
-FLEXPWM0_RELOAD_ERROR_IRQHandler:
-    ldr   r0,=FLEXPWM0_RELOAD_ERROR_DriverIRQHandler
+    .weak Reserved128_IRQHandler
+    .type Reserved128_IRQHandler, %function
+Reserved128_IRQHandler:
+    ldr   r0,=Reserved128_DriverIRQHandler
     bx    r0
-    .size FLEXPWM0_RELOAD_ERROR_IRQHandler, . - FLEXPWM0_RELOAD_ERROR_IRQHandler
+    .size Reserved128_IRQHandler, . - Reserved128_IRQHandler
 
     .align 1
     .thumb_func
-    .weak FLEXPWM0_FAULT_IRQHandler
-    .type FLEXPWM0_FAULT_IRQHandler, %function
-FLEXPWM0_FAULT_IRQHandler:
-    ldr   r0,=FLEXPWM0_FAULT_DriverIRQHandler
+    .weak Reserved129_IRQHandler
+    .type Reserved129_IRQHandler, %function
+Reserved129_IRQHandler:
+    ldr   r0,=Reserved129_DriverIRQHandler
     bx    r0
-    .size FLEXPWM0_FAULT_IRQHandler, . - FLEXPWM0_FAULT_IRQHandler
+    .size Reserved129_IRQHandler, . - Reserved129_IRQHandler
 
     .align 1
     .thumb_func
-    .weak FLEXPWM0_SUBMODULE0_IRQHandler
-    .type FLEXPWM0_SUBMODULE0_IRQHandler, %function
-FLEXPWM0_SUBMODULE0_IRQHandler:
-    ldr   r0,=FLEXPWM0_SUBMODULE0_DriverIRQHandler
+    .weak Reserved130_IRQHandler
+    .type Reserved130_IRQHandler, %function
+Reserved130_IRQHandler:
+    ldr   r0,=Reserved130_DriverIRQHandler
     bx    r0
-    .size FLEXPWM0_SUBMODULE0_IRQHandler, . - FLEXPWM0_SUBMODULE0_IRQHandler
+    .size Reserved130_IRQHandler, . - Reserved130_IRQHandler
 
     .align 1
     .thumb_func
-    .weak FLEXPWM0_SUBMODULE1_IRQHandler
-    .type FLEXPWM0_SUBMODULE1_IRQHandler, %function
-FLEXPWM0_SUBMODULE1_IRQHandler:
-    ldr   r0,=FLEXPWM0_SUBMODULE1_DriverIRQHandler
+    .weak Reserved131_IRQHandler
+    .type Reserved131_IRQHandler, %function
+Reserved131_IRQHandler:
+    ldr   r0,=Reserved131_DriverIRQHandler
     bx    r0
-    .size FLEXPWM0_SUBMODULE1_IRQHandler, . - FLEXPWM0_SUBMODULE1_IRQHandler
+    .size Reserved131_IRQHandler, . - Reserved131_IRQHandler
 
     .align 1
     .thumb_func
-    .weak FLEXPWM0_SUBMODULE2_IRQHandler
-    .type FLEXPWM0_SUBMODULE2_IRQHandler, %function
-FLEXPWM0_SUBMODULE2_IRQHandler:
-    ldr   r0,=FLEXPWM0_SUBMODULE2_DriverIRQHandler
+    .weak Reserved132_IRQHandler
+    .type Reserved132_IRQHandler, %function
+Reserved132_IRQHandler:
+    ldr   r0,=Reserved132_DriverIRQHandler
     bx    r0
-    .size FLEXPWM0_SUBMODULE2_IRQHandler, . - FLEXPWM0_SUBMODULE2_IRQHandler
+    .size Reserved132_IRQHandler, . - Reserved132_IRQHandler
 
     .align 1
     .thumb_func
-    .weak FLEXPWM0_SUBMODULE3_IRQHandler
-    .type FLEXPWM0_SUBMODULE3_IRQHandler, %function
-FLEXPWM0_SUBMODULE3_IRQHandler:
-    ldr   r0,=FLEXPWM0_SUBMODULE3_DriverIRQHandler
+    .weak Reserved133_IRQHandler
+    .type Reserved133_IRQHandler, %function
+Reserved133_IRQHandler:
+    ldr   r0,=Reserved133_DriverIRQHandler
     bx    r0
-    .size FLEXPWM0_SUBMODULE3_IRQHandler, . - FLEXPWM0_SUBMODULE3_IRQHandler
+    .size Reserved133_IRQHandler, . - Reserved133_IRQHandler
 
     .align 1
     .thumb_func
@@ -1787,7 +1787,7 @@ CTI0_IRQHandler:
     def_irq_handler    CDOG1_DriverIRQHandler
     def_irq_handler    I3C0_DriverIRQHandler
     def_irq_handler    I3C1_DriverIRQHandler
-    def_irq_handler    NPU_DriverIRQHandler
+    def_irq_handler    Reserved113_DriverIRQHandler
     def_irq_handler    GDET_DriverIRQHandler
     def_irq_handler    VBAT0_DriverIRQHandler
     def_irq_handler    EWM0_DriverIRQHandler
@@ -1802,12 +1802,12 @@ CTI0_IRQHandler:
     def_irq_handler    HSCMP0_DriverIRQHandler
     def_irq_handler    HSCMP1_DriverIRQHandler
     def_irq_handler    HSCMP2_DriverIRQHandler
-    def_irq_handler    FLEXPWM0_RELOAD_ERROR_DriverIRQHandler
-    def_irq_handler    FLEXPWM0_FAULT_DriverIRQHandler
-    def_irq_handler    FLEXPWM0_SUBMODULE0_DriverIRQHandler
-    def_irq_handler    FLEXPWM0_SUBMODULE1_DriverIRQHandler
-    def_irq_handler    FLEXPWM0_SUBMODULE2_DriverIRQHandler
-    def_irq_handler    FLEXPWM0_SUBMODULE3_DriverIRQHandler
+    def_irq_handler    Reserved128_DriverIRQHandler
+    def_irq_handler    Reserved129_DriverIRQHandler
+    def_irq_handler    Reserved130_DriverIRQHandler
+    def_irq_handler    Reserved131_DriverIRQHandler
+    def_irq_handler    Reserved132_DriverIRQHandler
+    def_irq_handler    Reserved133_DriverIRQHandler
     def_irq_handler    Reserved134_DriverIRQHandler
     def_irq_handler    Reserved135_DriverIRQHandler
     def_irq_handler    Reserved136_DriverIRQHandler

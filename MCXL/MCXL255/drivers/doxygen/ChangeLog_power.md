@@ -1,5 +1,29 @@
 # Power
 
+## [2.3.0]
+- New Features
+    - Added automatic voltage/frequency management for DPD2 mode.
+    - Introduced Power_GetVddCoreForFreq() to map frequencies to required voltages.
+    - Introduced Power_GetDpd2TargetFreq() to determine target frequency for DPD2 mode.
+    - Implemented Power_ConfigureStallForMode() for dynamic stall value configuration across all low power modes.
+    - Added FRO16K output frequency selection (8kHz and 16kHz) support for all low power modes.
+    - Added intermediate voltage enumeration values for finer-grained voltage control.
+
+- Improvements
+    - Implemented automatic clock switching for DPD2 entry and wakeup using CLOCK_AttachClk().
+    - Optimized wakeup timing with dynamic stall values based on frequency for PD1/PD2/DPD1/DPD2.
+    - Added PAC wakeup time configuration for DPD3/SD modes based on FRO16K frequency.
+    - Save and restore original clock configuration on DPD2 wakeup when saveContext=true.
+    - Added fro16KOutputFreq configuration field to all low power mode structures.
+    - Code formatting improvements.
+    - Updated copyright year to 2026.
+
+- Bug Fixes
+    - Fixed disableFRO2M field name to disableFRO3M to match actual hardware.
+
+- Deprecations
+    - Deprecated manual dpd2VddCoreAonVoltage configuration field in favor of automatic voltage selection.
+
 ## [2.2.0]
 - Improvements
     - Updated the Power_CreateHandle() function to include a new second parameter, power_drv_config_t, allowing configuration without synchronizing the secondary core within the function.

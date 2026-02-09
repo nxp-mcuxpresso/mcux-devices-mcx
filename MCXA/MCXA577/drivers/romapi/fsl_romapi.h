@@ -14,5 +14,6 @@
 #include "fsl_lpspi_flash.h"
 #include "fsl_nboot.h"
 #include "fsl_runbootloader.h"
+#include "fsl_kbapi.h"
 
 #endif /* FSL_ROMAPI_H_ */

@@ -12,6 +12,7 @@ config MCUX_COMPONENT_driver.romapi
     select MCUX_COMPONENT_driver.romapi_nboot
     select MCUX_COMPONENT_driver.romapi_runbootloader
     select MCUX_COMPONENT_driver.romapi_flashiap
+    select MCUX_COMPONENT_driver.romapi_kbapi
     depends on MCUX_HAS_COMPONENT_driver.romapi
 
 
@@ -27,5 +28,10 @@ config MCUX_COMPONENT_driver.romapi_runbootloader
 
 config MCUX_COMPONENT_driver.romapi_flashiap
     bool "romapi_flashiap"
+    select MCUX_COMPONENT_driver.common
+    depends on MCUX_HAS_COMPONENT_driver.romapi
+
+config MCUX_COMPONENT_driver.romapi_kbapi
+    bool "romapi_kbapi"
     select MCUX_COMPONENT_driver.common
     depends on MCUX_HAS_COMPONENT_driver.romapi

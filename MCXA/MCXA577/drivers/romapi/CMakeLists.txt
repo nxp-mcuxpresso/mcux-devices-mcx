@@ -46,3 +46,15 @@ if (CONFIG_MCUX_COMPONENT_driver.romapi_runbootloader)
 
     mcux_add_include( INCLUDES ./runbootloader)
 endif()
+
+if (CONFIG_MCUX_COMPONENT_driver.romapi_kbapi)
+    mcux_component_version(2.0.0)
+
+    mcux_add_source(
+        SOURCES
+            ./kbapi/fsl_kbapi.h
+            ./kbapi/fsl_kbapi.c
+    )
+
+    mcux_add_include( INCLUDES ./kbapi)
+endif()

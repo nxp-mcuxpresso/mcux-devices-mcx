@@ -389,6 +389,10 @@ config MCUX_HW_IP_DriverType_USB_HOST_DEVICE_EHCI
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA286
 
+config MCUX_HW_IP_DriverType_USB_HSDCD
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA286
 
 config MCUX_HW_IP_DriverType_USB_PHY
     bool

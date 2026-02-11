@@ -484,12 +484,20 @@ status_t CLOCK_SetupExtRefClocking(uint32_t iFreq)
  */
 status_t CLOCK_SetupOsc32KClocking(uint32_t id)
 {
+    uint32_t regValue = VBAT0->OSCCTLA;
+
     /* Enable LDO */
     SCG0->LDOCSR |= SCG_LDOCSR_LDOEN_MASK | SCG_LDOCSR_VOUT_OK_MASK;
 
-    VBAT0->OSCCTLA =
-        (VBAT0->OSCCTLA & ~(VBAT_OSCCTLA_MODE_EN_MASK | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK)) |
-        VBAT_OSCCTLA_MODE_EN(0x0) | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK;
+    regValue &= ~(VBAT_OSCCTLA_MODE_EN_MASK | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK |
+                  VBAT_OSCCTLA_XTAL_CAP_SEL_MASK | VBAT_OSCCTLA_EXTAL_CAP_SEL_MASK);
+
+    /* Enable 12pF internal capacitance */
+    regValue |= VBAT_OSCCTLA_MODE_EN(0x0) | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK |
+                VBAT_OSCCTLA_XTAL_CAP_SEL(0x6) | VBAT_OSCCTLA_EXTAL_CAP_SEL(0x6);
+
+    VBAT0->OSCCTLA = regValue;
+
     /* Wait for STATUSA[OSC_RDY] to set. */
     while ((VBAT0->STATUSA & VBAT_STATUSA_OSC_RDY_MASK) == 0U)
     {
@@ -1017,7 +1025,8 @@ static uint32_t CLOCK_GetUsbPfdClkFreq(void)
     uint32_t usbPhyClkSrc = 0U;
     uint32_t freq         = 0U;
 
-    if ((0U != (USBHS1_PHY->CTRL & USBPHY_CTRL_CLKGATE_MASK)) || (0U != (USBHS1_PHY->PFDA & USBPHY_PFDA_PFD0_CLKGATE_MASK)))
+    if ((0U != (USBHS1_PHY->CTRL & USBPHY_CTRL_CLKGATE_MASK)) ||
+        (0U != (USBHS1_PHY->PFDA & USBPHY_PFDA_PFD0_CLKGATE_MASK)))
     {
         return 0U;
     }

@@ -303,11 +303,6 @@ config MCUX_HW_IP_DriverType_TRGMUX
     default y
     depends on MCUX_HW_DEVICE_ID_MCXW727CxxxA
 
-config MCUX_HW_IP_DriverType_TSTMR
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXW727CxxxA
-
 config MCUX_HW_IP_DriverType_VBAT
     bool
     default y

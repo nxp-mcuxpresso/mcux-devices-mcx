@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260203
+**     Build:               b260213
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA286
@@ -722,6 +722,9 @@ typedef enum IRQn {
 /** Interrupt vectors for the ENET peripheral type */
 #define ENET_IRQS                                { ETHERNET_IRQn }
 #define ENET_PMT_IRQS                            { ETHERNET_PMT_IRQn }
+/* Backward compatibility */
+#define ENET ENET0
+
 
 /* ERM - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

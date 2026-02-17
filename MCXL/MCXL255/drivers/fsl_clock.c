@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2025, NXP
+ * Copyright 2023-2026, NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -25,11 +25,11 @@
 
 typedef enum _clock_aon_chg
 {
-    kClockAonChg_auxClk,    /* RTC/AUX clk was changed or disabled, pass frequency or 0 for disable */
-    kClockAonChg_Fro,       /* LPIRC/ULPIRC changed, pass 10M/3M/0 */
-    kClockAonChg_clkSel,    /* ROOT_CLK_SEL_MUX changed, pass mux value */
-    kClockAonChg_cpuClkDiv, /* AON_CPU_CLK_DIV changed, pass divisor(>1) or 0 when AON_CPU_CLK is disabled */
-
+    kClockAonChg_auxClk,         /* RTC/AUX clk was changed or disabled, pass frequency or 0 for disable */
+    kClockAonChg_Fro,            /* LPIRC/ULPIRC changed, pass 10M/3M/0 */
+    kClockAonChg_clkSel,         /* ROOT_CLK_SEL_MUX changed, pass mux value */
+    kClockAonChg_cpuClkDiv,      /* AON_CPU_CLK_DIV changed, pass divisor(>1) or 0 when AON_CPU_CLK is disabled */
+    kClockAonChg_noCpuClkChange, /* The AON_CPU_CLK is not changed but there is change in another monitored AON clocks */
 } clock_aon_chg_t;
 
 /*******************************************************************************
@@ -39,6 +39,10 @@ typedef enum _clock_aon_chg
 static xtal_drive_param_t s_XtalDriveParamsDefault[1] = {
     {.dly_cap_sox = 0, .amp = 0, .gm = 0},
 };
+
+#ifdef CONFIG_ADVC_DRIVER_USED
+static bool s_advcControlEnabled = false;
+#endif /* CONFIG_ADVC_DRIVER_USED */
 
 /*******************************************************************************
  * Prototypes
@@ -108,73 +112,80 @@ static void delay_ms(const uint32_t delay_ms)
 static void ADVC_PreChg(const clock_aon_chg_t change, uint32_t newValue)
 {
 #ifdef CONFIG_ADVC_DRIVER_USED
-    if (ADVC_IsEnabled())
+    if ((s_advcControlEnabled) && ADVC_IsEnabled())
     {
         uint32_t freq = 0U;
         uint32_t root_clk_sel;
 
-        if (change == kClockAonChg_clkSel)
+        if (change == kClockAonChg_noCpuClkChange)
         {
-            root_clk_sel = newValue;
+            freq = CLOCK_GetAonCoreSysClkFreq();
         }
         else
         {
-            root_clk_sel =
-                (AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) >> CGU_CLK_CONFIG_ROOT_CLK_SEL_SHIFT;
-        }
-
-        if (root_clk_sel == 3U)
-        { /* Using ROOT_AUX_CLK */
-
-            if (change == kClockAonChg_auxClk)
+            if (change == kClockAonChg_clkSel)
             {
-                freq = newValue;
+                root_clk_sel = newValue;
             }
             else
             {
-                freq = CLOCK_GetAonRootAuxFreq();
+                root_clk_sel =
+                    (AON__CGU->CLK_CONFIG & CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) >> CGU_CLK_CONFIG_ROOT_CLK_SEL_SHIFT;
             }
-        }
-        else
-        { /* Using FRO */
 
-            const uint32_t div = 1U << root_clk_sel;
+            if (root_clk_sel == 3U)
+            { /* Using ROOT_AUX_CLK */
 
-            if (change == kClockAonChg_Fro)
+                if (change == kClockAonChg_auxClk)
+                {
+                    freq = newValue;
+                }
+                else
+                {
+                    freq = CLOCK_GetAonRootAuxFreq();
+                }
+            }
+            else
+            { /* Using FRO */
+
+                const uint32_t div = 1U << root_clk_sel;
+
+                if (change == kClockAonChg_Fro)
+                {
+                    freq = newValue;
+                }
+                else
+                {
+                    freq = CLOCK_GetFroAonFreq();
+                }
+
+                freq /= div;
+            }
+
+            if (change == kClockAonChg_cpuClkDiv)
             {
-                freq = newValue;
+                if (0U == newValue)
+                {
+                    freq = 0U; /* disable */
+                }
+                else
+                {
+                    freq /= newValue;
+                }
             }
             else
             {
-                freq = CLOCK_GetFroAonFreq();
-            }
+                if (AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_CLK_DIV_EN_MASK)
+                {
+                    const uint32_t aon_cpu_clk_div =
+                        (AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_AON_CPU_CLK_DIV_MASK) >> CGU_CLOCK_DIV_AON_CPU_CLK_DIV_SHIFT;
 
-            freq /= div;
-        }
-
-        if (change == kClockAonChg_cpuClkDiv)
-        {
-            if (0U == newValue)
-            {
-                freq = 0U; /* disable */
-            }
-            else
-            {
-                freq /= newValue;
-            }
-        }
-        else
-        {
-            if (AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_CLK_DIV_EN_MASK)
-            {
-                const uint32_t aon_cpu_clk_div =
-                    (AON__CGU->CLOCK_DIV & CGU_CLOCK_DIV_AON_CPU_CLK_DIV_MASK) >> CGU_CLOCK_DIV_AON_CPU_CLK_DIV_SHIFT;
-
-                freq /= aon_cpu_clk_div + 1U;
-            }
-            else
-            {
-                freq = 0U; /* AON_CPU_CLK is Disabled*/
+                    freq /= aon_cpu_clk_div + 1U;
+                }
+                else
+                {
+                    freq = 0U; /* AON_CPU_CLK is Disabled*/
+                }
             }
         }
 
@@ -189,7 +200,7 @@ static void ADVC_PreChg(const clock_aon_chg_t change, uint32_t newValue)
 static void ADVC_PostChg(void)
 {
 #ifdef CONFIG_ADVC_DRIVER_USED
-    if (ADVC_IsEnabled())
+    if ((s_advcControlEnabled) && ADVC_IsEnabled())
     {
         ADVC_PostVoltageChangeRequest();
         /* ADVC functions always diables APB clk, so enable it again. */
@@ -251,6 +262,26 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
                 break;
             case kAUX_to_AON_ROOT_AUX:
                 ADVC_PreChg(kClockAonChg_auxClk, CLOCK_GetAonAuxFreq());
+                break;
+            case kFROdiv1_to_AON_LPADC:
+            case kFROdiv2_to_AON_LPADC:
+            case kFROdiv4_to_AON_LPADC:
+            case kROOT_AUX_to_AON_LPADC:
+            case kXTAL32K_to_AON_LPADC:
+            case kFRO16K_to_AON_LPADC:
+            case kFROdiv1_to_AON_SYSTICK:
+            case kFROdiv2_to_AON_SYSTICK:
+            case kFROdiv4_to_AON_SYSTICK:
+            case kROOT_AUX_to_AON_SYSTICK:
+            case kFROdiv1_to_AON_CMP0:
+            case kFROdiv2_to_AON_CMP0:
+            case kFROdiv4_to_AON_CMP0:
+            case kROOT_AUX_to_AON_CMP0:
+            case kFROdiv1_to_AON_TMR:
+            case kFROdiv2_to_AON_TMR:
+            case kFROdiv4_to_AON_TMR:
+            case kROOT_AUX_to_AON_TMR:
+                ADVC_PreChg(kClockAonChg_noCpuClkChange, 0);
                 break;
             default:
                 run_advc_postchg = 0U;
@@ -390,6 +421,7 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
     { /* AON clk*/
         if (div_name == 0x810U)
         { /* AON ACMP CLK 0*/
+            ADVC_PreChg(kClockAonChg_noCpuClkChange, 0);
             if (value == 0)
             {
                 AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP0_CLK0_EN_MASK);
@@ -403,9 +435,11 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
                 AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP_CLK0_DIV_EN_MASK;
                 AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP0_CLK0_EN_MASK;
             }
+            ADVC_PostChg();
         }
         else if (div_name == 0x811U)
         { /* AON ACMP CLK 1*/
+            ADVC_PreChg(kClockAonChg_noCpuClkChange, 0);
             if (value == 0)
             {
                 AON__CGU->ACMP_CLK_DIV &= ~(CGU_ACMP_CLK_DIV_ACMP0_CLK1_EN_MASK);
@@ -419,6 +453,7 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
                 AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP_CLK1_DIV_EN_MASK;
                 AON__CGU->ACMP_CLK_DIV |= CGU_ACMP_CLK_DIV_ACMP0_CLK1_EN_MASK;
             }
+            ADVC_PostChg();
         }
         else
         { /* The rest of AON */
@@ -442,6 +477,12 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
             { /* Changing AON CPU clock - inform ADVC: */
 
                 ADVC_PreChg(kClockAonChg_cpuClkDiv, value);
+                AON__CGU->CLOCK_DIV = reg_val;
+                ADVC_PostChg();
+            }
+            else if (div_name == kCLOCK_DIVAonSYS)
+            { /* Changing SysTick clock - inform ADVC: */
+                ADVC_PreChg(kClockAonChg_noCpuClkChange, 0);
                 AON__CGU->CLOCK_DIV = reg_val;
                 ADVC_PostChg();
             }
@@ -2294,3 +2335,31 @@ void CLOCK_GetVDDCoreMainConfig(main_drive_t drive, vdd_core_main_config_t *conf
 }
 
 #endif /* Building on the main core */
+
+#ifdef CONFIG_ADVC_DRIVER_USED
+
+/*!
+ * @brief Enable the ADVC control in this driver when any of AON controlled root clock change is processed (ADVC pre-change and ADVC post-change functions are called).
+ *
+ * The AON_CPU_CLK, AON_MAIN_CLK, LPIRC, ULPIRC, AON LPADC0 root clock, AON SYSTICK root clock, AON QTMRn root clock, and AON ACMP0 root clock 0/1 are under ADVC control.
+ *
+ * @return  Nothing
+ */
+void CLOCK_EnableADVCControl()
+{
+    s_advcControlEnabled = true;
+}
+
+/*!
+ * @brief Disable the ADVC control in this driver when any of AON controlled root clock change is processed (ADVC pre-change and ADVC post-change functions are called).
+ *
+ * The AON_CPU_CLK, AON_MAIN_CLK, LPIRC, ULPIRC, AON LPADC0 root clock, AON SYSTICK root clock, AON QTMRn root clock, and AON ACMP0 root clock 0/1 are under ADVC control.
+ *
+ * @return  Nothing
+ */
+void CLOCK_DisableADVCControl()
+{
+    s_advcControlEnabled = false;
+}
+
+#endif /* CONFIG_ADVC_DRIVER_USED */

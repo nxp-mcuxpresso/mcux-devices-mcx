@@ -8,9 +8,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    MCXL25xRM DraftH
-**     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250723
+**     Reference manual:    MCXL25x RM Rev.1 RC
+**     Version:             rev. 1.1, 2026-01-02
+**     Build:               b260217
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -18,7 +18,7 @@
 **         the oscillator (PLL) that is part of the microcontroller device.
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -27,14 +27,16 @@
 **     Revisions:
 **     - rev. 1.0 (2025-06-13)
 **         Generated based on Rev1 DraftH.
+**     - rev. 1.1 (2026-01-02)
+**         Generated based on Rev.1 RC.
 **
 ** ###################################################################
 */
 
 /*!
  * @file MCXL255_cm0plus
- * @version 1.0
- * @date 2025-06-13
+ * @version 1.1
+ * @date 2026-01-02
  * @brief Device specific configuration file for MCXL255_cm0plus (implementation
  *        file)
  *
@@ -62,12 +64,14 @@ uint32_t SystemCoreClock = DEFAULT_SYSTEM_CLOCK;
 
 __attribute__ ((weak)) void SystemInit (void) {
 
+#if !defined(__ZEPHYR__)
 #if defined(__MCUXPRESSO)
     extern void(*const g_pfnVectors[]) (void);
     SCB->VTOR = (uint32_t) &g_pfnVectors;
 #else
     extern void *__Vectors;
     SCB->VTOR = (uint32_t) &__Vectors;
+#endif
 #endif
   SystemInitHook();
 }

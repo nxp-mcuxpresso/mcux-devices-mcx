@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260129
+**     Build:               b260224
 **
 **     Abstract:
 **         Chip specific module features.
@@ -56,7 +56,7 @@
 /* @brief LPTMR availability on the SoC. */
 #define FSL_FEATURE_SOC_LPTMR_COUNT (1)
 /* @brief LPUART availability on the SoC. */
-#define FSL_FEATURE_SOC_LPUART_COUNT (4)
+#define FSL_FEATURE_SOC_LPUART_COUNT (3)
 /* @brief OPAMP availability on the SoC. */
 #define FSL_FEATURE_SOC_OPAMP_COUNT (1)
 /* @brief PORT availability on the SoC. */

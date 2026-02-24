@@ -13,7 +13,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b260121
+**     Build:               b260224
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXC151
@@ -369,17 +369,13 @@ typedef enum IRQn {
 #define LPUART2_BASE                             (0x400A1000u)
 /** Peripheral LPUART2 base pointer */
 #define LPUART2                                  ((LPUART_Type *)LPUART2_BASE)
-/** Peripheral LPUART3 base address */
-#define LPUART3_BASE                             (0x400A2000u)
-/** Peripheral LPUART3 base pointer */
-#define LPUART3                                  ((LPUART_Type *)LPUART3_BASE)
 /** Array initializer of LPUART peripheral base addresses */
-#define LPUART_BASE_ADDRS                        { LPUART0_BASE, LPUART1_BASE, LPUART2_BASE, LPUART3_BASE }
+#define LPUART_BASE_ADDRS                        { LPUART0_BASE, LPUART1_BASE, LPUART2_BASE }
 /** Array initializer of LPUART peripheral base pointers */
-#define LPUART_BASE_PTRS                         { LPUART0, LPUART1, LPUART2, LPUART3 }
+#define LPUART_BASE_PTRS                         { LPUART0, LPUART1, LPUART2 }
 /** Interrupt vectors for the LPUART peripheral type */
-#define LPUART_RX_TX_IRQS                        { LPUART0_IRQn, LPUART1_IRQn, LPUART2_IRQn, LPUART3_IRQn }
-#define LPUART_ERR_IRQS                          { LPUART0_IRQn, LPUART1_IRQn, LPUART2_IRQn, LPUART3_IRQn }
+#define LPUART_RX_TX_IRQS                        { LPUART0_IRQn, LPUART1_IRQn, LPUART2_IRQn }
+#define LPUART_ERR_IRQS                          { LPUART0_IRQn, LPUART1_IRQn, LPUART2_IRQn }
 
 /* MRCC - Peripheral instance base addresses */
 /** Peripheral MRCC0 base address */

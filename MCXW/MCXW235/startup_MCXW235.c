@@ -1,7 +1,7 @@
 //*****************************************************************************
 // MCXW235 startup code
 //
-// Version : 090226
+// Version : 240226
 //*****************************************************************************
 //
 // Copyright 2016-2026 NXP
@@ -150,9 +150,6 @@ WEAK void TRNG_IRQHandler(void);
 WEAK void DMA1_IRQHandler(void);
 WEAK void Reserved75_IRQHandler(void);
 WEAK void CDOG_IRQHandler(void);
-WEAK void Reserved77_IRQHandler(void);
-WEAK void Reserved78_IRQHandler(void);
-WEAK void WAKE_PAD_IRQHandler(void);
 
 //*****************************************************************************
 // Forward declaration of the driver IRQ handlers. These are aliased
@@ -221,9 +218,6 @@ void TRNG_DriverIRQHandler(void) ALIAS(DefaultISR);
 void DMA1_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved75_DriverIRQHandler(void) ALIAS(DefaultISR);
 void CDOG_DriverIRQHandler(void) ALIAS(DefaultISR);
-void Reserved77_DriverIRQHandler(void) ALIAS(DefaultISR);
-void Reserved78_DriverIRQHandler(void) ALIAS(DefaultISR);
-void WAKE_PAD_DriverIRQHandler(void) ALIAS(DefaultISR);
 
 //*****************************************************************************
 // The entry point for the application.
@@ -396,9 +390,6 @@ __attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void)
     DMA1_IRQHandler,                // 74: DMA1 interrupt
     Reserved75_IRQHandler,          // 75: Reserved interrupt
     CDOG_IRQHandler,                // 76: CDOG interrupt
-    Reserved77_IRQHandler,          // 77: Reserved interrupt
-    Reserved78_IRQHandler,          // 78: Reserved interrupt
-    WAKE_PAD_IRQHandler,            // 79: Wakeup from pin interrupt
 };                                     /* End of __vector_table */
 
 #if defined(__MCUXPRESSO)
@@ -990,21 +981,6 @@ WEAK void Reserved75_IRQHandler(void)
 WEAK void CDOG_IRQHandler(void)
 {
     CDOG_DriverIRQHandler();
-}
-
-WEAK void Reserved77_IRQHandler(void)
-{
-    Reserved77_DriverIRQHandler();
-}
-
-WEAK void Reserved78_IRQHandler(void)
-{
-    Reserved78_DriverIRQHandler();
-}
-
-WEAK void WAKE_PAD_IRQHandler(void)
-{
-    WAKE_PAD_DriverIRQHandler();
 }
 
 //*****************************************************************************

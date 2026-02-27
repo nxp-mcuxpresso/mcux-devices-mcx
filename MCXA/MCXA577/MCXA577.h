@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260203
+**     Build:               b260227
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA577
@@ -90,7 +90,6 @@
 #include "PERI_SGI.h"
 #include "PERI_SMARTDMA.h"
 #include "PERI_SPC.h"
-#include "PERI_SPI_FILTER.h"
 #include "PERI_SYSCON.h"
 #include "PERI_TENBASET_PHY.h"
 #include "PERI_TRDC.h"

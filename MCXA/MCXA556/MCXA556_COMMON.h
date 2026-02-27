@@ -9,7 +9,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260213
+**     Build:               b260227
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA556
@@ -98,8 +98,8 @@ typedef enum IRQn {
   SPC0_IRQn                    = 16,               /**< System Power Controller interrupt */
   TDET_IRQn                    = 17,               /**< TDET interrrupt */
   WUU0_IRQn                    = 18,               /**< Wake Up Unit interrupt */
-  CAN0_IRQn                    = 19,               /**< Controller Area Network 0 interrupt */
-  CAN1_IRQn                    = 20,               /**< Controller Area Network 1 interrupt */
+  Reserved35_IRQn              = 19,               /**< Reserved interrupt */
+  Reserved36_IRQn              = 20,               /**< Reserved interrupt */
   FLEXIO_IRQn                  = 23,               /**< Flexible Input/Output interrupt */
   I3C0_IRQn                    = 24,               /**< Improved Inter Integrated Circuit interrupt 0 */
   I3C1_IRQn                    = 25,               /**< Improved Inter Integrated Circuit interrupt 1 */
@@ -129,8 +129,8 @@ typedef enum IRQn {
   ADC0_IRQn                    = 62,               /**< Analog-to-Digital Converter 0 interrupt */
   ADC1_IRQn                    = 63,               /**< Analog-to-Digital Converter 1 interrupt */
   CMP0_IRQn                    = 64,               /**< Comparator 0 interrupt */
-  DAC0_IRQn                    = 67,               /**< Digital-to-Analog Converter 0 - General Purpose interrupt */
-  DAC1_IRQn                    = 68,               /**< Digital-to-Analog Converter 1 - General Purpose interrupt */
+  Reserved83_IRQn              = 67,               /**< Reserved interrupt */
+  Reserved84_IRQn              = 68,               /**< Reserved interrupt */
   GPIO0_IRQn                   = 71,               /**< General Purpose Input/Output 0 interrupt 0 */
   GPIO1_IRQn                   = 72,               /**< General Purpose Input/Output 1 interrupt 0 */
   GPIO2_IRQn                   = 73,               /**< General Purpose Input/Output 2 interrupt 0 */
@@ -142,7 +142,7 @@ typedef enum IRQn {
   ESPI_IRQn                    = 89,               /**< eSPI interrupt */
   ETHERNET_IRQn                = 90,               /**< Ethernet QoS interrupt */
   ETHERNET_PMT_IRQn            = 91,               /**< Ethernet QoS power management interrupt */
-  TENBASET_PHY0_IRQn           = 93,               /**< 10Base-T1S interrupt */
+  Reserved109_IRQn             = 93,               /**< Reserved interrupt */
   I3C2_IRQn                    = 94,               /**< Improved Inter Integrated Circuit interrupt 2 */
   LPUART5_IRQn                 = 95,               /**< Low-Power Universal Asynchronous Receive/Transmit interrupt */
   LPSPI3_IRQn                  = 97,               /**< Low-Power Serial Peripheral Interface 3 interrupt */
@@ -157,15 +157,15 @@ typedef enum IRQn {
   CDOG1_IRQn                   = 109,              /**< Code Watchdog Timer 1 interrupt */
   PKC_IRQn                     = 110,              /**< PKC interrupt */
   SGI_IRQn                     = 111,              /**< SGI interrupt */
-  SPI_FILTER_IRQn              = 112,              /**< Reserved interrupt */
+  Reserved128_IRQn             = 112,              /**< Reserved interrupt */
   TRNG0_IRQn                   = 113,              /**< True Random Number Generator interrupt */
   SECURE_ERR_IRQn              = 114,              /**< Secure IP Error interrupt. It OR SGI, PKC, TRNG error together.  */
   SEC_HYPERVISOR_CALL_IRQn     = 115,              /**< AHB Secure Controller hypervisor call interrupt */
   RTC_IRQn                     = 119,              /**< RTC alarm interrupt */
   GDET_IRQn                    = 122,              /**< Digital Glitch Detect 0 interrupt  */
   EWM0_IRQn                    = 123,              /**< External Watchdog Monitor interrupt */
-  TSI_END_OF_SCAN_IRQn         = 124,              /**< TSI End of Scan interrupt */
-  TSI_OUT_OF_SCAN_IRQn         = 125,              /**< TSI Out of Scan interrupt */
+  Reserved140_IRQn             = 124,              /**< Reserved interrupt */
+  Reserved141_IRQn             = 125,              /**< Reserved interrupt */
   GPIO0_1_IRQn                 = 126,              /**< General Purpose Input/Output 0 interrupt 1 */
   GPIO1_1_IRQn                 = 127,              /**< General Purpose Input/Output 1 interrupt 1 */
   GPIO2_1_IRQn                 = 128,              /**< General Purpose Input/Output 2 interrupt 1 */
@@ -1245,49 +1245,6 @@ typedef enum IRQn {
   #define LPCMP_BASE_PTRS                          { CMP0 }
 #endif
 
-/* LPDAC - Peripheral instance base addresses */
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  /** Peripheral DAC0 base address */
-  #define DAC0_BASE                                (0x500B4000u)
-  /** Peripheral DAC0 base address */
-  #define DAC0_BASE_NS                             (0x400B4000u)
-  /** Peripheral DAC0 base pointer */
-  #define DAC0                                     ((LPDAC_Type *)DAC0_BASE)
-  /** Peripheral DAC0 base pointer */
-  #define DAC0_NS                                  ((LPDAC_Type *)DAC0_BASE_NS)
-  /** Peripheral DAC1 base address */
-  #define DAC1_BASE                                (0x500B5000u)
-  /** Peripheral DAC1 base address */
-  #define DAC1_BASE_NS                             (0x400B5000u)
-  /** Peripheral DAC1 base pointer */
-  #define DAC1                                     ((LPDAC_Type *)DAC1_BASE)
-  /** Peripheral DAC1 base pointer */
-  #define DAC1_NS                                  ((LPDAC_Type *)DAC1_BASE_NS)
-  /** Array initializer of LPDAC peripheral base addresses */
-  #define LPDAC_BASE_ADDRS                         { DAC0_BASE, DAC1_BASE }
-  /** Array initializer of LPDAC peripheral base pointers */
-  #define LPDAC_BASE_PTRS                          { DAC0, DAC1 }
-  /** Array initializer of LPDAC peripheral base addresses */
-  #define LPDAC_BASE_ADDRS_NS                      { DAC0_BASE_NS, DAC1_BASE_NS }
-  /** Array initializer of LPDAC peripheral base pointers */
-  #define LPDAC_BASE_PTRS_NS                       { DAC0_NS, DAC1_NS }
-#else
-  /** Peripheral DAC0 base address */
-  #define DAC0_BASE                                (0x400B4000u)
-  /** Peripheral DAC0 base pointer */
-  #define DAC0                                     ((LPDAC_Type *)DAC0_BASE)
-  /** Peripheral DAC1 base address */
-  #define DAC1_BASE                                (0x400B5000u)
-  /** Peripheral DAC1 base pointer */
-  #define DAC1                                     ((LPDAC_Type *)DAC1_BASE)
-  /** Array initializer of LPDAC peripheral base addresses */
-  #define LPDAC_BASE_ADDRS                         { DAC0_BASE, DAC1_BASE }
-  /** Array initializer of LPDAC peripheral base pointers */
-  #define LPDAC_BASE_PTRS                          { DAC0, DAC1 }
-#endif
-/** Interrupt vectors for the LPDAC peripheral type */
-#define LPDAC_IRQS                               { DAC0_IRQn, DAC1_IRQn }
-
 /* LPI2C - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
   /** Peripheral LPI2C0 base address */
@@ -1933,35 +1890,6 @@ typedef enum IRQn {
   #define SPC_BASE_ADDRS                           { SPC0_BASE }
   /** Array initializer of SPC peripheral base pointers */
   #define SPC_BASE_PTRS                            { SPC0 }
-#endif
-
-/* SPI_FILTER - Peripheral instance base addresses */
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  /** Peripheral SPI_FILTER base address */
-  #define SPI_FILTER_BASE                          (0x5002C000u)
-  /** Peripheral SPI_FILTER base address */
-  #define SPI_FILTER_BASE_NS                       (0x4002C000u)
-  /** Peripheral SPI_FILTER base pointer */
-  #define SPI_FILTER                               ((SPI_FILTER_Type *)SPI_FILTER_BASE)
-  /** Peripheral SPI_FILTER base pointer */
-  #define SPI_FILTER_NS                            ((SPI_FILTER_Type *)SPI_FILTER_BASE_NS)
-  /** Array initializer of SPI_FILTER peripheral base addresses */
-  #define SPI_FILTER_BASE_ADDRS                    { SPI_FILTER_BASE }
-  /** Array initializer of SPI_FILTER peripheral base pointers */
-  #define SPI_FILTER_BASE_PTRS                     { SPI_FILTER }
-  /** Array initializer of SPI_FILTER peripheral base addresses */
-  #define SPI_FILTER_BASE_ADDRS_NS                 { SPI_FILTER_BASE_NS }
-  /** Array initializer of SPI_FILTER peripheral base pointers */
-  #define SPI_FILTER_BASE_PTRS_NS                  { SPI_FILTER_NS }
-#else
-  /** Peripheral SPI_FILTER base address */
-  #define SPI_FILTER_BASE                          (0x4002C000u)
-  /** Peripheral SPI_FILTER base pointer */
-  #define SPI_FILTER                               ((SPI_FILTER_Type *)SPI_FILTER_BASE)
-  /** Array initializer of SPI_FILTER peripheral base addresses */
-  #define SPI_FILTER_BASE_ADDRS                    { SPI_FILTER_BASE }
-  /** Array initializer of SPI_FILTER peripheral base pointers */
-  #define SPI_FILTER_BASE_PTRS                     { SPI_FILTER }
 #endif
 
 /* SYSCON - Peripheral instance base addresses */

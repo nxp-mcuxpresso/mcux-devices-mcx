@@ -2,7 +2,7 @@
 //*****************************************************************************
 // MCXA287 startup code
 //
-// Version : 050226
+// Version : 270226
 //*****************************************************************************
 //
 // Copyright 2016-2026 NXP
@@ -203,7 +203,7 @@ WEAK void SMARTDMA_IRQHandler(void);
 WEAK void CDOG1_IRQHandler(void);
 WEAK void PKC_IRQHandler(void);
 WEAK void SGI_IRQHandler(void);
-WEAK void SPI_FILTER_IRQHandler(void);
+WEAK void Reserved128_IRQHandler(void);
 WEAK void TRNG0_IRQHandler(void);
 WEAK void SECURE_ERR_IRQHandler(void);
 WEAK void SEC_HYPERVISOR_CALL_IRQHandler(void);
@@ -356,7 +356,7 @@ void SMARTDMA_DriverIRQHandler(void) ALIAS(DefaultISR);
 void CDOG1_DriverIRQHandler(void) ALIAS(DefaultISR);
 void PKC_DriverIRQHandler(void) ALIAS(DefaultISR);
 void SGI_DriverIRQHandler(void) ALIAS(DefaultISR);
-void SPI_FILTER_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
+void Reserved128_DriverIRQHandler(void) ALIAS(DefaultISR);
 void TRNG0_DriverIRQHandler(void) ALIAS(DefaultISR);
 void SECURE_ERR_DriverIRQHandler(void) ALIAS(DefaultISR);
 void SEC_HYPERVISOR_CALL_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -613,7 +613,7 @@ __attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void)
     CDOG1_IRQHandler,               // 125: Code Watchdog Timer 1 interrupt
     PKC_IRQHandler,                 // 126: PKC interrupt
     SGI_IRQHandler,                 // 127: SGI interrupt
-    SPI_FILTER_IRQHandler,          // 128: Reserved interrupt
+    Reserved128_IRQHandler,         // 128: Reserved interrupt
     TRNG0_IRQHandler,               // 129: True Random Number Generator interrupt
     SECURE_ERR_IRQHandler,          // 130: Secure IP Error interrupt. It OR SGI, PKC, TRNG error together.
     SEC_HYPERVISOR_CALL_IRQHandler, // 131: AHB Secure Controller hypervisor call interrupt
@@ -1502,9 +1502,9 @@ WEAK void SGI_IRQHandler(void)
     SGI_DriverIRQHandler();
 }
 
-WEAK void SPI_FILTER_IRQHandler(void)
+WEAK void Reserved128_IRQHandler(void)
 {
-    SPI_FILTER_DriverIRQHandler(0U);
+    Reserved128_DriverIRQHandler();
 }
 
 WEAK void TRNG0_IRQHandler(void)

@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260213
+**     Build:               b260227
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA577
@@ -160,7 +160,7 @@ typedef enum IRQn {
   CDOG1_IRQn                   = 109,              /**< Code Watchdog Timer 1 interrupt */
   PKC_IRQn                     = 110,              /**< PKC interrupt */
   SGI_IRQn                     = 111,              /**< SGI interrupt */
-  SPI_FILTER_IRQn              = 112,              /**< Reserved interrupt */
+  Reserved128_IRQn             = 112,              /**< Reserved interrupt */
   TRNG0_IRQn                   = 113,              /**< True Random Number Generator interrupt */
   SECURE_ERR_IRQn              = 114,              /**< Secure IP Error interrupt. It OR SGI, PKC, TRNG error together.  */
   SEC_HYPERVISOR_CALL_IRQn     = 115,              /**< AHB Secure Controller hypervisor call interrupt */
@@ -1984,35 +1984,6 @@ typedef enum IRQn {
   #define SPC_BASE_ADDRS                           { SPC0_BASE }
   /** Array initializer of SPC peripheral base pointers */
   #define SPC_BASE_PTRS                            { SPC0 }
-#endif
-
-/* SPI_FILTER - Peripheral instance base addresses */
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  /** Peripheral SPI_FILTER base address */
-  #define SPI_FILTER_BASE                          (0x5002C000u)
-  /** Peripheral SPI_FILTER base address */
-  #define SPI_FILTER_BASE_NS                       (0x4002C000u)
-  /** Peripheral SPI_FILTER base pointer */
-  #define SPI_FILTER                               ((SPI_FILTER_Type *)SPI_FILTER_BASE)
-  /** Peripheral SPI_FILTER base pointer */
-  #define SPI_FILTER_NS                            ((SPI_FILTER_Type *)SPI_FILTER_BASE_NS)
-  /** Array initializer of SPI_FILTER peripheral base addresses */
-  #define SPI_FILTER_BASE_ADDRS                    { SPI_FILTER_BASE }
-  /** Array initializer of SPI_FILTER peripheral base pointers */
-  #define SPI_FILTER_BASE_PTRS                     { SPI_FILTER }
-  /** Array initializer of SPI_FILTER peripheral base addresses */
-  #define SPI_FILTER_BASE_ADDRS_NS                 { SPI_FILTER_BASE_NS }
-  /** Array initializer of SPI_FILTER peripheral base pointers */
-  #define SPI_FILTER_BASE_PTRS_NS                  { SPI_FILTER_NS }
-#else
-  /** Peripheral SPI_FILTER base address */
-  #define SPI_FILTER_BASE                          (0x4002C000u)
-  /** Peripheral SPI_FILTER base pointer */
-  #define SPI_FILTER                               ((SPI_FILTER_Type *)SPI_FILTER_BASE)
-  /** Array initializer of SPI_FILTER peripheral base addresses */
-  #define SPI_FILTER_BASE_ADDRS                    { SPI_FILTER_BASE }
-  /** Array initializer of SPI_FILTER peripheral base pointers */
-  #define SPI_FILTER_BASE_PTRS                     { SPI_FILTER }
 #endif
 
 /* SYSCON - Peripheral instance base addresses */

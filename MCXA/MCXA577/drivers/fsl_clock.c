@@ -494,15 +494,16 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
 
     /* Enable 12pF internal capacitance */
     regValue |= VBAT_OSCCTLA_MODE_EN(0x0) | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK |
-                VBAT_OSCCTLA_XTAL_CAP_SEL(0x6) | VBAT_OSCCTLA_EXTAL_CAP_SEL(0x6);
+                VBAT_OSCCTLA_XTAL_CAP_SEL(0x1) | VBAT_OSCCTLA_EXTAL_CAP_SEL(0x0);
 
+    regValue = (regValue & ~VBAT_OSCCTLA_COARSE_AMP_GAIN_MASK) | (VBAT_OSCCTLA_COARSE_AMP_GAIN(1));
+    
     VBAT0->OSCCTLA = regValue;
 
     /* Wait for STATUSA[OSC_RDY] to set. */
     while ((VBAT0->STATUSA & VBAT_STATUSA_OSC_RDY_MASK) == 0U)
     {
     }
-    VBAT0->OSCLCKA = VBAT_OSCLCKA_LOCK_MASK;
 
     VBAT0->OSCCLKE |= VBAT_OSCCLKE_CLKE(id);
 

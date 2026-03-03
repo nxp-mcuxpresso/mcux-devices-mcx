@@ -179,8 +179,9 @@ typedef enum _SYSCON_RSTn
 #define GLIKEY_RSTS_N GLIKEY_RSTS
 
 /*! @brief Reset bits for GPIO peripheral */
-#define GPIO_RSTS \
-    {kGPIO0_RST_SHIFT_RSTn, kGPIO1_RST_SHIFT_RSTn, kGPIO2_RST_SHIFT_RSTn, kGPIO3_RST_SHIFT_RSTn, kGPIO4_RST_SHIFT_RSTn}
+#define GPIO_RSTS                                                         \
+    {kGPIO0_RST_SHIFT_RSTn, kGPIO1_RST_SHIFT_RSTn, kGPIO2_RST_SHIFT_RSTn, \
+     kGPIO3_RST_SHIFT_RSTn, kGPIO4_RST_SHIFT_RSTn, NotAvail_RSTn}
 #define GPIO_RSTS_N GPIO_RSTS
 
 /*! @brief Reset bits for I3C peripheral */
@@ -218,8 +219,9 @@ typedef enum _SYSCON_RSTn
 #define PKC_RSTS_N PKC_RSTS
 
 /*! @brief Reset bits for PORT peripheral */
-#define PORT_RSTS \
-    {kPORT0_RST_SHIFT_RSTn, kPORT1_RST_SHIFT_RSTn, kPORT2_RST_SHIFT_RSTn, kPORT3_RST_SHIFT_RSTn, kPORT4_RST_SHIFT_RSTn}
+#define PORT_RSTS                                                         \
+    {kPORT0_RST_SHIFT_RSTn, kPORT1_RST_SHIFT_RSTn, kPORT2_RST_SHIFT_RSTn, \
+     kPORT3_RST_SHIFT_RSTn, kPORT4_RST_SHIFT_RSTn, NotAvail_RSTn}
 #define PORT_RSTS_N PORT_RSTS
 
 /*! @brief Reset bits for SMARTDMA peripheral */
@@ -231,8 +233,10 @@ typedef enum _SYSCON_RSTn
 #define SPIFILTER_RSTS_N SPIFILTER_RSTS
 
 /*! @brief Reset bits for T1S peripheral */
-#define T1S_RSTS   {kT1S0_RST_SHIFT_RSTn}
-#define T1S_RSTS_N T1S_RSTS
+#define T1S_RSTS           {kT1S0_RST_SHIFT_RSTn}
+#define T1S_RSTS_N         T1S_RSTS
+#define TENBASET_PHY_RST   T1S_RSTS
+#define TENBASET_PHY_RST_N T1S_RSTS
 
 /*! @brief Reset bits for TRNG peripheral */
 #define TRNG_RSTS   {kTRNG0_RST_SHIFT_RSTn}

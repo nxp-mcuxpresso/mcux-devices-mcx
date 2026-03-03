@@ -25,8 +25,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 1.4.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(1, 4, 0))
+/*! @brief CLOCK driver version 1.5.0. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(1, 5, 0))
 /*@}*/
 
 /*! @brief Configure whether driver controls clock
@@ -1309,6 +1309,15 @@ void CLOCK_EnableADVCControl();
  * @return  Nothing
  */
 void CLOCK_DisableADVCControl();
+
+/*!
+ * @brief Return the ADVC control state that is set in this driver (whether ADVC pre-change and ADVC post-change functions are called for any clock root change of ADVC monitored peripherals in AON domain).
+ *
+ * The AON_CPU_CLK, AON_MAIN_CLK, LPIRC, ULPIRC, AON LPADC0 root clock, AON SYSTICK root clock, AON QTMRn root clock, and AON ACMP0 root clock 0/1 are under ADVC control.
+ *
+ * @return  The true value if the ADVC is called for any change of AON peripheral clock roots specified above, the false value otherwise.
+ */
+bool CLOCK_GetADVCControlState();
 
 #endif /* CONFIG_ADVC_DRIVER_USED */
 

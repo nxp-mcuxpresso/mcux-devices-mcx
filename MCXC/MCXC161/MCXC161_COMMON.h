@@ -13,7 +13,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-11-21
-**     Build:               b260121
+**     Build:               b260303
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXC161
@@ -594,7 +594,27 @@ typedef enum IRQn {
  * @{
  */
 
-
+#define FGPIO0_BASE                               (0xF8001000u)
+/** Peripheral GPIO0 base pointer */
+#define FGPIO0                                    ((GPIO_Type *)FGPIO0_BASE)
+/** Peripheral GPIO1 base address */
+#define FGPIO1_BASE                               (0xF8002000u)
+/** Peripheral GPIO1 base pointer */
+#define FGPIO1                                    ((GPIO_Type *)FGPIO1_BASE)
+/** Peripheral GPIO2 base address */
+#define FGPIO2_BASE                               (0xF8003000u)
+/** Peripheral GPIO2 base pointer */
+#define FGPIO2                                    ((GPIO_Type *)FGPIO2_BASE)
+/** Peripheral GPIO3 base address */
+#define FGPIO3_BASE                               (0xF8004000u)
+/** Peripheral GPIO3 base pointer */
+#define FGPIO3                                    ((GPIO_Type *)FGPIO3_BASE)
+/** Array initializer of GPIO peripheral base addresses */
+#define FGPIO_BASE_ADDRS                          { FGPIO0_BASE, FGPIO1_BASE, FGPIO2_BASE, FGPIO3_BASE }
+/** Array initializer of GPIO peripheral base pointers */
+#define FGPIO_BASE_PTRS                           { FGPIO0, FGPIO1, FGPIO2, FGPIO3 }
+/** Interrupt vectors for the GPIO peripheral type */
+#define FGPIO_IRQS                                { GPIO0_IRQn, GPIO1_IRQn, GPIO2_IRQn, GPIO3_IRQn }
 
 /*!
  * @}

@@ -110,6 +110,11 @@ void RESET_ClearPeripheralReset(reset_ip_name_t peripheral)
     uint32_t bitMask              = 1UL << bitPos;
     volatile uint32_t *pResetCtrl = &(MRCC0->MRCC_GLB_RST0);
 
+    if (peripheral == NotAvail_RSTn)
+    {
+        return;
+    }
+
     assert(bitPos < 32u);
     assert(regIndex < 5u);
 

@@ -156,7 +156,7 @@ typedef enum _clock_ip_name
 #define CTIMER_CLOCKS \
     {kCLOCK_GateCTIMER0, kCLOCK_GateCTIMER1, kCLOCK_GateCTIMER2, kCLOCK_GateCTIMER3, kCLOCK_GateCTIMER4}
 /*! @brief Clock ip name array for DMA. */
-#define DMA_CLOCKS {kCLOCK_GateDMA0}
+#define DMA_CLOCKS {kCLOCK_GateDMA0, kCLOCK_GateDMA1}
 /*! @brief Clock gate name array for EDMA. */
 #define EDMA_CLOCKS {kCLOCK_GateDMA0}
 /*! @brief Clock ip name array for ERM. */
@@ -200,7 +200,7 @@ typedef enum _clock_ip_name
 #define LPSPI_CLOCKS \
     {kCLOCK_GateLPSPI0, kCLOCK_GateLPSPI1, kCLOCK_GateLPSPI2, kCLOCK_GateLPSPI3, kCLOCK_GateLPSPI4, kCLOCK_GateLPSPI5}
 /*! @brief Clock ip name array for I3C. */
-#define I3C_CLOCKS {kCLOCK_GateI3C0, kCLOCK_GateI3C1, kCLOCK_GateI3C2}
+#define I3C_CLOCKS {kCLOCK_GateI3C0, kCLOCK_GateI3C1, kCLOCK_GateI3C2, kCLOCK_GateI3C3}
 /*! @brief Clock ip name array for OSTIMER. */
 #define OSTIMER_CLOCKS {kCLOCK_GateOSTIMER0}
 /*! @brief Clock ip name array for PORT. */

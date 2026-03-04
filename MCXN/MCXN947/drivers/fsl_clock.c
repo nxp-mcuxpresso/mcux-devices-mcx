@@ -329,13 +329,16 @@ status_t CLOCK_SetupExtRefClocking(uint32_t iFreq)
  */
 status_t CLOCK_SetupOsc32KClocking(uint32_t id)
 {
-    /* Enable LDO */
-    SCG0->LDOCSR |= SCG_LDOCSR_LDOEN_MASK | SCG_LDOCSR_VOUT_OK_MASK;
+    uint32_t temp32 = 0U;
 
-    VBAT0->OSCCTLA =
-        (VBAT0->OSCCTLA & ~(VBAT_OSCCTLA_MODE_EN_MASK | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK)) |
-        VBAT_OSCCTLA_MODE_EN(0x0) | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK;
-    VBAT0->OSCCTLB = VBAT_OSCCTLB_INVERSE(0xFFF7E);
+    /* Enable LDO */
+    SCG0->LDOCSR |= SCG_LDOCSR_LDOEN_MASK;
+
+    temp32 = (VBAT0->OSCCTLA & ~(VBAT_OSCCTLA_MODE_EN_MASK | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK)) |
+             VBAT_OSCCTLA_MODE_EN(0x0) | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK;
+    VBAT0->OSCCTLA = temp32;
+    VBAT0->OSCCTLB = VBAT_OSCCTLB_INVERSE(~temp32);
+
     /* Wait for STATUSA[OSC_RDY] to set. */
     while ((VBAT0->STATUSA & VBAT_STATUSA_OSC_RDY_MASK) == 0U)
     {
@@ -385,12 +388,12 @@ void CLOCK_GetDefaultOsc32KConfig(osc_32k_config_t *config)
     config->dlyTrim  = kVBAT_OscDlyTrim5;
     config->cap2Trim = kVBAT_OscCap2Trim0;
     config->cmpTrim  = kVBAT_OscCmpTrim760mv;
-    
+
     config->mode     = kVBAT_OscNormalModeEnable;
     config->xtalCap  = kVBAT_OscXtal24pFCap;
     config->extalCap = kVBAT_OscExtal22pFCap;
     config->ampGain  = kVBAT_OscCoarseAdjustment05;
-    
+
     config->id = kCLOCK_Osc32kToVbat;
 }
 
@@ -401,28 +404,69 @@ void CLOCK_GetDefaultOsc32KConfig(osc_32k_config_t *config)
  */
 status_t CLOCK_SetupOsc32KClockingConfig(osc_32k_config_t config)
 {
-    uint32_t temp32;
+    uint32_t temp32      = 0U;
+    uint32_t oscctlaMask = 0U;
 
     /* Enable LDO */
-    SCG0->LDOCSR |= SCG_LDOCSR_LDOEN_MASK | SCG_LDOCSR_VOUT_OK_MASK;
+    SCG0->LDOCSR |= SCG_LDOCSR_LDOEN_MASK;
 
-    temp32 = VBAT_OSCCFGA_INIT_TRIM(config.initTrim) | VBAT_OSCCFGA_CAP_TRIM(config.capTrim) | VBAT_OSCCFGA_DLY_TRIM(config.dlyTrim) |
-    		VBAT_OSCCFGA_CAP2_TRIM(config.cap2Trim) | VBAT_OSCCFGA_CMP_TRIM(config.cmpTrim);
+    oscctlaMask =
+        (VBAT_OSCCTLA_MODE_EN_MASK | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK |
+         VBAT_OSCCTLA_XTAL_CAP_SEL_MASK | VBAT_OSCCTLA_EXTAL_CAP_SEL_MASK | VBAT_OSCCTLA_COARSE_AMP_GAIN_MASK);
+
+    temp32 = VBAT_OSCCFGA_INIT_TRIM(config.initTrim) | VBAT_OSCCFGA_CAP_TRIM(config.capTrim) |
+             VBAT_OSCCFGA_DLY_TRIM(config.dlyTrim) | VBAT_OSCCFGA_CAP2_TRIM(config.cap2Trim) |
+             VBAT_OSCCFGA_CMP_TRIM(config.cmpTrim);
     VBAT0->OSCCFGA = temp32;
     VBAT0->OSCCFGB = VBAT_OSCCFGB_INVERSE(~temp32);
 
-    temp32 =
-        (VBAT0->OSCCTLA & ~(VBAT_OSCCTLA_MODE_EN_MASK | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK | VBAT_OSCCTLA_XTAL_CAP_SEL_MASK | VBAT_OSCCTLA_EXTAL_CAP_SEL_MASK | VBAT_OSCCTLA_COARSE_AMP_GAIN_MASK)) |
-        VBAT_OSCCTLA_MODE_EN(config.mode) | VBAT_OSCCTLA_OSC_EN_MASK | VBAT_OSCCTLA_XTAL_CAP_SEL(config.xtalCap) |
-		VBAT_OSCCTLA_EXTAL_CAP_SEL(config.extalCap) | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_COARSE_AMP_GAIN(config.ampGain);
-
-
-    VBAT0->OSCCTLA = temp32;
-    VBAT0->OSCCTLB = VBAT_OSCCTLB_INVERSE(~temp32);
-
-    /* Wait for STATUSA[OSC_RDY] to set. */
-    while ((VBAT0->STATUSA & VBAT_STATUSA_OSC_RDY_MASK) == 0U)
+    if (config.mode == kVBAT_OscLowpowerModeEnable)
     {
+        /* Low power mode sequence: enter startup mode first, then switch to low power mode. */
+        temp32 = (VBAT0->OSCCTLA & ~oscctlaMask) | VBAT_OSCCTLA_MODE_EN(kVBAT_OscStartupModeEnable) |
+                 VBAT_OSCCTLA_OSC_EN_MASK | VBAT_OSCCTLA_XTAL_CAP_SEL(config.xtalCap) |
+                 VBAT_OSCCTLA_EXTAL_CAP_SEL(config.extalCap) | VBAT_OSCCTLA_CAP_SEL_EN_MASK |
+                 VBAT_OSCCTLA_COARSE_AMP_GAIN(config.ampGain);
+        VBAT0->OSCCTLA = temp32;
+        VBAT0->OSCCTLB = VBAT_OSCCTLB_INVERSE(~temp32);
+
+        /* Wait for STATUSA[OSC_RDY] to set. */
+        while ((VBAT0->STATUSA & VBAT_STATUSA_OSC_RDY_MASK) == 0U)
+        {
+        }
+
+        /* Clear INIT_TRIM after oscillator is ready. */
+        temp32 = VBAT_OSCCFGA_INIT_TRIM(0U) | VBAT_OSCCFGA_CAP_TRIM(config.capTrim) |
+                 VBAT_OSCCFGA_DLY_TRIM(config.dlyTrim) | VBAT_OSCCFGA_CAP2_TRIM(config.cap2Trim) |
+                 VBAT_OSCCFGA_CMP_TRIM(config.cmpTrim);
+        VBAT0->OSCCFGA = temp32;
+        VBAT0->OSCCFGB = VBAT_OSCCFGB_INVERSE(~temp32);
+
+        /* Switch to low power mode. Cap selections are forced to 0. */
+        temp32 = (VBAT0->OSCCTLA & ~oscctlaMask) | VBAT_OSCCTLA_MODE_EN(kVBAT_OscLowpowerModeEnable) |
+                 VBAT_OSCCTLA_OSC_EN_MASK | VBAT_OSCCTLA_XTAL_CAP_SEL(0U) | VBAT_OSCCTLA_EXTAL_CAP_SEL(0U) |
+                 VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_COARSE_AMP_GAIN(config.ampGain);
+        VBAT0->OSCCTLA = temp32;
+        VBAT0->OSCCTLB = VBAT_OSCCTLB_INVERSE(~temp32);
+
+        /* Wait for STATUSA[OSC_RDY] to set. */
+        while ((VBAT0->STATUSA & VBAT_STATUSA_OSC_RDY_MASK) == 0U)
+        {
+        }
+    }
+    else
+    {
+        /* Normal/startup mode sequence. */
+        temp32 = (VBAT0->OSCCTLA & ~oscctlaMask) | VBAT_OSCCTLA_MODE_EN(config.mode) | VBAT_OSCCTLA_OSC_EN_MASK |
+                 VBAT_OSCCTLA_XTAL_CAP_SEL(config.xtalCap) | VBAT_OSCCTLA_EXTAL_CAP_SEL(config.extalCap) |
+                 VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_COARSE_AMP_GAIN(config.ampGain);
+        VBAT0->OSCCTLA = temp32;
+        VBAT0->OSCCTLB = VBAT_OSCCTLB_INVERSE(~temp32);
+
+        /* Wait for STATUSA[OSC_RDY] to set. */
+        while ((VBAT0->STATUSA & VBAT_STATUSA_OSC_RDY_MASK) == 0U)
+        {
+        }
     }
 
     VBAT0->OSCCLKE |= VBAT_OSCCLKE_CLKE(config.id);

@@ -36,7 +36,9 @@ static uint32_t CLOCK_GetFroHfFreq(void);
 /* Get HF FRO_DIV Clk */
 static uint32_t CLOCK_GetFroHfDivFreq(void);
 /* Get CLK 16K Clk */
-static uint32_t CLOCK_GetClk16KFreq(uint8_t id);
+static uint32_t CLOCK_GetClk16KFreq(uint8_t gate_mask);
+/* Get OSC 32K Clk */
+static uint32_t CLOCK_GetOsc32KFreq(uint8_t gate_mask);
 /* Get EXT OSC Clk */
 static uint32_t CLOCK_GetExtClkFreq(void);
 /* Get Main_Clk */
@@ -203,16 +205,16 @@ void CLOCK_HaltClockDiv(clock_div_name_t div_name)
     SYSCON->CLKUNLOCK |= SYSCON_CLKUNLOCK_UNLOCK_MASK;
 }
 
-/* Initialize the FROHF to given frequency (36,60,72,144) */
+/* Initialize the FROHF to given frequency (36,48,72,144) */
 status_t CLOCK_SetupFROHFClocking(uint32_t iFreq)
 {
     uint8_t freq_select = 0x0U;
     switch (iFreq)
     {
         case 36000000U:
-            freq_select = 10U;
+            freq_select = 0U;
             break;
-        case 60000000U:
+        case 48000000U:
             freq_select = 2U;
             break;
         case 72000000U:
@@ -476,7 +478,7 @@ uint32_t CLOCK_GetFreq(clock_name_t clockName)
             freq = CLOCK_GetFro12MFreq();
             break;
         case kCLOCK_Fro12MDiv: /* FRO_LF_DIV */
-            freq = CLOCK_GetFro12MFreq() / ((SYSCON->FROLFDIV & 0xfU) + 1U);
+            freq = CLOCK_GetFroLfDivFreq();
             break;
         case kCLOCK_Clk1M: /* CLK1M */
             freq = CLOCK_GetClk1MFreq();
@@ -485,19 +487,19 @@ uint32_t CLOCK_GetFreq(clock_name_t clockName)
             freq = CLOCK_GetFRO16KFreq();
             break;
         case kCLOCK_Clk16K0: /* CLK16K[0] */
-            freq = CLOCK_GetClk16KFreq(0);
+            freq = CLOCK_GetClk16KFreq((uint8_t)kCLOCK_Clk16kToSys);
             break;
         case kCLOCK_Clk16K1: /* CLK16K[1] */
-            freq = CLOCK_GetClk16KFreq(1);
+            freq = CLOCK_GetClk16KFreq((uint8_t)kCLOCK_Clk16kToCore);
             break;
         case kCLOCK_Osc32K0: /* OSC32K[0] */
-            freq = CLOCK_GetClk16KFreq(0);
+            freq = CLOCK_GetOsc32KFreq((uint8_t)kCLOCK_Osc32kToSys);
             break;
         case kCLOCK_Osc32K1: /* OSC32K[1] */
-            freq = CLOCK_GetClk16KFreq(1);
+            freq = CLOCK_GetOsc32KFreq((uint8_t)kCLOCK_Osc32kToCore);
             break;
-        case kCLOCK_SLOW_CLK: /* SYSTEM_CLK divided by 6 */
-            freq = (CLOCK_GetCoreSysClkFreq() / 6);
+        case kCLOCK_SLOW_CLK: /* SYSTEM_CLK divided by 4 */
+            freq = (CLOCK_GetCoreSysClkFreq() / 4);
             break;
         default:
             freq = 0U;
@@ -533,9 +535,9 @@ static uint32_t CLOCK_GetFroHfFreq(void)
     uint32_t freq;
 
     if (((SCG0->FIRCCSR & SCG_FIRCCSR_FIRCEN_MASK) == 0U) ||
-        ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRC_FCLK_PERIPH_EN_SHIFT) == 0U))
+        ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRC_FCLK_PERIPH_EN_MASK) == 0U))
     {
-        freq = 0U;
+        return 0U;
     }
 
     switch ((SCG0->FIRCCFG & SCG_FIRCCFG_FREQ_SEL_MASK) >> SCG_FIRCCFG_FREQ_SEL_SHIFT)
@@ -544,7 +546,7 @@ static uint32_t CLOCK_GetFroHfFreq(void)
             freq = 36000000U;
             break;
         case 2U:
-            freq = 60000000U;
+            freq = 48000000U;
             break;
         case 4U:
             freq = 72000000U;
@@ -589,11 +591,23 @@ static uint32_t CLOCK_GetFRO16KFreq(void)
 /*! brief  Return Frequency of CLK 16KHz
  *  return Frequency of CLK 16KHz
  */
-static uint32_t CLOCK_GetClk16KFreq(uint8_t id)
+static uint32_t CLOCK_GetClk16KFreq(uint8_t gate_mask)
 {
     return (((VBAT0->FROCTLA & VBAT_FROCTLA_FRO_EN_MASK) != 0U) &&
-            ((VBAT0->FROCLKE & VBAT_FROCLKE_CLKE(1UL << (uint32_t)id)) != 0U)) ?
+            ((VBAT0->FROCLKE & VBAT_FROCLKE_CLKE(gate_mask)) != 0U)) ?
                16000U :
+               0U;
+}
+
+/* Get OSC 32K Clk */
+/*! brief  Return Frequency of OSC 32KHz
+ *  return Frequency of OSC 32KHz
+ */
+static uint32_t CLOCK_GetOsc32KFreq(uint8_t gate_mask)
+{
+    return (((VBAT0->OSCCTLA & VBAT_OSCCTLA_OSC_EN_MASK) != 0U) &&
+            ((VBAT0->OSCCLKE & VBAT_OSCCLKE_CLKE(gate_mask)) != 0U)) ?
+               32768U :
                0U;
 }
 
@@ -626,7 +640,7 @@ uint32_t CLOCK_GetMainClk(void)
             freq = CLOCK_GetFroHfFreq();
             break;
         case 4U:
-            freq = CLOCK_GetClk16KFreq(1);
+            freq = CLOCK_GetOsc32KFreq((uint32_t)kCLOCK_Osc32kToCore);
             break;
         default:
             freq = 0U;
@@ -687,7 +701,7 @@ uint32_t CLOCK_GetCTimerClkFreq(uint32_t id)
             freq = CLOCK_GetExtClkFreq();
             break;
         case 4U:
-            freq = CLOCK_GetClk16KFreq(1);
+            freq = CLOCK_GetClk16KFreq((uint8_t)kCLOCK_Clk16kToCore);
             break;
         case 5U:
             freq = CLOCK_GetClk1MFreq();
@@ -851,7 +865,7 @@ uint32_t CLOCK_GetLpuartClkFreq(uint32_t id)
             freq = CLOCK_GetExtClkFreq();
             break;
         case 4U:
-            freq = CLOCK_GetClk16KFreq(1);
+            freq = CLOCK_GetOsc32KFreq((uint8_t)kCLOCK_Osc32kToCore);
             break;
         case 5U:
             freq = CLOCK_GetClk1MFreq();
@@ -1059,7 +1073,7 @@ uint32_t CLOCK_GetTraceClkFreq(void)
             freq = CLOCK_GetClk1MFreq();
             break;
         case 2U:
-            freq = CLOCK_GetClk16KFreq(1);
+            freq = CLOCK_GetClk16KFreq((uint8_t)kCLOCK_Clk16kToCore);
             break;
         default:
             freq = 0U;
@@ -1095,7 +1109,7 @@ uint32_t CLOCK_GetClkoutClkFreq(void)
             freq = CLOCK_GetExtClkFreq();
             break;
         case 3U:
-            freq = CLOCK_GetClk16KFreq(1);
+            freq = CLOCK_GetClk16KFreq((uint8_t)kCLOCK_Clk16kToCore);
             break;
 
         case 6U:
@@ -1132,7 +1146,7 @@ uint32_t CLOCK_GetSystickClkFreq(void)
             freq = CLOCK_GetClk1MFreq();
             break;
         case 2U:
-            freq = CLOCK_GetClk16KFreq(1);
+            freq = CLOCK_GetClk16KFreq((uint8_t)kCLOCK_Clk16kToCore);
             break;
         default:
             freq = 0U;

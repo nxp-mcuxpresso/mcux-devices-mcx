@@ -358,13 +358,16 @@ typedef enum _clock_div_name
 } clock_div_name_t;
 
 /*!
- * @brief firc trim source.
+ * @brief CLK16K clock gate.
  */
-typedef enum _clke_16k
+typedef enum _clk16k_clk_gate_id
 {
-    kCLKE_16K_SYSTEM   = VBAT_FROCLKE_CLKE(1U), /*!< To VSYS domain.     */
-    kCLKE_16K_COREMAIN = VBAT_FROCLKE_CLKE(2U)  /*!< To VDD_CORE domain. */
-} clke_16k_t;
+    kCLKE_16K_SYSTEM          = VBAT_FROCLKE_CLKE(1U), /*!< CLK16K[0] to SYSTEM domain.      */
+    kCLKE_16K_COREMAIN        = VBAT_FROCLKE_CLKE(2U), /*!< CLK16K[1] to CORE domain.        */
+    kCLOCK_Clk16kToSys        = VBAT_FROCLKE_CLKE(1U), /*!< CLK16K[0] to SYSTEM domain.      */
+    kCLOCK_Clk16kToCore       = VBAT_FROCLKE_CLKE(2U), /*!< CLK16K[1] to CORE domain.        */
+    kCLOCK_Clk16kToSysAndCore = VBAT_FROCLKE_CLKE(3U), /*!< CLK16K to SYSTEM and CORE domain.*/
+} _clk16k_clk_gate_id;
 
 /*!
  * @brief SCG status return codes.

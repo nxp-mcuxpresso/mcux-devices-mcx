@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.0.2]
+
+- Improvements
+  - Fixed the Osc32K low power mode in CLOCK_SetupOsc32KClockingConfig.
+
 ## [2.0.1]
 
 - Improvements

@@ -568,8 +568,8 @@ typedef enum _clock_attach_id
     kPll1ClkDiv_to_LPUART5 = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 6U),         /*!< Attach Pll1ClkDiv to LPUART5. */
     kNONE_to_LPUART5       = CLK_ATTACH_MUX(kCLOCK_SelLPUART5, 7U),         /*!< Attach NONE to LPUART5.       */
 
-    kCLK_32K_to_USBHS      = CLK_ATTACH_MUX(kCLOCK_SelUSBHS, 0U),           /*!< Attach FRO_HF to USBHS.*/
-    kCLK_1M_to_USBHS       = CLK_ATTACH_MUX(kCLOCK_SelUSBHS, 1U),           /*!< Attach CLK_IN to USBHS.*/
+    kCLK_32K_to_USBHS      = CLK_ATTACH_MUX(kCLOCK_SelUSBHS, 0U),           /*!< Attach CLK_32K to USBHS.*/
+    kCLK_1M_to_USBHS       = CLK_ATTACH_MUX(kCLOCK_SelUSBHS, 1U),           /*!< Attach CLK_1M to USBHS.*/
     kPHY_CLK_XTAL_to_USBHS = CLK_ATTACH_MUX(kCLOCK_SelUSBHS, 2U),           /*!< Attach CLK_IN to USBHS.*/
     kNONE_to_USBHS         = CLK_ATTACH_MUX(kCLOCK_SelUSBHS, 3U),           /*!< Attach NONE to USBHS.  */
 

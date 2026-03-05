@@ -2,7 +2,7 @@
 
 ## [1.5.0]
 
-- Added new CLOCK_GetADVCControlState() API function to to return the ADVC control state whether the AON CPU and ADVC monitored peripheral root clocks change cause the ADVC Pre/Post Change Request API function call.
+- Added new CLOCK_GetADVCControlState() API function to return the ADVC control state whether the AON CPU and ADVC monitored peripheral root clocks change cause the ADVC Pre/Post Change Request API function call.
 
 ## [1.4.0]
 

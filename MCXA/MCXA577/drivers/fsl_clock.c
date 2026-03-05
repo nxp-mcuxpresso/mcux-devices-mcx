@@ -179,6 +179,8 @@ clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t connection)
     actual_sel      = CLOCK_GetClockSelect((clock_select_name_t)reg_offset);
     clock_attach_id = CLK_ATTACH_MUX(reg_offset, actual_sel);
 
+    assert(clock_attach_id < kNONE_to_NONE);
+
     return (clock_attach_id_t)clock_attach_id;
 }
 
@@ -839,8 +841,10 @@ static uint32_t CLOCK_GetExtClkFreq(void)
  */
 static uint32_t CLOCK_GetOsc32KFreq(uint32_t id)
 {
+    assert(id <= 2u);
+
     return ((SCG0->ROSCCSR & SCG_ROSCCSR_ROSCVLD_MASK) != 0UL) ?
-               (((VBAT0->OSCCLKE & VBAT_OSCCLKE_CLKE(1 << id)) != 0UL) ? OSC32K_Freq : 0U) :
+               (((VBAT0->OSCCLKE & VBAT_OSCCLKE_CLKE(1UL << id)) != 0UL) ? OSC32K_Freq : 0U) :
                0U;
 }
 
@@ -2862,7 +2866,7 @@ static pll_error_t CLOCK_GetPllConfigInternal(uint32_t finHz, uint32_t foutHz, p
         fc = ((uint64_t)(uint32_t)(fccoHz % nDivOutHz) << 25UL) / nDivOutHz;
 
         /* Set multiplier */
-        pSetup->pllsscg[0] = (uint32_t)(PLL_SSCG_MD_INT_SET(pllMultiplier) | PLL_SSCG_MD_FRACT_SET((uint32_t)fc));
+        pSetup->pllsscg[0] = (uint32_t)((PLL_SSCG_MD_INT_SET(pllMultiplier) | PLL_SSCG_MD_FRACT_SET((uint32_t)fc)) & 0xFFFFFFFFU);
         pSetup->pllsscg[1] = (uint32_t)(PLL_SSCG_MD_INT_SET(pllMultiplier) >> 32U) | SCG_SPLLSSCG1_SEL_SS_MDIV_MASK;
     }
 

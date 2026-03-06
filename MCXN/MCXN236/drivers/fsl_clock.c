@@ -316,7 +316,7 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
     uint32_t temp32 = 0U;
 
     /* Enable LDO */
-    SCG0->LDOCSR |= SCG_LDOCSR_LDOEN_MASK | SCG_LDOCSR_VOUT_OK_MASK;
+    SCG0->LDOCSR |= SCG_LDOCSR_LDOEN_MASK;
 
     temp32 = (VBAT0->OSCCTLA & ~(VBAT_OSCCTLA_MODE_EN_MASK | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK)) |
              VBAT_OSCCTLA_MODE_EN(0x0) | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK |
@@ -329,6 +329,9 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
     while ((VBAT0->STATUSA & VBAT_STATUSA_OSC_RDY_MASK) == 0U)
     {
     }
+
+    /* Clear CAP_SEL */
+    VBAT0->OSCCTLA &= ~(VBAT_OSCCTLA_EXTAL_CAP_SEL_MASK | VBAT_OSCCTLA_XTAL_CAP_SEL_MASK);
 
     VBAT0->OSCCLKE |= VBAT_OSCCLKE_CLKE(id);
 
@@ -452,6 +455,12 @@ status_t CLOCK_SetupOsc32KClockingConfig(osc_32k_config_t config)
         /* Wait for STATUSA[OSC_RDY] to set. */
         while ((VBAT0->STATUSA & VBAT_STATUSA_OSC_RDY_MASK) == 0U)
         {
+        }
+
+        if (config.mode == kVBAT_OscNormalModeEnable)
+        {
+            /* Clear CAP_SEL */
+            VBAT0->OSCCTLA &= ~(VBAT_OSCCTLA_EXTAL_CAP_SEL_MASK | VBAT_OSCCTLA_XTAL_CAP_SEL_MASK);
         }
     }
 

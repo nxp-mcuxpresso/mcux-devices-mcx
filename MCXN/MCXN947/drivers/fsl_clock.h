@@ -51,7 +51,8 @@
 
 /* Definition for delay API in clock driver, users can redefine it to the real application. */
 #ifndef SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY
-#if defined(MCXN556S_cm33_core0_SERIES) || defined(MCXN556S_cm33_core1_SERIES)
+#if defined(MCXN556S_cm33_core0_SERIES) || defined(MCXN556S_cm33_core1_SERIES) || \
+    defined(MCXN557S_cm33_core0_SERIES) || defined(MCXN557S_cm33_core1_SERIES)
 #define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (170000000UL)
 #else
 #define SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY (150000000UL)
@@ -89,9 +90,9 @@
         kCLOCK_Gpio0, kCLOCK_Gpio1, kCLOCK_Gpio2, kCLOCK_Gpio3, kCLOCK_Gpio4, kCLOCK_None \
     }
 /*! @brief Clock ip name array for GDET. */
-#define GDET_CLOCKS                                                          \
-    {                                                                        \
-        kCLOCK_Gdet                                                          \
+#define GDET_CLOCKS \
+    {               \
+        kCLOCK_Gdet \
     }
 /*! @brief Clock ip name array for PINT. */
 #define PINT_CLOCKS \
@@ -1467,13 +1468,13 @@ typedef struct _osc_32k_config
     vbat_osc_dly_trim_t dlyTrim;
     vbat_osc_cap2_trim_t cap2Trim;
     vbat_osc_cmp_trim_t cmpTrim;
-    
+
     vbat_osc_mode_en_t mode;
     vbat_osc_xtal_cap_t xtalCap;
     vbat_osc_extal_cap_t extalCap;
     vbat_osc_coarse_adjustment_value_t ampGain;
-    
-    osc32k_clk_gate_id_t id;    
+
+    osc32k_clk_gate_id_t id;
 } osc_32k_config_t;
 
 /*******************************************************************************
@@ -2180,7 +2181,7 @@ status_t CLOCK_FIRCAutoTrimWithSOF(void);
 
 /*!
  * @brief Enable/disable the CPU1 clock
- * 
+ *
  * @param enable True to enable the clock, false to disable the clock.
  */
 static inline void CLOCK_EnableCpu1Clock(SYSCON_Type *base, bool enable)

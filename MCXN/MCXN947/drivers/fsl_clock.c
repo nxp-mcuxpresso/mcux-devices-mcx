@@ -532,7 +532,8 @@ status_t CLOCK_FROHFTrimConfig(firc_trim_config_t config)
     }
 
     /* Set trim mode. */
-    SCG0->FIRCCSR = (SCG0->FIRCCSR & ~(SCG_FIRCCSR_FIRCTREN_MASK | SCG_FIRCCSR_FIRCTRUP_MASK)) | (uint32_t)config.trimMode;
+    SCG0->FIRCCSR =
+        (SCG0->FIRCCSR & ~(SCG_FIRCCSR_FIRCTREN_MASK | SCG_FIRCCSR_FIRCTRUP_MASK)) | (uint32_t)config.trimMode;
 
     if ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRCVLD_MASK) == 0U)
     {
@@ -568,7 +569,8 @@ status_t CLOCK_FRO12MTrimConfig(sirc_trim_config_t config)
     }
 
     /* Set trim mode. */
-    SCG0->SIRCCSR = (SCG0->SIRCCSR & ~(SCG_SIRCCSR_SIRCTREN_MASK | SCG_SIRCCSR_SIRCTRUP_MASK)) | (uint32_t)config.trimMode;
+    SCG0->SIRCCSR =
+        (SCG0->SIRCCSR & ~(SCG_SIRCCSR_SIRCTREN_MASK | SCG_SIRCCSR_SIRCTRUP_MASK)) | (uint32_t)config.trimMode;
 
     if ((SCG0->SIRCCSR & SCG_SIRCCSR_SIRCVLD_MASK) == 0U)
     {
@@ -733,7 +735,8 @@ status_t CLOCK_SetFLASHAccessCyclesForFreq(uint32_t system_freq_hz, run_mode_t m
         }
         case (uint32_t)kOD_Mode:
         {
-#if defined(MCXN556S_cm33_core0_SERIES) || defined(MCXN556S_cm33_core1_SERIES)
+#if defined(MCXN556S_cm33_core0_SERIES) || defined(MCXN556S_cm33_core1_SERIES) || \
+    defined(MCXN557S_cm33_core0_SERIES) || defined(MCXN557S_cm33_core1_SERIES)
             if (system_freq_hz > 170000000U)
 #else
             if (system_freq_hz > 150000000U)
@@ -3041,7 +3044,8 @@ static pll_error_t CLOCK_GetPllConfigInternal(uint32_t finHz, uint32_t foutHz, p
         fc = ((uint64_t)(uint32_t)(fccoHz % nDivOutHz) << 25UL) / nDivOutHz;
 
         /* Set multiplier */
-        pSetup->pllsscg[0] = (uint32_t)((PLL_SSCG_MD_INT_SET(pllMultiplier) | PLL_SSCG_MD_FRACT_SET((uint32_t)fc)) & 0xFFFFFFFFU);
+        pSetup->pllsscg[0] =
+            (uint32_t)((PLL_SSCG_MD_INT_SET(pllMultiplier) | PLL_SSCG_MD_FRACT_SET((uint32_t)fc)) & 0xFFFFFFFFU);
         pSetup->pllsscg[1] = (uint32_t)(PLL_SSCG_MD_INT_SET(pllMultiplier) >> 32U) | SCG_APLLSSCG1_SEL_SS_MDIV_MASK;
     }
 

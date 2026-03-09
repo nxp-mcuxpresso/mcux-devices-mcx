@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.1.7]
+
+- Bug Fixes
+  - Fixed CLOCK_GetOSTimerClkFreq() returning wrong frequency.
+
 ## [2.1.6]
 
 - Improvements

@@ -487,12 +487,12 @@ uint64_t PMDEVICE_GetSleepTimer(void)
     }
     return ((uint64_t)cnt * 1000000ULL) / (uint64_t)freq;
 #else
-    uint32_t cnt = OSTIMER_GetCurrentTimerValue(OSTIMER);
+    uint64_t cnt = OSTIMER_GetCurrentTimerValue(OSTIMER);
     uint32_t freq = CLOCK_GetOSTimerClkFreq();
     if (freq == 0U)
     {
         return 0U;
     }
-    return ((uint64_t)cnt * 1000000ULL) / (uint64_t)freq;
+    return (cnt / freq) * 1000000ULL;
 #endif /* TIMER_PORT_TYPE_CTIMER */
 }

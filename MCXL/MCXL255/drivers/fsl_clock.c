@@ -433,10 +433,12 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
             case kFROdiv2_to_AON_SYSTICK:
             case kFROdiv4_to_AON_SYSTICK:
             case kROOT_AUX_to_AON_SYSTICK:
+#if defined(AON__ACMP0)
             case kFROdiv1_to_AON_CMP0:
             case kFROdiv2_to_AON_CMP0:
             case kFROdiv4_to_AON_CMP0:
             case kROOT_AUX_to_AON_CMP0:
+#endif
             case kFROdiv1_to_AON_TMR:
             case kFROdiv2_to_AON_TMR:
             case kFROdiv4_to_AON_TMR:

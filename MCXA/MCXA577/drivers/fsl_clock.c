@@ -627,6 +627,7 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
  *   config->extalCap = kVBAT_OscExtal22pFCap;
  *   config->ampGain  = kVBAT_OscCoarseAdjustment05;
  *   config->id       = kCLOCK_Osc32kToVbat;
+ *   config->updateTrim = false
  * @param   config: Pointer to a configuration structure
  */
 void CLOCK_GetDefaultOsc32KConfig(osc_32k_config_t *config)

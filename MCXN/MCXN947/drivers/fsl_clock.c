@@ -382,6 +382,7 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
  *   config->extalCap = kVBAT_OscExtal22pFCap;
  *   config->ampGain  = kVBAT_OscCoarseAdjustment05;
  *   config->id       = kCLOCK_Osc32kToVbat;
+ *   config->updateTrim = false
  * @param   config: Pointer to a configuration structure
  */
 void CLOCK_GetDefaultOsc32KConfig(osc_32k_config_t *config)
@@ -397,7 +398,8 @@ void CLOCK_GetDefaultOsc32KConfig(osc_32k_config_t *config)
     config->extalCap = kVBAT_OscExtal22pFCap;
     config->ampGain  = kVBAT_OscCoarseAdjustment05;
 
-    config->id = kCLOCK_Osc32kToVbat;
+    config->id         = kCLOCK_Osc32kToVbat;
+    config->updateTrim = false;
 }
 
 /**
@@ -417,14 +419,22 @@ status_t CLOCK_SetupOsc32KClockingConfig(osc_32k_config_t config)
         (VBAT_OSCCTLA_MODE_EN_MASK | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK |
          VBAT_OSCCTLA_XTAL_CAP_SEL_MASK | VBAT_OSCCTLA_EXTAL_CAP_SEL_MASK | VBAT_OSCCTLA_COARSE_AMP_GAIN_MASK);
 
-    temp32 = VBAT_OSCCFGA_INIT_TRIM(config.initTrim) | VBAT_OSCCFGA_CAP_TRIM(config.capTrim) |
-             VBAT_OSCCFGA_DLY_TRIM(config.dlyTrim) | VBAT_OSCCFGA_CAP2_TRIM(config.cap2Trim) |
-             VBAT_OSCCFGA_CMP_TRIM(config.cmpTrim);
-    VBAT0->OSCCFGA = temp32;
-    VBAT0->OSCCFGB = VBAT_OSCCFGB_INVERSE(~temp32);
+    if (config.updateTrim)
+    {
+        temp32 = VBAT_OSCCFGA_INIT_TRIM(config.initTrim) | VBAT_OSCCFGA_CAP_TRIM(config.capTrim) |
+                 VBAT_OSCCFGA_DLY_TRIM(config.dlyTrim) | VBAT_OSCCFGA_CAP2_TRIM(config.cap2Trim) |
+                 VBAT_OSCCFGA_CMP_TRIM(config.cmpTrim);
+        VBAT0->OSCCFGA = temp32;
+        VBAT0->OSCCFGB = VBAT_OSCCFGB_INVERSE(~temp32);
+    }
 
     if (config.mode == kVBAT_OscLowpowerModeEnable)
     {
+        /* Set INIT_TRIM to a known startup value before entering startup/low power sequence. */
+        temp32         = (VBAT0->OSCCFGA & ~VBAT_OSCCFGA_INIT_TRIM_MASK) | VBAT_OSCCFGA_INIT_TRIM(3U);
+        VBAT0->OSCCFGA = temp32;
+        VBAT0->OSCCFGB = VBAT_OSCCFGB_INVERSE(~temp32);
+
         /* Low power mode sequence: enter startup mode first, then switch to low power mode. */
         temp32 = (VBAT0->OSCCTLA & ~oscctlaMask) | VBAT_OSCCTLA_MODE_EN(kVBAT_OscStartupModeEnable) |
                  VBAT_OSCCTLA_OSC_EN_MASK | VBAT_OSCCTLA_XTAL_CAP_SEL(config.xtalCap) |
@@ -439,9 +449,7 @@ status_t CLOCK_SetupOsc32KClockingConfig(osc_32k_config_t config)
         }
 
         /* Clear INIT_TRIM after oscillator is ready. */
-        temp32 = VBAT_OSCCFGA_INIT_TRIM(0U) | VBAT_OSCCFGA_CAP_TRIM(config.capTrim) |
-                 VBAT_OSCCFGA_DLY_TRIM(config.dlyTrim) | VBAT_OSCCFGA_CAP2_TRIM(config.cap2Trim) |
-                 VBAT_OSCCFGA_CMP_TRIM(config.cmpTrim);
+        temp32         = (VBAT0->OSCCFGA & ~VBAT_OSCCFGA_INIT_TRIM_MASK);
         VBAT0->OSCCFGA = temp32;
         VBAT0->OSCCFGB = VBAT_OSCCFGB_INVERSE(~temp32);
 

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260209
+**     Build:               b260312
 **
 **     Abstract:
 **         Chip specific module features.
@@ -79,6 +79,8 @@
 #define FSL_FEATURE_SOC_LPUART_COUNT (6)
 /* @brief MCX_ENET availability on the SoC. */
 #define FSL_FEATURE_SOC_MCX_ENET_COUNT (1)
+/* @brief MPU availability on the SoC. */
+#define FSL_FEATURE_SOC_MPU_COUNT (1)
 /* @brief OSTIMER availability on the SoC. */
 #define FSL_FEATURE_SOC_OSTIMER_COUNT (1)
 /* @brief PKC availability on the SoC. */
@@ -324,7 +326,7 @@
 /* @brief Has RRCR0 RR_CLK_SEL bitfield. */
 #define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_CLK_SEL (1)
 /* @brief Has RRCR0 RR_TRG_SEL bitfield. */
-#define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_TRG_SEL (0)
+#define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_TRG_SEL (1)
 /* @brief Has RRCR0 RR_SAMPLE_CNT bitfield. */
 #define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_SAMPLE_CNT (1)
 /* @brief Has RRCR0 RR_SAMPLE_THRESHOLD bitfield. */
@@ -345,6 +347,11 @@
 #define FSL_FEATURE_LPCMP_HAS_CCR0_CMP_STOP_EN (1)
 /* @brief CMP instance support CCR0 CMP_STOP_EN bitfield. */
 #define FSL_FEATURE_LPCMP_INSTANCE_SUPPORT_CCR0_CMP_STOP_ENn(x) (1)
+
+/* CRC module features */
+
+/* @brief Has data register with name CRC */
+#define FSL_FEATURE_CRC_HAS_CRC_REG (0)
 
 /* CTIMER module features */
 
@@ -456,6 +463,13 @@
 #define FSL_FEATURE_EDMA_HAS_NO_CH_SBR_SEC (0)
 /* @brief edma5 has different tcd type. */
 #define FSL_FEATURE_EDMA_TCD_TYPEn(x) (0)
+
+/* EWM module features */
+
+/* @brief Has clock select (register CLKCTRL). */
+#define FSL_FEATURE_EWM_HAS_CLOCK_SELECT (1)
+/* @brief Has clock prescaler (register CLKPRESCALER). */
+#define FSL_FEATURE_EWM_HAS_PRESCALER (1)
 
 /* FLEXIO module features */
 
@@ -916,6 +930,13 @@
 #define FSL_FEATURE_SYSCON_HAS_LPCAC_CTRL_PARITY_MISS_EN_BIT (0)
 /* @brief Has parity error report (bitfield LPCAC_CTRL[PARITY_FAULT_EN]). */
 #define FSL_FEATURE_SYSCON_HAS_LPCAC_CTRL_PARITY_FAULT_EN_BIT (0)
+
+/* SysTick module features */
+
+/* @brief Systick has external reference clock. */
+#define FSL_FEATURE_SYSTICK_HAS_EXT_REF (0)
+/* @brief Systick external reference clock is core clock divided by this value. */
+#define FSL_FEATURE_SYSTICK_EXT_REF_CORE_DIV (0)
 
 /* TRNG module features */
 

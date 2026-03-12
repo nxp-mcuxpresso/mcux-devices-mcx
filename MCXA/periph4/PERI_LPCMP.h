@@ -30,7 +30,7 @@
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260203
+**     Build:               b260312
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPCMP
@@ -497,6 +497,22 @@ typedef struct {
  *  0b1..Enable
  */
 #define LPCMP_RRCR0_RR_EN(x)                     (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR0_RR_EN_SHIFT)) & LPCMP_RRCR0_RR_EN_MASK)
+
+#define LPCMP_RRCR0_RR_TRG_SEL_MASK              (0x2U)
+#define LPCMP_RRCR0_RR_TRG_SEL_SHIFT             (1U)
+/*! RR_TRG_SEL - Round-Robin Trigger Select
+ *  0b0..External trigger
+ *  0b1..Internal trigger
+ */
+#define LPCMP_RRCR0_RR_TRG_SEL(x)                (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR0_RR_TRG_SEL_SHIFT)) & LPCMP_RRCR0_RR_TRG_SEL_MASK)
+
+#define LPCMP_RRCR0_RR_EXTTRG_SEL_MASK           (0x4U)
+#define LPCMP_RRCR0_RR_EXTTRG_SEL_SHIFT          (2U)
+/*! RR_EXTTRG_SEL - External Trigger Source Select
+ *  0b0..Select external trigger source 0
+ *  0b1..Select external trigger source 1
+ */
+#define LPCMP_RRCR0_RR_EXTTRG_SEL(x)             (((uint32_t)(((uint32_t)(x)) << LPCMP_RRCR0_RR_EXTTRG_SEL_SHIFT)) & LPCMP_RRCR0_RR_EXTTRG_SEL_MASK)
 
 #define LPCMP_RRCR0_RR_NSAM_MASK                 (0x300U)
 #define LPCMP_RRCR0_RR_NSAM_SHIFT                (8U)

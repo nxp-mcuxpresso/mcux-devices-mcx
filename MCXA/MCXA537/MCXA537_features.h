@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260203
+**     Build:               b260312
 **
 **     Abstract:
 **         Chip specific module features.
@@ -59,8 +59,6 @@
 #define FSL_FEATURE_SOC_LPADC_COUNT (1)
 /* @brief LPCMP availability on the SoC. */
 #define FSL_FEATURE_SOC_LPCMP_COUNT (1)
-/* @brief LPDAC availability on the SoC. */
-#define FSL_FEATURE_SOC_LPDAC_COUNT (2)
 /* @brief LPI2C availability on the SoC. */
 #define FSL_FEATURE_SOC_LPI2C_COUNT (3)
 /* @brief LPSPI availability on the SoC. */
@@ -71,6 +69,8 @@
 #define FSL_FEATURE_SOC_LPUART_COUNT (3)
 /* @brief MCX_ENET availability on the SoC. */
 #define FSL_FEATURE_SOC_MCX_ENET_COUNT (1)
+/* @brief MPU availability on the SoC. */
+#define FSL_FEATURE_SOC_MPU_COUNT (1)
 /* @brief OSTIMER availability on the SoC. */
 #define FSL_FEATURE_SOC_OSTIMER_COUNT (1)
 /* @brief PKC availability on the SoC. */
@@ -89,8 +89,6 @@
 #define FSL_FEATURE_SOC_TENBASET_PHY_COUNT (1)
 /* @brief TRNG availability on the SoC. */
 #define FSL_FEATURE_SOC_TRNG_COUNT (1)
-/* @brief USBHS availability on the SoC. */
-#define FSL_FEATURE_SOC_USBHS_COUNT (1)
 /* @brief USBHSDCD availability on the SoC. */
 #define FSL_FEATURE_SOC_USBHSDCD_COUNT (1)
 /* @brief USBNC availability on the SoC. */
@@ -234,7 +232,7 @@
 /* @brief Has RRCR0 RR_CLK_SEL bitfield. */
 #define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_CLK_SEL (1)
 /* @brief Has RRCR0 RR_TRG_SEL bitfield. */
-#define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_TRG_SEL (0)
+#define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_TRG_SEL (1)
 /* @brief Has RRCR0 RR_SAMPLE_CNT bitfield. */
 #define FSL_FEATURE_LPCMP_HAS_RRCR0_RR_SAMPLE_CNT (1)
 /* @brief Has RRCR0 RR_SAMPLE_THRESHOLD bitfield. */
@@ -256,6 +254,11 @@
 /* @brief CMP instance support CCR0 CMP_STOP_EN bitfield. */
 #define FSL_FEATURE_LPCMP_INSTANCE_SUPPORT_CCR0_CMP_STOP_ENn(x) (1)
 
+/* CRC module features */
+
+/* @brief Has data register with name CRC */
+#define FSL_FEATURE_CRC_HAS_CRC_REG (0)
+
 /* CTIMER module features */
 
 /* @brief CTIMER has no capture channel. */
@@ -270,23 +273,6 @@
 #define FSL_FEATURE_CTIMER_HAS_CCR_CAP3 (1)
 /* @brief CTIMER Has register MSR */
 #define FSL_FEATURE_CTIMER_HAS_MSR (1)
-
-/* LPDAC module features */
-
-/* @brief FIFO size. */
-#define FSL_FEATURE_LPDAC_FIFO_SIZE (16)
-/* @brief Has OPAMP as buffer, speed control signal (bitfield GCR[BUF_SPD_CTRL]). */
-#define FSL_FEATURE_LPDAC_HAS_GCR_BUF_SPD_CTRL (1)
-/* @brief Buffer Enable(bitfield GCR[BUF_EN]). */
-#define FSL_FEATURE_LPDAC_HAS_GCR_BUF_EN (1)
-/* @brief RCLK cycles before data latch(bitfield GCR[LATCH_CYC]). */
-#define FSL_FEATURE_LPDAC_HAS_GCR_LATCH_CYC (1)
-/* @brief VREF source number. */
-#define FSL_FEATURE_ANALOG_NUM_OF_VREF_SRC (3)
-/* @brief Has internal reference current options. */
-#define FSL_FEATURE_LPDAC_HAS_INTERNAL_REFERENCE_CURRENT (1)
-/* @brief Support Period trigger mode DAC (bitfield IER[PTGCOCO_IE]). */
-#define FSL_FEATURE_LPDAC_HAS_PERIODIC_TRIGGER_MODE (1)
 
 /* EDMA module features */
 
@@ -366,6 +352,13 @@
 #define FSL_FEATURE_EDMA_HAS_NO_CH_SBR_SEC (0)
 /* @brief edma5 has different tcd type. */
 #define FSL_FEATURE_EDMA_TCD_TYPEn(x) (0)
+
+/* EWM module features */
+
+/* @brief Has clock select (register CLKCTRL). */
+#define FSL_FEATURE_EWM_HAS_CLOCK_SELECT (1)
+/* @brief Has clock prescaler (register CLKPRESCALER). */
+#define FSL_FEATURE_EWM_HAS_PRESCALER (1)
 
 /* FLEXSPI module features */
 
@@ -766,6 +759,13 @@
 #define FSL_FEATURE_SYSCON_HAS_LPCAC_CTRL_PARITY_MISS_EN_BIT (0)
 /* @brief Has parity error report (bitfield LPCAC_CTRL[PARITY_FAULT_EN]). */
 #define FSL_FEATURE_SYSCON_HAS_LPCAC_CTRL_PARITY_FAULT_EN_BIT (0)
+
+/* SysTick module features */
+
+/* @brief Systick has external reference clock. */
+#define FSL_FEATURE_SYSTICK_HAS_EXT_REF (0)
+/* @brief Systick external reference clock is core clock divided by this value. */
+#define FSL_FEATURE_SYSTICK_EXT_REF_CORE_DIV (0)
 
 /* TRNG module features */
 

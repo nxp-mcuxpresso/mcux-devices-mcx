@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, NXP
+ * Copyright 2025-2026 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -21,8 +21,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.0.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 0))
+/*! @brief CLOCK driver version 2.0.1. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
 /*@}*/
 
 /*! @brief Configure whether driver controls clock
@@ -706,7 +706,7 @@ clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t connection);
  * @param   sel_name : Clock select.
  * @param   value    : value to be set.
  */
-void CLOCK_SetClockSelect(clock_select_name_t sel_name, uint32_t value);
+status_t CLOCK_SetClockSelect(clock_select_name_t sel_name, uint32_t value);
 
 /**
  * @brief   Get the clock select value.

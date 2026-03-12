@@ -1,4 +1,4 @@
-# Copyright 2025 NXP
+# Copyright 2025-2026 NXP
 # All rights reserved.
 #
 # SPDX-License-Identifier: BSD-3-Clause
@@ -24,4 +24,14 @@ menu "Device specific drivers configuration"
      config MCUX_COMPONENT_driver.inputmux_connections
          bool "inputmux_connections"
          default n
+
+if MCUX_COMPONENT_driver.clock || MCUX_COMPONENT_driver.reset
+    config SOC_DRIVER_RETRY_TIMES
+        int "Max loops to wait for operation complete (0 means wait forever)"
+        default 0
+        help
+          This parameter defines how many loops to check completion before return timeout.
+          If defined as 0, driver will wait forever until completion.
+endif
+
 endmenu

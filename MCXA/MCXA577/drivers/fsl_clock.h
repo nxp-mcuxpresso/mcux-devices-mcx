@@ -986,6 +986,7 @@ typedef struct _osc_32k_config
     vbat_osc_coarse_adjustment_value_t ampGain;
 
     osc32k_clk_gate_id_t id;
+    bool updateTrim;
 } osc_32k_config_t;
 
 /*! @brief Source of PFD Clock Selection. */

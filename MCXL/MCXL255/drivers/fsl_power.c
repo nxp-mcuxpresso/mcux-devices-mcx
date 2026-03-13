@@ -194,6 +194,7 @@ static uint32_t Power_GetDpd2TargetFreq(const power_dpd2_config_t *config)
  */
 static void Power_ConfigureStallForMode(power_low_power_mode_t mode, uint32_t freqHz)
 {
+#if 0
     /* Configure stall values based on frequency and power mode */
     if (mode == kPower_DeepPowerDown3 || mode == kPower_ShutDown)
     {
@@ -242,6 +243,7 @@ static void Power_ConfigureStallForMode(power_low_power_mode_t mode, uint32_t fr
             POWER_UPDATE_SMM_STALL(150U, 60U, 2U);
         }
     }
+#endif
 }
 
 static status_t Power_VerifyMuMessage(uint32_t message)
@@ -284,6 +286,37 @@ static power_mu_nack_reason_t Power_GetMuNackReason(uint32_t message)
     return (power_mu_nack_reason_t)(msg.strcutFormat.lowHalfContent.NAckReason);
 }
 
+static status_t Power_PrepareVddCoreAndFro10M(power_vdd_core_output_voltage_t vddCoreAonVoltage, bool disableFRO10M)
+{
+    if ((vddCoreAonVoltage == kPower_VddCoreAon_AdvcControl) && ADVC_IsEnabled())
+    {
+        if (disableFRO10M)
+        {
+            if (ADVC_PreVoltageChangeRequest(CLOCK_GetAonCoreSysClkFreq()) != kADVC_Stat_Ok)
+            {
+                return kStatus_Power_AdvcPreVoltageChangeFailed;
+            }
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_LPIRC_EN_MASK;
+            if (ADVC_PostVoltageChangeRequest() != kADVC_Stat_Ok)
+            {
+                /* Post voltage change request fail, re-enable FRO10M. */
+                AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_LPIRC_EN_MASK;
+                return kStatus_Power_AdvcPostVoltageChangeFailed;
+            }
+        }
+    }
+    else
+    {
+        if (disableFRO10M)
+        {
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_LPIRC_EN_MASK;
+        }
+        PMU_UpdateVDDCoreInActiveMode(AON__PMU, Power_GetVddCoreForFreq(CLOCK_GetAonCoreSysClkFreq()));
+    }
+
+    return kStatus_Success;
+}
+
 #if __CORTEX_M == 0U
 static status_t Power_ReqestCM33StartLpSeq(power_low_power_mode_t targetMode)
 {
@@ -321,6 +354,177 @@ static status_t Power_ReqestCM33StartLpSeq(power_low_power_mode_t targetMode)
 
 #endif /* __CORTEX_M == 0U */
 
+#if __CORTEX_M == 33U
+/*!
+ * @brief Send a low-power mode request to CM0P and wait for ACK/NACK.
+ *
+ * @param targetMode  The requested low power mode.
+ * @param muChannelId MU channel ID.
+ * @return kStatus_Success, kStatus_POWER_MuTransferError,
+ *         kStatus_POWER_RequestNotAllowed, or kStatus_Timeout.
+ */
+static status_t Power_CM33RequestLowPowerMode(power_low_power_mode_t targetMode, uint32_t muChannelId)
+{
+    uint32_t tmp32 = Power_PopulateMuMessage(kPower_MsgTypeRequest, kPower_MsgDirMainToAon, targetMode, 0UL);
+    g_powerMuTransferState = kPower_MuTransferStart;
+    MU_SendMsg(POWER_USED_MU, muChannelId, tmp32);
+#if POWER_MU_TRANSFER_TIMEOUT
+    uint32_t timeout = POWER_MU_TRANSFER_TIMEOUT;
+#endif
+    /* Waiting for response from CM0P. */
+    while (g_powerMuTransferState == kPower_MuTransferStart)
+    {
+#if POWER_MU_TRANSFER_TIMEOUT
+        if ((--timeout) == 0U)
+        {
+            return kStatus_Timeout;
+        }
+#endif
+    }
+    if (g_powerMuTransferState == kPower_MuTransferWrong)
+    {
+        return kStatus_POWER_MuTransferError;
+    }
+    if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
+    {
+        return kStatus_POWER_RequestNotAllowed;
+    }
+    g_powerMuTransferState = kPower_MuTransferIdle;
+    return kStatus_Success;
+}
+#endif /* __CORTEX_M == 33U */
+
+/*!
+ * @brief Send a SYNC message to the peer core and wait for ACK/NACK.
+ *
+ * May be called from either CM33 or CM0+. The message direction is derived
+ * automatically from the core that calls this function.
+ *
+ * @param muChannelId MU channel ID.
+ * @return kStatus_Success, kStatus_POWER_MuTransferError,
+ *         kStatus_Power_HandleDuplicated, or kStatus_Timeout.
+ */
+static status_t Power_MuDoSync(uint32_t muChannelId)
+{
+#if __CORTEX_M == 33U
+    power_mu_message_direction_t dir = kPower_MsgDirMainToAon;
+#else
+    power_mu_message_direction_t dir = kPower_MsgDirAonToMain;
+#endif
+    uint32_t tmp32 = Power_PopulateMuMessage(kPower_MsgTypeSync, dir, kPower_Active,
+                                             (uint16_t)(g_Handle_Offset & 0xFFFFUL));
+    g_powerMuTransferState = kPower_MuTransferStart;
+    MU_SendMsg(POWER_USED_MU, muChannelId, tmp32);
+#if POWER_MU_TRANSFER_TIMEOUT
+    uint32_t timeout = POWER_MU_TRANSFER_TIMEOUT;
+#endif
+    /* Waiting for response from peer core. */
+    while (g_powerMuTransferState == kPower_MuTransferStart)
+    {
+#if POWER_MU_TRANSFER_TIMEOUT
+        if ((--timeout) == 0U)
+        {
+            return kStatus_Timeout;
+        }
+#endif
+    }
+    if (g_powerMuTransferState == kPower_MuTransferWrong)
+    {
+        return kStatus_POWER_MuTransferError;
+    }
+    if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
+    {
+        return kStatus_Power_HandleDuplicated;
+    }
+    g_powerMuTransferState = kPower_MuTransferIdle;
+    return kStatus_Success;
+}
+
+/*!
+ * @brief Configure AON/Main SRAM retention settings.
+ *
+ * @param aonSramToRetain  Bitmask of AON SRAM arrays to retain.
+ * @param mainSramToRetain Bitmask of Main SRAM arrays to retain.
+ * @param disableBandgap   Whether to shut down bandgap in low power.
+ * @param enableIVS        Whether to enable IVS mode for SRAM retention.
+ */
+static void Power_ConfigSleepModeManager(uint8_t aonSramToRetain, uint32_t mainSramToRetain,
+                                         bool disableBandgap, bool enableIVS)
+{
+    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~aonSramToRetain & 0xFFUL));
+    SMM_EnableMainDomainSramRetention(AON__SMM, mainSramToRetain);
+    SMM_ShutDownBandgapInLowPowerModes(AON__SMM, disableBandgap);
+    SMM_EnableIvsModeForSramRetention(AON__SMM, enableIVS);
+}
+
+/*!
+ * @brief Enable wakeup sources for both main and AON CPU domains.
+ *
+ * The masks in sharedHandle are updated by Power_CheckThenEnableWakeupSource(),
+ * so SMM_EnableWakeupSource calls must happen AFTER CheckThenEnable completes.
+ * Do NOT pass the masks as arguments — they must be read from sharedHandle
+ * inside this function, after the CheckThenEnable calls update them.
+ *
+ * @param mainWs Main domain wakeup source.
+ * @param aonWs  AON domain wakeup source.
+ */
+static void Power_EnableDualDomainWakeupSources(power_wakeup_source_t mainWs, power_wakeup_source_t aonWs)
+{
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
+    Power_CheckThenEnableWakeupSource(mainWs);
+    Power_CheckThenEnableWakeupSource(aonWs);
+    SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
+    SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
+}
+
+#if __CORTEX_M == 0U
+static status_t Power_SetDpd2AdvcWorkaround(power_dpd2_config_t *config)
+{
+    advc_result_t advcRet;
+    /* Per platform requirement, DPD2+ADVC workaround must be executed on CM0P (AON core). */
+    CLOCK_DisableADVCControl();
+
+    uint32_t targetFreq = Power_GetDpd2TargetFreq(config);
+
+    advcRet = ADVC_PreVoltageChangeRequest(targetFreq);
+
+    if (advcRet != kADVC_Stat_Ok)
+    {
+        return kStatus_Power_AdvcPreVoltageChangeFailed;
+    }
+
+    if (config->switchToX32K)
+    {
+        AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_XTAL32_OUT_EN_MASK;
+        CLOCK_AttachClk(kXTAL32K_to_AON_CPU);
+    }
+    else
+    {
+        CLOCK_AttachClk(kFROdiv4_to_AON_CPU);
+    }
+
+    if (config->disableFRO10M)
+    {
+        AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_LPIRC_EN_MASK;
+    }
+    if (config->disableFRO3M)
+    {
+        AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_ULPIRC_EN_MASK;
+    }
+    /* Disable Auto Calibration. */
+    AON__CGU->CAL_CONFIG &= ~CGU_CAL_CONFIG_CAL_CLK_EN_MASK;
+
+    advcRet = ADVC_PostVoltageChangeRequest();
+    if (advcRet != kADVC_Stat_Ok)
+    {
+        return kStatus_Power_AdvcPostVoltageChangeFailed;
+    }
+
+    Power_ConfigureStallForMode(kPower_DeepPowerDown2, targetFreq);
+    return kStatus_Success;
+}
+#endif /* __CORTEX_M */
+
 /*!
  * brief Create the shared power handle.
  *
@@ -344,10 +548,6 @@ status_t Power_CreateHandle(power_handle_t *handle, const power_drv_config_t *co
     assert(config != NULL);
 #endif
 
-#if POWER_MU_TRANSFER_TIMEOUT
-    uint32_t timeout = POWER_MU_TRANSFER_TIMEOUT;
-#endif
-
     (void)memset(handle, 0UL, sizeof(power_handle_t));
 
     handle->muChannelId       = config->muChannelId;
@@ -362,33 +562,11 @@ status_t Power_CreateHandle(power_handle_t *handle, const power_drv_config_t *co
 
     if (config->noSyncCM0P != true)
     {
-        /* Inform the other core that it attempts to create a handle. */
-        uint32_t tmp32 = Power_PopulateMuMessage(kPower_MsgTypeSync, kPower_MsgDirMainToAon, kPower_Active,
-                                                 (uint16_t)(g_Handle_Offset & 0xFFFFUL));
-
-        g_powerMuTransferState = kPower_MuTransferStart;
-        MU_SendMsg(POWER_USED_MU, config->muChannelId, tmp32);
-
-        /* Waiting for response from CM0P. */
-        while (g_powerMuTransferState == kPower_MuTransferStart)
+        status_t syncStatus = Power_MuDoSync(config->muChannelId);
+        if (syncStatus != kStatus_Success)
         {
-#if POWER_MU_TRANSFER_TIMEOUT
-            if ((--timeout) == 0U)
-            {
-                return kStatus_Timeout;
-            }
-#endif
+            return syncStatus;
         }
-        if (g_powerMuTransferState == kPower_MuTransferWrong)
-        {
-            return kStatus_POWER_MuTransferError;
-        }
-        if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
-        {
-            return kStatus_Power_HandleDuplicated;
-        }
-        g_powerMuTransferState = kPower_MuTransferIdle;
-
         handle->dualCoreSynced = true;
     }
     else
@@ -441,37 +619,11 @@ status_t Power_SyncDualCoreBlocking(void)
 
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
 
-    /* Inform the other core that it attempts to create a handle. */
-    uint32_t tmp32 = Power_PopulateMuMessage(kPower_MsgTypeSync, kPower_MsgDirMainToAon, kPower_Active,
-                                             (uint16_t)(g_Handle_Offset & 0xFFFFUL));
-
-    g_powerMuTransferState = kPower_MuTransferStart;
-    MU_SendMsg(POWER_USED_MU, sharedHandle->muChannelId, tmp32);
-
-#if POWER_MU_TRANSFER_TIMEOUT
-    uint32_t timeout = POWER_MU_TRANSFER_TIMEOUT;
-#endif
-
-    /* Waiting for response from CM0P. */
-    while (g_powerMuTransferState == kPower_MuTransferStart)
+    status_t syncStatus = Power_MuDoSync(sharedHandle->muChannelId);
+    if (syncStatus != kStatus_Success)
     {
-#if POWER_MU_TRANSFER_TIMEOUT
-        if ((--timeout) == 0U)
-        {
-            return kStatus_Timeout;
-        }
-#endif
+        return syncStatus;
     }
-    if (g_powerMuTransferState == kPower_MuTransferWrong)
-    {
-        return kStatus_POWER_MuTransferError;
-    }
-    if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
-    {
-        return kStatus_Power_HandleDuplicated;
-    }
-    g_powerMuTransferState = kPower_MuTransferIdle;
-
     sharedHandle->dualCoreSynced = true;
 
     return kStatus_Success;
@@ -650,8 +802,11 @@ void Power_DisableWakeupSource(power_wakeup_source_t ws)
 
 void Power_DisableAllWakeupSources(void)
 {
+    power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
     SMM_DisableWakeupSourceToMainCpu(AON__SMM, SMM_WKUP_MAIN_WKUP_SRC_MAIN_CPU_MASK);
     SMM_DisableWakeupSourceToAonCpu(AON__SMM, SMM_AON_CPU_WKUP_SRC_AON_CPU_MASK);
+    sharedHandle->enabledWsInfo.mainWakeupSourceMask = 0UL;
+    sharedHandle->enabledWsInfo.aonWakeupSourceMask = 0UL;
 }
 
 /*!
@@ -1112,10 +1267,11 @@ status_t Power_EnterPowerDown1(power_pd1_config_t *config)
     Power_ConfigureStallForMode(kPower_PowerDown1, CLOCK_GetAonCoreSysClkFreq());
     PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
     SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
-    SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
+    SMM_EnableMainDomainSramRetention(AON__SMM, kPower_MainDomainAllRams);
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, false);
     SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
     SMM_StartPowerDownSequence(AON__SMM);
+    PMU_DoHandshakeBetweenPMUAndPAC(AON__PMU);
 
     /* 3. Configuration for CMC. */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
@@ -1164,38 +1320,17 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config)
     /* 1. Inform CM0P that CM33 request to set whole system into PD2 mode, require CM0P execute WFI. */
     if (sharedHandle->requestCM33Start != true)
     {
-        /* Inform CM0P to execute WFI. */
-        power_mu_message_t msg = {.strcutFormat = {
-                                      .syncCode                         = 0x5A,
-                                      .type                             = kPower_MsgTypeRequest,
-                                      .direction                        = kPower_MsgDirMainToAon,
-                                      .reqestLowPowerMode               = kPower_PowerDown2,
-                                      .lowHalfContent.halfWordValueMask = 0UL,
-                                  }};
-        g_powerMuTransferState = kPower_MuTransferStart;
-        MU_SendMsg(POWER_USED_MU, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
-#if POWER_MU_TRANSFER_TIMEOUT
-        uint32_t timeout = POWER_MU_TRANSFER_TIMEOUT;
-#endif
-        /* Waiting for response from CM0P. */
-        while (g_powerMuTransferState == kPower_MuTransferStart)
+        status_t muStatus = Power_CM33RequestLowPowerMode(kPower_PowerDown2, sharedHandle->muChannelId);
+        if (muStatus != kStatus_Success)
         {
-#if POWER_MU_TRANSFER_TIMEOUT
-            if ((--timeout) == 0U)
-            {
-                return kStatus_Timeout;
-            }
-#endif
+            return muStatus;
         }
-        if (g_powerMuTransferState == kPower_MuTransferWrong)
-        {
-            return kStatus_POWER_MuTransferError;
-        }
-        if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
-        {
-            return kStatus_POWER_RequestNotAllowed;
-        }
-        g_powerMuTransferState = kPower_MuTransferIdle;
+    }
+
+    status_t status = Power_PrepareVddCoreAndFro10M(config->vddCoreAonVoltage, config->disableFRO10M);
+    if (status != kStatus_Success)
+    {
+        return status;
     }
 
     /* 2. Enable wakeup sources for different domain. */
@@ -1208,15 +1343,11 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config)
     SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
 
     /* 3. Configuration for SMM and PMU. */
-    if (config->vddCoreAonVoltage != kPower_VddCoreAon_AdvcControl)
-    {
-        PMU_UpdateVDDCoreInActiveMode(AON__PMU, config->vddCoreAonVoltage);
-    }
-    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain) & 0xFFUL));
-    SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
-    SMM_ShutDownBandgapInLowPowerModes(AON__SMM, false);
-    SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
+    Power_ConfigSleepModeManager(kPower_AonDomainAllRams, kPower_MainDomainAllRams,
+                                 false, config->enableIVSMode);
     SMM_StartPowerDownSequence(AON__SMM);
+
+    PMU_DoHandshakeBetweenPMUAndPAC(AON__PMU);
 
     /* 4. Configuration for CMC. */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
@@ -1230,14 +1361,6 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config)
     }
     else
     {
-        if (config->disableFRO10M)
-        {
-            AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
-            AON__CGU->CLK_CONFIG =
-                (AON__CGU->CLK_CONFIG & ~CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) | CGU_CLK_CONFIG_ROOT_CLK_SEL(3U);
-            AON__CGU->CLK_CONFIG &= ~(CGU_CLK_CONFIG_LPIRC_EN_MASK | CGU_CLK_CONFIG_ULPIRC_EN_MASK);
-        }
-
         sharedHandle->requestCM33Start  = false;
         sharedHandle->targetPowerMode   = kPower_PowerDown2;
         sharedHandle->previousPowerMode = kPower_PowerDown2;
@@ -1268,6 +1391,11 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config)
         else
         { /* System is in PD1 mode, */
 
+            status = Power_PrepareVddCoreAndFro10M(config->vddCoreAonVoltage, config->disableFRO10M);
+            if (status != kStatus_Success)
+            {
+                return status;
+            }
             /*1. Enable wakeup sources.*/
             Power_CheckThenEnableWakeupSource(config->mainWakeupSource);
             Power_CheckThenEnableWakeupSource(config->aonWakeupSource);
@@ -1277,18 +1405,10 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config)
             SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
 
             /*2. Update SMM settings. */
-            SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain) & 0xFFUL));
-            SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
-            SMM_ShutDownBandgapInLowPowerModes(AON__SMM, false);
-            SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
+            Power_ConfigSleepModeManager(kPower_AonDomainAllRams, kPower_MainDomainAllRams,
+                                         false, config->enableIVSMode);
 
-            if (config->disableFRO10M)
-            {
-                AON__CGU->CLK_CONFIG |= CGU_CLK_CONFIG_ROOT_AUX_CLK_EN_MASK;
-                AON__CGU->CLK_CONFIG =
-                    (AON__CGU->CLK_CONFIG & ~CGU_CLK_CONFIG_ROOT_CLK_SEL_MASK) | CGU_CLK_CONFIG_ROOT_CLK_SEL(3U);
-                AON__CGU->CLK_CONFIG &= ~(CGU_CLK_CONFIG_LPIRC_EN_MASK | CGU_CLK_CONFIG_ULPIRC_EN_MASK);
-            }
+            PMU_DoHandshakeBetweenPMUAndPAC(AON__PMU);
 
             sharedHandle->previousPowerMode = kPower_PowerDown2;
             /*3. Execute WFI to enter PD2. */
@@ -1325,25 +1445,25 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
     memset(sharedHandle->lpConfig, 0UL, 16UL);
     memcpy(sharedHandle->lpConfig, config, sizeof(power_dpd1_config_t));
 #if __CORTEX_M == 33U
+    status_t status = Power_PrepareVddCoreAndFro10M(config->vddCoreAonVoltage, config->disableFRO10M);
+
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
     Power_CheckThenEnableWakeupSource(config->mainWakeupSource);
     SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
 
     /* 1. Configuration for SMM and PMU. */
-    if (config->vddCoreAonVoltage != kPower_VddCoreAon_AdvcControl)
-    {
-        PMU_UpdateVDDCoreInActiveMode(AON__PMU, config->vddCoreAonVoltage);
-    }
-    // Power_ConfigureStallForMode(kPower_DeepPowerDown1, CLOCK_GetAonCoreSysClkFreq());
+    Power_ConfigureStallForMode(kPower_DeepPowerDown1, CLOCK_GetAonCoreSysClkFreq());
     PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
+    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~kPower_AonDomainAllRams & 0xFFUL));
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
     SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
     SMM_StartPowerDownSequence(AON__SMM);
 
-    if (config->disableFRO10M)
-    {
-        AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_LPIRC_EN_MASK;
-    }
+    PMU_DoHandshakeBetweenPMUAndPAC(AON__PMU);
 
     /* 2. Configuration for CMC. */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
@@ -1357,6 +1477,7 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
     if ((config->mainRamArraysToRetain != kPower_MainDomainNoneRams) && (config->saveContext == true))
     {
         AON__SMM->LSB_BCKP1 = 0UL;
+        AON__SMM->MSB_BCKP1 = 0UL;
         if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
         {
             SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
@@ -1364,6 +1485,9 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
             __ISB();
             __WFI();
         }
+        while(AON__SMM->MSB_BCKP1 != 0x5A5AU)
+        {}
+        AON__SMM->MSB_BCKP1 = 0UL;
         AON__SMM->LSB_BCKP1 = 0UL;
 
         AON__SMM->LSB_BCKP2 = 0UL;
@@ -1434,127 +1558,84 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
     /*1. Inform CM0P that CM33 request to set whole system into DPD2 mode, require CM0P execute WFI. */
     if (sharedHandle->requestCM33Start != true)
     {
-        /* Inform CM0P to execute WFI. */
-        power_mu_message_t msg = {.strcutFormat = {
-                                      .syncCode                         = 0x5A,
-                                      .type                             = kPower_MsgTypeRequest,
-                                      .direction                        = kPower_MsgDirMainToAon,
-                                      .reqestLowPowerMode               = kPower_DeepPowerDown2,
-                                      .lowHalfContent.halfWordValueMask = 0UL,
-                                  }};
-        g_powerMuTransferState = kPower_MuTransferStart;
-        MU_SendMsg(POWER_USED_MU, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
-
-#if POWER_MU_TRANSFER_TIMEOUT
-        uint32_t timeout = POWER_MU_TRANSFER_TIMEOUT;
-#endif
-        /* Waiting for response from CM0P. */
-        while (g_powerMuTransferState == kPower_MuTransferStart)
+        status_t muStatus = Power_CM33RequestLowPowerMode(kPower_DeepPowerDown2, sharedHandle->muChannelId);
+        if (muStatus != kStatus_Success)
         {
-#if POWER_MU_TRANSFER_TIMEOUT
-            if ((--timeout) == 0U)
-            {
-                return kStatus_Timeout;
-            }
-#endif
+            return muStatus;
         }
-        if (g_powerMuTransferState == kPower_MuTransferWrong)
-        {
-            return kStatus_POWER_MuTransferError;
-        }
-        if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
-        {
-            return kStatus_POWER_RequestNotAllowed;
-        }
-        g_powerMuTransferState = kPower_MuTransferIdle;
     }
 
-    /*2. Enable wakeup sources for main and aon domain. */
-    Power_CheckThenEnableWakeupSource(config->mainWakeupSource);
-    Power_CheckThenEnableWakeupSource(config->aonWakeupSource);
+    while(sharedHandle->cm0pWFI == false)
+    {}
 
-    SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
-    SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
+    /*2. Enable wakeup sources for main and aon domain. */
+    Power_EnableDualDomainWakeupSources(config->mainWakeupSource, config->aonWakeupSource);
 
     /*3. Configuration for SMM and PMU. */
     if (ADVC_IsEnabled() == false)
     {
         /* When ADVC is disabled, manually select VddCore voltage based on target frequency */
         PMU_UpdateVDDCoreInLpMode(AON__PMU, Power_GetVddCoreForFreq(Power_GetDpd2TargetFreq(config)));
+
+        if (config->switchToX32K)
+        {
+            CLOCK_AttachClk(kXTAL32K_to_AON_CPU);
+        }
+        else
+        {
+            CLOCK_AttachClk(kFROdiv4_to_AON_CPU);
+        }
     }
-    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain) & 0xFFUL));
-    SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
-    SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
-    SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
+    Power_ConfigSleepModeManager(config->aonRamArraysToRetain, config->mainRamArraysToRetain,
+                                 config->disableBandgap, config->enableIVSMode);
     SMM_SwitchToXTAL32(AON__SMM, config->switchToX32K);
-    if (config->switchToX32K)
-    {
-        CLOCK_AttachClk(kXTAL32K_to_AON_CPU);
-    }
-    else
-    {
-        CLOCK_AttachClk(kFROdiv4_to_AON_CPU);
-    }
-    /* Configure stall values based on target frequency */
-    // Power_ConfigureStallForMode(kPower_DeepPowerDown2, Power_GetDpd2TargetFreq(config));
+    /* TODO: Configure stall values based on target frequency */
     PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
     SMM_StartAonDPD2Sequence(AON__SMM);
+    PMU_DoHandshakeBetweenPMUAndPAC(AON__PMU);
 
     /* 4. Configuration for CMC */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
     CMC_SetClockMode(CMC, kCMC_GateAllSystemClocksEnterLowPowerMode);
     CMC_SetGlobalPowerMode(CMC, kCMC_DeepPowerDown);
 
-    if (sharedHandle->cm0pWFI == false)
+    sharedHandle->requestCM33Start  = false;
+    sharedHandle->targetPowerMode   = kPower_DeepPowerDown2;
+    sharedHandle->previousPowerMode = kPower_DeepPowerDown2;
+    sharedHandle->cm0pWFI           = false;
+
+    /* 5. Software configuration for CM33. */
+    if ((config->mainRamArraysToRetain != kPower_MainDomainNoneRams) &&
+        (config->aonRamArraysToRetain != kPower_AonDomainNoneRams) && (config->saveContext == true))
     {
-        return kStatus_Power_CM0PNotWFI;
-    }
-    else
-    {
-        if (config->disableFRO10M)
-        {
-            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_LPIRC_EN_MASK;
-        }
-        if (config->disableFRO3M)
-        {
-            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_ULPIRC_EN_MASK;
-        }
-
-        sharedHandle->requestCM33Start  = false;
-        sharedHandle->targetPowerMode   = kPower_DeepPowerDown2;
-        sharedHandle->previousPowerMode = kPower_DeepPowerDown2;
-        sharedHandle->cm0pWFI           = false;
-
-        /* 5. Software configuration for CM33. */
-        if ((config->mainRamArraysToRetain != kPower_MainDomainNoneRams) &&
-            (config->aonRamArraysToRetain != kPower_AonDomainNoneRams) && (config->saveContext == true))
-        {
-            AON__SMM->LSB_BCKP1 = 0UL;
-            if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
-            {
-                SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-                __DSB();
-                __ISB();
-                __WFI();
-            }
-            __DSB();
-            __ISB();
-            Power_ClearLpPowerSettings();
-
-            AON__SMM->LSB_BCKP1 = 0UL;
-            AON__SMM->MSB_BCKP1 = 0UL;
-            AON__SMM->LSB_BCKP2 = 0UL;
-            AON__SMM->MSB_BCKP2 = 0UL;
-            return kStatus_Power_WakeupFromDPD2;
-        }
-        else
+        AON__SMM->LSB_BCKP1 = 0UL;
+        if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
         {
             SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
             __DSB();
             __ISB();
             __WFI();
-            return kStatus_Fail;
         }
+        while(AON__SMM->MSB_BCKP1 != 0x5A5AU)
+        {}
+        AON__SMM->MSB_BCKP1 = 0UL;
+        __DSB();
+        __ISB();
+        Power_ClearLpPowerSettings();
+
+        AON__SMM->LSB_BCKP1 = 0UL;
+        AON__SMM->MSB_BCKP1 = 0UL;
+        AON__SMM->LSB_BCKP2 = 0UL;
+        AON__SMM->MSB_BCKP2 = 0UL;
+        return kStatus_Power_WakeupFromDPD2;
+    }
+    else
+    {
+        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+        __DSB();
+        __ISB();
+        __WFI();
+        return kStatus_Fail;
     }
 #else
     status_t status = kStatus_Success;
@@ -1576,47 +1657,43 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
             sharedHandle->targetPowerMode = kPower_DeepPowerDown2;
 
             /*1. Enable wakeup sources for main and aon domain. */
-            Power_CheckThenEnableWakeupSource(config->mainWakeupSource);
-            Power_CheckThenEnableWakeupSource(config->aonWakeupSource);
+            Power_EnableDualDomainWakeupSources(config->mainWakeupSource, config->aonWakeupSource);
 
-            SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
-            SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
+            /*2. Configuration for SMM and PMU. */
+            Power_ConfigSleepModeManager(config->aonRamArraysToRetain, config->mainRamArraysToRetain,
+                                         config->disableBandgap, config->enableIVSMode);
 
             if (ADVC_IsEnabled() == false)
             {
+                /* Disable Auto Calibration. */
+                AON__CGU->CAL_CONFIG &= ~CGU_CAL_CONFIG_CAL_CLK_EN_MASK;
                 /* When ADVC is disabled, manually select VddCore voltage based on target frequency */
                 PMU_UpdateVDDCoreInLpMode(AON__PMU, Power_GetVddCoreForFreq(Power_GetDpd2TargetFreq(config)));
-            }
-            /*2. Configuration for SMM and PMU. */
-            SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(config->aonRamArraysToRetain) & 0xFFUL));
-            SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
-            SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
-            SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
-            SMM_SwitchToXTAL32(AON__SMM, config->switchToX32K);
 
-            if (config->switchToX32K)
-            {
-                /* Switch clock to target frequency using CLOCK_AttachClk which handles ADVC Pre/Post internally */
-                CLOCK_AttachClk(kXTAL32K_to_AON_CPU);
+                if (config->switchToX32K)
+                {
+                    CLOCK_AttachClk(kXTAL32K_to_AON_CPU);
+                }
+                else
+                {
+                    CLOCK_AttachClk(kFROdiv4_to_AON_CPU);
+                }
             }
             else
             {
-                CLOCK_AttachClk(kFROdiv4_to_AON_CPU);
+                status = Power_SetDpd2AdvcWorkaround(config);
+                if (status != kStatus_Success)
+                {
+                    return status;
+                }
             }
+
+            SMM_SwitchToXTAL32(AON__SMM, config->switchToX32K);
 
             /* Configure stall values based on target frequency */
-            //    Power_ConfigureStallForMode(kPower_DeepPowerDown2, Power_GetDpd2TargetFreq(config));
+            Power_ConfigureStallForMode(kPower_DeepPowerDown2, Power_GetDpd2TargetFreq(config));
             PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
-
-            if (config->disableFRO10M)
-            {
-                AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_LPIRC_EN_MASK;
-            }
-
-            if ((config->disableFRO3M) == true)
-            {
-                AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_ULPIRC_EN_MASK;
-            }
+            PMU_DoHandshakeBetweenPMUAndPAC(AON__PMU);
 
             sharedHandle->previousPowerMode = kPower_DeepPowerDown2;
             /*3. CM0P. Execute WFI */
@@ -1633,6 +1710,8 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
                     __ISB();
                     __WFI();
                 }
+                __ISB();
+                __DSB();
                 Power_ClearLpPowerSettings();
                 return kStatus_Power_WakeupFromDPD2;
             }
@@ -1683,39 +1762,11 @@ status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config)
     /*1. Inform CM0P that CM33 request to set whole system into DPD3 mode, require CM0P execute WFI. */
     if (sharedHandle->requestCM33Start != true)
     {
-        /* Inform CM0P to execute WFI. */
-        power_mu_message_t msg = {.strcutFormat = {
-                                      .syncCode                         = 0x5A,
-                                      .type                             = kPower_MsgTypeRequest,
-                                      .direction                        = kPower_MsgDirMainToAon,
-                                      .reqestLowPowerMode               = kPower_DeepPowerDown3,
-                                      .lowHalfContent.halfWordValueMask = 0UL,
-                                  }};
-        g_powerMuTransferState = kPower_MuTransferStart;
-        MU_SendMsg(POWER_USED_MU, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
-
-#if POWER_MU_TRANSFER_TIMEOUT
-        uint32_t timeout = POWER_MU_TRANSFER_TIMEOUT;
-#endif
-        /* Waiting for response from CM0P. */
-        while (g_powerMuTransferState == kPower_MuTransferStart)
+        status_t muStatus = Power_CM33RequestLowPowerMode(kPower_DeepPowerDown3, sharedHandle->muChannelId);
+        if (muStatus != kStatus_Success)
         {
-#if POWER_MU_TRANSFER_TIMEOUT
-            if ((--timeout) == 0U)
-            {
-                return kStatus_Timeout;
-            }
-#endif
+            return muStatus;
         }
-        if (g_powerMuTransferState == kPower_MuTransferWrong)
-        {
-            return kStatus_POWER_MuTransferError;
-        }
-        if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
-        {
-            return kStatus_POWER_RequestNotAllowed;
-        }
-        g_powerMuTransferState = kPower_MuTransferIdle;
     }
 
     /*2. Enable wakeup source to wakeup the whole system. */
@@ -1727,6 +1778,7 @@ status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config)
 
     /*3. Configuration of SMM. */
     SMM_StartAonShutDownSequence(AON__SMM);
+    PMU_DoHandshakeBetweenPMUAndPAC(AON__PMU);
 
     /*4. Configuration of CMC */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
@@ -1800,39 +1852,11 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
     /*1. Inform CM0P that CM33 request to set whole system into SD mode, require CM0P execute WFI.  */
     if (sharedHandle->requestCM33Start != true)
     {
-        /* Inform CM0P to execute WFI. */
-        power_mu_message_t msg = {.strcutFormat = {
-                                      .syncCode                         = 0x5A,
-                                      .type                             = kPower_MsgTypeRequest,
-                                      .direction                        = kPower_MsgDirMainToAon,
-                                      .reqestLowPowerMode               = kPower_ShutDown,
-                                      .lowHalfContent.halfWordValueMask = 0UL,
-                                  }};
-        g_powerMuTransferState = kPower_MuTransferStart;
-        MU_SendMsg(POWER_USED_MU, sharedHandle->muChannelId, (uint32_t)msg.wordFormat);
-
-#if POWER_MU_TRANSFER_TIMEOUT
-        uint32_t timeout = POWER_MU_TRANSFER_TIMEOUT;
-#endif
-        /* Waiting for response from CM0P. */
-        while (g_powerMuTransferState == kPower_MuTransferStart)
+        status_t muStatus = Power_CM33RequestLowPowerMode(kPower_ShutDown, sharedHandle->muChannelId);
+        if (muStatus != kStatus_Success)
         {
-#if POWER_MU_TRANSFER_TIMEOUT
-            if ((--timeout) == 0U)
-            {
-                return kStatus_Timeout;
-            }
-#endif
+            return muStatus;
         }
-        if (g_powerMuTransferState == kPower_MuTransferWrong)
-        {
-            return kStatus_POWER_MuTransferError;
-        }
-        if (g_powerMuTransferState == kPower_MuTransferEndWithNACK)
-        {
-            return kStatus_POWER_RequestNotAllowed;
-        }
-        g_powerMuTransferState = kPower_MuTransferIdle;
     }
 
     /*2. Enable wakeup source to wakeup the whole system. */
@@ -1848,6 +1872,7 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
     AON__SMM->RTC_XTAL_CONFG1 = 0x0UL;
     AON__SMM->RTC_XTAL_CONFG2 = 0x0UL;
     SMM_StartAonShutDownSequence(AON__SMM);
+    PMU_DoHandshakeBetweenPMUAndPAC(AON__PMU);
 
     /*4. Configuration of CMC */
     CMC_SetPowerModeProtection(CMC, kCMC_AllowAllLowPowerModes);
@@ -2255,6 +2280,12 @@ void Power_LowPowerBoot(void)
     }
 }
 
+
+void Power_NotifyCM33ToRun(void)
+{
+    AON__SMM->MSB_BCKP1 = 0x5A5AU;
+}
+
 /*!
  * brief Callback function for handling power MU messages.
  *
@@ -2440,9 +2471,18 @@ status_t Power_InterpretRequest(uint32_t message)
     {
         responseDir = kPower_MsgDirMainToAon;
     }
+
+#if __CORTEX_M == 0U
+    if (userAllowed && (targetLowPowerMode == kPower_DeepPowerDown2) && ADVC_IsEnabled())
+    {
+        Power_SetDpd2AdvcWorkaround((power_dpd2_config_t *)lpConfigAddr);
+    }
+#endif /* __CORTEX_M == 0U */
+
     uint32_t tmp32 = Power_PopulateMuMessage(resType, responseDir, targetLowPowerMode, lowerHalfWordValue);
     MU_SendMsg(POWER_USED_MU, channelId, tmp32);
 
+    PMU_DoHandshakeBetweenPMUAndPAC(AON__PMU);
     /* Until now, response already send to requester. */
     if (userAllowed && (resType != kPower_MsgTypeNACK))
     {
@@ -2454,7 +2494,7 @@ status_t Power_InterpretRequest(uint32_t message)
         {
             /* If CM0P approve to enter target low power mode, execute WFI. */
             sharedHandle->targetPowerMode   = targetLowPowerMode;
-            sharedHandle->previousPowerMode = targetLowPowerMode;
+            sharedHandle->previousPowerMode = targetLowPowerMode;            
             if ((targetLowPowerMode == kPower_DeepPowerDown2) &&
                 (((power_dpd2_config_t *)lpConfigAddr)->aonRamArraysToRetain != kPower_AonDomainNoneRams) &&
                 (((power_dpd2_config_t *)lpConfigAddr)->saveContext == true))
@@ -2471,6 +2511,7 @@ status_t Power_InterpretRequest(uint32_t message)
                 __DSB();
 
                 Power_ClearLpPowerSettings();
+                AON__SMM->MSB_BCKP1 = SMM_MSB_BCKP1_MSB1(0U);
             }
             else
             {

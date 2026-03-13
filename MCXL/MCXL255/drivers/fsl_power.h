@@ -62,6 +62,10 @@ enum
     kStatus_Power_WakeupFromDPD1    = MAKE_STATUS(kStatusGroup_POWER, 7), /*!< Woke up from DPD1 successfully. */
     kStatus_Power_WakeupFromDPD2    = MAKE_STATUS(kStatusGroup_POWER, 8), /*!< Woke up from DPD2 successfully. */
     kStatus_Power_DualCoreNotSynced = MAKE_STATUS(kStatusGroup_POWER, 9), /*!< The two cores are not synchronized. */
+    kStatus_Power_AdvcPreVoltageChangeFailed =
+        MAKE_STATUS(kStatusGroup_POWER, 10), /*!< ADVC pre-voltage change request failed. */
+    kStatus_Power_AdvcPostVoltageChangeFailed =
+        MAKE_STATUS(kStatusGroup_POWER, 11), /*!< ADVC post-voltage change request failed. */
 };
 
 /*!
@@ -333,8 +337,8 @@ typedef struct _power_pd1_config
                                             control any wakeup source. Pre-enabled wakeup sources are not affected.
                                              Wakeup sources can also be enabled manually by
                                              invoking Power_EnableWakeupSource().  */
-    uint32_t mainRamArraysToRetain : 16U;   /*!< Bitmask representing the main domain RAM
-                                                  arrays to retain during power down */
+    uint32_t mainRamArraysToRetain : 16U;   /*!< @deprecated: This field is no longer used, In PD1 mode, all RAM 
+                                            arrays retained. */
     uint32_t disableBandgap : 1U;           /*!< Flag to indicate whether to disable the bandgap during power down */
     uint32_t enableIVSMode : 1U;            /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
     pmu_fro16k_output_freq_t fro16KOutputFreq : 1U; /*!< Specify the output frequency of FRO16K */
@@ -357,14 +361,14 @@ typedef struct _power_pd2_config
                                             control any wakeup source. Pre-enabled wakeup sources are not affected.
                                              Wakeup sources can also be enabled manually by
                                              invoking Power_EnableWakeupSource(). */
-    uint32_t mainRamArraysToRetain : 16U;   /*!< Bitmask representing the main domain RAM arrays
-                                              to retain during DPD2 mode */
-    uint32_t aonRamArraysToRetain : 16U;    /*!< Bitmask representing the AON domain RAM arrays
-                                              to retain during DPD2 mode */
+    uint32_t mainRamArraysToRetain : 16U;   /*!< @deprecated: This field is no longer used, In PD2 mode,
+                                                all RAM arrays retained. */
+    uint32_t aonRamArraysToRetain : 16U;    /*!< @deprecated: This field is no longer used, In PD2 mode,
+                                                all RAM arrays retained. */
     uint32_t enableIVSMode : 1U;            /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
     uint32_t disableBandgap : 1U;           /*!< Flag to indicate whether to disable the bandgap during DPD2 mode */
     uint32_t disableFRO10M : 1U; /*!< Flag to indicate whether to disable the FRO10M clock during DPD2 mode */
-    power_vdd_core_output_voltage_t vddCoreAonVoltage : 8U; /*!< @deprecated Voltage is now automatically selected based
+    power_vdd_core_output_voltage_t vddCoreAonVoltage : 8U; /*!< @deprecated: Voltage is now automatically selected based
                                                                on frequency. This field is ignored. */
     pmu_fro16k_output_freq_t fro16KOutputFreq;              /*!< Specify the output frequency of FRO16K */
 } power_pd2_config_t;
@@ -494,12 +498,12 @@ typedef struct _power_handle
                                                          in type of @ref power_user_callback_t */
     void *cm0pUserData;                            /*!< User data pointer for CM0+ core operations */
     power_wakeup_source_info_t enabledWsInfo;      /*!< Used to record all enabled wakeup sources. */
-    uint32_t muChannelId : 4U;                     /*!< MU channel ID used for power communication. */
-    power_low_power_mode_t targetPowerMode : 4U;   /*!< Target low-power mode requested by this core. */
-    power_low_power_mode_t previousPowerMode : 4U; /*!< Previously entered low-power mode. */
-    uint32_t dualCoreSynced : 1U;                  /*!< Set when the two cores are synchronized. */
-    uint32_t requestCM33Start : 1U;                /*!< CM0P-side flag requesting CM33 to run the entry sequence. */
-    uint32_t cm0pWFI : 1U;                         /*!< CM0P has executed WFI (used for PD2/DPD2/DPD3/SD). */
+    volatile uint32_t muChannelId : 4U;                     /*!< MU channel ID used for power communication. */
+    volatile power_low_power_mode_t targetPowerMode : 4U;   /*!< Target low-power mode requested by this core. */
+    volatile power_low_power_mode_t previousPowerMode : 4U; /*!< Previously entered low-power mode. */
+    volatile uint32_t dualCoreSynced : 1U;                  /*!< Set when the two cores are synchronized. */
+    volatile uint32_t requestCM33Start : 1U;                /*!< CM0P-side flag requesting CM33 to run the entry sequence. */
+    volatile uint32_t cm0pWFI : 1U;                         /*!< CM0P has executed WFI (used for PD2/DPD2/DPD3/SD). */
 } power_handle_t;
 
 /*!
@@ -928,6 +932,7 @@ uint32_t Power_PushContext(uint32_t handleAddr);
  */
 void Power_LowPowerBoot(void);
 
+void Power_NotifyCM33ToRun(void);
 /*!
  * @}
  *

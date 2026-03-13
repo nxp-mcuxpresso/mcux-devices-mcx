@@ -8,6 +8,7 @@
     - Implemented Power_ConfigureStallForMode() for dynamic stall value configuration across all low power modes.
     - Added FRO16K output frequency selection (8kHz and 16kHz) support for all low power modes.
     - Added intermediate voltage enumeration values for finer-grained voltage control.
+    - RAM array configuration is not supported in PD1 and PD2 modes.
 
 - Improvements
     - Implemented automatic clock switching for DPD2 entry and wakeup using CLOCK_AttachClk().

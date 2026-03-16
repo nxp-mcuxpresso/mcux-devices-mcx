@@ -493,6 +493,6 @@ uint64_t PMDEVICE_GetSleepTimer(void)
     {
         return 0U;
     }
-    return (cnt / freq) * 1000000ULL;
+    return ((uint64_t)cnt * 1000000ULL) / (uint64_t)freq;
 #endif /* TIMER_PORT_TYPE_CTIMER */
 }

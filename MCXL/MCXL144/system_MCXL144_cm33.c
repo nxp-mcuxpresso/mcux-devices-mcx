@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25x RM Rev.1 RC
 **     Version:             rev. 1.1, 2026-01-02
-**     Build:               b260217
+**     Build:               b260317
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -78,6 +78,10 @@ __attribute__ ((weak)) void SystemInit (void) {
     extern void *__Vectors;
     SCB->VTOR = (uint32_t) &__Vectors;
 #endif
+  /* Disable the High Voltage Glitch Detect Control */
+  AON__PMU->AGDET_HV_CTRL &= ~PMU_AGDET_HV_CTRL_AGDET_HV_EN_MASK;
+  /* Disable the Low Voltage Glitch Detect Control  */
+  AON__PMU->AGDET_LV_CTRL &= ~PMU_AGDET_LV_CTRL_AGDET_LV_EN_MASK;
 #endif
   SystemInitHook();
 }

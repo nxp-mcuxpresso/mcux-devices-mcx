@@ -1,4 +1,4 @@
-# Copyright 2025 NXP
+# Copyright 2025-2026 NXP
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -14,7 +14,6 @@ config MCUX_COMPONENT_driver.romapi
     select MCUX_COMPONENT_driver.romapi_flashiap
     select MCUX_COMPONENT_driver.romapi_kbapi
     depends on MCUX_HAS_COMPONENT_driver.romapi
-
 
 config MCUX_COMPONENT_driver.romapi_nboot
     bool "romapi_nboot"

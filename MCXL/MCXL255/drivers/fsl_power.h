@@ -370,7 +370,7 @@ typedef struct _power_pd2_config
     uint32_t disableFRO10M : 1U; /*!< Flag to indicate whether to disable the FRO10M clock during DPD2 mode */
     power_vdd_core_output_voltage_t vddCoreAonVoltage : 8U; /*!< @deprecated: Voltage is now automatically selected based
                                                                on frequency. This field is ignored. */
-    pmu_fro16k_output_freq_t fro16KOutputFreq;              /*!< Specify the output frequency of FRO16K */
+    pmu_fro16k_output_freq_t fro16KOutputFreq : 1U;              /*!< Specify the output frequency of FRO16K */
 } power_pd2_config_t;
 
 /*!

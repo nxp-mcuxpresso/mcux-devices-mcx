@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260227
+**     Build:               b260323
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA536
@@ -88,7 +88,6 @@
 #include "PERI_TENBASET_PHY.h"
 #include "PERI_TRDC.h"
 #include "PERI_TRNG.h"
-#include "PERI_UDF.h"
 #include "PERI_USBHSDCD.h"
 #include "PERI_USBNC.h"
 #include "PERI_USBPHY.h"

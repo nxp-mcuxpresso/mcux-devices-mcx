@@ -30,7 +30,7 @@
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260203
+**     Build:               b260323
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for INPUTMUX
@@ -385,7 +385,7 @@ typedef struct {
 
 #define INPUTMUX_TIMER0TRIG_INP_MASK             (0xFFU)
 #define INPUTMUX_TIMER0TRIG_INP_SHIFT            (0U)
-/*! INP - Input number for CTIMER0
+/*! INP - Input number for CTIMER0 trigger
  *  0b00000000..Reserved
  *  0b00000001..CT_INP0 input is selected
  *  0b00000010..CT_INP1 input is selected
@@ -676,7 +676,7 @@ typedef struct {
 
 #define INPUTMUX_TIMER1TRIG_INP_MASK             (0xFFU)
 #define INPUTMUX_TIMER1TRIG_INP_SHIFT            (0U)
-/*! INP - Input number for CTIMER1
+/*! INP - Input number for CTIMER1 trigger
  *  0b00000000..Reserved
  *  0b00000001..CT_INP0 input is selected
  *  0b00000010..CT_INP1 input is selected
@@ -967,7 +967,7 @@ typedef struct {
 
 #define INPUTMUX_TIMER2TRIG_INP_MASK             (0xFFU)
 #define INPUTMUX_TIMER2TRIG_INP_SHIFT            (0U)
-/*! INP - Input number for CTIMER2
+/*! INP - Input number for CTIMER2 trigger
  *  0b00000000..Reserved
  *  0b00000001..CT_INP0 input is selected
  *  0b00000010..CT_INP1 input is selected
@@ -1583,7 +1583,7 @@ typedef struct {
 
 #define INPUTMUX_FREQMEAS_REF_INP_MASK           (0x3FU)
 #define INPUTMUX_FREQMEAS_REF_INP_SHIFT          (0U)
-/*! INP - Clock source number (binary value) for frequency measure function target clock.
+/*! INP - Clock source number (binary value) for frequency measure function reference clock.
  *  0b000000..Reserved
  *  0b000001..clk_in input is selected
  *  0b000010..FRO_OSC_12M input is selected
@@ -1810,7 +1810,7 @@ typedef struct {
 
 #define INPUTMUX_TIMER3TRIG_INP_MASK             (0xFFU)
 #define INPUTMUX_TIMER3TRIG_INP_SHIFT            (0U)
-/*! INP - Input number for CTIMER3
+/*! INP - Input number for CTIMER3 trigger
  *  0b00000000..Reserved
  *  0b00000001..CT_INP0 input is selected
  *  0b00000010..CT_INP1 input is selected

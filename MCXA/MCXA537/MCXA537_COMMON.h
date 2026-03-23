@@ -12,7 +12,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260227
+**     Build:               b260323
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXA537
@@ -165,8 +165,8 @@ typedef enum IRQn {
   SECURE_ERR_IRQn              = 114,              /**< Secure IP Error interrupt. It OR SGI, PKC, TRNG error together.  */
   SEC_HYPERVISOR_CALL_IRQn     = 115,              /**< AHB Secure Controller hypervisor call interrupt */
   RTC_IRQn                     = 119,              /**< RTC alarm interrupt */
-  GDET_IRQn                    = 122,              /**< Digital Glitch Detect 0 interrupt  */
-  EWM0_IRQn                    = 123,              /**< External Watchdog Monitor interrupt */
+  DGDET0_IRQn                  = 122,              /**< Digital Glitch Detect 0 interrupt  */
+  EWM_IRQn                     = 123,              /**< External Watchdog Monitor interrupt */
   Reserved140_IRQn             = 124,              /**< Reserved interrupt */
   Reserved141_IRQn             = 125,              /**< Reserved interrupt */
   GPIO0_1_IRQn                 = 126,              /**< General Purpose Input/Output 0 interrupt 1 */
@@ -558,6 +558,9 @@ typedef enum IRQn {
   /** Array initializer of DMA peripheral base pointers */
   #define DMA_BASE_PTRS                            { DMA0, DMA1 }
 #endif
+/** Interrupt vectors for the DMA peripheral type */
+#define DMA_IRQS                                 { { DMA0_CH0_IRQn, DMA0_CH1_IRQn, DMA0_CH2_IRQn, DMA0_CH3_IRQn, DMA0_CH4_IRQn, DMA0_CH5_IRQn, DMA0_CH6_IRQn, DMA0_CH7_IRQn, DMA0_CH8_IRQn, DMA0_CH9_IRQn, DMA0_CH10_IRQn, DMA0_CH11_IRQn }, \
+                                                   { DMA1_CH0_IRQn, DMA1_CH1_IRQn, DMA1_CH2_IRQn, DMA1_CH3_IRQn, NotAvail_IRQn, NotAvail_IRQn, NotAvail_IRQn, NotAvail_IRQn, NotAvail_IRQn, NotAvail_IRQn, NotAvail_IRQn, NotAvail_IRQn } }
 
 /* EIM - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
@@ -680,6 +683,8 @@ typedef enum IRQn {
   /** Array initializer of EWM peripheral base pointers */
   #define EWM_BASE_PTRS                            { EWM }
 #endif
+/** Interrupt vectors for the EWM peripheral type */
+#define EWM_IRQS                                 { EWM_IRQn }
 
 /* FLEXSPI - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
@@ -854,7 +859,7 @@ typedef enum IRQn {
   #define GDET_BASE_PTRS                           { DGDET0 }
 #endif
 /** Interrupt vectors for the GDET peripheral type */
-#define GDET_IRQS                                { GDET_IRQn }
+#define GDET_IRQS                                { DGDET0_IRQn }
 
 /* GLIKEY - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
@@ -1703,6 +1708,8 @@ typedef enum IRQn {
   /** Array initializer of TRDC peripheral base pointers */
   #define TRDC_BASE_PTRS                           { MBC0 }
 #endif
+/** Interrupt vectors for the TRDC peripheral type */
+#define TRDC_IRQS                                { MBC0_IRQn }
 #define MBC0_MEMORY_CFG_WORD_COUNT {1,2,4,1}
 #define MBC1_MEMORY_CFG_WORD_COUNT {1,1,1,1}
 #define MBC2_MEMORY_CFG_WORD_COUNT {9,6,1,1}
@@ -1742,35 +1749,6 @@ typedef enum IRQn {
   #define TRNG_BASE_ADDRS                          { TRNG0_BASE }
   /** Array initializer of TRNG peripheral base pointers */
   #define TRNG_BASE_PTRS                           { TRNG0 }
-#endif
-
-/* UDF - Peripheral instance base addresses */
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))
-  /** Peripheral UDF0 base address */
-  #define UDF0_BASE                                (0x500ED000u)
-  /** Peripheral UDF0 base address */
-  #define UDF0_BASE_NS                             (0x400ED000u)
-  /** Peripheral UDF0 base pointer */
-  #define UDF0                                     ((UDF_Type *)UDF0_BASE)
-  /** Peripheral UDF0 base pointer */
-  #define UDF0_NS                                  ((UDF_Type *)UDF0_BASE_NS)
-  /** Array initializer of UDF peripheral base addresses */
-  #define UDF_BASE_ADDRS                           { UDF0_BASE }
-  /** Array initializer of UDF peripheral base pointers */
-  #define UDF_BASE_PTRS                            { UDF0 }
-  /** Array initializer of UDF peripheral base addresses */
-  #define UDF_BASE_ADDRS_NS                        { UDF0_BASE_NS }
-  /** Array initializer of UDF peripheral base pointers */
-  #define UDF_BASE_PTRS_NS                         { UDF0_NS }
-#else
-  /** Peripheral UDF0 base address */
-  #define UDF0_BASE                                (0x400ED000u)
-  /** Peripheral UDF0 base pointer */
-  #define UDF0                                     ((UDF_Type *)UDF0_BASE)
-  /** Array initializer of UDF peripheral base addresses */
-  #define UDF_BASE_ADDRS                           { UDF0_BASE }
-  /** Array initializer of UDF peripheral base pointers */
-  #define UDF_BASE_PTRS                            { UDF0 }
 #endif
 
 /* USBHSDCD - Peripheral instance base addresses */

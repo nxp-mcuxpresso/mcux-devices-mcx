@@ -2,7 +2,7 @@
 //*****************************************************************************
 // MCXA457 startup code
 //
-// Version : 270226
+// Version : 230326
 //*****************************************************************************
 //
 // Copyright 2016-2026 NXP
@@ -213,8 +213,8 @@ WEAK void Reserved134_IRQHandler(void);
 WEAK void RTC_IRQHandler(void);
 WEAK void Reserved136_IRQHandler(void);
 WEAK void Reserved137_IRQHandler(void);
-WEAK void GDET_IRQHandler(void);
-WEAK void EWM0_IRQHandler(void);
+WEAK void DGDET0_IRQHandler(void);
+WEAK void EWM_IRQHandler(void);
 WEAK void TSI_END_OF_SCAN_IRQHandler(void);
 WEAK void TSI_OUT_OF_SCAN_IRQHandler(void);
 WEAK void GPIO0_1_IRQHandler(void);
@@ -366,8 +366,8 @@ void Reserved134_DriverIRQHandler(void) ALIAS(DefaultISR);
 void RTC_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved136_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved137_DriverIRQHandler(void) ALIAS(DefaultISR);
-void GDET_DriverIRQHandler(void) ALIAS(DefaultISR);
-void EWM0_DriverIRQHandler(void) ALIAS(DefaultISR);
+void DGDET0_DriverIRQHandler(void) ALIAS(DefaultISR);
+void EWM_DriverIRQHandler(void) ALIAS(DefaultISR);
 void TSI_END_OF_SCAN_DriverIRQHandler(void) ALIAS(DefaultISR);
 void TSI_OUT_OF_SCAN_DriverIRQHandler(void) ALIAS(DefaultISR);
 void GPIO0_1_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -623,8 +623,8 @@ __attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void)
     RTC_IRQHandler,                 // 135: RTC alarm interrupt
     Reserved136_IRQHandler,         // 136: Reserved interrupt
     Reserved137_IRQHandler,         // 137: Reserved interrupt
-    GDET_IRQHandler,                // 138: Digital Glitch Detect 0 interrupt
-    EWM0_IRQHandler,                // 139: External Watchdog Monitor interrupt
+    DGDET0_IRQHandler,              // 138: Digital Glitch Detect 0 interrupt
+    EWM_IRQHandler,                 // 139: External Watchdog Monitor interrupt
     TSI_END_OF_SCAN_IRQHandler,     // 140: TSI End of Scan interrupt
     TSI_OUT_OF_SCAN_IRQHandler,     // 141: TSI Out of Scan interrupt
     GPIO0_1_IRQHandler,             // 142: General Purpose Input/Output 0 interrupt 1
@@ -1552,14 +1552,14 @@ WEAK void Reserved137_IRQHandler(void)
     Reserved137_DriverIRQHandler();
 }
 
-WEAK void GDET_IRQHandler(void)
+WEAK void DGDET0_IRQHandler(void)
 {
-    GDET_DriverIRQHandler();
+    DGDET0_DriverIRQHandler();
 }
 
-WEAK void EWM0_IRQHandler(void)
+WEAK void EWM_IRQHandler(void)
 {
-    EWM0_DriverIRQHandler();
+    EWM_DriverIRQHandler();
 }
 
 WEAK void TSI_END_OF_SCAN_IRQHandler(void)

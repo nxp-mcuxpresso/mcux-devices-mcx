@@ -1,0 +1,9 @@
+# Copyright 2026 NXP
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+config MCUX_HW_DEVICE_MCXE32B_CORE_ID_core0
+    bool
+    default y
+
+rsource "Kconfig.chip"

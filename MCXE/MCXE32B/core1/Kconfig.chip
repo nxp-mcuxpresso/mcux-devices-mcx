@@ -1,0 +1,80 @@
+# Copyright 2024-2026 NXP
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# core related
+
+config MCUX_HW_CORE
+    string
+    default "cm7f"
+
+config MCUX_HW_CORE_CM7F
+    bool
+    default y
+
+config MCUX_HW_CORE_ID
+    string
+    default "core1"
+
+config MCUX_HW_CORE_ID_CORE1
+    bool
+    default y
+
+config MCUX_HW_DSP
+    bool
+    default n
+
+config MCUX_HW_MPU
+    bool
+    default y
+
+config MCUX_HW_FPU
+    string
+    default "SP_FPU"
+
+config MCUX_HW_FPU_TYPE
+    string
+    default "fpv5_sp"
+
+config MCUX_HW_FPV5_SP
+    bool
+    default y
+
+config MCUX_HW_SAU
+    bool
+    default n
+
+config MCUX_HW_INT_PRIO_BITS
+    int
+    default 4
+
+# device related
+
+config MCUX_HW_DEVICE_CORE
+    string
+    default "MCXE32B_cm7_core1"
+
+# For chipmodel generated files
+
+config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
+    string
+    default "MCXE32B_cm7_core1" if MCUX_HW_DEVICE_ID_MCXE32B
+
+config MCUX_TOOLCHAIN_MCUX_STARTUP
+    string
+    default "mcxe32b_cm7_core1"
+
+# Toolchain related
+
+config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
+    string
+    default "MCXE32B_core1" if MCUX_HW_DEVICE_ID_MCXE32B
+
+config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
+    string
+    default "MCXE32BMPB_core1" if MCUX_HW_DEVICE_PART_MCXE32BMPB
+
+config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
+    string
+    default "MCXE32B_core1" if MCUX_HW_DEVICE_ID_MCXE32B
+

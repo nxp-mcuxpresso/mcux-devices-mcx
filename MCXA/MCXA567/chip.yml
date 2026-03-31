@@ -13,7 +13,7 @@ device.hardware_data:
         series: "MCXA"
         family: "MCXA5XX"
         subfamily: "MCXA567"
-        frequency_mhz: 180
+        frequency_mhz: 240
         core:
           - name: "Cortex-M33"
             type: "cm33"

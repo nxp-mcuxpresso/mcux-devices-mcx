@@ -52,8 +52,12 @@
 **                          MCXN547VPB_cm33_core1
 **                          MCXN556SCDF_cm33_core0
 **                          MCXN556SCDF_cm33_core1
+**                          MCXN556TCDF_cm33_core0
+**                          MCXN556TCDF_cm33_core1
 **                          MCXN557SCDF_cm33_core0
 **                          MCXN557SCDF_cm33_core1
+**                          MCXN557TCDF_cm33_core0
+**                          MCXN557TCDF_cm33_core1
 **                          MCXN946VAB_cm33_core0
 **                          MCXN946VAB_cm33_core1
 **                          MCXN946VDF_cm33_core0
@@ -76,13 +80,13 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b251013
+**     Build:               b260326
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CAN
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -142,10 +146,18 @@
 #include "MCXN556S_cm33_core0_COMMON.h"
 #elif (defined(CPU_MCXN556SCDF_cm33_core1))
 #include "MCXN556S_cm33_core1_COMMON.h"
+#elif (defined(CPU_MCXN556TCDF_cm33_core0))
+#include "MCXN556T_cm33_core0_COMMON.h"
+#elif (defined(CPU_MCXN556TCDF_cm33_core1))
+#include "MCXN556T_cm33_core1_COMMON.h"
 #elif (defined(CPU_MCXN557SCDF_cm33_core0))
 #include "MCXN557S_cm33_core0_COMMON.h"
 #elif (defined(CPU_MCXN557SCDF_cm33_core1))
 #include "MCXN557S_cm33_core1_COMMON.h"
+#elif (defined(CPU_MCXN557TCDF_cm33_core0))
+#include "MCXN557T_cm33_core0_COMMON.h"
+#elif (defined(CPU_MCXN557TCDF_cm33_core1))
+#include "MCXN557T_cm33_core1_COMMON.h"
 #elif (defined(CPU_MCXN946VAB_cm33_core0) || defined(CPU_MCXN946VDF_cm33_core0) || defined(CPU_MCXN946VKL_cm33_core0) || defined(CPU_MCXN946VNL_cm33_core0) || defined(CPU_MCXN946VPB_cm33_core0))
 #include "MCXN946_cm33_core0_COMMON.h"
 #elif (defined(CPU_MCXN946VAB_cm33_core1) || defined(CPU_MCXN946VDF_cm33_core1) || defined(CPU_MCXN946VKL_cm33_core1) || defined(CPU_MCXN946VNL_cm33_core1) || defined(CPU_MCXN946VPB_cm33_core1))

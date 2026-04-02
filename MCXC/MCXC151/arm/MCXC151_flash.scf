@@ -10,7 +10,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260121
+**     Build:               b260326
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -44,6 +44,9 @@
 
 #define  m_text_start                  0x00000200
 #define  m_text_size                   0x00007E00
+
+#define  m_data_flash_start            0x0001C000
+#define  m_data_flash_size             0x00004000
 
 #define  m_data_start                  0x20000000
 #define  m_data_size                   0x00001800

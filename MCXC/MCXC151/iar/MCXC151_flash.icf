@@ -9,7 +9,7 @@
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260121
+**     Build:               b260326
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -43,6 +43,9 @@ define symbol m_interrupts_end                 = 0x000001FF;
 
 define symbol m_text_start                     = 0x00000200;
 define symbol m_text_end                       = 0x00007FFF;
+
+define symbol m_data_flash_start               = 0x0001C000;
+define symbol m_data_flash_end                 = 0x0001FFFF;
 
 define symbol m_data_start                     = 0x20000000;
 define symbol m_data_end                       = 0x200017FF;

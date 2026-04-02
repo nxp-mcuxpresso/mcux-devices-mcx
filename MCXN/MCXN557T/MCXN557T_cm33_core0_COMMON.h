@@ -2407,7 +2407,7 @@ typedef enum IRQn {
   #define PDM_BASE_PTRS                            { PDM }
 #endif
 /** Interrupt vectors for the PDM peripheral type */
-#define PDM_IRQS                                 { PDM_EVENT_IRQn }
+#define PDM_Event_IRQS                           { PDM_EVENT_IRQn }
 
 /* PINT - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

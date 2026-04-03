@@ -9,6 +9,18 @@
     - Added FRO16K output frequency selection (8kHz and 16kHz) support for all low power modes.
     - Added intermediate voltage enumeration values for finer-grained voltage control.
     - RAM array configuration is not supported in PD1 and PD2 modes.
+    - Enable stall configuration for low power modes by removing #if 0 guards
+    - Introduce power_dual_core_sync_state_t enum to properly track dual-core
+        synchronization states during low power transitions
+    - Fix race condition in Power_ClearLpPowerSettings() where CM0+ could
+      clear AON__SMM->STAT while CM33 ROM is still reading it
+    - Add proper synchronization handshake in Power_NotifyCM33ToRun() using
+      backup registers and dualCoreSynced state
+    - Fix DPD2->DPD1 transition path to allow CM0+ STAT write then restore
+      state for subsequent DPD1->Active step
+    - Add Power_ClearLpPowerSettings() calls after WFI in PD2 and request
+      handling paths
+    - Update all boolean dualCoreSynced checks to use new enum states
 
 - Improvements
     - Implemented automatic clock switching for DPD2 entry and wakeup using CLOCK_AttachClk().

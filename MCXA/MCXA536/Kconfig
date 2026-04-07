@@ -16,7 +16,7 @@ config MCUX_HW_DEVICE_MCXA536
     # component dependency
     select MCUX_COMPONENT_driver.edma4 if MCUX_COMPONENT_device.RTE
     select MCUX_COMPONENT_component.lpuart_adapter if MCUX_COMPONENT_component.serial_manager_uart
-    #select MCUX_COMPONENT_driver.mcx_spc if MCUX_COMPONENT_driver.clock
+    select MCUX_COMPONENT_driver.mcx_spc if MCUX_COMPONENT_driver.clock
     select MCUX_COMPONENT_driver.edma_soc if MCUX_COMPONENT_driver.edma4
     select MCUX_COMPONENT_driver.edma4 if MCUX_COMPONENT_driver.lpi2c_edma
     select MCUX_COMPONENT_driver.edma4 if MCUX_COMPONENT_driver.lpspi_edma

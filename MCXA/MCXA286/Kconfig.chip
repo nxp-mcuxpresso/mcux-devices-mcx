@@ -279,11 +279,6 @@ config MCUX_HW_IP_DriverType_MCX_CMC
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA286
 
-config MCUX_HW_IP_DriverType_MCX_ENET
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA286
-
 config MCUX_HW_IP_DriverType_MCX_SPC
     bool
     default y

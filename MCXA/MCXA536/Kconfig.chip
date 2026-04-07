@@ -108,11 +108,6 @@ config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
     default "MCXA536" if MCUX_HW_DEVICE_ID_MCXA536
 
-config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA536
-
 # ip information
 config MCUX_HW_IP_DriverType_AHBSC
     bool
@@ -120,11 +115,6 @@ config MCUX_HW_IP_DriverType_AHBSC
     depends on MCUX_HW_DEVICE_ID_MCXA536
 
 config MCUX_HW_IP_DriverType_AOI
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA536
-
-config MCUX_HW_IP_DriverType_CDOG
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA536
@@ -164,32 +154,12 @@ config MCUX_HW_IP_DriverType_ERM
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA536
 
-config MCUX_HW_IP_DriverType_ESPI
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA536
-
 config MCUX_HW_IP_DriverType_EWM
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA536
 
-config MCUX_HW_IP_DriverType_FLEXCAN
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA536
-
-config MCUX_HW_IP_DriverType_FLEXIO
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA536
-
 config MCUX_HW_IP_DriverType_FLEXSPI
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA536
-
-config MCUX_HW_IP_DriverType_FLEXSPI_IPED
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA536
@@ -229,11 +199,6 @@ config MCUX_HW_IP_DriverType_I1S
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA536
 
-config MCUX_HW_IP_DriverType_I3C
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA536
-
 config MCUX_HW_IP_DriverType_INPUTMUX
     bool
     default y
@@ -255,11 +220,6 @@ config MCUX_HW_IP_DriverType_LPCMP
     depends on MCUX_HW_DEVICE_ID_MCXA536
 
 config MCUX_HW_IP_DriverType_LPC_SYSCON
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA536
-
-config MCUX_HW_IP_DriverType_LPDAC
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA536
@@ -349,11 +309,6 @@ config MCUX_HW_IP_DriverType_SMARTDMA_MCXA
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA536
 
-config MCUX_HW_IP_DriverType_SPIFILTER
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA536
-
 config MCUX_HW_IP_DriverType_SGI
     bool
     default y
@@ -370,11 +325,6 @@ config MCUX_HW_IP_DriverType_TRDC_1
     depends on MCUX_HW_DEVICE_ID_MCXA536
 
 config MCUX_HW_IP_DriverType_TRNG
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA536
-
-config MCUX_HW_IP_DriverType_TSI_V6
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA536

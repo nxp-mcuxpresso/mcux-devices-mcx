@@ -189,11 +189,6 @@ config MCUX_HW_IP_DriverType_FLEXSPI
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA577
 
-config MCUX_HW_IP_DriverType_FLEXSPI_IPED
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA577
-
 config MCUX_HW_IP_DriverType_FMC
     bool
     default y
@@ -345,11 +340,6 @@ config MCUX_HW_IP_DriverType_SMARTDMA
     depends on MCUX_HW_DEVICE_ID_MCXA577
 
 config MCUX_HW_IP_DriverType_SMARTDMA_MCXA
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA577
-
-config MCUX_HW_IP_DriverType_SPIFILTER
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA577

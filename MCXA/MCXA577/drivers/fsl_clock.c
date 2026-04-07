@@ -1140,6 +1140,7 @@ void CLOCK_DisableUsbhsPhyPllClock(void)
     USBHS1_PHY->CTRL |= USBPHY_CTRL_CLKGATE_MASK; /* Set to 1U to gate clocks */
 }
 
+#ifdef USBHS1
 /*! brief Enable USB HS clock.
  * retval true The clock is set successfully.
  * retval false The clock source is invalid to get proper USB HS clock.
@@ -1154,6 +1155,7 @@ bool CLOCK_EnableUsbhsClock(void)
     }
     return true;
 }
+#endif
 
 /* Get UsbPll */
 static uint32_t CLOCK_GetUsbPllFreq(void)

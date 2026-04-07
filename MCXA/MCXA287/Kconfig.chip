@@ -164,11 +164,6 @@ config MCUX_HW_IP_DriverType_ERM
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA287
 
-config MCUX_HW_IP_DriverType_ESPI
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA287
-
 config MCUX_HW_IP_DriverType_EWM
     bool
     default y
@@ -185,11 +180,6 @@ config MCUX_HW_IP_DriverType_FLEXIO
     depends on MCUX_HW_DEVICE_ID_MCXA287
 
 config MCUX_HW_IP_DriverType_FLEXSPI
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA287
-
-config MCUX_HW_IP_DriverType_FLEXSPI_IPED
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA287
@@ -349,11 +339,6 @@ config MCUX_HW_IP_DriverType_SMARTDMA_MCXA
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA287
 
-config MCUX_HW_IP_DriverType_SPIFILTER
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA287
-
 config MCUX_HW_IP_DriverType_SGI
     bool
     default y
@@ -370,11 +355,6 @@ config MCUX_HW_IP_DriverType_TRDC_1
     depends on MCUX_HW_DEVICE_ID_MCXA287
 
 config MCUX_HW_IP_DriverType_TRNG
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA287
-
-config MCUX_HW_IP_DriverType_TSI_V6
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA287

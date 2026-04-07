@@ -140,11 +140,6 @@ config MCUX_HW_IP_DriverType_EIM
     default y
     depends on MCUX_HW_DEVICE_ID_MCXC161
 
-config MCUX_HW_IP_DriverType_EQDC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXC161
-
 config MCUX_HW_IP_DriverType_ERM
     bool
     default y

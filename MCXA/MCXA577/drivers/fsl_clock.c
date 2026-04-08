@@ -1320,7 +1320,7 @@ uint32_t CLOCK_GetMainClk(void)
             freq = CLOCK_GetClk16KFreq(1);
             break;
         case 6U:
-            freq = CLOCK_GetPll1ClkFreq();
+            freq = CLOCK_GetPll1ClkFreq() / ((SCG0->SPLLCSR & SCG_SPLLCSR_SPLL_DIV2_EN_MASK) ? 2U : 1U);
             break;
         case 7U:
             freq = CLOCK_GetUsbPfdClkFreq();

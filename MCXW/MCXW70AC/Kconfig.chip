@@ -1,0 +1,470 @@
+# Copyright 2026 NXP
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# core related
+config MCUX_HW_CORE
+    string
+    default "cm33"
+
+config MCUX_HW_CORE_CM33
+    bool
+    default y
+
+config MCUX_HW_CORE_ID
+    string
+    default "cm33"
+
+config MCUX_HW_CORE_ID_CM33
+    bool
+    default y
+
+config MCUX_HW_DEVICE_CORE
+    string
+    default "MCXW70AC"
+
+config MCUX_HW_FPU
+    string
+    default "SP_FPU"
+
+config MCUX_HW_FPU_TYPE
+    string
+    default "fpv5_sp"
+
+config MCUX_HW_FPV5_SP
+    bool
+    default y
+
+config MCUX_HW_INT_PRIO_BITS
+    int
+    default 3
+
+config MCUX_HW_DSP
+    bool
+    default y
+
+config MCUX_HW_SAU
+    bool
+    default y
+
+config MCUX_HW_SOC_SERIES_WIRELESS
+    bool
+    default y
+
+config MCUX_HW_SOC_SINGLECORE_DEVICE
+    bool
+    default y
+
+# device related
+
+config MCUX_HW_DEVICE_ID_MCXW70ACxxx
+    bool
+
+choice
+    prompt "Device MCXW70AC Part"
+    config MCUX_HW_DEVICE_PART_MCXW70ACMFT
+    bool "MCXW70ACMFT"
+    select MCUX_HW_DEVICE_ID_MCXW70ACxxx
+endchoice
+
+config MCUX_HW_DEVICE_ID
+    string
+    default "MCXW70ACxxx" if MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_DEVICE_PART
+    string
+    default "MCXW70ACMFT" if MCUX_HW_DEVICE_PART_MCXW70ACMFT
+
+# For chipmodel generated files
+config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
+    string
+    default "MCXW70AC" if MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_TOOLCHAIN_MCUX_STARTUP
+    string
+    default "mcxw70ac"
+
+# Toolchain related
+
+config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
+    string
+    default "MCXW70AC" if MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
+    string
+    default "MCXW70ACMFT" if MCUX_HW_DEVICE_PART_MCXW70ACMFT
+
+config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
+    string
+    default "MCXW70AC" if MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+# ip information
+config MCUX_HW_IP_DriverType_AOI
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_ATX
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_AXBS
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_BLE2_REG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_BTLE_RF
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_BTRTU1
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_BTU2_REG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_CCM32K
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_CDOG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_CE
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_CMC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_CRC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_DIGTMP
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_DSB
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_DMA3
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_EWM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_FLASH_K4
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_FLEXCAN
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_FMC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_FRO192
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_GDET
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_GEN4PHY
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_GENFSK
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_GLIKEY
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_GPIO
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_INTM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_ITRC_1
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_MU_1
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_LPADC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_LPCMP
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_LPI2C
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_LPIT
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_LPSPI
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_LPTMR
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_LPUART
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_LPUART_LIN
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_LTC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_MCM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_MRCC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_MSCM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_MSF1
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_MU_1
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_PKC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_PORT
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_PWM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_RADIO_CTRL
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_RADIO_PACKET_RAM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_RBME
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_REGFILE
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_RFMC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_RF_CMC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_SCG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_SEMA42
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_SFA
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_SEMA42
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_SGI
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_SPC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_SRTC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_SYSPM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_TPIU
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_TPM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_TRDC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_TRNG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_TRGMUX
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_TSTMR
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_WDOG32
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_WOR
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_WUU
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_XCVR_ANALOG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_XCVR_MISC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_XCVR_PLL_DIG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_XCVR_RX_DIG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_XCVR_TSM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx
+
+config MCUX_HW_IP_DriverType_XCVR_TX_DIG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXW70ACxxx

@@ -1,0 +1,9 @@
+# Copyright 2026 NXP
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+menu "Device specific drivers configuration"
+     rsource "../../MCXW70AC/drivers/Kconfig_clock"
+     rsource "../../MCXW70AC/drivers/Kconfig_romapi"
+     rsource "../../MCXW70AC/drivers/Kconfig_memory"
+endmenu

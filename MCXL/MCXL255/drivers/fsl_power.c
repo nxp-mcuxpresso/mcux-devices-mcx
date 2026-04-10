@@ -114,33 +114,33 @@ static power_vdd_core_output_voltage_t Power_GetVddCoreForFreq(uint32_t targetFr
 
     if (targetFreqHz == 10000000U)
     {
-        /* 10MHz requires 770mV */
-        voltage = kPower_VddCoreAon_772_5mV;
+        /* 10MHz requires 791.5mV */
+        voltage = kPower_VddCoreAon_791_5mV;
     }
     else if (targetFreqHz == 5000000U)
     {
-        /* 5MHz requires 740mV */
-        voltage = kPower_VddCoreAon_744mV;
+        /* 5MHz requires 763mV */
+        voltage = kPower_VddCoreAon_763mV;
     }
     else if (targetFreqHz == 3000000U)
     {
-        /* 3MHz requires 720mV */
-        voltage = kPower_VddCoreAon_725mV;
+        /* 3MHz requires 753.5mV */
+        voltage = kPower_VddCoreAon_753_5mV;
     }
     else if (targetFreqHz == 2500000U)
     {
-        /* 2.5MHz requires 730mV */
-        voltage = kPower_VddCoreAon_734_5mV;
+        /* 2.5MHz requires 744mV */
+        voltage = kPower_VddCoreAon_744mV;
     }
     else if (targetFreqHz >= 750000U)
     {
-        /* 0.75MHz requires 680mV */
-        voltage = kPower_VddCoreAon_687mV;
+        /* 0.75MHz requires 706mV */
+        voltage = kPower_VddCoreAon_706mV;
     }
     else
     {
-        /* 32kHz and below require 600mV */
-        voltage = kPower_VddCoreAon_601_5mV;
+        /* 32kHz and below require 630mV */
+        voltage = kPower_VddCoreAon_630mV;
     }
 
     return voltage;
@@ -1603,11 +1603,19 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
         {
             CLOCK_AttachClk(kFROdiv4_to_AON_CPU);
         }
+        if (config->disableFRO10M)
+        {
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_LPIRC_EN_MASK;
+        }
+        if (config->disableFRO3M)
+        {
+            AON__CGU->CLK_CONFIG &= ~CGU_CLK_CONFIG_ULPIRC_EN_MASK;
+        }
+        Power_ConfigureStallForMode(kPower_DeepPowerDown2, Power_GetDpd2TargetFreq(config));
     }
     Power_ConfigSleepModeManager(config->aonRamArraysToRetain, config->mainRamArraysToRetain, config->disableBandgap,
                                  config->enableIVSMode);
     SMM_SwitchToXTAL32(AON__SMM, config->switchToX32K);
-    /* TODO: Configure stall values based on target frequency */
     PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
     SMM_StartAonDPD2Sequence(AON__SMM);
     PMU_DoHandshakeBetweenPMUAndPAC(AON__PMU);
@@ -1798,6 +1806,7 @@ status_t Power_EnterDeepPowerDown3(power_dpd3_config_t *config)
     SMM_EnableWakeupSourceToMainCpu(AON__SMM, sharedHandle->enabledWsInfo.mainWakeupSourceMask);
     SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
     PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
+    PMU_KeepFRO16KActiveInDpd3AndSD(AON__PMU, false);
     Power_ConfigureStallForMode(kPower_ShutDown, (config->fro16KOutputFreq == kPMU_FRO16KOutput16KHz) ? 16000 : 8000);
 
     /*3. Configuration of SMM. */

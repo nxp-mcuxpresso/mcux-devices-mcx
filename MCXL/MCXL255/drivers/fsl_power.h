@@ -433,10 +433,12 @@ typedef struct _power_dpd2_config
     uint32_t enableIVSMode : 1U;     /*!< Enable/disable IVS mode for the Main domain SRAM retention. */
     uint32_t disableBandgap : 1U;    /*!< Flag to indicate whether to disable the bandgap during DPD2 mode */
     uint32_t switchToX32K : 1U;      /*!< Flag to indicate whether to switch to X32K clock source during DPD2 mode */
-    uint32_t disableFRO10M : 1U;     /*!< Flag to indicate whether to disable the FRO10M clock during DPD2 mode */
+    uint32_t disableFRO10M : 1U;     /*!< Flag to indicate whether to disable the FRO10M clock during DPD2 mode.
+                                        Please note, if switchToX32K is disable, FRO10M can not be disable if it is using as clock source. */
     uint32_t wakeToDpd1 : 1U;        /*!< Flag to indicate whether to wake up to DPD1 mode after DPD2 mode */
     uint32_t saveContext : 1U;       /*!< True to save basic register context into stack, false to do not save. */
-    uint32_t disableFRO3M : 1U;      /*!< True to disable FRO2M, false to do not disable. */
+    uint32_t disableFRO3M : 1U;      /*!< True to disable FRO3M, false to do not disable.
+                                        Please note, if switchToX32K is disable, FRO3M can not be disable if it is using as clock source. */
     pmu_fro16k_output_freq_t fro16KOutputFreq : 1U; /*!< Specify the output frequency of FRO16K */
     power_vdd_core_output_voltage_t
         dpd2VddCoreAonVoltage : 8U; /*!< @deprecated Voltage is now automatically selected based on frequency. Specify

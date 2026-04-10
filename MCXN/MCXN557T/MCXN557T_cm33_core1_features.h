@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.1, 2025-11-17
-**     Build:               b260326
+**     Build:               b260417
 **
 **     Abstract:
 **         Chip specific module features.
@@ -634,6 +634,8 @@
 
 /* @brief Has GPIO attribute checker register (GACR). */
 #define FSL_FEATURE_GPIO_HAS_ATTRIBUTE_CHECKER (0)
+/* @brief GPIO registers width */
+#define FSL_FEATURE_GPIO_REGISTERS_WIDTH (32)
 /* @brief Has GPIO version ID register (VERID). */
 #define FSL_FEATURE_GPIO_HAS_VERSION_INFO_REGISTER (1)
 /* @brief Has secure/non-secure access protection registers (LOCK, PCNS, PCNP, ICNS, ICNP). */
@@ -898,7 +900,7 @@
 #define FSL_FEATURE_PORT_HAS_MULTIPLE_IRQ_CONFIG (0)
 /* @brief Has Input Buffer Enable (register bit field PCR[IBE]). */
 #define FSL_FEATURE_PORT_HAS_INPUT_BUFFER (1)
-/* @brief Has Invert Input (register bit field PCR[IBE]). */
+/* @brief Has Invert Input (register bit field PCR[INV]). */
 #define FSL_FEATURE_PORT_HAS_INVERT_INPUT (1)
 /* @brief Defines whether PCR[IRQC] bit-field has flag states. */
 #define FSL_FEATURE_PORT_HAS_IRQC_FLAG (0)

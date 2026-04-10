@@ -117,7 +117,6 @@ device.hardware_data:
         part:
           - name: "MCXN536VDF"
           - name: "MCXN536VPB"
-          - name: "MCXN536VAB"
           - name: "MCXN536VKL"
         modules:
 ...

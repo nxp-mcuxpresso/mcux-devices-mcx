@@ -1,19 +1,18 @@
 /*
 ** ###################################################################
-**     Processors:          MCXN527VAB_cm33_core0
-**                          MCXN527VDF_cm33_core0
+**     Processors:          MCXN527VDF_cm33_core0
 **                          MCXN527VKL_cm33_core0
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b251107
+**     Build:               b260417
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com

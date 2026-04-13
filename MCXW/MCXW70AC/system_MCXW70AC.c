@@ -101,10 +101,16 @@ __attribute__ ((weak)) void SystemInit (void) {
     SCB->VTOR = (uint32_t) &g_pfnVectors;
 #endif
 
-  /* Request Core#1 to stall when accessing busy flash */
   SYSCON->AUTHENTICATE = SYSCON_UNLOCK_CODE;
   __DMB();
+
+  /* Request Core#1 to stall when accessing busy flash */
   SYSCON->FMC1_CTRL = SYSCON_FMC1_CTRL_PFLEXSTALL(1);
+
+  /* Set AHB timeout to prevent Core#1 HardFaults during concurrent AHB peripheral access */
+  SYSCON->CPU1_AHB_TIMEOUT &= ~SYSCON_CPU1_AHB_TIMEOUT_ahb_timeout_cycle_MASK;
+  SYSCON->CPU1_AHB_TIMEOUT |= SYSCON_CPU1_AHB_TIMEOUT_ahb_timeout_cycle(2U);
+
   /* Lock again */
   __DMB();
   SYSCON->AUTHENTICATE = 0UL;

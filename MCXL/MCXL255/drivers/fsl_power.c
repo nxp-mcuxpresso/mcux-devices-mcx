@@ -1900,6 +1900,7 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
     /*3. Configuration of SMM and PMU. */
     PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
     Power_ConfigureStallForMode(kPower_ShutDown, (config->fro16KOutputFreq == kPMU_FRO16KOutput16KHz) ? 16000 : 8000);
+    PMU_KeepFRO16KActiveInDpd3AndSD(AON__PMU, false);
     /* Clean all settings of RTC. */
     AON__SMM->RTC_DCDC_CNTRL  = 0xe00;
     AON__SMM->RTC_XTAL_CONFG1 = 0x0UL;

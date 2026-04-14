@@ -30,4 +30,143 @@ Functions for managing user callbacks during power state transitions:
 Function for initializing the power management system:
 - Power_CreateHandle: Creates a shared power handle for power management operations
 
+#Context Saving Interfaces
+Functions for saving and restoring CPU context across DPD1/DPD2 low-power modes:
+- Power_PushContext: Saves CPU register context to the stack before entering low power mode
+- Power_LowPowerBoot: Restores saved context from the stack on wakeup (called from Reset_Handler)
+- Power_NotifyCM33ToRun: CM0+ signals CM33 that dual-core sync is complete after DPD wakeup
+
+#Context Saving Feature Design
+
+##Overview
+Context saving allows the system to enter DPD1 or DPD2 and resume execution from where it
+left off, instead of performing a full reboot. When context saving is enabled, the ROM
+takes a low-power boot path that skips full initialization, significantly reducing the
+boot time on wakeup. The power driver provides the infrastructure; the application controls
+whether context saving is used via the `saveContext` field in power_dpd1_config_t /
+power_dpd2_config_t.
+
+##What Is Saved and What Is Not
+
+Context saving covers CPU core registers and SRAM content only:
+
+| Item              | Saved/Restored? | Mechanism                                      |
+|-------------------|:---------------:|-------------------------------------------------|
+| CPU registers     | Yes             | Power_PushContext / Power_LowPowerBoot          |
+| SRAM content      | Yes             | Hardware retention (SMM SRAM retention config)   |
+| NVIC state        | No              | NVIC resets when domain powers up                |
+| Main peripherals  | No              | Peripherals reset when domain powers up          |
+| AON peripherals   | Preserved       | AON domain stays powered (DPD1) or re-powered first (DPD2) |
+
+After wakeup, NVIC and main-domain peripherals are in reset state.
+##SMM Backup Registers
+
+The SMM backup registers (BCKP1, BCKP2) are used to pass information between the
+pre-sleep context and the ROM wakeup path:
+
+| Register     | DPD1 Usage                            | DPD2 Usage                              |
+|--------------|---------------------------------------|-----------------------------------------|
+| BCKP1 LSB+MSB | g_RomWakeupVector address; after restore: 0x5A5A/0xA55A as sync signal | Same |
+| BCKP2 MSB    | g_Handle_Offset (non-zero = context saved flag) | Same                        |
+| BCKP2 LSB    | Not used (cleared to 0)               | CM0+ saved SP (written by CM0+ PushContext) |
+
+On wakeup, ROM reads BCKP1 as a vector table address, loads SP from [addr] and PC from
+[addr+4], then jumps to Reset_Handler. Power_LowPowerBoot() detects BCKP2 MSB != 0
+and restores the saved context.
+
+##Dual-Core Synchronization State Machine (dualCoreSynced)
+
+The power_handle_t::dualCoreSynced field is a 2-bit state machine that coordinates CM33
+and CM0+ during low-power wakeup:
+
+| Value | State         | Meaning                                                        |
+|:-----:|---------------|----------------------------------------------------------------|
+| 0     | NotSynced     | Handle not initialized on both cores                            |
+| 1     | AonOnly       | CM33 ROM wakeup path active; CM0+ must not write SMM->STAT     |
+| 2     | Dpd2ToDpd1    | DPD2->DPD1 path; CM0+ writes STAT then restores to AonOnly     |
+| 3     | Synced        | Both cores operational, MU link established                     |
+
+##Power_PushContext / Power_LowPowerBoot Details
+
+Power_PushContext saves the following to the stack (high address to low):
+- FPU registers D8-D15 (CM33 only, when VFP is enabled)
+- LR
+- R12, R11-R8, R7-R4
+- APSR, XPSR, PRIMASK, CONTROL
+
+After pushing, the current SP is saved:
+- CM33: stored to power_handle_t::cm33SavedSP (offset 44 in the shared handle)
+- CM0+: stored to SMM BCKP2 LSB register
+
+Power_PushContext returns 0 on the initial call (before entering low power).
+
+Power_LowPowerBoot is called from Reset_Handler on wakeup. It checks if BCKP2 MSB is
+non-zero (indicating context was saved). If so, it restores g_Handle_Offset from BCKP2 MSB,
+restores SP from the saved location, pops all registers from the stack, and returns 1.
+Since the return is via the saved LR, execution resumes at the Power_PushContext call site,
+which now returns 1, allowing the caller to distinguish wakeup from initial entry.
+
+##DPD1 Context Saving Flow
+
+In DPD1, only the main domain (CM33) powers down. The AON domain (CM0+) stays alive.
+
+1. CM33 sends MU request to CM0+. CM0+ sets dualCoreSynced = AonOnly.
+2. CM33 configures wakeup sources, SMM, PMU, and CMC.
+3. CM33 writes g_RomWakeupVector to BCKP1, g_Handle_Offset to BCKP2 MSB.
+4. CM33 calls Power_PushContext (returns 0), then enters WFI with SLEEPDEEP.
+5. Main domain powers off. CM0+ remains in shallow WFI (AON domain alive).
+6. Wakeup source fires. Main domain powers up. ROM runs Power_LowPowerBoot, restores context.
+7. CM33 writes 0x5A5A/0xA55A to BCKP1, spins waiting for dualCoreSynced == Synced.
+8. CM0+ Power_NotifyCM33ToRun detects the sync signal, sets dualCoreSynced = Synced.
+9. CM33 clears BCKP registers, calls Power_ClearLpPowerSettings, returns kStatus_Power_WakeupFromDPD1.
+
+Note: BCKP2 LSB is not used in DPD1 because CM0+ does not need context restore.
+
+##DPD2 Context Saving Flow
+
+In DPD2, both the main and AON domains power down. Both cores need context saving.
+
+1. CM33 sends MU request to CM0+.
+2. CM0+ sets dualCoreSynced (AonOnly or Dpd2ToDpd1 depending on wakeToDpd1 flag).
+3. CM0+ calls Power_PushContext: saves registers, writes CM0+ SP to BCKP2 LSB, returns 0.
+4. CM0+ sets cm0pWFI = true, enters WFI with SLEEPDEEP.
+5. CM33 (waiting on cm0pWFI) enables wakeup sources for both domains (WKUP_MAIN + AON_CPU).
+6. CM33 configures SMM, PMU, CMC. Writes g_RomWakeupVector to BCKP1, g_Handle_Offset to BCKP2 MSB.
+7. CM33 calls Power_PushContext (returns 0), enters WFI with SLEEPDEEP.
+8. Both domains power off.
+9. Wakeup source fires. AON domain powers up first.
+10. CM0+ ROM runs Power_LowPowerBoot: restores g_Handle_Offset from BCKP2 MSB,
+    restores SP from BCKP2 LSB, pops registers. PushContext returns 1 to the app.
+11. Main domain powers up. CM33 ROM runs Power_LowPowerBoot: restores SP from
+    handle->cm33SavedSP (offset 44), pops registers. PushContext returns 1.
+12. CM33 writes 0x5A5A/0xA55A to BCKP1, spins on dualCoreSynced.
+13. CM0+ Power_NotifyCM33ToRun detects the sync signal, sets dualCoreSynced = Synced.
+14. CM33 clears BCKP registers, calls Power_ClearLpPowerSettings, returns kStatus_Power_WakeupFromDPD2.
+
+##Critical Ordering Constraints
+
+- BCKP2 LSB (CM0+ SP) must be written by CM0+ PushContext before CM33 enters WFI.
+  This is guaranteed because CM33 waits on cm0pWFI == true, which CM0+ sets after PushContext.
+- BCKP2 MSB (g_Handle_Offset) is written by CM33 before PushContext. CM0+ PushContext
+  only writes BCKP2 LSB, so the two writes do not conflict.
+- BCKP1 must not be cleared until both cores have completed the sync handshake.
+
+##Power_ClearLpPowerSettings
+
+Called after context restore on both cores. Cleans up SMM, CMC, and PWDN_CONFIG state:
+
+- CM33 side: disables main CPU isolation, clears low-power sequences, clears WKUP_MAIN,
+  resets CMC clock and power modes, clears SMM STAT and PWDN_CONFIG bits.
+- CM0+ side: disables AON CPU isolation, clears low-power sequences, clears AON_CPU.
+  Conditionally skips STAT write when dualCoreSynced == AonOnly to avoid racing with
+  CM33 ROM. For Dpd2ToDpd1 state, writes STAT and then restores state to AonOnly.
+
+##Application Responsibilities After Wakeup
+
+Since NVIC and main-domain peripherals are in reset state after wakeup, the application must:
+- Re-initialize clocks, pin muxing, and debug console (typically via BOARD_InitHardware)
+- Re-enable required NVIC interrupts (e.g., MU interrupt for dual-core communication)
+- Re-initialize any main-domain peripherals before use
+- Call Power_DisableAllWakeupSources to clear SMM wakeup masks for the next cycle
+
 */

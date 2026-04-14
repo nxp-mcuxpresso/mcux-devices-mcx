@@ -533,6 +533,7 @@ typedef struct _power_handle
         dualCoreSynced : 2U;                 /*!< Dual-core sync state; see @ref power_dual_core_sync_state_t. */
     volatile uint32_t requestCM33Start : 1U; /*!< CM0P-side flag requesting CM33 to run the entry sequence. */
     volatile uint32_t cm0pWFI : 1U;          /*!< CM0P has executed WFI (used for PD2/DPD2/DPD3/SD). */
+    volatile uint32_t cm33SavedSP;           /*!< CM33 saved SP for context restore (offset 44). */
 } power_handle_t;
 
 /*!
@@ -928,12 +929,6 @@ status_t Power_EnterShutDown(power_sd_config_t *config);
         ---------
         |  R4   |
         ---------
-        | handle|
-        | value |
-        ---------
-        | handle|
-        | addr  |
-        ---------
         | ASPR  |
         ---------
         | PSR   |
@@ -941,11 +936,11 @@ status_t Power_EnterShutDown(power_sd_config_t *config);
         |PRIMASK|
         ---------
         |CONTROL|
-        ---------  <------ SP Address saved in backup register
+        ---------  <------ SP saved to handle (CM33) or backup2 LSB (CM0P)
  *
  * @note User can use this function to save context before entering low power modes which will reset system.
- * @note For CM33 project, LSB_BCKP1, LSB_BCKP2, MSB_BCKP2 are used.
- * @note For CM0P project, MSB_BCKP1 is used.
+ * @note For CM33 project, LSB_BCKP1, MSB_BCKP1, MSB_BCKP2 are used.
+ * @note For CM0P project, LSB_BCKP2 is used.
  *
  * @param handleAddr The address of handle.
  *

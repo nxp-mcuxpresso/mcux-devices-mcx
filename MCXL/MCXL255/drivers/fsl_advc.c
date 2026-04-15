@@ -201,8 +201,8 @@ advc_result_t ADVC_Enable(advc_mode_t mode, uint8_t *vddCode)
 
     if (mode == kADVC_ModeSafe)
     {
-        advcEnableConfig.advc_safe_config.frequency_code        = ADVC_FREQUENCY_CODE_10MHZ;
         advcEnableConfig.advc_safe_config.should_write_to_dc2dc = true;
+        ADVC_DRIVER_convert_frequency_to_code(CLOCK_GetAonCoreSysClkFreq(), &advcEnableConfig.advc_safe_config.frequency_code);
     }
     else if (mode == kADVC_ModeOptimal)
     {

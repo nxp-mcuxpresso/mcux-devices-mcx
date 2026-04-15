@@ -1,5 +1,9 @@
 # CLOCK
 
+## [1.6.0]
+
+- Fixed CGU clock dividers behavior. The dividers are bypassed when disabled.
+
 ## [1.5.0]
 
 - Added new CLOCK_GetADVCControlState() API function to return the ADVC control state whether the AON CPU and ADVC monitored peripheral root clocks change cause the ADVC Pre/Post Change Request API function call.

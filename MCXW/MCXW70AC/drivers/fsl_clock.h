@@ -214,9 +214,11 @@ extern volatile uint32_t g_xtal32Freq;
     }
 
 /*! @brief Clock ip name array for PWM. */
-#define PWM_CLOCKS      \
-    {                   \
-        kCLOCK_Flexpwm0 \
+#define PWM_CLOCKS          \
+    {                       \
+        {                   \
+            kCLOCK_Flexpwm0 \
+        }                   \
     }
 
 /*! @brief Clock ip name array for GDET. */

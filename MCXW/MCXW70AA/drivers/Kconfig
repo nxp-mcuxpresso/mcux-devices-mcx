@@ -6,4 +6,5 @@ menu "Device specific drivers configuration"
      rsource "../../MCXW70AC/drivers/Kconfig_clock"
      rsource "../../MCXW70AC/drivers/Kconfig_romapi"
      rsource "../../MCXW70AC/drivers/Kconfig_memory"
+     rsource "../../MCXW70AC/drivers/Kconfig_trdc_soc"
 endmenu

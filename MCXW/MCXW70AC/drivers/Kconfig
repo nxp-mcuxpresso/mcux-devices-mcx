@@ -6,4 +6,5 @@ menu "Device specific drivers configuration"
      rsource "./Kconfig_clock"
      rsource "./Kconfig_romapi"
      rsource "./Kconfig_memory"
+     rsource "./Kconfig_trdc_soc"
 endmenu

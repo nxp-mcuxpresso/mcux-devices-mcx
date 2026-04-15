@@ -62,8 +62,8 @@ config MCUX_HW_DEVICE_ID_MCXW70AAxxx
 
 choice
     prompt "Device MCXW70AA Part"
-    config MCUX_HW_DEVICE_PART_MCXW70AAMFT
-    bool "MCXW70AAMFT"
+    config MCUX_HW_DEVICE_PART_MCXW70AAMMP
+    bool "MCXW70AAMMP"
     select MCUX_HW_DEVICE_ID_MCXW70AAxxx
 endchoice
 
@@ -73,7 +73,7 @@ config MCUX_HW_DEVICE_ID
 
 config MCUX_HW_DEVICE_PART
     string
-    default "MCXW70AAMFT" if MCUX_HW_DEVICE_PART_MCXW70AAMFT
+    default "MCXW70AAMMP" if MCUX_HW_DEVICE_PART_MCXW70AAMMP
 
 # For chipmodel generated files
 config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
@@ -92,7 +92,7 @@ config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
 
 config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
     string
-    default "MCXW70AAMFT" if MCUX_HW_DEVICE_PART_MCXW70AAMFT
+    default "MCXW70AAMMP" if MCUX_HW_DEVICE_PART_MCXW70AAMMP
 
 config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
@@ -399,7 +399,7 @@ config MCUX_HW_IP_DriverType_TPM
     default y
     depends on MCUX_HW_DEVICE_ID_MCXW70AAxxx
 
-config MCUX_HW_IP_DriverType_TRDC
+config MCUX_HW_IP_DriverType_TRDC_1
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXW70AAxxx

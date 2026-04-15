@@ -5,3 +5,4 @@
 include(../../MCXW70AC/drivers/CMakeLists_clock.txt)
 include(../../MCXW70AC/drivers/CMakeLists_romapi.txt)
 include(../../MCXW70AC/drivers/CMakeLists_memory.txt)
+include(../../MCXW70AC/drivers/CMakeLists_trdc_soc.txt)

@@ -1436,6 +1436,9 @@ status_t Power_EnterPowerDown2(power_pd2_config_t *config)
             __DSB();
             __ISB();
             __WFI();
+            /* PD2-from-PD1: CM33 is not involved so it never clears
+             * cm0pWFI.  Clear here to avoid stale true on next DPD2. */
+            sharedHandle->cm0pWFI = false;
         }
     }
 
@@ -1790,6 +1793,12 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
                 }
                 __ISB();
                 __DSB();
+                /* cm0pWFI was set true at DPD2 entry (line above PushContext).
+                 * In this CM0+-initiated DPD2-from-DPD1 path, CM33 is NOT
+                 * involved in the DPD2 entry so it never clears cm0pWFI.
+                 * A stale true would let the next CM33-initiated DPD2 skip
+                 * the while(cm0pWFI==false) synchronisation wait. */
+                sharedHandle->cm0pWFI = false;
                 Power_ClearLpPowerSettings();
                 return kStatus_Power_WakeupFromDPD2;
             }

@@ -2160,8 +2160,8 @@ status_t CLOCK_AonFroAutoTrimEnable(aon_fro_autotrim_config_t config, bool enabl
         AON__CGU->RST_SUB_BLK |= CGU_RST_SUB_BLK_CAL_RST_N(1);
 
         /* Disable autotrim*/
-        AON__CGU->CAL_CONFIG &= ~(1 << CGU_CAL_CONFIG_AUTO_CAL_SHIFT);
-        AON__CGU->CAL_CONFIG &= ~(1 << CGU_CAL_CONFIG_CAL_CLK_EN_SHIFT);
+        AON__CGU->CAL_CONFIG &= ~(1U << CGU_CAL_CONFIG_AUTO_CAL_SHIFT);
+        AON__CGU->CAL_CONFIG &= ~(1U << CGU_CAL_CONFIG_CAL_CLK_EN_SHIFT);
 
         /* Set calibration interval*/
         AON__CGU->AUTO_CAL_INT = AON_FRO_AUTO_CAL_INT;
@@ -2174,7 +2174,7 @@ status_t CLOCK_AonFroAutoTrimEnable(aon_fro_autotrim_config_t config, bool enabl
         }
         else
         {
-            AON__CGU->CAL_CONFIG |= (1 << CGU_CAL_CONFIG_CAL_SRC_SHIFT);
+            AON__CGU->CAL_CONFIG |= (1U << CGU_CAL_CONFIG_CAL_SRC_SHIFT);
             AON__CGU->CAL_DWN_CNT      = AON_FRO_AUTO_CAL_3M_CAL_DWN_CNT;
             AON__CGU->AUTO_CAL_TGT_LSB = AON_FRO_AUTO_CAL_3M_TGT_LSB;
         }
@@ -2195,7 +2195,7 @@ status_t CLOCK_AonFroAutoTrimEnable(aon_fro_autotrim_config_t config, bool enabl
     else
     {
         /* Disable auto trim */
-        AON__CGU->CAL_CONFIG &= ~(1 << CGU_CAL_CONFIG_AUTO_CAL_SHIFT);
+        AON__CGU->CAL_CONFIG &= ~(1U << CGU_CAL_CONFIG_AUTO_CAL_SHIFT);
     }
 
     return status;

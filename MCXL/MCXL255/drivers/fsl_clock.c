@@ -41,7 +41,7 @@ static xtal_drive_param_t s_XtalDriveParamsDefault[1] = {
 };
 
 #ifdef CONFIG_ADVC_DRIVER_USED
-static bool s_advcControlEnabled = true;
+static bool s_advcControlEnabled = false;
 #endif /* CONFIG_ADVC_DRIVER_USED */
 
 /*******************************************************************************

@@ -452,7 +452,7 @@ static void Power_ConfigSleepModeManager(uint8_t aonSramToRetain,
                                          bool enableIVS)
 {
     SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~aonSramToRetain & 0xFFUL));
-    SMM_EnableMainDomainSramRetention(AON__SMM, mainSramToRetain);
+    SMM_EnableMainDomainSramRetention(AON__SMM, (uint16_t)(mainSramToRetain & 0xFFFFUL));
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, disableBandgap);
     SMM_EnableIvsModeForSramRetention(AON__SMM, enableIVS);
 }
@@ -1496,7 +1496,7 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
     Power_ConfigureStallForMode(kPower_DeepPowerDown1, CLOCK_GetAonCoreSysClkFreq());
     PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
     SMM_EnableMainDomainSramRetention(AON__SMM, config->mainRamArraysToRetain);
-    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~kPower_AonDomainAllRams & 0xFFUL));
+    SMM_PowerOffAonSramAutomatically(AON__SMM, (uint8_t)(~(uint32_t)kPower_AonDomainAllRams & 0xFFUL));
     SMM_ShutDownBandgapInLowPowerModes(AON__SMM, config->disableBandgap);
     SMM_EnableIvsModeForSramRetention(AON__SMM, config->enableIVSMode);
     SMM_StartPowerDownSequence(AON__SMM);
@@ -1650,8 +1650,8 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
         }
     }
     Power_ConfigureStallForMode(kPower_DeepPowerDown2, Power_GetDpd2TargetFreq(config));
-    Power_ConfigSleepModeManager(config->aonRamArraysToRetain, config->mainRamArraysToRetain, config->disableBandgap,
-                                 config->enableIVSMode);
+    Power_ConfigSleepModeManager((uint8_t)(config->aonRamArraysToRetain & 0xFFUL), config->mainRamArraysToRetain,
+                                 config->disableBandgap, config->enableIVSMode);
     SMM_SwitchToXTAL32(AON__SMM, config->switchToX32K);
     PMU_UpdateFRO16KFreq(AON__PMU, config->fro16KOutputFreq);
     SMM_StartAonDPD2Sequence(AON__SMM);

@@ -4,7 +4,7 @@
 /*            MCXW70AA                                                       */
 /*  @version: 1.0                                                            */
 /*  @date:    2026-1-9                                                       */
-/*  @build:   b260409                                                        */
+/*  @build:   b260421                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -165,7 +165,7 @@ __vector_table_0x1c
         DCD     SGI_IRQHandler                                ;SGI Interrupt
         DCD     SECURE_ERR_IRQHandler                         ;Secure IP Error Interrupt
         DCD     PKC_IRQHandler                                ;PKC Module Error
-        DCD     TRNG_IRQHandler                               ;TRNG Module Error
+        DCD     TRNG0_IRQHandler                              ;TRNG Module Error
         DCD     FLASH_Arbiter_IRQHandler                      ;Combined interrupt from Flash Arbiter
         DCD     BLE_INT0_IRQHandler                           ;BLE LL interrupt Set 0 (BLE_INT0_IRQn)
         DCD     BLE_INT1_IRQHandler                           ;BLE LL interrupt Set 1 (BLE_INT1_IRQn)
@@ -675,7 +675,7 @@ LPUART1_IRQHandler
         PUBWEAK SGI_IRQHandler
         PUBWEAK SECURE_ERR_IRQHandler
         PUBWEAK PKC_IRQHandler
-        PUBWEAK TRNG_IRQHandler
+        PUBWEAK TRNG0_IRQHandler
         PUBWEAK FLASH_Arbiter_IRQHandler
         PUBWEAK BLE_INT0_IRQHandler
         PUBWEAK BLE_INT1_IRQHandler
@@ -775,7 +775,7 @@ INTM_IRQHandler
 SGI_IRQHandler
 SECURE_ERR_IRQHandler
 PKC_IRQHandler
-TRNG_IRQHandler
+TRNG0_IRQHandler
 FLASH_Arbiter_IRQHandler
 BLE_INT0_IRQHandler
 BLE_INT1_IRQHandler

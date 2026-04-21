@@ -4,7 +4,7 @@
 /*            MCXW70AD                                                       */
 /*  @version: 1.0                                                            */
 /*  @date:    2026-1-9                                                       */
-/*  @build:   b260409                                                        */
+/*  @build:   b260421                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -135,7 +135,7 @@ __isr_vector:
     .long   SGI_IRQHandler                                  /* SGI Interrupt*/
     .long   SECURE_ERR_IRQHandler                           /* Secure IP Error Interrupt*/
     .long   PKC_IRQHandler                                  /* PKC Module Error*/
-    .long   TRNG_IRQHandler                                 /* TRNG Module Error*/
+    .long   TRNG0_IRQHandler                                /* TRNG Module Error*/
     .long   FLASH_Arbiter_IRQHandler                        /* Combined interrupt from Flash Arbiter */
     .long   BLE_INT0_IRQHandler                             /* BLE LL interrupt Set 0 (BLE_INT0_IRQn)*/
     .long   BLE_INT1_IRQHandler                             /* BLE LL interrupt Set 1 (BLE_INT1_IRQn)*/
@@ -791,7 +791,7 @@ DMA_LIGHT_IRQHandler:
     def_irq_handler    SGI_IRQHandler
     def_irq_handler    SECURE_ERR_IRQHandler
     def_irq_handler    PKC_IRQHandler
-    def_irq_handler    TRNG_IRQHandler
+    def_irq_handler    TRNG0_IRQHandler
     def_irq_handler    FLASH_Arbiter_IRQHandler
     def_irq_handler    BLE_INT0_IRQHandler
     def_irq_handler    BLE_INT1_IRQHandler

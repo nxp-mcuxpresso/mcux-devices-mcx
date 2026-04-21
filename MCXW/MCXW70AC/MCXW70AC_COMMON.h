@@ -10,7 +10,7 @@
 **
 **     Reference manual:    Rev. 1 Draft F, 2025-10-18
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260409
+**     Build:               b260421
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW70AC
@@ -167,7 +167,7 @@ typedef enum IRQn {
   SGI_IRQn                     = 94,               /**< SGI Interrupt */
   SECURE_ERR_IRQn              = 95,               /**< Secure IP Error Interrupt */
   PKC_IRQn                     = 96,               /**< PKC Module Error */
-  TRNG_IRQn                    = 97,               /**< TRNG Module Error */
+  TRNG0_IRQn                   = 97,               /**< TRNG Module Error */
   FLASH_Arbiter_IRQn           = 98,               /**< Combined interrupt from Flash Arbiter  */
   BLE_INT0_IRQn                = 99,               /**< BLE LL interrupt Set 0 (BLE_INT0_IRQn) */
   BLE_INT1_IRQn                = 100,              /**< BLE LL interrupt Set 1 (BLE_INT1_IRQn) */
@@ -1102,6 +1102,9 @@ typedef enum IRQn {
   /** Array initializer of GPIO peripheral base pointers */
   #define GPIO_BASE_PTRS                           { GPIO_A, GPIO_B, GPIO_C, GPIO_D }
 #endif
+/** Interrupt vectors for the GPIO peripheral type */
+#define GPIO_IRQS                                { GPIOA_INT0_IRQn, GPIOB_INT0_IRQn, GPIOC_INT0_IRQn, GPIOD_INT0_IRQn }
+#define GPIO_S_IRQS                              { GPIOA_INT1_IRQn, GPIOB_INT1_IRQn, GPIOC_INT1_IRQn, GPIOD_INT1_IRQn }
 
 /* INTM - Peripheral instance base addresses */
 #if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2))

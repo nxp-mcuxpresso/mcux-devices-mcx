@@ -52,6 +52,10 @@ config MCUX_HW_SOC_SERIES_WIRELESS
     bool
     default y
 
+config MCUX_HW_SOC_SERIES_MCXW72
+    bool
+    default y
+
 config MCUX_HW_SOC_SINGLECORE_DEVICE
     bool
     default y

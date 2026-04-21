@@ -2865,6 +2865,9 @@ typedef enum IRQn {
 #define MU1_MUA MU_1__MUA
 #define MU1_MUB MU_1__MUB
 #define PORTA_BASE PORT_A_BASE
+#define PORTB_BASE PORT_B_BASE
+#define PORTC_BASE PORT_C_BASE
+#define PORTD_BASE PORT_D_BASE
 #define LPUART0 LPUART_0
 #define LPUART1 LPUART_1
 #define MCM PPB_MCM2_CM4

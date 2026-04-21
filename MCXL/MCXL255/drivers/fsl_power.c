@@ -1612,6 +1612,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
     /*1. Inform CM0P that CM33 request to set whole system into DPD2 mode, require CM0P execute WFI. */
     if (sharedHandle->requestCM33Start != true)
     {
+        sharedHandle->cm0pWFI = false;
         status_t muStatus = Power_CM33RequestLowPowerMode(kPower_DeepPowerDown2, sharedHandle->muChannelId);
         if (muStatus != kStatus_Success)
         {
@@ -1783,23 +1784,50 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
             {
                 sharedHandle->dualCoreSynced =
                     (config->wakeToDpd1 != 0U) ? kPower_DualCoreDpd2ToDpd1 : kPower_DualCoreAonOnly;
-                if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
+                if (sharedHandle->dualCoreSynced == kPower_DualCoreDpd2ToDpd1)
                 {
-                    SMM_StartAonDPD2Sequence(AON__SMM);
-                    (void)AON__SMM->PWDN_CONFIG;
-                    __DSB();
+                    if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
+                    {
+                        SMM_StartAonDPD2Sequence(AON__SMM);
+                        (void)AON__SMM->PWDN_CONFIG;
+                        __DSB();
+                        __ISB();
+                        __WFI();
+                    }
+                    /* Code below only executes when context saving is enabled (saveContext == true).
+                    * Power_PushContext() returns 0 on first call (enters DPD2 via WFI above),
+                    * and returns non-zero on wakeup after context restore, resuming here. */
                     __ISB();
-                    __WFI();
+                    __DSB();
                 }
-                __ISB();
-                __DSB();
+                else
+                {
+                    if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
+                    {
+                        SMM_StartAonDPD2Sequence(AON__SMM);
+                        (void)AON__SMM->PWDN_CONFIG;
+                        __DSB();
+                        __ISB();
+                        __WFI();
+                    }
+                    /* Code below only executes when context saving is enabled (saveContext == true).
+                    * Power_PushContext() returns 0 on first call (enters DPD2 via WFI above),
+                    * and returns non-zero on wakeup after context restore, resuming here. */
+                    __ISB();
+                    __DSB();
+                    while ((AON__SMM->LSB_BCKP1 != 0x5A5AUL) || (AON__SMM->MSB_BCKP1 != 0xA55AUL))
+                    {
+                        /* Wait until CM33 has restored context and written sync signal to backup1. */
+                    }
+                }
+
+                Power_ClearLpPowerSettings();
                 /* cm0pWFI was set true at DPD2 entry (line above PushContext).
                  * In this CM0+-initiated DPD2-from-DPD1 path, CM33 is NOT
                  * involved in the DPD2 entry so it never clears cm0pWFI.
                  * A stale true would let the next CM33-initiated DPD2 skip
                  * the while(cm0pWFI==false) synchronisation wait. */
                 sharedHandle->cm0pWFI = false;
-                Power_ClearLpPowerSettings();
                 return kStatus_Power_WakeupFromDPD2;
             }
             else
@@ -2252,6 +2280,15 @@ void Power_LowPowerBoot(void)
     }
 }
 
+/*!
+ * brief Notify CM33 that CM0+ is ready to proceed after DPD2 wakeup with context restore.
+ *
+ * This function waits for CM33 to signal that it has restored context (by writing a sync
+ * pattern to SMM backup1 registers), then acknowledges by setting dualCoreSynced to
+ * kPower_DualCoreSynced, allowing both cores to continue in sync.
+ *
+ * note Called from CM0+ side only after waking up from DPD2 with context saving enabled.
+ */
 void Power_NotifyCM33ToRun(void)
 {
     while ((AON__SMM->LSB_BCKP1 != 0x5A5AUL) || (AON__SMM->MSB_BCKP1 != 0xA55AUL))
@@ -2486,17 +2523,42 @@ status_t Power_InterpretRequest(uint32_t message)
                 sharedHandle->dualCoreSynced = (((power_dpd2_config_t *)lpConfigAddr)->wakeToDpd1 != 0U) ?
                                                    kPower_DualCoreDpd2ToDpd1 :
                                                    kPower_DualCoreAonOnly;
-                if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
+                if (sharedHandle->dualCoreSynced == kPower_DualCoreDpd2ToDpd1)
                 {
-                    sharedHandle->cm0pWFI = true;
-                    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-                    __DSB();
+                    if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
+                    {
+                        sharedHandle->cm0pWFI = true;
+                        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+                        __DSB();
+                        __ISB();
+                        __WFI();
+                    }
+                    /* Code below only executes when context saving is enabled (saveContext == true).
+                    * Power_PushContext() returns 0 on first call (enters DPD2 via WFI above),
+                    * and returns non-zero on wakeup after context restore, resuming here. */
                     __ISB();
-                    __WFI();
+                    __DSB();
                 }
-                __ISB();
-                __DSB();
-                
+                else
+                {
+                    if (Power_PushContext((uint32_t)sharedHandle) == 0UL)
+                    {
+                        sharedHandle->cm0pWFI = true;
+                        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+                        __DSB();
+                        __ISB();
+                        __WFI();
+                    }
+                    /* Code below only executes when context saving is enabled (saveContext == true).
+                    * Power_PushContext() returns 0 on first call (enters DPD2 via WFI above),
+                    * and returns non-zero on wakeup after context restore, resuming here. */
+                    __ISB();
+                    __DSB();
+                    while ((AON__SMM->LSB_BCKP1 != 0x5A5AUL) || (AON__SMM->MSB_BCKP1 != 0xA55AUL))
+                    {
+                        /* Wait until CM33 has restored context and written sync signal to backup1. */
+                    }
+                }
                 Power_ClearLpPowerSettings();
             }
             else
@@ -2507,6 +2569,7 @@ status_t Power_InterpretRequest(uint32_t message)
                 __WFI();
                 Power_ClearLpPowerSettings();
             }
+            sharedHandle->cm0pWFI = false;
         }
 #endif /* __CORTEX_M */
     }

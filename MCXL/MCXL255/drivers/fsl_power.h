@@ -956,6 +956,15 @@ uint32_t Power_PushContext(uint32_t handleAddr);
  */
 void Power_LowPowerBoot(void);
 
+/*!
+ * @brief Notify CM33 that CM0+ is ready to proceed after DPD2 wakeup with context restore.
+ *
+ * This function waits for CM33 to signal that it has restored context (by writing a sync
+ * pattern to SMM backup1 registers), then acknowledges by setting dualCoreSynced to
+ * kPower_DualCoreSynced, allowing both cores to continue in sync.
+ *
+ * @note Called from CM0+ side only after waking up from DPD2 with context saving enabled.
+ */
 void Power_NotifyCM33ToRun(void);
 /*!
  * @}

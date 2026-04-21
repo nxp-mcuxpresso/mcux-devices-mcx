@@ -6,7 +6,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXL25x RM Rev.1 RC
 **     Version:             rev. 1.1, 2026-01-02
-**     Build:               b260129
+**     Build:               b260421
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

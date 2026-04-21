@@ -2,13 +2,13 @@
 /*  @file:    startup_MCXL254_cm0plus.s                                      */
 /*  @purpose: CMSIS Cortex-M0P Core Device Startup File                      */
 /*            MCXL254_cm0plus                                                */
-/*  @version: 1.0                                                            */
-/*  @date:    2025-6-13                                                      */
-/*  @build:   b250812                                                        */
+/*  @version: 1.1                                                            */
+/*  @date:    2026-1-2                                                       */
+/*  @build:   b260421                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
-/* Copyright 2016-2025 NXP                                                   */
+/* Copyright 2016-2026 NXP                                                   */
 /* SPDX-License-Identifier: BSD-3-Clause                                     */
 /*****************************************************************************/
 /* Version: GCC for ARM Embedded Processors                                  */
@@ -50,7 +50,7 @@ __Vectors:
     .long   MU_B_RX_IRQHandler                              /* Ored rx interrupt to MUB*/
     .long   MU_B_INT_IRQHandler                             /* ORed general purpose interrupt request to MUB*/
     .long   SMM_IRQHandler                                  /* SMM IRQ*/
-    .long   SNS_IRQHandler                                  /* SNS - first fail test finish*/
+    .long   Reserved27_IRQHandler                           /* xxx Interrupt 27*/
     .long   LPCMP_IRQHandler                                /* Comparator*/
     .long   RTC_ALARM0_IRQHandler                           /* RTC alarm 0*/
     .long   RTC_ALARM1_IRQHandler                           /* RTC alarm 1*/
@@ -256,12 +256,12 @@ SMM_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak SNS_IRQHandler
-    .type SNS_IRQHandler, %function
-SNS_IRQHandler:
-    ldr   r0,=SNS_DriverIRQHandler
+    .weak Reserved27_IRQHandler
+    .type Reserved27_IRQHandler, %function
+Reserved27_IRQHandler:
+    ldr   r0,=Reserved27_DriverIRQHandler
     bx    r0
-    .size SNS_IRQHandler, . - SNS_IRQHandler
+    .size Reserved27_IRQHandler, . - Reserved27_IRQHandler
 
     .align 1
     .thumb_func
@@ -464,7 +464,7 @@ ADVC_IRQHandler:
     def_irq_handler    MU_B_RX_DriverIRQHandler
     def_irq_handler    MU_B_INT_DriverIRQHandler
     def_irq_handler    SMM_DriverIRQHandler
-    def_irq_handler    SNS_DriverIRQHandler
+    def_irq_handler    Reserved27_DriverIRQHandler
     def_irq_handler    LPCMP_DriverIRQHandler
     def_irq_handler    RTC_ALARM0_DriverIRQHandler
     def_irq_handler    RTC_ALARM1_DriverIRQHandler

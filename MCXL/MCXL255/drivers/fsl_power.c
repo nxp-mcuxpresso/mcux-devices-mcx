@@ -1102,8 +1102,8 @@ void Power_ClearLpPowerSettings(void)
     CMC_SetClockMode(CMC, kCMC_GateNoneClock);
     CMC_SetGlobalPowerMode(CMC, kCMC_ActiveOrSleepMode);
     AON__SMM->STAT = SMM_STAT_DPD_SEQ_END_MASK | SMM_STAT_DPD_END_MASK;
-    AON__SMM->PWDN_CONFIG &= ~(SMM_PWDN_CONFIG_BGR_PULSE_MASK | SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC_MASK |
-                               SMM_PWDN_CONFIG_CTRL_SRAM_DPD2_MASK);
+    AON__SMM->PWDN_CONFIG &= ~(SMM_PWDN_CONFIG_BGR_PULSE_MODE_EN_MASK | SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC_MASK |
+                               SMM_PWDN_CONFIG_SRAM_ISO_CTRL_MASK);
 #elif __CORTEX_M == 0U
     assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
@@ -1121,11 +1121,11 @@ void Power_ClearLpPowerSettings(void)
     {
         sharedHandle->dualCoreSynced = kPower_DualCoreAonOnly;
     }
-    AON__SMM->PWDN_CONFIG &= ~SMM_PWDN_CONFIG_CTRL_SRAM_DPD2_MASK;
+    AON__SMM->PWDN_CONFIG &= ~SMM_PWDN_CONFIG_SRAM_ISO_CTRL_MASK;
     if (SMM_GetPowerState(AON__SMM) != 2U)
     {
         /* If current mode is deep power down1 mode, keep bandgap setting and VDD_CORE_MAIN SRC no changed. */
-        AON__SMM->PWDN_CONFIG &= ~(SMM_PWDN_CONFIG_BGR_PULSE_MASK | SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC_MASK);
+        AON__SMM->PWDN_CONFIG &= ~(SMM_PWDN_CONFIG_BGR_PULSE_MODE_EN_MASK | SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC_MASK);
     }
 #endif /* __CORTEX_M */
 }
@@ -1985,7 +1985,7 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
     Power_ConfigureStallForMode(kPower_ShutDown, (config->fro16KOutputFreq == kPMU_FRO16KOutput16KHz) ? 16000 : 8000);
     PMU_KeepFRO16KActiveInDpd3AndSD(AON__PMU, false);
     /* Clean all settings of RTC. */
-    AON__SMM->RTC_DCDC_CNTRL  = 0xe00;
+    AON__SMM->RTC_LDO_CNTRL  = 0xe00;
     AON__SMM->RTC_XTAL_CONFG1 = 0x0UL;
     AON__SMM->RTC_XTAL_CONFG2 = 0x0UL;
     SMM_StartAonShutDownSequence(AON__SMM);

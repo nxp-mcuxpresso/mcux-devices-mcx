@@ -4,15 +4,15 @@
 **                          MCXL254VLL_cm0plus
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXL25xRM DraftH
-**     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250723
+**     Reference manual:    MCXL25x RM Rev.1 RC
+**     Version:             rev. 1.1, 2026-01-02
+**     Build:               b260421
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com

@@ -2,13 +2,13 @@
 /*  @file:    startup_MCXL254_cm33.s                                         */
 /*  @purpose: CMSIS Cortex-M33 Core Device Startup File                      */
 /*            MCXL254_cm33                                                   */
-/*  @version: 1.0                                                            */
-/*  @date:    2025-6-13                                                      */
-/*  @build:   b250723                                                        */
+/*  @version: 1.1                                                            */
+/*  @date:    2026-1-2                                                       */
+/*  @build:   b260421                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
-/* Copyright 2016-2025 NXP                                                   */
+/* Copyright 2016-2026 NXP                                                   */
 /* SPDX-License-Identifier: BSD-3-Clause                                     */
 /*****************************************************************************/
 /* Version: GCC for ARM Embedded Processors                                  */

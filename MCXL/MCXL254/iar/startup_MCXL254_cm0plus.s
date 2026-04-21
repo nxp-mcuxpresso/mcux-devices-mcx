@@ -2,13 +2,13 @@
 ;  @file:    startup_MCXL254_cm0plus.s
 ;  @purpose: CMSIS Cortex-M0P Core Device Startup File
 ;            MCXL254_cm0plus
-;  @version: 1.0
-;  @date:    2025-6-13
-;  @build:   b250723
+;  @version: 1.1
+;  @date:    2026-1-2
+;  @build:   b260421
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
-; Copyright 2016-2025 NXP
+; Copyright 2016-2026 NXP
 ; SPDX-License-Identifier: BSD-3-Clause
 ;
 ; The modules in this file are included in the libraries, and may be replaced
@@ -81,7 +81,7 @@ __vector_table_0x1c
         DCD     MU_B_RX_IRQHandler                            ;Ored rx interrupt to MUB
         DCD     MU_B_INT_IRQHandler                           ;ORed general purpose interrupt request to MUB
         DCD     SMM_IRQHandler                                ;SMM IRQ
-        DCD     SNS_IRQHandler                                ;SNS - first fail test finish
+        DCD     Reserved27_IRQHandler                         ;xxx Interrupt 27
         DCD     LPCMP_IRQHandler                              ;Comparator
         DCD     RTC_ALARM0_IRQHandler                         ;RTC alarm 0
         DCD     RTC_ALARM1_IRQHandler                         ;RTC alarm 1
@@ -244,11 +244,11 @@ SMM_IRQHandler
         LDR     R0, =SMM_DriverIRQHandler
         BX      R0
 
-        PUBWEAK SNS_IRQHandler
-        PUBWEAK SNS_DriverIRQHandler
+        PUBWEAK Reserved27_IRQHandler
+        PUBWEAK Reserved27_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-SNS_IRQHandler
-        LDR     R0, =SNS_DriverIRQHandler
+Reserved27_IRQHandler
+        LDR     R0, =Reserved27_DriverIRQHandler
         BX      R0
 
         PUBWEAK LPCMP_IRQHandler
@@ -402,7 +402,7 @@ MU_B_TX_DriverIRQHandler
 MU_B_RX_DriverIRQHandler
 MU_B_INT_DriverIRQHandler
 SMM_DriverIRQHandler
-SNS_DriverIRQHandler
+Reserved27_DriverIRQHandler
 LPCMP_DriverIRQHandler
 RTC_ALARM0_DriverIRQHandler
 RTC_ALARM1_DriverIRQHandler

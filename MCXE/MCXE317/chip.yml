@@ -64,5 +64,6 @@ device.hardware_data:
         part:
           - name: "MCXE317MPB"
           - name: "MCXE317MPA"
+          - name: "MCXE317MLL"
         modules:
 ...

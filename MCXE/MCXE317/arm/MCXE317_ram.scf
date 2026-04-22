@@ -2,13 +2,14 @@
 
 /*
 ** ###################################################################
-**     Processors:          MCXE317MPA_M7
+**     Processors:          MCXE317MLL_M7
+**                          MCXE317MPA_M7
 **                          MCXE317MPB_M7
 **
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b251107
+**     Build:               b260420
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler

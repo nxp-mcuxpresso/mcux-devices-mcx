@@ -12,9 +12,13 @@ choice
     config MCUX_HW_DEVICE_PART_MCXE317MPB
     bool "Device part MCXE317MPB"
     select MCUX_HW_DEVICE_ID_MCXE317
-   config MCUX_HW_DEVICE_PART_MCXE317MPAA
+    config MCUX_HW_DEVICE_PART_MCXE317MPA
     bool "Device part MCXE317MPA"
     select MCUX_HW_DEVICE_ID_MCXE317
+    config MCUX_HW_DEVICE_PART_MCXE317MLL
+    bool "Device part MCXE317MLL"
+    select MCUX_HW_DEVICE_ID_MCXE317
+
 endchoice
 
 config MCUX_HW_DEVICE_ID
@@ -25,6 +29,7 @@ config MCUX_HW_DEVICE_PART
     string
     default "MCXE317MPB" if MCUX_HW_DEVICE_PART_MCXE317MPB
     default "MCXE317MPA" if MCUX_HW_DEVICE_PART_MCXE317MPA
+    default "MCXE317MLL" if MCUX_HW_DEVICE_PART_MCXE317MLL
 # core related
 config MCUX_HW_CORE
     string
@@ -83,6 +88,8 @@ config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
 
 config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
     string
+    default "MCXE317MLL" if MCUX_HW_DEVICE_PART_MCXE317MLL
+    default "MCXE317MPA" if MCUX_HW_DEVICE_PART_MCXE317MPA
     default "MCXE317MPB" if MCUX_HW_DEVICE_PART_MCXE317MPB
 
 config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
@@ -116,7 +123,7 @@ config MCUX_HW_IP_DriverType_DMAMUX
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE317
 
-config MCUX_HW_IP_DriverType_EDMA4
+config MCUX_HW_IP_DriverType_EDMA3
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE317
@@ -272,11 +279,6 @@ config MCUX_HW_IP_DriverType_TEMPSENSE
     depends on MCUX_HW_DEVICE_ID_MCXE317
 
 config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXE317
-
-config MCUX_HW_IP_DriverType_PMC2
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE317  

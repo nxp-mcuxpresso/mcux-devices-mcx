@@ -27,13 +27,12 @@
  *
  * Defines the enumeration for TRDC master resource collections.
  */
-
 typedef enum _trdc_master
 {
     kTRDC_MasterCM33         = 0U, /**< CM33 */
     kTRDC_MasterNBUAndLpcac1 = 1U, /**< NBU and LPCAC1 */
     kTRDC_MasterDMA          = 2U, /**< DMA */
-    kTRDC_MasterNBU          = 3U, /**< Radio NBU */
+    kTRDC_MasterRadioNBU     = 3U, /**< Radio NBU */
     kTRDC_MasterDSB          = 4U, /**< DSB */
     kTRDC_MasterNBU_M        = 5U, /**< NBU_M */
     kTRDC_MasterLCE          = 6U, /**< LCE */

@@ -2908,6 +2908,7 @@ typedef enum IRQn {
 #define LPUART1 LPUART_1
 #define MCM PPB_MCM2_CM4
 #define ADC0 HSADC_0
+#define TRDC TRDC_0_MGR
 
 #define NXP_RADIO_GEN (475)
 #define RADIO_IS_GEN_4P7 (1)

@@ -12,6 +12,9 @@ choice
     config MCUX_HW_DEVICE_PART_MCXE31BMPB
     bool "Device part MCXE31BMPB"
     select MCUX_HW_DEVICE_ID_MCXE31B
+    config MCUX_HW_DEVICE_PART_MCXE31BMLL
+    bool "Device part MCXE31BMLL"
+    select MCUX_HW_DEVICE_ID_MCXE31B
 endchoice
 
 config MCUX_HW_DEVICE_ID
@@ -21,6 +24,7 @@ config MCUX_HW_DEVICE_ID
 config MCUX_HW_DEVICE_PART
     string
     default "MCXE31BMPB" if MCUX_HW_DEVICE_PART_MCXE31BMPB
+    default "MCXE31BMLL" if MCUX_HW_DEVICE_PART_MCXE31BMLL
 # core related
 config MCUX_HW_CORE
     string
@@ -80,6 +84,7 @@ config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
 config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
     string
     default "MCXE31BMPB" if MCUX_HW_DEVICE_PART_MCXE31BMPB
+    default "MCXE31BMLL" if MCUX_HW_DEVICE_PART_MCXE31BMLL
 
 config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
@@ -117,7 +122,7 @@ config MCUX_HW_IP_DriverType_DMAMUX
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE31B
 
-config MCUX_HW_IP_DriverType_EDMA4
+config MCUX_HW_IP_DriverType_EDMA3
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE31B
@@ -301,11 +306,6 @@ config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXE31B
-
-config MCUX_HW_IP_DriverType_PMC2
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXE31B  
 
 config MCUX_HW_IP_DriverType_MC_RGM
     bool

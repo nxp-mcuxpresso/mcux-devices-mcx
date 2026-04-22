@@ -1,10 +1,12 @@
 /*
 ** ###################################################################
-**     Processor:           MCXE31BMPB_M7
+**     Processors:          MCXE31BMLL_M7
+**                          MCXE31BMPB_M7
+**
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b251107
+**     Build:               b260420
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

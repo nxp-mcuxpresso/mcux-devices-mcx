@@ -5,7 +5,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260407
+**     Build:               b260424
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -41,17 +41,34 @@
   #define __ram_offset__               0
 #endif
 
+#if (defined(__qspi_xip__))
+  #define  m_interrupts_start            0x80001000
+  #define  m_interrupts_size             0x00000400
+
+  #define  m_text_start                  0x80001400
+  #define  m_text_size                   0x007FEC00
+#else
+
 #define  m_interrupts_start            0x00000000
 #define  m_interrupts_size             0x00000400
 
 #define  m_text_start                  0x00000400
 #define  m_text_size                   0x001FFC00
+#endif
 
 #define  m_data_start                  0x20000000 + __ram_offset__
 #define  m_data_size                   0x00080000 - __ram_offset__
 
 #define  m_sramx0_start                0x04000000
 #define  m_sramx0_size                 0x00020000
+
+#define  m_boot_flash_conf_start       0x80000400
+
+LR_m_flash_conf m_boot_flash_conf_start 0x400 {
+  FLASH_CONFIG m_boot_flash_conf_start 0x400{ ; load address = execution address
+    * (.flexspi_fcb)
+  }
+}
 
 LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region size_region
 

@@ -4,7 +4,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260407
+**     Build:               b260424
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -29,18 +29,30 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
 /* SRAM A1,A2 are reserved for PKC */
 RAM_OFFSET = DEFINED(__pkc__) ? 0x4000 : 0;
 
+TEXT_START = DEFINED(__qspi_xip__) ? 0x80001000 : 0x00000000; /* flexspi boot image start with 0x80000000 */
+TEXT_SIZE  = DEFINED(__qspi_xip__) ? 0x007FF000 : 0x00100000; /* flexspi boot image offset at 0x80001000 */
+
 /* Specify the memory areas */
 MEMORY
 {
-  m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00000400
-  m_text                (RX)  : ORIGIN = 0x00000400, LENGTH = 0x000FFC00
+  m_interrupts          (RX)  : ORIGIN = TEXT_START, LENGTH = 0x00000400
+  m_text                (RX)  : ORIGIN = TEXT_START + 0x00000400, LENGTH = TEXT_SIZE - 0x00000400
   m_data                (RW)  : ORIGIN = 0x20000000 + RAM_OFFSET, LENGTH = 0x00060000 - RAM_OFFSET
   m_sramx0              (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00020000
+  m_flash_config        (RX)  : ORIGIN = 0x80000400, LENGTH = 0x00000400
 }
 
 /* Define output sections */
 SECTIONS
 {
+  .flash_config :
+  {
+    . = ALIGN(4);
+    __FLASH_BASE = .;
+    KEEP(* (.flexspi_fcb))     /* FCB section */
+    . = ALIGN(4);
+  } > m_flash_config
+
   /* The startup code goes first into internal flash */
   .interrupts :
   {

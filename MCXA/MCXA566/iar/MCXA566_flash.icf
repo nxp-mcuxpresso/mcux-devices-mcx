@@ -7,7 +7,7 @@
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260407
+**     Build:               b260424
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -43,11 +43,21 @@ if (isdefinedsymbol(__pkc__)) {
   define symbol __ram_offset__         = 0;
 }
 
-define symbol m_interrupts_start               = 0x00000000;
-define symbol m_interrupts_end                 = 0x000003FF;
+if (isdefinedsymbol(__qspi_xip__)) {
+  define symbol m_interrupts_start               = 0x80001000;
+  define symbol m_interrupts_end                 = 0x800013FF;
 
-define symbol m_text_start                     = 0x00000400;
-define symbol m_text_end                       = 0x000FFFFF;
+  define symbol m_text_start                     = 0x80001400;
+  define symbol m_text_end                       = 0x807FFFFF;
+} else {
+  define symbol m_interrupts_start               = 0x00000000;
+  define symbol m_interrupts_end                 = 0x000003FF;
+
+  define symbol m_text_start                     = 0x00000400;
+  define symbol m_text_end                       = 0x000FFFFF;
+}
+
+define symbol m_boot_flash_conf_start          = 0x80000400;
 
 define symbol m_data_start                     = 0x20000000 + __ram_offset__;
 define symbol m_data_end                       = 0x2005FFFF;
@@ -78,6 +88,8 @@ if (isdefinedsymbol(__USE_DLIB_PERTHREAD))
 }
 
 
+keep{section .flexspi_fcb };
+place at address mem: m_boot_flash_conf_start { readonly section .flexspi_fcb };
 place at address mem: m_interrupts_start    { readonly section .intvec };
 place in TEXT_region                        { readonly };
 place in DATA_region                        { block RW };

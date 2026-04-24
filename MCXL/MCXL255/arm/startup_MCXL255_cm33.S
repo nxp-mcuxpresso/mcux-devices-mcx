@@ -225,6 +225,10 @@ Reset_Handler:
     msr     msplim, r0
     ldr     r0,=SystemInit
     blx     r0
+#ifdef __ENABLE_LP_BOOT
+    ldr     r0,=Power_LowPowerBoot
+    blx     r0
+#endif
     cpsie   i               /* Unmask interrupts */
     ldr     r0,=__main
     bx      r0

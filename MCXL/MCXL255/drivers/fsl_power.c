@@ -1474,7 +1474,19 @@ static const uint32_t g_RomWakeupVector[2] = {(uint32_t)&__INITIAL_SP, (uint32_t
  * retval kStatus_POWER_RequestNotAllowed Request not allowed by another core.
  * retval kStatus_Power_WakeupFromDPD1 Enter and wakeup from DPD1 successfully.
  */
+#ifdef __IAR_SYSTEMS_ICC__
+#pragma optimize = none
+#pragma inline = never
 status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
+#elif (defined(__CC_ARM) || defined(__ARMCC_VERSION))
+status_t __attribute__((optnone, noinline)) Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
+#elif (defined(__GNUC__)) || defined(DOXYGEN_OUTPUT)
+#pragma GCC push_options
+#pragma GCC optimize("O0")
+__attribute__((noinline)) status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
+#else
+status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
+#endif
 {
     assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
 
@@ -1564,6 +1576,9 @@ status_t Power_EnterDeepPowerDown1(power_dpd1_config_t *config)
     return Power_ReqestCM33StartLpSeq(kPower_DeepPowerDown1);
 #endif /* __CORTEX_M == 33U */
 }
+#if (defined(__GNUC__)) && !defined(__IAR_SYSTEMS_ICC__) && !defined(__CC_ARM) && !defined(__ARMCC_VERSION)
+#pragma GCC pop_options
+#endif
 
 /*!
  * brief Get the next transition after Deep Power Down 1 mode.
@@ -1595,7 +1610,19 @@ power_dpd1_transition_t Power_GetDeepPowerDown1NextTransition(void)
  * retval kStatus_Power_DualCoreNotSynced Cores are not synchronized.
  * retval kStatus_Timeout                 Timed out while waiting for MU response / cross-core sync.
  */
+#ifdef __IAR_SYSTEMS_ICC__
+#pragma optimize = none
+#pragma inline = never
 status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
+#elif (defined(__CC_ARM) || defined(__ARMCC_VERSION))
+status_t __attribute__((optnone, noinline)) Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
+#elif (defined(__GNUC__)) || defined(DOXYGEN_OUTPUT)
+#pragma GCC push_options
+#pragma GCC optimize("O0")
+__attribute__((noinline)) status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
+#else
+status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
+#endif
 {
     assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
 
@@ -1846,6 +1873,9 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
     return status;
 #endif /* __CORTEX_M == 33U */
 }
+#if (defined(__GNUC__)) && !defined(__IAR_SYSTEMS_ICC__) && !defined(__CC_ARM) && !defined(__ARMCC_VERSION)
+#pragma GCC pop_options
+#endif
 
 /*!
  * brief Enter Deep Power Down 3 mode.
@@ -2084,7 +2114,17 @@ status_t Power_EnterShutDown(power_sd_config_t *config)
  * retval 0 Return 0 before entering low power modes.
  * retval 1 Return 1 after waking up from low power modes.
  */
+#ifdef __IAR_SYSTEMS_ICC__
+#pragma optimize = none
+#pragma inline = never
 uint32_t Power_PushContext(uint32_t handleAddr)
+#elif (defined(__CC_ARM) || defined(__ARMCC_VERSION))
+uint32_t __attribute__((naked, noinline)) Power_PushContext(uint32_t handleAddr)
+#elif (defined(__GNUC__)) || defined(DOXYGEN_OUTPUT)
+uint32_t __attribute__((naked, noinline)) Power_PushContext(uint32_t handleAddr)
+#else
+uint32_t Power_PushContext(uint32_t handleAddr)
+#endif
 {
     /* Stack layout:
         ---------    <-----High address
@@ -2188,7 +2228,9 @@ uint32_t Power_PushContext(uint32_t handleAddr)
     __ASM volatile("MOVS R0, #0");
     __ASM volatile("BX LR");
 
+#ifdef __IAR_SYSTEMS_ICC__
     return 0;
+#endif
 }
 
 #define POWER_BCKP2_MSB_VALUE (uint32_t)(AON__SMM->MSB_BCKP2 & SMM_MSB_BCKP2_MSB2_MASK)
@@ -2202,11 +2244,14 @@ uint32_t Power_PushContext(uint32_t handleAddr)
  */
 #ifdef __IAR_SYSTEMS_ICC__
 #pragma optimize = none
+#pragma inline  = never
 void Power_LowPowerBoot(void)
 #elif (defined(__CC_ARM) || defined(__ARMCC_VERSION))
-void Power_LowPowerBoot(void)
+void __attribute__((optnone, noinline)) Power_LowPowerBoot(void)
 #elif (defined(__GNUC__)) || defined(DOXYGEN_OUTPUT)
-void __attribute__((optimize("O0"))) Power_LowPowerBoot(void)
+#pragma GCC push_options
+#pragma GCC optimize("O0")
+__attribute__((noinline)) void Power_LowPowerBoot(void)
 #else
 void Power_LowPowerBoot(void)
 #endif
@@ -2253,13 +2298,16 @@ void Power_LowPowerBoot(void)
         /* Restore r4-r7. */
         __ASM volatile("POP {r4-r7}");
         __ASM volatile("ISB");
-        /* Restore r8-r12. */
-        __ASM volatile("POP {r0-r4}");
+        /* Restore r8-r11 (use r0-r3 as temporaries). */
+        __ASM volatile("POP {r0-r3}");
         __ASM volatile("MOV r8, r0");
         __ASM volatile("MOV r9, r1");
         __ASM volatile("MOV r10, r2");
         __ASM volatile("MOV r11, r3");
-        __ASM volatile("MOV r12, r4");
+        /* Restore r12 separately — must NOT use r4 as temporary,
+         * because r4 was already restored by the POP {r4-r7} above. */
+        __ASM volatile("POP {r0}");
+        __ASM volatile("MOV r12, r0");
         __ASM volatile("ISB");
         /* Restore LR */
         __ASM volatile("POP {r0}"); /* saved PC */
@@ -2279,6 +2327,9 @@ void Power_LowPowerBoot(void)
         __ASM volatile("BX lr");
     }
 }
+#if (defined(__GNUC__)) && !defined(__IAR_SYSTEMS_ICC__) && !defined(__CC_ARM) && !defined(__ARMCC_VERSION)
+#pragma GCC pop_options
+#endif
 
 /*!
  * brief Notify CM33 that CM0+ is ready to proceed after DPD2 wakeup with context restore.
@@ -2433,7 +2484,19 @@ status_t Power_MuSyncCallback(uint32_t message, uint32_t channelId)
  * retval kStatus_POWER_RequestNotAllowed Request is not allowed.
  * retval kStatus_Success Interpret request message successfully.
  */
+#ifdef __IAR_SYSTEMS_ICC__
+#pragma optimize = none
+#pragma inline = never
 status_t Power_InterpretRequest(uint32_t message)
+#elif (defined(__CC_ARM) || defined(__ARMCC_VERSION))
+status_t __attribute__((optnone, noinline)) Power_InterpretRequest(uint32_t message)
+#elif (defined(__GNUC__)) || defined(DOXYGEN_OUTPUT)
+#pragma GCC push_options
+#pragma GCC optimize("O0")
+__attribute__((noinline)) status_t Power_InterpretRequest(uint32_t message)
+#else
+status_t Power_InterpretRequest(uint32_t message)
+#endif
 {
     assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
 
@@ -2576,6 +2639,9 @@ status_t Power_InterpretRequest(uint32_t message)
 
     return status;
 }
+#if (defined(__GNUC__)) && !defined(__IAR_SYSTEMS_ICC__) && !defined(__CC_ARM) && !defined(__ARMCC_VERSION)
+#pragma GCC pop_options
+#endif
 
 /*!
  * brief Interpret a MU response message.

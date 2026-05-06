@@ -1513,8 +1513,10 @@ static inline void CLOCK_EnableClock(clock_ip_name_t clk)
     }
     else
     {
-        assert(index < SYSCON_AHBCLKCTRLSET_COUNT);
-        SYSCON->AHBCLKCTRLSET[index] = (1UL << bit);
+        if (index < SYSCON_AHBCLKCTRLSET_COUNT)
+        {
+            SYSCON->AHBCLKCTRLSET[index] = (1UL << bit);
+        }
     }
 }
 
@@ -1551,8 +1553,10 @@ static inline void CLOCK_DisableClock(clock_ip_name_t clk)
     }
     else
     {
-        assert(index < SYSCON_AHBCLKCTRLSET_COUNT);
-        SYSCON->AHBCLKCTRLCLR[index] = (1UL << bit);
+        if (index < SYSCON_AHBCLKCTRLSET_COUNT)
+        {
+            SYSCON->AHBCLKCTRLCLR[index] = (1UL << bit);
+        }
     }
 }
 

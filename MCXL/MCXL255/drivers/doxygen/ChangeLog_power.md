@@ -33,6 +33,8 @@
 
 - Bug Fixes
     - Fixed disableFRO2M field name to disableFRO3M to match actual hardware.
+    - Add explicit mask and cast for config->aonRamArraysToRetain (16-bit bitfield)
+    passed to Power_ConfigSleepModeManager (uint8_t parameter) in the DPD1-to-DPD2 path.
 
 - Deprecations
     - Deprecated manual dpd2VddCoreAonVoltage configuration field in favor of automatic voltage selection.

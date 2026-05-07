@@ -4,7 +4,7 @@
 /*            MCXW70AC                                                       */
 /*  @version: 1.0                                                            */
 /*  @date:    2026-1-9                                                       */
-/*  @build:   b260421                                                        */
+/*  @build:   b260507                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -675,6 +675,12 @@ CAN0_IRQHandler
         PUBWEAK FLEXPWM0_RELOAD_ERROR_IRQHandler
         PUBWEAK FLEXPWM0_FAULT_IRQHandler
         PUBWEAK ITRC_IRQHandler
+        PUBWEAK ITRC_DriverIRQHandler
+        SECTION .text:CODE:REORDER:NOROOT(2)
+ITRC_IRQHandler
+        LDR     R0, =ITRC_DriverIRQHandler
+        BX      R0
+
         PUBWEAK TDET_IRQHandler
         PUBWEAK MU0_IRQHandler
         PUBWEAK INTM_IRQHandler
@@ -774,7 +780,7 @@ FLEXPWM0_SUBMODULE2_CAP_IRQHandler
 FLEXPWM0_SUBMODULE2_RELOAD_IRQHandler
 FLEXPWM0_RELOAD_ERROR_IRQHandler
 FLEXPWM0_FAULT_IRQHandler
-ITRC_IRQHandler
+ITRC_DriverIRQHandler
 TDET_IRQHandler
 MU0_IRQHandler
 INTM_IRQHandler

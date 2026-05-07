@@ -4,7 +4,7 @@
 /*            MCXW70AA                                                       */
 /*  @version: 1.0                                                            */
 /*  @date:    2026-1-9                                                       */
-/*  @build:   b260421                                                        */
+/*  @build:   b260507                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -689,6 +689,15 @@ LPUART1_IRQHandler:
 
     .align 1
     .thumb_func
+    .weak ITRC_IRQHandler
+    .type ITRC_IRQHandler, %function
+ITRC_IRQHandler:
+    ldr   r0,=ITRC_DriverIRQHandler
+    bx    r0
+    .size ITRC_IRQHandler, . - ITRC_IRQHandler
+
+    .align 1
+    .thumb_func
     .weak DMA_LIGHT_IRQHandler
     .type DMA_LIGHT_IRQHandler, %function
 DMA_LIGHT_IRQHandler:
@@ -784,7 +793,7 @@ DMA_LIGHT_IRQHandler:
     def_irq_handler    FLEXPWM0_SUBMODULE2_RELOAD_IRQHandler
     def_irq_handler    FLEXPWM0_RELOAD_ERROR_IRQHandler
     def_irq_handler    FLEXPWM0_FAULT_IRQHandler
-    def_irq_handler    ITRC_IRQHandler
+    def_irq_handler    ITRC_DriverIRQHandler
     def_irq_handler    TDET_IRQHandler
     def_irq_handler    MU0_IRQHandler
     def_irq_handler    INTM_IRQHandler

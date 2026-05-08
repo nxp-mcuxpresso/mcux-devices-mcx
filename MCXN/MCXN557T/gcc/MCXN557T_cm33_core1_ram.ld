@@ -1,10 +1,12 @@
 /*
 ** ###################################################################
-**     Processor:           MCXN557TCDF_cm33_core1
+**     Processors:          MCXN557TCDF_cm33_core1
+**                          MCXN557TVDF_cm33_core1
+**
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260417
+**     Build:               b260507
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

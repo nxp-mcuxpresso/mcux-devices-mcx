@@ -55,10 +55,14 @@
 **                          MCXN556SCDF_cm33_core1
 **                          MCXN556TCDF_cm33_core0
 **                          MCXN556TCDF_cm33_core1
+**                          MCXN556TVDF_cm33_core0
+**                          MCXN556TVDF_cm33_core1
 **                          MCXN557SCDF_cm33_core0
 **                          MCXN557SCDF_cm33_core1
 **                          MCXN557TCDF_cm33_core0
 **                          MCXN557TCDF_cm33_core1
+**                          MCXN557TVDF_cm33_core0
+**                          MCXN557TVDF_cm33_core1
 **                          MCXN946TVAB_cm33_core0
 **                          MCXN946TVAB_cm33_core1
 **                          MCXN946VDF_cm33_core0
@@ -81,7 +85,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260417
+**     Build:               b260507
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PUF
@@ -171,17 +175,17 @@
 #include "MCXN556S_cm33_core0_COMMON.h"
 #elif (defined(CPU_MCXN556SCDF_cm33_core1))
 #include "MCXN556S_cm33_core1_COMMON.h"
-#elif (defined(CPU_MCXN556TCDF_cm33_core0))
+#elif (defined(CPU_MCXN556TCDF_cm33_core0) || defined(CPU_MCXN556TVDF_cm33_core0))
 #include "MCXN556T_cm33_core0_COMMON.h"
-#elif (defined(CPU_MCXN556TCDF_cm33_core1))
+#elif (defined(CPU_MCXN556TCDF_cm33_core1) || defined(CPU_MCXN556TVDF_cm33_core1))
 #include "MCXN556T_cm33_core1_COMMON.h"
 #elif (defined(CPU_MCXN557SCDF_cm33_core0))
 #include "MCXN557S_cm33_core0_COMMON.h"
 #elif (defined(CPU_MCXN557SCDF_cm33_core1))
 #include "MCXN557S_cm33_core1_COMMON.h"
-#elif (defined(CPU_MCXN557TCDF_cm33_core0))
+#elif (defined(CPU_MCXN557TCDF_cm33_core0) || defined(CPU_MCXN557TVDF_cm33_core0))
 #include "MCXN557T_cm33_core0_COMMON.h"
-#elif (defined(CPU_MCXN557TCDF_cm33_core1))
+#elif (defined(CPU_MCXN557TCDF_cm33_core1) || defined(CPU_MCXN557TVDF_cm33_core1))
 #include "MCXN557T_cm33_core1_COMMON.h"
 #elif (defined(CPU_MCXN946TVAB_cm33_core0))
 #include "MCXN946T_cm33_core0_COMMON.h"

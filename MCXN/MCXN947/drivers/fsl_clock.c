@@ -744,7 +744,9 @@ status_t CLOCK_SetFLASHAccessCyclesForFreq(uint32_t system_freq_hz, run_mode_t m
         case (uint32_t)kOD_Mode:
         {
 #if defined(MCXN556S_cm33_core0_SERIES) || defined(MCXN556S_cm33_core1_SERIES) || \
-    defined(MCXN557S_cm33_core0_SERIES) || defined(MCXN557S_cm33_core1_SERIES)
+    defined(MCXN557S_cm33_core0_SERIES) || defined(MCXN557S_cm33_core1_SERIES) || \
+    defined(CPU_MCXN556TCDF_cm33_core0) || defined(CPU_MCXN556TCDF_cm33_core1) || \
+    defined(CPU_MCXN557TCDF_cm33_core0) || defined(CPU_MCXN557TCDF_cm33_core1)
             if (system_freq_hz > 170000000U)
 #else
             if (system_freq_hz > 150000000U)

@@ -128,6 +128,7 @@ device.hardware_data:
           flash_size_kb: 2048
         part:
           - name: "MCXN557TCDF"
+          - name: "MCXN557TVDF"
         modules:
           - name: "USB"
             feature: "KHCI_COUNT"

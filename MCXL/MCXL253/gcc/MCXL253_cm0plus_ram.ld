@@ -4,9 +4,9 @@
 **                          MCXL253VLL_cm0plus
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXL25x RM Rev.1 RC
-**     Version:             rev. 1.1, 2026-01-02
-**     Build:               b260421
+**     Reference manual:    MCXL25x RM Rev.2
+**     Version:             rev. 2.1, 2026-05-02
+**     Build:               b260512
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

@@ -129,6 +129,7 @@ device.hardware_data:
         part:
           - name: "MCXN947VDF"
           - name: "MCXN947VPB"
+          - name: "MCXN947VAB"
           - name: "MCXN947VNL"
           - name: "MCXN947VKL"
         modules:

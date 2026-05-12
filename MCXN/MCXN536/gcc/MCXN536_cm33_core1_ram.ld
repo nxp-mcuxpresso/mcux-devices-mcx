@@ -1,13 +1,14 @@
 /*
 ** ###################################################################
-**     Processors:          MCXN536VDF_cm33_core1
+**     Processors:          MCXN536VAB_cm33_core1
+**                          MCXN536VDF_cm33_core1
 **                          MCXN536VKL_cm33_core1
 **                          MCXN536VPB_cm33_core1
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260417
+**     Build:               b260512
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

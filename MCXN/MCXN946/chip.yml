@@ -129,6 +129,7 @@ device.hardware_data:
         part:
           - name: "MCXN946VDF"
           - name: "MCXN946VPB"
+          - name: "MCXN946VAB"
           - name: "MCXN946VNL"
           - name: "MCXN946VKL"
         modules:

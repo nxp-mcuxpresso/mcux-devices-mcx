@@ -1,6 +1,7 @@
 /*
 ** ###################################################################
-**     Processors:          MCXN946VDF_cm33_core1
+**     Processors:          MCXN946VAB_cm33_core1
+**                          MCXN946VDF_cm33_core1
 **                          MCXN946VKL_cm33_core1
 **                          MCXN946VNL_cm33_core1
 **                          MCXN946VPB_cm33_core1
@@ -8,7 +9,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260417
+**     Build:               b260512
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

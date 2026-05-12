@@ -104,6 +104,7 @@ device.hardware_data:
         part:
           - name: "MCXN247VDF"
           - name: "MCXN247VPB"
+          - name: "MCXN247VAB"
           - name: "MCXN247VKL"
         modules:
 ...

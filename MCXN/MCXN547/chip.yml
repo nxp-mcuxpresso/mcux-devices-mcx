@@ -129,6 +129,7 @@ device.hardware_data:
         part:
           - name: "MCXN547VDF"
           - name: "MCXN547VPB"
+          - name: "MCXN547VAB"
           - name: "MCXN547VNL"
           - name: "MCXN547VKL"
         modules:

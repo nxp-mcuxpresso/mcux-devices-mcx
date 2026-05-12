@@ -129,6 +129,7 @@ device.hardware_data:
         part:
           - name: "MCXN527VDF"
           - name: "MCXN527VKL"
+          - name: "MCXN527VAB"
         modules:
           - name: "USB"
             feature: "KHCI_COUNT"

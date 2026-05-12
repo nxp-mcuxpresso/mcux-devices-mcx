@@ -4,7 +4,7 @@
 ;            MCXN547T_cm33_core1
 ;  @version: 3.0
 ;  @date:    2024-10-29
-;  @build:   b260417
+;  @build:   b260512
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.

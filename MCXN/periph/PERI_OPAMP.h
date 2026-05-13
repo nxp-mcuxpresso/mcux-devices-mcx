@@ -1,6 +1,7 @@
 /*
 ** ###################################################################
 **     Processors:          MCXN246TVAB
+**                          MCXN246VAB
 **                          MCXN247TVAB
 **                          MCXN247VAB
 **                          MCXN247VDF
@@ -136,7 +137,9 @@
 #if !defined(PERI_OPAMP_H_)
 #define PERI_OPAMP_H_                            /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXN246TVAB))
+#if (defined(CPU_MCXN246VAB))
+#include "MCXN246_COMMON.h"
+#elif (defined(CPU_MCXN246TVAB))
 #include "MCXN246T_COMMON.h"
 #elif (defined(CPU_MCXN247VAB) || defined(CPU_MCXN247VDF) || defined(CPU_MCXN247VKL) || defined(CPU_MCXN247VPB))
 #include "MCXN247_COMMON.h"

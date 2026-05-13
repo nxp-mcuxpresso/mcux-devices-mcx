@@ -545,7 +545,7 @@ typedef enum _clock_name
 
 #define GET_ID_ITEM(connection)      ((connection)&0xFFFFU)
 #define GET_ID_NEXT_ITEM(connection) ((connection) >> 16U)
-#define GET_ID_ITEM_MUX(connection)  (((uint16_t)connection) & 0xFFFU)
+#define GET_ID_ITEM_MUX(connection)  ((uint32_t)(connection) & 0xFFFU)
 #define GET_ID_ITEM_SEL(connection)  ((uint8_t)(((((uint32_t)(connection)&0xF000U) >> 12U) - 1U) & 0xFFU))
 #define GET_ID_SELECTOR(connection)  ((connection)&0xF000000U)
 

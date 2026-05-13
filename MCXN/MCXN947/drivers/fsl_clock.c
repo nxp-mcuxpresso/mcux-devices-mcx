@@ -940,7 +940,7 @@ clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t attachId)
     actualAttachId |= selector;
     assert(actualAttachId < (uint32_t)kNONE_to_NONE);
 
-    return (clock_attach_id_t)actualAttachId;
+    return (actualAttachId < (uint32_t)kNONE_to_NONE) ? (clock_attach_id_t)actualAttachId : kNONE_to_NONE;
 }
 
 /* Set IP Clock Divider */

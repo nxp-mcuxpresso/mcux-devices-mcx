@@ -815,9 +815,9 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
 {
     assert(connection < kNONE_to_NONE);
 
-    uint16_t mux;
+    uint32_t mux;
     uint8_t sel;
-    uint16_t item;
+    uint32_t item;
     uint32_t tmp32 = (uint32_t)connection;
     uint32_t i;
     volatile uint32_t *pClkSel;
@@ -832,10 +832,10 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
             {
                 break;
             }
-            item = (uint16_t)GET_ID_ITEM(tmp32);
+            item = (uint32_t)GET_ID_ITEM(tmp32);
             if (item != 0U)
             {
-                mux = (uint16_t)GET_ID_ITEM_MUX(item);
+                mux = (uint32_t)GET_ID_ITEM_MUX(item);
                 sel = (uint8_t)GET_ID_ITEM_SEL(item);
                 if (mux == CM_SCGRCCRSCSCLKSEL)
                 {
@@ -846,8 +846,10 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
                 }
                 else
                 {
-                    assert(mux <= CM_I3C1FCLKSEL);
-                    ((volatile uint32_t *)pClkSel)[mux] = sel;
+                    if (mux <= CM_I3C1FCLKSEL)
+                    {
+                        pClkSel[mux] = sel;
+                    }
                 }
             }
             tmp32 = GET_ID_NEXT_ITEM(tmp32); /* pick up next descriptor */
@@ -867,7 +869,7 @@ clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t attachId)
 {
     assert(attachId < kNONE_to_NONE);
 
-    uint16_t mux;
+    uint32_t mux;
     uint32_t actualSel;
     uint32_t tmp32 = (uint32_t)attachId;
     uint32_t i;
@@ -884,7 +886,7 @@ clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t attachId)
 
     for (i = 0U; i < 2U; i++)
     {
-        mux = (uint16_t)GET_ID_ITEM_MUX(tmp32);
+        mux = (uint32_t)GET_ID_ITEM_MUX(tmp32);
         if (tmp32 != 0UL)
         {
             if (mux == CM_SCGRCCRSCSCLKSEL)
@@ -893,21 +895,29 @@ clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t attachId)
             }
             else
             {
-                assert(mux <= CM_I3C1FCLKSEL);
-                actualSel = (uint32_t)((volatile uint32_t *)pClkSel)[mux];
+                if (mux <= CM_I3C1FCLKSEL)
+                {
+                    actualSel = pClkSel[mux];
+                }
+                else
+                {
+                    actualSel = 0U;
+                }
             }
 
             /* Consider the combination of two registers */
-            assert(actualSel < UINT32_MAX);
-            actualAttachId |= CLK_ATTACH_ID(mux, actualSel, i);
+            if (actualSel < UINT32_MAX)
+            {
+                actualAttachId |= CLK_ATTACH_ID(mux, actualSel, i);
+            }
         }
         tmp32 = GET_ID_NEXT_ITEM(tmp32); /*!<  pick up next descriptor */
     }
 
     actualAttachId |= selector;
-    assert(actualAttachId < kNONE_to_NONE);
+    assert(actualAttachId < (uint32_t)kNONE_to_NONE);
 
-    return (clock_attach_id_t)actualAttachId;
+    return (actualAttachId < (uint32_t)kNONE_to_NONE) ? (clock_attach_id_t)actualAttachId : kNONE_to_NONE;
 }
 
 /* Set IP Clock Divider */

@@ -4,15 +4,15 @@
 **                          MCXL255VLL_cm33
 **
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
-**     Reference manual:    MCXL25xRM DraftH
-**     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250722
+**     Reference manual:    MCXL25x RM Rev.2
+**     Version:             rev. 2.1, 2026-05-02
+**     Build:               b260513
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -41,8 +41,8 @@ define symbol m_interrupts_end                 = 0x100002C7;
 
 define symbol m_text_start                     = 0x100002C8;
 define symbol m_text_end                       = 0x1001FDFF;
-define exported symbol core1_image_start       = 0x10060000;
-define exported symbol core1_image_end         = 0x1007DFFF;
+define exported symbol core1_image_start       = 0x1005E000;
+define exported symbol core1_image_end         = 0x10065FFF;
 
 define symbol m_data_start                     = 0x38000000;
 define symbol m_data_end                       = 0x38007FFF;

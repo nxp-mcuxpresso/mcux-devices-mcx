@@ -5,15 +5,15 @@
 **                          MCXL255VLL_cm33
 **
 **     Compiler:            Keil ARM C/C++ Compiler
-**     Reference manual:    MCXL25xRM DraftH
-**     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250811
+**     Reference manual:    MCXL25x RM Rev.2
+**     Version:             rev. 2.1, 2026-05-02
+**     Build:               b260513
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -42,8 +42,8 @@
 #define  m_text_start                  0x100002C8
 #define  m_text_size                   0x0001FB38
 
-#define  m_core1_image_start           0x10060000
-#define  m_core1_image_size            0x0001E000
+#define  m_core1_image_start           0x1005E000
+#define  m_core1_image_size            0x00008000
 
 #if (defined(__use_shmem__))
   #define  m_rpmsg_sh_mem_start        0xB1006000

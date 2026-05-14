@@ -4,15 +4,15 @@
 **                          MCXL255VLL_cm33
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXL25xRM DraftH
-**     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250723
+**     Reference manual:    MCXL25x RM Rev.2
+**     Version:             rev. 2.1, 2026-05-02
+**     Build:               b260513
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -34,10 +34,10 @@ RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x00020000, LENGTH = 0x000002C8
-  m_text                (RX)  : ORIGIN = 0x000202C8, LENGTH = 0x0003FD38
+  m_text                (RX)  : ORIGIN = 0x000202C8, LENGTH = 0x0003DD38
   m_data                (RW)  : ORIGIN = 0x28008000, LENGTH = 0x00016000
   rpmsg_sh_mem          (RW)  : ORIGIN = 0xA1006000, LENGTH = RPMSG_SHMEM_SIZE
-  m_core1_image         (RX)  : ORIGIN = 0x00060000, LENGTH = 0x0001E000
+  m_core1_image         (RX)  : ORIGIN = 0x0005E000, LENGTH = 0x00008000
 }
 
 /* Define output sections */

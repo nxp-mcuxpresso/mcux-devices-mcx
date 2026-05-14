@@ -7,7 +7,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXL25x RM Rev.2
 **     Version:             rev. 2.1, 2026-05-02
-**     Build:               b260512
+**     Build:               b260513
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -40,10 +40,10 @@
 #define  m_interrupts_size             0x000002C8
 
 #define  m_text_start                  0x000002C8
-#define  m_text_size                   0x00-102C8
+#define  m_text_size                   0x0000BD38
 
-#define  m_core1_image_start           0x00-10000
-#define  m_core1_image_size            0x0001E000
+#define  m_core1_image_start           0x0000C000
+#define  m_core1_image_size            0x00004000
 
 #if (defined(__use_shmem__))
   #define  m_rpmsg_sh_mem_start        0xA1006000

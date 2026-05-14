@@ -4,15 +4,15 @@
 **                          MCXL255VLL_cm33
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXL25xRM DraftH
-**     Version:             rev. 1.0, 2025-06-13
-**     Build:               b250723
+**     Reference manual:    MCXL25x RM Rev.2
+**     Version:             rev. 2.1, 2026-05-02
+**     Build:               b260513
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -39,7 +39,7 @@ MEMORY
   m_data                (RW)  : ORIGIN = 0x38000000, LENGTH = 0x00008000
   m_sramx0              (RW)  : ORIGIN = 0x14000000, LENGTH = 0x00004000
   rpmsg_sh_mem          (RW)  : ORIGIN = 0xB1006000, LENGTH = RPMSG_SHMEM_SIZE
-  m_core1_image         (RX)  : ORIGIN = 0x10060000, LENGTH = 0x0001E000
+  m_core1_image         (RX)  : ORIGIN = 0x1005E000, LENGTH = 0x00008000
 }
 
 /* Define output sections */

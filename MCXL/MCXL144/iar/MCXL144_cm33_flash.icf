@@ -6,7 +6,7 @@
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXL25x RM Rev.2
 **     Version:             rev. 2.1, 2026-05-02
-**     Build:               b260512
+**     Build:               b260513
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -39,10 +39,10 @@ define symbol m_interrupts_start               = 0x00000000;
 define symbol m_interrupts_end                 = 0x000002C7;
 
 define symbol m_text_start                     = 0x000002C8;
-define symbol m_text_end                       = 0x0001FFFF;
+define symbol m_text_end                       = 0x00037FFF;
 
-define exported symbol core1_image_start       = 0x00020000;
-define exported symbol core1_image_end         = 0x0003DFFF;
+define exported symbol core1_image_start       = 0x00038000;
+define exported symbol core1_image_end         = 0x0003FFFF;
 
 define symbol m_data_start                     = 0x28000000;
 define symbol m_data_end                       = 0x2800FFFF;

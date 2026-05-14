@@ -1,18 +1,18 @@
 /*
 ** ###################################################################
-**     Processors:          MCXL255VDF_cm33
-**                          MCXL255VLL_cm33
+**     Processors:          MCXL142VDH_cm33
+**                          MCXL142VLL_cm33
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    MCXL25x RM Rev.2
-**     Version:             rev. 2.1, 2026-05-02
-**     Build:               b260513
+**     Reference manual:    MCXL1 RM Rev.1
+**     Version:             rev. 1.0, 2024-09-25
+**     Build:               b241025
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
+**         (Secure image)
 **
-**     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2026 NXP
+**     Copyright 2024 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -21,51 +21,51 @@
 ** ###################################################################
 */
 
-
-
 /* Entry Point */
 ENTRY(Reset_Handler)
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
-STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
-RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
+STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
+
+/* Secure image - TrustZone */
+m_interrupts_start             = 0x10000000;
+m_interrupts_size              = 0x00000280;
+
+m_text_start                   = 0x100002C8;
+m_text_size                    = 0x00003B38;
+
+m_veneer_table_start           = 0x10003E00;
+m_veneer_table_size            = 0x00000200;
+
+m_core1_image_start            = 0x1000C000;
+m_core1_image_size             = 0x00004000;
+
+m_data_start                   = 0x38000000;
+m_data_size                    = 0x00004000;
+
+/* Shared memory for RPMsg */
+m_rpmsg_sh_mem_start           = 0xB1006000;
+m_rpmsg_sh_mem_size            = 0x00001800;
 
 /* Specify the memory areas */
 MEMORY
 {
-  m_interrupts          (RX)  : ORIGIN = 0x10000000, LENGTH = 0x000002C8
-  m_text                (RX)  : ORIGIN = 0x100002C8, LENGTH = 0x0001FB38
-  m_veneer_table        (RX)  : ORIGIN = 0x1001FE00, LENGTH = 0x00000200
-  m_data                (RW)  : ORIGIN = 0x38000000, LENGTH = 0x00008000
-  m_sramx0              (RW)  : ORIGIN = 0x14000000, LENGTH = 0x00002000
-  rpmsg_sh_mem          (RW)  : ORIGIN = 0xB1006000, LENGTH = RPMSG_SHMEM_SIZE
-  m_core1_image         (RX)  : ORIGIN = 0x1005E000, LENGTH = 0x00008000
+  m_interrupts          (RX)  : ORIGIN = 0x10000000, LENGTH = 0x00000280
+  m_text                (RX)  : ORIGIN = 0x100002C8, LENGTH = 0x00003B38
+  m_veneer_table        (RX)  : ORIGIN = 0x10003E00, LENGTH = 0x00000200
+  m_core1_image         (RX)  : ORIGIN = 0x1000C000, LENGTH = 0x00004000
+  m_data                (RW)  : ORIGIN = 0x38000000, LENGTH = 0x00004000
+  m_rpmsg_sh_mem        (RW)  : ORIGIN = 0xB1006000, LENGTH = 0x00001800
 }
 
 /* Define output sections */
 SECTIONS
 {
-  /* section for storing the secondary core image */
-  .core1_code :
-  {
-     . = ALIGN(4) ;
-    KEEP (*(.core1_code))
-     *(.core1_code*)
-     . = ALIGN(4) ;
-  } > m_core1_image
-
-  /* NOINIT section for rpmsg_sh_mem */
-  .noinit_rpmsg_sh_mem (NOLOAD) : ALIGN(4)
-  {
-     __RPMSG_SH_MEM_START__ = .;
-     *(.noinit.$rpmsg_sh_mem*)
-     . = ALIGN(4) ;
-     __RPMSG_SH_MEM_END__ = .;
-  } > rpmsg_sh_mem
-
   /* The startup code goes first into internal flash */
   .interrupts :
   {
+    __VECTOR_TABLE = .;
+    __Vectors = .;
     . = ALIGN(4);
     KEEP(*(.isr_vector))     /* Startup code */
     . = ALIGN(4);
@@ -84,18 +84,8 @@ SECTIONS
     *(.eh_frame)
     KEEP (*(.init))
     KEEP (*(.fini))
-    . = ALIGN(4) ;
+    . = ALIGN(4);
   } > m_text
-
-  /* section for veneer table */
-  .gnu.sgstubs :
-  {
-     . = ALIGN(32);
-     _start_sg = .;
-    *(.gnu.sgstubs*)
-     . = ALIGN(32);
-     _end_sg = .;
-  } > m_veneer_table
 
   .ARM.extab :
   {
@@ -109,7 +99,7 @@ SECTIONS
     __exidx_end = .;
   } > m_text
 
- .ctors :
+  .ctors :
   {
     __CTOR_LIST__ = .;
     /* gcc uses crtbegin.o to find the start of
@@ -124,7 +114,7 @@ SECTIONS
     KEEP (*crtbegin.o(.ctors))
     KEEP (*crtbegin?.o(.ctors))
     /* We don't want to include the .ctor section from
-       from the crtend.o file until after the sorted ctors.
+       the crtend.o file until after the sorted ctors.
        The .ctor section from the crtend file contains the
        end of ctors marker and it must be last */
     KEEP (*(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors))
@@ -175,7 +165,6 @@ SECTIONS
     . = ALIGN(4);
     __DATA_RAM = .;
     __data_start__ = .;      /* create a global symbol at data start */
-    *(.ramfunc*)             /* for functions in ram */
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
     KEEP(*(.jcr*))
@@ -187,7 +176,18 @@ SECTIONS
   text_end = ORIGIN(m_text) + LENGTH(m_text);
   ASSERT(__DATA_END <= text_end, "region m_text overflowed with text and data")
 
+  /* Veneer$$CMSE - NSC gateway functions */
+  .gnu.sgstubs : ALIGN(32)
+  {
+    . = ALIGN(32);
+    __sgstubs_start = .;
+    *(.gnu.sgstubs*)
+    . = ALIGN(32);
+    __sgstubs_end = .;
+  } > m_veneer_table
+
   /* Uninitialized data section */
+  . = ALIGN(4);
   .bss :
   {
     /* This is used by the startup in order to initialize the .bss section */
@@ -219,7 +219,6 @@ SECTIONS
     . += STACK_SIZE;
   } > m_data
 
-
   /* Initializes stack on the end of block */
   __StackTop   = ORIGIN(m_data) + LENGTH(m_data);
   __StackLimit = __StackTop - STACK_SIZE;
@@ -228,4 +227,24 @@ SECTIONS
   .ARM.attributes 0 : { *(.ARM.attributes) }
 
   ASSERT(__StackLimit >= __HeapLimit, "region m_data overflowed with stack and heap")
+
+  /* Core1 image */
+  .core1_image :
+  {
+    . = ALIGN(4);
+    __core1_image_start = .;
+    KEEP(*(.core1_image))
+    . = ALIGN(4);
+    __core1_image_end = .;
+  } > m_core1_image
+
+  /* RPMsg shared memory */
+  .rpmsg_sh_mem (NOLOAD) :
+  {
+    . = ALIGN(4);
+    __RPMSG_SH_MEM_START__ = .;
+    *(.noinit.$rpmsg_sh_mem*)
+    . = ALIGN(4);
+    __RPMSG_SH_MEM_END__ = .;
+  } > m_rpmsg_sh_mem
 }

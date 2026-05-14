@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
-**     Processors:          MCXL255VDF_cm33
-**                          MCXL255VLL_cm33
+**     Processors:          MCXL253VDF_cm33
+**                          MCXL253VLL_cm33
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXL25x RM Rev.2
@@ -34,12 +34,11 @@ RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x10000000, LENGTH = 0x000002C8
-  m_text                (RX)  : ORIGIN = 0x100002C8, LENGTH = 0x0001FB38
-  m_veneer_table        (RX)  : ORIGIN = 0x1001FE00, LENGTH = 0x00000200
-  m_data                (RW)  : ORIGIN = 0x38000000, LENGTH = 0x00008000
-  m_sramx0              (RW)  : ORIGIN = 0x14000000, LENGTH = 0x00002000
+  m_text                (RX)  : ORIGIN = 0x100002C8, LENGTH = 0x00007B38
+  m_veneer_table        (RX)  : ORIGIN = 0x10007E00, LENGTH = 0x00000200
+  m_data                (RW)  : ORIGIN = 0x38000000, LENGTH = 0x00004000
   rpmsg_sh_mem          (RW)  : ORIGIN = 0xB1006000, LENGTH = RPMSG_SHMEM_SIZE
-  m_core1_image         (RX)  : ORIGIN = 0x1005E000, LENGTH = 0x00008000
+  m_core1_image         (RX)  : ORIGIN = 0x10018000, LENGTH = 0x00008000
 }
 
 /* Define output sections */

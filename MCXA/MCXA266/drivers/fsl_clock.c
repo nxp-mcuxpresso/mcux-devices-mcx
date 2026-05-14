@@ -172,7 +172,6 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
  */
 clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t connection)
 {
-    const uint32_t reg_offset = CLK_ATTACH_REG_OFFSET(connection);
     uint32_t actual_sel       = 0U;
     uint32_t clock_attach_id  = 0U;
 
@@ -181,10 +180,12 @@ clock_attach_id_t CLOCK_GetClockAttachId(clock_attach_id_t connection)
         return kNONE_to_NONE;
     }
 
+    const uint32_t reg_offset = CLK_ATTACH_REG_OFFSET(connection);
+
     actual_sel      = CLOCK_GetClockSelect((clock_select_name_t)reg_offset);
     clock_attach_id = CLK_ATTACH_MUX(reg_offset, actual_sel);
 
-    assert(clock_attach_id < kNONE_to_NONE);
+    assert(clock_attach_id < (uint32_t)kNONE_to_NONE);
 
     return (clock_attach_id_t)clock_attach_id;
 }

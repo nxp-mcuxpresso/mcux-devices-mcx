@@ -6736,29 +6736,46 @@ typedef struct {
 /* Backward compatibility */
 #define SYSCON                               SYSCON0
 /*!
- * @brief Get the chip value.
+ * @brief Get the chip revision.
  *
- * @return chip version, 0x0: A0 version chip, 0x1: A1 version chip, 0xFF: invalid version.
+ * The return value is encoded as ((pqc << 8) | minor_revision), where pqc is bit 17
+ * of the DEVICE_TYPE register and minor_revision is the MINOR_REVISION field of DIEID.
+ * Compare the return value against CHIP_REVISION_xx macros:
+ *   - CHIP_REVISION_A0  (0x000): A0  revision
+ *   - CHIP_REVISION_A10 (0x001): A10 revision
+ *   - CHIP_REVISION_A11 (0x101): A11 revision
+ *   - CHIP_REVISION_A20 (0x102): A20 revision
+ *   - CHIP_REVISION_A21 (0x002): A21 revision
+ *
+ * @return Encoded chip revision value.
  */
 static inline uint32_t Chip_GetVersion(void)
 {
-    uint32_t deviceRevision;
+    uint32_t deviceMinorRevision;
+    uint32_t deviceTypePqc;
 
-    deviceRevision = SYSCON->DIEID & SYSCON_DIEID_MINOR_REVISION_MASK;
+    /* Get device minor version */
+    deviceMinorRevision = SYSCON->DIEID & SYSCON_DIEID_MINOR_REVISION_MASK;
 
-    if(0UL == deviceRevision) /* A0 device revision is 0 */
-    {
-        return 0x0;
-    }
-    else if(1UL == deviceRevision) /* A1 device revision is 1 */
-    {
-        return 0x1;
-    }
-    else
-    {
-        return 0xFF;
-    }
+    /* PQC bit is bit 17 in DEVICE_TYPE register */
+    deviceTypePqc = (SYSCON->DEVICE_TYPE >> 17U) & 1U;
+
+    return ((deviceTypePqc << 8U) | deviceMinorRevision);
 }
+
+#define CHIP_REVISION_SETUP(pqc, minor) (((uint32_t)(pqc) << 8U) | (uint32_t)(minor))
+
+#define CHIP_REVISION_A0  CHIP_REVISION_SETUP(0U, 0U)
+#define CHIP_REVISION_A10 CHIP_REVISION_SETUP(0U, 1U)
+#define CHIP_REVISION_A11 CHIP_REVISION_SETUP(1U, 1U)
+#define CHIP_REVISION_A20 CHIP_REVISION_SETUP(1U, 2U)
+#define CHIP_REVISION_A21 CHIP_REVISION_SETUP(0U, 2U)
+
+#define Chip_IsA0Revision()  (CHIP_REVISION_A0  == Chip_GetVersion())
+#define Chip_IsA10Revision() (CHIP_REVISION_A10 == Chip_GetVersion())
+#define Chip_IsA11Revision() (CHIP_REVISION_A11 == Chip_GetVersion())
+#define Chip_IsA20Revision() (CHIP_REVISION_A20 == Chip_GetVersion())
+#define Chip_IsA21Revision() (CHIP_REVISION_A21 == Chip_GetVersion())
 
 
 /*!

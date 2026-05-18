@@ -2479,8 +2479,14 @@ static pll_error_t CLOCK_GetPllConfig(uint32_t finHz, uint32_t foutHz, pll_setup
     s_PllSetupCacheStruct[s_PllSetupCacheIdx].pllsscg[0] = pSetup->pllsscg[0];
     s_PllSetupCacheStruct[s_PllSetupCacheIdx].pllsscg[1] = pSetup->pllsscg[1];
     /* Update the index for next available buffer. */
-    assert(s_PllSetupCacheIdx < UINT32_MAX);
-    s_PllSetupCacheIdx = (s_PllSetupCacheIdx + 1U) % CLOCK_USR_CFG_PLL_CONFIG_CACHE_COUNT;
+    if (s_PllSetupCacheIdx < ((uint32_t)CLOCK_USR_CFG_PLL_CONFIG_CACHE_COUNT - 1U))
+    {
+        s_PllSetupCacheIdx++;
+    }
+    else
+    {
+        s_PllSetupCacheIdx = 0U;
+    }
 #endif /* CLOCK_USR_CFG_PLL_CONFIG_CACHE_COUNT */
 
     return retErr;

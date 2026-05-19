@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 3.1, 2026-02-11
-**     Build:               b260506
+**     Build:               b260518
 **
 **     Abstract:
 **         Chip specific module features.
@@ -923,10 +923,6 @@
 #define FSL_FEATURE_TPM_HAS_GLOBAL_TIME_BASE_SYNC (1)
 /* @brief Is affected by errata with ID 050050 (Incorrect duty output when EPWM mode is set to PS=0 during write 1 to CnV register). */
 #define FSL_FEATURE_TPM_HAS_ERRATA_050050 (0)
-
-/* TRGMUX module features */
-
-/* No feature definitions */
 
 /* VREF module features */
 

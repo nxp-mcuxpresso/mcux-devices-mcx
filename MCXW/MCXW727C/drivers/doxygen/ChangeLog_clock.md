@@ -1,5 +1,11 @@
 # CLOCK
 
+## [2.3.1]
+
+- Improvements
+  - The SIRC has been removed, but in some low-power wakeup use cases, the SIRC is still required.
+    Updated the clock driver to provide the ability to configure the clock source to SIRC.
+
 ## [2.3.0]
 
 - Improvements

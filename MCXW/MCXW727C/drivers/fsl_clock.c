@@ -181,6 +181,13 @@ uint32_t CLOCK_GetIpFreq(clock_ip_name_t name)
                 case (uint32_t)kCLOCK_IpSrcSoscClk:
                     freq = CLOCK_GetSysOscFreq() / (((reg & MRCC_DIV_MASK) >> MRCC_DIV_SHIFT) + 1U);
                     break;
+                case (uint32_t)kCLOCK_IpSrcFro6M:
+                    /*
+                     * The SIRC has been removed, but in some low-power wakeup use cases,
+                     * the SIRC is still required.
+                     */
+                    freq = 6000000U / (((reg & MRCC_DIV_MASK) >> MRCC_DIV_SHIFT) + 1U);
+                    break;
                 default:
                     freq = 0U;
                     break;
@@ -200,6 +207,13 @@ uint32_t CLOCK_GetIpFreq(clock_ip_name_t name)
                     break;
                 case (uint32_t)kCLOCK_IpSrc32kClk:
                     freq = CLOCK_GetRtcOscFreq() / (((reg & MRCC_DIV_MASK) >> MRCC_DIV_SHIFT) + 1U);
+                    break;
+                case (uint32_t)kCLOCK_IpSrcFro6M:
+                    /*
+                     * The SIRC has been removed, but in some low-power wakeup use cases,
+                     * the SIRC is still required.
+                     */
+                    freq = 6000000U / (((reg & MRCC_DIV_MASK) >> MRCC_DIV_SHIFT) + 1U);
                     break;
                 default:
                     freq = 0U;

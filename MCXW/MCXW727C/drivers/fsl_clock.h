@@ -39,8 +39,8 @@
 
 /*! @name Driver version */
 /*! @{ */
-/*! @brief CLOCK driver version 2.3.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 3, 0))
+/*! @brief CLOCK driver version 2.3.1. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 3, 1))
 /*! @} */
 
 /* Definition for delay API in clock driver, users can redefine it to the real application. */
@@ -260,6 +260,13 @@ typedef enum _clock_ip_control
  */
 typedef enum _clock_ip_src
 {
+    kCLOCK_IpSrcFro6M   = 2U, /*!< FRO 6M clock.
+                               *
+                               * @note The SIRC has been removed, but in some
+                               * low-power wakeup use cases, the SIRC is still
+                               * required. This option provides the ability to
+                               * configure the clock source to SIRC.
+                               */
     kCLOCK_IpSrcFro192M = 3U, /*!< FRO 192M clock. */
     kCLOCK_IpSrcSoscClk = 4U, /*!< OSC RF clock. */
     kCLOCK_IpSrc32kClk  = 5U, /*!< 32k Clk clock. */
@@ -692,7 +699,12 @@ static inline void CLOCK_SetIpSrc(clock_ip_name_t name, clock_ip_src_t src)
         return;
     }
 
-    if (src < kCLOCK_IpSrcFro192M || src > kCLOCK_IpSrc32kClk)
+    /*
+     * The SIRC has been removed, but in some low-power wakeup use cases,
+     * the SIRC is still required. Add the ability to configure the clock source
+     * to use SIRC.
+     */
+    if (src < kCLOCK_IpSrcFro6M || src > kCLOCK_IpSrc32kClk)
     {
         return;
     }

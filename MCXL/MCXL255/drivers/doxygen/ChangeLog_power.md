@@ -1,5 +1,11 @@
 # Power
 
+## [2.3.1]
+- New Features
+    - Use ADVC_PostVoltageChangeRequestBlocking() function to synchronize ADVC post-change status in Power_SetDpd2AdvcWorkaround().
+    - Updated Stall value when ADVC is enabled.
+    - Update Power_SetDpd2AdvcWorkaround(), when target frequency is equal to current frequency return directly without calling ADVC APIs.
+
 ## [2.3.0]
 - New Features
     - Added automatic voltage/frequency management for DPD2 mode.

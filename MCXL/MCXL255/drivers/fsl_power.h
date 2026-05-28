@@ -22,8 +22,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief power driver version 2.3.0. */
-#define FSL_POWER_DRIVER_VERSION (MAKE_VERSION(2, 3, 0))
+/*! @brief power driver version 2.3.1. */
+#define FSL_POWER_DRIVER_VERSION (MAKE_VERSION(2, 3, 1))
 /*@}*/
 
 #if __CORTEX_M == 33U
@@ -66,6 +66,7 @@ enum
         MAKE_STATUS(kStatusGroup_POWER, 10), /*!< ADVC pre-voltage change request failed. */
     kStatus_Power_AdvcPostVoltageChangeFailed =
         MAKE_STATUS(kStatusGroup_POWER, 11), /*!< ADVC post-voltage change request failed. */
+    kStatus_Power_AdvcPostSyncFailed = MAKE_STATUS(kStatusGroup_POWER, 12), /*!< ADVC post-change sync failed. */
 };
 
 /*!

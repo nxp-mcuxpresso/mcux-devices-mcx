@@ -1,5 +1,10 @@
 # ADVC
 
+## [2.1.0]
+-  New Features
+    - Added ADVC_PostVoltageChangeRequestBlocking() function to support post voltage change request with 
+    blocking until the change is done.
+
 ## [2.0.3]
 - Improvements
     - Updated frequency code enumeration values to accommodate new frequencies.

@@ -259,16 +259,25 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
     /* Unlock clock configuration */
     SYSCON->CLKUNLOCK &= ~SYSCON_CLKUNLOCK_UNLOCK_MASK;
 
-    /* halt and reset clock dividers */
-    *pDivCtrl = 0x3UL << 29U;
-
-    if (value == 0U) /*!<  halt */
+    /* AHBCLKDIV does not support HALT(bit30) or RESET(bit29);
+     * writing those bits would corrupt reserved fields. Write the DIV value directly. */
+    if (div_name == kCLOCK_DivAHBCLK)
     {
-        *pDivCtrl |= (1UL << 30U);
+        *pDivCtrl = (value == 0U) ? 0U : (value - 1U);
     }
     else
     {
-        *pDivCtrl = (value - 1U);
+        /* halt and reset clock dividers */
+        *pDivCtrl = 0x3UL << 29U;
+
+        if (value == 0U) /*!<  halt */
+        {
+            *pDivCtrl |= (1UL << 30U);
+        }
+        else
+        {
+            *pDivCtrl = (value - 1U);
+        }
     }
 
     /* Freeze clock configuration */

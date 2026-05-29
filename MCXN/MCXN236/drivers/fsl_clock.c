@@ -932,16 +932,26 @@ void CLOCK_SetClkDiv(clock_div_name_t div_name, uint32_t divided_by_value)
     volatile uint32_t *pClkDiv;
 
     pClkDiv = &(SYSCON->SYSTICKCLKDIV[0]);
-    /* halt and reset clock dividers */
-    ((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] = 0x3UL << 29U;
 
-    if (divided_by_value == 0U) /*!<  halt */
+    /* AHBCLKDIV does not support HALT(bit30) or RESET(bit29);
+     * writing those bits would corrupt reserved fields. Write the DIV value directly. */
+    if (div_name == kCLOCK_DivAhbClk)
     {
-        ((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] = 1UL << 30U;
+        ((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] = (divided_by_value == 0U) ? 0U : (divided_by_value - 1U);
     }
     else
     {
-        ((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] = (divided_by_value - 1U);
+        /* halt and reset clock dividers */
+        ((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] = 0x3UL << 29U;
+
+        if (divided_by_value == 0U) /*!<  halt */
+        {
+            ((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] = 1UL << 30U;
+        }
+        else
+        {
+            ((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] = (divided_by_value - 1U);
+        }
     }
 }
 

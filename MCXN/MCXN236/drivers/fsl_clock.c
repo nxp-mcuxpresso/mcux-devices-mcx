@@ -933,6 +933,15 @@ void CLOCK_SetClkDiv(clock_div_name_t div_name, uint32_t divided_by_value)
 
     pClkDiv = &(SYSCON->SYSTICKCLKDIV[0]);
 
+    /* Early exit: current DIV value already matches the requested value,
+     * and the divider is not in halt state */
+    if ((divided_by_value != 0U) &&
+        ((((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] & (1UL << 30U)) == 0U) &&
+        ((((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] & 0xFFU) == (divided_by_value - 1U)))
+    {
+        return;
+    }
+
     /* AHBCLKDIV does not support HALT(bit30) or RESET(bit29);
      * writing those bits would corrupt reserved fields. Write the DIV value directly. */
     if (div_name == kCLOCK_DivAhbClk)
@@ -950,7 +959,18 @@ void CLOCK_SetClkDiv(clock_div_name_t div_name, uint32_t divided_by_value)
         }
         else
         {
-            ((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] = (divided_by_value - 1U);
+            /* Write new DIV value while keeping HALT bit set */
+            ((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] = (divided_by_value - 1U) | (1UL << 30U);
+            /* Clear HALT bit to start the divider with the new value */
+            ((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] &= ~(1UL << 30U);
+        }
+    }
+
+    /* Wait for the divider output to stabilize (UNSTAB bit31 == 0) */
+    if (divided_by_value != 0U)
+    {
+        while ((((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] & (1UL << 31U)) != 0U)
+        {
         }
     }
 }

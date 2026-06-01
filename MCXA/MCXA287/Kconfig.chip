@@ -214,11 +214,6 @@ config MCUX_HW_IP_DriverType_GPIO
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA287
 
-config MCUX_HW_IP_DriverType_I1S
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXA287
-
 config MCUX_HW_IP_DriverType_I3C
     bool
     default y

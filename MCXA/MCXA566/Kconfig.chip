@@ -214,7 +214,7 @@ config MCUX_HW_IP_DriverType_GPIO
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA566
 
-config MCUX_HW_IP_DriverType_I1S
+config MCUX_HW_IP_DriverType_T1S
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA566
@@ -345,6 +345,11 @@ config MCUX_HW_IP_DriverType_SGI
     depends on MCUX_HW_DEVICE_ID_MCXA566
 
 config MCUX_HW_IP_DriverType_SYSCON_LPCAC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA566
+
+config MCUX_HW_IP_DriverType_TENBASET_PHY
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA566

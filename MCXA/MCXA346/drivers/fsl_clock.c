@@ -287,14 +287,6 @@ void CLOCK_SetClockDiv(clock_div_name_t div_name, uint32_t value)
         }
     }
 
-    /* Wait for the divider output to stabilize (UNSTAB bit31 == 0) */
-    if (value != 0U)
-    {
-        while ((*pDivCtrl & (1UL << 31U)) != 0U)
-        {
-        }
-    }
-
     /* Freeze clock configuration */
     SYSCON->CLKUNLOCK |= SYSCON_CLKUNLOCK_UNLOCK_MASK;
 }

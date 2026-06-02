@@ -966,13 +966,6 @@ void CLOCK_SetClkDiv(clock_div_name_t div_name, uint32_t divided_by_value)
         }
     }
 
-    /* Wait for the divider output to stabilize (UNSTAB bit31 == 0) */
-    if (divided_by_value != 0U)
-    {
-        while ((((volatile uint32_t *)pClkDiv)[(uint32_t)div_name] & (1UL << 31U)) != 0U)
-        {
-        }
-    }
 }
 
 /* Get IP clock dividers */

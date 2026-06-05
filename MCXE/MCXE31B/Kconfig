@@ -1,9 +1,10 @@
-# Copyright 2024 NXP
+# Copyright 2024, 2026 NXP
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
 rsource "Kconfig.chip"
 rsource "drivers/Kconfig"
+rsource "xip/Kconfig"
 rsource "../../../../devices/arm/Kconfig.common"
 rsource "Kconfig.defconfig"
 

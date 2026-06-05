@@ -1125,7 +1125,7 @@ void Power_ClearTargetPowerMode(void)
 void Power_ClearLpPowerSettings(void)
 {
 #if __CORTEX_M == 33U
-    SMM_DisableMainCpuIso(AON__SMM);
+    AON__SMM->CNFG |= (SMM_CNFG_MAIN_ISO_DSBL_MASK);
     SMM_ClearAllLowPowerSequence(AON__SMM);
     SMM_ClearMainCpuWakeupSources(AON__SMM);
     CMC_SetClockMode(CMC, kCMC_GateNoneClock);
@@ -1133,10 +1133,11 @@ void Power_ClearLpPowerSettings(void)
     AON__SMM->STAT = SMM_STAT_DPD_SEQ_END_MASK | SMM_STAT_DPD_END_MASK;
     AON__SMM->PWDN_CONFIG &= ~(SMM_PWDN_CONFIG_BGR_PULSE_MODE_EN_MASK | SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC_MASK |
                                SMM_PWDN_CONFIG_SRAM_ISO_CTRL_MASK);
+    AON__SMM->CNFG &= ~(SMM_CNFG_MAIN_ISO_DSBL_MASK);
 #elif __CORTEX_M == 0U
     assert(g_Handle_Offset != POWER_HANDLE_OFFSET_NOT_INIT_VALUE);
+    AON__SMM->CNFG |= (SMM_CNFG_AON_ISO_DSBL_MASK);
     power_handle_t *sharedHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
-    SMM_DisableAonCpuIso(AON__SMM);
     SMM_ClearAllLowPowerSequence(AON__SMM);
     SMM_ClearAonCpuWakeupSources(AON__SMM);
     /* Guard: skip STAT write when CM33 ROM is running (state 01).
@@ -1156,6 +1157,7 @@ void Power_ClearLpPowerSettings(void)
         /* If current mode is deep power down1 mode, keep bandgap setting and VDD_CORE_MAIN SRC no changed. */
         AON__SMM->PWDN_CONFIG &= ~(SMM_PWDN_CONFIG_BGR_PULSE_MODE_EN_MASK | SMM_PWDN_CONFIG_DPD1_VDD_CORE_MAIN_SRC_MASK);
     }
+    AON__SMM->CNFG &= ~(SMM_CNFG_AON_ISO_DSBL_MASK);
 #endif /* __CORTEX_M */
 }
 

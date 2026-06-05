@@ -5,6 +5,7 @@
     - Use ADVC_PostVoltageChangeRequestBlocking() function to synchronize ADVC post-change status in Power_SetDpd2AdvcWorkaround().
     - Updated Stall value when ADVC is enabled.
     - Update Power_SetDpd2AdvcWorkaround(), when target frequency is equal to current frequency return directly without calling ADVC APIs.
+    - Optimize Power_ClearLpPowerSettings() by replacing SMM_DisableXxxCpuIso() calls with split de-assert/assert sequence, using the intermediate register operations as natural settling time to eliminate the explicit spin-wait delay.
 
 ## [2.3.0]
 - New Features

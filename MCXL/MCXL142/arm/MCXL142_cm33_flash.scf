@@ -7,7 +7,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXL25x RM Rev.2
 **     Version:             rev. 2.1, 2026-05-02
-**     Build:               b260513
+**     Build:               b260609
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -51,7 +51,7 @@
 #endif
 
 #define  m_data_start                  0x28000000
-#define  m_data_size                   0x00008000
+#define  m_data_size                   0x00004000
 
 LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region size_region
 

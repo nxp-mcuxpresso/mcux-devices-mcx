@@ -27,7 +27,7 @@
 ENTRY(Reset_Handler)
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
-STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
+STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
 RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
 
 /* Specify the memory areas */
@@ -35,7 +35,7 @@ MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x00004000, LENGTH = 0x000002C8
   m_text                (RX)  : ORIGIN = 0x000042C8, LENGTH = 0x00005D38
-  m_data                (RW)  : ORIGIN = 0x28004000, LENGTH = 0x00004000
+  m_data                (RW)  : ORIGIN = 0x28002000, LENGTH = 0x00002000
   rpmsg_sh_mem          (RW)  : ORIGIN = 0xA1006000, LENGTH = RPMSG_SHMEM_SIZE
   m_core1_image         (RX)  : ORIGIN = 0x0000C000, LENGTH = 0x00004000
 }

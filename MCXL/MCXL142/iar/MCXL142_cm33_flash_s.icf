@@ -45,7 +45,7 @@ define exported symbol core1_image_start       = 0x1000C000;
 define exported symbol core1_image_end         = 0x1000FFFF;
 
 define symbol m_data_start                     = 0x38000000;
-define symbol m_data_end                       = 0x38003FFF;
+define symbol m_data_end                       = 0x38001FFF;
 
 if (isdefinedsymbol(__use_shmem__)) {
   define exported symbol rpmsg_sh_mem_start      = 0xB1006000;

@@ -50,8 +50,8 @@
   #define  m_rpmsg_sh_mem_size         0x00002000
 #endif
 
-#define  m_data_start                  0x28004000
-#define  m_data_size                   0x00004000
+#define  m_data_start                  0x28002000
+#define  m_data_size                   0x00002000
 
 LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region size_region
 

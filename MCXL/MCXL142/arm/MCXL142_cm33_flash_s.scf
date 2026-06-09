@@ -51,7 +51,7 @@
 #endif
 
 #define  m_data_start                  0x38000000
-#define  m_data_size                   0x00004000
+#define  m_data_size                   0x00002000
 
 /* 512B - memory for veneer table (NSC - secure, non-secure callable memory) */
 #define m_veneer_table_start           0x10003E00

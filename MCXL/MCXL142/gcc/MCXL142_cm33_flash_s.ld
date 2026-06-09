@@ -41,7 +41,7 @@ m_core1_image_start            = 0x1000C000;
 m_core1_image_size             = 0x00004000;
 
 m_data_start                   = 0x38000000;
-m_data_size                    = 0x00004000;
+m_data_size                    = 0x00002000;
 
 /* Shared memory for RPMsg */
 m_rpmsg_sh_mem_start           = 0xB1006000;

@@ -1202,6 +1202,20 @@ static inline void CLOCK_LockFircControlStatusReg(void)
 }
 
 /*!
+ * @brief Check whether FIRC auto trim locked to target frequency range.
+ *
+ * When FIRCTREN and FIRCTRUP are enabled, TRIM_LOCK will indicate when auto
+ * trimming is complete and output FIRC frequency has locked to target FIRC range.
+ * TRIM_LOCK will automatically get cleared if FIRCTREN and FIRCTRUP are not set.
+ *
+ * @return True if FIRC trim locked to target frequency range, false if not.
+ */
+static inline bool CLOCK_IsFIRCAutoTrimLocked(void)
+{
+    return ((bool)(CLOCK_REG(&SCG_0->FIRCCSR) & SCG_FIRCCSR_TRIM_LOCK_MASK));
+}
+
+/*!
  * @brief Initializes the SCG ROSC.
  *
  * This function enables the SCG ROSC clock according to the

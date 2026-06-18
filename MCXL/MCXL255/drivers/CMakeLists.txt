@@ -53,7 +53,7 @@ endif()
 if (CONFIG_MCUX_COMPONENT_driver.power)
     mcux_add_source( SOURCES fsl_power.c fsl_power.h )
     mcux_add_include( INCLUDES . )
-    mcux_component_version(2.3.1)
+    mcux_component_version(2.3.2)
 endif()
 
 if (CONFIG_MCUX_COMPONENT_driver.reset)

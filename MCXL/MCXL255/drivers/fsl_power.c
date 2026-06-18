@@ -112,35 +112,25 @@ static power_vdd_core_output_voltage_t Power_GetVddCoreForFreq(uint32_t targetFr
 {
     power_vdd_core_output_voltage_t voltage;
 
-    if (targetFreqHz == 10000000U)
+    if (targetFreqHz >= 10000000U)
     {
-        /* 10MHz requires 791.5mV */
-        voltage = kPower_VddCoreAon_791_5mV;
+        /* 10MHz requires 785mV */
+        voltage = kPower_VddCoreAon_785mV;
     }
-    else if (targetFreqHz == 5000000U)
+    else if (targetFreqHz >= 5000000U)
     {
-        /* 5MHz requires 763mV */
-        voltage = kPower_VddCoreAon_763mV;
+        /* 5MHz requires 760mV */
+        voltage = kPower_VddCoreAon_760mV;
     }
-    else if (targetFreqHz == 3000000U)
+    else if (targetFreqHz >= 1500000U)
     {
-        /* 3MHz requires 753.5mV */
-        voltage = kPower_VddCoreAon_753_5mV;
-    }
-    else if (targetFreqHz == 2500000U)
-    {
-        /* 2.5MHz requires 744mV */
-        voltage = kPower_VddCoreAon_744mV;
-    }
-    else if (targetFreqHz >= 750000U)
-    {
-        /* 0.75MHz requires 706mV */
-        voltage = kPower_VddCoreAon_706mV;
+        /* 3MHz, 2.5MHz, and 1.5MHz require 750mV */
+        voltage = kPower_VddCoreAon_750mV;
     }
     else
     {
-        /* 32kHz and below require 630mV */
-        voltage = kPower_VddCoreAon_630mV;
+        /* 0.75MHz/32kHz requires 700mV */
+        voltage = kPower_VddCoreAon_700mV;
     }
 
     return voltage;

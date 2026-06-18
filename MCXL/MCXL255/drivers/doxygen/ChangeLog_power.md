@@ -1,5 +1,10 @@
 # Power
 
+## [2.3.2]
+- Improvements
+    - Updated VDD_CORE_AON DVFS trim code values according to volume data measurement.
+    - Updated Power_GetVddCoreForFreq() to select 785mV for 10MHz, 760mV for 5MHz, 750mV for 3MHz/2.5MHz/1.5MHz, 700mV for 0.75MHz, and 630mV for 32kHz.
+
 ## [2.3.1]
 - New Features
     - Use ADVC_PostVoltageChangeRequestBlocking() function to synchronize ADVC post-change status in Power_SetDpd2AdvcWorkaround().

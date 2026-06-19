@@ -1,3 +1,4 @@
+
 //*****************************************************************************
 // MCXE32B_cm7_core1 startup code
 //
@@ -28,30 +29,25 @@
 //
 //*****************************************************************************
 extern "C" {
-extern void __libc_init_array(void);
+    extern void __libc_init_array(void);
 }
 #endif //(__REDLIB__)
 #endif //(__MCUXPRESSO)
 #endif //(__cplusplus)
 
-#define WEAK __attribute__((weak))
+#define WEAK __attribute__ ((weak))
 #if defined(__MCUXPRESSO)
-#define WEAK_AV __attribute__((weak, section(".after_vectors")))
+#define WEAK_AV __attribute__ ((weak, section(".after_vectors")))
 #else
-#define WEAK_AV __attribute__((weak))
-#endif //(__MCUXPRESSO)
-#define ALIAS(f) __attribute__((weak, alias(#f)))
+#define WEAK_AV __attribute__ ((weak))
+#endif // __MCUXPRESSO
+#define ALIAS(f) __attribute__ ((weak, alias (#f)))
 
 //*****************************************************************************
 #if defined(__cplusplus)
 extern "C" {
 #endif //(__cplusplus)
 
-//*****************************************************************************
-// Variable to store CRP value in. Will be placed automatically
-// by the linker when "Enable Code Read Protect" selected.
-// See crp.h header for more information
-//*****************************************************************************
 //*****************************************************************************
 // Declaration of external SystemInit function
 //*****************************************************************************
@@ -82,6 +78,8 @@ WEAK void DebugMon_Handler(void);
 WEAK void PendSV_Handler(void);
 WEAK void SysTick_Handler(void);
 WEAK void DefaultISR(void);
+WEAK void DefaultISR1(uint32_t instance);
+WEAK void DefaultISR4(uint32_t instance, uint32_t start, uint32_t end, uint32_t type);
 
 //*****************************************************************************
 // Forward declaration of the application IRQ handlers. When the application
@@ -352,8 +350,7 @@ void DMATCD31_DriverIRQHandler(void) ALIAS(DefaultISR);
 void ERM_0_DriverIRQHandler(void) ALIAS(DefaultISR);
 void ERM_1_DriverIRQHandler(void) ALIAS(DefaultISR);
 void MCM_DriverIRQHandler(void) ALIAS(DefaultISR);
-void STM0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void STM1_DriverIRQHandler(void) ALIAS(DefaultISR);
+void STM_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void Reserved57_DriverIRQHandler(void) ALIAS(DefaultISR);
 void SWT0_DriverIRQHandler(void) ALIAS(DefaultISR);
 void SWT1_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -397,9 +394,8 @@ void EMIOS2_5_DriverIRQHandler(void) ALIAS(DefaultISR);
 void EMIOS2_6_DriverIRQHandler(void) ALIAS(DefaultISR);
 void EMIOS2_7_DriverIRQHandler(void) ALIAS(DefaultISR);
 void WKPU_DriverIRQHandler(void) ALIAS(DefaultISR);
-void CMU0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void CMU1_DriverIRQHandler(void) ALIAS(DefaultISR);
-void CMU2_DriverIRQHandler(void) ALIAS(DefaultISR);
+void CMU_FC_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
+void CMU_FM_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void BCTU_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved104_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved105_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -422,22 +418,8 @@ void EMAC_0_DriverIRQHandler(void) ALIAS(DefaultISR);
 void EMAC_1_DriverIRQHandler(void) ALIAS(DefaultISR);
 void EMAC_2_DriverIRQHandler(void) ALIAS(DefaultISR);
 void EMAC_3_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN0_0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN0_1_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN0_2_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN0_3_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN1_0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN1_1_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN1_2_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN2_0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN2_1_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN2_2_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN3_0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN3_1_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN4_0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN4_1_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN5_0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void FlexCAN5_1_DriverIRQHandler(void) ALIAS(DefaultISR);
+void FLEXCAN_DriverDataIRQHandler(uint32_t instance, uint32_t start, uint32_t end) ALIAS(DefaultISR3);
+void FLEXCAN_DriverEventIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void Reserved141_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved142_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved143_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -454,41 +436,19 @@ void Reserved153_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved154_DriverIRQHandler(void) ALIAS(DefaultISR);
 void FLEXIO_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved156_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_1_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_2_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_3_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_4_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_5_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_6_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_7_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_8_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_9_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_10_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_11_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_12_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_13_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_14_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPUART_15_DriverIRQHandler(void) ALIAS(DefaultISR);
+void LPUART_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void Reserved173_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved174_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved175_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved176_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPI2C0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPI2C1_DriverIRQHandler(void) ALIAS(DefaultISR);
+void LPI2C_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void Reserved179_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved180_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPSPI0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPSPI1_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPSPI2_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPSPI3_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPSPI4_DriverIRQHandler(void) ALIAS(DefaultISR);
-void LPSPI5_DriverIRQHandler(void) ALIAS(DefaultISR);
+void LPSPI_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void Reserved187_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved188_DriverIRQHandler(void) ALIAS(DefaultISR);
 void QSPI_DriverIRQHandler(void) ALIAS(DefaultISR);
-void SAI0_DriverIRQHandler(void) ALIAS(DefaultISR);
-void SAI1_DriverIRQHandler(void) ALIAS(DefaultISR);
+void SAI_DriverIRQHandler(uint32_t instance) ALIAS(DefaultISR1);
 void Reserved192_DriverIRQHandler(void) ALIAS(DefaultISR);
 void Reserved193_DriverIRQHandler(void) ALIAS(DefaultISR);
 void JDC_DriverIRQHandler(void) ALIAS(DefaultISR);
@@ -558,43 +518,47 @@ extern void _start(void);
 #endif //(__MCUXPRESSO)
 
 //*****************************************************************************
-// External declaration for the pointer from the Linker Script
+// External declaration for the pointer to the stack top from the Linker Script
 //*****************************************************************************
 #if defined(__CC_ARM) || defined(__ARMCC_VERSION)
-extern uint32_t Image$$ARM_LIB_STACK$$ZI$$Base[];
 extern uint32_t Image$$ARM_LIB_STACK$$ZI$$Limit[];
-#define _vStackTop  Image$$ARM_LIB_STACK$$ZI$$Limit
-#define _vStackBase Image$$ARM_LIB_STACK$$ZI$$Base
 #elif defined(__MCUXPRESSO)
 extern void _vStackTop(void);
 extern void _vStackBase(void);
-#define Reset_Handler ResetISR // To be compatible with other compilers
 #elif defined(__ICCARM__)
-#pragma segment = "CSTACK"
-#define _vStackTop  __section_end("CSTACK")
-#define _vStackBase __section_begin("CSTACK")
+#pragma segment="CSTACK"
+#define __StackTop __section_end("CSTACK")
+#define __StackBase __section_begin("CSTACK")
 #elif defined(__GNUC__)
 extern uint32_t __StackTop[];
-extern uint32_t __StackLimit[];
 
-#define _vStackTop  __StackTop
-#define _vStackBase __StackLimit
-
-/*
- * Data section ROM and RAM addresses
- */
 extern uint32_t __etext[];
 extern uint32_t __data_start__[];
 extern uint32_t __data_end__[];
+
+extern uint32_t __ram_function_flash_start[];
+extern uint32_t __ram_function_start__[];
+extern uint32_t __ram_function_end__[];
+
+extern uint32_t __noncache_data_flash_start[];
+extern uint32_t __noncache_data_start__[];
+extern uint32_t __noncache_data_end__[];
+
+extern uint32_t __noncache_bss_start__[];
+extern uint32_t __noncache_bss_end__[];
+
+extern uint32_t __qadata_flash_start[];
+extern uint32_t __qadata_start__[];
+extern uint32_t __qadata_end__[];
+
 extern uint32_t __bss_start__[];
 extern uint32_t __bss_end__[];
-
 #else
 #error Unsupported toolchain!
 #endif //(__CC_ARM) || (__ARMCC_VERSION)
 
 //*****************************************************************************
-#if defined(__cplusplus)
+#if defined (__cplusplus)
 } // extern "C"
 #endif //(__cplusplus)
 //*****************************************************************************
@@ -602,46 +566,52 @@ extern uint32_t __bss_end__[];
 // This relies on the linker script to place at correct location in memory.
 //*****************************************************************************
 #if defined(__CC_ARM) || defined(__ARMCC_VERSION)
-extern void (*const __Vectors[])(void);
-#define __vector_table __Vectors
-__attribute__((used, section(".isr_vector"))) void (*const __Vectors[])(void) = {
+extern void (* const __Vectors[])(void);
+__attribute__ ((used, section(".isr_vector")))
+void (* const __Vectors[])(void) = {
+    (void(*)())(uint32_t)Image$$ARM_LIB_STACK$$ZI$$Limit,   // The initial stack pointer
+    Reset_Handler,                     // The reset handler
 #elif defined(__MCUXPRESSO)
-extern void (*const g_pfnVectors[])(void);
-extern void *__Vectors __attribute__((alias("g_pfnVectors")));
-#define __vector_table g_pfnVectors
-__attribute__((used, section(".isr_vector"))) void (*const g_pfnVectors[])(void) = {
-#elif defined(__ICCARM__)
-extern void (*const __vector_table[])(void);
+extern void (* const g_pfnVectors[])(void);
+extern void * __Vectors __attribute__ ((alias ("g_pfnVectors")));
+
+__attribute__ ((used, section(".isr_vector")))
+void (* const g_pfnVectors[])(void) = {
+    &_vStackTop,                       // The initial stack pointer
+    ResetISR,                          // The reset handler
+#elif defined (__ICCARM__)
+extern void (* const __vector_table[])(void);
 /* The vector table is not needed for initialization. */
 extern void (*const __iar_init$$done[])(void) __attribute__((alias("__vector_table")));
-__attribute__((used, section(".intvec"))) void (*const __vector_table[])(void) = {
-#elif defined(__GNUC__)
-extern void (*const __isr_vector[])(void);
-#define __vector_table __isr_vector
-__attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void) = {
+__attribute__ ((used, section(".intvec")))
+void (* const __vector_table[])(void) = {
+    (void(*)())(uint32_t)__StackTop,   // The initial stack pointer
+    Reset_Handler,                     // The reset handler
+#elif defined (__GNUC__)
+extern void (* const __isr_vector[])(void);
+__attribute__ ((used, section(".isr_vector")))
+void (* const __isr_vector[])(void) = {
+    (void(*)())(uint32_t)__StackTop,   // The initial stack pointer
+    Reset_Handler,                     // The reset handler
 #else
 #error Unsupported toolchain!
 #endif //(__CC_ARM) || (__ARMCC_VERSION)
-    // Core Level - CM7
-    (void (*)())((uint32_t)_vStackTop), // The initial stack pointer
-    Reset_Handler,                      // The reset handler
+    NMI_Handler,                       // NMI Handler
+    HardFault_Handler,                 // Hard Fault Handler
+    MemManage_Handler,                 // MPU Fault Handler
+    BusFault_Handler,                  // Bus Fault Handler
+    UsageFault_Handler,                // Usage Fault Handler
+    0,                                 // Reserved
+    0,                                 // Reserved
+    0,                                 // Reserved
+    0,                                 // Reserved
+    SVC_Handler,                       // SVCall Handler
+    DebugMon_Handler,                  // Debug Monitor Handler
+    0,                                 // Reserved
+    PendSV_Handler,                    // PendSV Handler
+    SysTick_Handler,                   // SysTick Handler
 
-    NMI_Handler,                        // NMI Handler
-    HardFault_Handler,                  // Hard Fault Handler
-    MemManage_Handler,                  // MPU Fault Handler
-    BusFault_Handler,                   // Bus Fault Handler
-    UsageFault_Handler,                 // Usage Fault Handler
-    0,                                  // Reserved
-    0,                                  // Reserved
-    0,                                  // Reserved
-    0,                                  // Reserved
-    SVC_Handler,                        // SVCall Handler
-    DebugMon_Handler,                   // Debug Monitor Handler
-    0,                                  // Reserved
-    PendSV_Handler,                     // PendSV Handler
-    SysTick_Handler,                    // SysTick Handler
-
-    // Chip Level - MCXE32B_cm7_core1
+    // Chip Level - MCXE32B_core1
     INT0_IRQHandler,               // 16 : CPU to CPU int0
     INT1_IRQHandler,               // 17 : CPU to CPU int1
     INT2_IRQHandler,               // 18 : CPU to CPU int2
@@ -703,28 +673,28 @@ __attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void)
     Reserved74_IRQHandler,         // 74 : Reserved interrupt
     Reserved75_IRQHandler,         // 75 : Reserved interrupt
     Reserved76_IRQHandler,         // 76 : Reserved interrupt
-    EMIOS0_2_IRQHandler,           // 77 : Interrupt request 23, 22, 21, 20
-    EMIOS0_3_IRQHandler,           // 78 : Interrupt request 19, 18, 17, 16
-    EMIOS0_4_IRQHandler,           // 79 : Interrupt request 15, 14, 13, 12
-    EMIOS0_5_IRQHandler,           // 80 : Interrupt request 11, 10, 9, 8
-    EMIOS0_6_IRQHandler,           // 81 : Interrupt request 7, 6, 5, 4
-    EMIOS0_7_IRQHandler,           // 82 : Interrupt request 3, 2, 1, 0
+    EMIOS0_2_IRQHandler,           // 77 : Interrupt request 23,22,21,20
+    EMIOS0_3_IRQHandler,           // 78 : Interrupt request 19,18,17,16
+    EMIOS0_4_IRQHandler,           // 79 : Interrupt request 15,14,13,12
+    EMIOS0_5_IRQHandler,           // 80 : Interrupt request 11,10,9,8
+    EMIOS0_6_IRQHandler,           // 81 : Interrupt request 7,6,5,4
+    EMIOS0_7_IRQHandler,           // 82 : Interrupt request 3,2,1,0
     Reserved83_IRQHandler,         // 83 : Reserved interrupt
     Reserved84_IRQHandler,         // 84 : Reserved interrupt
-    EMIOS1_2_IRQHandler,           // 85 : Interrupt request 23, 22, 21, 20
-    EMIOS1_3_IRQHandler,           // 86 : Interrupt request 19, 18, 17, 16
-    EMIOS1_4_IRQHandler,           // 87 : Interrupt request 15, 14, 13, 12
-    EMIOS1_5_IRQHandler,           // 88 : Interrupt request 11, 10, 9, 8
-    EMIOS1_6_IRQHandler,           // 89 : Interrupt request 7, 6, 5, 4
-    EMIOS1_7_IRQHandler,           // 90 : Interrupt request 3, 2, 1, 0
+    EMIOS1_2_IRQHandler,           // 85 : Interrupt request 23,22,21,20
+    EMIOS1_3_IRQHandler,           // 86 : Interrupt request 19,18,17,16
+    EMIOS1_4_IRQHandler,           // 87 : Interrupt request 15,14,13,12
+    EMIOS1_5_IRQHandler,           // 88 : Interrupt request 11,10,9,8
+    EMIOS1_6_IRQHandler,           // 89 : Interrupt request 7,6,5,4
+    EMIOS1_7_IRQHandler,           // 90 : Interrupt request 3,2,1,0
     Reserved91_IRQHandler,         // 91 : Reserved interrupt
     Reserved92_IRQHandler,         // 92 : Reserved interrupt
-    EMIOS2_2_IRQHandler,           // 93 : Interrupt request 23, 22, 21, 20
-    EMIOS2_3_IRQHandler,           // 94 : Interrupt request 19, 18, 17, 16
-    EMIOS2_4_IRQHandler,           // 95 : Interrupt request 15, 14, 13, 12
-    EMIOS2_5_IRQHandler,           // 96 : Interrupt request 11, 10, 9, 8
-    EMIOS2_6_IRQHandler,           // 97 : Interrupt request 7, 6, 5, 4
-    EMIOS2_7_IRQHandler,           // 98 : Interrupt request 3, 2, 1, 0
+    EMIOS2_2_IRQHandler,           // 93 : Interrupt request 23,22,21,20
+    EMIOS2_3_IRQHandler,           // 94 : Interrupt request 19,18,17,16
+    EMIOS2_4_IRQHandler,           // 95 : Interrupt request 15,14,13,12
+    EMIOS2_5_IRQHandler,           // 96 : Interrupt request 11,10,9,8
+    EMIOS2_6_IRQHandler,           // 97 : Interrupt request 7,6,5,4
+    EMIOS2_7_IRQHandler,           // 98 : Interrupt request 3,2,1,0
     WKPU_IRQHandler,               // 99 : Interrupts from pad group 0, 1, 2, 3, 0_64, 1_64, 2_64, 3_64
     CMU0_IRQHandler,               // 100: CMU0 interrupt
     CMU1_IRQHandler,               // 101: CMU1 interrupt
@@ -738,9 +708,9 @@ __attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void)
     LCU1_IRQHandler,               // 109: Interrupt_0, 1, 2
     Reserved110_IRQHandler,        // 110: Reserved interrupt
     Reserved111_IRQHandler,        // 111: Reserved interrupt
-    PIT0_IRQHandler,               // 112: Interrupt for Channel0, Channel1, Channel2, Channel3, Channel4
-    PIT1_IRQHandler,               // 113: Interrupt for Channel0, Channel1, Channel2, Channel3
-    PIT2_IRQHandler,               // 114: Interrupt for Channel0, Channel1, Channel2, Channel3
+    PIT0_IRQHandler,               // 112: Interrupt for Channel0,Interrupt for Channel1,Interrupt for Channel2,Interrupt for Channel3,Interrupt for Channel4
+    PIT1_IRQHandler,               // 113: Interrupt for Channel0,Interrupt for Channel1,Interrupt for Channel2,Interrupt for Channel3
+    PIT2_IRQHandler,               // 114: Interrupt for Channel0,Interrupt for Channel1,Interrupt for Channel2,Interrupt for Channel3
     Reserved115_IRQHandler,        // 115: Reserved interrupt
     Reserved116_IRQHandler,        // 116: Reserved interrupt
     Reserved117_IRQHandler,        // 117: Reserved interrupt
@@ -749,7 +719,7 @@ __attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void)
     Reserved120_IRQHandler,        // 120: Reserved interrupt
     EMAC_0_IRQHandler,             // 121: Common interrupt
     EMAC_1_IRQHandler,             // 122: Tx interrupt 0 and 1
-    EMAC_2_IRQHandler,             // 123: rx interrupt 0
+    EMAC_2_IRQHandler,             // 123: rx interrupt 0 and 1
     EMAC_3_IRQHandler,             // 124: safety interrupt correctable
     FlexCAN0_0_IRQHandler,         // 125: Ored status and error
     FlexCAN0_1_IRQHandler,         // 126: Message Buffer Interrupt line 0-31
@@ -803,8 +773,8 @@ __attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void)
     Reserved174_IRQHandler,        // 174: Reserved interrupt
     Reserved175_IRQHandler,        // 175: Reserved interrupt
     Reserved176_IRQHandler,        // 176: Reserved interrupt
-    LPI2C0_IRQHandler,             // 177: LPI2C Interrupt
-    LPI2C1_IRQHandler,             // 178: LPI2C Interrupt
+    LPI2C0_IRQHandler,             // 177: LPI2C Master Interrupt
+    LPI2C1_IRQHandler,             // 178: LPI2C Master Interrupt
     Reserved179_IRQHandler,        // 179: Reserved interrupt
     Reserved180_IRQHandler,        // 180: Reserved interrupt
     LPSPI0_IRQHandler,             // 181: LPSPI Interrupt
@@ -831,8 +801,8 @@ __attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void)
     Reserved202_IRQHandler,        // 202: Reserved interrupt
     Reserved203_IRQHandler,        // 203: Reserved interrupt
     Reserved204_IRQHandler,        // 204: Reserved interrupt
-    FCCU_0_IRQHandler,             // 205: Interrupt request (ALARM state)
-    FCCU_1_IRQHandler,             // 206: Interrupt request (miscellaneous conditions)
+    FCCU_0_IRQHandler,             // 205: Interrupt request(ALARM state)
+    FCCU_1_IRQHandler,             // 206: Interrupt request(miscellaneous conditions)
     STCU_IRQHandler,               // 207: LBIST and MBIST IRQ
     MU0_B_TX_IRQHandler,           // 208: ORed TX interrupt to MU-0
     MU0_B_RX_IRQHandler,           // 209: ORed RX interrupt to MU-0
@@ -860,15 +830,9 @@ __attribute__((used, section(".isr_vector"))) void (*const __isr_vector[])(void)
     AIPS_PLAT_CLK_FAIL_IRQHandler, // 231: AIPS_PLAT_CLK_FAIL CMU reset reaction interrupt
     Reserved232_IRQHandler,        // 232: Reserved interrupt
     HSE_B_CLK_FAIL_IRQHandler,     // 233: HSE_B_CLK_FAIL CMU reset reaction interrupt
-};                                     /* End of __vector_table */
+};                                 /* End of __vector_table */
 
 #if defined(__MCUXPRESSO)
-#if defined(ENABLE_RAM_VECTOR_TABLE)
-extern void *__VECTOR_TABLE __attribute__((alias("g_pfnVectors")));
-void (*__VECTOR_RAM[sizeof(g_pfnVectors) / 4])(void) __attribute__((aligned(128)));
-unsigned int __RAM_VECTOR_TABLE_SIZE_BYTES = sizeof(g_pfnVectors);
-#endif //(ENABLE_RAM_VECTOR_TABLE)
-
 //*****************************************************************************
 // Functions to carry out the initialization of RW and BSS data sections. These
 // are written as separate functions rather than being inlined within the
@@ -922,9 +886,7 @@ void Reset_Handler_C(void)
     __asm volatile ("cpsie i");
     __main();
 #elif defined(__MCUXPRESSO)
-    //
     // Copy the data sections from flash to SRAM.
-    //
     unsigned int LoadAddr, ExeAddr, SectionLen;
     unsigned int *SectionTableAddr;
 
@@ -932,123 +894,240 @@ void Reset_Handler_C(void)
     SectionTableAddr = &__data_section_table;
 
     // Copy the data sections from flash to SRAM.
-    while (SectionTableAddr < &__data_section_table_end)
-    {
-        LoadAddr   = *SectionTableAddr++;
-        ExeAddr    = *SectionTableAddr++;
+    while (SectionTableAddr < &__data_section_table_end) {
+        LoadAddr = *SectionTableAddr++;
+        ExeAddr = *SectionTableAddr++;
         SectionLen = *SectionTableAddr++;
         data_init(LoadAddr, ExeAddr, SectionLen);
     }
 
     // At this point, SectionTableAddr = &__bss_section_table;
     // Zero fill the bss segment
-    while (SectionTableAddr < &__bss_section_table_end)
-    {
-        ExeAddr    = *SectionTableAddr++;
+    while (SectionTableAddr < &__bss_section_table_end) {
+        ExeAddr = *SectionTableAddr++;
         SectionLen = *SectionTableAddr++;
         bss_init(ExeAddr, SectionLen);
     }
 
-#if defined(__cplusplus)
-    //
+#if defined (__cplusplus)
     // Call C++ library initialisation
-    //
     __libc_init_array();
-#endif //(__cplusplus)
+#endif
 
     // Reenable interrupts
-    __asm volatile("cpsie i");
+    __asm volatile ("cpsie i");
 
-#if defined(__REDLIB__)
+#if defined (__REDLIB__)
     // Call the Redlib library, which in turn calls main()
     __main();
 #else
     main();
-#endif //(__REDLIB__)
+#endif // __REDLIB__
+
 #elif defined(__ICCARM__)
     // Reenable interrupts
-    __asm volatile("cpsie i");
+    __asm volatile ("cpsie i");
 
     __iar_program_start();
 #elif defined(__GNUC__)
-    /*     Loop to copy data from read only memory to RAM. The ranges
-     *      of copy from/to are specified by following symbols evaluated in
-     *      linker script.
-     *      *. __etext/_data_start__/__data_end__
-     *      Note: All must be aligned to 4 bytes boundary.
-     */
+/*     Loop to copy data from read only memory to RAM. The ranges
+ *      of copy from/to are specified by following symbols evaluated in
+ *      linker script.
+ *      1. __etext/_data_start__/__data_end__
+ *      2. __ram_function_flash_start/__ram_function_start__/__ram_function_end__
+ *      3. __qadata_flash_start/__qadata_start__/__qadata_end__
+ *      4. __noncache_data_flash_start/__noncache_data_start__/__noncache_data_end__
+ *      Note: All must be aligned to 4 bytes boundary.
+ */
     uint32_t *pDataSrc, *pDataDest;
 
-    pDataSrc  = (uint32_t *)__etext;
+    pDataSrc = (uint32_t *)__etext;
     pDataDest = (uint32_t *)__data_start__;
     while (pDataDest < __data_end__)
     {
+        *pDataDest ++ = *pDataSrc++;
+    }
+#ifdef __STARTUP_INITIALIZE_RAMFUNCTION
+    pDataSrc = (uint32_t *)__ram_function_flash_start;
+    pDataDest = (uint32_t *)__ram_function_start__;
+    while (pDataDest < __ram_function_end__)
+    {
         *pDataDest++ = *pDataSrc++;
     }
-#if defined(__STARTUP_CLEAR_BSS)
-    /*     This part of work usually is done in C library startup code. Otherwise,
-     *     define this macro to enable it in this startup.
-     *
-     *     Loop to zero out BSS section, which uses following symbols
-     *     in linker script:
-     *      __bss_start__: start of BSS section. Must align to 4
-     *      __bss_end__: end of BSS section. Must align to 4
-     */
+#endif // __STARTUP_INITIALIZE_RAMFUNCTION
+#ifdef __STARTUP_INITIALIZE_NONCACHEDATA
+    pDataSrc = (uint32_t *)__noncache_data_flash_start;
+    pDataDest = (uint32_t *)__noncache_data_start__;
+    while (pDataDest < __noncache_data_end__)
+    {
+        *pDataDest++ = *pDataSrc++;
+    }
+
+    // zero inited ncache section initialization
+    pDataDest = (uint32_t *)__noncache_bss_start__;
+    while (pDataDest < __noncache_bss_end__)
+    {
+        *pDataDest++ = 0;
+    }
+#endif // __STARTUP_INITIALIZE_NONCACHEDATA
+#ifdef __STARTUP_INITIALIZE_QADATA
+    pDataSrc = (uint32_t *)__qadata_flash_start;
+    pDataDest = (uint32_t *)__qadata_start__;
+    while (pDataDest < __qadata_end__)
+    {
+        *pDataDest++ = *pDataSrc++;
+    }
+#endif // __STARTUP_INITIALIZE_QADATA
+#ifdef __STARTUP_CLEAR_BSS
+/*     This part of work usually is done in C library startup code. Otherwise,
+ *     define this macro to enable it in this startup.
+ *
+ *     Loop to zero out BSS section, which uses following symbols
+ *     in linker script:
+ *      __bss_start__: start of BSS section. Must align to 4
+ *      __bss_end__: end of BSS section. Must align to 4
+ */
     pDataDest = (uint32_t *)__bss_start__;
     while (pDataDest < __bss_end__)
     {
-        *pDataDest++ = 0U;
+        *pDataDest++ = 0;
     }
-#endif //(__STARTUP_CLEAR_BSS)
+#endif // __STARTUP_CLEAR_BSS
 
-    __asm volatile("cpsie i");
+    __asm volatile ("cpsie i");
 
-#if !defined(__START)
-#if defined(__REDLIB__)
+#ifndef __START
+#ifdef __REDLIB__
 #define __START __main
 #else
 #define __START _start
-#endif //(__REDLIB__)
-#endif //(__START)
+#endif
+#endif
 
     __START();
 
-#endif //(__GNUC__)
+#endif
 
-    //
     // main() shouldn't return, but if it does, we'll just enter an infinite loop
-    //
-#if !defined(__ARMCC_VERSION) && !defined(__CC_ARM)
     while (1)
     {
         ;
     }
-#endif //!(__ARMCC_VERSION) && !(__CC_ARM)
 }
 
+#if defined(__MCUXPRESSO)
+__attribute__ ((naked, section(".after_vectors.reset")))
+void ResetISR(void) {
+#else
 #if defined(__CC_ARM) || defined(__ARMCC_VERSION)
 __attribute__ ((used, section("InRoot$$Sections")))
+#endif
 __attribute__ ((naked))
-#elif defined(__MCUXPRESSO)
-__attribute__ ((naked, section(".after_vectors.reset")))
-#elif defined(__ICCARM__)
-__stackless
-#elif defined(__GNUC__)
-__attribute__ ((naked))
-#endif //(__CC_ARM) || (__ARMCC_VERSION)
-void Reset_Handler(void)
-{
+void Reset_Handler(void) {
+#endif // __MCUXPRESSO
     // Disable interrupts
-    __asm volatile("cpsid i");
+    __asm volatile ("cpsid i");
     // Config VTOR & MSP register
-    __asm volatile(
-        "LDR R0, =0xE000ED08  \n"
-        "STR %0, [R0]         \n"
-        "LDR R1, [%0]         \n"
-        "MSR MSP, R1          \n"
+    __asm volatile ("LDR R0, =0xE000ED08  \n"
+                    "STR %0, [R0]         \n"
+                    "LDR R1, [%0]         \n"
+                    "MSR MSP, R1          \n"
                     :
+#if defined(__CC_ARM) || defined(__ARMCC_VERSION)
+                    : "r"(__Vectors)
+#elif defined(__MCUXPRESSO)
+                    : "r"(g_pfnVectors)
+#elif defined (__ICCARM__)
                     : "r"(__vector_table)
+#elif defined (__GNUC__)
+                    : "r"(__isr_vector)
+#else
+#error "Unsupported toolchain!"
+#endif
                     : "r0");
+
+// TCM/SRAM controller must perform a read-modify-write for any access < 32-bit(ITCM) or 64-bit to keep the ECC updated.
+// The Software must ensure the TCM is ECC clean by initializing all memories that have the potential to be accessed as < 32-bit(ITCM) or 64-bit.
+#if !defined(BYPASS_ECC_ITCM_INIT)
+    __asm volatile ("LDR     R0, =0x00000000     \n"
+                    "LDR     R1, =0x00007FFF     \n"
+                    "LDR     R2, =Reset_Handler_C\n"
+                    "CMP.W   R1, R2              \n"
+                    "BCS.N   ram_init_itcm_done  \n"
+                    "ram_init_itcm:              \n"
+                    "LDR     R2, =0              \n"
+                    "LDR     R3, =0              \n"
+                    "LDR     R4, =0              \n"
+                    "LDR     R5, =0              \n"
+                    "loop01:                     \n"
+                    "STMIA   R0!, {R2 - R5}      \n"
+                    "CMP     R0, R1              \n"
+                    "BCC.N   loop01              \n"
+                    "ram_init_itcm_done:         \n"
+                    );
+#endif
+
+#if !defined(BYPASS_ECC_DTCM_INIT)
+    __asm volatile ("LDR     R0, =0x20000000     \n"
+                    "LDR     R1, =0x2000FFFF     \n"
+                    "LDR     R2, =0              \n"
+                    "LDR     R3, =0              \n"
+                    "LDR     R4, =0              \n"
+                    "LDR     R5, =0              \n"
+                    "loop02:                     \n"
+                    "STMIA   R0!, {R2 - R5}      \n"
+                    "CMP     R0, R1              \n"
+                    "BCC.N   loop02              \n"
+                    );
+#endif
+
+#if !defined(BYPASS_ECC_SRAM_INIT)
+    __asm volatile ("LDR     R0, =0x20408000     \n"
+                    "LDR     R2, =0x4028C000     \n"
+                    "LDR     R2, [R2]            \n"
+                    "LSLS    R2, R2, #31         \n"
+                    "BPL.N   ram_init_start      \n"
+                    "LDR     R0, =0x20400000     \n"
+                    "ram_init_start:             \n"
+                    "LDR     R1, =0x2044FFFF     \n"
+                    "LDR     R2, =0              \n"
+                    "LDR     R3, =0              \n"
+                    "LDR     R4, =0              \n"
+                    "LDR     R5, =0              \n"
+                    "loop03:                     \n"
+                    "STMIA   R0!, {R2 - R5}      \n"
+                    "CMP     R0, R1              \n"
+                    "BCC.N   loop03              \n"
+                    );
+#endif
+
+#if !defined(BYPASS_ECC_ITCM1_INIT)
+    __asm volatile ("LDR     R0, =0x11400000     \n"
+                    "LDR     R1, =0x11407FFF     \n"
+                    "LDR     R2, =0              \n"
+                    "LDR     R3, =0              \n"
+                    "LDR     R4, =0              \n"
+                    "LDR     R5, =0              \n"
+                    "loop04:                     \n"
+                    "STMIA   R0!, {R2 - R5}      \n"
+                    "CMP     R0, R1              \n"
+                    "BCC.N   loop04              \n"
+                    );
+#endif
+
+#if !defined(BYPASS_ECC_DTCM1_INIT)
+    __asm volatile ("LDR     R0, =0x21400000     \n"
+                    "LDR     R1, =0x2140FFFF     \n"
+                    "LDR     R2, =0              \n"
+                    "LDR     R3, =0              \n"
+                    "LDR     R4, =0              \n"
+                    "LDR     R5, =0              \n"
+                    "loop05:                     \n"
+                    "STMIA   R0!, {R2 - R5}      \n"
+                    "CMP     R0, R1              \n"
+                    "BCC.N   loop05              \n"
+                    );
+#endif
 
     // Call Reset_Handler_C
     __asm volatile ("LDR R0, =Reset_Handler_C \n"
@@ -1062,63 +1141,63 @@ void Reset_Handler(void)
 //*****************************************************************************
 WEAK_AV void NMI_Handler(void)
 {
-    while (1)
+    while(1)
     {
     }
 }
 
 WEAK_AV void HardFault_Handler(void)
 {
-    while (1)
+    while(1)
     {
     }
 }
 
 WEAK_AV void MemManage_Handler(void)
 {
-    while (1)
+    while(1)
     {
     }
 }
 
 WEAK_AV void BusFault_Handler(void)
 {
-    while (1)
+    while(1)
     {
     }
 }
 
 WEAK_AV void UsageFault_Handler(void)
 {
-    while (1)
+    while(1)
     {
     }
 }
 
 WEAK_AV void SVC_Handler(void)
 {
-    while (1)
+    while(1)
     {
     }
 }
 
 WEAK_AV void DebugMon_Handler(void)
 {
-    while (1)
+    while(1)
     {
     }
 }
 
 WEAK_AV void PendSV_Handler(void)
 {
-    while (1)
+    while(1)
     {
     }
 }
 
 WEAK_AV void SysTick_Handler(void)
 {
-    while (1)
+    while(1)
     {
     }
 }
@@ -1129,7 +1208,21 @@ WEAK_AV void SysTick_Handler(void)
 //*****************************************************************************
 WEAK_AV void DefaultISR(void)
 {
-    while (1)
+    while(1)
+    {
+    }
+}
+
+WEAK_AV void DefaultISR1(uint32_t instance)
+{
+    while(1)
+    {
+    }
+}
+
+WEAK_AV void DefaultISR3(uint32_t instance, uint32_t start, uint32_t end)
+{
+    while(1)
     {
     }
 }
@@ -1337,12 +1430,12 @@ WEAK void MCM_IRQHandler(void)
 
 WEAK void STM0_IRQHandler(void)
 {
-    STM0_DriverIRQHandler();
+    STM_DriverIRQHandler(0U);
 }
 
 WEAK void STM1_IRQHandler(void)
 {
-    STM1_DriverIRQHandler();
+    STM_DriverIRQHandler(1U);
 }
 
 WEAK void Reserved57_IRQHandler(void)
@@ -1562,17 +1655,17 @@ WEAK void WKPU_IRQHandler(void)
 
 WEAK void CMU0_IRQHandler(void)
 {
-    CMU0_DriverIRQHandler();
+    CMU_FC_DriverIRQHandler(0U);
 }
 
 WEAK void CMU1_IRQHandler(void)
 {
-    CMU1_DriverIRQHandler();
+    CMU_FM_DriverIRQHandler(0U);
 }
 
 WEAK void CMU2_IRQHandler(void)
 {
-    CMU2_DriverIRQHandler();
+    CMU_FM_DriverIRQHandler(1U);
 }
 
 WEAK void BCTU_IRQHandler(void)
@@ -1687,82 +1780,82 @@ WEAK void EMAC_3_IRQHandler(void)
 
 WEAK void FlexCAN0_0_IRQHandler(void)
 {
-    FlexCAN0_0_DriverIRQHandler();
+    FLEXCAN_DriverEventIRQHandler(0U);
 }
 
 WEAK void FlexCAN0_1_IRQHandler(void)
 {
-    FlexCAN0_1_DriverIRQHandler();
+    FLEXCAN_DriverDataIRQHandler(0U, 0U, 31U);
 }
 
 WEAK void FlexCAN0_2_IRQHandler(void)
 {
-    FlexCAN0_2_DriverIRQHandler();
+    FLEXCAN_DriverDataIRQHandler(0U, 32U, 63U);
 }
 
 WEAK void FlexCAN0_3_IRQHandler(void)
 {
-    FlexCAN0_3_DriverIRQHandler();
+    FLEXCAN_DriverDataIRQHandler(0U, 64U, 95U);
 }
 
 WEAK void FlexCAN1_0_IRQHandler(void)
 {
-    FlexCAN1_0_DriverIRQHandler();
+    FLEXCAN_DriverEventIRQHandler(1U);
 }
 
 WEAK void FlexCAN1_1_IRQHandler(void)
 {
-    FlexCAN1_1_DriverIRQHandler();
+    FLEXCAN_DriverDataIRQHandler(1U, 0U, 31U);
 }
 
 WEAK void FlexCAN1_2_IRQHandler(void)
 {
-    FlexCAN1_2_DriverIRQHandler();
+    FLEXCAN_DriverDataIRQHandler(1U, 32U, 63U);
 }
 
 WEAK void FlexCAN2_0_IRQHandler(void)
 {
-    FlexCAN2_0_DriverIRQHandler();
+    FLEXCAN_DriverEventIRQHandler(2U);
 }
 
 WEAK void FlexCAN2_1_IRQHandler(void)
 {
-    FlexCAN2_1_DriverIRQHandler();
+    FLEXCAN_DriverDataIRQHandler(2U, 0U, 31U);
 }
 
 WEAK void FlexCAN2_2_IRQHandler(void)
 {
-    FlexCAN2_2_DriverIRQHandler();
+    FLEXCAN_DriverDataIRQHandler(2U, 32U, 63U);
 }
 
 WEAK void FlexCAN3_0_IRQHandler(void)
 {
-    FlexCAN3_0_DriverIRQHandler();
+    FLEXCAN_DriverEventIRQHandler(3U);
 }
 
 WEAK void FlexCAN3_1_IRQHandler(void)
 {
-    FlexCAN3_1_DriverIRQHandler();
+    FLEXCAN_DriverDataIRQHandler(3U, 0U, 31U);
 }
 
 WEAK void FlexCAN4_0_IRQHandler(void)
 {
-    FlexCAN4_0_DriverIRQHandler();
+    FLEXCAN_DriverEventIRQHandler(4U);
 }
 
 WEAK void FlexCAN4_1_IRQHandler(void)
 {
-    FlexCAN4_1_DriverIRQHandler();
+    FLEXCAN_DriverDataIRQHandler(4U, 0U, 31U);
 }
 
 WEAK void FlexCAN5_0_IRQHandler(void)
 {
-    FlexCAN5_0_DriverIRQHandler();
+    FLEXCAN_DriverEventIRQHandler(5U);
 }
 
 WEAK void FlexCAN5_1_IRQHandler(void)
 {
-    FlexCAN5_1_DriverIRQHandler();
+    FLEXCAN_DriverDataIRQHandler(5U, 0U, 31U);
 }
 
 WEAK void Reserved141_IRQHandler(void)
@@ -1847,82 +1940,82 @@ WEAK void Reserved156_IRQHandler(void)
 
 WEAK void LPUART_0_IRQHandler(void)
 {
-    LPUART_0_DriverIRQHandler();
+    LPUART_DriverIRQHandler(0U);
 }
 
 WEAK void LPUART_1_IRQHandler(void)
 {
-    LPUART_1_DriverIRQHandler();
+    LPUART_DriverIRQHandler(1U);
 }
 
 WEAK void LPUART_2_IRQHandler(void)
 {
-    LPUART_2_DriverIRQHandler();
+    LPUART_DriverIRQHandler(2U);
 }
 
 WEAK void LPUART_3_IRQHandler(void)
 {
-    LPUART_3_DriverIRQHandler();
+    LPUART_DriverIRQHandler(3U);
 }
 
 WEAK void LPUART_4_IRQHandler(void)
 {
-    LPUART_4_DriverIRQHandler();
+    LPUART_DriverIRQHandler(4U);
 }
 
 WEAK void LPUART_5_IRQHandler(void)
 {
-    LPUART_5_DriverIRQHandler();
+    LPUART_DriverIRQHandler(5U);
 }
 
 WEAK void LPUART_6_IRQHandler(void)
 {
-    LPUART_6_DriverIRQHandler();
+    LPUART_DriverIRQHandler(6U);
 }
 
 WEAK void LPUART_7_IRQHandler(void)
 {
-    LPUART_7_DriverIRQHandler();
+    LPUART_DriverIRQHandler(7U);
 }
 
 WEAK void LPUART_8_IRQHandler(void)
 {
-    LPUART_8_DriverIRQHandler();
+    LPUART_DriverIRQHandler(8U);
 }
 
 WEAK void LPUART_9_IRQHandler(void)
 {
-    LPUART_9_DriverIRQHandler();
+    LPUART_DriverIRQHandler(9U);
 }
 
 WEAK void LPUART_10_IRQHandler(void)
 {
-    LPUART_10_DriverIRQHandler();
+    LPUART_DriverIRQHandler(10U);
 }
 
 WEAK void LPUART_11_IRQHandler(void)
 {
-    LPUART_11_DriverIRQHandler();
+    LPUART_DriverIRQHandler(11U);
 }
 
 WEAK void LPUART_12_IRQHandler(void)
 {
-    LPUART_12_DriverIRQHandler();
+    LPUART_DriverIRQHandler(12U);
 }
 
 WEAK void LPUART_13_IRQHandler(void)
 {
-    LPUART_13_DriverIRQHandler();
+    LPUART_DriverIRQHandler(13U);
 }
 
 WEAK void LPUART_14_IRQHandler(void)
 {
-    LPUART_14_DriverIRQHandler();
+    LPUART_DriverIRQHandler(14U);
 }
 
 WEAK void LPUART_15_IRQHandler(void)
 {
-    LPUART_15_DriverIRQHandler();
+    LPUART_DriverIRQHandler(15U);
 }
 
 WEAK void Reserved173_IRQHandler(void)
@@ -1947,12 +2040,12 @@ WEAK void Reserved176_IRQHandler(void)
 
 WEAK void LPI2C0_IRQHandler(void)
 {
-    LPI2C0_DriverIRQHandler();
+    LPI2C_DriverIRQHandler(0U);
 }
 
 WEAK void LPI2C1_IRQHandler(void)
 {
-    LPI2C1_DriverIRQHandler();
+    LPI2C_DriverIRQHandler(1U);
 }
 
 WEAK void Reserved179_IRQHandler(void)
@@ -1967,32 +2060,32 @@ WEAK void Reserved180_IRQHandler(void)
 
 WEAK void LPSPI0_IRQHandler(void)
 {
-    LPSPI0_DriverIRQHandler();
+    LPSPI_DriverIRQHandler(0U);
 }
 
 WEAK void LPSPI1_IRQHandler(void)
 {
-    LPSPI1_DriverIRQHandler();
+    LPSPI_DriverIRQHandler(1U);
 }
 
 WEAK void LPSPI2_IRQHandler(void)
 {
-    LPSPI2_DriverIRQHandler();
+    LPSPI_DriverIRQHandler(2U);
 }
 
 WEAK void LPSPI3_IRQHandler(void)
 {
-    LPSPI3_DriverIRQHandler();
+    LPSPI_DriverIRQHandler(3U);
 }
 
 WEAK void LPSPI4_IRQHandler(void)
 {
-    LPSPI4_DriverIRQHandler();
+    LPSPI_DriverIRQHandler(4U);
 }
 
 WEAK void LPSPI5_IRQHandler(void)
 {
-    LPSPI5_DriverIRQHandler();
+    LPSPI_DriverIRQHandler(5U);
 }
 
 WEAK void Reserved187_IRQHandler(void)
@@ -2012,12 +2105,12 @@ WEAK void QSPI_IRQHandler(void)
 
 WEAK void SAI0_IRQHandler(void)
 {
-    SAI0_DriverIRQHandler();
+    SAI_DriverIRQHandler(0U);
 }
 
 WEAK void SAI1_IRQHandler(void)
 {
-    SAI1_DriverIRQHandler();
+    SAI_DriverIRQHandler(1U);
 }
 
 WEAK void Reserved192_IRQHandler(void)

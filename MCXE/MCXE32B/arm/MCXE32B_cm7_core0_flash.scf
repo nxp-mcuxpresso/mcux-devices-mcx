@@ -30,6 +30,13 @@
 #define m_stdby_ram_start              0x20400000
 #define m_stdby_ram_end                0x20407FFF
 
+#if (defined(__use_shmem__))
+  #define rpmsg_sh_mem_size            0x1800
+#else
+  #define rpmsg_sh_mem_size            0
+#endif
+#define rpmsg_sh_mem_start             m_stdby_ram_start
+
 #define m_interrupts_start             0x00401000
 #define m_interrupts_size              0x00000400
 
@@ -39,8 +46,18 @@
 #define m_text_start                   0x00401400
 #define m_text_size                    0x003D2C00
 
+/* Flash region holding the embedded secondary core (M7_1) image. The secondary
+ * is linked to run in place from this address and is programmed together with
+ * the primary. The secondary core is released by the application at runtime. */
+#define m_core1_image_start            0x00600000
+#define m_core1_image_size             0x00040000
+
+/* Shared SRAM is split into two disjoint halves so the primary (M7_0) and the
+ * secondary (M7_1) never use the same RAM. core0 owns the lower 144 KB; core1
+ * owns the upper 144 KB (see MCXE32B_cm7_core1_flash.scf). The whole window is
+ * 0x20408000..0x2044FFFF (288 KB). */
 #define m_data_start                   0x20408000
-#define m_data_size                    0x00048000
+#define m_data_size                    0x00024000
 
 #define m_ncache_size                  0x00004000
 #define m_ncache_start                 m_dtcm_start
@@ -121,3 +138,17 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size { ; load region size_
   }
 }
 
+/* Embedded secondary core (M7_1) image, placed at a fixed flash address so it
+ * is programmed together with the primary and runs in place from flash. */
+LR_m_core1_image m_core1_image_start m_core1_image_size {
+  ER_m_core1_image m_core1_image_start FIXED m_core1_image_size {
+    * (.core1_code)
+  }
+}
+
+/* rpmsg-lite shared memory (only consumes RAM when __use_shmem__ is defined). */
+LR_rpmsg_sh_mem rpmsg_sh_mem_start rpmsg_sh_mem_size {
+  RW_rpmsg_sh_mem rpmsg_sh_mem_start UNINIT rpmsg_sh_mem_size {
+    * (rpmsg_sh_mem_section)
+  }
+}

@@ -1082,13 +1082,7 @@ void Reset_Handler(void) {
 #endif
 
 #if !defined(BYPASS_ECC_SRAM_INIT)
-    __asm volatile ("LDR     R0, =0x20408000     \n"
-                    "LDR     R2, =0x4028C000     \n"
-                    "LDR     R2, [R2]            \n"
-                    "LSLS    R2, R2, #31         \n"
-                    "BPL.N   ram_init_start      \n"
-                    "LDR     R0, =0x20400000     \n"
-                    "ram_init_start:             \n"
+    __asm volatile ("LDR     R0, =0x2042C000     \n"
                     "LDR     R1, =0x2044FFFF     \n"
                     "LDR     R2, =0              \n"
                     "LDR     R3, =0              \n"

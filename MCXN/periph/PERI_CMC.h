@@ -101,7 +101,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260512
+**     Build:               b260622
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CMC
@@ -339,8 +339,8 @@ typedef struct {
 #define CMC_CKCTRL_CKMODE_MASK                   (0xFU)
 #define CMC_CKCTRL_CKMODE_SHIFT                  (0U)
 /*! CKMODE - Clocking Mode
- *  0b0000..No clock gating
- *  0b0001..Core clock is gated
+ *  0b0000..Core clock is on
+ *  0b0001..Core clock is off
  *  0b1111..Core, platform, and peripheral clocks are gated, and core enters Low-Power mode.
  */
 #define CMC_CKCTRL_CKMODE(x)                     (((uint32_t)(((uint32_t)(x)) << CMC_CKCTRL_CKMODE_SHIFT)) & CMC_CKCTRL_CKMODE_MASK)

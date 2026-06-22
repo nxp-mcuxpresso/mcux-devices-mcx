@@ -101,7 +101,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260512
+**     Build:               b260622
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPUART
@@ -763,14 +763,6 @@ typedef struct {
  *  0b1..Single-wire mode
  */
 #define LPUART_CTRL_RSRC(x)                      (((uint32_t)(((uint32_t)(x)) << LPUART_CTRL_RSRC_SHIFT)) & LPUART_CTRL_RSRC_MASK)
-
-#define LPUART_CTRL_DOZEEN_MASK                  (0x40U)
-#define LPUART_CTRL_DOZEEN_SHIFT                 (6U)
-/*! DOZEEN - Doze Mode
- *  0b0..Enable
- *  0b1..Disable
- */
-#define LPUART_CTRL_DOZEEN(x)                    (((uint32_t)(((uint32_t)(x)) << LPUART_CTRL_DOZEEN_SHIFT)) & LPUART_CTRL_DOZEEN_MASK)
 
 #define LPUART_CTRL_LOOPS_MASK                   (0x80U)
 #define LPUART_CTRL_LOOPS_SHIFT                  (7U)

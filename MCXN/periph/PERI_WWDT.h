@@ -101,7 +101,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260512
+**     Build:               b260622
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for WWDT
@@ -333,14 +333,6 @@ typedef struct {
  *  0b1..Lock
  */
 #define WWDT_MOD_LOCK(x)                         (((uint32_t)(((uint32_t)(x)) << WWDT_MOD_LOCK_SHIFT)) & WWDT_MOD_LOCK_MASK)
-
-#define WWDT_MOD_DEBUG_EN_MASK                   (0x40U)
-#define WWDT_MOD_DEBUG_EN_SHIFT                  (6U)
-/*! DEBUG_EN - Debug Enable
- *  0b0..Disabled
- *  0b1..Enabled
- */
-#define WWDT_MOD_DEBUG_EN(x)                     (((uint32_t)(((uint32_t)(x)) << WWDT_MOD_DEBUG_EN_SHIFT)) & WWDT_MOD_DEBUG_EN_MASK)
 /*! @} */
 
 /*! @name TC - Timer Constant */

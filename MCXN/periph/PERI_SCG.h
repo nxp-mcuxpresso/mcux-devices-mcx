@@ -101,7 +101,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260512
+**     Build:               b260622
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SCG
@@ -986,6 +986,14 @@ typedef struct {
  */
 #define SCG_APLLCSR_APLLSTEN(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_APLLCSR_APLLSTEN_SHIFT)) & SCG_APLLCSR_APLLSTEN_MASK)
 
+#define SCG_APLLCSR_FRM_CLOCKSTABLE_MASK         (0x8U)
+#define SCG_APLLCSR_FRM_CLOCKSTABLE_SHIFT        (3U)
+/*! FRM_CLOCKSTABLE - Free running mode clock stable
+ *  0b0..Free running mode clockstable is disabled
+ *  0b1..Free running mode clockstable is enabled
+ */
+#define SCG_APLLCSR_FRM_CLOCKSTABLE(x)           (((uint32_t)(((uint32_t)(x)) << SCG_APLLCSR_FRM_CLOCKSTABLE_SHIFT)) & SCG_APLLCSR_FRM_CLOCKSTABLE_MASK)
+
 #define SCG_APLLCSR_APLLCM_MASK                  (0x10000U)
 #define SCG_APLLCSR_APLLCM_SHIFT                 (16U)
 /*! APLLCM - APLL Clock Monitor
@@ -1101,6 +1109,14 @@ typedef struct {
  */
 #define SCG_APLLCTRL_BYPASSPOSTDIV(x)            (((uint32_t)(((uint32_t)(x)) << SCG_APLLCTRL_BYPASSPOSTDIV_SHIFT)) & SCG_APLLCTRL_BYPASSPOSTDIV_MASK)
 
+#define SCG_APLLCTRL_FRM_MASK                    (0x400000U)
+#define SCG_APLLCTRL_FRM_SHIFT                   (22U)
+/*! FRM - Free Running Mode Enable
+ *  0b0..Free running mode disabled
+ *  0b1..Free running mode enabled
+ */
+#define SCG_APLLCTRL_FRM(x)                      (((uint32_t)(((uint32_t)(x)) << SCG_APLLCTRL_FRM_SHIFT)) & SCG_APLLCTRL_FRM_MASK)
+
 #define SCG_APLLCTRL_SOURCE_MASK                 (0x6000000U)
 #define SCG_APLLCTRL_SOURCE_SHIFT                (25U)
 /*! SOURCE - Clock Source
@@ -1138,6 +1154,14 @@ typedef struct {
  *  0b1..The postdivider (P) ratio change is accepted by the analog PLL
  */
 #define SCG_APLLSTAT_PDIVACK(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_APLLSTAT_PDIVACK_SHIFT)) & SCG_APLLSTAT_PDIVACK_MASK)
+
+#define SCG_APLLSTAT_FRMDET_MASK                 (0x10U)
+#define SCG_APLLSTAT_FRMDET_SHIFT                (4U)
+/*! FRMDET - Free running detector (active high)
+ *  0b0..Free running is not detected
+ *  0b1..Free running is detected
+ */
+#define SCG_APLLSTAT_FRMDET(x)                   (((uint32_t)(((uint32_t)(x)) << SCG_APLLSTAT_FRMDET_SHIFT)) & SCG_APLLSTAT_FRMDET_MASK)
 /*! @} */
 
 /*! @name APLLNDIV - APLL N Divider Register */
@@ -1335,6 +1359,14 @@ typedef struct {
  */
 #define SCG_SPLLCSR_SPLLSTEN(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_SPLLCSR_SPLLSTEN_SHIFT)) & SCG_SPLLCSR_SPLLSTEN_MASK)
 
+#define SCG_SPLLCSR_FRM_CLOCKSTABLE_MASK         (0x8U)
+#define SCG_SPLLCSR_FRM_CLOCKSTABLE_SHIFT        (3U)
+/*! FRM_CLOCKSTABLE - Free running mode clock stable
+ *  0b0..Free running mode clockstable is disabled
+ *  0b1..Free running mode clockstable is enabled
+ */
+#define SCG_SPLLCSR_FRM_CLOCKSTABLE(x)           (((uint32_t)(((uint32_t)(x)) << SCG_SPLLCSR_FRM_CLOCKSTABLE_SHIFT)) & SCG_SPLLCSR_FRM_CLOCKSTABLE_MASK)
+
 #define SCG_SPLLCSR_SPLLCM_MASK                  (0x10000U)
 #define SCG_SPLLCSR_SPLLCM_SHIFT                 (16U)
 /*! SPLLCM - SPLL Clock Monitor
@@ -1450,6 +1482,14 @@ typedef struct {
  */
 #define SCG_SPLLCTRL_BYPASSPOSTDIV(x)            (((uint32_t)(((uint32_t)(x)) << SCG_SPLLCTRL_BYPASSPOSTDIV_SHIFT)) & SCG_SPLLCTRL_BYPASSPOSTDIV_MASK)
 
+#define SCG_SPLLCTRL_FRM_MASK                    (0x400000U)
+#define SCG_SPLLCTRL_FRM_SHIFT                   (22U)
+/*! FRM - Free Running Mode Enable
+ *  0b0..Free running mode disabled
+ *  0b1..Free running mode enabled
+ */
+#define SCG_SPLLCTRL_FRM(x)                      (((uint32_t)(((uint32_t)(x)) << SCG_SPLLCTRL_FRM_SHIFT)) & SCG_SPLLCTRL_FRM_MASK)
+
 #define SCG_SPLLCTRL_SOURCE_MASK                 (0x6000000U)
 #define SCG_SPLLCTRL_SOURCE_SHIFT                (25U)
 /*! SOURCE - Clock Source
@@ -1487,6 +1527,14 @@ typedef struct {
  *  0b1..The postdivider (P) ratio change is accepted by the analog PLL
  */
 #define SCG_SPLLSTAT_PDIVACK(x)                  (((uint32_t)(((uint32_t)(x)) << SCG_SPLLSTAT_PDIVACK_SHIFT)) & SCG_SPLLSTAT_PDIVACK_MASK)
+
+#define SCG_SPLLSTAT_FRMDET_MASK                 (0x10U)
+#define SCG_SPLLSTAT_FRMDET_SHIFT                (4U)
+/*! FRMDET - Free running detector (active high)
+ *  0b0..Free running is not detected
+ *  0b1..Free running is detected
+ */
+#define SCG_SPLLSTAT_FRMDET(x)                   (((uint32_t)(((uint32_t)(x)) << SCG_SPLLSTAT_FRMDET_SHIFT)) & SCG_SPLLSTAT_FRMDET_MASK)
 /*! @} */
 
 /*! @name SPLLNDIV - SPLL N Divider Register */

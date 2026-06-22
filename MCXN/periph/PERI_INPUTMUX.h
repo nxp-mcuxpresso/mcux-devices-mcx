@@ -101,7 +101,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260512
+**     Build:               b260622
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for INPUTMUX
@@ -2722,7 +2722,6 @@ typedef struct {
  *  0b00111110..GPIO2 Pin Event Trig 1 input is selected
  *  0b00111111..GPIO3 Pin Event Trig 0 input is selected
  *  0b01000000..GPIO3 Pin Event Trig 1 input is selected
- *  0b01000001..WUU input is selected
  */
 #define INPUTMUX_ADC0_TRIGM_ADC0_TRIG_TRIGIN(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_ADC0_TRIGM_ADC0_TRIG_TRIGIN_SHIFT)) & INPUTMUX_ADC0_TRIGM_ADC0_TRIG_TRIGIN_MASK)
 /*! @} */
@@ -2801,7 +2800,6 @@ typedef struct {
  *  0b00111110..GPIO2 Pin Event Trig 1 input is selected
  *  0b00111111..GPIO3 Pin Event Trig 0 input is selected
  *  0b01000000..GPIO3 Pin Event Trig 1 input is selected
- *  0b01000001..WUU input is selected
  */
 #define INPUTMUX_ADC1_TRIGN_ADC1_TRIG_TRIGIN(x)  (((uint32_t)(((uint32_t)(x)) << INPUTMUX_ADC1_TRIGN_ADC1_TRIG_TRIGIN_SHIFT)) & INPUTMUX_ADC1_TRIGN_ADC1_TRIG_TRIGIN_MASK)
 /*! @} */

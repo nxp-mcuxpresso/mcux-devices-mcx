@@ -101,7 +101,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260512
+**     Build:               b260622
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for USBPHY
@@ -1505,6 +1505,14 @@ typedef struct {
  */
 #define USBPHY_PLL_SIC_PLL_DIV_SEL(x)            (((uint32_t)(((uint32_t)(x)) << USBPHY_PLL_SIC_PLL_DIV_SEL_SHIFT)) & USBPHY_PLL_SIC_PLL_DIV_SEL_MASK)
 
+#define USBPHY_PLL_SIC_PLL_PREDIV_MASK           (0x40000000U)
+#define USBPHY_PLL_SIC_PLL_PREDIV_SHIFT          (30U)
+/*! PLL_PREDIV - PLL Pre-Divider
+ *  0b0..Uses the undivided reference clock for PLL loop
+ *  0b1..Divides the reference clock by two for PLL loop
+ */
+#define USBPHY_PLL_SIC_PLL_PREDIV(x)             (((uint32_t)(((uint32_t)(x)) << USBPHY_PLL_SIC_PLL_PREDIV_SHIFT)) & USBPHY_PLL_SIC_PLL_PREDIV_MASK)
+
 #define USBPHY_PLL_SIC_PLL_LOCK_MASK             (0x80000000U)
 #define USBPHY_PLL_SIC_PLL_LOCK_SHIFT            (31U)
 /*! PLL_LOCK - USB PLL Lock Status Indicator
@@ -1562,6 +1570,11 @@ typedef struct {
 /*! PLL_DIV_SEL - PLL Divider Value Configuration */
 #define USBPHY_PLL_SIC_SET_PLL_DIV_SEL(x)        (((uint32_t)(((uint32_t)(x)) << USBPHY_PLL_SIC_SET_PLL_DIV_SEL_SHIFT)) & USBPHY_PLL_SIC_SET_PLL_DIV_SEL_MASK)
 
+#define USBPHY_PLL_SIC_SET_PLL_PREDIV_MASK       (0x40000000U)
+#define USBPHY_PLL_SIC_SET_PLL_PREDIV_SHIFT      (30U)
+/*! PLL_PREDIV - PLL Pre-Divider */
+#define USBPHY_PLL_SIC_SET_PLL_PREDIV(x)         (((uint32_t)(((uint32_t)(x)) << USBPHY_PLL_SIC_SET_PLL_PREDIV_SHIFT)) & USBPHY_PLL_SIC_SET_PLL_PREDIV_MASK)
+
 #define USBPHY_PLL_SIC_SET_PLL_LOCK_MASK         (0x80000000U)
 #define USBPHY_PLL_SIC_SET_PLL_LOCK_SHIFT        (31U)
 /*! PLL_LOCK - USB PLL Lock Status Indicator */
@@ -1616,6 +1629,11 @@ typedef struct {
 /*! PLL_DIV_SEL - PLL Divider Value Configuration */
 #define USBPHY_PLL_SIC_CLR_PLL_DIV_SEL(x)        (((uint32_t)(((uint32_t)(x)) << USBPHY_PLL_SIC_CLR_PLL_DIV_SEL_SHIFT)) & USBPHY_PLL_SIC_CLR_PLL_DIV_SEL_MASK)
 
+#define USBPHY_PLL_SIC_CLR_PLL_PREDIV_MASK       (0x40000000U)
+#define USBPHY_PLL_SIC_CLR_PLL_PREDIV_SHIFT      (30U)
+/*! PLL_PREDIV - PLL Pre-Divider */
+#define USBPHY_PLL_SIC_CLR_PLL_PREDIV(x)         (((uint32_t)(((uint32_t)(x)) << USBPHY_PLL_SIC_CLR_PLL_PREDIV_SHIFT)) & USBPHY_PLL_SIC_CLR_PLL_PREDIV_MASK)
+
 #define USBPHY_PLL_SIC_CLR_PLL_LOCK_MASK         (0x80000000U)
 #define USBPHY_PLL_SIC_CLR_PLL_LOCK_SHIFT        (31U)
 /*! PLL_LOCK - USB PLL Lock Status Indicator */
@@ -1669,6 +1687,11 @@ typedef struct {
 #define USBPHY_PLL_SIC_TOG_PLL_DIV_SEL_SHIFT     (22U)
 /*! PLL_DIV_SEL - PLL Divider Value Configuration */
 #define USBPHY_PLL_SIC_TOG_PLL_DIV_SEL(x)        (((uint32_t)(((uint32_t)(x)) << USBPHY_PLL_SIC_TOG_PLL_DIV_SEL_SHIFT)) & USBPHY_PLL_SIC_TOG_PLL_DIV_SEL_MASK)
+
+#define USBPHY_PLL_SIC_TOG_PLL_PREDIV_MASK       (0x40000000U)
+#define USBPHY_PLL_SIC_TOG_PLL_PREDIV_SHIFT      (30U)
+/*! PLL_PREDIV - PLL Pre-Divider */
+#define USBPHY_PLL_SIC_TOG_PLL_PREDIV(x)         (((uint32_t)(((uint32_t)(x)) << USBPHY_PLL_SIC_TOG_PLL_PREDIV_SHIFT)) & USBPHY_PLL_SIC_TOG_PLL_PREDIV_MASK)
 
 #define USBPHY_PLL_SIC_TOG_PLL_LOCK_MASK         (0x80000000U)
 #define USBPHY_PLL_SIC_TOG_PLL_LOCK_SHIFT        (31U)

@@ -101,7 +101,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260512
+**     Build:               b260622
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SYSPM
@@ -317,8 +317,8 @@ typedef struct {
 /*! CMODE - Count Mode
  *  0b00..Counted in both User and Privileged modes
  *  0b01..
- *  0b10..Counted only in User mode
- *  0b11..Counted only in Privileged mode
+ *  0b10..
+ *  0b11..
  */
 #define SYSPM_PMCR_CMODE(x)                      (((uint32_t)(((uint32_t)(x)) << SYSPM_PMCR_CMODE_SHIFT)) & SYSPM_PMCR_CMODE_MASK)
 

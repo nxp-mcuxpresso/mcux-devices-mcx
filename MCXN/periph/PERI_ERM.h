@@ -101,7 +101,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260512
+**     Build:               b260622
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ERM
@@ -224,56 +224,6 @@
 #else
   #error "No valid CPU defined!"
 #endif
-
-/* ----------------------------------------------------------------------------
-   -- Mapping Information
-   ---------------------------------------------------------------------------- */
-
-/*!
- * @addtogroup Mapping_Information Mapping Information
- * @{
- */
-
-/** Mapping Information */
-#if !defined(ERM_MEMORY_CHANNEL_T_)
-#define ERM_MEMORY_CHANNEL_T_
-/*!
- * @addtogroup erm_memory_channel
- * @{
- */
-
-/*******************************************************************************
- * Definitions
- ******************************************************************************/
-
-/*!
- * @brief Structure for the erm_memory_channel
- *
- * Defines the structure for the ERM resource collections.
- */
-
-typedef enum _erm_memory_channel
-{
-    kERM_MemoryChannelRAMX          = 0U,          /**< Memory RAMX */
-    kERM_MemoryChannelRAMA          = 1U,          /**< Memory RAMA  */
-    kERM_MemoryChannelRAMB          = 2U,          /**< Memory RAMB */
-    kERM_MemoryChannelRAMC          = 3U,          /**< Memory RAMC */
-    kERM_MemoryChannelRAMD          = 4U,          /**< Memory RAMD */
-    kERM_MemoryChannelRAME          = 5U,          /**< Memory RAME */
-    kERM_MemoryChannelRAMF          = 6U,          /**< Memory RAMF */
-    kERM_MemoryChannelLPCACRAM      = 7U,          /**< Memory LPCACRAM */
-    kERM_MemoryChannelPKCRAM        = 8U,          /**< Memory PKCRAM */
-    kERM_MemoryChannelFLASH         = 9U,          /**< Memory FLASH */
-} erm_memory_channel_t;
-
-/* @} */
-#endif /* ERM_MEMORY_CHANNEL_T_ */
-
-
-/*!
- * @}
- */ /* end of group Mapping_Information */
-
 
 /* ----------------------------------------------------------------------------
    -- Device Peripheral Access Layer

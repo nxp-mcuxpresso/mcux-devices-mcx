@@ -101,7 +101,7 @@
 **                          MCXN947VPB_cm33_core1
 **
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260512
+**     Build:               b260622
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for WUU
@@ -638,36 +638,6 @@ typedef struct {
  *  0b11..Enable (detect on any edge)
  */
 #define WUU_PE2_WUPE28(x)                        (((uint32_t)(((uint32_t)(x)) << WUU_PE2_WUPE28_SHIFT)) & WUU_PE2_WUPE28_MASK)
-
-#define WUU_PE2_WUPE29_MASK                      (0xC000000U)
-#define WUU_PE2_WUPE29_SHIFT                     (26U)
-/*! WUPE29 - Wake-up Pin Enable for WUU_Pn
- *  0b00..Disable
- *  0b01..Enable (detect on rising edge or high level)
- *  0b10..Enable (detect on falling edge or low level)
- *  0b11..Enable (detect on any edge)
- */
-#define WUU_PE2_WUPE29(x)                        (((uint32_t)(((uint32_t)(x)) << WUU_PE2_WUPE29_SHIFT)) & WUU_PE2_WUPE29_MASK)
-
-#define WUU_PE2_WUPE30_MASK                      (0x30000000U)
-#define WUU_PE2_WUPE30_SHIFT                     (28U)
-/*! WUPE30 - Wake-up Pin Enable for WUU_Pn
- *  0b00..Disable
- *  0b01..Enable (detect on rising edge or high level)
- *  0b10..Enable (detect on falling edge or low level)
- *  0b11..Enable (detect on any edge)
- */
-#define WUU_PE2_WUPE30(x)                        (((uint32_t)(((uint32_t)(x)) << WUU_PE2_WUPE30_SHIFT)) & WUU_PE2_WUPE30_MASK)
-
-#define WUU_PE2_WUPE31_MASK                      (0xC0000000U)
-#define WUU_PE2_WUPE31_SHIFT                     (30U)
-/*! WUPE31 - Wake-up Pin Enable for WUU_Pn
- *  0b00..Disable
- *  0b01..Enable (detect on rising edge or high level)
- *  0b10..Enable (detect on falling edge or low level)
- *  0b11..Enable (detect on any edge)
- */
-#define WUU_PE2_WUPE31(x)                        (((uint32_t)(((uint32_t)(x)) << WUU_PE2_WUPE31_SHIFT)) & WUU_PE2_WUPE31_MASK)
 /*! @} */
 
 /*! @name ME - Module Interrupt Enable */
@@ -1072,30 +1042,6 @@ typedef struct {
  *  0b1..Yes
  */
 #define WUU_PF_WUF28(x)                          (((uint32_t)(((uint32_t)(x)) << WUU_PF_WUF28_SHIFT)) & WUU_PF_WUF28_MASK)
-
-#define WUU_PF_WUF29_MASK                        (0x20000000U)
-#define WUU_PF_WUF29_SHIFT                       (29U)
-/*! WUF29 - Wake-up Flag for WUU_Pn
- *  0b0..No
- *  0b1..Yes
- */
-#define WUU_PF_WUF29(x)                          (((uint32_t)(((uint32_t)(x)) << WUU_PF_WUF29_SHIFT)) & WUU_PF_WUF29_MASK)
-
-#define WUU_PF_WUF30_MASK                        (0x40000000U)
-#define WUU_PF_WUF30_SHIFT                       (30U)
-/*! WUF30 - Wake-up Flag for WUU_Pn
- *  0b0..No
- *  0b1..Yes
- */
-#define WUU_PF_WUF30(x)                          (((uint32_t)(((uint32_t)(x)) << WUU_PF_WUF30_SHIFT)) & WUU_PF_WUF30_MASK)
-
-#define WUU_PF_WUF31_MASK                        (0x80000000U)
-#define WUU_PF_WUF31_SHIFT                       (31U)
-/*! WUF31 - Wake-up Flag for WUU_Pn
- *  0b0..No
- *  0b1..Yes
- */
-#define WUU_PF_WUF31(x)                          (((uint32_t)(((uint32_t)(x)) << WUU_PF_WUF31_SHIFT)) & WUU_PF_WUF31_MASK)
 /*! @} */
 
 /*! @name FILT - Pin Filter */

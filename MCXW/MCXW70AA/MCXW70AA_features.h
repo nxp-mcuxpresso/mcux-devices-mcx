@@ -738,6 +738,14 @@
 #define FSL_FEATURE_SPC_HAS_VDD1P8_LVD (1)
 /* @brief Has no DCDC frequency control (register bits DCDC_CFG[FREQ_CNTRL_ON/FREQ_CNTRL]). */
 #define FSL_FEATURE_SPC_HAS_NO_DCDC_FREQ_CNTRL (1)
+/* @brief Has DCDC 2.5V output select (register bits ACTIVE_CFG/HP_CFG[DCDC_VOUT2P5_SEL]). */
+#define FSL_FEATURE_SPC_HAS_DCDC_VOUT2P5_SEL (1)
+/* @brief DCDC 2.5V output select is in the per-mode ACTIVE_CFG/HP_CFG registers (vs DCDC_CFG). */
+#define FSL_FEATURE_SPC_DCDC_VOUT2P5_SEL_IN_ACTIVE_CFG (1)
+/* @brief Has DCDC output voltage ramp control (register bits DCDC_CFG[RAMP_CNTRL_EN/RAMP_CNTRL]). */
+#define FSL_FEATURE_SPC_HAS_DCDC_RAMP_CNTRL (1)
+/* @brief Has DCDC low-power ramp control (register bit DCDC_CFG[RAMP_CNTRL_LP]). */
+#define FSL_FEATURE_SPC_HAS_DCDC_RAMP_CNTRL_LP (1)
 
 /* RTC module features */
 

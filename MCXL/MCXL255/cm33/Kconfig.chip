@@ -53,8 +53,8 @@ config MCUX_TOOLCHAIN_MCUX_STARTUP
     default "mcxl255_cm33"
 
 config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
-    string
-    default "MCXL255_cm33"
+    string "Linker script device prefix"
+    default "MCXL255_cm33" if MCUX_HW_DEVICE_ID_MCXL255xxx
 
 config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
     string

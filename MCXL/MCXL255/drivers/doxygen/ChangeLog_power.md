@@ -1,5 +1,9 @@
 # Power
 
+## [2.3.3]
+- Bug Fixes
+    - Made ADVC support optional so the power driver builds and links when the ADVC driver component (CONFIG_ADVC_DRIVER_USED) is not selected. All ADVC usage (fsl_advc.h include, ADVC_IsEnabled(), Power_SetDpd2AdvcWorkaround(), ADVC pre/post voltage-change requests and CLOCK_*ADVCControl() calls) is now guarded by CONFIG_ADVC_DRIVER_USED; when ADVC is disabled the existing non-ADVC voltage/clock path is taken. Fixes undefined-reference build errors reported when ADVC.c/.h are removed from a project.
+
 ## [2.3.2]
 - Improvements
     - Updated VDD_CORE_AON DVFS trim code values according to volume data measurement.

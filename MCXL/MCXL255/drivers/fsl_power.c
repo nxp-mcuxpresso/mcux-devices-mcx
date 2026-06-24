@@ -12,7 +12,9 @@
 #include "fsl_mu.h"
 #include "fsl_smm.h"
 
+#ifdef CONFIG_ADVC_DRIVER_USED
 #include "fsl_advc.h"
+#endif /* CONFIG_ADVC_DRIVER_USED */
 
 /*******************************************************************************
  * Definitions
@@ -22,6 +24,19 @@
 #ifndef FSL_COMPONENT_ID
 #define FSL_COMPONENT_ID "platform.drivers.power"
 #endif
+
+/*! @brief Resolve the runtime ADVC-enabled check.
+ *
+ * The ADVC driver (fsl_advc.c) and its CLOCK_*ADVCControl helpers (fsl_clock.c) are compiled
+ * only when CONFIG_ADVC_DRIVER_USED is defined. When ADVC is not part of the build, every
+ * ADVC code path in this file is removed by the preprocessor and this macro folds to false so
+ * the non-ADVC fallback branches are always taken without referencing any ADVC symbol.
+ */
+#ifdef CONFIG_ADVC_DRIVER_USED
+#define POWER_ADVC_IS_ENABLED() ADVC_IsEnabled()
+#else
+#define POWER_ADVC_IS_ENABLED() (false)
+#endif /* CONFIG_ADVC_DRIVER_USED */
 
 /*******************************************************************************
  * Prototypes
@@ -216,7 +231,7 @@ static void Power_ConfigureStallForMode(power_low_power_mode_t mode, uint32_t fr
     }
     else if (mode == kPower_DeepPowerDown2)
     {
-        if (ADVC_IsEnabled() == false)
+        if (POWER_ADVC_IS_ENABLED() == false)
         {
             /* DPD2 mode: stall values depend on frequency */
             if (freqHz == 2500000U)
@@ -234,6 +249,7 @@ static void Power_ConfigureStallForMode(power_low_power_mode_t mode, uint32_t fr
                 /* Avoid violation of MISRA C-2012 rule. */
             }
         }
+#ifdef CONFIG_ADVC_DRIVER_USED
         else
         {
             /* DPD2 mode: stall values depend on frequency */
@@ -252,7 +268,12 @@ static void Power_ConfigureStallForMode(power_low_power_mode_t mode, uint32_t fr
                 /* 32kHz without ADVC: short=2, mid=2, long=2. */
                 POWER_UPDATE_SMM_STALL(2U, 2U, 2U);
             }
+            else
+            {
+                /* Avoid violation of MISRA C-2012 rule. */
+            }
         }
+#endif /* CONFIG_ADVC_DRIVER_USED */
     }
 }
 
@@ -298,6 +319,7 @@ static power_mu_nack_reason_t Power_GetMuNackReason(uint32_t message)
 
 static status_t Power_PrepareVddCoreAndFro10M(power_vdd_core_output_voltage_t vddCoreAonVoltage, bool disableFRO10M)
 {
+#ifdef CONFIG_ADVC_DRIVER_USED
     if (ADVC_IsEnabled())
     {
         if (disableFRO10M)
@@ -316,6 +338,7 @@ static status_t Power_PrepareVddCoreAndFro10M(power_vdd_core_output_voltage_t vd
         }
     }
     else
+#endif /* CONFIG_ADVC_DRIVER_USED */
     {
         if (disableFRO10M)
         {
@@ -489,7 +512,7 @@ static void Power_EnableDualDomainWakeupSources(power_wakeup_source_t mainWs, po
     SMM_EnableWakeupSourceToAonCpu(AON__SMM, sharedHandle->enabledWsInfo.aonWakeupSourceMask);
 }
 
-#if __CORTEX_M == 0U
+#if (__CORTEX_M == 0U) && defined(CONFIG_ADVC_DRIVER_USED)
 static status_t Power_SetDpd2AdvcWorkaround(power_dpd2_config_t *config)
 {
     advc_result_t advcRet;
@@ -549,7 +572,7 @@ static status_t Power_SetDpd2AdvcWorkaround(power_dpd2_config_t *config)
     }
     return status;
 }
-#endif /* __CORTEX_M */
+#endif /* (__CORTEX_M == 0U) && defined(CONFIG_ADVC_DRIVER_USED) */
 
 /*!
  * brief Create the shared power handle.
@@ -1676,7 +1699,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
     Power_EnableDualDomainWakeupSources(config->mainWakeupSource, config->aonWakeupSource);
 
     /*3. Configuration for SMM and PMU. */
-    if (ADVC_IsEnabled() == false)
+    if (POWER_ADVC_IS_ENABLED() == false)
     {
         /* When ADVC is disabled, manually select VddCore voltage based on target frequency */
         PMU_UpdateVDDCoreInLpMode(AON__PMU, Power_GetVddCoreForFreq(Power_GetDpd2TargetFreq(config)));
@@ -1791,7 +1814,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
             Power_ConfigSleepModeManager((uint8_t)(config->aonRamArraysToRetain & 0xFFUL), config->mainRamArraysToRetain,
                                          config->disableBandgap, config->enableIVSMode);
 
-            if (ADVC_IsEnabled() == false)
+            if (POWER_ADVC_IS_ENABLED() == false)
             {
                 /* Disable Auto Calibration. */
                 AON__CGU->CAL_CONFIG &= ~CGU_CAL_CONFIG_CAL_CLK_EN_MASK;
@@ -1807,6 +1830,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
                     CLOCK_AttachClk(kFROdiv4_to_AON_CPU);
                 }
             }
+#ifdef CONFIG_ADVC_DRIVER_USED
             else
             {
                 status = Power_SetDpd2AdvcWorkaround(config);
@@ -1815,6 +1839,7 @@ status_t Power_EnterDeepPowerDown2(power_dpd2_config_t *config)
                     return status;
                 }
             }
+#endif /* CONFIG_ADVC_DRIVER_USED */
 
             SMM_SwitchToXTAL32(AON__SMM, config->switchToX32K);
 
@@ -2572,7 +2597,7 @@ status_t Power_InterpretRequest(uint32_t message)
         responseDir = kPower_MsgDirMainToAon;
     }
 
-#if __CORTEX_M == 0U
+#if (__CORTEX_M == 0U) && defined(CONFIG_ADVC_DRIVER_USED)
     if (userAllowed && (targetLowPowerMode == kPower_DeepPowerDown2) && ADVC_IsEnabled())
     {
         if (Power_SetDpd2AdvcWorkaround((power_dpd2_config_t *)lpConfigAddr) != kStatus_Success)
@@ -2582,7 +2607,7 @@ status_t Power_InterpretRequest(uint32_t message)
             status  = kStatus_POWER_RequestNotAllowed;
         }
     }
-#endif /* __CORTEX_M == 0U */
+#endif /* (__CORTEX_M == 0U) && defined(CONFIG_ADVC_DRIVER_USED) */
 
     uint32_t tmp32 = Power_PopulateMuMessage(resType, responseDir, targetLowPowerMode, lowerHalfWordValue);
     MU_SendMsg(POWER_USED_MU, channelId, tmp32);

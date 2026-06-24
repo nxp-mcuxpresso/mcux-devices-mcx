@@ -35,7 +35,10 @@ menu "Device specific drivers configuration"
          select MCUX_COMPONENT_driver.mu1
          select MCUX_COMPONENT_driver.smm
          select MCUX_COMPONENT_driver.pls_pmu
-         select MCUX_COMPONENT_driver.advc
+         # ADVC is optional: imply (not select) keeps it enabled by default for power users
+         # while allowing a project to disable it (CONFIG_MCUX_COMPONENT_driver.advc=n).
+         # fsl_power.c guards all ADVC use with CONFIG_ADVC_DRIVER_USED.
+         imply MCUX_COMPONENT_driver.advc
 
      if MCUX_COMPONENT_driver.power
           config POWER_MU_TRANSFER_TIMEOUT

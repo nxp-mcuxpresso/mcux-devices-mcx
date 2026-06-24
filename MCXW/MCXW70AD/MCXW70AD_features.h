@@ -890,6 +890,9 @@
 #define FSL_FEATURE_TRDC_HAS_DOMAIN_ERROR (1)
 /* @brief TRDC instance has TRDC_FLW_CTL. */
 #define FSL_FEATURE_TRDC_HAS_FLW (1)
+/* @brief TRDC DERRLOC.MBCINST uses flat one-bit-per-MBC-instance encoding (bit N = MBC[N]).
+ *        Other devices use 4-bits-per-MBC encoding (bit 4i+j = MBC[i] SLV[j]). */
+#define FSL_FEATURE_TRDC_DERRLOC_MBCINST_FLAT_ENCODING (1)
 
 /* TRNG module features */
 

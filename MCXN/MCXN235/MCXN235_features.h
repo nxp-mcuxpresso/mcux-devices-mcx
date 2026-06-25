@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.1, 2025-11-17
-**     Build:               b260527
+**     Build:               b260623
 **
 **     Abstract:
 **         Chip specific module features.
@@ -525,6 +525,13 @@
 /* @brief P-Flash page size. */
 #define FSL_FEATURE_FLASH_PFLASH_PAGE_SIZE (128)
 
+/* FREQME module features */
+
+/* @brief FREQME instance support REF and TAR register. */
+#define FSL_FEATURE_FREQME_HAS_CLOCK_SOURCE_SELECT (0)
+/* @brief FREQME frequency calculation formula. 0: CTRL_R[RESULT] - 2; 1: CTRL_R[RESULT] + 1. */
+#define FSL_FEATURE_FREQME_RESULT_CALCULATION_MODE (0)
+
 /* GPIO module features */
 
 /* @brief Has GPIO attribute checker register (GACR). */
@@ -705,6 +712,11 @@
 
 /* @brief number of channels. */
 #define FSL_FEATURE_MRT_NUMBER_OF_CHANNELS (4)
+
+/* OSTIMER module features */
+
+/* @brief Has binary encoded value in counter register. */
+#define FSL_FEATURE_OSTIMER_HAS_BINARY_ENCODED_COUNTER (0)
 
 /* PDM module features */
 

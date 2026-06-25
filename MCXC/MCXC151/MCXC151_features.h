@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260527
+**     Build:               b260623
 **
 **     Abstract:
 **         Chip specific module features.
@@ -387,6 +387,13 @@
 #define FSL_FEATURE_FLASH_IFR_SECTOR_SIZE (0x2000U)
 /* @brief IFR page size. */
 #define FSL_FEATURE_FLASH_IFR_PAGE_SIZE (128)
+
+/* FREQME module features */
+
+/* @brief FREQME instance support REF and TAR register. */
+#define FSL_FEATURE_FREQME_HAS_CLOCK_SOURCE_SELECT (0)
+/* @brief FREQME frequency calculation formula. 0: CTRL_R[RESULT] - 2; 1: CTRL_R[RESULT] + 1. */
+#define FSL_FEATURE_FREQME_RESULT_CALCULATION_MODE (0)
 
 /* GPIO module features */
 

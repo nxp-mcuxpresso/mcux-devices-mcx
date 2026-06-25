@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.1, 2025-11-17
-**     Build:               b260527
+**     Build:               b260623
 **
 **     Abstract:
 **         Chip specific module features.
@@ -372,6 +372,14 @@
 #define FSL_FEATURE_LPDAC_HAS_INTERNAL_REFERENCE_CURRENT (1)
 /* @brief Support Period trigger mode DAC (bitfield IER[PTGCOCO_IE]). */
 #define FSL_FEATURE_LPDAC_HAS_PERIODIC_TRIGGER_MODE (1)
+/* @brief Optional Enable(bitfield GCR[DAC_OPTION_EN]). */
+#define FSL_FEATURE_LPDAC_HAS_GCR_DAC_OPTION_EN (0)
+/* @brief Has no Internal PTAT Current Reference Select (bitfield GCR[IREF_PTAT_EXT_SEL]). */
+#define FSL_FEATURE_LPDAC_HAS_GCR_IREF_PTAT_EXT_SEL (1)
+/* @brief Internal Current Select (bitfield GCR[IREF_INT_SEL]). */
+#define FSL_FEATURE_LPDAC_HAS_GCR_IREF_INT_SEL (0)
+/* @brief Internal Current Trim Register (bitfield GCR[IREF_INT_TRIM]). */
+#define FSL_FEATURE_LPDAC_HAS_GCR_IREF_INT_TRIM (0)
 
 /* EDMA module features */
 
@@ -561,6 +569,13 @@
 #define FSL_FEATURE_FLASH_IFR_SECTOR_SIZE (0x2000U)
 /* @brief IFR page size. */
 #define FSL_FEATURE_FLASH_IFR_PAGE_SIZE (128)
+
+/* FREQME module features */
+
+/* @brief FREQME instance support REF and TAR register. */
+#define FSL_FEATURE_FREQME_HAS_CLOCK_SOURCE_SELECT (0)
+/* @brief FREQME frequency calculation formula. 0: CTRL_R[RESULT] - 2; 1: CTRL_R[RESULT] + 1. */
+#define FSL_FEATURE_FREQME_RESULT_CALCULATION_MODE (0)
 
 /* GPIO module features */
 
@@ -778,6 +793,11 @@
 #define FSL_FEATURE_OPAMP_HAS_OPAMP_CTR_TRIGMD (0)
 /* @brief OPAMP support reference buffer */
 #define FSL_FEATURE_OPAMP_HAS_SUPPORT_REFERENCE_BUFFER (1U)
+
+/* OSTIMER module features */
+
+/* @brief Has binary encoded value in counter register. */
+#define FSL_FEATURE_OSTIMER_HAS_BINARY_ENCODED_COUNTER (0)
 
 /* PORT module features */
 

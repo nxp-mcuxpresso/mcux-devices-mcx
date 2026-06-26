@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260623
+**     Build:               b260626
 **
 **     Abstract:
 **         Chip specific module features.
@@ -395,7 +395,7 @@
 
 /* EDMA module features */
 
-/* @brief Number of DMA channels (related to number of registers TCD, DCHPRI, bit fields ERQ[ERQn], EEI[EEIn], INT[INTn], ERR[ERRn], HRS[HRSn] and bit field widths ES[ERRCHN], CEEI[CEEI], SEEI[SEEI], CERQ[CERQ], SERQ[SERQ], CDNE[CDNE], SSRT[SSRT], CERR[CERR], CINT[CINT], TCDn_CITER_ELINKYES[LINKCH], TCDn_CSR[MAJORLINKCH], TCDn_BITER_ELINKYES[LINKCH]). (Valid only for eDMA modules.) */
+/* @brief Number of DMA channels (related to number of registers TCD, DCHPRI, bit fields ERQ[ERQn], EEI[EEIn], INT[INTn], ERR[ERRn], HRS[HRSn] and bit field widths ES[ERRCHN], CEEI[CEEI], SEEI[SEEI], CERQ[CERQ], SERQ[SERQ], CDNE[CDNE], SSRT[SSRT], CERR[CERR], CINT[CINT], TCDn_CITER_ELINKYES[LINKCH], TCDn_CSR[MAJORLINKCH], TCDn_BITER_ELINKYES[LINKCH]). (Valid only for eDMA modules.) Note: This feature value is not the same on all EDMA instances. */
 #define FSL_FEATURE_EDMA_MODULE_CHANNEL (12)
 /* @brief If 8 bytes transfer supported. */
 #define FSL_FEATURE_EDMA_SUPPORT_8_BYTES_TRANSFER (1)
@@ -471,7 +471,7 @@
 #define FSL_FEATURE_EDMA_HAS_NO_CH_SBR_SEC (0)
 /* @brief edma5 has different tcd type. */
 #define FSL_FEATURE_EDMA_TCD_TYPEn(x) (0)
-/* @brief Number of DMA channels with asynchronous request capability. */
+/* @brief Number of DMA channels with asynchronous request capability. Note: This feature value is not the same on all EDMA instances. */
 #define FSL_FEATURE_EDMA_ASYNCHRO_REQUEST_CHANNEL_COUNT (12)
 
 /* EWM module features */
@@ -813,15 +813,15 @@
 #define FSL_FEATURE_PORT_HAS_PULL_SELECTION (1)
 /* @brief Has pull resistor enable (register bit PCR[PE]). */
 #define FSL_FEATURE_PORT_HAS_PULL_ENABLE (1)
-/* @brief Has slew rate control (register bit PCR[SRE]). */
+/* @brief Has slew rate control (register bit PCR[SRE]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_SLEW_RATE (1)
-/* @brief Has passive filter (register bit field PCR[PFE]). */
+/* @brief Has passive filter (register bit field PCR[PFE]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_PASSIVE_FILTER (1)
 /* @brief Do not has interrupt control (register ISFR). */
 #define FSL_FEATURE_PORT_HAS_NO_INTERRUPT (1)
-/* @brief Has pull value (register bit field PCR[PV]). */
+/* @brief Has pull value (register bit field PCR[PV]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_PCR_HAS_PULL_VALUE (1)
-/* @brief Has drive strength1 control (register bit PCR[DSE1]). */
+/* @brief Has drive strength1 control (register bit PCR[DSE1]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH1 (1)
 /* @brief Has version ID register (register VERID). */
 #define FSL_FEATURE_PORT_HAS_VERSION_INFO_REGISTER (1)
@@ -831,9 +831,9 @@
 #define FSL_FEATURE_PORT_SUPPORT_EFT (0)
 /* @brief Function 0 is GPIO. */
 #define FSL_FEATURE_PORT_PCR_MUX_GPIO (0)
-/* @brief Has drive strength control (register bit PCR[DSE]). */
+/* @brief Has drive strength control (register bit PCR[DSE]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH (1)
-/* @brief Defines width of PCR[MUX] field. */
+/* @brief Defines width of PCR[MUX] field. Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_PCR_MUX_WIDTH (4)
 /* @brief Has dedicated interrupt vector. */
 #define FSL_FEATURE_PORT_HAS_INTERRUPT_VECTOR (1)

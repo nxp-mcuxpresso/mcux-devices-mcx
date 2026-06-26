@@ -81,5 +81,6 @@ device.hardware_data:
           - name: "MCXA457VLQ"
           - name: "MCXA457VLL"
           - name: "MCXA457VPN"
+          - name: "MCXA457VASR"
         modules:
 ...

@@ -1,14 +1,15 @@
 #!armclang --target=arm-arm-none-eabi -march=armv8-m.main -E -x c
 /*
 ** ###################################################################
-**     Processors:          MCXA457VLL
+**     Processors:          MCXA457VASR
+**                          MCXA457VLL
 **                          MCXA457VLQ
 **                          MCXA457VPN
 **
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260424
+**     Build:               b260626
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler

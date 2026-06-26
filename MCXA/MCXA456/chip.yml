@@ -81,5 +81,6 @@ device.hardware_data:
           - name: "MCXA456VLQ"
           - name: "MCXA456VLL"
           - name: "MCXA456VPN"
+          - name: "MCXA456VASR"
         modules:
 ...

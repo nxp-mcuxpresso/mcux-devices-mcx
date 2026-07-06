@@ -11,8 +11,8 @@ device.hardware_data:
         name: "MCXC242"
         platform: "MCX"
         series: "MCXC"
-        family: "MCXC242"
-        subfamily: "MCXC2XX"
+        family: "MCXC2XX"
+        subfamily: "MCXC242"
         frequency_mhz: 48
         core:
           - name: "Cortex-M0P"

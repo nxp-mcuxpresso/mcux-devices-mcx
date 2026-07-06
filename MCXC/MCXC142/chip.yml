@@ -11,8 +11,8 @@ device.hardware_data:
         name: "MCXC142"
         platform: "MCX"
         series: "MCXC"
-        family: "MCXC142"
-        subfamily: "MCXC1XX"
+        family: "MCXC1XX"
+        subfamily: "MCXC142"
         frequency_mhz: 48
         core:
           - name: "Cortex-M0P"

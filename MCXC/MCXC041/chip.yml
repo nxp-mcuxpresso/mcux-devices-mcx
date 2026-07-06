@@ -11,8 +11,8 @@ device.hardware_data:
         name: "MCXC041"
         platform: "MCX"
         series: "MCXC"
-        family: "MCXC041"
-        subfamily: "MCXC1XX"
+        family: "MCXC0XX"
+        subfamily: "MCXC041"
         frequency_mhz: 48
         core:
           - name: "Cortex-M0P"

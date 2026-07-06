@@ -11,8 +11,8 @@ device.hardware_data:
         name: "MCXC444"
         platform: "MCX"
         series: "MCXC"
-        family: "MCXC444"
-        subfamily: "MCXC4XX"
+        family: "MCXC4XX"
+        subfamily: "MCXC444"
         frequency_mhz: 48
         core:
           - name: "Cortex-M0P"

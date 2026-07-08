@@ -1,10 +1,12 @@
 /*
 ** ###################################################################
-**     Processor:           MCXA556VPN
+**     Processors:          MCXA556BVPN
+**                          MCXA556VPN
+**
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260626
+**     Build:               b260708
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM

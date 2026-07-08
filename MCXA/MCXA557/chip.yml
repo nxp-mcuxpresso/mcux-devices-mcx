@@ -79,5 +79,6 @@ device.hardware_data:
           flash_size_kb: 2048
         part:
           - name: "MCXA557VPN"
+          - name: "MCXA557BVPN"
         modules:
 ...

@@ -1,10 +1,12 @@
 /*
 ** ###################################################################
-**     Processor:           MCXA557VPN
+**     Processors:          MCXA557BVPN
+**                          MCXA557VPN
+**
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260626
+**     Build:               b260708
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

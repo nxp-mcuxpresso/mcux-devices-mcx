@@ -22,7 +22,9 @@
 **                          MCXA537VLL
 **                          MCXA537VLQ
 **                          MCXA537VPN
+**                          MCXA556BVPN
 **                          MCXA556VPN
+**                          MCXA557BVPN
 **                          MCXA557VPN
 **                          MCXA566VLL
 **                          MCXA566VLQ
@@ -35,7 +37,7 @@
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260626
+**     Build:               b260708
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for EIM
@@ -81,9 +83,9 @@
 #include "MCXA536_COMMON.h"
 #elif (defined(CPU_MCXA537VLL) || defined(CPU_MCXA537VLQ) || defined(CPU_MCXA537VPN))
 #include "MCXA537_COMMON.h"
-#elif (defined(CPU_MCXA556VPN))
+#elif (defined(CPU_MCXA556BVPN) || defined(CPU_MCXA556VPN))
 #include "MCXA556_COMMON.h"
-#elif (defined(CPU_MCXA557VPN))
+#elif (defined(CPU_MCXA557BVPN) || defined(CPU_MCXA557VPN))
 #include "MCXA557_COMMON.h"
 #elif (defined(CPU_MCXA566VLL) || defined(CPU_MCXA566VLQ) || defined(CPU_MCXA566VPN))
 #include "MCXA566_COMMON.h"
@@ -94,72 +96,6 @@
 #else
   #error "No valid CPU defined!"
 #endif
-
-/* ----------------------------------------------------------------------------
-   -- Mapping Information
-   ---------------------------------------------------------------------------- */
-
-/*!
- * @addtogroup Mapping_Information Mapping Information
- * @{
- */
-
-/** Mapping Information */
-#if !defined(EIM_MEMORY_CHANNEL_T_)
-#define EIM_MEMORY_CHANNEL_T_
-/*!
- * @addtogroup eim_memory_channel
- * @{
- */
-
-/*******************************************************************************
- * Definitions
- ******************************************************************************/
-
-/*!
- * @brief Structure for the eim_memory_channel
- *
- * Defines the structure for the EIM resource collections.
- */
-
-typedef enum _eim_memory_channel
-{
-    kEIM_MemoryChannelRAMA0         = 0U,          /**< Memory RAMA0 */
-} eim_memory_channel_t;
-
-/* @} */
-#endif /* EIM_MEMORY_CHANNEL_T_ */
-
-#if !defined(EIM_ERROR_INJECTION_CHANNEL_ENABLE_T_)
-#define EIM_ERROR_INJECTION_CHANNEL_ENABLE_T_
-/*!
- * @addtogroup eim_error_injection_channel_enable
- * @{
- */
-
-/*******************************************************************************
- * Definitions
- ******************************************************************************/
-
-/*!
- * @brief Structure for the eim_error_injection_channel_enable
- *
- * Defines the structure for the EIM error injection resource collections.
- */
-
-typedef enum _eim_error_injection_channel_enable
-{
-    kEIM_MemoryChannelRAMAEnable    = 0x80000000U, /**< Memory channel 0(RAMA0) error injection enable */
-} eim_error_injection_channel_enable_t;
-
-/* @} */
-#endif /* EIM_ERROR_INJECTION_CHANNEL_ENABLE_T_ */
-
-
-/*!
- * @}
- */ /* end of group Mapping_Information */
-
 
 /* ----------------------------------------------------------------------------
    -- Device Peripheral Access Layer

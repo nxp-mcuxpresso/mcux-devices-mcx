@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.0.3]
+
+- Improvements
+  - Added PLL_PREDIV support in CLOCK_EnableUsbhsPhyPllClock to support higher input frequencies (e.g. 48 MHz).
+
 ## [2.0.2]
 
 - Improvements

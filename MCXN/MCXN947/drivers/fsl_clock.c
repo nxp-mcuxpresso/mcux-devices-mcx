@@ -3239,17 +3239,32 @@ bool CLOCK_EnableUsbhsPhyPllClock(clock_usb_phy_src_t src, uint32_t freq)
     uint32_t phyPllDiv  = 0U;
     uint16_t multiplier = 0U;
     bool err            = false;
+    bool usePreDiv      = false;
 
     USBPHY->CTRL_CLR    = USBPHY_CTRL_SFTRST_MASK;
     USBPHY->ANACTRL_SET = USBPHY_ANACTRL_LVI_EN_MASK;
     USBPHY->PLL_SIC_SET = USBPHY_PLL_SIC_PLL_REG_ENABLE_MASK;
     SDK_DelayAtLeastUs(15U, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
     USBPHY->PLL_SIC_SET = USBPHY_PLL_SIC_PLL_POWER(1);
-    if ((480000000UL % freq) != 0UL)
+
+    if ((480000000UL % freq) == 0UL)
     {
-        return false;
+        multiplier = (uint16_t)((480000000UL / freq) & 0xFFFFU);
     }
-    multiplier = (uint16_t)((480000000UL / freq) & 0xFFFFU);
+
+    if ((multiplier != 15U) && (multiplier != 16U) && (multiplier != 20U) && (multiplier != 22U) &&
+        (multiplier != 24U) && (multiplier != 25U) && (multiplier != 30U) && (multiplier != 40U))
+    {
+        if (((freq % 2UL) == 0UL) && ((480000000UL % (freq / 2UL)) == 0UL))
+        {
+            usePreDiv  = true;
+            multiplier = (uint16_t)((480000000UL / (freq / 2UL)) & 0xFFFFU);
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     switch (multiplier)
     {
@@ -3305,7 +3320,12 @@ bool CLOCK_EnableUsbhsPhyPllClock(clock_usb_phy_src_t src, uint32_t freq)
         return false;
     }
 
-    USBPHY->PLL_SIC = (USBPHY->PLL_SIC & ~(USBPHY_PLL_SIC_PLL_DIV_SEL_MASK)) | phyPllDiv;
+    if (usePreDiv)
+    {
+        phyPllDiv |= USBPHY_PLL_SIC_PLL_PREDIV(1U);
+    }
+
+    USBPHY->PLL_SIC = (USBPHY->PLL_SIC & ~(USBPHY_PLL_SIC_PLL_DIV_SEL_MASK | USBPHY_PLL_SIC_PLL_PREDIV_MASK)) | phyPllDiv;
 
     USBPHY->PLL_SIC_CLR = USBPHY_PLL_SIC_PLL_BYPASS_MASK;
     USBPHY->PLL_SIC_SET = (USBPHY_PLL_SIC_PLL_EN_USB_CLKS_MASK);

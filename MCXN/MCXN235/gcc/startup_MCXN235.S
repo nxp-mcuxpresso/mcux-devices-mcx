@@ -4,11 +4,11 @@
 /*            MCXN235                                                        */
 /*  @version: 2.0                                                            */
 /*  @date:    2024-10-29                                                     */
-/*  @build:   b250521                                                        */
+/*  @build:   b260710                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
-/* Copyright 2016-2025 NXP                                                   */
+/* Copyright 2016-2026 NXP                                                   */
 /* SPDX-License-Identifier: BSD-3-Clause                                     */
 /*****************************************************************************/
 /* Version: GCC for ARM Embedded Processors                                  */

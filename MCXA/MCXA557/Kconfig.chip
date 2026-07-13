@@ -103,7 +103,22 @@ config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string
     default "MCXA557" if MCUX_HW_DEVICE_ID_MCXA557
 
+config MCUX_HW_IP_DriverType_FLEXIO_A-FORMAT
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA557
+
+config MCUX_HW_IP_DriverType_FLEXIO_CAMERA
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA557
+
 config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXA557
+
+config MCUX_HW_IP_DriverType_FLEXIO_T-FORMAT
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXA557

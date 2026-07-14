@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260623
+**     Build:               b260714
 **
 **     Abstract:
 **         Chip specific module features.
@@ -337,7 +337,7 @@
 /* @brief Number of fault channel in each (e)FlexPWM module. */
 #define FSL_FEATURE_PWM_FAULT_CH_COUNT (1)
 /* @brief (e)FlexPWM has no WAITEN Bitfield In CTRL2 Register. */
-#define FSL_FEATURE_PWM_HAS_NO_WAITEN (1)
+#define FSL_FEATURE_PWM_HAS_NO_WAITEN (0)
 /* @brief If (e)FlexPWM has phase delay feature. */
 #define FSL_FEATURE_PWM_HAS_PHASE_DELAY (1)
 /* @brief If (e)FlexPWM has input filter capture feature. */
@@ -564,7 +564,7 @@
 /* @brief Opamp has OPAMP_CTR INPSEL bit */
 #define FSL_FEATURE_OPAMP_HAS_OPAMP_CTR_INPSEL (1)
 /* @brief Opamp has OPAMP_CTR TRIGMD bit */
-#define FSL_FEATURE_OPAMP_HAS_OPAMP_CTR_TRIGMD (1)
+#define FSL_FEATURE_OPAMP_HAS_OPAMP_CTR_TRIGMD (0)
 /* @brief OPAMP support reference buffer */
 #define FSL_FEATURE_OPAMP_HAS_SUPPORT_REFERENCE_BUFFER (1U)
 
@@ -584,13 +584,13 @@
 #define FSL_FEATURE_PORT_HAS_PULL_ENABLE (1)
 /* @brief Has slew rate control (register bit PCR[SRE]). */
 #define FSL_FEATURE_PORT_HAS_SLEW_RATE (1)
-/* @brief Has passive filter (register bit field PCR[PFE]). */
+/* @brief Has passive filter (register bit field PCR[PFE]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_PASSIVE_FILTER (1)
 /* @brief Do not has interrupt control (register ISFR). */
 #define FSL_FEATURE_PORT_HAS_NO_INTERRUPT (1)
-/* @brief Has pull value (register bit field PCR[PV]). */
+/* @brief Has pull value (register bit field PCR[PV]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_PCR_HAS_PULL_VALUE (1)
-/* @brief Has drive strength1 control (register bit PCR[DSE1]). */
+/* @brief Has drive strength1 control (register bit PCR[DSE1]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH1 (1)
 /* @brief Has version ID register (register VERID). */
 #define FSL_FEATURE_PORT_HAS_VERSION_INFO_REGISTER (1)
@@ -602,7 +602,7 @@
 #define FSL_FEATURE_PORT_PCR_MUX_GPIO (0)
 /* @brief Has drive strength control (register bit PCR[DSE]). */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH (1)
-/* @brief Defines width of PCR[MUX] field. */
+/* @brief Defines width of PCR[MUX] field. Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_PCR_MUX_WIDTH (4)
 /* @brief Has dedicated interrupt vector. */
 #define FSL_FEATURE_PORT_HAS_INTERRUPT_VECTOR (1)
@@ -689,11 +689,11 @@
 /* @brief Has COREVDD_IVS_EN. */
 #define FSL_FEATURE_MCX_SPC_HAS_COREVDD_IVS_EN_BIT (0)
 /* @brief Has SWITCH_STATE. */
-#define FSL_FEATURE_MCX_SPC_HAS_SWITCH_STATE_BIT (0)
+#define FSL_FEATURE_MCX_SPC_HAS_SWITCH_STATE_BIT (1)
 /* @brief Has SRAMRETLDO. */
 #define FSL_FEATURE_MCX_SPC_HAS_SRAMRETLDO_REG (1)
 /* @brief Has CFG register. */
-#define FSL_FEATURE_MCX_SPC_HAS_CFG_REG (0)
+#define FSL_FEATURE_MCX_SPC_HAS_CFG_REG (1)
 /* @brief Has SRAMLDO_DPD_ON. */
 #define FSL_FEATURE_MCX_SPC_HAS_SRAMLDO_DPD_ON_BIT (1)
 /* @brief Has CNTRL register. */
@@ -701,21 +701,21 @@
 /* @brief Has DPDOWN_PULLDOWN_DISABLE. */
 #define FSL_FEATURE_MCX_SPC_HAS_DPDOWN_PULLDOWN_DISABLE_BIT (0)
 /* @brief Not have glitch detect. */
-#define FSL_FEATURE_MCX_SPC_HAS_NO_GLITCH_DETECT (0)
+#define FSL_FEATURE_MCX_SPC_HAS_NO_GLITCH_DETECT (1)
 /* @brief Has BLEED_EN. */
 #define FSL_FEATURE_MCX_SPC_HAS_DCDC_CFG_BLEED_EN (0)
 /* @brief Has Power Request Status Flag. */
-#define FSL_FEATURE_MCX_SPC_HAS_PD_STATUS_PWR_REQ_STATUS_BIT (0)
+#define FSL_FEATURE_MCX_SPC_HAS_PD_STATUS_PWR_REQ_STATUS_BIT (1)
 /* @brief Support overdrive voltage. */
 #define FSL_FEATURE_MCX_SPC_SUPPORT_OVERDRIVE_VOLTAGE (0)
 /* @brief Has SPC_LP_REQ bit in SC register. */
-#define FSL_FEATURE_MCX_SPC_HAS_SC_SPC_LP_REQ_BIT (0)
+#define FSL_FEATURE_MCX_SPC_HAS_SC_SPC_LP_REQ_BIT (1)
 /* @brief Has SPC_LP_MODE bit in SC register. */
-#define FSL_FEATURE_MCX_SPC_HAS_SC_SPC_LP_MODE_BIT (0)
+#define FSL_FEATURE_MCX_SPC_HAS_SC_SPC_LP_MODE_BIT (1)
 /* @brief Has SRAMCTL register. */
-#define FSL_FEATURE_MCX_SPC_HAS_SRAMCTL_REG (0)
+#define FSL_FEATURE_MCX_SPC_HAS_SRAMCTL_REG (1)
 /* @brief Has PD_STATUS register. */
-#define FSL_FEATURE_MCX_SPC_HAS_PD_STATUS_REG (0)
+#define FSL_FEATURE_MCX_SPC_HAS_PD_STATUS_REG (1)
 /* @brief Has SRAMRETLDO_REFTRIM register. */
 #define FSL_FEATURE_MCX_SPC_HAS_SRAMRETLDO_REFTRIM_REG (0)
 
@@ -762,7 +762,7 @@
 /* @brief TRNG does not support PKRMAX. */
 #define FSL_FEATURE_TRNG_HAS_NO_TRNG_PKRMAX (0)
 /* @brief TRNG does not support SAMP mode. */
-#define FSL_FEATURE_TRNG_HAS_NO_TRNG_MCTL_SAMP_MODE (0)
+#define FSL_FEATURE_TRNG_HAS_NO_TRNG_MCTL_SAMP_MODE (1)
 /* @brief TRNG does not support ACC. */
 #define FSL_FEATURE_TRNG_HAS_NO_TRNG_ACC (1)
 /* @brief TRNG does not support SBLIM. */
@@ -779,7 +779,7 @@
 /* VBAT module features */
 
 /* @brief Has STATUS register */
-#define FSL_FEATURE_MCX_VBAT_HAS_STATUS_REG (0)
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUS_REG (1)
 /* @brief Has TAMPER register */
 #define FSL_FEATURE_MCX_VBAT_HAS_TAMPER_REG (0)
 /* @brief Has BANDGAP register */

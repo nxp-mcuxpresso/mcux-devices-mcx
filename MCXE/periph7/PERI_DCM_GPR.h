@@ -6,7 +6,7 @@
 **                          MCXE327MPB_cm7_core1
 **
 **     Version:             rev. 1.0, 2025-07-18
-**     Build:               b260609
+**     Build:               b260716
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for DCM_GPR
@@ -125,9 +125,9 @@ typedef struct {
   __IO uint32_t DCMRWD4;                           /**< Read Write GPR On Destructive Reset 4, offset: 0x50C */
   __IO uint32_t DCMRWD5;                           /**< Read Write GPR On Destructive Reset 5, offset: 0x510 */
   __IO uint32_t DCMRWD6;                           /**< Read Write GPR On Destructive Reset 6, offset: 0x514 */
-       uint32_t DCMRWD7;                           /**< Read Write GPR On Destructive Reset 7, offset: 0x518 */
+  __I  uint32_t DCMRWD7;                           /**< Read Write GPR On Destructive Reset 7, offset: 0x518 */
   __IO uint32_t DCMRWD8;                           /**< Read Write GPR On Destructive Reset 8, offset: 0x51C */
-       uint32_t DCMRWD9;                           /**< Read Write GPR On Destructive Reset 9, offset: 0x520 */
+  __I  uint32_t DCMRWD9;                           /**< Read Write GPR On Destructive Reset 9, offset: 0x520 */
        uint8_t RESERVED_7[220];
   __IO uint32_t DCMRWF1;                           /**< Read Write GPR On Functional Reset 1, offset: 0x600 */
   __IO uint32_t DCMRWF2;                           /**< Read Write GPR On Functional Reset 2, offset: 0x604 */

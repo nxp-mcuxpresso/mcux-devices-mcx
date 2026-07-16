@@ -1,10 +1,12 @@
 /*
 ** ###################################################################
-**     Processors:          MCXE32BMPB_cm7_core0
+**     Processors:          MCXE32BMLL_cm7_core0
+**                          MCXE32BMLL_cm7_core1
+**                          MCXE32BMPB_cm7_core0
 **                          MCXE32BMPB_cm7_core1
 **
 **     Version:             rev. 1.0, 2025-07-18
-**     Build:               b260609
+**     Build:               b260625
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CAN
@@ -37,9 +39,9 @@
 #if !defined(PERI_CAN_H_)
 #define PERI_CAN_H_                              /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXE32BMPB_cm7_core0))
+#if (defined(CPU_MCXE32BMLL_cm7_core0) || defined(CPU_MCXE32BMPB_cm7_core0))
 #include "MCXE32B_cm7_core0_COMMON.h"
-#elif (defined(CPU_MCXE32BMPB_cm7_core1))
+#elif (defined(CPU_MCXE32BMLL_cm7_core1) || defined(CPU_MCXE32BMPB_cm7_core1))
 #include "MCXE32B_cm7_core1_COMMON.h"
 #else
   #error "No valid CPU defined!"
@@ -120,9 +122,9 @@ typedef struct {
   __IO uint32_t RX15MASK;                          /**< Rx 15 Mask Register, offset: 0x18 */
   __IO uint32_t ECR;                               /**< Error Counter, offset: 0x1C */
   __IO uint32_t ESR1;                              /**< Error and Status 1 Register, offset: 0x20 */
-  __IO uint32_t IMASK2;                            /**< Interrupt Masks 2 Register, offset: 0x24, not available in all instances (available on 3 out of 6) */
+  __IO uint32_t IMASK2;                            /**< Interrupt Masks 2 Register, offset: 0x24, not available in all instances (available on 6 out of 12) */
   __IO uint32_t IMASK1;                            /**< Interrupt Masks 1 Register, offset: 0x28 */
-  __IO uint32_t IFLAG2;                            /**< Interrupt Flags 2 Register, offset: 0x2C, not available in all instances (available on 3 out of 6) */
+  __IO uint32_t IFLAG2;                            /**< Interrupt Flags 2 Register, offset: 0x2C, not available in all instances (available on 6 out of 12) */
   __IO uint32_t IFLAG1;                            /**< Interrupt Flags 1 Register, offset: 0x30 */
   __IO uint32_t CTRL2;                             /**< Control 2 Register, offset: 0x34 */
   __I  uint32_t ESR2;                              /**< Error and Status 2 Register, offset: 0x38 */
@@ -132,9 +134,9 @@ typedef struct {
   __I  uint32_t RXFIR;                             /**< Legacy Rx FIFO Information Register, offset: 0x4C */
   __IO uint32_t CBT;                               /**< CAN Bit Timing Register, offset: 0x50 */
        uint8_t RESERVED_2[24];
-  __IO uint32_t IMASK3;                            /**< Interrupt Masks 3 Register, offset: 0x6C, not available in all instances (available on 1 out of 6) */
+  __IO uint32_t IMASK3;                            /**< Interrupt Masks 3 Register, offset: 0x6C, not available in all instances (available on 2 out of 12) */
        uint8_t RESERVED_3[4];
-  __IO uint32_t IFLAG3;                            /**< Interrupt Flags 3 Register, offset: 0x74, not available in all instances (available on 1 out of 6) */
+  __IO uint32_t IFLAG3;                            /**< Interrupt Flags 3 Register, offset: 0x74, not available in all instances (available on 2 out of 12) */
        uint8_t RESERVED_4[8];
   union {                                          /* offset: 0x80 */
     struct {                                         /* offset: 0x80, array step: 0x10 */
@@ -225,13 +227,13 @@ typedef struct {
   __IO uint32_t FDCTRL;                            /**< CAN FD Control Register, offset: 0xC00 */
   __IO uint32_t FDCBT;                             /**< CAN FD Bit Timing Register, offset: 0xC04 */
   __I  uint32_t FDCRC;                             /**< CAN FD CRC Register, offset: 0xC08 */
-  __IO uint32_t ERFCR;                             /**< Enhanced Rx FIFO Control Register, offset: 0xC0C, not available in all instances (available on 1 out of 6) */
-  __IO uint32_t ERFIER;                            /**< Enhanced Rx FIFO Interrupt Enable Register, offset: 0xC10, not available in all instances (available on 1 out of 6) */
-  __IO uint32_t ERFSR;                             /**< Enhanced Rx FIFO Status Register, offset: 0xC14, not available in all instances (available on 1 out of 6) */
+  __IO uint32_t ERFCR;                             /**< Enhanced Rx FIFO Control Register, offset: 0xC0C, not available in all instances (available on 2 out of 12) */
+  __IO uint32_t ERFIER;                            /**< Enhanced Rx FIFO Interrupt Enable Register, offset: 0xC10, not available in all instances (available on 2 out of 12) */
+  __IO uint32_t ERFSR;                             /**< Enhanced Rx FIFO Status Register, offset: 0xC14, not available in all instances (available on 2 out of 12) */
        uint8_t RESERVED_8[24];
   __IO uint32_t HR_TIME_STAMP[CAN_HR_TIME_STAMP_COUNT]; /**< High Resolution Time Stamp, array offset: 0xC30, array step: 0x4, irregular array, not all indices are valid */
        uint8_t RESERVED_9[8784];
-  __IO uint32_t ERFFEL[CAN_ERFFEL_COUNT];          /**< Enhanced Rx FIFO Filter Element, array offset: 0x3000, array step: 0x4, not available in all instances (available on 1 out of 6) */
+  __IO uint32_t ERFFEL[CAN_ERFFEL_COUNT];          /**< Enhanced Rx FIFO Filter Element, array offset: 0x3000, array step: 0x4, not available in all instances (available on 2 out of 12) */
 } CAN_Type;
 
 /* ----------------------------------------------------------------------------

@@ -1,10 +1,12 @@
 /*
 ** ###################################################################
-**     Processors:          MCXE32BMPB_cm7_core0
+**     Processors:          MCXE32BMLL_cm7_core0
+**                          MCXE32BMLL_cm7_core1
+**                          MCXE32BMPB_cm7_core0
 **                          MCXE32BMPB_cm7_core1
 **
 **     Version:             rev. 1.0, 2025-07-18
-**     Build:               b260529
+**     Build:               b260625
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for XRDC
@@ -37,9 +39,9 @@
 #if !defined(PERI_XRDC_H_)
 #define PERI_XRDC_H_                             /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXE32BMPB_cm7_core0))
+#if (defined(CPU_MCXE32BMLL_cm7_core0) || defined(CPU_MCXE32BMPB_cm7_core0))
 #include "MCXE32B_cm7_core0_COMMON.h"
-#elif (defined(CPU_MCXE32BMPB_cm7_core1))
+#elif (defined(CPU_MCXE32BMLL_cm7_core1) || defined(CPU_MCXE32BMPB_cm7_core1))
 #include "MCXE32B_cm7_core1_COMMON.h"
 #else
   #error "No valid CPU defined!"

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260626
+**     Build:               b260716
 **
 **     Abstract:
 **         Chip specific module features.
@@ -1032,6 +1032,36 @@
 #define FSL_FEATURE_MCX_VBAT_HAS_OSCCTLA_FINE_AMP_GAIN_BIT (0)
 /* @brief Has OSCCTLB register */
 #define FSL_FEATURE_MCX_VBAT_HAS_B_SIDE_REG (0)
+/* @brief Has OSCCTLA[MODE_EN] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_OSCCTLA_MODE_EN_BIT (1)
+/* @brief Has OSCCFGA[CMP_TRIM] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_OSCCFGA_CMP_TRIM_BIT (1)
+/* @brief Has OSCCFGA[DLY_TRIM] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_OSCCFGA_DLY_TRIM_BIT (1)
+/* @brief Has OSCCFGA[CAP_TRIM] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_OSCCFGA_CAP_TRIM_BIT (1)
+/* @brief Has STATUSA[WAKEUP_FLAG] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_WAKEUP_FLAG_BIT (1)
+/* @brief Has STATUSA[TIMER0_FLAG] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_TIMER0_FLAG_BIT (1)
+/* @brief Has STATUSA[TIMER1_FLAG] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_TIMER1_FLAG_BIT (1)
+/* @brief Has STATUSA[LDO_RDY] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_LDO_RDY_BIT (1)
+/* @brief Has STATUSA[IRQ0_DET] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_IRQ0_DET_BIT (1)
+/* @brief Has STATUSA[IRQ1_DET] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_IRQ1_DET_BIT (1)
+/* @brief Has STATUSA[IRQ2_DET] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_IRQ2_DET_BIT (1)
+/* @brief Has STATUSA[IRQ3_DET] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_IRQ3_DET_BIT (1)
+/* @brief Has WAKENA register */
+#define FSL_FEATURE_MCX_VBAT_HAS_WAKENA_REG (1)
+/* @brief Has WAKECFG register */
+#define FSL_FEATURE_MCX_VBAT_HAS_WAKECFG_REG (1)
+/* @brief Has LOCKA register */
+#define FSL_FEATURE_MCX_VBAT_HAS_LOCKA_REG (1)
 
 /* VREF module features */
 

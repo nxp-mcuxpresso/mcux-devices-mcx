@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.1, 2025-11-17
-**     Build:               b260623
+**     Build:               b260716
 **
 **     Abstract:
 **         Chip specific module features.
@@ -800,13 +800,13 @@
 #define FSL_FEATURE_PORT_HAS_PULL_ENABLE (1)
 /* @brief Has slew rate control (register bit PCR[SRE]). */
 #define FSL_FEATURE_PORT_HAS_SLEW_RATE (1)
-/* @brief Has passive filter (register bit field PCR[PFE]). */
+/* @brief Has passive filter (register bit field PCR[PFE]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_PASSIVE_FILTER (1)
 /* @brief Do not has interrupt control (register ISFR). */
 #define FSL_FEATURE_PORT_HAS_NO_INTERRUPT (1)
-/* @brief Has pull value (register bit field PCR[PV]). */
+/* @brief Has pull value (register bit field PCR[PV]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_PCR_HAS_PULL_VALUE (1)
-/* @brief Has drive strength1 control (register bit PCR[DSE1]). */
+/* @brief Has drive strength1 control (register bit PCR[DSE1]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH1 (1)
 /* @brief Has version ID register (register VERID). */
 #define FSL_FEATURE_PORT_HAS_VERSION_INFO_REGISTER (1)
@@ -818,7 +818,7 @@
 #define FSL_FEATURE_PORT_PCR_MUX_GPIO (0)
 /* @brief Has drive strength control (register bit PCR[DSE]). */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH (1)
-/* @brief Defines width of PCR[MUX] field. */
+/* @brief Defines width of PCR[MUX] field. Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_PCR_MUX_WIDTH (4)
 /* @brief Has dedicated interrupt vector. */
 #define FSL_FEATURE_PORT_HAS_INTERRUPT_VECTOR (1)
@@ -1044,6 +1044,36 @@
 #define FSL_FEATURE_MCX_VBAT_HAS_OSCCTLA_FINE_AMP_GAIN_BIT (0)
 /* @brief Has OSCCTLB register */
 #define FSL_FEATURE_MCX_VBAT_HAS_B_SIDE_REG (0)
+/* @brief Has OSCCTLA[MODE_EN] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_OSCCTLA_MODE_EN_BIT (0)
+/* @brief Has OSCCFGA[CMP_TRIM] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_OSCCFGA_CMP_TRIM_BIT (0)
+/* @brief Has OSCCFGA[DLY_TRIM] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_OSCCFGA_DLY_TRIM_BIT (0)
+/* @brief Has OSCCFGA[CAP_TRIM] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_OSCCFGA_CAP_TRIM_BIT (0)
+/* @brief Has STATUSA[WAKEUP_FLAG] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_WAKEUP_FLAG_BIT (0)
+/* @brief Has STATUSA[TIMER0_FLAG] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_TIMER0_FLAG_BIT (0)
+/* @brief Has STATUSA[TIMER1_FLAG] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_TIMER1_FLAG_BIT (0)
+/* @brief Has STATUSA[LDO_RDY] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_LDO_RDY_BIT (0)
+/* @brief Has STATUSA[IRQ0_DET] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_IRQ0_DET_BIT (0)
+/* @brief Has STATUSA[IRQ1_DET] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_IRQ1_DET_BIT (0)
+/* @brief Has STATUSA[IRQ2_DET] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_IRQ2_DET_BIT (0)
+/* @brief Has STATUSA[IRQ3_DET] bitfield */
+#define FSL_FEATURE_MCX_VBAT_HAS_STATUSA_IRQ3_DET_BIT (0)
+/* @brief Has WAKENA register */
+#define FSL_FEATURE_MCX_VBAT_HAS_WAKENA_REG (0)
+/* @brief Has WAKECFG register */
+#define FSL_FEATURE_MCX_VBAT_HAS_WAKECFG_REG (0)
+/* @brief Has LOCKA register */
+#define FSL_FEATURE_MCX_VBAT_HAS_LOCKA_REG (0)
 
 /* WUU module features */
 

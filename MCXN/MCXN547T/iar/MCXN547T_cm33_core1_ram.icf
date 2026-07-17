@@ -1,10 +1,14 @@
 /*
 ** ###################################################################
-**     Processor:           MCXN547TVAB_cm33_core1
+**     Processors:          MCXN547TVAB_cm33_core1
+**                          MCXN547TVDF_cm33_core1
+**                          MCXN547TVKL_cm33_core1
+**                          MCXN547TVPB_cm33_core1
+**
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260512
+**     Build:               b260716
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM

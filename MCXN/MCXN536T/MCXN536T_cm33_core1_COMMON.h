@@ -1,6 +1,10 @@
 /*
 ** ###################################################################
-**     Processor:           MCXN536TVAB_cm33_core1
+**     Processors:          MCXN536TVAB_cm33_core1
+**                          MCXN536TVDF_cm33_core1
+**                          MCXN536TVKL_cm33_core1
+**                          MCXN536TVPB_cm33_core1
+**
 **     Compilers:           GNU C Compiler
 **                          IAR ANSI C/C++ Compiler for ARM
 **                          Keil ARM C/C++ Compiler
@@ -8,7 +12,7 @@
 **
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 3.0, 2024-10-29
-**     Build:               b260622
+**     Build:               b260716
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXN536T_cm33_core1
@@ -2464,7 +2468,7 @@ typedef enum _erm_memory_channel
   #define PDM_BASE_PTRS                            { PDM }
 #endif
 /** Interrupt vectors for the PDM peripheral type */
-#define PDM_Event_IRQS                           { PDM_EVENT_IRQn }
+#define PDM_Event_IRQS                                 { PDM_EVENT_IRQn }
 
 /* PINT - Peripheral instance base addresses */
 #if ((defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE & 0x2)) || defined(CPU1_IS_SECURE_MASTER))

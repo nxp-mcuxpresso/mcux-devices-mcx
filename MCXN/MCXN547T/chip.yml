@@ -127,6 +127,9 @@ device.hardware_data:
           ram_size_kb: 512
           flash_size_kb: 2048
         part:
+          - name: "MCXN547TVDF"
+          - name: "MCXN547TVKL"
+          - name: "MCXN547TVPB"
           - name: "MCXN547TVAB"
         modules:
           - name: "USB"

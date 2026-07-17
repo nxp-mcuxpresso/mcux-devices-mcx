@@ -58,7 +58,7 @@ config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
 
 config MCUX_TOOLCHAIN_MCUX_STARTUP
     string
-    default "mcxn947T_cm33_core1"
+    default "mcxn947t_cm33_core1"
 
 # Toolchain related
 
@@ -69,6 +69,9 @@ config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
 config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
     string
     default "MCXN947TVAB:cm33_core1" if MCUX_HW_DEVICE_PART_MCXN947TVAB
+    default "MCXN947TVDF:cm33_core1" if MCUX_HW_DEVICE_PART_MCXN947TVDF
+    default "MCXN947TVKL:cm33_core1" if MCUX_HW_DEVICE_PART_MCXN947TVKL
+    default "MCXN947TVPB:cm33_core1" if MCUX_HW_DEVICE_PART_MCXN947TVPB
 
 config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
     string

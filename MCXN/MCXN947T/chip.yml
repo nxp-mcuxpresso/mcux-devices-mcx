@@ -127,6 +127,9 @@ device.hardware_data:
           ram_size_kb: 512
           flash_size_kb: 2048
         part:
+          - name: "MCXN947TVDF"
+          - name: "MCXN947TVKL"
+          - name: "MCXN947TVPB"
           - name: "MCXN947TVAB"
         modules:
           - name: "USB"

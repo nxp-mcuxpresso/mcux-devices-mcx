@@ -2,13 +2,13 @@
 ;  @file:    startup_MCXW727D_cm33_core0.s
 ;  @purpose: CMSIS Cortex-M33 Core Device Startup File
 ;            MCXW727D_cm33_core0
-;  @version: 2.0
-;  @date:    2024-10-29
-;  @build:   b250716
+;  @version: 3.0
+;  @date:    2026-2-11
+;  @build:   b260717
 ; -------------------------------------------------------------------------
 ;
 ; Copyright 1997-2016 Freescale Semiconductor, Inc.
-; Copyright 2016-2025 NXP
+; Copyright 2016-2026 NXP
 ; SPDX-License-Identifier: BSD-3-Clause
 ;
 ; The modules in this file are included in the libraries, and may be replaced
@@ -334,14 +334,14 @@ Reset_Handler
 
 #if !defined(BYPASS_ECC_RAM_INIT)
         LDR     R0, =0x04000000
-        LDR     R1, =.ram_init_ctcm01
+        LDR     R1, =.ram_init_ctcm0
         BICS.W  R1, #0x10000000
         CMP     R0, R1
         BCC.N   .ram_init_done  ; Bypass ECC RAM initialization on RAM target, debugger will do the initialization
 
-.ram_init_ctcm01:               ; Initialize CTCM01
+.ram_init_ctcm0:                ; Initialize CTCM0
         LDR     R0, =0x4000000
-        LDR     R1, =0x4008000
+        LDR     R1, =0x4004000
         LDR     R2, =0
         LDR     R3, =0
         LDR     R4, =0

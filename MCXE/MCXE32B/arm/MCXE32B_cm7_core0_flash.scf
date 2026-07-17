@@ -106,6 +106,12 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size { ; load region size_
     .ANY (+RO)
   }
 
+#if (defined(__use_shmem__))
+  RPMSG_SH_MEM rpmsg_sh_mem_start UNINIT rpmsg_sh_mem_size { ; Shared memory used by RPMSG
+    * (rpmsg_sh_mem_section)
+  }
+#endif
+
   ER_m_QuickAccessCode   m_qacode_start      m_qacode_end-m_qacode_start+1
   {
     .ANY (CodeQuickAccess)
@@ -143,12 +149,5 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size { ; load region size_
 LR_m_core1_image m_core1_image_start m_core1_image_size {
   ER_m_core1_image m_core1_image_start FIXED m_core1_image_size {
     * (.core1_code)
-  }
-}
-
-/* rpmsg-lite shared memory (only consumes RAM when __use_shmem__ is defined). */
-LR_rpmsg_sh_mem rpmsg_sh_mem_start rpmsg_sh_mem_size {
-  RW_rpmsg_sh_mem rpmsg_sh_mem_start UNINIT rpmsg_sh_mem_size {
-    * (rpmsg_sh_mem_section)
   }
 }

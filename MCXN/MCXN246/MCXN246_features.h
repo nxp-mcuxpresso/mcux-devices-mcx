@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.1, 2025-11-17
-**     Build:               b260716
+**     Build:               b260717
 **
 **     Abstract:
 **         Chip specific module features.
@@ -218,6 +218,8 @@
 #define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (0)
 /* @brief Has Justified Left Enable (bitfield CFG2[JLEFT]). */
 #define FSL_FEATURE_LPADC_HAS_CFG2_JLEFT (0)
+/* @brief Trigger Control Count. */
+#define FSL_FEATURE_LPADC_TCTRL_COUNT (4)
 /* @brief Temperature sensor parameter A (slope). */
 #define FSL_FEATURE_LPADC_TEMP_PARAMETER_A (783U)
 /* @brief Temperature sensor parameter B (offset). */
@@ -866,13 +868,13 @@
 #define FSL_FEATURE_PORT_HAS_PULL_SELECTION (1)
 /* @brief Has pull resistor enable (register bit PCR[PE]). */
 #define FSL_FEATURE_PORT_HAS_PULL_ENABLE (1)
-/* @brief Has slew rate control (register bit PCR[SRE]). Note: This feature value is not the same on all PORT instances. */
+/* @brief Has slew rate control (register bit PCR[SRE]). */
 #define FSL_FEATURE_PORT_HAS_SLEW_RATE (1)
-/* @brief Has passive filter (register bit field PCR[PFE]). Note: This feature value is not the same on all PORT instances. */
+/* @brief Has passive filter (register bit field PCR[PFE]). */
 #define FSL_FEATURE_PORT_HAS_PASSIVE_FILTER (1)
 /* @brief Do not has interrupt control (register ISFR). */
 #define FSL_FEATURE_PORT_HAS_NO_INTERRUPT (1)
-/* @brief Has pull value (register bit field PCR[PV]). Note: This feature value is not the same on all PORT instances. */
+/* @brief Has pull value (register bit field PCR[PV]). */
 #define FSL_FEATURE_PORT_PCR_HAS_PULL_VALUE (1)
 /* @brief Has drive strength1 control (register bit PCR[DSE1]). */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH1 (0)
@@ -884,9 +886,9 @@
 #define FSL_FEATURE_PORT_SUPPORT_EFT (1)
 /* @brief Function 0 is GPIO. */
 #define FSL_FEATURE_PORT_PCR_MUX_GPIO (0)
-/* @brief Has drive strength control (register bit PCR[DSE]). Note: This feature value is not the same on all PORT instances. */
+/* @brief Has drive strength control (register bit PCR[DSE]). */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH (1)
-/* @brief Defines width of PCR[MUX] field. Note: This feature value is not the same on all PORT instances. */
+/* @brief Defines width of PCR[MUX] field. */
 #define FSL_FEATURE_PORT_PCR_MUX_WIDTH (4)
 /* @brief Has dedicated interrupt vector. */
 #define FSL_FEATURE_PORT_HAS_INTERRUPT_VECTOR (1)

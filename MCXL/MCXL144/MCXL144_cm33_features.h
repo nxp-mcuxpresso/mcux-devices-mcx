@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 2.1, 2026-05-02
-**     Build:               b260623
+**     Build:               b260717
 **
 **     Abstract:
 **         Chip specific module features.
@@ -209,6 +209,8 @@
 #define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (1)
 /* @brief Has Justified Left Enable (bitfield CFG2[JLEFT]). */
 #define FSL_FEATURE_LPADC_HAS_CFG2_JLEFT (1)
+/* @brief Trigger Control Count. */
+#define FSL_FEATURE_LPADC_TCTRL_COUNT (4)
 
 /* AOI module features */
 

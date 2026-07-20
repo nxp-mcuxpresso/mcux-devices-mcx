@@ -27,7 +27,10 @@ device.hardware_data:
             description: "M7 core"
             fpu: "SP_FPU"
             mpu: true
-            boot_role: "primary"
+            boot_role: "secondary"
+            slave_role:
+              - id: "M7SLAVE"
+                name: "Cortex-M7F acts as slave by default"
         memory:
           memoryBlock:
             - id: "PROGRAM_FLASH"
@@ -91,8 +94,8 @@ device.hardware_data:
               type: "RAM"
               access: "RW"
         total_memory:
-          ram_size_kb: 608
-          flash_size_kb: 4224
+          ram_size_kb: 352
+          flash_size_kb: 2176
         part:
           - name: "MCXE327MPB"
           - name: "MCXE327MPA"

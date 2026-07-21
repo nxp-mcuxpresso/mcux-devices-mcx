@@ -33,6 +33,7 @@ config MCUX_HW_IP_DriverType_SMARTCARD_EMVSIM
     depends on MCUX_HW_DEVICE_ID_MCXN556S
 
 # ip information
+
 config MCUX_HW_IP_DriverType_AHBSC
     bool
     default y
@@ -417,3 +418,4 @@ config MCUX_HW_IP_DriverType_WWDT
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN556S
+

@@ -98,6 +98,7 @@ config MCUX_HW_IP_DriverType_SMARTCARD_EMVSIM
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
 # ip information
+
 config MCUX_HW_IP_DriverType_AHBSC
     bool
     default y
@@ -433,11 +434,6 @@ config MCUX_HW_IP_DriverType_USB_HOST_DEVICE_EHCI
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
 
-config MCUX_HW_IP_DriverType_USB_HOST_DEVICE_KHCI
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN247
-
 config MCUX_HW_IP_DriverType_USB_HSDCD
     bool
     default y
@@ -467,3 +463,4 @@ config MCUX_HW_IP_DriverType_WWDT
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN247
+

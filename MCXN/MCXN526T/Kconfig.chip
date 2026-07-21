@@ -37,6 +37,14 @@ config MCUX_HW_DEVICE_PART
     default "MCXN526TVDF" if MCUX_HW_DEVICE_PART_MCXN526TVDF
     default "MCXN526TVKL" if MCUX_HW_DEVICE_PART_MCXN526TVKL
 # ip information
+
+config MCUX_HW_IP_DriverType_FLEXIO_MCULCD
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN526T
+
+# ip information
+
 config MCUX_HW_IP_DriverType_AHBSC
     bool
     default y
@@ -67,7 +75,7 @@ config MCUX_HW_IP_DriverType_CTIMER
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN526T
 
-config MCUX_HW_IP_DriverType_CoolFlux BSP32
+config MCUX_HW_IP_DriverType_CoolFlux_BSP32
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN526T
@@ -108,6 +116,11 @@ config MCUX_HW_IP_DriverType_FLEXIO
     depends on MCUX_HW_DEVICE_ID_MCXN526T
 
 config MCUX_HW_IP_DriverType_FLEXSPI
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN526T
+
+config MCUX_HW_IP_DriverType_FLEXSPI_IPED
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN526T
@@ -232,6 +245,11 @@ config MCUX_HW_IP_DriverType_MRT
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN526T
 
+config MCUX_HW_IP_DriverType_NPX
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN526T
+
 config MCUX_HW_IP_DriverType_OPAMP
     bool
     default y
@@ -282,11 +300,6 @@ config MCUX_HW_IP_DriverType_PUFV3
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN526T
 
-config MCUX_HW_IP_DriverType_RTC
-    bool
-    default y
-    depends on MCUX_HW_DEVICE_ID_MCXN526T
-
 config MCUX_HW_IP_DriverType_RTC_V2
     bool
     default y
@@ -308,6 +321,11 @@ config MCUX_HW_IP_DriverType_SEMA42
     depends on MCUX_HW_DEVICE_ID_MCXN526T
 
 config MCUX_HW_IP_DriverType_SMARTDMA
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXN526T
+
+config MCUX_HW_IP_DriverType_SMARTDMA_MCXN
     bool
     default y
     depends on MCUX_HW_DEVICE_ID_MCXN526T

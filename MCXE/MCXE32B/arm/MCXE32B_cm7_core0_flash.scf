@@ -46,12 +46,15 @@
 #define m_boot_header_size             0x00000100
 
 #define m_text_start                   0x00401400
-#define m_text_size                    0x003D2C00
+#define m_text_size                    0x001BEC00
 
 /* Flash region holding the embedded secondary core (M7_1) image. The secondary
  * is linked to run in place from this address and is programmed together with
- * the primary. The secondary core is released by the application at runtime. */
-#define m_core1_image_start            0x00600000
+ * the primary. The secondary core is released by the application at runtime.
+ * Placed at 0x005C0000 to be compatible with the MCXE31b OTA primary-slot
+ * boundary (primary slot: 0x00500000-0x005BFFFF; core1 window: 0x005C0000-
+ * 0x005FFFFF; OTA secondary slot: 0x00600000-0x006BFFFF). */
+#define m_core1_image_start            0x005C0000
 #define m_core1_image_size             0x00040000
 
 /* Shared SRAM is split into two disjoint halves so the primary (M7_0) and the

@@ -47,15 +47,17 @@ m_stdby_ram_end          = 0x20407FFF;
 /* The secondary core (M7_1) image is linked to run in place from this flash
  * window, embedded inside the primary flash image and programmed together
  * with it. M7_1 is released by writing this base to MC_ME PRTN0_CORE1_ADDR.
- * Matches m_core1_image_start in MCXE32B_cm7_core0_flash.ld. */
-m_interrupts_start       = 0x00600000;
+ * Matches m_core1_image_start in MCXE32B_cm7_core0_flash.ld.
+ * Base 0x005C0000: compatible with the MCXE31b OTA primary-slot boundary
+ * (0x005C0000-0x005FFFFF); OTA secondary slot starts at 0x00600000. */
+m_interrupts_start       = 0x005C0000;
 m_interrupts_end         = m_interrupts_start + 0x000003FF;
 
 m_boot_header_start      = 0x00400000;
 m_boot_header_end        = 0x004000FF;
 
 m_text_start             = m_interrupts_end + 1;
-m_text_end               = 0x0063FFFF;
+m_text_end               = 0x005FFFFF;
 
 /* Shared SRAM is split into two disjoint halves so the primary (M7_0) and the
  * secondary (M7_1) never use the same RAM. core1 owns the upper 144 KB; core0

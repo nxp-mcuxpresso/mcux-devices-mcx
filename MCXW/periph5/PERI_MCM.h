@@ -7,7 +7,7 @@
 **                          MCXW70ADMMP
 **
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260409
+**     Build:               b260722
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCM
@@ -365,8 +365,8 @@ typedef struct {
 #define MCM_LMDR2_MT_MASK                        (0xE000U)
 #define MCM_LMDR2_MT_SHIFT                       (13U)
 /*! MT - Memory Type
- *  0b000..SRAM_L
- *  0b001..SRAM_U
+ *  0b000..SRAM_Lower
+ *  0b001..SRAM_Upper
  *  0b010..PC Cache
  *  0b011..PS Cache
  */

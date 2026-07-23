@@ -7,7 +7,7 @@
 **                          MCXW70ADMMP
 **
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260409
+**     Build:               b260722
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ROMCP
@@ -95,7 +95,7 @@ typedef struct {
        uint8_t RESERVED_0[212];
   __IO uint32_t ROMPATCHD[ROMCP_ROMPATCHD_COUNT];  /**< Data Registers, array offset: 0xD4, array step: 0x4 */
   __IO uint32_t ROMPATCHCNTL;                      /**< Control Register, offset: 0xF4 */
-       uint32_t ROMPATCHENH;                       /**< Enable Register High, offset: 0xF8 */
+  __I  uint32_t ROMPATCHENH;                       /**< Enable Register High, offset: 0xF8 */
   __IO uint32_t ROMPATCHENL;                       /**< Enable Register Low, offset: 0xFC */
   __IO uint32_t ROMPATCHA[ROMCP_ROMPATCHA_COUNT];  /**< Address Registers, array offset: 0x100, array step: 0x4 */
        uint8_t RESERVED_1[200];

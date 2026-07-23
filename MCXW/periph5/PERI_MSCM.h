@@ -7,7 +7,7 @@
 **                          MCXW70ADMMP
 **
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260409
+**     Build:               b260722
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MSCM
@@ -596,14 +596,6 @@ typedef struct {
  *  0b1..CMP present
  */
 #define MSCM_SID_CMP(x)                          (((uint32_t)(((uint32_t)(x)) << MSCM_SID_CMP_SHIFT)) & MSCM_SID_CMP_MASK)
-
-#define MSCM_SID_FLXIO_MASK                      (0x100U)
-#define MSCM_SID_FLXIO_SHIFT                     (8U)
-/*! FLXIO - FlexIO Presence
- *  0b0..No FlexIO
- *  0b1..FlexIO present
- */
-#define MSCM_SID_FLXIO(x)                        (((uint32_t)(((uint32_t)(x)) << MSCM_SID_FLXIO_SHIFT)) & MSCM_SID_FLXIO_MASK)
 
 #define MSCM_SID_VREF_MASK                       (0x200U)
 #define MSCM_SID_VREF_SHIFT                      (9U)

@@ -4,7 +4,7 @@
 /*            MCXW70AA                                                       */
 /*  @version: 1.0                                                            */
 /*  @date:    2026-1-9                                                       */
-/*  @build:   b260507                                                        */
+/*  @build:   b260722                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -58,7 +58,7 @@ __vector_table
         DCD     UsageFault_Handler                            ;Usage Fault Handler
 __vector_table_0x1c
         DCD     SecureFault_Handler                           ;Secure Fault Handler
-        DCD     m_image_length                                ;Reserved
+        DCD     m_image_length                                ;Image length
         DCD     0                                             ;Reserved
         DCD     0                                             ;Reserved
         DCD     SVC_Handler                                   ;SVCall Handler
@@ -158,7 +158,7 @@ __vector_table_0x1c
         DCD     FLEXPWM0_SUBMODULE2_RELOAD_IRQHandler         ;PWM_RELOAD2: Submodule 2 Reload interrupt
         DCD     FLEXPWM0_RELOAD_ERROR_IRQHandler              ;PWM_RERR: Reload Error interrupt
         DCD     FLEXPWM0_FAULT_IRQHandler                     ;PWM_FAULT: PWM fault input interrupt
-        DCD     ITRC_IRQHandler                               ;Output of Intrusion and tamper response controller (ITRC_IRQ)
+        DCD     ITRC0_IRQHandler                              ;Output of Intrusion and tamper response controller (ITRC_IRQ)
         DCD     TDET_IRQHandler                               ;Tamper detection interrupt
         DCD     MU0_IRQHandler                                ;Interrupt from MU0 to CPU0
         DCD     INTM_IRQHandler                               ;Error flag to show Radio interrrupt is not serviced in time
@@ -543,8 +543,8 @@ SFA1_IRQHandler
         PUBWEAK LPTMR0_IRQHandler
         PUBWEAK LPTMR1_IRQHandler
         PUBWEAK LPIT0_IRQHandler
-        PUBWEAK TPM_DriverIRQHandler
         PUBWEAK TPM_0_IRQHandler
+        PUBWEAK TPM_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
 TPM_0_IRQHandler
         LDR     R1, =TPM_DriverIRQHandler
@@ -668,11 +668,11 @@ LPUART1_IRQHandler
         PUBWEAK FLEXPWM0_SUBMODULE2_RELOAD_IRQHandler
         PUBWEAK FLEXPWM0_RELOAD_ERROR_IRQHandler
         PUBWEAK FLEXPWM0_FAULT_IRQHandler
-        PUBWEAK ITRC_IRQHandler
-        PUBWEAK ITRC_DriverIRQHandler
+        PUBWEAK ITRC0_IRQHandler
+        PUBWEAK ITRC0_DriverIRQHandler
         SECTION .text:CODE:REORDER:NOROOT(2)
-ITRC_IRQHandler
-        LDR     R0, =ITRC_DriverIRQHandler
+ITRC0_IRQHandler
+        LDR     R0, =ITRC0_DriverIRQHandler
         BX      R0
 
         PUBWEAK TDET_IRQHandler
@@ -774,7 +774,7 @@ FLEXPWM0_SUBMODULE2_CAP_IRQHandler
 FLEXPWM0_SUBMODULE2_RELOAD_IRQHandler
 FLEXPWM0_RELOAD_ERROR_IRQHandler
 FLEXPWM0_FAULT_IRQHandler
-ITRC_DriverIRQHandler
+ITRC0_DriverIRQHandler
 TDET_IRQHandler
 MU0_IRQHandler
 INTM_IRQHandler

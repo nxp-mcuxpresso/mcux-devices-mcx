@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260717
+**     Build:               b260722
 **
 **     Abstract:
 **         Chip specific module features.
@@ -32,7 +32,7 @@
 /* @brief AXBS availability on the SoC. */
 #define FSL_FEATURE_SOC_AXBS_COUNT (2)
 /* @brief BLE2_REG availability on the SoC. */
-#define FSL_FEATURE_SOC_BLE2_REG_COUNT (2)
+#define FSL_FEATURE_SOC_BLE2_REG_COUNT (1)
 /* @brief BRIC availability on the SoC. */
 #define FSL_FEATURE_SOC_BRIC_COUNT (1)
 /* @brief BTRTU1 availability on the SoC. */
@@ -112,6 +112,13 @@
 /* @brief ZLL availability on the SoC. */
 #define FSL_FEATURE_SOC_ZLL_COUNT (1)
 
+/* AOI module features */
+
+/* @brief Maximum value of input mux. */
+#define FSL_FEATURE_AOI_MODULE_INPUTS (4)
+/* @brief Number of events related to number of registers AOIx_BFCRT01n/AOIx_BFCRT23n. */
+#define FSL_FEATURE_AOI_EVENT_COUNT (4)
+
 /* CCM32K module features */
 
 /* @brief Has Amplifier gain fine adjustment bits (register bit OSC32K_CTRL[FINE_AMP_GAIN]). */
@@ -120,13 +127,6 @@
 #define FSL_FEATURE_CCM32K_HAS_CGC32K (1)
 /* @brief Has CLKMON_CTRL register. */
 #define FSL_FEATURE_CCM32K_HAS_CLKMON_CTRL (1)
-
-/* AOI module features */
-
-/* @brief Maximum value of input mux. */
-#define FSL_FEATURE_AOI_MODULE_INPUTS (4)
-/* @brief Number of events related to number of registers AOIx_BFCRT01n/AOIx_BFCRT23n. */
-#define FSL_FEATURE_AOI_EVENT_COUNT (4)
 
 /* CDOG module features */
 
@@ -581,17 +581,17 @@
 #define FSL_FEATURE_MU_HAS_RESET_ASSERT_INT (0)
 /* @brief MU supports reset de-assert interrupt. CR[RDIE] or BCR[RDIE]. */
 #define FSL_FEATURE_MU_HAS_RESET_DEASSERT_INT (0)
-/* @brief MU does not support core status. Register CSSR0 or CSR0. */
+/* @brief MU does not support core status. Register CSSR0 or CSR0. Note: This feature value is not the same on all MU instances. */
 #define FSL_FEATURE_MU_NO_CORE_STATUS (1)
-/* @brief MU does not support NMI. Register bit CCR0[NMI]. */
+/* @brief MU does not support NMI. Register bit CCR0[NMI]. Note: This feature value is not the same on all MU instances. */
 #define FSL_FEATURE_MU_NO_NMI (1)
-/* @brief MU does not support core event pending. Register bit SR[CEP]. */
+/* @brief MU does not support core event pending. Register bit SR[CEP]. Note: This feature value is not the same on all MU instances. */
 #define FSL_FEATURE_MU_NO_CEP (1)
 /* @brief MU supports Power-Down mode entry interrupt. CIER0[PDIE] */
 #define FSL_FEATURE_MU_HAS_PD_INT (0)
 /* @brief MU supports STOP mode entry interrupt. CIER0[STOPIE] */
 #define FSL_FEATURE_MU_HAS_STOP_INT (0)
-/* @brief MU supports WAIT mode entry interrupt. CIER0[WAITIE] */
+/* @brief MU supports WAIT mode entry interrupt. CIER0[WAITIE] Note: This feature value is not the same on all MU instances. */
 #define FSL_FEATURE_MU_HAS_WAIT_INT (1)
 /* @brief MU supports HALT mode entry interrupt. CIER0[HALTIE] */
 #define FSL_FEATURE_MU_HAS_HALT_INT (0)
@@ -599,7 +599,7 @@
 #define FSL_FEATURE_MU_HAS_RUN_INT (0)
 /* @brief MU supports hardware reset interrupt. CSSR0[HRIP] or CSR0[HRIP]. */
 #define FSL_FEATURE_MU_HAS_SR_HRIP (0)
-/* @brief MU supports reset interrupt. Register bit SR[MURIP]. */
+/* @brief MU supports reset interrupt. Register bit SR[MURIP]. Note: This feature value is not the same on all MU instances. */
 #define FSL_FEATURE_MU_HAS_SR_MURIP (1)
 /* @brief MU does not support enable clock of the other core, CR[CLKE] or CCR[CLKE]. */
 #define FSL_FEATURE_MU_NO_CLKE (1)
@@ -619,6 +619,8 @@
 #define FSL_FEATURE_MU_HAS_HR_BY_INSTANCEn(x) (0)
 /* @brief The number of general purpose interrupts supported by MU. */
 #define FSL_FEATURE_MU_GPI_COUNT (4)
+/* @brief MU does not support CIER0 (Core Interrupt Enable 0) register. */
+#define FSL_FEATURE_MU_NO_CIER0_REG (1)
 
 /* PORT module features */
 
@@ -634,13 +636,13 @@
 #define FSL_FEATURE_PORT_HAS_PULL_SELECTION (1)
 /* @brief Has pull resistor enable (register bit PCR[PE]). */
 #define FSL_FEATURE_PORT_HAS_PULL_ENABLE (1)
-/* @brief Has slew rate control (register bit PCR[SRE]). */
+/* @brief Has slew rate control (register bit PCR[SRE]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_SLEW_RATE (1)
 /* @brief Has passive filter (register bit field PCR[PFE]). */
 #define FSL_FEATURE_PORT_HAS_PASSIVE_FILTER (1)
 /* @brief Do not has interrupt control (register ISFR). */
 #define FSL_FEATURE_PORT_HAS_NO_INTERRUPT (1)
-/* @brief Has pull value (register bit field PCR[PV]). */
+/* @brief Has pull value (register bit field PCR[PV]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_PCR_HAS_PULL_VALUE (1)
 /* @brief Has drive strength1 control (register bit PCR[DSE1]). */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH1 (0)
@@ -650,9 +652,9 @@
 #define FSL_FEATURE_PORT_SUPPORT_DIFFERENT_VOLTAGE_RANGE (1)
 /* @brief Has EFT detect (registers EDFR, EDIER and EDCR). */
 #define FSL_FEATURE_PORT_SUPPORT_EFT (0)
-/* @brief Has drive strength control (register bit PCR[DSE]). */
+/* @brief Has drive strength control (register bit PCR[DSE]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH (1)
-/* @brief Defines width of PCR[MUX] field. */
+/* @brief Defines width of PCR[MUX] field. Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_PCR_MUX_WIDTH (4)
 /* @brief Has dedicated interrupt vector. */
 #define FSL_FEATURE_PORT_HAS_INTERRUPT_VECTOR (1)
@@ -662,7 +664,7 @@
 #define FSL_FEATURE_PORT_HAS_MULTIPLE_IRQ_CONFIG (0)
 /* @brief Has Input Buffer Enable (register bit field PCR[IBE]). */
 #define FSL_FEATURE_PORT_HAS_INPUT_BUFFER (0)
-/* @brief Has Invert Input (register bit field PCR[INV]). */
+/* @brief Has Invert Input (register bit field PCR[INV]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_INVERT_INPUT (1)
 /* @brief Defines whether PCR[IRQC] bit-field has flag states. */
 #define FSL_FEATURE_PORT_HAS_IRQC_FLAG (0)
@@ -871,6 +873,8 @@
 #define FSL_FEATURE_TPM_HAS_GLOBAL_TIME_BASE_SYNC (1)
 /* @brief Is affected by errata with ID 050050 (Incorrect duty output when EPWM mode is set to PS=0 during write 1 to CnV register). */
 #define FSL_FEATURE_TPM_HAS_ERRATA_050050 (0)
+/* @brief Has no CPWMS field in SC register (bitfield SC[CPWMS]). */
+#define FSL_FEATURE_TPM_HAS_NO_SC_CPWMS (0)
 
 /* TRDC module features */
 
@@ -892,8 +896,7 @@
 #define FSL_FEATURE_TRDC_HAS_DOMAIN_ERROR (1)
 /* @brief TRDC instance has TRDC_FLW_CTL. */
 #define FSL_FEATURE_TRDC_HAS_FLW (1)
-/* @brief TRDC DERRLOC.MBCINST uses flat one-bit-per-MBC-instance encoding (bit N = MBC[N]).
- *        Other devices use 4-bits-per-MBC encoding (bit 4i+j = MBC[i] SLV[j]). */
+/* @brief TRDC DERRLOC.MBCINST uses flat one-bit-per-MBC-instance encoding (bit N = MBC[N]). Other devices use 4-bits-per-MBC encoding (bit 4i+j = MBC[i] SLV[j]). */
 #define FSL_FEATURE_TRDC_DERRLOC_MBCINST_FLAT_ENCODING (1)
 
 /* TRNG module features */

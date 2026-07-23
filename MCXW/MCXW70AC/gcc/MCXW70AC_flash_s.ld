@@ -38,6 +38,8 @@ MEMORY
   m_data                (RW)  : ORIGIN = 0x30000000, LENGTH = 0x00004000
 }
 
+m_image_length = LENGTH(m_interrupts) + LENGTH(m_text);
+
 /* Define output sections */
 SECTIONS
 {

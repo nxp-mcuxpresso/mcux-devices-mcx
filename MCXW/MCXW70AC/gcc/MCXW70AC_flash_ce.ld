@@ -33,8 +33,6 @@ core1_image_start     = 0x0;
 core1_image_size      = 0x58000;
 core1_image_end       = core1_image_start + core1_image_size - 1;
 
-m_image_length = 0x180000 - core1_image_size;
-
 /* Specify the memory areas */
 MEMORY
 {
@@ -43,6 +41,8 @@ MEMORY
   m_data                (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00020000
   m_data_dspv           (RW)  : ORIGIN = 0x20040800, LENGTH = 0x00004800
 }
+
+m_image_length = LENGTH(m_interrupts) + LENGTH(m_text);
 
 /* Define output sections */
 SECTIONS

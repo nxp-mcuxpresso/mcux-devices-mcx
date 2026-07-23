@@ -7,7 +7,7 @@
 **                          MCXW70ADMMP
 **
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260409
+**     Build:               b260722
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for GENFSK
@@ -638,13 +638,11 @@ typedef struct {
 /*! @name NTW_ADR_CTRL - NETWORK ADDRESS CONTROL */
 /*! @{ */
 
-#define GENFSK_NTW_ADR_CTRL_NTW_ADR_EN_MASK      (0xFU)
+#define GENFSK_NTW_ADR_CTRL_NTW_ADR_EN_MASK      (0x3U)
 #define GENFSK_NTW_ADR_CTRL_NTW_ADR_EN_SHIFT     (0U)
 /*! NTW_ADR_EN - Network Address Enable
- *  0b0001..Enable Network Address 0 for correlation
- *  0b0010..Enable Network Address 1 for correlation
- *  0b0100..Enable Network Address 2 for correlation
- *  0b1000..Enable Network Address 3 for correlation
+ *  0b01..Enable Network Address 0 for correlation
+ *  0b10..Enable Network Address 1 for correlation
  */
 #define GENFSK_NTW_ADR_CTRL_NTW_ADR_EN(x)        (((uint32_t)(((uint32_t)(x)) << GENFSK_NTW_ADR_CTRL_NTW_ADR_EN_SHIFT)) & GENFSK_NTW_ADR_CTRL_NTW_ADR_EN_MASK)
 

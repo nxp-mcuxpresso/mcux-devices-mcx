@@ -7,7 +7,7 @@
 **                          MCXW70ADMMP
 **
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260409
+**     Build:               b260722
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPUART
@@ -498,8 +498,8 @@ typedef struct {
 #define LPUART_STAT_RXINV_MASK                   (0x10000000U)
 #define LPUART_STAT_RXINV_SHIFT                  (28U)
 /*! RXINV - Receive Data Inversion
- *  0b0..Inverted
- *  0b1..Not inverted
+ *  0b0..Not inverted
+ *  0b1..Inverted
  */
 #define LPUART_STAT_RXINV(x)                     (((uint32_t)(((uint32_t)(x)) << LPUART_STAT_RXINV_SHIFT)) & LPUART_STAT_RXINV_MASK)
 

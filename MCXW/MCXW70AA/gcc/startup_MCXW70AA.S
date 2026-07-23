@@ -4,7 +4,7 @@
 /*            MCXW70AA                                                       */
 /*  @version: 1.0                                                            */
 /*  @date:    2026-1-9                                                       */
-/*  @build:   b260507                                                        */
+/*  @build:   b260722                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
@@ -28,7 +28,7 @@ __isr_vector:
     .long   BusFault_Handler                                /* Bus Fault Handler*/
     .long   UsageFault_Handler                              /* Usage Fault Handler*/
     .long   SecureFault_Handler                             /* Secure Fault Handler*/
-    .long   0                                               /* Reserved*/
+    .long   m_image_length                                  /* Image length*/
     .long   0                                               /* Reserved*/
     .long   0                                               /* Reserved*/
     .long   SVC_Handler                                     /* SVCall Handler*/
@@ -128,7 +128,7 @@ __isr_vector:
     .long   FLEXPWM0_SUBMODULE2_RELOAD_IRQHandler           /* PWM_RELOAD2: Submodule 2 Reload interrupt*/
     .long   FLEXPWM0_RELOAD_ERROR_IRQHandler                /* PWM_RERR: Reload Error interrupt*/
     .long   FLEXPWM0_FAULT_IRQHandler                       /* PWM_FAULT: PWM fault input interrupt*/
-    .long   ITRC_IRQHandler                                 /* Output of Intrusion and tamper response controller (ITRC_IRQ)*/
+    .long   ITRC0_IRQHandler                                /* Output of Intrusion and tamper response controller (ITRC_IRQ)*/
     .long   TDET_IRQHandler                                 /* Tamper detection interrupt*/
     .long   MU0_IRQHandler                                  /* Interrupt from MU0 to CPU0*/
     .long   INTM_IRQHandler                                 /* Error flag to show Radio interrrupt is not serviced in time*/
@@ -622,6 +622,56 @@ SFA1_IRQHandler:
 
     .align 1
     .thumb_func
+    .weak TPM_0_IRQHandler
+    .type TPM_0_IRQHandler, %function
+TPM_0_IRQHandler:
+    ldr   r1,=TPM_DriverIRQHandler
+    ldr   r0,=0x0
+    bx    r1
+    .size TPM_0_IRQHandler, . - TPM_0_IRQHandler
+
+    .align 1
+    .thumb_func
+    .weak TPM_1_IRQHandler
+    .type TPM_1_IRQHandler, %function
+TPM_1_IRQHandler:
+    ldr   r1,=TPM_DriverIRQHandler
+    ldr   r0,=0x1
+    bx    r1
+    .size TPM_1_IRQHandler, . - TPM_1_IRQHandler
+
+    .align 1
+    .thumb_func
+    .weak TPM_2_IRQHandler
+    .type TPM_2_IRQHandler, %function
+TPM_2_IRQHandler:
+    ldr   r1,=TPM_DriverIRQHandler
+    ldr   r0,=0x2
+    bx    r1
+    .size TPM_2_IRQHandler, . - TPM_2_IRQHandler
+
+    .align 1
+    .thumb_func
+    .weak TPM_3_IRQHandler
+    .type TPM_3_IRQHandler, %function
+TPM_3_IRQHandler:
+    ldr   r1,=TPM_DriverIRQHandler
+    ldr   r0,=0x3
+    bx    r1
+    .size TPM_3_IRQHandler, . - TPM_3_IRQHandler
+
+    .align 1
+    .thumb_func
+    .weak TPM_4_IRQHandler
+    .type TPM_4_IRQHandler, %function
+TPM_4_IRQHandler:
+    ldr   r1,=TPM_DriverIRQHandler
+    ldr   r0,=0x4
+    bx    r1
+    .size TPM_4_IRQHandler, . - TPM_4_IRQHandler
+
+    .align 1
+    .thumb_func
     .weak LPI2C0_IRQHandler
     .type LPI2C0_IRQHandler, %function
 LPI2C0_IRQHandler:
@@ -689,12 +739,12 @@ LPUART1_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak ITRC_IRQHandler
-    .type ITRC_IRQHandler, %function
-ITRC_IRQHandler:
-    ldr   r0,=ITRC_DriverIRQHandler
+    .weak ITRC0_IRQHandler
+    .type ITRC0_IRQHandler, %function
+ITRC0_IRQHandler:
+    ldr   r0,=ITRC0_DriverIRQHandler
     bx    r0
-    .size ITRC_IRQHandler, . - ITRC_IRQHandler
+    .size ITRC0_IRQHandler, . - ITRC0_IRQHandler
 
     .align 1
     .thumb_func
@@ -745,11 +795,7 @@ DMA_LIGHT_IRQHandler:
     def_irq_handler    LPTMR0_IRQHandler
     def_irq_handler    LPTMR1_IRQHandler
     def_irq_handler    LPIT0_IRQHandler
-    def_irq_handler    TPM_0_IRQHandler
-    def_irq_handler    TPM_1_IRQHandler
-    def_irq_handler    TPM_2_IRQHandler
-    def_irq_handler    TPM_3_IRQHandler
-    def_irq_handler    TPM_4_IRQHandler
+    def_irq_handler    TPM_DriverIRQHandler
     def_irq_handler    MU1_IRQHandler
     def_irq_handler    SYSCON0_ECC_IRQHandler
     def_irq_handler    LPI2C_DriverIRQHandler
@@ -793,7 +839,7 @@ DMA_LIGHT_IRQHandler:
     def_irq_handler    FLEXPWM0_SUBMODULE2_RELOAD_IRQHandler
     def_irq_handler    FLEXPWM0_RELOAD_ERROR_IRQHandler
     def_irq_handler    FLEXPWM0_FAULT_IRQHandler
-    def_irq_handler    ITRC_DriverIRQHandler
+    def_irq_handler    ITRC0_DriverIRQHandler
     def_irq_handler    TDET_IRQHandler
     def_irq_handler    MU0_IRQHandler
     def_irq_handler    INTM_IRQHandler

@@ -1,5 +1,10 @@
 # CLOCK
 
+## [1.7.0]
+
+- Added 8 `static inline` IFR1 trim getter functions (CM33 only): `CLOCK_GetVDDCore1P0InActiveModeTrim`, `CLOCK_GetVDDCore1P0InLpModeTrim`, `CLOCK_GetVDDCore1P1InActiveModeTrim`, `CLOCK_GetVDDCore1P1InLpModeTrim`, `CLOCK_GetLvdLvTrim1P0`, `CLOCK_GetLvdLvTrim1P1`, `CLOCK_GetHvdLvTrim1P0`, `CLOCK_GetHvdLvTrim1P1`.
+- Removed `CLOCK_GetVDDCoreMainConfig` API function, `vdd_core_main_config_t` struct, and `main_drive_t` enum (replaced by the individual trim getter functions above).
+
 ## [1.6.0]
 
 - Fixed CGU clock dividers behavior. The dividers are bypassed when disabled.

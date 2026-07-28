@@ -35,8 +35,8 @@ if (isdefinedsymbol(__use_shmem__)) {
 } else {
   define symbol rpmsg_sh_mem_size      = 0;
 }
-define symbol rpmsg_sh_mem_start       = m_stdby_ram_start;
-define symbol rpmsg_sh_mem_end         = rpmsg_sh_mem_start + rpmsg_sh_mem_size - 1;
+define exported symbol rpmsg_sh_mem_start = m_stdby_ram_start;
+define exported symbol rpmsg_sh_mem_end   = rpmsg_sh_mem_start + rpmsg_sh_mem_size - 1;
 
 /* The secondary core (M7_1) image is linked to run in place from this flash
  * window, embedded inside the primary flash image and programmed together

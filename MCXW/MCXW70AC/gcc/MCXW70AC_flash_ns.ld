@@ -147,6 +147,7 @@ SECTIONS
     *(.ramfunc*)             /* for functions in ram */
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
+    *(.AlwaysOnData.init)    /* initialized data placed in the always-on/retained SRAM area */
     KEEP(*(.jcr*))
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */
@@ -165,6 +166,7 @@ SECTIONS
     __bss_start__ = .;
     *(.bss)
     *(.bss*)
+    *(.AlwaysOnData)         /* zero-initialized data placed in the always-on/retained SRAM area */
     *(COMMON)
     . = ALIGN(4);
     __bss_end__ = .;

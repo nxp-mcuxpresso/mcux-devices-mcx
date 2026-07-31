@@ -444,7 +444,7 @@ void CLOCK_AttachClk(clock_attach_id_t connection)
                 break;
         }
 
-        CLOCK_SetClockSelect((clock_select_name_t)reg_offset, clk_sel);
+        (void)CLOCK_SetClockSelect((clock_select_name_t)reg_offset, clk_sel);
 
         if (run_advc_postchg)
         {
@@ -1335,7 +1335,8 @@ static uint32_t CLOCK_GetAonRootAuxFreq(void)
         {
 #if __CORTEX_M == (33U) /* Building on the main core */
             /* SYSCON register is needed for calculation. Accessible from main core only. */
-            freq = CLOCK_GetFroHfFreq() / CLOCK_GetClockDiv(kCLOCK_DivAONAUXCLK);
+            uint32_t aonAuxDiv = CLOCK_GetClockDiv(kCLOCK_DivAONAUXCLK);
+            freq = (aonAuxDiv != 0U) ? (CLOCK_GetFroHfFreq() / aonAuxDiv) : 0U;
 #else /* Building on AON */
             freq = 0U;
 #endif

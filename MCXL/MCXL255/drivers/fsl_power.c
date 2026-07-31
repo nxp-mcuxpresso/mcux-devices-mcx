@@ -353,11 +353,9 @@ static status_t Power_PrepareVddCoreAndFro10M(power_vdd_core_output_voltage_t vd
 #if __CORTEX_M == 0U
 static status_t Power_ReqestCM33StartLpSeq(power_low_power_mode_t targetMode)
 {
-    uint32_t tmp32            = 0UL;
     power_handle_t *curHandle = (power_handle_t *)(POWER_SHARED_RAM_BASE_ADDR + g_Handle_Offset);
-
-    tmp32 = Power_PopulateMuMessage(kPower_MsgTypeRequest, kPower_MsgDirAonToMain, targetMode,
-                                    (uint16_t)(g_Handle_Offset & 0xFFFFUL));
+    uint32_t tmp32 = Power_PopulateMuMessage(kPower_MsgTypeRequest, kPower_MsgDirAonToMain, targetMode,
+                                             (uint16_t)(g_Handle_Offset & 0xFFFFUL));
     MU_SendMsg(POWER_USED_MU, curHandle->muChannelId, tmp32);
 
 #if POWER_MU_TRANSFER_TIMEOUT

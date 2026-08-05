@@ -7,7 +7,7 @@
 **                          MCXW70ADMMP
 **
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260722
+**     Build:               b260805
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for WUU

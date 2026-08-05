@@ -359,7 +359,6 @@ typedef enum _clock_ip_name
     kCLOCK_Tpm4            = MAKE_MRCC_REGADDR(MRCC_0_BASE, 0x278), /*!< Clock tpm4 */
     kCLOCK_Trgmux0         = MAKE_MRCC_REGADDR(MRCC_0_BASE, 0x280), /*!< Clock trgmux0 */
     kCLOCK_Tstmr0          = MAKE_MRCC_REGADDR(MRCC_0_BASE, 0x288), /*!< Clock tstmr0 */
-    kCLOCK_Udf0            = MAKE_MRCC_REGADDR(MRCC_0_BASE, 0x290), /*!< Clock udf0 */
     kCLOCK_Uteal1          = MAKE_MRCC_REGADDR(MRCC_0_BASE, 0x298), /*!< Clock uteal_1 */
     kCLOCK_Wdog0           = MAKE_MRCC_REGADDR(MRCC_0_BASE, 0x2A0), /*!< Clock wdog0 */
     kCLOCK_Wdog1           = MAKE_MRCC_REGADDR(MRCC_0_BASE, 0x2A8), /*!< Clock wdog1 */

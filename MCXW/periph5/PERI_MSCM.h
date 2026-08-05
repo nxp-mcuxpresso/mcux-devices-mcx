@@ -7,7 +7,7 @@
 **                          MCXW70ADMMP
 **
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260722
+**     Build:               b260805
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MSCM
@@ -659,9 +659,9 @@ typedef struct {
 #define MSCM_SID_RADIOF_MASK                     (0xF000000U)
 #define MSCM_SID_RADIOF_SHIFT                    (24U)
 /*! RADIOF - Radio Feature
- *  0b0000..802.15.4
+ *  0b0000..Reserved
  *  0b0001..Bluetooth LE
- *  0b0010..Bluetooth LE + 802.15.4
+ *  0b0010..Reserved
  */
 #define MSCM_SID_RADIOF(x)                       (((uint32_t)(((uint32_t)(x)) << MSCM_SID_RADIOF_SHIFT)) & MSCM_SID_RADIOF_MASK)
 

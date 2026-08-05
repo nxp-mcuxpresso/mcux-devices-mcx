@@ -8,7 +8,7 @@
 **
 **     Reference manual:    Rev. 1, 2026-07-08
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260722
+**     Build:               b260805
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXW70AA

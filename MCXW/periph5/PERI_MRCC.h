@@ -3259,6 +3259,7 @@ typedef struct {
 #define MRCC_HALT_MASK                            (0x40000000U)
 #define MRCC_HALT_SHIFT                           (30U)
 #define MRCC_HALT(x)                              (((uint32_t)(((uint32_t)(x)) << MRCC_HALT_SHIFT))  & MRCC_HALT_MASK)
+#define MRCC_UNSTAB_MASK                          (0x80000000U)
 
 
 /*!

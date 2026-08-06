@@ -6,7 +6,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260625
+**     Build:               b260806
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -26,6 +26,12 @@ ENTRY(Reset_Handler)
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
+/* rpmsg-lite shared memory. Only reserved when the application opts in by
+ * defining __use_shmem__ (see the rpmsg example reconfig.cmake). Carved from
+ * the otherwise unused m_stdby_ram window so neither core's m_data is touched.
+ * Both M7 cores share the same physical SRAM, so a single fixed base works.
+ * The secondary receives this base from the primary at runtime via MCMGR
+ * startup data; the region is declared here so the files stay symmetric. */
 RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x1800 : 0;
 
 m_itcm_start             = 0x00000000;
@@ -55,7 +61,6 @@ m_text_end               = 0x005BFFFF;
 m_core1_image_start      = 0x005C0000;
 m_core1_image_end        = 0x005FFFFF;
 
-
 /* Shared SRAM is split into two disjoint halves so the primary (M7_0) and the
  * secondary (M7_1) never use the same RAM. core0 owns the lower 144 KB; core1
  * owns the upper 144 KB (see MCXE32B_cm7_core1_flash.ld). The whole window is
@@ -79,10 +84,11 @@ MEMORY
   m_boot_header         (RX)  : ORIGIN = m_boot_header_start, LENGTH = m_boot_header_end - m_boot_header_start + 1
   m_interrupts          (RX)  : ORIGIN = m_interrupts_start,  LENGTH = m_interrupts_end - m_interrupts_start + 1
   m_text                (RX)  : ORIGIN = m_text_start,        LENGTH = m_text_end - m_text_start + 1
+  /* Dedicated flash window for the embedded core1 binary. */
   m_core1_image         (RX)  : ORIGIN = m_core1_image_start, LENGTH = m_core1_image_end - m_core1_image_start + 1
+  /* rpmsg-lite shared memory (only consumes RAM when __use_shmem__ is defined). */
   rpmsg_sh_mem          (RW)  : ORIGIN = m_stdby_ram_start,   LENGTH = RPMSG_SHMEM_SIZE
   m_data                (RW)  : ORIGIN = m_data_start,        LENGTH = m_data_end - m_data_start + 1
-
   m_ncache              (RW)  : ORIGIN = m_ncache_start,      LENGTH = m_ncache_size
   m_qacode              (RW)  : ORIGIN = m_qacode_start,      LENGTH = m_qacode_end - m_qacode_start + 1
   m_qadata              (RW)  : ORIGIN = m_qadata_start,      LENGTH = m_qadata_end - m_qadata_start + 1
@@ -120,8 +126,6 @@ SECTIONS
   } > rpmsg_sh_mem
 
   /* The startup code goes first into internal flash */
-
-
   .interrupts :
   {
     . = ALIGN(4);

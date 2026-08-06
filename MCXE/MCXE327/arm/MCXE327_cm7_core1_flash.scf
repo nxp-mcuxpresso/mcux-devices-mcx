@@ -8,7 +8,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260609
+**     Build:               b260806
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -32,17 +32,38 @@
 #define m_stdby_ram_start              0x20400000
 #define m_stdby_ram_end                0x20407FFF
 
-#define m_interrupts_start             0x00401000
+/* rpmsg-lite shared memory: carved from the standby-RAM window so neither core's
+ * m_data is affected. Only reserved when the application defines __use_shmem__. */
+#if (defined(__use_shmem__))
+  #define rpmsg_sh_mem_size            0x1800
+#else
+  #define rpmsg_sh_mem_size            0
+#endif
+#define rpmsg_sh_mem_start             m_stdby_ram_start
+
+/* The secondary core (M7_1) image is linked to run in place from this flash
+ * window, embedded inside the primary flash image and programmed together
+ * with it. M7_1 is released by writing this base to MC_ME PRTN0_CORE1_ADDR.
+ * Matches m_core1_image_start in MCXE32B_cm7_core0_flash.scf.
+ * Base 0x005C0000: compatible with the MCXE31b OTA primary-slot boundary
+ * (0x005C0000-0x005FFFFF); OTA secondary slot starts at 0x00600000. */
+#define m_interrupts_start             0x005C0000
 #define m_interrupts_size              0x00000400
 
+/* Boot header belongs to the primary (core0) image; referenced here for
+ * completeness only - core1 does not produce its own boot header. */
 #define m_boot_header_start            0x00400000
 #define m_boot_header_size             0x00000100
 
-#define m_text_start                   0x00401400
-#define m_text_size                    0x001D2C00
+#define m_text_start                   0x005C0400
+#define m_text_size                    0x0003FC00
 
-#define m_data_start                   0x20408000
-#define m_data_size                    0x00008000
+/* Shared SRAM is split into two disjoint halves so the primary (M7_0) and the
+ * secondary (M7_1) never use the same RAM. core1 owns the upper 144 KB; core0
+ * owns the lower 144 KB (see MCXE32B_cm7_core0_flash.scf). The whole window is
+ * 0x20408000..0x2044FFFF (288 KB). */
+#define m_data_start                   0x2040C000
+#define m_data_size                    0x00004000
 
 #define m_ncache_size                  0x00004000
 #define m_ncache_start                 m_dtcm_start
@@ -90,6 +111,13 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size { ; load region size_
     * (InRoot$$Sections)
     .ANY (+RO)
   }
+
+  /* rpmsg-lite shared memory region (only allocated when __use_shmem__ is defined). */
+#if (defined(__use_shmem__))
+  RPMSG_SH_MEM rpmsg_sh_mem_start UNINIT rpmsg_sh_mem_size { ; Shared memory used by RPMSG
+    * (rpmsg_sh_mem_section)
+  }
+#endif
 
   ER_m_QuickAccessCode   m_qacode_start      m_qacode_end-m_qacode_start+1
   {

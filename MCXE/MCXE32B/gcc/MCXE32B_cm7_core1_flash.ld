@@ -6,7 +6,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260625
+**     Build:               b260806
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -34,7 +34,6 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
  * startup data; the region is declared here so the files stay symmetric. */
 RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x1800 : 0;
 
-
 m_itcm_start             = 0x00000000;
 m_itcm_end               = 0x00007FFF;
 
@@ -51,12 +50,12 @@ m_stdby_ram_end          = 0x20407FFF;
  * Base 0x005C0000: compatible with the MCXE31b OTA primary-slot boundary
  * (0x005C0000-0x005FFFFF); OTA secondary slot starts at 0x00600000. */
 m_interrupts_start       = 0x005C0000;
-m_interrupts_end         = m_interrupts_start + 0x000003FF;
+m_interrupts_end         = 0x005C03FF;
 
 m_boot_header_start      = 0x00400000;
 m_boot_header_end        = 0x004000FF;
 
-m_text_start             = m_interrupts_end + 1;
+m_text_start             = 0x005C0400;
 m_text_end               = 0x005FFFFF;
 
 /* Shared SRAM is split into two disjoint halves so the primary (M7_0) and the
@@ -82,10 +81,10 @@ MEMORY
   m_boot_header         (RX)  : ORIGIN = m_boot_header_start, LENGTH = m_boot_header_end - m_boot_header_start + 1
   m_interrupts          (RX)  : ORIGIN = m_interrupts_start,  LENGTH = m_interrupts_end - m_interrupts_start + 1
   m_text                (RX)  : ORIGIN = m_text_start,        LENGTH = m_text_end - m_text_start + 1
+  /* rpmsg-lite shared memory (only consumes RAM when __use_shmem__ is defined). */
   rpmsg_sh_mem          (RW)  : ORIGIN = m_stdby_ram_start,   LENGTH = RPMSG_SHMEM_SIZE
   m_data                (RW)  : ORIGIN = m_data_start,        LENGTH = m_data_end - m_data_start + 1
   m_ncache              (RW)  : ORIGIN = m_ncache_start,      LENGTH = m_ncache_size
-
   m_qacode              (RW)  : ORIGIN = m_qacode_start,      LENGTH = m_qacode_end - m_qacode_start + 1
   m_qadata              (RW)  : ORIGIN = m_qadata_start,      LENGTH = m_qadata_end - m_qadata_start + 1
   m_itcm0_backdoor      (RW)  : ORIGIN = 0x11000000,          LENGTH = 0x11007FFF
@@ -116,7 +115,6 @@ SECTIONS
   {
     . = ALIGN(4);
     KEEP(*(.isr_vector))     /* Startup code */
-
     . = ALIGN(4);
   } > m_interrupts
 

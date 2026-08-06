@@ -6,7 +6,7 @@
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260609
+**     Build:               b260806
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -26,6 +26,13 @@ ENTRY(Reset_Handler)
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
+/* rpmsg-lite shared memory. Only reserved when the application opts in by
+ * defining __use_shmem__ (see the rpmsg example reconfig.cmake). Carved from
+ * the otherwise unused m_stdby_ram window so neither core's m_data is touched.
+ * Both M7 cores share the same physical SRAM, so a single fixed base works.
+ * The secondary receives this base from the primary at runtime via MCMGR
+ * startup data; the region is declared here so the files stay symmetric. */
+RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x1800 : 0;
 
 m_itcm_start             = 0x00000000;
 m_itcm_end               = 0x00007FFF;
@@ -36,16 +43,26 @@ m_dtcm_end               = 0x2000FFFF;
 m_stdby_ram_start        = 0x20400000;
 m_stdby_ram_end          = 0x20407FFF;
 
-m_interrupts_start       = 0x00401000;
-m_interrupts_end         = 0x004013FF;
+/* The secondary core (M7_1) image is linked to run in place from this flash
+ * window, embedded inside the primary flash image and programmed together
+ * with it. M7_1 is released by writing this base to MC_ME PRTN0_CORE1_ADDR.
+ * Matches m_core1_image_start in MCXE32B_cm7_core0_flash.ld.
+ * Base 0x005C0000: compatible with the MCXE31b OTA primary-slot boundary
+ * (0x005C0000-0x005FFFFF); OTA secondary slot starts at 0x00600000. */
+m_interrupts_start       = 0x005C0000;
+m_interrupts_end         = 0x005C03FF;
 
 m_boot_header_start      = 0x00400000;
 m_boot_header_end        = 0x004000FF;
 
-m_text_start             = 0x00401400;
-m_text_end               = 0x005D3FFF;
+m_text_start             = 0x005C0400;
+m_text_end               = 0x005FFFFF;
 
-m_data_start             = 0x20408000;
+/* Shared SRAM is split into two disjoint halves so the primary (M7_0) and the
+ * secondary (M7_1) never use the same RAM. core1 owns the upper 144 KB; core0
+ * owns the lower 144 KB (see MCXE32B_cm7_core0_flash.ld). The whole window is
+ * 0x20408000..0x2044FFFF (288 KB). */
+m_data_start             = 0x2040C000;
 m_data_end               = 0x2040FFFF;
 
 m_ncache_size            = 0x00004000;
@@ -64,6 +81,8 @@ MEMORY
   m_boot_header         (RX)  : ORIGIN = m_boot_header_start, LENGTH = m_boot_header_end - m_boot_header_start + 1
   m_interrupts          (RX)  : ORIGIN = m_interrupts_start,  LENGTH = m_interrupts_end - m_interrupts_start + 1
   m_text                (RX)  : ORIGIN = m_text_start,        LENGTH = m_text_end - m_text_start + 1
+  /* rpmsg-lite shared memory (only consumes RAM when __use_shmem__ is defined). */
+  rpmsg_sh_mem          (RW)  : ORIGIN = m_stdby_ram_start,   LENGTH = RPMSG_SHMEM_SIZE
   m_data                (RW)  : ORIGIN = m_data_start,        LENGTH = m_data_end - m_data_start + 1
   m_ncache              (RW)  : ORIGIN = m_ncache_start,      LENGTH = m_ncache_size
   m_qacode              (RW)  : ORIGIN = m_qacode_start,      LENGTH = m_qacode_end - m_qacode_start + 1
@@ -81,6 +100,15 @@ SECTIONS
     KEEP(*(.boot_header))    /* IVT */
     . = ALIGN(4);
   } > m_boot_header
+
+  /* NOINIT section for rpmsg_sh_mem (only present when __use_shmem__ is set) */
+  .noinit_rpmsg_sh_mem (NOLOAD) : ALIGN(4)
+  {
+     __RPMSG_SH_MEM_START__ = .;
+     *(.noinit.$rpmsg_sh_mem*)
+     . = ALIGN(4) ;
+     __RPMSG_SH_MEM_END__ = .;
+  } > rpmsg_sh_mem
 
   /* The startup code goes first into internal flash */
   .interrupts :
@@ -285,4 +313,3 @@ SECTIONS
 
   ASSERT(__StackLimit >= __HeapLimit, "region m_data overflowed with stack and heap")
 }
-

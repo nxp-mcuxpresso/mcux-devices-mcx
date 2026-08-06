@@ -8,7 +8,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260625
+**     Build:               b260806
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler
@@ -32,6 +32,8 @@
 #define m_stdby_ram_start              0x20400000
 #define m_stdby_ram_end                0x20407FFF
 
+/* rpmsg-lite shared memory: carved from the standby-RAM window so neither core's
+ * m_data is affected. Only reserved when the application defines __use_shmem__. */
 #if (defined(__use_shmem__))
   #define rpmsg_sh_mem_size            0x1800
 #else
@@ -48,6 +50,8 @@
 #define m_interrupts_start             0x005C0000
 #define m_interrupts_size              0x00000400
 
+/* Boot header belongs to the primary (core0) image; referenced here for
+ * completeness only - core1 does not produce its own boot header. */
 #define m_boot_header_start            0x00400000
 #define m_boot_header_size             0x00000100
 
@@ -93,7 +97,7 @@
 
 LR_m_header m_boot_header_start m_boot_header_size { ; load region size_region
   ER_m_boot_header m_boot_header_start FIXED m_boot_header_size { ; load address = execution address
-    * (.boot_header)
+    * (.boot_header,+FIRST)
   }
 }
 
@@ -108,6 +112,7 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size { ; load region size_
     .ANY (+RO)
   }
 
+  /* rpmsg-lite shared memory region (only allocated when __use_shmem__ is defined). */
 #if (defined(__use_shmem__))
   RPMSG_SH_MEM rpmsg_sh_mem_start UNINIT rpmsg_sh_mem_size { ; Shared memory used by RPMSG
     * (rpmsg_sh_mem_section)
@@ -145,3 +150,4 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size { ; load region size_
   ARM_LIB_STACK m_data_start+m_data_size EMPTY -Stack_Size { ; Stack region growing down
   }
 }
+

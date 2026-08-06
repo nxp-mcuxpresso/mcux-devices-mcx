@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 2.1, 2025-11-17
-**     Build:               b260716
+**     Build:               b260731
 **
 **     Abstract:
 **         Chip specific module features.
@@ -739,7 +739,7 @@
 /* @brief QSPI LUT SEQ unit. */
 #define FSL_FEATURE_QSPI_LUT_SEQ_UNIT (5U)
 /* @brief QSPI Tx FIFO depth. */
-#define FSL_FEATURE_QSPI_TXFIFO_DEPTH (64)
+#define FSL_FEATURE_QSPI_TXFIFO_DEPTH (32)
 /* @brief QSPI Rx FIFO depth. */
 #define FSL_FEATURE_QSPI_RXFIFO_DEPTH (64)
 /* @brief QSPI AHB buffer count. */

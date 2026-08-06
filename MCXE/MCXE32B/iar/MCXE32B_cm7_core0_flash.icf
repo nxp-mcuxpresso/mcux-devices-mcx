@@ -6,7 +6,7 @@
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260625
+**     Build:               b260806
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -30,14 +30,15 @@ define symbol m_dtcm_end               = 0x2000FFFF;
 define symbol m_stdby_ram_start        = 0x20400000;
 define symbol m_stdby_ram_end          = 0x20407FFF;
 
+/* rpmsg-lite shared memory: carved from the standby-RAM window so neither
+ * core's m_data is affected. Only reserved when the application defines __use_shmem__. */
 if (isdefinedsymbol(__use_shmem__)) {
   define symbol rpmsg_sh_mem_size      = 0x1800;
 } else {
   define symbol rpmsg_sh_mem_size      = 0;
 }
-define exported symbol rpmsg_sh_mem_start = m_stdby_ram_start;
-define exported symbol rpmsg_sh_mem_end   = rpmsg_sh_mem_start + rpmsg_sh_mem_size - 1;
-
+define exported symbol rpmsg_sh_mem_start       = m_stdby_ram_start;
+define exported symbol rpmsg_sh_mem_end         = rpmsg_sh_mem_start + rpmsg_sh_mem_size - 1;
 
 define symbol m_interrupts_start       = 0x00401000;
 define symbol m_interrupts_end         = 0x004013FF;
@@ -97,16 +98,17 @@ define exported symbol __NCACHE_REGION_SIZE    = m_ncache_size;
 
 define memory mem with size = 4G;
 define region m_boot_header_region = mem:[from m_boot_header_start to m_boot_header_end];
+/* Dedicated region for the embedded core1 binary. */
 define region CORE1_IMAGE_region = mem:[from m_core1_image_start to m_core1_image_end];
+/* rpmsg-lite shared memory region (zero size when __use_shmem__ is not defined). */
+define region rpmsg_sh_mem_region = mem:[from rpmsg_sh_mem_start to rpmsg_sh_mem_end];
 define region TEXT_region = mem:[from m_interrupts_start to m_interrupts_end]
                           | mem:[from m_text_start to m_text_end];
 define region DATA_region = mem:[from m_data_start to m_data_end-__size_cstack__];
 define region CSTACK_region = mem:[from m_data_end-__size_cstack__+1 to m_data_end];
 define region QACODE_region = mem:[from m_qacode_start to m_qacode_end];
 define region QADATA_region = mem:[from m_qadata_start to m_qadata_end];
-define region rpmsg_sh_mem_region = mem:[from rpmsg_sh_mem_start to rpmsg_sh_mem_end];
 define region NCACHE_region = mem:[from m_ncache_start to m_ncache_end];
-
 define region ITCM1_BACKDOOR_region = mem:[from m_itcm1_backdoor_start to m_itcm1_backdoor_end];
 define region DTCM1_BACKDOOR_region = mem:[from m_dtcm1_backdoor_start to m_dtcm1_backdoor_end];
 
@@ -120,8 +122,8 @@ define block QACCESS_DATA  { section DataQuickAccess };
 
 initialize by copy { readwrite, section .textrw, section CodeQuickAccess, section DataQuickAccess };
 do not initialize  { section .noinit };
+/* rpmsg-lite shared memory must not be initialized by the startup. */
 do not initialize  { section rpmsg_sh_mem_section };
-
 
 place at address mem: m_interrupts_start    { readonly section .intvec };
 place in m_boot_header_region               { section .boot_header };

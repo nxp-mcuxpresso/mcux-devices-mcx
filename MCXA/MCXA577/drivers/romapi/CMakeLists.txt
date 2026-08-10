@@ -13,9 +13,16 @@ endif()
 if (CONFIG_MCUX_COMPONENT_driver.romapi_flashiap)
     mcux_component_version(2.0.0)
 
+    # only add flash drv implementation for non-TFM builds, since
+    # this is already handled by TFM in SPE!
+    if (NOT CONFIG_MCUX_COMPONENT_middleware.tfm.ns.romapi)
+        mcux_add_source(
+            SOURCES
+                ./flash/fsl_flash.c
+        )
+    endif()
     mcux_add_source(
         SOURCES
-            ./flash/fsl_flash.c
             ./flash/fsl_flash.h
             ./flash/fsl_flexspi_nor_flash.h
             ./flash/fsl_lpspi_flash.h
@@ -41,10 +48,17 @@ endif()
 if (CONFIG_MCUX_COMPONENT_driver.romapi_runbootloader)
     mcux_component_version(2.0.0)
 
+    # only add flash drv implementation for non-TFM builds, since
+    # this is already handled by TFM in SPE!
+    if (NOT CONFIG_MCUX_COMPONENT_middleware.tfm.ns.romapi)
+        mcux_add_source(
+            SOURCES
+                ./runbootloader/fsl_runbootloader.c
+        )
+    endif()
     mcux_add_source(
         SOURCES
             ./runbootloader/fsl_runbootloader.h
-            ./runbootloader/fsl_runbootloader.c
             ./fsl_romapi_tree.h
     )
 

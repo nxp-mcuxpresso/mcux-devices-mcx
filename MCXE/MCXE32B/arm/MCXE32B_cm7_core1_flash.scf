@@ -97,7 +97,7 @@
 
 LR_m_header m_boot_header_start m_boot_header_size { ; load region size_region
   ER_m_boot_header m_boot_header_start FIXED m_boot_header_size { ; load address = execution address
-    * (.boot_header,+FIRST)
+    * (.boot_header)
   }
 }
 

@@ -97,7 +97,7 @@
 
 LR_m_header m_boot_header_start m_boot_header_size { ; load region size_region
   ER_m_boot_header m_boot_header_start FIXED m_boot_header_size { ; load address = execution address
-    * (.boot_header,+FIRST)
+    * (.boot_header)
   }
 }
 
@@ -150,4 +150,3 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size { ; load region size_
   ARM_LIB_STACK m_data_start+m_data_size EMPTY -Stack_Size { ; Stack region growing down
   }
 }
-

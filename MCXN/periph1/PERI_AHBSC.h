@@ -145,7 +145,7 @@ typedef struct {
        uint8_t RESERVED_13[8];
   __IO uint32_t AHB_PERIPHERAL1_SLAVE_PORT_P13_SLAVE_RULE0; /**< AHB Peripheral 1 Slave Port 13 Slave Rule 0, offset: 0x1F0 */
   __IO uint32_t AHB_PERIPHERAL1_SLAVE_PORT_P13_SLAVE_RULE1; /**< AHB Peripheral 1 Slave Port 13 Slave Rule 1, offset: 0x1F4 */
-       uint32_t AHB_PERIPHERAL1_SLAVE_PORT_P13_SLAVE_RULE2; /**< AHB Peripheral 1 Slave Port 13 Slave Rule 2, offset: 0x1F8 */
+  __I  uint32_t AHB_PERIPHERAL1_SLAVE_PORT_P13_SLAVE_RULE2; /**< AHB Peripheral 1 Slave Port 13 Slave Rule 2, offset: 0x1F8 */
        uint8_t RESERVED_14[4];
   __IO uint32_t AIPS_BRIDGE_GROUP2_MEM_RULE0;      /**< AIPS Bridge Group 2 Rule 0, offset: 0x200 */
   __IO uint32_t AIPS_BRIDGE_GROUP2_MEM_RULE1;      /**< AIPS Bridge Group 2 Memory Rule 1, offset: 0x204 */

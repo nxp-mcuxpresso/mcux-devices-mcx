@@ -24,13 +24,13 @@
 **                          MCXA153VLH
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260805
+**     Build:               b250521
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SPC
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2026 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -145,7 +145,7 @@ typedef struct {
        uint8_t RESERVED_8[4];
   __IO uint32_t EVD_CFG;                           /**< External Voltage Domain Configuration, offset: 0x140 */
        uint8_t RESERVED_9[444];
-  __I  uint32_t CORELDO_CFG;                       /**< LDO_CORE Configuration, offset: 0x300 */
+       uint32_t CORELDO_CFG;                       /**< LDO_CORE Configuration, offset: 0x300 */
 } SPC_Type;
 
 /* ----------------------------------------------------------------------------

@@ -5,13 +5,13 @@
 **                          MCXE245VLL
 **
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b260518
+**     Build:               b250610
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SYSMPU
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2026 NXP
+**     Copyright 2016-2025 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -552,8 +552,8 @@ typedef struct {
  */ /* end of group SYSMPU_Register_Masks */
 
 /* Backward compatibility for SYSMPU */
-#define SYSMPU_CESR_SPERR_MASK                   (0xF8000000U)
-#define SYSMPU_CESR_SPERR_SHIFT                  SYSMPU_CESR_SPERR4_SHIFT
+#define SYSMPU_CESR_SPERR_MASK                   (0xF0000000U)
+#define SYSMPU_CESR_SPERR_SHIFT                  SYSMPU_CESR_SPERR3_SHIFT
 /*! SPERR - Slave Port n Error
  *  0b0000..No error has occurred for slave port n.
  *  0b0001..An error has occurred for slave port n.

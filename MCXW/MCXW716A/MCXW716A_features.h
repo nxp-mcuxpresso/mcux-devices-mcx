@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 2.0, 2025-11-17
-**     Build:               b260811
+**     Build:               b260812
 **
 **     Abstract:
 **         Chip specific module features.
@@ -736,7 +736,7 @@
 #define FSL_FEATURE_SPC_HAS_VDD1P8_LVD (0)
 /* @brief Has no DCDC frequency control (register bits DCDC_CFG[FREQ_CNTRL_ON/FREQ_CNTRL]). */
 #define FSL_FEATURE_SPC_HAS_NO_DCDC_FREQ_CNTRL (0)
-/* @brief Has DCDC 2.5V output select (register bits ACTIVE_CFG/HP_CFG[DCDC_VOUT2P5_SEL]). */
+/* @brief Has DCDC 2.5V output select (register bits ACTIVE_CFG/HP_CFG[DCDC_VOUT2P5_SEL]) or (DCDC_CFG[VOUT2P5_SEL]). */
 #define FSL_FEATURE_SPC_HAS_DCDC_VOUT2P5_SEL (1)
 /* @brief DCDC 2.5V output select is in the per-mode ACTIVE_CFG/HP_CFG registers (vs DCDC_CFG). */
 #define FSL_FEATURE_SPC_DCDC_VOUT2P5_SEL_IN_ACTIVE_CFG (0)

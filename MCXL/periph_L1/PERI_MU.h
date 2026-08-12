@@ -14,7 +14,7 @@
 **                          MCXL144VLL_cm33
 **
 **     Version:             rev. 2.1, 2026-05-02
-**     Build:               b260805
+**     Build:               b260512
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MU
@@ -116,7 +116,7 @@ typedef struct {
   __IO uint32_t CR;                                /**< Control, offset: 0x8 */
   __I  uint32_t SR;                                /**< Status, offset: 0xC */
        uint8_t RESERVED_0[4];
-  __I  uint32_t CIER0;                             /**< Core Interrupt Enable 0, offset: 0x14 */
+       uint32_t CIER0;                             /**< Core Interrupt Enable 0, offset: 0x14 */
        uint8_t RESERVED_1[232];
   __IO uint32_t FCR;                               /**< Flag Control, offset: 0x100 */
   __I  uint32_t FSR;                               /**< Flag Status, offset: 0x104 */

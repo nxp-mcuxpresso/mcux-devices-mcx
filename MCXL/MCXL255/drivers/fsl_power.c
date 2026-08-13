@@ -2305,6 +2305,10 @@ void Power_LowPowerBoot(void)
     AON__CGU->PER_CLK_EN |= CGU_PER_CLK_EN_APB_CLK_MASK;
     __ISB();
 #if __CORTEX_M == 33U
+    if (CMC->SRS != 0x1)
+    {
+        return;
+    }
     if (POWER_BCKP2_MSB_VALUE != 0UL)
     {
         /* Recover g_Handle_Offset from backup2 MSB first. */

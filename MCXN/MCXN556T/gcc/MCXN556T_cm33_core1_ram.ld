@@ -1,12 +1,14 @@
 /*
 ** ###################################################################
-**     Processors:          MCXN556TCDF_cm33_core1
+**     Processors:          MCXN556TCAB_cm33_core1
+**                          MCXN556TCDF_cm33_core1
+**                          MCXN556TVAB_cm33_core1
 **                          MCXN556TVDF_cm33_core1
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260716
+**     Build:               b260812
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

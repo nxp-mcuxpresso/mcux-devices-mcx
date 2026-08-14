@@ -1,12 +1,14 @@
 /*
 ** ###################################################################
-**     Processors:          MCXN557TCDF_cm33_core1
+**     Processors:          MCXN557TCAB_cm33_core1
+**                          MCXN557TCDF_cm33_core1
+**                          MCXN557TVAB_cm33_core1
 **                          MCXN557TVDF_cm33_core1
 **
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
 **     Reference manual:    MCXNx4x Reference Manual
 **     Version:             rev. 1.1, 2025-11-07
-**     Build:               b260716
+**     Build:               b260812
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM

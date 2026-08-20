@@ -942,7 +942,7 @@ typedef struct {
 /*! TX_RPTR - Transmit FIFO Read Pointer */
 #define EMVSIM_TX_STATUS_TX_RPTR(x)              (((uint32_t)(((uint32_t)(x)) << EMVSIM_TX_STATUS_TX_RPTR_SHIFT)) & EMVSIM_TX_STATUS_TX_RPTR_MASK)
 
-#define EMVSIM_TX_STATUS_TX_CNT_MASK             (0xF000000U)
+#define EMVSIM_TX_STATUS_TX_CNT_MASK             (0x1F000000U)
 #define EMVSIM_TX_STATUS_TX_CNT_SHIFT            (24U)
 /*! TX_CNT - Transmit FIFO Byte Count
  *  0b0000..FIFO empty

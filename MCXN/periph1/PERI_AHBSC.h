@@ -1363,6 +1363,26 @@ typedef struct {
 /*! @name AIPS_BRIDGE_GROUP0_MEM_RULE1 - AIPS Bridge Group 0 Memory Rule 1 */
 /*! @{ */
 
+#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_CMC_MASK (0x3U)
+#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_CMC_SHIFT (0U)
+/*! CMC - CMC
+ *  0b00..Non-secure and non-privilege user access allowed
+ *  0b01..Non-secure and privilege access allowed
+ *  0b10..Secure and non-privilege user access allowed
+ *  0b11..Secure and privilege user access allowed
+ */
+#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_CMC(x) (((uint32_t)(((uint32_t)(x)) << AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_CMC_SHIFT)) & AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_CMC_MASK)
+
+#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_OSTIMER0_MASK (0x30U)
+#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_OSTIMER0_SHIFT (4U)
+/*! OSTIMER0 - OSTIMER0
+ *  0b00..Non-secure and non-privilege user access allowed
+ *  0b01..Non-secure and privilege access allowed
+ *  0b10..Secure and non-privilege user access allowed
+ *  0b11..Secure and privilege user access allowed
+ */
+#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_OSTIMER0(x) (((uint32_t)(((uint32_t)(x)) << AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_OSTIMER0_SHIFT)) & AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_OSTIMER0_MASK)
+
 #define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_LPTMR0_MASK (0x300U)
 #define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_LPTMR0_SHIFT (8U)
 /*! LPTMR0 - LPTMR0
@@ -1392,16 +1412,6 @@ typedef struct {
  *  0b11..Secure and privilege user access allowed
  */
 #define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_RTC(x) (((uint32_t)(((uint32_t)(x)) << AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_RTC_SHIFT)) & AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_RTC_MASK)
-
-#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_FMU_TEST_MASK (0x3000000U)
-#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_FMU_TEST_SHIFT (24U)
-/*! FMU_TEST - FMU_TEST
- *  0b00..Non-secure and non-privilege user access allowed
- *  0b01..Non-secure and privilege access allowed
- *  0b10..Secure and non-privilege user access allowed
- *  0b11..Secure and privilege user access allowed
- */
-#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_FMU_TEST(x) (((uint32_t)(((uint32_t)(x)) << AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_FMU_TEST_SHIFT)) & AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_FMU_TEST_MASK)
 /*! @} */
 
 /*! @name AIPS_BRIDGE_GROUP0_MEM_RULE2 - AIPS Bridge Group 0 Memory Rule 2 */

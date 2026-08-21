@@ -1412,6 +1412,16 @@ typedef struct {
  *  0b11..Secure and privilege user access allowed
  */
 #define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_RTC(x) (((uint32_t)(((uint32_t)(x)) << AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_RTC_SHIFT)) & AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_RTC_MASK)
+
+#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_FMU_TEST_MASK (0x3000000U)
+#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_FMU_TEST_SHIFT (24U)
+/*! FMU_TEST - FMU_TEST
+ *  0b00..Non-secure and non-privilege user access allowed
+ *  0b01..Non-secure and privilege access allowed
+ *  0b10..Secure and non-privilege user access allowed
+ *  0b11..Secure and privilege user access allowed
+ */
+#define AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_FMU_TEST(x) (((uint32_t)(((uint32_t)(x)) << AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_FMU_TEST_SHIFT)) & AHBSC_AIPS_BRIDGE_GROUP0_MEM_RULE1_FMU_TEST_MASK)
 /*! @} */
 
 /*! @name AIPS_BRIDGE_GROUP0_MEM_RULE2 - AIPS Bridge Group 0 Memory Rule 2 */

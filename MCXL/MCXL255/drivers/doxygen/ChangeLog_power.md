@@ -1,5 +1,16 @@
 # Power
 
+## [2.3.5]
+- Bug Fixes
+    - Added workaround for PMU errata ERR053099: switching DCDC Main from Normal Drive to Low
+    Drive while entering DPD1/DPD2 could collapse the regulator output. Added
+    Power_ApplyDcdcMainDriveErrata053099(), called on the CM33 side before the low power entry
+    sequence in Power_EnterDeepPowerDown1(), and Power_EnterDeepPowerDown2().
+    It raises VDD_CORE_MAIN_CONFIG[VDD_CORE_MAIN_ACONFIG] to the IFR-trimmed 1.1V value, waits 20us,
+    then programs VDD_CORE_MAIN_CONFIG[VDD_CORE_MAIN_VOUTSEL_LPWR] to the IFR-trimmed 1.0V value before
+    switching PCTRL[VDD_MAIN_LPWR] to Low Power, so Normal Drive voltage stays above Low Drive
+    voltage throughout the switch.
+
 ## [2.3.4]
 - Bug Fixes
     - In Power_LowPowerBoot() function, on CM33 side, check reset reason if reset reason is not wakeup reset,

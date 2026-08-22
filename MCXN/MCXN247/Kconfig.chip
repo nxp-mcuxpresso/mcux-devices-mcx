@@ -51,6 +51,10 @@ config MCUX_HW_SOC_SERIES_MCX
     bool
     default y
 
+config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
+    string
+    default "MCXN247" if MCUX_HW_DEVICE_ID_MCXN247
+
 config MCUX_HW_SOC_SINGLECORE_DEVICE
     bool
     default y

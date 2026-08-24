@@ -790,6 +790,8 @@
 #define FSL_FEATURE_QSPI_HAS_DDR (0)
 /* @brief SOC specific configuration is needed. */
 #define FSL_FEATURE_QSPI_HAS_SOC_SPECIFIC_CONFIG (1)
+/* @brief there is no RXBRD bit in RBCT register. */
+#define FSL_FEATURE_QSPI_HAS_NO_RXBRD (1)
 
 /* RTC module features */
 

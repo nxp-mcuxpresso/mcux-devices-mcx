@@ -47,6 +47,8 @@
 #define FSL_FEATURE_SOC_EIM_COUNT (1)
 /* @brief EMAC availability on the SoC. */
 #define FSL_FEATURE_SOC_EMAC_COUNT (1)
+/* @brief ENET_QOS/EMAC is affected by errata ERR050705 (Head-Of-Line blocking error when GCL gates are closed). */
+#define FSL_FEATURE_ENET_QOS_HAS_ERRATA_050705 (1)
 /* @brief EMIOS availability on the SoC. */
 #define FSL_FEATURE_SOC_EMIOS_COUNT (2)
 /* @brief FLASH availability on the SoC. */

@@ -1758,6 +1758,9 @@ uint32_t CLOCK_GetOstimerClkFreq(void)
         case 0U:
             freq = CLOCK_GetClk16KFreq(1);
             break;
+        case 1U:
+            freq = CLOCK_GetOsc32KFreq(1);
+            break;
         case 2U:
             freq = CLOCK_GetClk1MFreq();
             break;

@@ -584,9 +584,10 @@ typedef enum _clock_attach_id
     kPll1ClkDiv_to_LPTMR0 = CLK_ATTACH_MUX(kCLOCK_SelLPTMR0, 6U),           /*!< Attach Pll1ClkDiv to LPTMR0. */
     kNONE_to_LPTMR0       = CLK_ATTACH_MUX(kCLOCK_SelLPTMR0, 7U),           /*!< Attach NONE to LPTMR0.       */
 
-    kCLK_16K_to_OSTIMER = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 0U),           /*!< Attach FRO16K to OSTIMER0. */
-    kCLK_1M_to_OSTIMER  = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 2U),           /*!< Attach CLK_1M to OSTIMER0. */
-    kNONE_to_OSTIMER    = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 3U),           /*!< Attach NONE to OSTIMER0.   */
+    kCLK_16K_to_OSTIMER = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 0U),           /*!< Attach FRO16K to OSTIMER0.     */
+    kCLK_32K_to_OSTIMER = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 1U),           /*!< Attach OSC_32K[1] to OSTIMER0. */
+    kCLK_1M_to_OSTIMER  = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 2U),           /*!< Attach CLK_1M to OSTIMER0.     */
+    kNONE_to_OSTIMER    = CLK_ATTACH_MUX(kCLOCK_SelOSTIMER0, 3U),           /*!< Attach NONE to OSTIMER0.       */
 
     kFRO_LF_DIV_to_ADC = CLK_ATTACH_MUX(kCLOCK_SelADC, 0U),                 /*!< Attach FRO_LF_DIV to ADC. */
     kFRO_HF_to_ADC     = CLK_ATTACH_MUX(kCLOCK_SelADC, 1U),                 /*!< Attach FRO_HF to ADC.     */

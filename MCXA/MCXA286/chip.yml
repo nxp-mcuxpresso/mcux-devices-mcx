@@ -82,5 +82,6 @@ device.hardware_data:
           - name: "MCXA286VLL"
           - name: "MCXA286VPN"
           - name: "MCXA286VASR"
+          - name: "MCXA286VAPR"
         modules:
 ...

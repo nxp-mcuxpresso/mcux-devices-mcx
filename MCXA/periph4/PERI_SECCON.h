@@ -1,9 +1,11 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA286VASR
+**     Processors:          MCXA286VAPR
+**                          MCXA286VASR
 **                          MCXA286VLL
 **                          MCXA286VLQ
 **                          MCXA286VPN
+**                          MCXA287VAPR
 **                          MCXA287VASR
 **                          MCXA287VLL
 **                          MCXA287VLQ
@@ -37,7 +39,7 @@
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260708
+**     Build:               b260901
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SECCON
@@ -71,9 +73,9 @@
 #if !defined(PERI_SECCON_H_)
 #define PERI_SECCON_H_                           /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA286VASR) || defined(CPU_MCXA286VLL) || defined(CPU_MCXA286VLQ) || defined(CPU_MCXA286VPN))
+#if (defined(CPU_MCXA286VAPR) || defined(CPU_MCXA286VASR) || defined(CPU_MCXA286VLL) || defined(CPU_MCXA286VLQ) || defined(CPU_MCXA286VPN))
 #include "MCXA286_COMMON.h"
-#elif (defined(CPU_MCXA287VASR) || defined(CPU_MCXA287VLL) || defined(CPU_MCXA287VLQ) || defined(CPU_MCXA287VPN))
+#elif (defined(CPU_MCXA287VAPR) || defined(CPU_MCXA287VASR) || defined(CPU_MCXA287VLL) || defined(CPU_MCXA287VLQ) || defined(CPU_MCXA287VPN))
 #include "MCXA287_COMMON.h"
 #elif (defined(CPU_MCXA456VASR) || defined(CPU_MCXA456VLL) || defined(CPU_MCXA456VLQ) || defined(CPU_MCXA456VPN))
 #include "MCXA456_COMMON.h"

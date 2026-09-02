@@ -1,9 +1,11 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA286VASR
+**     Processors:          MCXA286VAPR
+**                          MCXA286VASR
 **                          MCXA286VLL
 **                          MCXA286VLQ
 **                          MCXA286VPN
+**                          MCXA287VAPR
 **                          MCXA287VASR
 **                          MCXA287VLL
 **                          MCXA287VLQ
@@ -37,7 +39,7 @@
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260708
+**     Build:               b260901
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for INPUTMUX
@@ -71,9 +73,9 @@
 #if !defined(PERI_INPUTMUX_H_)
 #define PERI_INPUTMUX_H_                         /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA286VASR) || defined(CPU_MCXA286VLL) || defined(CPU_MCXA286VLQ) || defined(CPU_MCXA286VPN))
+#if (defined(CPU_MCXA286VAPR) || defined(CPU_MCXA286VASR) || defined(CPU_MCXA286VLL) || defined(CPU_MCXA286VLQ) || defined(CPU_MCXA286VPN))
 #include "MCXA286_COMMON.h"
-#elif (defined(CPU_MCXA287VASR) || defined(CPU_MCXA287VLL) || defined(CPU_MCXA287VLQ) || defined(CPU_MCXA287VPN))
+#elif (defined(CPU_MCXA287VAPR) || defined(CPU_MCXA287VASR) || defined(CPU_MCXA287VLL) || defined(CPU_MCXA287VLQ) || defined(CPU_MCXA287VPN))
 #include "MCXA287_COMMON.h"
 #elif (defined(CPU_MCXA456VASR) || defined(CPU_MCXA456VLL) || defined(CPU_MCXA456VLQ) || defined(CPU_MCXA456VPN))
 #include "MCXA456_COMMON.h"
@@ -214,17 +216,17 @@ typedef struct {
        uint8_t RESERVED_26[28];
   __IO uint32_t LPSPI1_TRIG;                       /**< LPSPI1 trigger input connections, offset: 0x600 */
        uint8_t RESERVED_27[28];
-  __IO uint32_t LPUART0r;                          /**< LPUART0 trigger input connections, offset: 0x620, 'r' suffix has been added to avoid a clash with peripheral base pointer macro 'LPUART0' */
+  __IO uint32_t LPUART0r;                          /**< LPUART0 trigger input connections, offset: 0x620, suffix 'r' added to avoid clash with peripheral base pointer macro 'LPUART0' */
        uint8_t RESERVED_28[28];
-  __IO uint32_t LPUART1r;                          /**< LPUART1 trigger input connections, offset: 0x640, 'r' suffix has been added to avoid a clash with peripheral base pointer macro 'LPUART1' */
+  __IO uint32_t LPUART1r;                          /**< LPUART1 trigger input connections, offset: 0x640, suffix 'r' added to avoid clash with peripheral base pointer macro 'LPUART1' */
        uint8_t RESERVED_29[28];
-  __IO uint32_t LPUART2r;                          /**< LPUART2 trigger input connections, offset: 0x660, 'r' suffix has been added to avoid a clash with peripheral base pointer macro 'LPUART2' */
+  __IO uint32_t LPUART2r;                          /**< LPUART2 trigger input connections, offset: 0x660, suffix 'r' added to avoid clash with peripheral base pointer macro 'LPUART2' */
        uint8_t RESERVED_30[28];
-  __IO uint32_t LPUART3r;                          /**< LPUART3 trigger input connections, offset: 0x680, 'r' suffix has been added to avoid a clash with peripheral base pointer macro 'LPUART3' */
+  __IO uint32_t LPUART3r;                          /**< LPUART3 trigger input connections, offset: 0x680, suffix 'r' added to avoid clash with peripheral base pointer macro 'LPUART3' */
        uint8_t RESERVED_31[28];
-  __IO uint32_t LPUART4r;                          /**< LPUART4 trigger input connections, offset: 0x6A0, 'r' suffix has been added to avoid a clash with peripheral base pointer macro 'LPUART4' */
+  __IO uint32_t LPUART4r;                          /**< LPUART4 trigger input connections, offset: 0x6A0, suffix 'r' added to avoid clash with peripheral base pointer macro 'LPUART4' */
        uint8_t RESERVED_32[28];
-  __IO uint32_t LPUART5r;                          /**< LPUART5 trigger input connections, offset: 0x6C0, 'r' suffix has been added to avoid a clash with peripheral base pointer macro 'LPUART5' */
+  __IO uint32_t LPUART5r;                          /**< LPUART5 trigger input connections, offset: 0x6C0, suffix 'r' added to avoid clash with peripheral base pointer macro 'LPUART5' */
        uint8_t RESERVED_33[28];
   __IO uint32_t FLEXIO_TRIG[INPUTMUX_FLEXIO_TRIGN_COUNT]; /**< FlexIO Trigger Input Connections, array offset: 0x6E0, array step: 0x4 */
        uint8_t RESERVED_34[788];

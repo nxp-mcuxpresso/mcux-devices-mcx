@@ -8,12 +8,13 @@
 **                          MCXA457VLL
 **                          MCXA457VLQ
 **                          MCXA457VPN
+**                          MCXA577VAPR
 **                          MCXA577VLL
 **                          MCXA577VLQ
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260901
+**     Build:               b260904
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TSI
@@ -51,7 +52,7 @@
 #include "MCXA456_COMMON.h"
 #elif (defined(CPU_MCXA457VASR) || defined(CPU_MCXA457VLL) || defined(CPU_MCXA457VLQ) || defined(CPU_MCXA457VPN))
 #include "MCXA457_COMMON.h"
-#elif (defined(CPU_MCXA577VLL) || defined(CPU_MCXA577VLQ) || defined(CPU_MCXA577VPN))
+#elif (defined(CPU_MCXA577VAPR) || defined(CPU_MCXA577VLL) || defined(CPU_MCXA577VLQ) || defined(CPU_MCXA577VPN))
 #include "MCXA577_COMMON.h"
 #else
   #error "No valid CPU defined!"

@@ -12,12 +12,13 @@
 **                          MCXA567VLL
 **                          MCXA567VLQ
 **                          MCXA567VPN
+**                          MCXA577VAPR
 **                          MCXA577VLL
 **                          MCXA577VLQ
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260901
+**     Build:               b260904
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TENBASET_PHY
@@ -59,7 +60,7 @@
 #include "MCXA566_COMMON.h"
 #elif (defined(CPU_MCXA567VLL) || defined(CPU_MCXA567VLQ) || defined(CPU_MCXA567VPN))
 #include "MCXA567_COMMON.h"
-#elif (defined(CPU_MCXA577VLL) || defined(CPU_MCXA577VLQ) || defined(CPU_MCXA577VPN))
+#elif (defined(CPU_MCXA577VAPR) || defined(CPU_MCXA577VLL) || defined(CPU_MCXA577VLQ) || defined(CPU_MCXA577VPN))
 #include "MCXA577_COMMON.h"
 #else
   #error "No valid CPU defined!"

@@ -1,5 +1,14 @@
 # CLOCK
 
+## [2.2.2]
+- Bug Fixes
+  - Fixed kFXOSC_ModeBypass to set only OSC_BYP, since single-input bypass mode requires COMP_EN to be cleared.
+  - Fixed CLOCK_InitFxosc to configure the work mode while the FXOSC is disabled and enable it afterwards, to use
+    OSCON instead of the OSC_STAT flag when deciding whether the FXOSC must be disabled first, to force a
+    transconductance of 0 in bypass mode, and to skip the stabilization wait in bypass mode where OSC_STAT is invalid.
+  - Fixed CLOCK_GetFxoscFreq to report the configured frequency in bypass mode instead of 0, while still requiring a
+    stable OSC_STAT in crystal mode.
+
 ## [2.2.1]
 - Improvements
   - Added clock array for CRC. 

@@ -1,0 +1,313 @@
+# Copyright 2026 NXP
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# product related
+
+config MCUX_HW_SOC_SERIES_MCX
+    bool
+    default y
+
+config MCUX_HW_SOC_SINGLECORE_DEVICE
+    bool
+    default y
+
+# core related
+
+config MCUX_HW_CORE
+    string
+    default "cm23"
+
+config MCUX_HW_CORE_CM23
+    bool
+    default y
+
+config MCUX_HW_CORE_ID
+    string
+    default "cm23"
+
+config MCUX_HW_CORE_ID_CM23
+    bool
+    default y
+
+config MCUX_HW_DSP
+    bool
+    default n
+
+config MCUX_HW_MPU
+    bool
+    default n
+
+config MCUX_HW_FPU
+    string
+    default "NO_FPU"
+
+config MCUX_HW_FPU_TYPE
+    string
+    default "no_fpu"
+
+config MCUX_HW_NO_FPU
+    bool
+    default y
+
+config MCUX_HW_INT_PRIO_BITS
+    int
+    default 2
+
+config MCUX_HW_SAU
+    bool
+    default n
+
+config MCUX_HW_INT_PRIO_BITS
+    int
+    default 2
+
+# device related
+
+config MCUX_HW_DEVICE_CORE
+    string
+    default "MCXC352"
+
+config MCUX_HW_DEVICE_ID_MCXC352
+    bool
+
+choice MCUX_HW_DEVICE_PART_MCXC352
+    prompt "Device MCXC352 Part"
+    config MCUX_HW_DEVICE_PART_MCXC352GAMFM
+    bool "MCXC352GAMFM"
+    select MCUX_HW_DEVICE_ID_MCXC352
+    config MCUX_HW_DEVICE_PART_MCXC352GAMFT
+    bool "MCXC352GAMFT"
+    select MCUX_HW_DEVICE_ID_MCXC352
+    config MCUX_HW_DEVICE_PART_MCXC352MLF
+    bool "MCXC352MLF"
+    select MCUX_HW_DEVICE_ID_MCXC352
+endchoice
+
+config MCUX_HW_DEVICE_ID
+    string
+    default "MCXC352" if MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_DEVICE_PART
+    string
+    default "MCXC352GAMFM" if MCUX_HW_DEVICE_PART_MCXC352GAMFM
+    default "MCXC352GAMFT" if MCUX_HW_DEVICE_PART_MCXC352GAMFT
+    default "MCXC352MLF" if MCUX_HW_DEVICE_PART_MCXC352MLF
+
+# For chipmodel generated files
+config MCUX_TOOLCHAIN_LINKER_DEVICE_PREFIX
+    string
+    default "MCXC352" if MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_TOOLCHAIN_MCUX_STARTUP
+    string
+    default "mcxc352"
+
+# Toolchain related
+
+config MCUX_TOOLCHAIN_IAR_CPU_IDENTIFIER
+    string
+    default "MCXC352" if MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_TOOLCHAIN_MDK_CPU_IDENTIFIER
+    string
+    default "MCXC352GAMFM" if MCUX_HW_DEVICE_PART_MCXC352GAMFM
+    default "MCXC352GAMFT" if MCUX_HW_DEVICE_PART_MCXC352GAMFT
+    default "MCXC352MLF" if MCUX_HW_DEVICE_PART_MCXC352MLF
+
+config MCUX_TOOLCHAIN_JLINK_CPU_IDENTIFIER
+    string
+    default "MCXC352" if MCUX_HW_DEVICE_ID_MCXC352
+
+# ip information
+
+config MCUX_HW_IP_DriverType_AOI
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_CORE
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_CRC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_DADC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_DBGMB
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_DSC_PIT
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_EDMA3
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_EIM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_ERM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_FLASH_K4
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_FMC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_FMU
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_FREQME
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_FTM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_GPIO
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_HSCMP
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_LPC_SYSCON
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_LPI2C
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_LPSPI
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_LPUART
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_MAU
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_MCX_CMC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_MCX_SPC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_MCX_VBAT
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_MRCC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_OPAMP_1
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_PHD
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_PORT
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_PWM
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_PWT
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_SCG
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_SECCON
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_SUPPLY
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_TMR_1
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_TRDC_1
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_WUU
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_WWDT
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+
+config MCUX_HW_IP_DriverType_XBAR_DSC
+    bool
+    default y
+    depends on MCUX_HW_DEVICE_ID_MCXC352
+

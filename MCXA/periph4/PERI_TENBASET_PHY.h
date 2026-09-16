@@ -9,16 +9,19 @@
 **                          MCXA566VLL
 **                          MCXA566VLQ
 **                          MCXA566VPN
+**                          MCXA567VAPR
+**                          MCXA567VASR
 **                          MCXA567VLL
 **                          MCXA567VLQ
 **                          MCXA567VPN
 **                          MCXA577VAPR
+**                          MCXA577VASR
 **                          MCXA577VLL
 **                          MCXA577VLQ
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260904
+**     Build:               b260916
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TENBASET_PHY
@@ -58,9 +61,9 @@
 #include "MCXA537_COMMON.h"
 #elif (defined(CPU_MCXA566VLL) || defined(CPU_MCXA566VLQ) || defined(CPU_MCXA566VPN))
 #include "MCXA566_COMMON.h"
-#elif (defined(CPU_MCXA567VLL) || defined(CPU_MCXA567VLQ) || defined(CPU_MCXA567VPN))
+#elif (defined(CPU_MCXA567VAPR) || defined(CPU_MCXA567VASR) || defined(CPU_MCXA567VLL) || defined(CPU_MCXA567VLQ) || defined(CPU_MCXA567VPN))
 #include "MCXA567_COMMON.h"
-#elif (defined(CPU_MCXA577VAPR) || defined(CPU_MCXA577VLL) || defined(CPU_MCXA577VLQ) || defined(CPU_MCXA577VPN))
+#elif (defined(CPU_MCXA577VAPR) || defined(CPU_MCXA577VASR) || defined(CPU_MCXA577VLL) || defined(CPU_MCXA577VLQ) || defined(CPU_MCXA577VPN))
 #include "MCXA577_COMMON.h"
 #else
   #error "No valid CPU defined!"

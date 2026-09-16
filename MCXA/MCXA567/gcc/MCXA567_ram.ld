@@ -1,13 +1,15 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA567VLL
+**     Processors:          MCXA567VAPR
+**                          MCXA567VASR
+**                          MCXA567VLL
 **                          MCXA567VLQ
 **                          MCXA567VPN
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260626
+**     Build:               b260914
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

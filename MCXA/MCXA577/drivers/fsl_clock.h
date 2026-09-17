@@ -1322,6 +1322,7 @@ void CLOCK_SetupEnetTxClk(uint32_t iFreq);
  */
 uint32_t CLOCK_GetEnetTxClkFreq(void);
 
+#if defined(USBHS1_PHY)
 /*!
  * @brief Enable USB HS PHY PLL clock.
  *
@@ -1360,6 +1361,7 @@ bool CLOCK_EnableUsbhsClock(void);
  * @return true if success, false if failure.
  */
 bool CLOCK_EnableUsbhsPhyPfdClock(uint32_t pfdDiv, pfd_clkout_selection_t pfdClkSel);
+#endif /* defined(USBHS1_PHY) */
 
 /**
  * @brief   Setup FRO 12M trim.

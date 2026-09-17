@@ -43,7 +43,7 @@ define symbol m_text_start                     = 0x00000200;
 define symbol m_text_end                       = 0x0001FFFF;
 
 define symbol m_data_start                     = 0x20000000;
-define symbol m_data_end                       = 0x20002FFF;
+define symbol m_data_end                       = 0x20003FFF;
 
 define memory mem with size = 4G;
 

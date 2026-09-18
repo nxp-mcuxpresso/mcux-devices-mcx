@@ -265,7 +265,7 @@ extern volatile uint32_t g_xtal0Freq;
         kCLOCK_Lpuart0, kCLOCK_Lpuart1, kCLOCK_Lpuart2, kCLOCK_Lpuart3 \
     }
 #endif
-#if defined(FSL_FEATURE_SOC_LPSPI_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT == 6U)
+#if defined(FSL_FEATURE_SOC_LPSPI_COUNT) && (FSL_FEATURE_SOC_LPSPI_COUNT == 6U)
 /*! @brief Clock ip name array for LPSPI. */
 #define LPSPI_CLOCKS                                                                             \
     {                                                                                            \

@@ -420,6 +420,7 @@ typedef enum _clock_attach_id
     kCLK_IN_to_FLEXCAN0     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 3U),       /*!< Attach CLK_IN to FLEXCAN0.     */
     kUSB_PLL_to_FLEXCAN0    = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 4U),       /*!< Attach USB_PLL to FLEXCAN0.    */
     kPll1ClkDiv_to_FLEXCAN0 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 6U),       /*!< Attach Pll1ClkDiv to FLEXCAN0. */
+    kPll1Clk_to_FLEXCAN0    = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 6U),       /*!< Attach Pll1Clk to FLEXCAN0.    */
     kNONE_to_FLEXCAN0       = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN0, 7U),       /*!< Attach NONE to FLEXCAN0.       */
 
     kFRO_HF_to_FLEXCAN1     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 1U),       /*!< Attach FRO_HF to FLEXCAN1.     */
@@ -427,6 +428,7 @@ typedef enum _clock_attach_id
     kCLK_IN_to_FLEXCAN1     = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 3U),       /*!< Attach CLK_IN to FLEXCAN1.     */
     kUSB_PLL_to_FLEXCAN1    = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 4U),       /*!< Attach USB_PLL to FLEXCAN1.    */
     kPll1ClkDiv_to_FLEXCAN1 = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 6U),       /*!< Attach Pll1ClkDiv to FLEXCAN1. */
+    kPll1Clk_to_FLEXCAN1    = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 6U),       /*!< Attach Pll1Clk to FLEXCAN1.    */
     kNONE_to_FLEXCAN1       = CLK_ATTACH_MUX(kCLOCK_SelFLEXCAN1, 7U),       /*!< Attach NONE to FLEXCAN1.       */
 
     kFRO_LF_DIV_to_DAC0 = CLK_ATTACH_MUX(kCLOCK_SelDAC0, 0U),               /*!< Attach FRO_LF_DIV to DAC0.  */
@@ -593,6 +595,7 @@ typedef enum _clock_attach_id
     kFRO_HF_to_ADC     = CLK_ATTACH_MUX(kCLOCK_SelADC, 1U),                 /*!< Attach FRO_HF to ADC.     */
     kCLK_IN_to_ADC     = CLK_ATTACH_MUX(kCLOCK_SelADC, 3U),                 /*!< Attach CLK_IN to ADC.     */
     kUSB_PLL_to_ADC    = CLK_ATTACH_MUX(kCLOCK_SelADC, 4U),                 /*!< Attach USB_PL to ADC.     */
+    kUSB_PFD_to_ADC    = CLK_ATTACH_MUX(kCLOCK_SelADC, 4U),                 /*!< Attach USB_PFD to ADC.    */
     kCLK_1M_to_ADC     = CLK_ATTACH_MUX(kCLOCK_SelADC, 5U),                 /*!< Attach CLK_1M to ADC.     */
     kPll1ClkDiv_to_ADC = CLK_ATTACH_MUX(kCLOCK_SelADC, 6U),                 /*!< Attach Pll1ClkDiv to ADC. */
     kNONE_to_ADC       = CLK_ATTACH_MUX(kCLOCK_SelADC, 7U),                 /*!< Attach NONE to ADC.       */
@@ -631,6 +634,8 @@ typedef enum _clock_attach_id
     kNONE_to_TENBASET_PHY    = CLK_ATTACH_MUX(kCLOCK_SelTENBASET_PHY0, 7U), /*!< Attach NONE to TENBASET_PHY.     */
 
     kFRO_HF_to_ESPI     = CLK_ATTACH_MUX(kCLOCK_SelESPI0, 1U),              /*!< Attach FRO_HF to ESPI.     */
+    kCLK_IN_to_ESPI     = CLK_ATTACH_MUX(kCLOCK_SelESPI0, 3U),              /*!< Attach CLK_IN to ESPI.     */
+    kUSB_PLL_to_ESPI    = CLK_ATTACH_MUX(kCLOCK_SelESPI0, 4U),              /*!< Attach USB_PLL to ESPI.    */
     kPll1ClkDiv_to_ESPI = CLK_ATTACH_MUX(kCLOCK_SelESPI0, 6U),              /*!< Attach Pll1ClkDiv to ESPI. */
     kNONE_to_ESPI       = CLK_ATTACH_MUX(kCLOCK_SelESPI0, 7U),              /*!< Attach NONE to ESPI.       */
 

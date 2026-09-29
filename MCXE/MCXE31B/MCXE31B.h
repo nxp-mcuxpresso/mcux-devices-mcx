@@ -11,13 +11,13 @@
 **
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.0, 2025-07-18
-**     Build:               b260420
+**     Build:               b260518
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE31B
 **
 **     Copyright 1997-2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2025 NXP
+**     Copyright 2016-2026 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com

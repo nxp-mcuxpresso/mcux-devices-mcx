@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 2.1, 2025-11-17
-**     Build:               b260810
+**     Build:               b260922
 **
 **     Abstract:
 **         Chip specific module features.
@@ -285,6 +285,13 @@
 #define FSL_FEATURE_EDMA_ASYNCHRO_REQUEST_CHANNEL_COUNT (32)
 /* @brief TCD has clock control. */
 #define FSL_FEATURE_EDMA_HAS_EDMA_TCD_CLOCK_ENABLE (1)
+
+/* EMAC module features */
+
+/* @brief Has errata ERR050595 (Incorrect pps output generation on target time error). */
+#define FSL_FEATURE_EMAC_HAS_ERRATA_050595 (1)
+/* @brief Has errata ERR050705 (Head-Of-Line blocking error when GCL gates are closed). */
+#define FSL_FEATURE_EMAC_HAS_ERRATA_050705 (1)
 
 /* FLASH_C40 module features */
 

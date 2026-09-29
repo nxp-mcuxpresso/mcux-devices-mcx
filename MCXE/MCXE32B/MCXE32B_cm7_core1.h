@@ -1,6 +1,8 @@
 /*
 ** ###################################################################
-**     Processor:           MCXE32BMPB_cm7_core1
+**     Processors:          MCXE32BMLL_cm7_core1
+**                          MCXE32BMPB_cm7_core1
+**
 **     Compilers:
 **                          GNU C Compiler
 **                          IAR ANSI C/C++ Compiler for ARM
@@ -9,7 +11,7 @@
 **
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.0, 2025-07-18
-**     Build:               b260529
+**     Build:               b260814
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE32B_cm7_core1

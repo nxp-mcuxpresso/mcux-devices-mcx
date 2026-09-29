@@ -1,6 +1,8 @@
 /*
 ** ###################################################################
-**     Processor:           MCXE32BMPB_cm7_core0
+**     Processors:          MCXE32BMLL_cm7_core0
+**                          MCXE32BMPB_cm7_core0
+**
 **     Compilers:
 **                          GNU C Compiler
 **                          IAR ANSI C/C++ Compiler for ARM
@@ -9,7 +11,7 @@
 **
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.0, 2025-07-18
-**     Build:               b260529
+**     Build:               b260814
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -35,7 +37,7 @@
 /*!
  * @file MCXE32B
  * @version 1.0
- * @date 2026-05-29
+ * @date 2026-08-14
  * @brief Device specific configuration file for MCXE32B (implementation file)
  *
  * Provides a system configuration function and a global variable that contains

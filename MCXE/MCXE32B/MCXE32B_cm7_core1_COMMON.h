@@ -1,6 +1,8 @@
 /*
 ** ###################################################################
-**     Processor:           MCXE32BMPB_cm7_core1
+**     Processors:          MCXE32BMLL_cm7_core1
+**                          MCXE32BMPB_cm7_core1
+**
 **     Compilers:
 **                          GNU C Compiler
 **                          IAR ANSI C/C++ Compiler for ARM
@@ -9,7 +11,7 @@
 **
 **     Reference manual:    MCXE31 RM Rev2
 **     Version:             rev. 1.0, 2025-07-18
-**     Build:               b260609
+**     Build:               b260828
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXE32B_cm7_core1
@@ -1588,7 +1590,7 @@ typedef enum _xbic_slave_port
 /** Array initializer of SWT peripheral base pointers */
 #define SWT_BASE_PTRS                            { SWT_0, SWT_1 }
 /** Interrupt vectors for the SWT peripheral type */
-#define SWT_IRQS                                 { SWT0_IRQn, NotAvail_IRQn }
+#define SWT_IRQS                                 { SWT0_IRQn, SWT1_IRQn }
 
 /* SXOSC - Peripheral instance base addresses */
 /** Peripheral SXOSC base address */

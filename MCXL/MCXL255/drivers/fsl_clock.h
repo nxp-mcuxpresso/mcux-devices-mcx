@@ -25,8 +25,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 1.7.0. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(1, 7, 0))
+/*! @brief CLOCK driver version 1.8.0. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(1, 8, 0))
 /*@}*/
 
 /*! @brief Configure whether driver controls clock
@@ -72,6 +72,9 @@
 #define AON_FRO_AUTO_CAL_3M_TGT_LSB (0x205DU)
 #define AON_FRO_AUTO_CAL_10M_CAL_DWN_CNT (0x64U)
 #define AON_FRO_AUTO_CAL_10M_TGT_LSB (0x3C33U)
+
+/* Pointer to FIRC trimming data in IFR */
+#define IFR1_FIRC_36_72_TRIM ((uint32_t *)0x01100878)
 
 /*! @brief Clock gate name used for CLOCK_EnableClock/CLOCK_DisableClock. */
 /*------------------------------------------------------------------------------

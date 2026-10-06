@@ -900,6 +900,16 @@ status_t CLOCK_SetupFROAonClocking(uint32_t iFreq)
 /* Initialize the FROHF to given frequency */
 status_t CLOCK_SetupFROHFClocking(uint32_t iFreq, uint8_t div_sel)
 {
+    /* Initial FIRCTRIM value, fetched just once on first invocation of this call */
+    static uint32_t s_clkOnInitFircTrim = 0xFFFFFFFFU;
+    
+    /* Check initial FIRCTRIM */
+    if (0xFFFFFFFFU == s_clkOnInitFircTrim)
+    {
+        s_clkOnInitFircTrim = SCG0->FIRCTRIM;
+    }
+
+    /* FREQ_SEL */
     uint8_t freq_select = 0x0U;
     switch (iFreq)
     {
@@ -949,6 +959,38 @@ status_t CLOCK_SetupFROHFClocking(uint32_t iFreq, uint8_t div_sel)
     /* Wait for FIRC clock to be valid. */
     while ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRCVLD_MASK) == 0U)
     {
+    }
+
+    /* Apply trims, there are special trims for 36/72 MHz (workaround for [FREQ_SEL] limitation) */
+    /* Skip if auto-update is enabled */
+    if ((SCG0->FIRCCSR & SCG_FIRCCSR_FIRCTRUP_MASK) == 0U)
+    {
+        uint32_t trim3672;
+        firc_trim_config_t trim;
+
+        trim.trimMode = kSCG_FircTrimNonUpdate;
+        trim.trimSrc = kSCG_FircTrimSrcRtcOsc;
+
+        /* 36/72 MHz special trims from IFR, can be 0xFFFFFFFF on early chips */
+        trim3672 = (*IFR1_FIRC_36_72_TRIM);
+        if (((freq_select == 0U) || (freq_select == 4U)) && (trim3672 != 0xFFFFFFFFU))
+        {
+            trim.trimCoar = (trim3672 & SCG_FIRCTRIM_TRIMCOAR_MASK) >> SCG_FIRCTRIM_TRIMCOAR_SHIFT;
+            trim.trimFine = (trim3672 & SCG_FIRCTRIM_TRIMFINE_MASK) >> SCG_FIRCTRIM_TRIMFINE_SHIFT;
+        } 
+        
+        /* standard trims */
+        else
+        {
+            trim.trimCoar = (s_clkOnInitFircTrim & SCG_FIRCTRIM_TRIMCOAR_MASK) >> SCG_FIRCTRIM_TRIMCOAR_SHIFT;
+            trim.trimFine = (s_clkOnInitFircTrim & SCG_FIRCTRIM_TRIMFINE_MASK) >> SCG_FIRCTRIM_TRIMFINE_SHIFT;
+        }
+
+        /* write trims to clock generator */
+        if (kStatus_Fail == CLOCK_FROHFTrimConfig(&trim))
+        {
+            return kStatus_Fail;
+        }
     }
 
     return (status_t)kStatus_Success;

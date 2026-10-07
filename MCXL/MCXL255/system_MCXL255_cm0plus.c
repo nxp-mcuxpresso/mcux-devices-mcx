@@ -10,7 +10,7 @@
 **
 **     Reference manual:    MCXL25x RM Rev.2
 **     Version:             rev. 2.1, 2026-05-02
-**     Build:               b260512
+**     Build:               b261006
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -52,8 +52,9 @@
 #include <stdint.h>
 #include "fsl_device_registers.h"
 
-
-
+#if __has_include("fsl_clock.h")
+#include "fsl_clock.h"
+#endif
 
 
 /* ----------------------------------------------------------------------------
@@ -85,7 +86,10 @@ __attribute__ ((weak)) void SystemInit (void) {
    ---------------------------------------------------------------------------- */
 
 void SystemCoreClockUpdate (void) {
-
+#if __has_include("fsl_clock.h")
+    /* Get frequency of Core System */
+    SystemCoreClock = CLOCK_GetAonCoreSysClkFreq();
+#endif
 }
 
 /* ----------------------------------------------------------------------------

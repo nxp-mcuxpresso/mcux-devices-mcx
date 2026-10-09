@@ -101,6 +101,12 @@
 #define FSL_FEATURE_MCX_CMC_HAS_BSR_SCR_BIT (0)
 /* @brief Has DBGCTL register */
 #define FSL_FEATURE_MCX_CMC_HAS_DBGCTL_REG (0)
+/* @brief Has USBFS wake up source in CKSTAT[WAKEUP] bitfield */
+#define FSL_FEATURE_MCX_CMC_HAS_USBFS_WAKEUP (0)
+/* @brief Has ITRC wake up source in CKSTAT[WAKEUP] bitfield */
+#define FSL_FEATURE_MCX_CMC_HAS_ITRC_WAKEUP (0)
+/* @brief Has CPU1 wake up source in CKSTAT[WAKEUP] bitfield */
+#define FSL_FEATURE_MCX_CMC_HAS_CPU1_WAKEUP (0)
 
 /* HSCMP module features */
 

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.9, 2016-06-08
-**     Build:               b260602
+**     Build:               b260923
 **
 **     Abstract:
 **         Chip specific module features.
@@ -63,14 +63,24 @@
 
 /* @brief ADC16 availability on the SoC. */
 #define FSL_FEATURE_SOC_ADC16_COUNT (1)
+/* @brief BP availability on the SoC. */
+#define FSL_FEATURE_SOC_BP_COUNT (1)
 /* @brief CMP availability on the SoC. */
 #define FSL_FEATURE_SOC_CMP_COUNT (1)
+/* @brief COP availability on the SoC. */
+#define FSL_FEATURE_SOC_COP_COUNT (1)
+/* @brief CPUDB_Kinetis_core availability on the SoC. */
+#define FSL_FEATURE_SOC_CPUDB_Kinetis_core_COUNT (1)
 /* @brief CRC availability on the SoC. */
 #define FSL_FEATURE_SOC_CRC_COUNT (1)
+/* @brief CoreDebug availability on the SoC. */
+#define FSL_FEATURE_SOC_CoreDebug_COUNT (1)
 /* @brief DMA availability on the SoC. */
 #define FSL_FEATURE_SOC_DMA_COUNT (1)
 /* @brief DMAMUX availability on the SoC. */
 #define FSL_FEATURE_SOC_DMAMUX_COUNT (1)
+/* @brief DWT availability on the SoC. */
+#define FSL_FEATURE_SOC_DWT_COUNT (1)
 /* @brief FGPIO availability on the SoC. */
 #define FSL_FEATURE_SOC_FGPIO_COUNT (5)
 /* @brief FLEXIO availability on the SoC. */
@@ -95,6 +105,8 @@
 #define FSL_FEATURE_SOC_MTB_COUNT (1)
 /* @brief MTBDWT availability on the SoC. */
 #define FSL_FEATURE_SOC_MTBDWT_COUNT (1)
+/* @brief NV availability on the SoC. */
+#define FSL_FEATURE_SOC_NV_COUNT (1)
 /* @brief OSC availability on the SoC. */
 #define FSL_FEATURE_SOC_OSC_COUNT (1)
 /* @brief PIT availability on the SoC. */
@@ -111,12 +123,16 @@
 #define FSL_FEATURE_SOC_ROM_COUNT (1)
 /* @brief RTC availability on the SoC. */
 #define FSL_FEATURE_SOC_RTC_COUNT (1)
+/* @brief SCB availability on the SoC. */
+#define FSL_FEATURE_SOC_SCB_COUNT (1)
 /* @brief SIM availability on the SoC. */
 #define FSL_FEATURE_SOC_SIM_COUNT (1)
 /* @brief SMC availability on the SoC. */
 #define FSL_FEATURE_SOC_SMC_COUNT (1)
 /* @brief SPI availability on the SoC. */
 #define FSL_FEATURE_SOC_SPI_COUNT (2)
+/* @brief SysTick availability on the SoC. */
+#define FSL_FEATURE_SOC_SysTick_COUNT (1)
 /* @brief TPM availability on the SoC. */
 #define FSL_FEATURE_SOC_TPM_COUNT (3)
 /* @brief UART availability on the SoC. */
@@ -125,6 +141,8 @@
 #define FSL_FEATURE_SOC_USB_COUNT (1)
 /* @brief VREF availability on the SoC. */
 #define FSL_FEATURE_SOC_VREF_COUNT (1)
+/* @brief interrupt availability on the SoC. */
+#define FSL_FEATURE_SOC_interrupt_COUNT (1)
 
 /* ADC16 module features */
 
@@ -171,6 +189,10 @@
 #define FSL_FEATURE_CMP_HAS_PASS_THROUGH_MODE (0)
 /* @brief Has DAC Test function in CMP (register DACTEST). */
 #define FSL_FEATURE_CMP_HAS_DAC_TEST (0)
+/* @brief Has COUTA out of window is zero enable. */
+#define FSL_FEATURE_CMP_HAS_COWZ_BIT_FIELD (0)
+/* @brief Use 16 bit registers. */
+#define FSL_FEATURE_CMP_USE_16BIT_REG (0)
 
 /* COP module features */
 
@@ -212,6 +234,8 @@
 
 /* FLEXIO module features */
 
+/* @brief FLEXIO support reset from RSTCTL */
+#define FSL_FEATURE_FLEXIO_HAS_RESET (0)
 /* @brief Has Shifter Status Register (FLEXIO_SHIFTSTAT) */
 #define FSL_FEATURE_FLEXIO_HAS_SHIFTER_STATUS (1)
 /* @brief Has Pin Data Input Register (FLEXIO_PIN) */
@@ -232,10 +256,16 @@
 #define FSL_FEATURE_FLEXIO_VERID_RESET_VALUE (0x1000000)
 /* @brief Reset value of the FLEXIO_PARAM register */
 #define FSL_FEATURE_FLEXIO_PARAM_RESET_VALUE (0x10080404)
-/* @brief Represent the bit width of the TIMDCE field (FLEXIO_TIMCFGLn[TIMDEC]) */
-#define FSL_FEATURE_FLEXIO_TIMCFG_TIMDCE_FIELD_WIDTH (2)
 /* @brief Flexio DMA request base channel */
 #define FSL_FEATURE_FLEXIO_DMA_REQUEST_BASE_CHANNEL (0)
+/* @brief Represent the bit width of the TIMDCE field (FLEXIO_TIMCFGLn[TIMDEC]) */
+#define FSL_FEATURE_FLEXIO_TIMCFG_TIMDCE_FIELD_WIDTH (2)
+/* @brief Has pin input output related registers */
+#define FSL_FEATURE_FLEXIO_HAS_PIN_REGISTER (0)
+/* @brief Has DOZEN bit(CTRL[DOZEN]) */
+#define FSL_FEATURE_FLEXIO_HAS_DOZE_MODE_SUPPORT (1)
+/* @brief Has register TIMERSDEN */
+#define FSL_FEATURE_FLEXIO_HAS_TIMER_STATUS_DMA (0)
 
 /* FLASH module features */
 

@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260804
+**     Build:               b261010
 **
 **     Abstract:
 **         Chip specific module features.
@@ -87,12 +87,6 @@
 #define FSL_FEATURE_SOC_TENBASET_PHY_COUNT (1)
 /* @brief TRNG availability on the SoC. */
 #define FSL_FEATURE_SOC_TRNG_COUNT (1)
-/* @brief USBHSDCD availability on the SoC. */
-#define FSL_FEATURE_SOC_USBHSDCD_COUNT (1)
-/* @brief USBNC availability on the SoC. */
-#define FSL_FEATURE_SOC_USBNC_COUNT (1)
-/* @brief USBPHY availability on the SoC. */
-#define FSL_FEATURE_SOC_USBPHY_COUNT (1)
 /* @brief UTICK availability on the SoC. */
 #define FSL_FEATURE_SOC_UTICK_COUNT (1)
 /* @brief VBAT availability on the SoC. */
@@ -184,6 +178,8 @@
 #define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (1)
 /* @brief Has Justified Left Enable (bitfield CFG2[JLEFT]). */
 #define FSL_FEATURE_LPADC_HAS_CFG2_JLEFT (1)
+/* @brief Has reference select (bitfield CFG[REFSEL]). */
+#define FSL_FEATURE_LPADC_HAS_CFG_REFSEL (1)
 /* @brief Trigger Control Count. */
 #define FSL_FEATURE_LPADC_TCTRL_COUNT (4)
 /* @brief Has internal temperature sensor. */
@@ -795,6 +791,15 @@
 /* @brief Systick external reference clock is core clock divided by this value. */
 #define FSL_FEATURE_SYSTICK_EXT_REF_CORE_DIV (0)
 
+/* TDET module features */
+
+/* @brief Has active tamper (LR[ATL0] bitfield). */
+#define FSL_FEATURE_TDET_HAS_ACTIVE_TAMPER (0)
+/* @brief Number of tamper pins. */
+#define FSL_FEATURE_TDET_TAMPER_PIN_COUNT (8)
+/* @brief Number of on-chip tamper inputs. */
+#define FSL_FEATURE_TDET_TAMPER_INPUT_COUNT (11)
+
 /* TRNG module features */
 
 /* @brief TRNG does not support SCR4L. */
@@ -819,15 +824,6 @@
 #define FSL_FEATURE_TRNG_HAS_DUAL_OSCILATORS (1)
 /* @brief TRNG supports control pin. */
 #define FSL_FEATURE_TRNG_HAS_CTRL_PIN (0)
-
-/* USBPHY module features */
-
-/* @brief USBPHY contain DCD analog module */
-#define FSL_FEATURE_USBPHY_HAS_DCD_ANALOG (0)
-/* @brief USBPHY has register TRIM_OVERRIDE_EN */
-#define FSL_FEATURE_USBPHY_HAS_TRIM_OVERRIDE_EN (1)
-/* @brief USBPHY is 28FDSOI */
-#define FSL_FEATURE_USBPHY_28FDSOI (0)
 
 /* UTICK module features */
 

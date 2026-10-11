@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.1, 2025-11-17
-**     Build:               b260804
+**     Build:               b260930
 **
 **     Abstract:
 **         Chip specific module features.
@@ -184,6 +184,8 @@
 #define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (1)
 /* @brief Has Justified Left Enable (bitfield CFG2[JLEFT]). */
 #define FSL_FEATURE_LPADC_HAS_CFG2_JLEFT (1)
+/* @brief Has reference select (bitfield CFG[REFSEL]). */
+#define FSL_FEATURE_LPADC_HAS_CFG_REFSEL (1)
 /* @brief Trigger Control Count. */
 #define FSL_FEATURE_LPADC_TCTRL_COUNT (4)
 /* @brief Has internal temperature sensor. */
@@ -507,6 +509,8 @@
 #define FSL_FEATURE_FLEXIO_HAS_PIN_REGISTER (1)
 /* @brief Has DOZEN bit(CTRL[DOZEN]) */
 #define FSL_FEATURE_FLEXIO_HAS_DOZE_MODE_SUPPORT (1)
+/* @brief Has register TIMERSDEN */
+#define FSL_FEATURE_FLEXIO_HAS_TIMER_STATUS_DMA (1)
 
 /* PWM module features */
 
@@ -806,13 +810,13 @@
 #define FSL_FEATURE_PORT_HAS_PULL_ENABLE (1)
 /* @brief Has slew rate control (register bit PCR[SRE]). */
 #define FSL_FEATURE_PORT_HAS_SLEW_RATE (1)
-/* @brief Has passive filter (register bit field PCR[PFE]). */
+/* @brief Has passive filter (register bit field PCR[PFE]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_PASSIVE_FILTER (1)
 /* @brief Do not has interrupt control (register ISFR). */
 #define FSL_FEATURE_PORT_HAS_NO_INTERRUPT (1)
-/* @brief Has pull value (register bit field PCR[PV]). */
+/* @brief Has pull value (register bit field PCR[PV]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_PCR_HAS_PULL_VALUE (1)
-/* @brief Has drive strength1 control (register bit PCR[DSE1]). */
+/* @brief Has drive strength1 control (register bit PCR[DSE1]). Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH1 (1)
 /* @brief Has version ID register (register VERID). */
 #define FSL_FEATURE_PORT_HAS_VERSION_INFO_REGISTER (1)
@@ -824,7 +828,7 @@
 #define FSL_FEATURE_PORT_PCR_MUX_GPIO (0)
 /* @brief Has drive strength control (register bit PCR[DSE]). */
 #define FSL_FEATURE_PORT_HAS_DRIVE_STRENGTH (1)
-/* @brief Defines width of PCR[MUX] field. */
+/* @brief Defines width of PCR[MUX] field. Note: This feature value is not the same on all PORT instances. */
 #define FSL_FEATURE_PORT_PCR_MUX_WIDTH (4)
 /* @brief Has dedicated interrupt vector. */
 #define FSL_FEATURE_PORT_HAS_INTERRUPT_VECTOR (1)
@@ -978,6 +982,15 @@
 #define FSL_FEATURE_SYSTICK_HAS_EXT_REF (0)
 /* @brief Systick external reference clock is core clock divided by this value. */
 #define FSL_FEATURE_SYSTICK_EXT_REF_CORE_DIV (0)
+
+/* TDET module features */
+
+/* @brief Has active tamper (LR[ATL0] bitfield). */
+#define FSL_FEATURE_TDET_HAS_ACTIVE_TAMPER (0)
+/* @brief Number of tamper pins. */
+#define FSL_FEATURE_TDET_TAMPER_PIN_COUNT (6)
+/* @brief Number of on-chip tamper inputs. */
+#define FSL_FEATURE_TDET_TAMPER_INPUT_COUNT (11)
 
 /* TRNG module features */
 

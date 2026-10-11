@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 3.1, 2026-02-11
-**     Build:               b260812
+**     Build:               b260926
 **
 **     Abstract:
 **         Chip specific module features.
@@ -182,6 +182,8 @@
 #define FSL_FEATURE_LPADC_HAS_CTRL_CALHS (0)
 /* @brief Has Justified Left Enable (bitfield CFG2[JLEFT]). */
 #define FSL_FEATURE_LPADC_HAS_CFG2_JLEFT (0)
+/* @brief Has reference select (bitfield CFG[REFSEL]). */
+#define FSL_FEATURE_LPADC_HAS_CFG_REFSEL (1)
 /* @brief Trigger Control Count. */
 #define FSL_FEATURE_LPADC_TCTRL_COUNT (4)
 /* @brief Has internal temperature sensor. */
@@ -303,6 +305,8 @@
 #define FSL_FEATURE_FLEXIO_HAS_PIN_REGISTER (1)
 /* @brief Has DOZEN bit(CTRL[DOZEN]) */
 #define FSL_FEATURE_FLEXIO_HAS_DOZE_MODE_SUPPORT (1)
+/* @brief Has register TIMERSDEN */
+#define FSL_FEATURE_FLEXIO_HAS_TIMER_STATUS_DMA (1)
 
 /* FMU module features */
 

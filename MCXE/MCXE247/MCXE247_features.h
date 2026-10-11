@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **     Version:             rev. 1.0, 2025-02-21
-**     Build:               b260708
+**     Build:               b260923
 **
 **     Abstract:
 **         Chip specific module features.
@@ -375,6 +375,8 @@
 #define FSL_FEATURE_FLEXIO_HAS_PIN_REGISTER (0)
 /* @brief Has DOZEN bit(CTRL[DOZEN]) */
 #define FSL_FEATURE_FLEXIO_HAS_DOZE_MODE_SUPPORT (1)
+/* @brief Has register TIMERSDEN */
+#define FSL_FEATURE_FLEXIO_HAS_TIMER_STATUS_DMA (0)
 
 /* FLASH module features */
 

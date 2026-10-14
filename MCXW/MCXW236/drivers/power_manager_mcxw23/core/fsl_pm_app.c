@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 NXP
+ * Copyright 2025-2026 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -77,7 +77,7 @@ status_t PMAPP_EnterLowPower(uint32_t sleepDuration)
         }
     }
 #if defined(SDK_OS_FREE_RTOS) || defined(FSL_RTOS_THREADX)
-    uint32_t systickValue;
+    uint64_t systickValue;
     uint64_t systickRestartTimeUs;
 
     /* Assert if the initial systick load has not been initialized */
@@ -94,7 +94,7 @@ status_t PMAPP_EnterLowPower(uint32_t sleepDuration)
     systickValue +=
         (uint64_t)(systickRestartTimeUs - s_systickStopTimeUs) * (uint32_t)(CLOCK_GetCoreSysClkFreq() / 1000000);
 
-    uint32_t correction = systickValue / s_initialSysTickLoad;
+    uint32_t correction = (uint32_t)(systickValue / s_initialSysTickLoad);
     /* Inform OS about the skipped OS ticks */
 #if defined(SDK_OS_FREE_RTOS)
     vTaskStepTick(correction);
@@ -105,7 +105,7 @@ status_t PMAPP_EnterLowPower(uint32_t sleepDuration)
     /* Adjust the phase of systick. SysTick->VAL does not accept any value other than 0.
      * Hence, LOAD is manipulated to adjust the phase. It is restored to the
      * correct value in the SysTick ISR */
-    SysTick->LOAD = MAX(1, s_initialSysTickLoad - (systickValue % s_initialSysTickLoad) - 1);
+    SysTick->LOAD = MAX(1, s_initialSysTickLoad - (uint32_t)(systickValue % s_initialSysTickLoad) - 1);
     SysTick->VAL  = 0;
 
     /* Re-enable systicks before releasing interrupts in case an interrupt fires

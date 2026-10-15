@@ -132,6 +132,7 @@ typedef enum _SYSCON_RSTn
     {                                                \
         NotAvail_RSTn, kGPIO1_RST_SHIFT_RSTn, kGPIO2_RST_SHIFT_RSTn, kGPIO3_RST_SHIFT_RSTn \
     } /* Reset bits for GPIO peripheral */
+#define GPIO_RSTS GPIO_RSTS_N
 #define INPUTMUX_RSTS             \
     {                             \
         kINPUTMUX0_RST_SHIFT_RSTn, NotAvail_RSTn \
@@ -212,20 +213,13 @@ typedef enum _SYSCON_RSTn
     {                                                \
         NotAvail_RSTn                                \
     } /* Reset bits for GPIO peripheral */
+#define GPIO_RSTS GPIO_RSTS_N
 #if defined(AON__ACMP0)
 #define LPCMP_RSTS               \
     {                            \
         kAonACMP0_RST_SHIFT_RSTn \
     } /* Reset bits for ACMP peripherals */
 #endif
-#define PORT_RSTS_N                                  \
-    {                                                \
-        NotAvail_RSTn                                \
-    } /* Reset bits for PORT peripheral */
-#define GPIO_RSTS_N                                  \
-    {                                                \
-        NotAvail_RSTn                                \
-    } /* Reset bits for GPIO peripheral */
 #define AON_LPADC_RSTS             \
     {                        \
         kAonLPADC_RST_SHIFT_RSTn \

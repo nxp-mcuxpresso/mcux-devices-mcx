@@ -8,7 +8,7 @@
 **                          MCXC353MLF
 **
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b260921
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PHD
@@ -401,7 +401,7 @@ typedef struct {
 
 #define PHD_PHASECTRL_CMP_STOP_EN_MASK           (0x2U)
 #define PHD_PHASECTRL_CMP_STOP_EN_SHIFT          (1U)
-/*! CMP_STOP_EN - Comparator Stop Mode Enable
+/*! CMP_STOP_EN - Comparator Deep Sleep Mode Enable
  *  0b0..Disables the analog comparator regardless of CMP_EN.
  *  0b1..Allows CMP_EN to enable the analog comparator.
  */

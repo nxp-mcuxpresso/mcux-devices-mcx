@@ -10,9 +10,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    MCXCP048M096F3RM, Rev 1 Draft D
+**     Reference manual:    MCXCP048M096F3RM, Rev 1 Draft E
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b261012
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXC352
@@ -538,16 +538,6 @@ typedef enum _xbar_output_signal
 /** Array initializer of CRC peripheral base pointers */
 #define CRC_BASE_PTRS                            { CRC0 }
 
-/* DADC - Peripheral instance base addresses */
-/** Peripheral ADC0 base address */
-#define ADC0_BASE                                (0x4002F000u)
-/** Peripheral ADC0 base pointer */
-#define ADC0                                     ((DADC_Type *)ADC0_BASE)
-/** Array initializer of DADC peripheral base addresses */
-#define DADC_BASE_ADDRS                          { ADC0_BASE }
-/** Array initializer of DADC peripheral base pointers */
-#define DADC_BASE_PTRS                           { ADC0 }
-
 /* DEBUGMAILBOX - Peripheral instance base addresses */
 /** Peripheral DBGMAILBOX base address */
 #define DBGMAILBOX_BASE                          (0x40100000u)
@@ -570,6 +560,16 @@ typedef enum _xbar_output_signal
 /** Interrupt vectors for the DMA peripheral type */
 #define DMA_IRQS                                 { { DMA_CH0_IRQn, DMA_CH1_IRQn, DMA_CH2_IRQn, DMA_CH3_IRQn } }
 #define DMA_ERROR_IRQS                           { { DMA_CH0_IRQn, DMA_CH1_IRQn, DMA_CH2_IRQn, DMA_CH3_IRQn } }
+
+/* DUALADC - Peripheral instance base addresses */
+/** Peripheral ADC0 base address */
+#define ADC0_BASE                                (0x4002F000u)
+/** Peripheral ADC0 base pointer */
+#define ADC0                                     ((DUALADC_Type *)ADC0_BASE)
+/** Array initializer of DUALADC peripheral base addresses */
+#define DUALADC_BASE_ADDRS                       { ADC0_BASE }
+/** Array initializer of DUALADC peripheral base pointers */
+#define DUALADC_BASE_PTRS                        { ADC0 }
 
 /* EIM - Peripheral instance base addresses */
 /** Peripheral EIM0 base address */
@@ -602,16 +602,6 @@ typedef enum _xbar_output_signal
 #define FMU_BASE_PTRS                            { FMU0 }
 /** Interrupt vectors for the FMU peripheral type */
 #define FMU_IRQS                                 { FMU0_IRQn }
-
-/* FMUTEST - Peripheral instance base addresses */
-/** Peripheral FMU0TEST base address */
-#define FMU0TEST_BASE                            (0x40016000u)
-/** Peripheral FMU0TEST base pointer */
-#define FMU0TEST                                 ((FMUTEST_Type *)FMU0TEST_BASE)
-/** Array initializer of FMUTEST peripheral base addresses */
-#define FMUTEST_BASE_ADDRS                       { FMU0TEST_BASE }
-/** Array initializer of FMUTEST peripheral base pointers */
-#define FMUTEST_BASE_PTRS                        { FMU0TEST }
 
 /* FREQME - Peripheral instance base addresses */
 /** Peripheral FREQME0 base address */

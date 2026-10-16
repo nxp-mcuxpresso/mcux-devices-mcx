@@ -8,7 +8,7 @@
 **                          MCXC353MLF
 **
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b260921
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MAU
@@ -314,7 +314,7 @@ typedef struct {
 #define MAU_RES_STATUS_RES0_OVWR_SHIFT           (6U)
 /*! RES0_OVWR - RES0 Overwrite Flag
  *  0b0..The value of RES0 has been read.
- *  0b1..The value of RES0 has not been read yet and is overwritten by a new MAUWRAP result.
+ *  0b1..The value of RES0 has not been read yet and is overwritten by a new MAU result.
  */
 #define MAU_RES_STATUS_RES0_OVWR(x)              (((uint32_t)(((uint32_t)(x)) << MAU_RES_STATUS_RES0_OVWR_SHIFT)) & MAU_RES_STATUS_RES0_OVWR_MASK)
 
@@ -378,7 +378,7 @@ typedef struct {
 #define MAU_RES_STATUS_RES1_OVWR_SHIFT           (14U)
 /*! RES1_OVWR - RES1 Overwrite Flag
  *  0b0..The value of RES1 has been read.
- *  0b1..The value of RES1 has not been read yet and is overwritten by a new MAUWRAP result.
+ *  0b1..The value of RES1 has not been read yet and is overwritten by a new MAU result.
  */
 #define MAU_RES_STATUS_RES1_OVWR(x)              (((uint32_t)(((uint32_t)(x)) << MAU_RES_STATUS_RES1_OVWR_SHIFT)) & MAU_RES_STATUS_RES1_OVWR_MASK)
 
@@ -442,7 +442,7 @@ typedef struct {
 #define MAU_RES_STATUS_RES2_OVWR_SHIFT           (22U)
 /*! RES2_OVWR - RES2 Overwrite Flag
  *  0b0..The value of RES2 has been read.
- *  0b1..The value of RES2 has not been read yet and is overwritten by a new MAUWRAP result.
+ *  0b1..The value of RES2 has not been read yet and is overwritten by a new MAU result.
  */
 #define MAU_RES_STATUS_RES2_OVWR(x)              (((uint32_t)(((uint32_t)(x)) << MAU_RES_STATUS_RES2_OVWR_SHIFT)) & MAU_RES_STATUS_RES2_OVWR_MASK)
 
@@ -506,7 +506,7 @@ typedef struct {
 #define MAU_RES_STATUS_RES3_OVWR_SHIFT           (30U)
 /*! RES3_OVWR - RES3 Overwrite Flag
  *  0b0..The value of RES3 has been read.
- *  0b1..The value of RES3 has not been read yet and is overwritten by a new MAUWRAP result.
+ *  0b1..The value of RES3 has not been read yet and is overwritten by a new MAU result.
  */
 #define MAU_RES_STATUS_RES3_OVWR(x)              (((uint32_t)(((uint32_t)(x)) << MAU_RES_STATUS_RES3_OVWR_SHIFT)) & MAU_RES_STATUS_RES3_OVWR_MASK)
 
@@ -524,7 +524,7 @@ typedef struct {
 
 #define MAU_RES0_MAU_RES0_MASK                   (0xFFFFFFFFU)
 #define MAU_RES0_MAU_RES0_SHIFT                  (0U)
-/*! MAU_RES0 - MAUWRAP Result Register 0 */
+/*! MAU_RES0 - MAU Result Register 0 */
 #define MAU_RES0_MAU_RES0(x)                     (((uint32_t)(((uint32_t)(x)) << MAU_RES0_MAU_RES0_SHIFT)) & MAU_RES0_MAU_RES0_MASK)
 /*! @} */
 
@@ -533,7 +533,7 @@ typedef struct {
 
 #define MAU_RES1_MAU_RES1_MASK                   (0xFFFFFFFFU)
 #define MAU_RES1_MAU_RES1_SHIFT                  (0U)
-/*! MAU_RES1 - MAUWRAP Result Register 1 */
+/*! MAU_RES1 - MAU Result Register 1 */
 #define MAU_RES1_MAU_RES1(x)                     (((uint32_t)(((uint32_t)(x)) << MAU_RES1_MAU_RES1_SHIFT)) & MAU_RES1_MAU_RES1_MASK)
 /*! @} */
 
@@ -542,7 +542,7 @@ typedef struct {
 
 #define MAU_RES2_MAU_RES2_MASK                   (0xFFFFFFFFU)
 #define MAU_RES2_MAU_RES2_SHIFT                  (0U)
-/*! MAU_RES2 - MAUWRAP Result Register 2 */
+/*! MAU_RES2 - MAU Result Register 2 */
 #define MAU_RES2_MAU_RES2(x)                     (((uint32_t)(((uint32_t)(x)) << MAU_RES2_MAU_RES2_SHIFT)) & MAU_RES2_MAU_RES2_MASK)
 /*! @} */
 
@@ -551,7 +551,7 @@ typedef struct {
 
 #define MAU_RES3_MAU_RES3_MASK                   (0xFFFFFFFFU)
 #define MAU_RES3_MAU_RES3_SHIFT                  (0U)
-/*! MAU_RES3 - MAUWRAP Result Register 3 */
+/*! MAU_RES3 - MAU Result Register 3 */
 #define MAU_RES3_MAU_RES3(x)                     (((uint32_t)(((uint32_t)(x)) << MAU_RES3_MAU_RES3_SHIFT)) & MAU_RES3_MAU_RES3_MASK)
 /*! @} */
 

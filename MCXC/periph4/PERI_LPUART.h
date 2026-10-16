@@ -8,7 +8,7 @@
 **                          MCXC353MLF
 **
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b260921
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for LPUART
@@ -174,9 +174,9 @@ typedef struct {
 
 #define LPUART_GLOBAL_BSEL32K_MASK               (0x10U)
 #define LPUART_GLOBAL_BSEL32K_SHIFT              (4U)
-/*! BSEL32K - Baud Select in 32.768 KHz Mode
- *  0b0..Selects 9600 baud in 32.768 KHz mode (default setting)
- *  0b1..Selects 4800 baud in 32.768 KHz mode
+/*! BSEL32K - Baud Select in 32.768 kHz Mode
+ *  0b0..Selects 9600 baud in 32.768 kHz mode (default setting)
+ *  0b1..Selects 4800 baud in 32.768 kHz mode
  */
 #define LPUART_GLOBAL_BSEL32K(x)                 (((uint32_t)(((uint32_t)(x)) << LPUART_GLOBAL_BSEL32K_SHIFT)) & LPUART_GLOBAL_BSEL32K_MASK)
 
@@ -279,9 +279,9 @@ typedef struct {
 
 #define LPUART_BAUD_MSEL32K_MASK                 (0x400000U)
 #define LPUART_BAUD_MSEL32K_SHIFT                (22U)
-/*! MSEL32K - 32.768 KHz Mode Select
+/*! MSEL32K - 32.768 kHz Mode Select
  *  0b0..Selects normal baud generation (default setting)
- *  0b1..Selects special baud generation using 32.768 KHz input asynchronous clock
+ *  0b1..Selects special baud generation using 32.768 kHz input asynchronous clock
  */
 #define LPUART_BAUD_MSEL32K(x)                   (((uint32_t)(((uint32_t)(x)) << LPUART_BAUD_MSEL32K_SHIFT)) & LPUART_BAUD_MSEL32K_MASK)
 

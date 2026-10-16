@@ -10,9 +10,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    MCXCP048M096F3RM, Rev 1 Draft D
+**     Reference manual:    MCXCP048M096F3RM, Rev 1 Draft E
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b261012
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MCXC353
@@ -47,13 +47,12 @@
 #include "PERI_AOI.h"
 #include "PERI_CMC.h"
 #include "PERI_CRC.h"
-#include "PERI_DADC.h"
 #include "PERI_DEBUGMAILBOX.h"
 #include "PERI_DMA.h"
+#include "PERI_DUALADC.h"
 #include "PERI_EIM.h"
 #include "PERI_ERM.h"
 #include "PERI_FMU.h"
-#include "PERI_FMUTEST.h"
 #include "PERI_FREQME.h"
 #include "PERI_FTM.h"
 #include "PERI_GPIO.h"

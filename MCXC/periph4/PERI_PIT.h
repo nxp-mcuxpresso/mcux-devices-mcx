@@ -8,7 +8,7 @@
 **                          MCXC353MLF
 **
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b260921
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for PIT
@@ -87,13 +87,13 @@
 
 /** PIT - Register Layout Typedef */
 typedef struct {
-  __IO uint16_t CTRL;                              /**< PIT Control Register, offset: 0x0 */
+  __IO uint16_t CTRL;                              /**< PIT Control, offset: 0x0 */
   __IO uint16_t MOD_L;                             /**< PIT Modulo Register Low Half Word, offset: 0x2 */
   __IO uint16_t MOD_H;                             /**< PIT Modulo Register High Half Word, offset: 0x4 */
-  __I  uint16_t CNTR_L;                            /**< PIT Counter low half word Register, offset: 0x6 */
-  __I  uint16_t CNTR_H;                            /**< PIT Counter high half word Register, offset: 0x8 */
-  __IO uint16_t FILT;                              /**< PIT Preset Filter Register, offset: 0xA */
-  __IO uint16_t CTRL2;                             /**< PIT Preset Filter Register, offset: 0xC */
+  __I  uint16_t CNTR_L;                            /**< PIT Counter low half word, offset: 0x6 */
+  __I  uint16_t CNTR_H;                            /**< PIT Counter high half word, offset: 0x8 */
+  __IO uint16_t FILT;                              /**< PIT Preset Filter, offset: 0xA */
+  __IO uint16_t CTRL2;                             /**< PIT Control, offset: 0xC */
 } PIT_Type;
 
 /* ----------------------------------------------------------------------------
@@ -105,7 +105,7 @@ typedef struct {
  * @{
  */
 
-/*! @name CTRL - PIT Control Register */
+/*! @name CTRL - PIT Control */
 /*! @{ */
 
 #define PIT_CTRL_CNT_EN_MASK                     (0x1U)
@@ -156,7 +156,7 @@ typedef struct {
 
 #define PIT_CTRL_PRESET_POLARITY_MASK            (0x80U)
 #define PIT_CTRL_PRESET_POLARITY_SHIFT           (7U)
-/*! PRESET_POLARITY - Preset Polarity.
+/*! PRESET_POLARITY - Preset Polarity
  *  0b0..Preset signal take affect at positive edge. (default)
  *  0b1..Preset signal take affect at negative edge.
  */
@@ -191,7 +191,7 @@ typedef struct {
 #define PIT_MOD_H_MODULO_VALUE(x)                (((uint16_t)(((uint16_t)(x)) << PIT_MOD_H_MODULO_VALUE_SHIFT)) & PIT_MOD_H_MODULO_VALUE_MASK)
 /*! @} */
 
-/*! @name CNTR_L - PIT Counter low half word Register */
+/*! @name CNTR_L - PIT Counter low half word */
 /*! @{ */
 
 #define PIT_CNTR_L_COUNTER_VALUE_MASK            (0xFFFFU)
@@ -200,7 +200,7 @@ typedef struct {
 #define PIT_CNTR_L_COUNTER_VALUE(x)              (((uint16_t)(((uint16_t)(x)) << PIT_CNTR_L_COUNTER_VALUE_SHIFT)) & PIT_CNTR_L_COUNTER_VALUE_MASK)
 /*! @} */
 
-/*! @name CNTR_H - PIT Counter high half word Register */
+/*! @name CNTR_H - PIT Counter high half word */
 /*! @{ */
 
 #define PIT_CNTR_H_COUNTER_VALUE_MASK            (0xFFFFU)
@@ -209,7 +209,7 @@ typedef struct {
 #define PIT_CNTR_H_COUNTER_VALUE(x)              (((uint16_t)(((uint16_t)(x)) << PIT_CNTR_H_COUNTER_VALUE_SHIFT)) & PIT_CNTR_H_COUNTER_VALUE_MASK)
 /*! @} */
 
-/*! @name FILT - PIT Preset Filter Register */
+/*! @name FILT - PIT Preset Filter */
 /*! @{ */
 
 #define PIT_FILT_PER_MASK                        (0xFFU)
@@ -236,7 +236,7 @@ typedef struct {
 #define PIT_FILT_PRSC(x)                         (((uint16_t)(((uint16_t)(x)) << PIT_FILT_PRSC_SHIFT)) & PIT_FILT_PRSC_MASK)
 /*! @} */
 
-/*! @name CTRL2 - PIT Preset Filter Register */
+/*! @name CTRL2 - PIT Control */
 /*! @{ */
 
 #define PIT_CTRL2_STRETCH_COUNT_MASK             (0x7U)

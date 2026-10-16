@@ -10,9 +10,9 @@
 **                          Keil ARM C/C++ Compiler
 **                          MCUXpresso Compiler
 **
-**     Reference manual:    MCXCP048M096F3RM, Rev 1 Draft D
+**     Reference manual:    MCXCP048M096F3RM, Rev 1 Draft E
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b260921
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that
@@ -36,7 +36,7 @@
 /*!
  * @file MCXC352
  * @version 1.0
- * @date 2026-08-26
+ * @date 2026-09-21
  * @brief Device specific configuration file for MCXC352 (header file)
  *
  * Provides a system configuration function and a global variable that contains

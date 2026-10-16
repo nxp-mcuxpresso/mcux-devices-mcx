@@ -8,7 +8,7 @@
 **                          MCXC353MLF
 **
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b260921
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for CMC
@@ -87,8 +87,6 @@
 
 /** CMC - Size of Registers Arrays */
 #define CMC_PMCTRL_COUNT                          1u
-#define CMC_MR_COUNT                              1u
-#define CMC_FM_COUNT                              1u
 
 /** CMC - Register Layout Typedef */
 typedef struct {
@@ -105,13 +103,9 @@ typedef struct {
   __IO uint32_t SSRS;                              /**< Sticky System Reset Status, offset: 0x88 */
   __IO uint32_t SRIE;                              /**< System Reset Interrupt Enable, offset: 0x8C */
   __IO uint32_t SRIF;                              /**< System Reset Interrupt Flag, offset: 0x90 */
-       uint8_t RESERVED_2[12];
-  __IO uint32_t MR[CMC_MR_COUNT];                  /**< Mode, array offset: 0xA0, array step: 0x4 */
-       uint8_t RESERVED_3[12];
-  __IO uint32_t FM[CMC_FM_COUNT];                  /**< Force Mode, array offset: 0xB0, array step: 0x4 */
-       uint8_t RESERVED_4[44];
+       uint8_t RESERVED_2[76];
   __IO uint32_t FLASHCR;                           /**< Flash Control, offset: 0xE0 */
-       uint8_t RESERVED_5[44];
+       uint8_t RESERVED_3[44];
   __IO uint32_t CORECTL;                           /**< Core Control, offset: 0x110 */
 } CMC_Type;
 
@@ -655,27 +649,6 @@ typedef struct {
  *  0b1..Reset source pending
  */
 #define CMC_SRIF_WWDT1(x)                        (((uint32_t)(((uint32_t)(x)) << CMC_SRIF_WWDT1_SHIFT)) & CMC_SRIF_WWDT1_MASK)
-/*! @} */
-
-/*! @name MR - Mode */
-/*! @{ */
-
-#define CMC_MR_ISPMODE_n_MASK                    (0x1U)
-#define CMC_MR_ISPMODE_n_SHIFT                   (0U)
-/*! ISPMODE_n - In System Programming Mode */
-#define CMC_MR_ISPMODE_n(x)                      (((uint32_t)(((uint32_t)(x)) << CMC_MR_ISPMODE_n_SHIFT)) & CMC_MR_ISPMODE_n_MASK)
-/*! @} */
-
-/*! @name FM - Force Mode */
-/*! @{ */
-
-#define CMC_FM_FORCECFG_MASK                     (0x1U)
-#define CMC_FM_FORCECFG_SHIFT                    (0U)
-/*! FORCECFG - Boot Configuration
- *  0b0..No effect
- *  0b1..Asserts
- */
-#define CMC_FM_FORCECFG(x)                       (((uint32_t)(((uint32_t)(x)) << CMC_FM_FORCECFG_SHIFT)) & CMC_FM_FORCECFG_MASK)
 /*! @} */
 
 /*! @name FLASHCR - Flash Control */

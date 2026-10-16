@@ -8,7 +8,7 @@
 **                          MCXC353MLF
 **
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b260921
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for MRCC
@@ -1101,7 +1101,7 @@ typedef struct {
 
 #define MRCC_MRCC_GLB_ACC2_RAMA_MASK             (0x1000U)
 #define MRCC_MRCC_GLB_ACC2_RAMA_SHIFT            (12U)
-/*! RAMA - RAMA
+/*! RAMA - SRAM A0/A1
  *  0b0..Automatic clock gating is disabled
  *  0b1..Automatic clock gating is enabled
  */
@@ -1432,7 +1432,7 @@ typedef struct {
  *  0b001..FRO_HF_GATED
  *  0b011..CLK_IN
  *  0b100..CLK_48M
- *  0b101..CLK_1M
+ *  0b101..Reserved
  *  0b111..Reserved(NO Clock)
  */
 #define MRCC_MRCC_ADC0_CLKSEL_MUX(x)             (((uint32_t)(((uint32_t)(x)) << MRCC_MRCC_ADC0_CLKSEL_MUX_SHIFT)) & MRCC_MRCC_ADC0_CLKSEL_MUX_MASK)

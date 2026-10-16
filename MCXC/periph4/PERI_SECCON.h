@@ -8,7 +8,7 @@
 **                          MCXC353MLF
 **
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b260921
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SECCON
@@ -217,8 +217,7 @@ typedef struct {
 
 #define SECCON_RAM_XEN_LOCK_MASK                 (0x80000000U)
 #define SECCON_RAM_XEN_LOCK_SHIFT                (31U)
-/*! LOCK - This 1-bit field provides a mechanism to limit writes to this register (and RAM_XEN_DP)
- *    to protect its contents. Once set, this bit remains asserted until a system reset.
+/*! LOCK - Lock
  *  0b0..This register is not locked and can be altered.
  *  0b1..This register is locked and cannot be altered.
  */

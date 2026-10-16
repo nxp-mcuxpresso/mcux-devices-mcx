@@ -8,7 +8,7 @@
 **                          MCXC353MLF
 **
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b260921
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TMR
@@ -226,7 +226,7 @@ typedef struct {
 #define TMR_CTRL_LENGTH_MASK                     (0x20U)
 #define TMR_CTRL_LENGTH_SHIFT                    (5U)
 /*! LENGTH - Count Length
- *  0b0..Count until roll over at $FFFF and then continue by re-initializing the counter from the LOAD register.
+ *  0b0..Count until roll over at $FFFFFFFF and then continue by re-initializing the counter from the LOAD register.
  *  0b1..Count until compare, then re-initialize using the LOAD register. If counting up, a successful compare
  *       occurs when the counter reaches a COMP1 value. If counting down, a successful compare occurs when the counter
  *       reaches a COMP2 value. When output mode $4 is used, alternating values of COMP1 and COMP2 are used to
@@ -333,7 +333,7 @@ typedef struct {
 
 #define TMR_SCTRL_MSTR_MASK                      (0x20U)
 #define TMR_SCTRL_MSTR_SHIFT                     (5U)
-/*! MSTR - Master Mode */
+/*! MSTR - Controller Mode */
 #define TMR_SCTRL_MSTR(x)                        (((uint32_t)(((uint32_t)(x)) << TMR_SCTRL_MSTR_SHIFT)) & TMR_SCTRL_MSTR_MASK)
 
 #define TMR_SCTRL_CAPTURE_MODE_MASK              (0xC0U)

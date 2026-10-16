@@ -8,7 +8,7 @@
 **                          MCXC353MLF
 **
 **     Version:             rev. 1.0, 2025-11-26
-**     Build:               b260826
+**     Build:               b260921
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for SYSCON
@@ -196,8 +196,7 @@ typedef struct {
 
 #define SYSCON_PROTLVL_LOCK_MASK                 (0x80000000U)
 #define SYSCON_PROTLVL_LOCK_SHIFT                (31U)
-/*! LOCK - This 1-bit field provides a mechanism to limit writes to this register to protect its
- *    contents. Once set, this bit remains asserted until a system reset.
+/*! LOCK - Lock
  *  0b0..This register is not locked and can be altered.
  *  0b1..This register is locked and cannot be altered until a system reset.
  */
@@ -325,8 +324,7 @@ typedef struct {
 
 #define SYSCON_CLKUNLOCK_LOCK_MASK               (0x1U)
 #define SYSCON_CLKUNLOCK_LOCK_SHIFT              (0U)
-/*! LOCK - Controls clock configuration registers access (for example, SLOWCLKDIV, BUSCLKDIV,
- *    AHBCLKDIV, FROHFDIV, FROLFDIV, PLLxCLKDIV, MRCC_xxx_CLKDIV, MRCC_xxx_CLKSEL, MRCC_GLB_xxx)
+/*! LOCK - Lock
  *  0b0..Updates are allowed to all clock configuration registers.
  *  0b1..Freezes all clock configuration registers update.
  */
@@ -339,7 +337,7 @@ typedef struct {
 #define SYSCON_TRIGFIL_PRSC_FILT_SCALE_VAL_MASK  (0x3U)
 #define SYSCON_TRIGFIL_PRSC_FILT_SCALE_VAL_SHIFT (0U)
 /*! FILT_SCALE_VAL - Filter Prescaller Value
- *  0b00..Bypass the clock
+ *  0b00..Divider 1
  *  0b01..Divide 2
  *  0b10..Divide 4
  *  0b11..Divide 8
@@ -350,7 +348,7 @@ typedef struct {
 #define SYSCON_TRIGFIL_PRSC_FILT_SCALE_EN_SHIFT  (31U)
 /*! FILT_SCALE_EN - Enable trigger filter prescaller
  *  0b0..Disable prescaller
- *  0b1..Enabled prescaller
+ *  0b1..Enable prescaller
  */
 #define SYSCON_TRIGFIL_PRSC_FILT_SCALE_EN(x)     (((uint32_t)(((uint32_t)(x)) << SYSCON_TRIGFIL_PRSC_FILT_SCALE_EN_SHIFT)) & SYSCON_TRIGFIL_PRSC_FILT_SCALE_EN_MASK)
 /*! @} */
@@ -539,7 +537,7 @@ typedef struct {
 
 #define SYSCON_NVM_CTRL_DIS_MBECC_ERR_INST_MASK  (0x10000U)
 #define SYSCON_NVM_CTRL_DIS_MBECC_ERR_INST_SHIFT (16U)
-/*! DIS_MBECC_ERR_INST
+/*! DIS_MBECC_ERR_INST - Bus error on data multi-bit ECC error control
  *  0b0..Enables bus error on multi-bit ECC error for instruction
  *  0b1..Disables bus error on multi-bit ECC error for instruction
  */
@@ -547,7 +545,7 @@ typedef struct {
 
 #define SYSCON_NVM_CTRL_DIS_MBECC_ERR_DATA_MASK  (0x20000U)
 #define SYSCON_NVM_CTRL_DIS_MBECC_ERR_DATA_SHIFT (17U)
-/*! DIS_MBECC_ERR_DATA
+/*! DIS_MBECC_ERR_DATA - Bus error on data multi-bit ECC error control
  *  0b0..Enables bus error on multi-bit ECC error for data
  *  0b1..Disables bus error on multi-bit ECC error for data
  */
@@ -762,7 +760,7 @@ typedef struct {
 
 #define SYSCON_DEVICE_ID0_SECURITY_MASK          (0xF000000U)
 #define SYSCON_DEVICE_ID0_SECURITY_SHIFT         (24U)
-/*! SECURITY
+/*! SECURITY - Security
  *  0b0101..Secure version. (All values other than 1010b represent the secure version.)
  *  0b1010..Non secure version.
  */

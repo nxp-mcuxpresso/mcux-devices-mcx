@@ -335,7 +335,7 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
     SCG0->LDOCSR = SCG0->LDOCSR | (SCG_LDOCSR_LDOEN_MASK);
 
     temp32 = (VBAT0->OSCCTLA & ~(VBAT_OSCCTLA_MODE_EN_MASK | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK)) |
-             VBAT_OSCCTLA_MODE_EN(0x0) | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK;
+             VBAT_OSCCTLA_MODE_EN(0x1) | VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK;
     VBAT0->OSCCTLA = temp32;
     VBAT0->OSCCTLB = VBAT_OSCCTLB_INVERSE(~temp32);
 
@@ -377,7 +377,7 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
  *   config->dlyTrim  = kVBAT_OscDlyTrim5;
  *   config->cap2Trim = kVBAT_OscCap2Trim0;
  *   config->cmpTrim  = kVBAT_OscCmpTrim760mv;
- *   config->mode     = kVBAT_OscNormalModeEnable;
+ *   config->mode     = kVBAT_OscStartupModeEnable;
  *   config->xtalCap  = kVBAT_OscXtal24pFCap;
  *   config->extalCap = kVBAT_OscExtal22pFCap;
  *   config->ampGain  = kVBAT_OscCoarseAdjustment05;
@@ -393,7 +393,7 @@ void CLOCK_GetDefaultOsc32KConfig(osc_32k_config_t *config)
     config->cap2Trim = kVBAT_OscCap2Trim0;
     config->cmpTrim  = kVBAT_OscCmpTrim760mv;
 
-    config->mode     = kVBAT_OscNormalModeEnable;
+    config->mode     = kVBAT_OscStartupModeEnable;
     config->xtalCap  = kVBAT_OscXtal24pFCap;
     config->extalCap = kVBAT_OscExtal22pFCap;
     config->ampGain  = kVBAT_OscCoarseAdjustment05;

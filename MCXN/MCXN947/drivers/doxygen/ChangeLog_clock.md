@@ -1,5 +1,10 @@
 # CLOCK
 
+## [2.0.4]
+
+- Improvements
+  - Changed OSC32K default mode to Startup mode (crystal oscillation mode).
+
 ## [2.0.3]
 
 - Improvements

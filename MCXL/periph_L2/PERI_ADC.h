@@ -996,11 +996,11 @@ typedef struct {
 #define ADC_DE_FWMDE(x)                           ADC_DE_FWMDE0(x)
 /* ADC temperature sensor related parameters (see ADC0 electrical characteristics in datasheet) */
 /* @brief Temperature sensor parameter A (slope). */
-#define TEMP_PARAMETER_A (738.0f)
+#define FSL_FEATURE_LPADC_TEMP_PARAMETER_A (738.0f)
 /* @brief Temperature sensor parameter B (offset). */
-#define TEMP_PARAMETER_B (287.5f)
+#define FSL_FEATURE_LPADC_TEMP_PARAMETER_B (287.5f)
 /* @brief Temperature sensor parameter Alpha. */
-#define TEMP_PARAMETER_ALPHA (10.06f)
+#define FSL_FEATURE_LPADC_TEMP_PARAMETER_ALPHA (10.06f)
 /* @brief The buffer size of temperature sensor. */
 #define FSL_FEATURE_LPADC_TEMP_SENS_BUFFER_SIZE (2U)
 

@@ -107,6 +107,10 @@
 #define FSL_FEATURE_MCX_CMC_HAS_ITRC_WAKEUP (0)
 /* @brief Has CPU1 wake up source in CKSTAT[WAKEUP] bitfield */
 #define FSL_FEATURE_MCX_CMC_HAS_CPU1_WAKEUP (0)
+/* @brief Has MR register */
+#define FSL_FEATURE_MCX_CMC_HAS_MR_REG (0)
+/* @brief Has FM register */
+#define FSL_FEATURE_MCX_CMC_HAS_FM_REG (0)
 
 /* HSCMP module features */
 
@@ -614,7 +618,7 @@
 /* @brief Has DPDOWN_PULLDOWN_DISABLE. */
 #define FSL_FEATURE_MCX_SPC_HAS_DPDOWN_PULLDOWN_DISABLE_BIT (0)
 /* @brief Not have glitch detect. */
-#define FSL_FEATURE_MCX_SPC_HAS_NO_GLITCH_DETECT (0)
+#define FSL_FEATURE_MCX_SPC_HAS_NO_GLITCH_DETECT (1)
 /* @brief Has BLEED_EN. */
 #define FSL_FEATURE_MCX_SPC_HAS_DCDC_CFG_BLEED_EN (0)
 /* @brief Has Power Request Status Flag. */
@@ -635,6 +639,10 @@
 #define FSL_FEATURE_MCX_SPC_HAS_VD_IO_CFG_LVSEL (0)
 /* @brief Has high-voltage detect on IO VDD. */
 #define FSL_FEATURE_MCX_SPC_HAS_IOVDD_HVD (0)
+/* @brief Has CORELDO_VDD_LVL bitfield in ACTIVE_CFG/LP_CFG/HP_CFG register. */
+#define FSL_FEATURE_MCX_SPC_HAS_CORELDO_VDD_LVL (0)
+/* @brief Has VSM bitfield in SRAMCTL register. */
+#define FSL_FEATURE_MCX_SPC_HAS_SRAMCTL_VSM (0)
 
 /* SYSCON module features */
 

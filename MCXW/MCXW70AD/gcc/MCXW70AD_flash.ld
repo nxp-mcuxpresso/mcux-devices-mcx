@@ -4,9 +4,9 @@
 **                          MCXW70ADMMP
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    Rev. 1 Draft F, 2025-10-18
+**     Reference manual:    Rev. 1, 2026-07-08
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260409
+**     Build:               b261022
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -30,10 +30,8 @@ HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0800;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
 
 core1_image_start     = 0x0;
-core1_image_size      = 0x58000;
+core1_image_size      = 0x48000;
 core1_image_end       = core1_image_start + core1_image_size - 1;
-
-m_image_length = 0x180000 - core1_image_size;
 
 /* Specify the memory areas */
 MEMORY

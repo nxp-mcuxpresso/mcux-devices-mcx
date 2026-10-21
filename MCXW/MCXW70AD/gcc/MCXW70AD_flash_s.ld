@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
-**     Processors:          MCXW70ACMFT
-**                          MCXW70ACMMP
+**     Processors:          MCXW70ADMFT
+**                          MCXW70ADMMP
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    Rev. 1 Draft F, 2025-10-18
@@ -26,23 +26,19 @@
 /* Entry Point */
 ENTRY(Reset_Handler)
 
-HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0800;
-STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
-
-core1_image_start     = 0x0;
-core1_image_size      = 0x58000;
-core1_image_end       = core1_image_start + core1_image_size - 1;
-
-m_image_length = 0x180000 - core1_image_size;
+HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
+STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
 
 /* Specify the memory areas */
 MEMORY
 {
-  m_interrupts          (RX)  : ORIGIN = 0x00800000, LENGTH = 0x00000400
-  m_text                (RX)  : ORIGIN = 0x00800400, LENGTH = 0x0017FC00 - core1_image_size
-  m_data                (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00020000
-  m_data_dspv           (RW)  : ORIGIN = 0x20040800, LENGTH = 0x00004800
+  m_interrupts          (RX)  : ORIGIN = 0x10800000, LENGTH = 0x00000400
+  m_text                (RX)  : ORIGIN = 0x10800400, LENGTH = 0x0000FA00
+  m_veneer_table        (RX)  : ORIGIN = 0x1080FE00, LENGTH = 0x00000200
+  m_data                (RW)  : ORIGIN = 0x30000000, LENGTH = 0x00004000
 }
+
+m_image_length = LENGTH(m_interrupts) + LENGTH(m_text);
 
 /* Define output sections */
 SECTIONS
@@ -70,6 +66,16 @@ SECTIONS
     KEEP (*(.fini))
     . = ALIGN(4);
   } > m_text
+
+  /* section for veneer table */
+  .gnu.sgstubs :
+  {
+     . = ALIGN(32);
+     _start_sg = .;
+    *(.gnu.sgstubs*)
+     . = ALIGN(32);
+     _end_sg = .;
+  } > m_veneer_table
 
   .ARM.extab :
   {
@@ -144,17 +150,6 @@ SECTIONS
   __etext = .;    /* define a global symbol at end of code */
   __DATA_ROM = .; /* Symbol is used by startup for data initialization */
 
-  .stack :
-  {
-    . = ALIGN(8);
-    . += STACK_SIZE;
-  } > m_data
-
-  /* Initializes stack on the end of block */
-  __StackTop   = .;
-  __StackLimit = __StackTop - STACK_SIZE;
-  PROVIDE(__stack = __StackTop);
-
   .data : AT(__DATA_ROM)
   {
     . = ALIGN(4);
@@ -200,29 +195,18 @@ SECTIONS
     __heap_limit = .; /* Add for _sbrk */
   } > m_data
 
-  .dspvA :
+  .stack :
   {
-    . = ALIGN(4);
-    __START_ALWAYSON = .;
-    *(.dspvA)
-    __END_ALWAYSON = .;
-  } > m_data_dspv
+    . = ALIGN(8);
+    . += STACK_SIZE;
+  } > m_data
 
-  .dspvB :
-  {
-    . = ALIGN(4);
-    __START_ALWAYSON = .;
-    *(.dspvB)
-    __END_ALWAYSON = .;
-  } > m_data_dspv
-
-  .dspvC :
-  {
-    . = ALIGN(4);
-    __START_ALWAYSON = .;
-    *(.dspvC)
-    __END_ALWAYSON = .;
-  } > m_data_dspv
+  /* Initializes stack on the end of block */
+  __StackTop   = ORIGIN(m_data) + LENGTH(m_data);
+  __StackLimit = __StackTop - STACK_SIZE;
+  PROVIDE(__stack = __StackTop);
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
+
+  ASSERT(__StackLimit >= __HeapLimit, "region m_data overflowed with stack and heap")
 }

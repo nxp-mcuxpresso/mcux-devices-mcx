@@ -4,9 +4,9 @@
 **                          MCXW70ADMMP
 **
 **     Compiler:            IAR ANSI C/C++ Compiler for ARM
-**     Reference manual:    Rev. 1 Draft F, 2025-10-18
+**     Reference manual:    Rev. 1, 2026-07-08
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260409
+**     Build:               b261022
 **
 **     Abstract:
 **         Linker file for the IAR ANSI C/C++ Compiler for ARM
@@ -22,7 +22,7 @@
 */
 
 define exported symbol core1_image_start     = 0x0;
-define exported symbol core1_image_size      = 0x58000;
+define exported symbol core1_image_size      = 0x48000;
 define exported symbol core1_image_end       = core1_image_start + core1_image_size - 1;
 
 if (isdefinedsymbol(__use_shmem__)) {

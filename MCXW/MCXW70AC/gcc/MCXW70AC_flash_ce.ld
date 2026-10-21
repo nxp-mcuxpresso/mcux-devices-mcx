@@ -30,7 +30,7 @@ HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0800;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
 
 core1_image_start     = 0x0;
-core1_image_size      = 0x58000;
+core1_image_size      = 0x48000;
 core1_image_end       = core1_image_start + core1_image_size - 1;
 
 /* Specify the memory areas */

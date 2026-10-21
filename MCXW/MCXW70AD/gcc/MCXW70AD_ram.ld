@@ -4,9 +4,9 @@
 **                          MCXW70ADMMP
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    Rev. 1 Draft F, 2025-10-18
+**     Reference manual:    Rev. 1, 2026-07-08
 **     Version:             rev. 1.0, 2026-01-09
-**     Build:               b260409
+**     Build:               b261022
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

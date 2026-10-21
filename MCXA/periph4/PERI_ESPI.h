@@ -11,7 +11,7 @@
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260916
+**     Build:               b261020
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for ESPI

@@ -2,6 +2,7 @@
 ** ###################################################################
 **     Processors:          MCXA567VAPR
 **                          MCXA567VASR
+**                          MCXA567VFT
 **                          MCXA567VLL
 **                          MCXA567VLQ
 **                          MCXA567VPN
@@ -14,7 +15,7 @@
 **
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260916
+**     Build:               b261020
 **
 **     Abstract:
 **         Provides a system configuration function and a global variable that

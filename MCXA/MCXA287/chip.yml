@@ -83,5 +83,6 @@ device.hardware_data:
           - name: "MCXA287VPN"
           - name: "MCXA287VASR"
           - name: "MCXA287VAPR"
+          - name: "MCXA287VFT"
         modules:
 ...

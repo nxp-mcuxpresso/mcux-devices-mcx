@@ -3,6 +3,7 @@
 ** ###################################################################
 **     Processors:          MCXA287VAPR
 **                          MCXA287VASR
+**                          MCXA287VFT
 **                          MCXA287VLL
 **                          MCXA287VLQ
 **                          MCXA287VPN
@@ -10,7 +11,7 @@
 **     Compiler:            Keil ARM C/C++ Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260914
+**     Build:               b261020
 **
 **     Abstract:
 **         Linker file for the Keil ARM C/C++ Compiler

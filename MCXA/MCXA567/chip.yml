@@ -83,5 +83,6 @@ device.hardware_data:
           - name: "MCXA567VPN"
           - name: "MCXA567VASR"
           - name: "MCXA567VAPR"
+          - name: "MCXA567VFT"
         modules:
 ...

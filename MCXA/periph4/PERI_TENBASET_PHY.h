@@ -1,16 +1,20 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA536VLL
+**     Processors:          MCXA536VFT
+**                          MCXA536VLL
 **                          MCXA536VLQ
 **                          MCXA536VPN
+**                          MCXA537VFT
 **                          MCXA537VLL
 **                          MCXA537VLQ
 **                          MCXA537VPN
+**                          MCXA566VFT
 **                          MCXA566VLL
 **                          MCXA566VLQ
 **                          MCXA566VPN
 **                          MCXA567VAPR
 **                          MCXA567VASR
+**                          MCXA567VFT
 **                          MCXA567VLL
 **                          MCXA567VLQ
 **                          MCXA567VPN
@@ -21,7 +25,7 @@
 **                          MCXA577VPN
 **
 **     Version:             rev. 2.0, 2024-10-29
-**     Build:               b260916
+**     Build:               b261020
 **
 **     Abstract:
 **         CMSIS Peripheral Access Layer for TENBASET_PHY
@@ -55,13 +59,13 @@
 #if !defined(PERI_TENBASET_PHY_H_)
 #define PERI_TENBASET_PHY_H_                     /**< Symbol preventing repeated inclusion */
 
-#if (defined(CPU_MCXA536VLL) || defined(CPU_MCXA536VLQ) || defined(CPU_MCXA536VPN))
+#if (defined(CPU_MCXA536VFT) || defined(CPU_MCXA536VLL) || defined(CPU_MCXA536VLQ) || defined(CPU_MCXA536VPN))
 #include "MCXA536_COMMON.h"
-#elif (defined(CPU_MCXA537VLL) || defined(CPU_MCXA537VLQ) || defined(CPU_MCXA537VPN))
+#elif (defined(CPU_MCXA537VFT) || defined(CPU_MCXA537VLL) || defined(CPU_MCXA537VLQ) || defined(CPU_MCXA537VPN))
 #include "MCXA537_COMMON.h"
-#elif (defined(CPU_MCXA566VLL) || defined(CPU_MCXA566VLQ) || defined(CPU_MCXA566VPN))
+#elif (defined(CPU_MCXA566VFT) || defined(CPU_MCXA566VLL) || defined(CPU_MCXA566VLQ) || defined(CPU_MCXA566VPN))
 #include "MCXA566_COMMON.h"
-#elif (defined(CPU_MCXA567VAPR) || defined(CPU_MCXA567VASR) || defined(CPU_MCXA567VLL) || defined(CPU_MCXA567VLQ) || defined(CPU_MCXA567VPN))
+#elif (defined(CPU_MCXA567VAPR) || defined(CPU_MCXA567VASR) || defined(CPU_MCXA567VFT) || defined(CPU_MCXA567VLL) || defined(CPU_MCXA567VLQ) || defined(CPU_MCXA567VPN))
 #include "MCXA567_COMMON.h"
 #elif (defined(CPU_MCXA577VAPR) || defined(CPU_MCXA577VASR) || defined(CPU_MCXA577VLL) || defined(CPU_MCXA577VLQ) || defined(CPU_MCXA577VPN))
 #include "MCXA577_COMMON.h"

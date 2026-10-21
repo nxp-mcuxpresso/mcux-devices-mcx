@@ -1,13 +1,14 @@
 /*
 ** ###################################################################
-**     Processors:          MCXA537VLL
+**     Processors:          MCXA537VFT
+**                          MCXA537VLL
 **                          MCXA537VLQ
 **                          MCXA537VPN
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    MCXAP144M180FS6_RM_Rev.1_DraftC
 **     Version:             rev. 1.0, 2024-03-26
-**     Build:               b260914
+**     Build:               b261020
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler

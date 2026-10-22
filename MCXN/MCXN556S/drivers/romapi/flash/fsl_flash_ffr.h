@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 NXP
+ * Copyright 2025-2026 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -101,30 +101,31 @@ typedef struct
         uint32_t dice_en : 1;     //!< Update DICE certificate during next boot
     } cfpa_page_version;
 
-    uint32_t secureFwVersion; //!< [0x008-0x00b]
-    uint32_t nsFwVersion;     //!< [0x00c-0x00f]
-    uint32_t recFwVersion;    //!< [0x010-0x013]
-    uint32_t secBootFlags;    //!< [0x014-0x01f]
-    uint32_t imageKeyRevoke;  //!< [0x018-0x01b]
-    uint32_t lpVectorAddr;    //!< [0x01c-0x01f]
-    uint32_t vendorUsage;     //!< [0x020-0x02f]
-    uint32_t dcfgNsPin;       //!< [0x024-0x027]
-    uint32_t dcfgNsDflt;      //!< [0x028-0x02b]
-    uint32_t reserved0;       //!< [0x02c-0x02f]
-    uint32_t ivPrince[4];     //!< [0x030-0x03f]
-    uint32_t ivIped[8];       //!< [0x040-0x05f]
+    uint32_t secureFwVersion;  //!< [0x008-0x00b] bit[15:0] monotonic counter
+    uint32_t nsFwVersion;      //!< [0x00c-0x00f]
+    uint32_t recFwVersion;     //!< [0x010-0x013] Reserved
+    uint32_t secBootFlags;     //!< [0x014-0x017] RoTK0~3 enable, see FFR_CFPA_SECBOOT_FLAGS_*
+    uint32_t imageKeyRevoke;   //!< [0x018-0x01b]
+    uint32_t lpVectorAddr;     //!< [0x01c-0x01f]
+    uint32_t vendorUsage;      //!< [0x020-0x023] debug certificate revocation counter
+    uint32_t dcfgNsPin;        //!< [0x024-0x027]
+    uint32_t dcfgNsDflt;       //!< [0x028-0x02b]
+    uint32_t reserved0;        //!< [0x02c-0x02f]
+    uint32_t ivPrince[4];      //!< [0x030-0x03f] MCTR_NPX_CTX0~3
+    uint32_t ivIped[8];        //!< [0x040-0x05f] MCTR_IPED_CTX0~7
 
-    uint32_t errCnt[8];       //!< [0x060-0x07f]
+    uint32_t errCnt[8];        //!< [0x060-0x07f] ERR_AUTH_FAIL_COUNT, ERR_ITRC_COUNT, reserved
 
-    uint32_t custCtr[8];      //!< [0x080-0x09f]
-    uint32_t mflagCtr[8];     //!< [0x0a0-0x0bf]
-    uint32_t flashAcl[8];     //!< [0x0C0-0x0Df]
-    uint32_t sblImg0Cmac[4];  //!< [0x0E0-0x0Ef]
-    uint32_t img1Cmac[4];     //!< [0x0F0-0x0Ff]
-    uint32_t diceCert[36];    //!< [0x100-0x18f]
-    uint32_t reserved2[23];   //!< [0x190-0x1eb]
-    uint32_t cfpaCrc;         //!< [0x1ec-0x1ef]
-    uint32_t cfpaCmac[4];     //!< [0x1f0-0x1ff]
+    uint32_t custCtr[8];       //!< [0x080-0x09f]
+    uint32_t mflagCtr[8];      //!< [0x0a0-0x0bf]
+    uint32_t flashAcl[8];      //!< [0x0C0-0x0Df]
+    uint32_t sblImg0Cmac[4];   //!< [0x0E0-0x0Ef]
+    uint32_t img1Cmac[4];      //!< [0x0F0-0x0Ff]
+    uint32_t diceCert[36];     //!< [0x100-0x18f] Reserved
+    uint32_t ipedGcmAadCtx[8]; //!< [0x190-0x1af] IPED GCM AAD for context 0~7
+    uint32_t reserved2[15];    //!< [0x1b0-0x1eb]
+    uint32_t cfpaCrc;          //!< [0x1ec-0x1ef]
+    uint32_t cfpaCmac[4];      //!< [0x1f0-0x1ff]
 } cfpa_cfg_info_t;
 
 #define FFR_BOOTCFG_USBSPEED_SHIFT    (9U)
@@ -147,6 +148,17 @@ typedef struct
 
 #define FFR_IMAGE0_CMAC_UPDATE_MASK (0x1)
 #define FFR_IMAGE1_CMAC_UPDATE_MASK (0x2)
+
+#define FFR_CFPA_SECBOOT_FLAGS_ROTK0_EN_MASK               (0x3U)
+#define FFR_CFPA_SECBOOT_FLAGS_ROTK0_EN_SHIFT              (0U)
+#define FFR_CFPA_SECBOOT_FLAGS_ROTK1_EN_MASK               (0xCU)
+#define FFR_CFPA_SECBOOT_FLAGS_ROTK1_EN_SHIFT              (2U)
+#define FFR_CFPA_SECBOOT_FLAGS_ROTK2_EN_MASK               (0x30U)
+#define FFR_CFPA_SECBOOT_FLAGS_ROTK2_EN_SHIFT              (4U)
+#define FFR_CFPA_SECBOOT_FLAGS_ROTK3_EN_MASK               (0xC0U)
+#define FFR_CFPA_SECBOOT_FLAGS_ROTK3_EN_SHIFT              (6U)
+#define FFR_CFPA_SECBOOT_FLAGS_OEM_RETURN_ERASE_DONE_MASK  (0xF0000000U)
+#define FFR_CFPA_SECBOOT_FLAGS_OEM_RETURN_ERASE_DONE_SHIFT (28U)
 
 #define FFR_IFR1_PUF_AC_CODE_ADDR (0x01100200UL)
 #define FFR_IFR1_PUF_AC_CODE_LEN  (1024UL)
@@ -194,8 +206,12 @@ typedef struct
     struct
     {
         uint32_t flash_remap_size : 5;
-        uint32_t bank1_ifr0_usage : 3;
-        uint32_t reserved : 24;
+        uint32_t bank1_ifr0_usage : 3; //!< OEM_BANK1_IFR0_PROT
+        uint32_t isp_pin_entry : 2;
+        uint32_t isp_dm_entry : 2;
+        uint32_t isp_api_entry : 2;
+        uint32_t isp_ft_entry : 2;
+        uint32_t reserved : 16;
     } FlashCfg; //!< [0x004-0x007]
 
     struct
@@ -212,35 +228,35 @@ typedef struct
         uint16_t wdogTimeout;
     } bootTimers;             //!< [0x00c-0x00f]
 
-    uint32_t resv2;           //!< [0x010-0x013]
-    uint32_t resv3;           //!< [0x014-0x017]
+    uint32_t flexspiCfg0;     //!< [0x010-0x013]
+    uint32_t flexspiCfg1;     //!< [0x014-0x017]
 
     uint32_t recSpiFlashCfg0; //!< [0x018-0x01b]
     uint32_t recSpiFlashCfg1; //!< [0x01c-0x01f]
 
     uint32_t isp_uart_cfg;    //!< [0x020-0x023]
     uint32_t isp_i2c_cfg;     //!< [0x024-0x027]
-    uint32_t isp_can_cfg;     //!< [0x028-0x02b]
+    uint32_t isp_can_cfg;     //!< [0x028-0x02b] Reserved
     uint32_t isp_spi_cfg0;    //!< [0x02c-0x02f]
-    uint32_t isp_spi_cfg1;    //!< [0x030-0x034]
+    uint32_t isp_spi_cfg1;    //!< [0x030-0x033]
 
     struct
     {
         uint16_t vid;
         uint16_t pid;
-    } usbId;                 //!< [0x034-0x037]
+    } usbId;                       //!< [0x034-0x037]
 
-    uint32_t isp_usb_cfg;    //!< [0x038-0x038]
-    uint32_t isp_misc_cfg;   //!< [0x03c-0x03f]
-    uint32_t dcfgPin;        //!< [0x040-0x043]
-    uint32_t dcfgDflt;       //!< [0x044-0x047]
-    uint32_t dapVendorUsage; //!< [0x048-0x04b]
-    uint32_t resv1;          //!< [0x04c-0x04f]
-    uint32_t secureBootCfg;  //!< [0x050-0x053]
-    uint32_t rokthUsage;     //!< [0x054-0x057]
-    uint32_t resv4;          //!< [0x058-0x05b]
-    uint32_t resv5;          //!< [0x05c-0x05f]
-    uint32_t rotkh[12];      //!< [0x060-0x08f]
+    uint32_t isp_usb_cfg;          //!< [0x038-0x03b]
+    uint32_t isp_misc_cfg;         //!< [0x03c-0x03f]
+    uint32_t dcfgPin;              //!< [0x040-0x043]
+    uint32_t dcfgDflt;             //!< [0x044-0x047]
+    uint32_t dapVendorUsage;       //!< [0x048-0x04b]
+    uint32_t resv1;                //!< [0x04c-0x04f]
+    uint32_t secureBootCfg;        //!< [0x050-0x053]
+    uint32_t rokthUsage;           //!< [0x054-0x057]
+    uint32_t diceCsrSramAddr;      //!< [0x058-0x05b]
+    uint32_t diceAliasKeySramAddr; //!< [0x05c-0x05f]
+    uint32_t rotkh[12];            //!< [0x060-0x08f]
 
     struct
     {
@@ -252,12 +268,13 @@ typedef struct
     {
         uint32_t ipedStartAddr;
         uint32_t ipedEndAddr;
-    } ipedRegions[8]; //!< [0x0b0-0x11f]
+    } ipedRegions[8];        //!< [0x0b0-0x0ef]
 
-    uint32_t rec_img_exit0;
-    uint32_t rec_img_exit1;
+    uint32_t rec_img_exit0;  //!< [0x0f0-0x0f3]
+    uint32_t rec_img_exit1;  //!< [0x0f4-0x0f7]
 
-    uint32_t resv6[10];
+    uint32_t provFwSramAddr; //!< [0x0f8-0x0fb]
+    uint32_t resv6[9];       //!< [0x0fc-0x11f]
 
     struct
     {
@@ -265,10 +282,11 @@ typedef struct
         uint32_t clr0;
     } quickSetGpio[6];          //!< [0x120-0x14f]
 
-    uint32_t resv7[4];          //!< [0x150-0x15f]
+    uint32_t custId[4];         //!< [0x150-0x15f] CUST_ID[127:0]
     uint32_t cust_key_blob[12]; //!< [0x160-0x18f]
+    uint32_t pqcRotkh[12];      //!< [0x190-0x1bf] PQC Root of Trust Keys Table hash
 
-    uint32_t resv8[23];         //!< [0x190-0x1eb]
+    uint32_t resv8[11];         //!< [0x1c0-0x1eb]
     uint32_t cmpaCrc;           //!< [0x1ec-0x1ef]
     uint32_t cmpaCmac[4];       //!< [0x1f0-0x1ff]
 

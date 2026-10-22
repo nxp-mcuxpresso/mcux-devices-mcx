@@ -419,6 +419,10 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
         (VBAT0->OSCCTLA & ~(VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK)) |
         VBAT_OSCCTLA_CAP_SEL_EN_MASK | VBAT_OSCCTLA_OSC_EN_MASK;
 
+    /* Set initialization trim to 0.5 ms start-up time to avoid long delay for
+       ROSCVLD assertion after power-on reset. */
+    VBAT0->OSCCFGA |= VBAT_OSCCFGA_INIT_TRIM(0x7);
+
     VBAT0->OSCLCKA = VBAT_OSCLCKA_LOCK_MASK;
 
     VBAT0->OSCCLKE |= VBAT_OSCCLKE_CLKE(id);
@@ -454,7 +458,7 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
  * @brief   Get default XTAL32/EXTAL32 clock configuration structure.
  * This function initializes the osc 32k configuration structure to a default value. The default
  * values are:
- *   config->initTrim = kVBAT_OscInitTrim500ms;
+ *   config->initTrim = kVBAT_OscInitTrimHalfms;
  *   config->xtalCap  = kVBAT_OscXtal24pFCap;
  *   config->extalCap = kVBAT_OscExtal22pFCap;
  *   config->ampGain  = kVBAT_OscCoarseAdjustment05;
@@ -463,7 +467,7 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id)
  */
 void CLOCK_GetDefaultOsc32KConfig(osc_32k_config_t *config)
 {
-    config->initTrim = kVBAT_OscInitTrim500ms;
+    config->initTrim = kVBAT_OscInitTrimHalfms;
 
     config->xtalCap  = kVBAT_OscXtal24pFCap;
     config->extalCap = kVBAT_OscExtal22pFCap;

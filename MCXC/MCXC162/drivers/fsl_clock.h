@@ -21,8 +21,8 @@
 
 /*! @name Driver version */
 /*@{*/
-/*! @brief CLOCK driver version 2.0.1. */
-#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
+/*! @brief CLOCK driver version 2.0.2. */
+#define FSL_CLOCK_DRIVER_VERSION (MAKE_VERSION(2, 0, 2))
 /*@}*/
 
 /*! @brief Configure whether driver controls clock
@@ -720,7 +720,7 @@ status_t CLOCK_SetupOsc32KClocking(uint32_t id);
  * @brief   Get default XTAL32/EXTAL32 clock configuration structure.
  * This function initializes the osc 32k configuration structure to a default value. The default
  * values are:
- *   config->initTrim = kVBAT_OscInitTrim500ms;
+ *   config->initTrim = kVBAT_OscInitTrimHalfms;
  *   config->xtalCap  = kVBAT_OscXtal24pFCap;
  *   config->extalCap = kVBAT_OscExtal22pFCap;
  *   config->ampGain  = kVBAT_OscCoarseAdjustment05;

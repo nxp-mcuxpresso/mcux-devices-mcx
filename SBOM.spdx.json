@@ -2,20 +2,20 @@
   "SPDXID": "SPDXRef-DOCUMENT",
   "spdxVersion": "SPDX-2.3",
   "creationInfo": {
-    "created": "2025-06-16T07:44:23Z",
+    "created": "2026-11-10T02:27:20Z",
     "creators": [
       "Organization: NXP"
     ],
-    "licenseListVersion": "3.20"
+    "licenseListVersion": "3.28"
   },
-  "name": "mcux-devices-mcx-v25.06.00",
+  "name": "mcux-devices-mcx-v26.12.00",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://nxp.com/spdx/d7c5e623-e584-4b45-89cd-d5a43a547a99",
+  "documentNamespace": "https://nxp.com/spdx/c28dff13-c163-4c30-8c21-0bc05493235d",
   "packages": [
     {
-      "SPDXID": "SPDXRef-package-d7c5e623-e584-4b45-89cd-d5a43a547a99",
+      "SPDXID": "SPDXRef-package-c28dff13-c163-4c30-8c21-0bc05493235d",
       "name": "mcux-devices-mcx",
-      "versionInfo": "v25.06.00",
+      "versionInfo": "v26.12.00",
       "licenseConcluded": "(BSD-3-Clause)",
       "licenseDeclared": "(BSD-3-Clause)",
       "downloadLocation": "https://github.com/nxp-mcuxpresso/mcux-devices-mcx",
@@ -29,7 +29,7 @@
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
       "relationshipType": "DESCRIBES",
-      "relatedSpdxElement": "SPDXRef-package-d7c5e623-e584-4b45-89cd-d5a43a547a99"
+      "relatedSpdxElement": "SPDXRef-package-c28dff13-c163-4c30-8c21-0bc05493235d"
     }
   ]
 }
